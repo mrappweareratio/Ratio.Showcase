@@ -1,6 +1,6 @@
-﻿namespace OneMSQFT.Windows.Navigation
+﻿namespace OneMSQFT.UILogic.Navigation
 {
-    class ViewLocator
+    public class ViewLocator
     {
         public static class Pages
         {
