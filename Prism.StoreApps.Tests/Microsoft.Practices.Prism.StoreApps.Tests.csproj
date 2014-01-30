@@ -1,26 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D9B3A0F5-915D-4094-BFEE-54949DCDBC55}</ProjectGuid>
-    <OutputType>AppContainerExe</OutputType>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4F93F2D6-F9C4-4174-AC52-505800FA2FFC}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OneMSQFT.Windows</RootNamespace>
-    <AssemblyName>OneMSQFT.Windows</AssemblyName>
+    <RootNamespace>Microsoft.Practices.Prism.StoreApps.Tests</RootNamespace>
+    <AssemblyName>Microsoft.Practices.Prism.StoreApps.Tests</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <TargetPlatformVersion>8.1</TargetPlatformVersion>
-    <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>OneMSQFT.Windows_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
-    <PackageCertificateThumbprint>1E5C00C93CD03D342112BB30990CDA32E35DE354</PackageCertificateThumbprint>
+<TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
+    <AppxBundle>Never</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -30,7 +28,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -104,50 +101,55 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <AppXPackage>True</AppXPackage>
+    <AppxPackageIncludePrivateSymbols>true</AppxPackageIncludePrivateSymbols>
+  </PropertyGroup>
   <ItemGroup>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
+    <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
+    <SDKReference Include="MSTestFramework, Version=11.0" />
+    <SDKReference Include="TestPlatform, Version=11.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BindableBaseFixture.cs" />
+    <Compile Include="BindableValidatorFixture.cs" />
+    <Compile Include="FrameNavigationServiceFixture.cs" />
+    <Compile Include="Mocks\MockPage.cs" />
+    <Compile Include="Mocks\MockPageViewModel.cs" />
+    <Compile Include="Mocks\MockPageWithViewModel.cs" />
+    <Compile Include="Mocks\MockResourceLoader.cs" />
+    <Compile Include="Mocks\MockSessionStateService.cs" />
+    <Compile Include="Mocks\MockViewModelWithNoRestorableStateAttributes.cs" />
+    <Compile Include="Mocks\MockViewModelWithRestorableStateAttributes.cs" />
+    <Compile Include="Mocks\MockViewModelWithRestorableStateCollection.cs" />
+    <Compile Include="Mocks\MockModelWithValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\TimelinePage.xaml.cs">
-      <DependentUpon>TimelinePage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModelFixture.cs" />
+    <Compile Include="ViewModelLocatorFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="OneMSQFT.Windows_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Logo.scale-100.png" />
-    <Content Include="Assets\SmallLogo.scale-100.png" />
-    <Content Include="Assets\SplashScreen.scale-100.png" />
-    <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Images\UnitTestLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\UnitTestSmallLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\UnitTestSplashScreen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\UnitTestStoreLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Page Include="Views\TimelinePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Folder Include="Mocks\ValidationMocks\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OneMSQFT.Portable\OneMSQFT.Portable.csproj">
-      <Project>{968da72e-61d0-4f0d-a6f1-4160ae8ac5fa}</Project>
-      <Name>OneMSQFT.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OneMSQFT.UILogic\OneMSQFT.UILogic.csproj">
-      <Project>{727502bb-55eb-40ec-aedf-1df70da436a9}</Project>
-      <Name>OneMSQFT.UILogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Prism.PubSubEvents\Microsoft.Practices.Prism.PubSubEvents.csproj">
-      <Project>{d5d2645c-03eb-48b0-9873-0904fcdb2ced}</Project>
-      <Name>Microsoft.Practices.Prism.PubSubEvents</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Prism.StoreApps\Microsoft.Practices.Prism.StoreApps.csproj">
       <Project>{a2303152-0f67-4ca5-8639-0a16e64a8b6d}</Project>
       <Name>Microsoft.Practices.Prism.StoreApps</Name>
@@ -157,11 +159,10 @@
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
-  </Target>
+  </Target>  
   <Target Name="AfterBuild">
   </Target>
   -->
