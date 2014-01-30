@@ -10,8 +10,6 @@
     prism:ViewModelLocator.AutoWireViewModel="True">
 
     <prism:VisualStateAwarePage.Resources>
-        <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="PageName">Timeline Page</x:String>
     </prism:VisualStateAwarePage.Resources>
     
     <!--
@@ -49,7 +47,7 @@
                        IsHitTestVisible="false" 
 					   Margin="0,0,30,40"
 					   Style="{StaticResource HeaderTextBlockStyle}" 
-			           Text="{StaticResource PageName}" 
+			           Text="{Binding Strings.AppTitle, Source={StaticResource PortableStrings}}" 
 					   TextWrapping="NoWrap" 
 					   VerticalAlignment="Bottom" />
         </Grid>
