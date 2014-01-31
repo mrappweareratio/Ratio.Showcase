@@ -10,8 +10,23 @@
     prism:ViewModelLocator.AutoWireViewModel="True">
 
     <prism:VisualStateAwarePage.Resources>
+        <Storyboard x:Name="StoryboardSeeker">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="rectangle">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:5:0" Value="180"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="rectangle">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:5:0" Value="-134.658"/>
+                <EasingDoubleKeyFrame KeyTime="0:10:0" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="rectangle">
+                <EasingDoubleKeyFrame KeyTime="0:5:0" Value="374.05"/>
+                <EasingDoubleKeyFrame KeyTime="0:10:0" Value="763.062"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </prism:VisualStateAwarePage.Resources>
-    
+
     <!--
         This grid acts as a root panel for the page that defines two rows:
         * Row 0 contains the back button and page title
@@ -50,6 +65,26 @@
 			           Text="{Binding Strings.AppTitle, Source={StaticResource PortableStrings}}" 
 					   TextWrapping="NoWrap" 
 					   VerticalAlignment="Bottom" />
+        </Grid>
+        <Rectangle x:Name="rectangle" Fill="Red" HorizontalAlignment="Left" Height="153" Margin="224,153,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.5,0.5">
+            <Rectangle.RenderTransform>
+                <CompositeTransform/>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+        <TextBlock HorizontalAlignment="Left"  
+                   TextWrapping="Wrap" Text="{Binding HorizontalOffset, ElementName=scrollViewer}" 
+                   VerticalAlignment="Top" Grid.Row="1" FontSize="48" 
+                   Style="{StaticResource BaseTextBlockStyle}"/>
+        <Grid Grid.Row="1">
+            <ScrollViewer x:Name="scrollViewer" Style="{StaticResource HorizontalScrollViewerStyle}"  ViewChanged="scrollViewer_ViewChanged">
+                <Grid VerticalAlignment="Bottom">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Fill="Transparent" Height="10" Stroke="Black" Width="2000" Margin="0"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </prism:VisualStateAwarePage>

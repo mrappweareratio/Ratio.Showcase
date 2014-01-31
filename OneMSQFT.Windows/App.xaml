@@ -5,7 +5,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:OneMSQFT.Windows">
     <prism:MvvmAppBase.Resources>
-        <portable:PortableStrings xmlns:portable="using:OneMSQFT.Common" x:Key="PortableStrings"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/StandardStyles.xaml"/>
+                <ResourceDictionary Source="../Styles/generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <portable:PortableStrings xmlns:portable="using:OneMSQFT.Common" x:Key="PortableStrings"/>
+
+        </ResourceDictionary>
     </prism:MvvmAppBase.Resources>
 
 </prism:MvvmAppBase>
