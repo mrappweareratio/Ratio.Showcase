@@ -26,6 +26,16 @@ namespace OneMSQFT.Windows.Views
         public TimelinePage()
         {
             this.InitializeComponent();
+
+            this.StoryboardSeeker.Begin();
+        }
+
+        private void scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            this.StoryboardSeeker.Resume();
+            int l = Convert.ToInt32(scrollViewer.HorizontalOffset);
+            this.StoryboardSeeker.Seek(new TimeSpan(0,0,l));
+            this.StoryboardSeeker.Pause();
         }
     }
 }
