@@ -1,4 +1,4 @@
-﻿<prism:VisualStateAwarePage
+﻿<omsqft:BasePageView
     x:Class="OneMSQFT.Windows.Views.TimelinePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,10 +6,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="using:Microsoft.Practices.Prism.StoreApps"
-    mc:Ignorable="d"    
+    mc:Ignorable="d"   
+    xmlns:omsqft="using:OneMSQFT.Windows.Views"
     prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <prism:VisualStateAwarePage.Resources>
+    <omsqft:BasePageView.Resources>
         <Storyboard x:Name="StoryboardSeeker">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="rectangle">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
@@ -25,54 +26,23 @@
                 <EasingDoubleKeyFrame KeyTime="0:10:0" Value="763.062"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-    </prism:VisualStateAwarePage.Resources>
-
-    <!--
-        This grid acts as a root panel for the page that defines two rows:
-        * Row 0 contains the back button and page title
-        * Row 1 contains the rest of the page layout
-    -->
+    </omsqft:BasePageView.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="140"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
-        <!-- Back button and page title -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="backButton" 
-                    AutomationProperties.Name="Back"
-                    AutomationProperties.AutomationId="BackButton"
-                    AutomationProperties.ItemType="Navigation Button"
-				    Command="{Binding GoBackCommand, ElementName=pageRoot}"
-				    Margin="39,59,39,0" 
-                    Style="{StaticResource NavigationBackButtonNormalStyle}"
-                    VerticalAlignment="Top" />
-            <TextBlock x:Name="pageTitle" 
-					   Grid.Column="1" 
-                       IsHitTestVisible="false" 
-					   Margin="0,0,30,40"
-					   Style="{StaticResource HeaderTextBlockStyle}" 
-			           Text="{Binding Strings.AppTitle, Source={StaticResource PortableStrings}}" 
-					   TextWrapping="NoWrap" 
-					   VerticalAlignment="Bottom" />
-        </Grid>
         <Rectangle x:Name="rectangle" Fill="Red" HorizontalAlignment="Left" Height="153" Margin="224,153,0,0" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" Width="174" RenderTransformOrigin="0.5,0.5">
             <Rectangle.RenderTransform>
                 <CompositeTransform/>
             </Rectangle.RenderTransform>
         </Rectangle>
-        <TextBlock HorizontalAlignment="Left"  
-                   TextWrapping="Wrap" Text="{Binding HorizontalOffset, ElementName=scrollViewer}" 
+        <TextBlock HorizontalAlignment="Left" 
+                   x:Name="tb"
+                   Margin="50,0,0,0"
+                   TextWrapping="Wrap"
                    VerticalAlignment="Top" Grid.Row="1" FontSize="48" 
                    Style="{StaticResource BaseTextBlockStyle}"/>
         <Grid Grid.Row="1">
@@ -87,4 +57,4 @@
             </ScrollViewer>
         </Grid>
     </Grid>
-</prism:VisualStateAwarePage>
+</omsqft:BasePageView>

@@ -4,11 +4,11 @@ using Microsoft.Practices.Prism.StoreApps;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
-    public class TimelinePageViewModel : ViewModel
+    public class TimelinePageViewModel : BasePageViewModel
     {
-        public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
+        public TimelinePageViewModel()
         {
-            base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
-        }
+                
+        }     
     }
 }

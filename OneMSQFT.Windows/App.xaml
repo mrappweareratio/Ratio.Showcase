@@ -9,9 +9,16 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/StandardStyles.xaml"/>
                 <ResourceDictionary Source="../Styles/generic.xaml"/>
+                <ResourceDictionary Source="../Styles/OMSQFTStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <portable:PortableStrings xmlns:portable="using:OneMSQFT.Common" x:Key="PortableStrings"/>
+            
+            <DataTemplate x:Key="OMSQFTAppBarButtonTemplate">
+                <Grid Height="100" Width="100" Background="Red">
+                    <TextBlock Text="{Binding Name}"></TextBlock>
+                </Grid>
+            </DataTemplate>
 
         </ResourceDictionary>
     </prism:MvvmAppBase.Resources>
