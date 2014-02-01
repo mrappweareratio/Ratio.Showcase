@@ -12,30 +12,27 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 using Microsoft.Practices.Prism.StoreApps;
 
 namespace OneMSQFT.Windows.Views
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class TimelinePage : VisualStateAwarePage
+    public sealed partial class TimelinePage : BasePageView
     {
         public TimelinePage()
         {
             this.InitializeComponent();
-
-            this.StoryboardSeeker.Begin();
+           // this.StoryboardSeeker.Begin();
+            InitAppBar();
+            PopulateTopAppbar(8);
         }
 
         private void scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            this.StoryboardSeeker.Resume();
-            int l = Convert.ToInt32(scrollViewer.HorizontalOffset);
-            this.StoryboardSeeker.Seek(new TimeSpan(0,0,l));
-            this.StoryboardSeeker.Pause();
+            //this.StoryboardSeeker.Resume();
+            //int offSet = Convert.ToInt32(scrollViewer.HorizontalOffset);
+            //this.StoryboardSeeker.Seek(new TimeSpan(0, 0, offSet));
+            //this.StoryboardSeeker.Pause();
+            //tb.Text = offSet.ToString();
         }
     }
 }
