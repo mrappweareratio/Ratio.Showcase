@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
+using OneMSQFT.UILogic.ViewModels;
 
 namespace OneMSQFT.Windows.Views
 {
@@ -21,9 +22,14 @@ namespace OneMSQFT.Windows.Views
         public TimelinePage()
         {
             this.InitializeComponent();
-           // this.StoryboardSeeker.Begin();
+           // this.StoryboardSeeker.Begin(); // a nice to have 
             InitAppBar();
-            PopulateTopAppbar(8);
+            Loaded += TimelinePage_Loaded;
+        }
+
+        void TimelinePage_Loaded(object sender, RoutedEventArgs e)
+        {
+            PopulateTopAppbar(((TimelinePageViewModel)this.DataContext));
         }
 
         private void scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)

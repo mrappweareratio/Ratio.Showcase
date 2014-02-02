@@ -43,8 +43,9 @@
                         <Border x:Name="Border" BorderThickness="0" Margin="0" Background="{Binding EventColor}" >
                             <Grid Height="200" Width="200" Margin="4">
                                 <StackPanel>
-                                    <TextBlock Text="{Binding Event.Name}"></TextBlock>
-                                    <TextBlock Text="{Binding Event.Description}"></TextBlock>
+                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                    <TextBlock Text="{Binding Description}"></TextBlock>
+                                    <TextBlock Text="{Binding DateStart}"></TextBlock>
                                 </StackPanel>
                             </Grid>
                         </Border>
