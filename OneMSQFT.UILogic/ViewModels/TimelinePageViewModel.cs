@@ -20,7 +20,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 var eivm = new EventItemViewModel(new Event()
                 {
-                    Color = i.ToString()+i.ToString()+i.ToString()+i.ToString()+i.ToString()+i.ToString(),
+                    Color = (i*2).ToString()+i.ToString()+(i*2).ToString()+i.ToString()+i.ToString()+i.ToString(),
                     Description = "Description Description " + i,
                     Id = i.ToString(),
                     Name = "Event Name " + i,
