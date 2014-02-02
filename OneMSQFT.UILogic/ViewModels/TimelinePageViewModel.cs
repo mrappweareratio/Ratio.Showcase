@@ -15,7 +15,7 @@ namespace OneMSQFT.UILogic.ViewModels
             TotalSquareFeet = 36482;
             SquareFootFutureEvents = new ObservableCollection<EventItemViewModel>();
             SquareFootPastEvents = new ObservableCollection<EventItemViewModel>();
-            var FakeEventsCount = 6;
+            var FakeEventsCount = 60;
             for (var i = 0; i < FakeEventsCount; i++)
             {
                 var eivm = new EventItemViewModel(new Event()
@@ -26,7 +26,7 @@ namespace OneMSQFT.UILogic.ViewModels
                     Name = "Event Name " + i,
                     DateStart = DateTime.Now.Add(TimeSpan.FromDays(i * (i > FakeEventsCount / 2 ? 20 : -20) + 1)),
                     PhotoFilePath = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg",
-                    SquareFootage = Convert.ToInt16(i.ToString() + i.ToString() + i.ToString() + i.ToString())
+                    SquareFootage = Convert.ToInt32(i.ToString() + i.ToString() + i.ToString() + i.ToString())
                 });
                 if (eivm.IsInTheFuture == true) { SquareFootFutureEvents.Add(eivm); } else { SquareFootPastEvents.Insert(0, eivm); }
             }

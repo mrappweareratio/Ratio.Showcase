@@ -37,7 +37,7 @@ namespace OneMSQFT.Windows.Views
         private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
         {
             _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(itemsGridView);
-            _timelineGridViewScrollViewer.ScrollToHorizontalOffset(3 * Window.Current.Bounds.Width);
+            _timelineGridViewScrollViewer.ScrollToHorizontalOffset(((TimelinePageViewModel)this.DataContext).TimeLineItems.Count/2 * Window.Current.Bounds.Width);
             _timelineGridViewScrollViewer.ViewChanged += _timelineGridViewScrollViewer_ViewChanged;
         }
 

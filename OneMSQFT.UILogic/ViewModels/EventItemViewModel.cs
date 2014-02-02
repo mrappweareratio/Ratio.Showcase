@@ -7,6 +7,7 @@ using Windows.UI;
 using System;
 using System.Collections;
 using Windows.UI.Xaml;
+using System.Globalization;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
@@ -22,7 +23,13 @@ namespace OneMSQFT.UILogic.ViewModels
         public IList<Curator> Curators { get { return Event.Curators; } }
         public DateTime DateStart { get { return Event.DateStart; } }
         public String Id { get { return Event.Id; } }
-        public int SquareFootage { get { return Event.SquareFootage; } }
+        public String SquareFootage
+        {
+            get
+            {
+                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", Event.SquareFootage)).Trim();
+            }
+        }
         public Uri PhotoFilePath
         {
             get
