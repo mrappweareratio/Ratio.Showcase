@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:OneMSQFT.Windows.Styles"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" 
-    xmlns:Core="using:Microsoft.Xaml.Interactions.Core">
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 
     <Style x:Key="OMSQFTAppBarButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="{ThemeResource ButtonBackgroundThemeBrush}"/>
@@ -45,9 +45,9 @@
                         <Border x:Name="Border" BorderThickness="0" Margin="0" Background="{Binding EventColor}" >
                             <Grid Height="200" Width="200" Margin="4">
                                 <StackPanel>
-                                    <TextBlock Text="{Binding Name}"></TextBlock>
-                                    <TextBlock Text="{Binding Description}"></TextBlock>
-                                    <TextBlock Text="{Binding DateStart}"></TextBlock>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Description}"/>
+                                    <TextBlock Text="{Binding DateStart}"/>
                                 </StackPanel>
                             </Grid>
                         </Border>
@@ -56,7 +56,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="OMSQFTAppBarHomeButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="{ThemeResource ButtonBackgroundThemeBrush}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -96,7 +96,7 @@
                         </VisualStateManager.VisualStateGroups>
                         <Border x:Name="Border" BorderThickness="0" Background="White">
                             <Grid Height="200" Width="200" Margin="4">
-                                <TextBlock Text="HOME" Foreground="Black" FontSize="20"></TextBlock>
+                                <TextBlock Text="HOME" Foreground="Black" FontSize="20"/>
                             </Grid>
                         </Border>
                     </Grid>
@@ -108,43 +108,315 @@
 
     <SolidColorBrush x:Key="OMSQFTItemBorderBrush" Color="White" />
     <SolidColorBrush x:Key="OMSQFTItemForegroundBrush" Color="{StaticResource SystemColorWindowTextColor}" />
-    
-    <DataTemplate x:Key="OMSQFTItemTemplate">
-        <Border BorderBrush="{StaticResource OMSQFTItemBorderBrush}" BorderThickness="1">
-            <Grid>
+
+    <DataTemplate x:Key="OMSQFTPastItemTemplate">
+        <Border BorderThickness="1" Background="{Binding EventColor, Mode=OneWay}">
+            <Grid Width="{Binding ItemWidth, Mode=OneWay}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="100" />
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Image Stretch="UniformToFill"
-                   Source="{Binding Image}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   AutomationProperties.Name="{Binding Title}"/>
-                <StackPanel VerticalAlignment="Bottom"
-                        Grid.Row="1"
-                        Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}"
-                        Height="100">
-                    <TextBlock Text="{Binding SalePrice}"
-                           Foreground="{StaticResource OMSQFTItemForegroundBrush}"
-                           FontSize="26"
-                           Margin="15,0,15,0"
-                           FontWeight="ExtraBold"/>
-                    <TextBlock Text="{Binding Title}"
-                           Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-                           Style="{StaticResource TitleTextStyle}"
-                           TextWrapping="NoWrap"
-                           Margin="15,0,15,0"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image
+					Source="{Binding PhotoFilePath, Mode=OneWay}"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					AutomationProperties.Name="{Binding Name}" Grid.RowSpan="2" Grid.ColumnSpan="2" Stretch="Fill"/>
+                <Grid Background="{Binding EventColor, Mode=OneWay}" Grid.Column="2" Grid.RowSpan="4" Grid.ColumnSpan="2" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" MinHeight="59"/>
+                        <RowDefinition Height="Auto" MinHeight="59"/>
+                        <RowDefinition Height="Auto" MinHeight="167"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{Binding SquareFootage, Mode=OneWay}"
+						Foreground="{StaticResource OneMSQFTWhiteBrush}"
+						FontSize="48"
+						Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
+                    <TextBlock Text="{Binding Name, Mode=OneWay}"
+						Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+						Style="{StaticResource TitleTextStyle}"
+						TextWrapping="NoWrap"
+						Margin="15,0,15,0" Grid.Row="2"/>
                     <TextBlock Text="{Binding Description}"
-                           Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
-                           Style="{StaticResource CaptionTextStyle}"
-                           TextWrapping="NoWrap"
-                           Margin="15,0,15,10"/>
-                </StackPanel>
+						Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
+						Style="{StaticResource CaptionTextStyle}"
+						TextWrapping="NoWrap"
+						Margin="15,0" Grid.Row="3"/>
+                </Grid>
+                <Image
+					Source="{Binding PhotoFilePath, Mode=OneWay}"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					AutomationProperties.Name="{Binding Name}" Stretch="Fill" Grid.Row="2"/>
+                <Image
+					Source="{Binding PhotoFilePath, Mode=OneWay}"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					AutomationProperties.Name="{Binding Name}" Stretch="Fill" Grid.Column="1" Grid.Row="2"/>
+                <Image
+					Source="{Binding PhotoFilePath, Mode=OneWay}"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					AutomationProperties.Name="{Binding Name}" Stretch="Fill" Grid.Row="3"/>
+                <Image
+					Source="{Binding PhotoFilePath, Mode=OneWay}"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					AutomationProperties.Name="{Binding Name}" Stretch="Fill" Grid.Row="3" Grid.Column="1"/>
             </Grid>
         </Border>
     </DataTemplate>
-    
+
+    <DataTemplate x:Key="OMSQFTFutureItemTemplate">
+        <Border BorderThickness="1" Background="{Binding EventColor, Mode=OneWay}">
+            <Grid Width="{Binding ItemWidth, Mode=OneWay}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image
+					Source="{Binding PhotoFilePath, Mode=OneWay}"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					AutomationProperties.Name="{Binding Name}" 
+					Grid.RowSpan="2" Stretch="Fill" 
+					Grid.Column="1" Grid.ColumnSpan="2"/>
+                <Grid Background="{Binding EventColor, Mode=OneWay}" Grid.RowSpan="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" MinHeight="59"/>
+                        <RowDefinition Height="Auto" MinHeight="59"/>
+                        <RowDefinition Height="Auto" MinHeight="167"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{Binding SquareFootage, Mode=OneWay}"
+						Foreground="{StaticResource OneMSQFTWhiteBrush}"
+						FontSize="48"
+						Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
+                    <TextBlock Text="{Binding Name, Mode=OneWay}"
+						Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+						Style="{StaticResource TitleTextStyle}"
+						TextWrapping="NoWrap"
+						Margin="15,0,15,0" Grid.Row="2"/>
+                    <TextBlock Text="{Binding Description}"
+						Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
+						Style="{StaticResource CaptionTextStyle}"
+						TextWrapping="NoWrap"
+						Margin="15,0" Grid.Row="3" HorizontalAlignment="Left"/>
+                </Grid>
+                <Image
+					Source="{Binding PhotoFilePath, Mode=OneWay}"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					AutomationProperties.Name="{Binding Name}" Stretch="Fill" Grid.Row="2" Grid.Column="1"/>
+                <Image
+					Source="{Binding PhotoFilePath, Mode=OneWay}"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					AutomationProperties.Name="{Binding Name}" Stretch="Fill" Grid.Column="3" Grid.Row="2"/>
+                <Image
+					Source="{Binding PhotoFilePath, Mode=OneWay}"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					AutomationProperties.Name="{Binding Name}" Stretch="Fill" Grid.Row="3" Grid.Column="2"/>
+                <Image
+					Source="{Binding PhotoFilePath, Mode=OneWay}"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					AutomationProperties.Name="{Binding Name}" Stretch="Fill" Grid.Row="4" Grid.Column="1"/>
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="OMSQFTHomeItemTemplate">
+        <Border BorderThickness="1" Background="{Binding EventColor, Mode=OneWay}">
+            <Grid Width="{Binding ItemWidth, Mode=OneWay}" Height="{Binding ItemHeight, Mode=OneWay}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Background="{StaticResource OneMSQFTWhiteBrush}" Margin="100" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" Width="{Binding ColorColumnWidth, Mode=OneWay}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" MinHeight="159" />
+                        <RowDefinition Height="Auto" MinHeight="59"/>
+                        <RowDefinition Height="Auto" MinHeight="159"/>
+                        <RowDefinition Height="Auto" MinHeight="167"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{Binding SquareFootage, Mode=OneWay}"
+						Foreground="{StaticResource OneMSQFTBlackBrush}"
+						FontSize="48"
+						Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
+                    <TextBlock Text="{Binding Strings.IntroBlurb, Source={StaticResource PortableStrings}}"
+						Foreground="{StaticResource OneMSQFTBlackBrush}"
+						TextWrapping="Wrap"
+						Margin="15,20,15,19" Grid.Row="2" VerticalAlignment="Center" FontSize="24" FontWeight="Light" LineHeight="32" LineStackingStrategy="BlockLineHeight"/>
+                    <TextBlock Text="{Binding Strings.AppTitle, Source={StaticResource PortableStrings}}"
+						Foreground="{StaticResource OneMSQFTBlackBrush}"
+						Style="{StaticResource CaptionTextStyle}"
+						TextWrapping="NoWrap"
+						Margin="15,0" Grid.Row="3" VerticalAlignment="Top" Height="20"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+
+    <Style x:Key="TimelineItemContainerStyle" TargetType="GridViewItem">
+        <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="TabNavigation" Value="Local"/>
+        <Setter Property="IsHoldingEnabled" Value="True"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GridViewItem">
+                    <Grid>
+                        <Border x:Name="OuterContainer" HorizontalAlignment="Left" Background="Transparent">
+                            <Grid>
+                                <ContentPresenter x:Name="contentPresenter"
+    											ContentTransitions="{TemplateBinding ContentTransitions}"
+    											ContentTemplate="{TemplateBinding ContentTemplate}"
+    											Content="{TemplateBinding Content}"
+    											HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+    											VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+    											Margin="0" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="TimelineSemanticZoomItemContainerStyle" TargetType="GridViewItem">
+        <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="TabNavigation" Value="Local"/>
+        <Setter Property="IsHoldingEnabled" Value="True"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GridViewItem">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverRectangle" Storyboard.TargetProperty="Fill">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <PointerDownThemeAnimation TargetName="ContentContainer" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOverPressed">
+                                    <Storyboard>
+                                        <PointerDownThemeAnimation TargetName="ContentContainer" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused"/>
+                                <VisualState x:Name="Unfocused"/>
+                                <VisualState x:Name="PointerFocused"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionHintStates">
+                                <VisualState x:Name="VerticalSelectionHint"/>
+                                <VisualState x:Name="HorizontalSelectionHint"/>
+                                <VisualState x:Name="NoSelectionHint" />
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselecting"/>
+                                <VisualState x:Name="Unselected"/>
+                                <VisualState x:Name="UnselectedPointerOver"/>
+                                <VisualState x:Name="UnselectedSwiping"/>
+                                <VisualState x:Name="Selecting"/>
+                                <VisualState x:Name="Selected"/>
+                                <VisualState x:Name="SelectedSwiping"/>
+                                <VisualState x:Name="SelectedUnfocused"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="DragStates">
+                                <VisualState x:Name="NotDragging" />
+                                <VisualState x:Name="Dragging"/>
+                                <VisualState x:Name="DraggingTarget"/>
+                                <VisualState x:Name="MultipleDraggingPrimary"/>
+                                <VisualState x:Name="MultipleDraggingSecondary"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ReorderHintStates">
+                                <VisualState x:Name="NoReorderHint"/>
+                                <VisualState x:Name="BottomReorderHint"/>
+                                <VisualState x:Name="TopReorderHint"/>
+                                <VisualState x:Name="RightReorderHint"/>
+                                <VisualState x:Name="LeftReorderHint"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="DataVirtualizationStates">
+                                <VisualState x:Name="DataAvailable"/>
+                                <VisualState x:Name="DataPlaceholder"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="OuterContainer" HorizontalAlignment="Left" Margin="0" Padding="0" Background="Transparent">
+                            <Grid x:Name="ReorderHintContent" Background="Transparent">
+                                <Border x:Name="ContentContainer">
+                                    <Grid>
+                                        <Border x:Name="ContentBorder"
+    									Background="{TemplateBinding Background}"
+    									BorderBrush="{TemplateBinding BorderBrush}"
+    									BorderThickness="{TemplateBinding BorderThickness}"
+    									Margin="0">
+                                            <Grid>
+                                                <ContentPresenter x:Name="contentPresenter"
+    											ContentTransitions="{TemplateBinding ContentTransitions}"
+    											ContentTemplate="{TemplateBinding ContentTemplate}"
+    											Content="{TemplateBinding Content}"
+    											HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+    											VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+    											Margin="0" />
+                                            </Grid>
+                                        </Border>
+                                        <Rectangle x:Name="HoverRectangle" Opacity=".2"/>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <DataTemplate x:Key="ProductTemplateMinimal">
         <Grid Margin="6,0" HorizontalAlignment="Stretch" Height="90">
             <Grid.ColumnDefinitions>
@@ -152,79 +424,69 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}"
-                    BorderBrush="White"
-                    BorderThickness="2"
-                    Width="80"
-                    Height="55"
-                    Margin="0,10">
+				BorderBrush="White"
+				BorderThickness="2"
+				Width="80"
+				Height="55"
+				Margin="0,10">
                 <Image Source="{Binding Image}"
-                       Stretch="UniformToFill">
+					Stretch="UniformToFill">
                     <Interactivity:Interaction.Behaviors>
                         <Core:IncrementalUpdateBehavior Phase="2"/>
                     </Interactivity:Interaction.Behaviors>
                 </Image>
             </Border>
             <StackPanel Grid.Column="1"
-                        Margin="10,0,0,0">
+				Margin="10,0,0,0">
                 <TextBlock Margin="5"
-                           FontSize="20"
-                           Height="Auto"
-                           MaxHeight="60"
-                           Text="{Binding Title}"
-                           TextWrapping="Wrap"
-                           TextTrimming="WordEllipsis">
-                    <Interactivity:Interaction.Behaviors>
-                        <Core:IncrementalUpdateBehavior Phase="1"/>
-                    </Interactivity:Interaction.Behaviors>
+					FontSize="20"
+					Height="Auto"
+					MaxHeight="60"
+					Text="{Binding Title}"
+					TextWrapping="Wrap"
+					TextTrimming="WordEllipsis">
+					<Interactivity:Interaction.Behaviors>
+						<Core:IncrementalUpdateBehavior Phase="1"/>
+					</Interactivity:Interaction.Behaviors>
                 </TextBlock>
                 <TextBlock Text="{Binding SalePrice}"
-                           Margin="5"
-                           FontSize="25"
-                           FontWeight="ExtraBold"
-                           LineHeight="20"
-                           LineStackingStrategy="BlockLineHeight"
-                           TextTrimming="CharacterEllipsis"
-                           TextWrapping="Wrap">
+					Margin="5"
+					FontSize="25"
+					FontWeight="ExtraBold"
+					LineHeight="20"
+					LineStackingStrategy="BlockLineHeight"
+					TextTrimming="CharacterEllipsis"
+					TextWrapping="Wrap">
                     <TextBlock.RenderTransform>
                         <TranslateTransform X="-1"
-                                    Y="4" />
+							Y="4" />
                     </TextBlock.RenderTransform>
-                    <Interactivity:Interaction.Behaviors>
-                        <Core:IncrementalUpdateBehavior Phase="2"/>
-                    </Interactivity:Interaction.Behaviors>
+					<Interactivity:Interaction.Behaviors>
+						<Core:IncrementalUpdateBehavior Phase="2"/>
+					</Interactivity:Interaction.Behaviors>
                 </TextBlock>
             </StackPanel>
         </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="OMSQFTItemTemplateSemanticZoom">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="100" />
-            </Grid.RowDefinitions>
-            <Image Stretch="UniformToFill"
-                   Source="{Binding Group.Image}"/>
-            <StackPanel Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}"
-                        Grid.Row="1"
-                        Height="100">
-                <TextBlock Text="{Binding Name}"
-                           TextTrimming="WordEllipsis"
-                           FontSize="26"
-                           FontWeight="ExtraBold"
-                           Margin="10"/>
-                <StackPanel Orientation="Horizontal"
-                            Margin="10,0,10,0"
-                            HorizontalAlignment="Left">
-                    <TextBlock Text="{Binding Group.TotalNumberOfItems}"
-                               FontSize="20"/>
-                    <TextBlock Text="Products"
-                               Margin="10,0,10,0"
-                               FontSize="20"
-                               HorizontalAlignment="Center"/>
-                </StackPanel>
-            </StackPanel>
-        </Grid>
+        <Border BorderBrush="{StaticResource OneMSQFTAnswerGrayBrush}" BorderThickness="1,1,0,0" Background="{Binding EventColor, Mode=OneWay}" Width="{Binding ZoomedOutItemWidth, Mode=OneWay}" Height="{Binding ZoomedOutItemHeight, Mode=OneWay}" Padding="5">
+    		<Grid>
+    			<Grid.RowDefinitions>
+    				<RowDefinition Height="50*"/>
+    				<RowDefinition Height="50*"/>
+    				<RowDefinition Height="50*"/>
+    			</Grid.RowDefinitions>
+    			<TextBlock Text="{Binding SquareFootage}"
+    				TextTrimming="WordEllipsis"
+    				FontSize="29.333"
+    				Margin="0,10,0,16" HorizontalAlignment="Center" FontFamily="Segoe UI"/>
+    			<TextBlock Text="{Binding Name, Mode=OneWay}"
+    				FontSize="20" Grid.Row="1" HorizontalAlignment="Center"/>
+    			<TextBlock Text="{Binding DateStart, Mode=OneWay}"
+    				FontSize="20" Grid.Row="2" HorizontalAlignment="Center"/>
+    		</Grid>
+    	</Border>
     </DataTemplate>
-    
+
 </ResourceDictionary>

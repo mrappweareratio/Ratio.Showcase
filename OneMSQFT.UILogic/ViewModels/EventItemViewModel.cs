@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI;
 using System;
 using System.Collections;
+using Windows.UI.Xaml;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
@@ -22,7 +23,17 @@ namespace OneMSQFT.UILogic.ViewModels
         public DateTime DateStart { get { return Event.DateStart; } }
         public String Id { get { return Event.Id; } }
         public int SquareFootage { get { return Event.SquareFootage; } }
-        public Uri PhotoFilePath { get { return new Uri(Event.PhotoFilePath, UriKind.Absolute); } }
+        public Uri PhotoFilePath
+        {
+            get
+            {
+                if (Event.PhotoFilePath != null)
+                {
+                    return new Uri(Event.PhotoFilePath, UriKind.Absolute);
+                }
+                return new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
+            }
+        }
         public bool IsInTheFuture
         {
             get
@@ -45,5 +56,10 @@ namespace OneMSQFT.UILogic.ViewModels
                 return new SolidColorBrush(c);
             }
         }
+
+        public double ItemWidth { get { return Window.Current.Bounds.Width; } }
+        public double ItemHeight { get { return Window.Current.Bounds.Width; } }
+        public double ZoomedOutItemWidth { get { return Window.Current.Bounds.Width / 6; } }
+        public double ZoomedOutItemHeight { get { return Window.Current.Bounds.Height / 4; } }
     }
 }

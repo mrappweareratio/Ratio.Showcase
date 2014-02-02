@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:omsqftbehaviors="using:OneMSQFT.Windows.Behaviors"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:templateSelectors="using:OneMSQFT.Windows.DataTemplateSelectors"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:prism="using:Microsoft.Practices.Prism.StoreApps"   
     xmlns:omsqft="using:OneMSQFT.Windows.Views"
@@ -32,12 +33,8 @@
         		<EasingDoubleKeyFrame KeyTime="0:10:0" Value="763.062"/>
         	</DoubleAnimationUsingKeyFrames>
         </Storyboard>
-
-        <CollectionViewSource x:Name="DataProxy"
-                              Source="{Binding TimeLineItems}"
-                              IsSourceGrouped="false"
-                              ItemsPath="Curators" />
     </omsqft:BasePageView.Resources>
+    
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<Grid.ChildrenTransitions>
 			<TransitionCollection>
@@ -50,28 +47,21 @@
 				<CompositeTransform/>
 			</Rectangle.RenderTransform>
 		</Rectangle>
-		<TextBlock HorizontalAlignment="Left" 
-			x:Name="tb"
-			Margin="50,0,0,0"
-			TextWrapping="Wrap"
-			VerticalAlignment="Top" Grid.Row="1" FontSize="48" 
-			Style="{StaticResource BaseTextBlockStyle}" d:IsHidden="True"/>
         <SemanticZoom Grid.Row="1"
-                      x:Name="semanticZoom">
+                      x:Name="semanticZoom" IsZoomedInViewActive="True">
             <SemanticZoom.ZoomedOutView>
                 <GridView x:Name="zoomedOutGrid"
-                          Padding="120,0,0,0"
+                          Padding="0"
                           Foreground="White"
-                          ItemsSource="{Binding Source={StaticResource DataProxy}}"
+                          IsSwipeEnabled="False"
+                          ItemsSource="{Binding TimeLineMenuItems}"
                           AutomationProperties.AutomationId="HubPageGridView"
                           ScrollViewer.IsHorizontalScrollChainingEnabled="False"
-                          ItemTemplate="{StaticResource OMSQFTItemTemplateSemanticZoom}">
+                          ItemTemplate="{StaticResource OMSQFTItemTemplateSemanticZoom}"
+                          ItemContainerStyle="{StaticResource TimelineSemanticZoomItemContainerStyle}">
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapGrid ItemWidth="250"
-                                      ItemHeight="250"
-                                      MaximumRowsOrColumns="2"
-                                      VerticalChildrenAlignment="Center" />
+                            <WrapGrid />
                         </ItemsPanelTemplate>
                     </GridView.ItemsPanel>
                 </GridView>
@@ -83,15 +73,17 @@
                 <omsqftcontrols:MultipleSizedGridView x:Name="itemsGridView"
                                                 AutomationProperties.AutomationId="HubPageItemGridView"
                                                 AutomationProperties.Name="Grouped Items"
-                                                Margin="0,0,0,0"
-                                                Padding="120,0,40,46"
-                                                ItemsSource="{Binding Source={StaticResource DataProxy}}"
-                                                ItemTemplate="{StaticResource OMSQFTItemTemplate}"
-                                                MinimalItemTemplate="{StaticResource ProductTemplateMinimal}"
+                                                Margin="0"
+                                                Padding="0"
                                                 SelectionMode="None"
+                                                ItemsSource="{Binding TimeLineItems}"
+                                                MinimalItemTemplate="{StaticResource ProductTemplateMinimal}"
+                                                IsSwipeEnabled="False"
+                                                IsTapEnabled="False"
+                                                IsItemClickEnabled="False"
                                                 ScrollViewer.IsHorizontalScrollChainingEnabled="False"
-                                                IsItemClickEnabled="True"
-                                                Loaded="itemsGridView_Loaded">
+                                                Loaded="itemsGridView_Loaded" 
+                                                ItemContainerStyle="{StaticResource TimelineItemContainerStyle}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="ItemClick">
                             <omsqftbehaviors:NavigateWithEventArgsToPageAction 
@@ -99,6 +91,12 @@
                                 EventArgsParameterPath="ClickedItem.Id" />
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
+					<omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
+                        <templateSelectors:TimelineDataTemplateSelector
+                    				PastTimeLineItemTemplate="{StaticResource OMSQFTPastItemTemplate}" 
+                    				HomeTimeLineItemTemplate="{StaticResource OMSQFTHomeItemTemplate}" 
+                    				FutureTimeLineItemTemplate="{StaticResource OMSQFTFutureItemTemplate}"/>
+                    </omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
                     <omsqftcontrols:MultipleSizedGridView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal" />
@@ -114,7 +112,6 @@
                             <GroupStyle.HeaderTemplate>
                                 <DataTemplate>
                                     <Button AutomationProperties.Name="{Binding Title}"
-                                            Foreground="{StaticResource OMSQFTAccentTextBrush}"
                                             Style="{StaticResource TextPrimaryButtonStyle}"
                                             Command="{Binding CategoryNavigationCommand}"
                                             Margin="5,0,0,10">
@@ -146,7 +143,6 @@
                             <GroupStyle.HeaderTemplate>
                                 <DataTemplate>
                                     <Button AutomationProperties.Name="{Binding Title}"
-                                            Foreground="{StaticResource OMSQFTAccentTextBrush}"
                                             Style="{StaticResource TextPrimaryButtonStyle}"
                                             Command="{Binding CategoryNavigationCommand}"
                                             Margin="5,0,0,10">
@@ -178,7 +174,6 @@
                             <GroupStyle.HeaderTemplate>
                                 <DataTemplate>
                                     <Button AutomationProperties.Name="Group Title"
-                                            Foreground="{StaticResource OMSQFTAccentTextBrush}"
                                             Style="{StaticResource TextPrimaryButtonStyle}"
                                             Command="{Binding CategoryNavigationCommand}"
                                             Margin="10,10,0,10">
@@ -197,19 +192,11 @@
                             </GroupStyle.HeaderTemplate>
                             <GroupStyle.Panel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel HorizontalAlignment="Stretch" Margin="0,0,5,0" />
+                                    <StackPanel HorizontalAlignment="Stretch" Margin="0,0,0,0" />
                                 </ItemsPanelTemplate>
                             </GroupStyle.Panel>
                         </GroupStyle>
                     </omsqftcontrols:MultipleSizedGridView.MinimalGroupStyle>
-                    <omsqftcontrols:MultipleSizedGridView.ItemContainerStyle>
-                        <Style TargetType="Control">
-                            <Setter Property="HorizontalAlignment"
-                                    Value="Stretch" />
-                            <Setter Property="HorizontalContentAlignment"
-                                    Value="Left" />
-                        </Style>
-                    </omsqftcontrols:MultipleSizedGridView.ItemContainerStyle>
                 </omsqftcontrols:MultipleSizedGridView>
             </SemanticZoom.ZoomedInView>
         </SemanticZoom>
