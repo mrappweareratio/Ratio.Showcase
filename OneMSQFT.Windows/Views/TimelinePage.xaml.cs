@@ -19,10 +19,12 @@ namespace OneMSQFT.Windows.Views
 {
     public sealed partial class TimelinePage : BasePageView
     {
+        private ScrollViewer _timelineGridViewScrollViewer;
+
         public TimelinePage()
         {
             this.InitializeComponent();
-           // this.StoryboardSeeker.Begin(); // a nice to have 
+            this.StoryboardSeeker.Begin(); // a nice to have 
             InitAppBar();
             Loaded += TimelinePage_Loaded;
         }
@@ -32,13 +34,19 @@ namespace OneMSQFT.Windows.Views
             PopulateTopAppbar(((TimelinePageViewModel)this.DataContext));
         }
 
-        private void scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
         {
-            //this.StoryboardSeeker.Resume();
-            //int offSet = Convert.ToInt32(scrollViewer.HorizontalOffset);
-            //this.StoryboardSeeker.Seek(new TimeSpan(0, 0, offSet));
-            //this.StoryboardSeeker.Pause();
-            //tb.Text = offSet.ToString();
+            _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(itemsGridView);
+            _timelineGridViewScrollViewer.ViewChanged += _timelineGridViewScrollViewer_ViewChanged;
         }
+
+        void _timelineGridViewScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            this.StoryboardSeeker.Resume();
+            int offSet = Convert.ToInt32(_timelineGridViewScrollViewer.HorizontalOffset);
+            this.StoryboardSeeker.Seek(new TimeSpan(0, 0, offSet));
+            this.StoryboardSeeker.Pause();
+        }
+
     }
 }

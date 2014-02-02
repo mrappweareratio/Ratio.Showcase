@@ -4,13 +4,17 @@
     xmlns:local="using:OneMSQFT.Windows.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:omsqftbehaviors="using:OneMSQFT.Windows.Behaviors"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:prism="using:Microsoft.Practices.Prism.StoreApps"   
     xmlns:omsqft="using:OneMSQFT.Windows.Views"
+    xmlns:omsqftcontrols="using:OneMSQFT.Windows.Controls"
     xmlns:ViewModels="using:OneMSQFT.UILogic.ViewModels"
     x:Class="OneMSQFT.Windows.Views.TimelinePage"
     mc:Ignorable="d"
     prism:ViewModelLocator.AutoWireViewModel="True" 
-	d:DataContext="{d:DesignInstance ViewModels:TimelinePageViewModel}">
+	d:DataContext="{d:DesignInstance ViewModels:TimelinePageViewModel, IsDesignTimeCreatable=True}">
 
     <omsqft:BasePageView.Resources>
         <Storyboard x:Name="StoryboardSeeker">
@@ -28,6 +32,11 @@
         		<EasingDoubleKeyFrame KeyTime="0:10:0" Value="763.062"/>
         	</DoubleAnimationUsingKeyFrames>
         </Storyboard>
+
+        <CollectionViewSource x:Name="DataProxy"
+                              Source="{Binding TimeLineItems}"
+                              IsSourceGrouped="false"
+                              ItemsPath="Curators" />
     </omsqft:BasePageView.Resources>
 	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<Grid.ChildrenTransitions>
@@ -47,10 +56,162 @@
 			TextWrapping="Wrap"
 			VerticalAlignment="Top" Grid.Row="1" FontSize="48" 
 			Style="{StaticResource BaseTextBlockStyle}" d:IsHidden="True"/>
-		<ListView HorizontalAlignment="Left" VerticalAlignment="Top">
-			<ListView.DataContext>
-				<ViewModels:TimelinePageViewModel/>
-			</ListView.DataContext>
-		</ListView>
+        <SemanticZoom Grid.Row="1"
+                      x:Name="semanticZoom">
+            <SemanticZoom.ZoomedOutView>
+                <GridView x:Name="zoomedOutGrid"
+                          Padding="120,0,0,0"
+                          Foreground="White"
+                          ItemsSource="{Binding Source={StaticResource DataProxy}}"
+                          AutomationProperties.AutomationId="HubPageGridView"
+                          ScrollViewer.IsHorizontalScrollChainingEnabled="False"
+                          ItemTemplate="{StaticResource OMSQFTItemTemplateSemanticZoom}">
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapGrid ItemWidth="250"
+                                      ItemHeight="250"
+                                      MaximumRowsOrColumns="2"
+                                      VerticalChildrenAlignment="Center" />
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
+            </SemanticZoom.ZoomedOutView>
+            <SemanticZoom.ZoomedInView>
+                <!-- The MultipleSizedGridView is a custom user control that is used to display multiple-sized elements in the grid.
+                It also includes the functionality of the custom AutoRotatingGridView control, that automatically rearranges items,
+                when the app is switched to portrait mode, or to minimal layout mode. -->
+                <omsqftcontrols:MultipleSizedGridView x:Name="itemsGridView"
+                                                AutomationProperties.AutomationId="HubPageItemGridView"
+                                                AutomationProperties.Name="Grouped Items"
+                                                Margin="0,0,0,0"
+                                                Padding="120,0,40,46"
+                                                ItemsSource="{Binding Source={StaticResource DataProxy}}"
+                                                ItemTemplate="{StaticResource OMSQFTItemTemplate}"
+                                                MinimalItemTemplate="{StaticResource ProductTemplateMinimal}"
+                                                SelectionMode="None"
+                                                ScrollViewer.IsHorizontalScrollChainingEnabled="False"
+                                                IsItemClickEnabled="True"
+                                                Loaded="itemsGridView_Loaded">
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="ItemClick">
+                            <omsqftbehaviors:NavigateWithEventArgsToPageAction 
+                                TargetPage="OneMSQFT.Windows.Views.TimelinePage"
+                                EventArgsParameterPath="ClickedItem.Id" />
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                    <omsqftcontrols:MultipleSizedGridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </omsqftcontrols:MultipleSizedGridView.ItemsPanel>
+                    <omsqftcontrols:MultipleSizedGridView.PortraitItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </omsqftcontrols:MultipleSizedGridView.PortraitItemsPanel>
+                    <omsqftcontrols:MultipleSizedGridView.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <Button AutomationProperties.Name="{Binding Title}"
+                                            Foreground="{StaticResource OMSQFTAccentTextBrush}"
+                                            Style="{StaticResource TextPrimaryButtonStyle}"
+                                            Command="{Binding CategoryNavigationCommand}"
+                                            Margin="5,0,0,10">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Title}"
+                                                           Style="{StaticResource GroupHeaderTextStyle}" />
+                                                <TextBlock Text="{StaticResource ChevronGlyph}"
+                                                           Style="{StaticResource GroupHeaderTextStyle}"
+                                                           FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                                           Margin="10,0" />
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                            <GroupStyle.Panel>
+                                <ItemsPanelTemplate>
+                                    <VariableSizedWrapGrid ItemWidth="250"
+                                                           ItemHeight="250"
+                                                           Orientation="Vertical"
+                                                           Margin="0,0,80,0" />
+                                </ItemsPanelTemplate>
+                            </GroupStyle.Panel>
+                        </GroupStyle>
+                    </omsqftcontrols:MultipleSizedGridView.GroupStyle>
+                    <omsqftcontrols:MultipleSizedGridView.PortraitGroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <Button AutomationProperties.Name="{Binding Title}"
+                                            Foreground="{StaticResource OMSQFTAccentTextBrush}"
+                                            Style="{StaticResource TextPrimaryButtonStyle}"
+                                            Command="{Binding CategoryNavigationCommand}"
+                                            Margin="5,0,0,10">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Title}"
+                                                           Style="{StaticResource GroupHeaderTextStyle}" />
+                                                <TextBlock Text="{StaticResource ChevronGlyph}"
+                                                           Style="{StaticResource GroupHeaderTextStyle}"
+                                                           FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                                           Margin="10,0" />
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                            <GroupStyle.Panel>
+                                <ItemsPanelTemplate>
+                                    <VariableSizedWrapGrid ItemWidth="250"
+                                                           ItemHeight="250"
+                                                           Orientation="Horizontal"
+                                                           Margin="0,0,0,20" />
+                                </ItemsPanelTemplate>
+                            </GroupStyle.Panel>
+                        </GroupStyle>
+                    </omsqftcontrols:MultipleSizedGridView.PortraitGroupStyle>
+                    <omsqftcontrols:MultipleSizedGridView.MinimalGroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <Button AutomationProperties.Name="Group Title"
+                                            Foreground="{StaticResource OMSQFTAccentTextBrush}"
+                                            Style="{StaticResource TextPrimaryButtonStyle}"
+                                            Command="{Binding CategoryNavigationCommand}"
+                                            Margin="10,10,0,10">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Title}"
+                                                           Style="{StaticResource GroupHeaderTextStyle}" />
+                                                <TextBlock Text="{StaticResource ChevronGlyph}"
+                                                           Style="{StaticResource GroupHeaderTextStyle}"
+                                                           FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                                           Margin="10,0" />
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </Button>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                            <GroupStyle.Panel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel HorizontalAlignment="Stretch" Margin="0,0,5,0" />
+                                </ItemsPanelTemplate>
+                            </GroupStyle.Panel>
+                        </GroupStyle>
+                    </omsqftcontrols:MultipleSizedGridView.MinimalGroupStyle>
+                    <omsqftcontrols:MultipleSizedGridView.ItemContainerStyle>
+                        <Style TargetType="Control">
+                            <Setter Property="HorizontalAlignment"
+                                    Value="Stretch" />
+                            <Setter Property="HorizontalContentAlignment"
+                                    Value="Left" />
+                        </Style>
+                    </omsqftcontrols:MultipleSizedGridView.ItemContainerStyle>
+                </omsqftcontrols:MultipleSizedGridView>
+            </SemanticZoom.ZoomedInView>
+        </SemanticZoom>
 	</Grid>
 </omsqft:BasePageView>

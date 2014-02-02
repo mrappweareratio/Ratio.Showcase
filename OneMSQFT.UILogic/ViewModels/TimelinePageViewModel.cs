@@ -37,12 +37,12 @@ namespace OneMSQFT.UILogic.ViewModels
                 var c = new ObservableCollection<EventItemViewModel>();
                 foreach (var e in SquareFootPastEvents)
                 {
-                    TimeLineItems.Add(e);
+                    c.Add(e);
                 }
-                TimeLineItems.Add(new EventItemViewModel(new Event() { Name = "Home" }));
+                c.Add(new EventItemViewModel(new Event() { Name = "Home" }));
                 foreach (var e in SquareFootFutureEvents)
                 {
-                    TimeLineItems.Add(e);
+                    c.Add(e);
                 }
                 return c as ObservableCollection<EventItemViewModel>;
             }
