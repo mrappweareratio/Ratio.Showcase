@@ -40,11 +40,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\BaseResponse.cs" />
     <Compile Include="Models\Curator.cs" />
+    <Compile Include="Models\Error.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Exhibit.cs" />
+    <Compile Include="Models\GalleryItem.cs" />
     <Compile Include="Models\ModelInterfaces.cs" />
     <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\TimelineResponse.cs" />
+    <Compile Include="Models\TimelineResult.cs" />
     <Compile Include="PortableStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings.Designer.cs">
@@ -59,7 +64,6 @@
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
