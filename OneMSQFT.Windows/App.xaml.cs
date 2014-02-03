@@ -20,7 +20,6 @@ using Microsoft.Practices.Prism.PubSubEvents;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
 using OneMSQFT.UILogic;
 using OneMSQFT.UILogic.Interfaces;
-// The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.UILogic.ViewModels;
 

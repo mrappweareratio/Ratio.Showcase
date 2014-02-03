@@ -53,7 +53,6 @@ namespace OneMSQFT.Windows.Views
                 Content = TopAppBarContentStackPanel,
                 Style = (Style)App.Current.Resources["HorizontalScrollViewerStyle"]
             };
-            // adding top bar by default
             TopAppBar.Content = topScrollViewer;
         }
 
@@ -61,28 +60,25 @@ namespace OneMSQFT.Windows.Views
         {
         }
 
-        public void PopulateTopAppbar(int count){
-            for(var i =0; i<count; i++){
-                var EIVM = new EventItemViewModel();
-                EIVM.Event = new Event();
-                EIVM.Event.Color = "00ff00";
-                EIVM.Event.Description = "Description " + i;
-                EIVM.Event.Id = i.ToString();
-                EIVM.Event.Name = "Event Name " + i;
-                EIVM.Event.IsInTheFuture = i < count / 2;
+        public void PopulateTopAppbar(TimelinePageViewModel vm)
+        {
+            foreach (var e in vm.SquareFootPastEvents)
+            {
                 var b = new Button();
                 b.Style = (Style)App.Current.Resources["OMSQFTAppBarButtonStyle"];
-                b.DataContext = EIVM;
-                if ((EIVM.Event.IsInTheFuture == false) && (HomeButtonAddedToAppBar == false))
-                {
-                    var homeButton = new Button();
-                    homeButton.Style = (Style)App.Current.Resources["OMSQFTAppBarHomeButtonStyle"];
-                    TopAppBarContentStackPanel.Children.Add(homeButton);
-                    HomeButtonAddedToAppBar = true;
-                }
+                b.DataContext = e;
                 TopAppBarContentStackPanel.Children.Add(b);
             }
-
+            var homeButton = new Button();
+            homeButton.Style = (Style)App.Current.Resources["OMSQFTAppBarHomeButtonStyle"];
+            TopAppBarContentStackPanel.Children.Add(homeButton);
+            foreach (var e in vm.SquareFootFutureEvents)
+            {
+                var b = new Button();
+                b.Style = (Style)App.Current.Resources["OMSQFTAppBarButtonStyle"];
+                b.DataContext = e;
+                TopAppBarContentStackPanel.Children.Add(b);
+            }
         }
     }
 }

@@ -13,26 +13,58 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
+using OneMSQFT.UILogic.ViewModels;
 
 namespace OneMSQFT.Windows.Views
 {
     public sealed partial class TimelinePage : BasePageView
     {
+        private ScrollViewer _timelineGridViewScrollViewer;
+
         public TimelinePage()
         {
             this.InitializeComponent();
-           // this.StoryboardSeeker.Begin();
+            this.StoryboardSeeker.Begin(); // a nice to have 
             InitAppBar();
-            PopulateTopAppbar(8);
+            Loaded += TimelinePage_Loaded;
         }
 
-        private void scrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        void TimelinePage_Loaded(object sender, RoutedEventArgs e)
         {
-            //this.StoryboardSeeker.Resume();
-            //int offSet = Convert.ToInt32(scrollViewer.HorizontalOffset);
-            //this.StoryboardSeeker.Seek(new TimeSpan(0, 0, offSet));
-            //this.StoryboardSeeker.Pause();
-            //tb.Text = offSet.ToString();
+            PopulateTopAppbar(((TimelinePageViewModel)this.DataContext));
+        }
+
+        private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
+        {
+            _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(itemsGridView);
+            _timelineGridViewScrollViewer.ScrollToHorizontalOffset(((TimelinePageViewModel)this.DataContext).TimeLineItems.Count/2 * Window.Current.Bounds.Width);
+            _timelineGridViewScrollViewer.ViewChanged += _timelineGridViewScrollViewer_ViewChanged;
+            itemsGridView.Opacity = 1;
+        }
+
+        void _timelineGridViewScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            this.StoryboardSeeker.Resume();
+            int offSet = Convert.ToInt32(_timelineGridViewScrollViewer.HorizontalOffset);
+            this.StoryboardSeeker.Seek(new TimeSpan(0, 0, offSet));
+            this.StoryboardSeeker.Pause();
+        }
+
+        private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
+        {
+            if (e.SourceItem.Item != null && e.IsSourceZoomedInView != true)
+            {
+                itemsGridView.ScrollIntoView(((EventItemViewModel)e.SourceItem.Item));
+                itemsGridView.Opacity = 1;
+            }
+        }
+
+        private void semanticZoom_ViewChangeStarted(object sender, SemanticZoomViewChangedEventArgs e)
+        {
+            if (e.SourceItem.Item != null && e.IsSourceZoomedInView != true)
+            {
+                itemsGridView.Opacity = 0;
+            }
         }
     }
 }
