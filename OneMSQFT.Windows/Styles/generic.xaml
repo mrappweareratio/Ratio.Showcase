@@ -4513,7 +4513,7 @@
 
     <!-- Default style for Windows.UI.Xaml.Controls.SemanticZoom -->
     <Style TargetType="SemanticZoom">
-        <Setter Property="Padding" Value="3" />
+        <Setter Property="Padding" Value="0" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="IsTabStop" Value="False" />
@@ -4531,7 +4531,7 @@
                                 <VisualState x:Name="ZoomInView">
                                     <Storyboard>
                                         <FadeOutThemeAnimation TargetName="ZoomedOutPresenter" />
-                                        <FadeInThemeAnimation TargetName="ZoomedInPresenter" />
+                                        <FadeInThemeAnimation TargetName="ZoomedInPresenter" SpeedRatio="1" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="ZoomOutView">

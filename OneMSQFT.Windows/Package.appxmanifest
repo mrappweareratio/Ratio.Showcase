@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="OneMSQFT.Windows.App">
-      <m2:VisualElements DisplayName="OneMSQFT.Windows" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="1MSQFT Windows Store App" ForegroundText="light" BackgroundColor="#464646">
+      <m2:VisualElements DisplayName="OneMSQFT.Windows" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="1MSQFT Windows Store App" ForegroundText="dark" BackgroundColor="#ffffff">
         <m2:SplashScreen Image="Assets\SplashScreen.png" />
       </m2:VisualElements>
     </Application>

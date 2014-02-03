@@ -21,7 +21,6 @@ namespace OneMSQFT.Common.Models
         public string DisplayDate { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
-        public Boolean IsInTheFuture { get; set; }
         public string SeoMetaDescription { get; set; }
         public string PhotoFilePath { get; set; }
         public IEnumerable<Curator> Curators { get; set; }
