@@ -4531,7 +4531,7 @@
                                 <VisualState x:Name="ZoomInView">
                                     <Storyboard>
                                         <FadeOutThemeAnimation TargetName="ZoomedOutPresenter" />
-                                        <FadeInThemeAnimation TargetName="ZoomedInPresenter" />
+                                        <FadeInThemeAnimation TargetName="ZoomedInPresenter" SpeedRatio="1" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="ZoomOutView">

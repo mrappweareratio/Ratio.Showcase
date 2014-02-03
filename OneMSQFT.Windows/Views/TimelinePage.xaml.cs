@@ -39,6 +39,7 @@ namespace OneMSQFT.Windows.Views
             _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(itemsGridView);
             _timelineGridViewScrollViewer.ScrollToHorizontalOffset(((TimelinePageViewModel)this.DataContext).TimeLineItems.Count/2 * Window.Current.Bounds.Width);
             _timelineGridViewScrollViewer.ViewChanged += _timelineGridViewScrollViewer_ViewChanged;
+            itemsGridView.Opacity = 1;
         }
 
         void _timelineGridViewScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
@@ -49,5 +50,21 @@ namespace OneMSQFT.Windows.Views
             this.StoryboardSeeker.Pause();
         }
 
+        private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
+        {
+            if (e.SourceItem.Item != null && e.IsSourceZoomedInView != true)
+            {
+                itemsGridView.ScrollIntoView(((EventItemViewModel)e.SourceItem.Item));
+                itemsGridView.Opacity = 1;
+            }
+        }
+
+        private void semanticZoom_ViewChangeStarted(object sender, SemanticZoomViewChangedEventArgs e)
+        {
+            if (e.SourceItem.Item != null && e.IsSourceZoomedInView != true)
+            {
+                itemsGridView.Opacity = 0;
+            }
+        }
     }
 }

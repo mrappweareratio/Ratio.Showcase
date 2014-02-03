@@ -8,21 +8,41 @@ using System;
 using System.Collections;
 using Windows.UI.Xaml;
 using System.Globalization;
+using System.Collections.ObjectModel;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
-    public class EventItemViewModel : ViewModel
+    public class EventItemViewModel : ItemBaseViewModel
     {
         public EventItemViewModel(Event eventModel)
         {
             Event = eventModel;
+            Name = eventModel.Name;
+            Description = eventModel.Description;
+            Id = eventModel.Id;
         }
         private Event Event { get; set; }
-        public String Name { get { return Event.Name; } }
-        public String Description { get { return Event.Description; } }
-        public IList<Curator> Curators { get { return Event.Curators; } }
+        public ObservableCollection<ExhibitItemViewModel> Exhibits
+        {
+            get
+            {
+                var fakeExhibits = new ObservableCollection<ExhibitItemViewModel>();
+                for (var i = 0; i < 4; i++)
+                {
+                    var exhibit = new ExhibitItemViewModel(new Exhibit()
+                    {
+                        Id = i.ToString(),
+                        Name = "Exhibit Name " + i,
+                        Description = "Exhibit Description Name " + i,
+                        PhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg",
+                        SquareFootage = i*1234+123
+                    });
+                    fakeExhibits.Add(exhibit);
+                }
+                return fakeExhibits;
+            }
+        }
         public DateTime DateStart { get { return Event.DateStart; } }
-        public String Id { get { return Event.Id; } }
         public String SquareFootage
         {
             get

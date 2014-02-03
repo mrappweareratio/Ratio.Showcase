@@ -15,8 +15,8 @@ namespace OneMSQFT.UILogic.ViewModels
             TotalSquareFeet = 36482;
             SquareFootFutureEvents = new ObservableCollection<EventItemViewModel>();
             SquareFootPastEvents = new ObservableCollection<EventItemViewModel>();
-            var FakeEventsCount = 60;
-            for (var i = 0; i < FakeEventsCount; i++)
+            var FakeEventsCount = 10;
+            for (var i = 1; i < FakeEventsCount+1; i++)
             {
                 var eivm = new EventItemViewModel(new Event()
                 {
