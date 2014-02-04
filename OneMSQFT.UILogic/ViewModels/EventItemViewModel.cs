@@ -14,14 +14,16 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class EventItemViewModel : ItemBaseViewModel
     {
-        public EventItemViewModel(Event eventModel)
+        public EventItemViewModel(IEvent<ICurator<IExhibit>> eventModel)
         {
             Event = eventModel;
             Name = eventModel.Name;
             Description = eventModel.Description;
             Id = eventModel.Id;
         }
-        private Event Event { get; set; }
+        
+        private IEvent<ICurator<IExhibit>> Event { get; set; }
+    
         public ObservableCollection<ExhibitItemViewModel> Exhibits
         {
             get

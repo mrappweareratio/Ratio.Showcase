@@ -12,5 +12,6 @@ namespace OneMSQFT.Common.Models
         public string Exhibitor { get; set; }
         public string FacebookEventUrl { get; set; }        
         public IEnumerable<MediaContentSource> MediaContent { get; set; }
+        public string PhotoFilePath { get; set; }
     }
 }

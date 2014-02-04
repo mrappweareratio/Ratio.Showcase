@@ -45,7 +45,11 @@ namespace OneMSQFT.Windows
 
             ViewModelLocator.SetDefaultViewTypeToViewModelTypeResolver((viewType) =>
             {                
+#if DESIGN
+                var viewModelTypeName = string.Format(CultureInfo.InvariantCulture, "OneMSQFT.Windows.DesignViewModels.Design{0}ViewModel, OneMSQFT.Windows", viewType.Name);
+#else
                 var viewModelTypeName = string.Format(CultureInfo.InvariantCulture, "OneMSQFT.UILogic.ViewModels.{0}ViewModel, OneMSQFT.UILogic", viewType.Name);
+#endif
                 var viewModelType = Type.GetType(viewModelTypeName);
                 return viewModelType;
             });

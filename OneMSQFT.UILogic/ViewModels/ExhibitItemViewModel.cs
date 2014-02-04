@@ -11,14 +11,15 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class ExhibitItemViewModel : ItemBaseViewModel
     {
-        public ExhibitItemViewModel(Exhibit exhibitModel)
+        public ExhibitItemViewModel(IExhibit exhibitModel)
         {
             Exhibit = exhibitModel;
             Name = exhibitModel.Name;
             Description = exhibitModel.Description;
             Id = exhibitModel.Id;
         }
-        private Exhibit Exhibit { get; set; }
+        
+        private IExhibit Exhibit { get; set; }        
         public Uri PhotoFilePath
         {
             get
@@ -29,8 +30,8 @@ namespace OneMSQFT.UILogic.ViewModels
                 }
                 return new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
             }
-        }
-        public String SquareFootage
+        }        
+        public String SquareFootageString
         {
             get
             {

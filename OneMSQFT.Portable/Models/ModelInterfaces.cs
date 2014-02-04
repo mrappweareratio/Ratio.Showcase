@@ -49,7 +49,8 @@ namespace OneMSQFT.Common.Models
         /// Optional field if name is not in the title
         /// </summary>
         string Exhibitor { get; }
-        string FacebookEventUrl { get; }        
+        string FacebookEventUrl { get; }
+        string PhotoFilePath { get; set; }
     }
 
     public interface IHasMediaContent
