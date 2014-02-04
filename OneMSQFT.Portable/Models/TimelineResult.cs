@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace OneMSQFT.Common.Models
 {
     public class TimelineResult
     {
-        IEnumerable<Event> Events { get; set; } 
+        [JsonProperty("events")]
+        public IEnumerable<Event> Events { get; set; } 
     }
 }

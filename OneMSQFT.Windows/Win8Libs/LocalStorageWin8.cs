@@ -7,6 +7,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using OneMSQFT.Common.DataLayer;
 
+
 namespace OneMSQFT.Windows.Win8Libs
 {
     class LocalStorageWin8 : ILocalStorageProvider
@@ -14,19 +15,18 @@ namespace OneMSQFT.Windows.Win8Libs
         public async Task<string> LoadFile(string fileName)
         {
             var storageFolder = ApplicationData.Current.LocalFolder;
-            var file = await storageFolder.GetFileAsync(fileName);
-            using (var stream = await file.OpenAsync(FileAccessMode.Read))
-            using (var inputStream = stream.GetInputStreamAt(0))
-            using (var reader = new DataReader(inputStream))
+            var file = await storageFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
+
+            string fileContents = string.Empty;
+            if (file != null)
             {
-                var data = new byte[stream.Size];
-                await reader.LoadAsync((uint)data.Length);
-                reader.ReadBytes(data);
-                return data;
+                fileContents = await FileIO.ReadTextAsync(file);
             }
+
+            return fileContents;
         }
 
-        public async void SaveFile(string fileName, byte[] data)
+        public async Task SaveFile(string fileName, byte[] data)
         {
             var storageFolder = ApplicationData.Current.LocalFolder;
             var file = await storageFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);

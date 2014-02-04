@@ -1,0 +1,121 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "square_feet": 1274,
+      "title": "Sundance Film Festival",
+      "color": "orange",
+      "date": "Jan 17-19",
+      "address": "444 Main st.",
+      "City": "Park City, UT",
+      "MediaContainers": [
+        {
+            "id":100,
+            "type": "background",
+            "media_items":[
+                {
+                    "id":200,
+                    "type":"image",
+                    "title":"Sundance Festival title",
+                    "caption": "Sundance Festival caption",
+                    "assets":[
+                        {
+                            "largeSize_url":"http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg",
+                            "smallSize_url":null
+                        }]
+                }
+                ]
+                
+        }
+      ],
+      "Curations": [
+          {
+              "id":300,
+              "square_feet":408,
+              "title":"square feet guest curated by La Blogothèque",
+              "color":"lime",
+              "curator":"La Blogothèque",
+              "logo_url":"http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/logo.png",
+              "exhibits":[
+                  {
+                    "id":400,
+                    "square_feet":408,
+                    "title":"My Brightest Diamond",
+                    "exhibitor":"My Brightest Diamond",
+                    "description":"This musical performance literally marches down Main Street and draws the crowd inside for an intimate performance. The band My Brightest Diamond mixes classical styles from opera and chamber music with rock, and now marching bands. Lead singer Shara Worden is joined by a dixie marching band that makes a path into the venue for a memorable performance.",
+                    "date_range":"Jan 17 from 6pm - 8pm",
+                    "photo_file_path":"http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg",
+                    "tags":[
+                            "music",
+                            "rock",
+                            "opera",
+                            "classical",
+                            "band"
+                        ]
+                  }]
+          },
+          {
+              "id":301,
+              "square_feet":866,
+              "title":"square feet guest curated by Ken Miller",
+              "color":"red",
+              "curator":"Ken Miller",
+              "logo_url":"http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/logo.png",
+              "exhibits":[
+                  {
+                    "id":401,
+                    "square_feet":310,
+                    "title":"Complex Fringe Wall/Crystal Piñata/Tassel Garland",
+                    "exhibitor":"CONFETTISYSTEM",
+                    "description":"CONFETTISYSTEM transforms simple materials into interactive objects that create a point of focus, where memories are made and a spontaneous collaboration with the viewer is sparked. For this space, CONFETTISYSTEM has created an immersive environment inspired by their love/exploration of celebration. The work also serves as an interactive performance space culminating in a piñata party.",
+                    "date_range":"Jan 17 - 19 from 12 - 4pm",
+                    "photo_file_path":"http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg",
+                    "tags":[
+                            "materials",
+                            "art",
+                            "CONFETTISYSTEM",
+                            "interactive",
+                            "performance"
+                        ]
+                  },
+                  {
+                    "id":402,
+                    "square_feet":192,
+                    "title":"Churn",
+                    "exhibitor":"Hisham Akira Bharoocha",
+                    "description":"Musician / visual artist / designer Hisham Bharoocha uses detailed line work and bold geometric shapes to visualize his interest in the architecture of the mind. The line work represents the experiences, thoughts, and feelings that churn in our minds constantly while the bold geometric forms imply a balance that can be found within the chaotic mind.",
+                    "date_range":"Jan 17 - 19 from 12 - 4pm",
+                    "photo_file_path":"http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/2.jpg",
+                    "tags":[
+                            "music",
+                            "art",
+                            "architecture",
+                            "geometric",
+                            "churn"
+                        ]
+                  },
+                  {
+                    "id":403,
+                    "square_feet":364,
+                    "title":"The Portrait Machine Project",
+                    "exhibitor":"Carlo Van de Roer",
+                    "description":"Van de Roer will be exhibiting and making portraits of familiar personalities from the Sundance community using a Polaroid aura camera. He asks where in the relationship between artist, camera, subject and viewer does authorship of a portrait lie and what insight do we expect from a portrait of someone familiar.",
+                    "date_range":"Jan 17 - 19 from 12 - 4pm",
+                    "photo_file_path":"http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/3.jpg",
+                    "tags":[
+                            "portrait",
+                            "sundance",
+                            "Polaroid",
+                            "camera",
+                            "photography"
+                        ]
+                  }                    
+                  ]
+          }          
+          ]
+    }
+  ],
+  "total_square_feet": 0,
+  "total_events": 2,
+  "title": "One Million Square Feet of Culture"
+}

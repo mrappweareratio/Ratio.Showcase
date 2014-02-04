@@ -15,16 +15,16 @@ namespace OneMSQFT.Common.DataLayer
             _localStorage = localStorage;
         }
 
-        public async Task<string> LoadFile(string fileName)
+        async public Task<string> LoadFile(string fileName)
         {
             if (null != _localStorage)
             {
-                return _localStorage.LoadFile(fileName, _localStorage);
+                return await _localStorage.LoadFile(fileName);
             }
             return null;
         }
 
-        public async void SaveFile(string fileName, byte[] data)
+        public void SaveFile(string fileName, byte[] data)
         {
             if (null != _localStorage)
             {

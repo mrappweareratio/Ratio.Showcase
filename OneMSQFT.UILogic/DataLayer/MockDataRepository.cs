@@ -1,39 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
-using OneMSQFT.Windows
 
-namespace OneMSQFT.Common.DataLayer
+namespace OneMSQFT.UILogic.DataLayer
 {
-    class AppDataRepository: IDataRepository
+    public class MockDataRepository : IDataRepository
     {
         private LocalStorageManager _localStorage;
-        private bool _useMockData;
-        private string jsonFileName = "timeline.json";
-        private Timeline _timeline;
+        private string jsonFileName = "sundance.json";
 
-        public AppDataRepository(ILocalStorageProvider localStorage, bool useMockData)
+        public MockDataRepository()
         {
-            _localStorage = new LocalStorageManager(localStorage);
-            _useMockData = useMockData;
+            _localStorage = new LocalStorageManager(new MockLocalStorageProvider());
         }
- 
-        public Timeline LoadAllData()
+
+        public async Task<TimelineResult> LoadAllData()
         {
             string jsonData;
-            if (_useMockData)
-            {
-                jsonData = _localStorage.LoadFile(jsonFileName);
-            }
-            else
-            {
-                //TODO: Get data from service
-            }
+            jsonData = await _localStorage.LoadFile(jsonFileName);
 
+            //Convert to model data
+            var dataFromJSON = JsonConvert.DeserializeObject<TimelineResult>(jsonData);
+            //Task<TimelineResult> timelineData = new TimelineResult(dataFromJSON);
+
+            //return timelineData;
+            return dataFromJSON;
         }
 
         public Task SaveAllData()

@@ -123,6 +123,7 @@
       <DependentUpon>TimelinePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="VisualTreeUtilities.cs" />
+    <Compile Include="Win8Libs\LocalStorageWin8.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
