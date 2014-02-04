@@ -11,11 +11,12 @@
     xmlns:prism="using:Microsoft.Practices.Prism.StoreApps"   
     xmlns:omsqft="using:OneMSQFT.Windows.Views"
     xmlns:omsqftcontrols="using:OneMSQFT.Windows.Controls"
-    xmlns:ViewModels="using:OneMSQFT.UILogic.ViewModels"
+    xmlns:viewModels="using:OneMSQFT.UILogic.ViewModels"
+    xmlns:designViewModels="using:OneMSQFT.Windows.DesignViewModels"
     x:Class="OneMSQFT.Windows.Views.TimelinePage"
     mc:Ignorable="d"
     prism:ViewModelLocator.AutoWireViewModel="True" 
-	d:DataContext="{d:DesignInstance ViewModels:TimelinePageViewModel, IsDesignTimeCreatable=True}">
+	d:DataContext="{d:DesignInstance designViewModels:DesignTimelinePageViewModel, IsDesignTimeCreatable=True}">
 
     <omsqft:BasePageView.Resources>
         <Storyboard x:Name="StoryboardSeeker">

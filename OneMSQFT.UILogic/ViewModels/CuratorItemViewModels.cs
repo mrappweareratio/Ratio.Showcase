@@ -10,13 +10,13 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class CuratorItemViewModel : ItemBaseViewModel
     {
-        public CuratorItemViewModel(Curator curatorModel)
+        public CuratorItemViewModel(ICurator<IExhibit> curatorModel)
         {
             Curator = curatorModel;
             Name = curatorModel.Name;
             Id = curatorModel.Id;
             Description = curatorModel.Description;
         }
-        private Curator Curator { get; set; }
+        private ICurator<IExhibit> Curator { get; set; }
     }
 }
