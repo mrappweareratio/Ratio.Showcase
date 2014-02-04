@@ -148,9 +148,9 @@
       <Project>{968da72e-61d0-4f0d-a6f1-4160ae8ac5fa}</Project>
       <Name>OneMSQFT.Portable</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OneMSQFT.UILogic\OneMSQFT.UILogic.csproj">
+    <ProjectReference Include="..\OneMSQFT.UILogic\OneMSQFT.UILogic.csproj_bak.csproj">
       <Project>{727502bb-55eb-40ec-aedf-1df70da436a9}</Project>
-      <Name>OneMSQFT.UILogic</Name>
+      <Name>OneMSQFT.UILogic.csproj_bak</Name>
     </ProjectReference>
     <ProjectReference Include="..\Prism.StoreApps\Microsoft.Practices.Prism.StoreApps.csproj">
       <Project>{a2303152-0f67-4ca5-8639-0a16e64a8b6d}</Project>
