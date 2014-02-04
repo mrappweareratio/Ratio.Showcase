@@ -13,12 +13,14 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
+using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
+using OneMSQFT.Windows.DesignViewModels;
 
 namespace OneMSQFT.Windows.Views
 {
-    public sealed partial class TimelinePage : BasePageView
+    public sealed partial class TimelinePage
     {
         private ScrollViewer _timelineGridViewScrollViewer;
 
@@ -32,7 +34,7 @@ namespace OneMSQFT.Windows.Views
 
         void TimelinePage_Loaded(object sender, RoutedEventArgs e)
         {
-            PopulateTopAppbar(((TimelinePageViewModel)this.DataContext));
+            PopulateTopAppbar(((ITimelinePageViewModel)this.DataContext));
             TimelinePageViewModel vm = this.DataContext as TimelinePageViewModel;
             if (vm != null)
             {
@@ -43,7 +45,7 @@ namespace OneMSQFT.Windows.Views
         private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
         {
             _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(itemsGridView);
-            _timelineGridViewScrollViewer.ScrollToHorizontalOffset(((TimelinePageViewModel)this.DataContext).TimeLineItems.Count/2 * Window.Current.Bounds.Width);
+            _timelineGridViewScrollViewer.ScrollToHorizontalOffset(((ITimelinePageViewModel)DataContext).TimeLineItems.Count/2 * Window.Current.Bounds.Width);
             _timelineGridViewScrollViewer.ViewChanged += _timelineGridViewScrollViewer_ViewChanged;
             itemsGridView.Opacity = 1;
         }

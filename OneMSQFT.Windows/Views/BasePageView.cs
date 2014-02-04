@@ -10,8 +10,10 @@ using Windows.UI.Xaml.Media.Animation;
 using OneMSQFT.Common.Models;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
+using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
+using OneMSQFT.Windows.DesignViewModels;
 
 namespace OneMSQFT.Windows.Views
 {
@@ -46,7 +48,7 @@ namespace OneMSQFT.Windows.Views
                 ChildrenTransitions = childTransitions
             };
 
-            ScrollViewer topScrollViewer = new ScrollViewer
+            var topScrollViewer = new ScrollViewer
             {
                 Margin = new Thickness(0,0,0,-10),
                 Padding = new Thickness(10, 0, 10, 10), // using 10 so scroll bars don't obscure content
@@ -60,7 +62,7 @@ namespace OneMSQFT.Windows.Views
         {
         }
 
-        public void PopulateTopAppbar(TimelinePageViewModel vm)
+        public void PopulateTopAppbar(ITimelinePageViewModel vm)
         {
             foreach (var e in vm.SquareFootPastEvents)
             {

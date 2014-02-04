@@ -11,8 +11,10 @@ namespace OneMSQFT.Common.Models
         int SquareFootage { get; }
     }
 
-    public interface IEvent<TCurator> : ISocialMedia, ISquareFootageItem, IDatedItem, IColor where TCurator : ICurator
+    public interface IEvent<out TCurator> : ISocialMedia, ISquareFootageItem, IDatedItem, IColor, IHasMediaContent where TCurator : ICurator<IExhibit>
     {
+        string Longitude { get; }
+        string Lattitude { get; }
         string Geolocation { get; }
         /// <summary>
         /// No specific hi-dpi paths will be in the database. 
@@ -20,57 +22,46 @@ namespace OneMSQFT.Common.Models
         /// This also applies to all subsequent image file paths in this document.
         /// </summary>
         string PhotoFilePath { get; }
-        List<TCurator> Curators { get; }        
-    }
-
-    public interface IEvent : IEvent<Curator>
-    {
-        
+        IEnumerable<TCurator> Curators { get; }
     }
 
     public interface IDatedItem
     {
-        string DateRange { get; }
+        string DisplayDate { get; }
         DateTime DateStart { get; }
         DateTime DateEnd { get; }
     }
 
-    public interface ICurator<TExhibit> : ISquareFootageItem, ISocialMedia, IColor where TExhibit : IExhibit
+    public interface ICurator<out TExhibit> : ISquareFootageItem, ISocialMedia, IColor where TExhibit : IExhibit
     {
-        string LogoFileName { get; }
+        string EventId { get; }
+        string LogoImageName { get; }
         /// <summary>
         /// CMS to enforce protocol prefix, i.e. http:// or https:// 
         /// </summary>
         string ExternalUrl { get; }
-        List<TExhibit> Exhibits { get; }
+        IEnumerable<TExhibit> Exhibits { get; }
     }
 
-    public interface ICurator : ICurator<Exhibit>
-    {
-        
-    }
-
-    public interface IExhibit : ISquareFootageItem, ITaggable
+    public interface IExhibit : ISquareFootageItem, ITaggable, IHasMediaContent        
     {
         /// <summary>
         /// Optional field if name is not in the title
         /// </summary>
         string Exhibitor { get; }
         string FacebookEventUrl { get; }
-        /// <summary>
-        /// No specific hi-dpi paths will be in the database. Instead the standard @2x suffix will be used where hi-dpi support is implemented. This also applies to all subsequent image file paths in this document.
-        /// </summary>
-        string PhotoFilePath { get; }
-        /// <summary>
-        /// Not mandatory.
-        /// </summary>
-        string VideoFilePath { get; }
+        string PhotoFilePath { get; set; }
+    }
+
+    public interface IHasMediaContent
+    {
+        IEnumerable<MediaContentSource> MediaContent { get; }
     }
 
     public interface ITaggable
     {
         List<Tag> Tags { get; }
-    }   
+    }
 
     public interface IColor
     {
@@ -92,5 +83,28 @@ namespace OneMSQFT.Common.Models
         string SocialMediaDescription { get; }
         string SocialMediaImagePath { get; }
         string SeoMetaDescription { get; }
+    }    
+
+    public interface IMediaContentSource
+    {
+        string Id { get; }
+        string ParentId { get; }
+        string Source { get; }
+        ContentSourceType ContentSourceType { get; }
+    }
+
+    public interface IBaseResponse<TResult, TError>
+        where TResult : class
+        where TError : IError
+    {
+        string SystemResponse { get; set; }
+        bool Success { get; set; }
+        TError Error { get; set; }
+        TResult Result { get; set; }
+    }
+
+    public interface IError
+    {
+        string Code { get; }
     }
 }
