@@ -35,7 +35,7 @@ namespace OneMSQFT.Windows.Views
         void TimelinePage_Loaded(object sender, RoutedEventArgs e)
         {
             PopulateTopAppbar(((ITimelinePageViewModel)this.DataContext));
-            DesignTimelinePageViewModel vm = this.DataContext as DesignTimelinePageViewModel;
+            ITimelinePageViewModel vm = this.DataContext as ITimelinePageViewModel;
             if (vm != null)
             {
                 vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
@@ -77,7 +77,7 @@ namespace OneMSQFT.Windows.Views
 
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
-            DesignTimelinePageViewModel vm = this.DataContext as DesignTimelinePageViewModel;
+            ITimelinePageViewModel vm = this.DataContext as ITimelinePageViewModel;
             if(vm != null)
             {
                 vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
