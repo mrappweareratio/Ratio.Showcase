@@ -20,6 +20,7 @@ namespace OneMSQFT.UILogic.ViewModels
             Name = eventModel.Name;
             Description = eventModel.Description;
             Id = eventModel.Id;
+            SquareFootage = eventModel.SquareFootage;
         }
         
         private IEvent<ICurator<IExhibit>> Event { get; set; }
@@ -45,13 +46,7 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
         public DateTime DateStart { get { return Event.DateStart; } }
-        public String SquareFootage
-        {
-            get
-            {
-                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", Event.SquareFootage)).Trim();
-            }
-        }
+       
         public Uri PhotoFilePath
         {
             get
@@ -88,7 +83,5 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public double ItemWidth { get { return Window.Current.Bounds.Width; } }
         public double ItemHeight { get { return Window.Current.Bounds.Width; } }
-        public double ZoomedOutItemWidth { get { return Window.Current.Bounds.Width / 6; } }
-        public double ZoomedOutItemHeight { get { return Window.Current.Bounds.Height / 4; } }
     }
 }

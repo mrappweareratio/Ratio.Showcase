@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
+using Windows.UI.Core;
 using OneMSQFT.Windows.DesignViewModels;
 
 namespace OneMSQFT.Windows.Views
@@ -34,6 +35,11 @@ namespace OneMSQFT.Windows.Views
         void TimelinePage_Loaded(object sender, RoutedEventArgs e)
         {
             PopulateTopAppbar(((ITimelinePageViewModel)this.DataContext));
+            ITimelinePageViewModel vm = this.DataContext as ITimelinePageViewModel;
+            if (vm != null)
+            {
+                vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
+            }
         }
 
         private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
@@ -68,5 +74,31 @@ namespace OneMSQFT.Windows.Views
                 itemsGridView.Opacity = 0;
             }
         }
+
+        protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
+        {
+            ITimelinePageViewModel vm = this.DataContext as ITimelinePageViewModel;
+            if(vm != null)
+            {
+                vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
+            }
+            base.WindowSizeChanged(sender, e);
+        }
+
+        private void VideoButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (!VideoPopup.IsOpen)
+            {
+                semanticZoom.Opacity = 0;
+                VideoPopup.IsOpen = true; 
+            }
+        }
+
+        private void VideoPopup_Closed(object sender, object e)
+        {
+            semanticZoom.Opacity = 1;
+
+        }
+
     }
 }

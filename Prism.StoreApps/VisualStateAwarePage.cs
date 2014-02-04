@@ -29,7 +29,7 @@ namespace Microsoft.Practices.Prism.StoreApps
         public static readonly string DefaultLayoutVisualState = "DefaultLayout";
 
         /// <summary>
-        /// Name of portraite visual state
+        /// Name of portrait visual state
         /// </summary>
         public static readonly string PortraitLayoutVisualState = "PortraitLayout";
 
@@ -284,8 +284,10 @@ namespace Microsoft.Practices.Prism.StoreApps
             // Set the initial visual state of the control
             VisualStateManager.GoToState(control, DetermineVisualState(this.ActualWidth, this.ActualHeight), false);
         }
-
-        private void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
+        /// <summary>
+        /// WindowSizeChanged
+        /// </summary>
+        protected virtual void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
             this.InvalidateVisualState(e.Size.Width, e.Size.Height);
         }

@@ -112,6 +112,9 @@
     <Compile Include="Behaviors\NavigateWithEventArgsToPageAction.cs" />
     <Compile Include="Controls\AutoRotatingGridView.cs" />
     <Compile Include="Controls\MultipleSizedGridView.cs" />
+    <Compile Include="Controls\VideoPlayerUserControl.xaml.cs">
+      <DependentUpon>VideoPlayerUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataTemplateSelectors\TimelineDataTemplateSelector.cs" />
     <Compile Include="DesignViewModels\DesignTimelinePageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -139,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\VideoPlayerUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Properties\DesignTimeResources.xaml" Condition="'$(DesignTime)'=='true' OR ('$(SolutionPath)'!='' AND Exists('$(SolutionPath)') AND '$(BuildingInsideVisualStudio)'!='true' AND '$(BuildingInsideExpressionBlend)'!='true')">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

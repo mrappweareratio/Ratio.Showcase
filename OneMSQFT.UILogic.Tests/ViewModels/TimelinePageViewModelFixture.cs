@@ -28,5 +28,16 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             Assert.IsNotNull(vm.TimeLineItems);
             Assert.IsNotNull(vm.TimeLineMenuItems);
         }
+
+        [TestMethod]
+        public void WindowSizeChanged_Sets_Zoom_Heights()
+        {
+            double hWindow = 768;
+            double wWindow = 1366;
+            var vm = new TimelinePageViewModel() as ITimelinePageViewModel;
+            vm.WindowSizeChanged(wWindow,hWindow);
+            Assert.AreEqual(hWindow / 4, vm.ZoomedOutItemHeight);
+            Assert.AreEqual(wWindow / 6, vm.ZoomedOutItemWidth);            
+        }
     }
 }

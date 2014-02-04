@@ -17,6 +17,7 @@ namespace OneMSQFT.UILogic.ViewModels
             Name = exhibitModel.Name;
             Description = exhibitModel.Description;
             Id = exhibitModel.Id;
+            SquareFootage = exhibitModel.SquareFootage;
         }
         
         private IExhibit Exhibit { get; set; }        
@@ -30,14 +31,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 }
                 return new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
             }
-        }        
-        public String SquareFootageString
-        {
-            get
-            {
-                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", Exhibit.SquareFootage)).Trim();
-            }
-        }
+        }    
         public double ExhibitItemHeight { get { return Window.Current.Bounds.Height / 4; } }
         public double ExhibitItemWidth { get { return Window.Current.Bounds.Width / 3; } }
     }

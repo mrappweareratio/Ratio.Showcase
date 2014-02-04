@@ -7,6 +7,7 @@
     xmlns:omsqftbehaviors="using:OneMSQFT.Windows.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:ViewModels="using:OneMSQFT.UILogic.ViewModels"
     mc:Ignorable="d">
 
     <Style x:Key="OMSQFTAppBarButtonStyle" TargetType="Button">
@@ -113,178 +114,7 @@
     <SolidColorBrush x:Key="OMSQFTItemBorderBrush" Color="White" />
     <SolidColorBrush x:Key="OMSQFTItemForegroundBrush" Color="{StaticResource SystemColorWindowTextColor}" />
 
-    <DataTemplate x:Key="OMSQFTPastItemTemplate">
-        <Border BorderThickness="1" Background="{Binding EventColor, Mode=OneWay}">
-            <Grid Width="{Binding ItemWidth, Mode=OneWay}">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Image
-					Source="{Binding PhotoFilePath, Mode=OneWay}"
-					VerticalAlignment="Center"
-					HorizontalAlignment="Center"
-					AutomationProperties.Name="{Binding Name}" Grid.RowSpan="2" Grid.ColumnSpan="2" Stretch="Fill"/>
-                <Grid Background="{Binding EventColor, Mode=OneWay}" Grid.Column="2" Grid.RowSpan="4" Grid.ColumnSpan="2" >
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Height="Auto" MinHeight="59"/>
-                        <RowDefinition Height="Auto" MinHeight="59"/>
-                        <RowDefinition Height="Auto" MinHeight="167"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="{Binding SquareFootage, Mode=OneWay}"
-						Foreground="{StaticResource OneMSQFTWhiteBrush}"
-						FontSize="60"
-						Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
-                    <TextBlock Text="{Binding Name, Mode=OneWay}"
-						Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-						Style="{StaticResource TitleTextStyle}"
-						TextWrapping="NoWrap"
-						Margin="15,0,15,0" Grid.Row="2"/>
-                    <TextBlock Text="{Binding Description}"
-						Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
-						Style="{StaticResource CaptionTextStyle}"
-						TextWrapping="NoWrap"
-						Margin="15,0" Grid.Row="3"/>
-                </Grid>
-                <Grid Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2">
-                    <GridView ItemsSource="{Binding Exhibits}"
-                              ItemTemplate="{StaticResource TimelineExhibitTemplate}"
-                              ItemContainerStyle="{StaticResource TimelineSemanticZoomItemContainerStyle}"
-                              SelectionMode="Single"
-                              IsItemClickEnabled="True"
-                              IsTapEnabled="True">
-                        <GridView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </GridView.ItemsPanel>
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="ItemClick">
-                                <omsqftbehaviors:NavigateWithEventArgsToPageAction 
-                                TargetPage="OneMSQFT.Windows.Views.TimelinePage"
-                                EventArgsParameterPath="ClickedItem" />
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                    </GridView>
-                </Grid>
-            </Grid>
-        </Border>
-    </DataTemplate>
 
-    <DataTemplate x:Key="OMSQFTFutureItemTemplate">
-        <Border BorderThickness="1" Background="{Binding EventColor, Mode=OneWay}">
-            <Grid Width="{Binding ItemWidth, Mode=OneWay}">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Image
-					Source="{Binding PhotoFilePath, Mode=OneWay}"
-					VerticalAlignment="Center"
-					HorizontalAlignment="Left"
-					AutomationProperties.Name="{Binding Name}" 
-					Grid.RowSpan="2" Stretch="Fill" 
-					Grid.Column="1" Grid.ColumnSpan="2"/>
-                <Grid Background="{Binding EventColor, Mode=OneWay}" Grid.RowSpan="4">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Height="Auto" MinHeight="59"/>
-                        <RowDefinition Height="Auto" MinHeight="59"/>
-                        <RowDefinition Height="Auto" MinHeight="167"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="{Binding SquareFootage, Mode=OneWay}"
-						Foreground="{StaticResource OneMSQFTWhiteBrush}"
-						FontSize="60"
-						Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
-                    <TextBlock Text="{Binding Name, Mode=OneWay}"
-						Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-						Style="{StaticResource TitleTextStyle}"
-						TextWrapping="NoWrap"
-						Margin="15,0,15,0" Grid.Row="2"/>
-                    <TextBlock Text="{Binding Description}"
-						Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
-						Style="{StaticResource CaptionTextStyle}"
-						TextWrapping="NoWrap"
-						Margin="15,0" Grid.Row="3" HorizontalAlignment="Left"/>
-                </Grid>
-                <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
-                    <GridView ItemsSource="{Binding Exhibits}"
-                              ItemTemplate="{StaticResource TimelineExhibitTemplate}"
-                              ItemContainerStyle="{StaticResource TimelineSemanticZoomItemContainerStyle}"
-                              SelectionMode="Single"
-                              IsItemClickEnabled="True"
-                              IsTapEnabled="True">
-                        <GridView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </GridView.ItemsPanel>
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="ItemClick">
-                                <omsqftbehaviors:NavigateWithEventArgsToPageAction 
-                                TargetPage="OneMSQFT.Windows.Views.TimelinePage"
-                                EventArgsParameterPath="ClickedItem" />
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                    </GridView>
-                </Grid>
-            </Grid>
-        </Border>
-    </DataTemplate>
-
-    <DataTemplate x:Key="OMSQFTHomeItemTemplate">
-        <Border BorderThickness="1" Background="{Binding EventColor, Mode=OneWay}">
-            <Grid Width="{Binding ItemWidth, Mode=OneWay}" Height="{Binding ItemHeight, Mode=OneWay}">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid Background="{StaticResource OneMSQFTWhiteBrush}" Margin="100" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" Width="{Binding ColorColumnWidth, Mode=OneWay}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" MinHeight="159" />
-                        <RowDefinition Height="Auto" MinHeight="59"/>
-                        <RowDefinition Height="Auto" MinHeight="159"/>
-                        <RowDefinition Height="Auto" MinHeight="167"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="{Binding SquareFootage, Mode=OneWay}"
-						Foreground="{StaticResource OneMSQFTBlackBrush}"
-						FontSize="60"
-						Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
-                    <TextBlock Text="{Binding Strings.IntroBlurb, Source={StaticResource PortableStrings}}"
-						Foreground="{StaticResource OneMSQFTBlackBrush}"
-						TextWrapping="Wrap"
-						Margin="15,20,15,19" Grid.Row="2" VerticalAlignment="Center" FontSize="24" FontWeight="Light" LineHeight="32" LineStackingStrategy="BlockLineHeight"/>
-                    <TextBlock Text="{Binding Strings.AppTitle, Source={StaticResource PortableStrings}}"
-						Foreground="{StaticResource OneMSQFTBlackBrush}"
-						Style="{StaticResource CaptionTextStyle}"
-						TextWrapping="NoWrap"
-						Margin="15,0" Grid.Row="3" VerticalAlignment="Top" Height="20"/>
-                </Grid>
-            </Grid>
-        </Border>
-    </DataTemplate>
 
 
     <Style x:Key="TimelineItemContainerStyle" TargetType="GridViewItem">
@@ -435,7 +265,7 @@
             <TextBlock Margin="0,20,0,0"
 					FontSize="42"
 					Height="Auto"
-					Text="{Binding SquareFootage}"
+					Text="{Binding SquareFootageString}"
 					TextWrapping="NoWrap"
                     TextAlignment="Center"
 					TextTrimming="WordEllipsis" VerticalAlignment="Top">
@@ -460,30 +290,4 @@
             </TextBlock>
         </Grid>
     </DataTemplate>
-
-    <DataTemplate x:Key="OMSQFTItemTemplateSemanticZoom">
-        <Border BorderBrush="{StaticResource OneMSQFTAnswerGrayBrush}" 
-                BorderThickness="1,1,1,1" 
-                Background="{Binding EventColor, Mode=OneWay}" 
-                Width="{Binding ZoomedOutItemWidth, Mode=OneWay}" 
-                Height="{Binding ZoomedOutItemHeight, Mode=OneWay}" 
-                Padding="5">
-    		<Grid>
-    			<Grid.RowDefinitions>
-    				<RowDefinition Height="50*"/>
-    				<RowDefinition Height="50*"/>
-    				<RowDefinition Height="50*"/>
-    			</Grid.RowDefinitions>
-    			<TextBlock Text="{Binding SquareFootage}"
-    				TextTrimming="WordEllipsis"
-    				FontSize="29.333"
-    				Margin="0,10,0,16" HorizontalAlignment="Center" FontFamily="Segoe UI"/>
-    			<TextBlock Text="{Binding Name, Mode=OneWay}"
-    				FontSize="20" Grid.Row="1" HorizontalAlignment="Center"/>
-    			<TextBlock Text="{Binding DateStart, Mode=OneWay}"
-    				FontSize="20" Grid.Row="2" HorizontalAlignment="Center"/>
-    		</Grid>
-    	</Border>
-    </DataTemplate>
-
 </ResourceDictionary>

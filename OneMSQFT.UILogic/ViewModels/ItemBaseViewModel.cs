@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OneMSQFT.Common.Models;
+using System.Globalization;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
@@ -14,5 +15,12 @@ namespace OneMSQFT.UILogic.ViewModels
         public String Description { get; set; }
         public String Id { get; set; }
         public int SquareFootage { get; set; }
+        public String SquareFootageString  
+        {
+            get
+            {
+                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", SquareFootage)).Trim();
+            }
+        }
     }
 }
