@@ -85,5 +85,20 @@ namespace OneMSQFT.Windows.Views
             base.WindowSizeChanged(sender, e);
         }
 
+        private void VideoButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (!VideoPopup.IsOpen)
+            {
+                semanticZoom.Opacity = 0;
+                VideoPopup.IsOpen = true; 
+            }
+        }
+
+        private void VideoPopup_Closed(object sender, object e)
+        {
+            semanticZoom.Opacity = 1;
+
+        }
+
     }
 }

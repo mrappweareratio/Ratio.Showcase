@@ -6,6 +6,8 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
 {
     public interface ITimelinePageViewModel
     {
+        double ZoomedOutItemHeight{get;}
+        double ZoomedOutItemWidth { get; }
         ObservableCollection<EventItemViewModel> SquareFootFutureEvents { get; }
         ObservableCollection<EventItemViewModel> SquareFootPastEvents { get; }
         ObservableCollection<EventItemViewModel> TimeLineItems{ get; }       

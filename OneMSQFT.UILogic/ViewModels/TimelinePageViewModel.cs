@@ -50,10 +50,9 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-
         public void WindowSizeChanged(double width, double height)
         {
-            ZoomedOutItemWidth = width/6;
+            ZoomedOutItemWidth = width / 6;
             ZoomedOutItemHeight = height / 4;
         }
 

@@ -20,6 +20,7 @@ namespace OneMSQFT.UILogic.ViewModels
             Name = eventModel.Name;
             Description = eventModel.Description;
             Id = eventModel.Id;
+            SquareFootage = eventModel.SquareFootage;
         }
         
         private IEvent<ICurator<IExhibit>> Event { get; set; }
@@ -45,13 +46,6 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
         public DateTime DateStart { get { return Event.DateStart; } }
-        public String EventSquareFootageString
-        {
-            get
-            {
-                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", Event.SquareFootage)).Trim();
-            }
-        }
        
         public Uri PhotoFilePath
         {
