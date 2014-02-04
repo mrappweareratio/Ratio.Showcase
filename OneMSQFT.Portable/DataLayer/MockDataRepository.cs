@@ -12,21 +12,18 @@ namespace OneMSQFT.UILogic.DataLayer
         private LocalStorageManager _localStorage;
         private string jsonFileName = "sundance.json";
 
-        public MockDataRepository()
+        public MockDataRepository(ILocalStorageProvider localStorageProvider)
         {
-            _localStorage = new LocalStorageManager(new MockLocalStorageProvider());
+            _localStorage = new LocalStorageManager(localStorageProvider);
         }
 
         public async Task<TimelineResult> LoadAllData()
         {
-            string jsonData;
-            jsonData = await _localStorage.LoadFile(jsonFileName);
+            string jsonData = await _localStorage.LoadFile(jsonFileName);
 
             //Convert to model data
             var dataFromJSON = JsonConvert.DeserializeObject<TimelineResult>(jsonData);
-            //Task<TimelineResult> timelineData = new TimelineResult(dataFromJSON);
 
-            //return timelineData;
             return dataFromJSON;
         }
 

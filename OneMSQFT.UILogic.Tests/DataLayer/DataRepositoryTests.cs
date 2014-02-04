@@ -11,21 +11,21 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         [TestMethod]
         async public Task MockDataRepository_TimlineResult_Not_Null()
         {
-            var dataRepo = new MockDataRepository();
+            var dataRepo = new MockDataRepository(new MockLocalStorageProvider());
             var result = await dataRepo.LoadAllData();
             Assert.IsNotNull(result);
         }
         [TestMethod]
         async public Task MockDataRepository_TimlineResult_Events_Not_Null()
         {
-            var dataRepo = new MockDataRepository();
+            var dataRepo = new MockDataRepository(new MockLocalStorageProvider());
             var result = await dataRepo.LoadAllData();
             Assert.IsNotNull(result.Events);
         }
         [TestMethod]
         async public Task MockDataRepository_TimlineResult_Events_Has_One()
         {
-            var dataRepo = new MockDataRepository();
+            var dataRepo = new MockDataRepository(new MockLocalStorageProvider());
             var result = await dataRepo.LoadAllData();
             var e = result.Events.FirstOrDefault();
             Assert.IsNotNull(e);
