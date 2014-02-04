@@ -86,7 +86,5 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public double ItemWidth { get { return Window.Current.Bounds.Width; } }
         public double ItemHeight { get { return Window.Current.Bounds.Width; } }
-        public double ZoomedOutItemWidth { get { return Window.Current.Bounds.Width / 6; } }
-        public double ZoomedOutItemHeight { get { return Window.Current.Bounds.Height / 4; } }
     }
 }

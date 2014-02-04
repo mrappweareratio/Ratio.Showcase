@@ -53,7 +53,7 @@ namespace OneMSQFT.Windows.Controls
         {
             this.SizeChanged += RotatingGridview_SizeChanged;
 
-            // These styles will be overriden by the custom ones
+            // These styles will be overridden by the custom ones
             this.ItemsPanel = XamlReader.Load(defaultLandscapeItemsPanelTemplate) as ItemsPanelTemplate;
             this.PortraitItemsPanel = XamlReader.Load(defaultPortraitItemsPanelTemplate) as ItemsPanelTemplate;
 

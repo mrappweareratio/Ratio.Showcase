@@ -4,6 +4,8 @@ using Microsoft.Practices.Prism.StoreApps;
 using System.Collections.ObjectModel;
 using OneMSQFT.Common.Models;
 using System;
+using Windows.UI.Xaml;
+using Windows.UI.Core;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
@@ -71,5 +73,44 @@ namespace OneMSQFT.UILogic.ViewModels
                 c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
                 return c as ObservableCollection<EventItemViewModel>;
         } }
+        private double _zoomedOutItemWidth;
+        private double _zoomedOutItemHeight;
+        public double ZoomedOutItemWidth
+        {
+            get
+            {
+                return _zoomedOutItemWidth;
+            }
+            set
+            { 
+                if(value != null)
+                {
+                    SetProperty(ref _zoomedOutItemWidth, value);
+                }
+            }
+        }
+        public double ZoomedOutItemHeight
+        {
+            get
+            {
+                return _zoomedOutItemHeight;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    SetProperty(ref _zoomedOutItemHeight, value);
+                }
+            }
+        }
+
+
+        public void WindowSizeChanged(double width, double height)
+        {
+            ZoomedOutItemWidth = width/6;
+            ZoomedOutItemHeight = height / 4;
+            //Debug.WriteLine("WIDTH + ");
+        }
+
     }
 }

@@ -33,6 +33,32 @@
         		<EasingDoubleKeyFrame KeyTime="0:10:0" Value="763.062"/>
         	</DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <ViewModels:DataContextProxy x:Key="DataContextProxy" />
+
+        <DataTemplate x:Key="OMSQFTItemTemplateSemanticZoom">
+            <Border BorderBrush="{StaticResource OneMSQFTAnswerGrayBrush}" 
+                BorderThickness="1,1,1,1" 
+                Background="{Binding EventColor, Mode=OneWay}" 
+                Width="{Binding DataSource.ZoomedOutItemWidth, Source={StaticResource DataContextProxy}}" 
+                Height="{Binding DataSource.ZoomedOutItemHeight, Source={StaticResource DataContextProxy}}" 
+                Padding="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{Binding SquareFootage}"
+    				TextTrimming="WordEllipsis"
+    				FontSize="29.333"
+    				Margin="0,10,0,16" HorizontalAlignment="Center" FontFamily="Segoe UI"/>
+                    <TextBlock Text="{Binding Name, Mode=OneWay}"
+    				FontSize="20" Grid.Row="1" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding DateStart, Mode=OneWay}"
+    				FontSize="20" Grid.Row="2" HorizontalAlignment="Center"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
     </omsqft:BasePageView.Resources>
     
 	<Grid Background="White">
@@ -74,19 +100,19 @@
                 It also includes the functionality of the custom AutoRotatingGridView control, that automatically rearranges items,
                 when the app is switched to portrait mode, or to minimal layout mode. -->
                 <omsqftcontrols:MultipleSizedGridView x:Name="itemsGridView"
-                                                AutomationProperties.AutomationId="HubPageItemGridView"
-                                                AutomationProperties.Name="Grouped Items"
-                                                Margin="0"
-                                                Padding="0"
-                                                Background="White"
-                                                SelectionMode="None"
-                                                ItemsSource="{Binding TimeLineItems}"
-                                                IsSwipeEnabled="False"
-                                                IsTapEnabled="False"
-                                                IsItemClickEnabled="False"
-                                                ScrollViewer.IsHorizontalScrollChainingEnabled="False"
-                                                Loaded="itemsGridView_Loaded" 
-                                                ItemContainerStyle="{StaticResource TimelineItemContainerStyle}">
+                    AutomationProperties.AutomationId="HubPageItemGridView"
+                    AutomationProperties.Name="Grouped Items"
+                    Margin="0"
+                    Padding="0"
+                    Background="White"
+                    SelectionMode="None"
+                    ItemsSource="{Binding TimeLineItems}"
+                    IsSwipeEnabled="False"
+                    IsTapEnabled="False"
+                    IsItemClickEnabled="False"
+                    ScrollViewer.IsHorizontalScrollChainingEnabled="False"
+                    Loaded="itemsGridView_Loaded" 
+                    ItemContainerStyle="{StaticResource TimelineItemContainerStyle}">
                     
 					<omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
                         <templateSelectors:TimelineDataTemplateSelector

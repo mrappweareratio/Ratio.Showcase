@@ -11,6 +11,7 @@ using OneMSQFT.Common.Models;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
 using OneMSQFT.UILogic.ViewModels;
+using Windows.UI.Core;
 
 namespace OneMSQFT.Windows.Views
 {
@@ -18,7 +19,6 @@ namespace OneMSQFT.Windows.Views
     {
         public BasePageView()
         {
-                
         }
 
         protected StackPanel TopAppBarContentStackPanel;
