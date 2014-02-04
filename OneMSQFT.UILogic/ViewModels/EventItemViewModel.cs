@@ -45,13 +45,14 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
         public DateTime DateStart { get { return Event.DateStart; } }
-        public String SquareFootage
+        public String EventSquareFootageString
         {
             get
             {
                 return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", Event.SquareFootage)).Trim();
             }
         }
+       
         public Uri PhotoFilePath
         {
             get

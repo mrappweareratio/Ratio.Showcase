@@ -55,7 +55,6 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             ZoomedOutItemWidth = width/6;
             ZoomedOutItemHeight = height / 4;
-            //Debug.WriteLine("WIDTH + ");
         }
 
     }

@@ -70,5 +70,42 @@ namespace OneMSQFT.Windows.DesignViewModels
                 c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
                 return c as ObservableCollection<EventItemViewModel>;
         } }
+
+        private double _zoomedOutItemWidth;
+        private double _zoomedOutItemHeight;
+        public double ZoomedOutItemWidth
+        {
+            get
+            {
+                return _zoomedOutItemWidth;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    SetProperty(ref _zoomedOutItemWidth, value);
+                }
+            }
+        }
+        public double ZoomedOutItemHeight
+        {
+            get
+            {
+                return _zoomedOutItemHeight;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    SetProperty(ref _zoomedOutItemHeight, value);
+                }
+            }
+        }
+
+        public void WindowSizeChanged(double width, double height)
+        {
+            ZoomedOutItemWidth = width / 6;
+            ZoomedOutItemHeight = height / 4;
+        }
     }
 }

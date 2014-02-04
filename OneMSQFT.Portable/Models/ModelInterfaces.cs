@@ -8,7 +8,7 @@ namespace OneMSQFT.Common.Models
         string Id { get; }
         string Name { get; }
         string Description { get; }
-        int SquareFootage { get; }
+        int SquareFootage { get; set; }
     }
 
     public interface IEvent<out TCurator> : ISocialMedia, ISquareFootageItem, IDatedItem, IColor, IHasMediaContent where TCurator : ICurator<IExhibit>

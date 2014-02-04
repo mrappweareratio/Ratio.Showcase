@@ -140,7 +140,7 @@
                         <RowDefinition Height="Auto" MinHeight="59"/>
                         <RowDefinition Height="Auto" MinHeight="167"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="{Binding SquareFootage, Mode=OneWay}"
+                    <TextBlock Text="{Binding EventSquareFootageString}"
 						Foreground="{StaticResource OneMSQFTWhiteBrush}"
 						FontSize="60"
 						Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
@@ -208,7 +208,7 @@
                         <RowDefinition Height="Auto" MinHeight="59"/>
                         <RowDefinition Height="Auto" MinHeight="167"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="{Binding SquareFootage, Mode=OneWay}"
+                    <TextBlock Text="{Binding EventSquareFootageString}"
 						Foreground="{StaticResource OneMSQFTWhiteBrush}"
 						FontSize="60"
 						Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
@@ -248,44 +248,6 @@
         </Border>
     </DataTemplate>
 
-    <DataTemplate x:Key="OMSQFTHomeItemTemplate">
-        <Border BorderThickness="1" Background="{Binding EventColor, Mode=OneWay}">
-            <Grid Width="{Binding ItemWidth, Mode=OneWay}" Height="{Binding ItemHeight, Mode=OneWay}">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid Background="{StaticResource OneMSQFTWhiteBrush}" Margin="100" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" Width="{Binding ColorColumnWidth, Mode=OneWay}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" MinHeight="159" />
-                        <RowDefinition Height="Auto" MinHeight="59"/>
-                        <RowDefinition Height="Auto" MinHeight="159"/>
-                        <RowDefinition Height="Auto" MinHeight="167"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="{Binding SquareFootage, Mode=OneWay}"
-						Foreground="{StaticResource OneMSQFTBlackBrush}"
-						FontSize="60"
-						Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
-                    <TextBlock Text="{Binding Strings.IntroBlurb, Source={StaticResource PortableStrings}}"
-						Foreground="{StaticResource OneMSQFTBlackBrush}"
-						TextWrapping="Wrap"
-						Margin="15,20,15,19" Grid.Row="2" VerticalAlignment="Center" FontSize="24" FontWeight="Light" LineHeight="32" LineStackingStrategy="BlockLineHeight"/>
-                    <TextBlock Text="{Binding Strings.AppTitle, Source={StaticResource PortableStrings}}"
-						Foreground="{StaticResource OneMSQFTBlackBrush}"
-						Style="{StaticResource CaptionTextStyle}"
-						TextWrapping="NoWrap"
-						Margin="15,0" Grid.Row="3" VerticalAlignment="Top" Height="20"/>
-                </Grid>
-            </Grid>
-        </Border>
-    </DataTemplate>
 
 
     <Style x:Key="TimelineItemContainerStyle" TargetType="GridViewItem">
@@ -436,7 +398,7 @@
             <TextBlock Margin="0,20,0,0"
 					FontSize="42"
 					Height="Auto"
-					Text="{Binding SquareFootage}"
+					Text="{Binding SquareFootageString}"
 					TextWrapping="NoWrap"
                     TextAlignment="Center"
 					TextTrimming="WordEllipsis" VerticalAlignment="Top">
