@@ -113,4 +113,18 @@
 
     <SolidColorBrush x:Key="OMSQFTItemBorderBrush" Color="White" />
     <SolidColorBrush x:Key="OMSQFTItemForegroundBrush" Color="{StaticResource SystemColorWindowTextColor}" />
+    <MenuFlyout x:Key="FilterFlyout">
+    	<MenuFlyoutItem Text="Music"/>
+    	<MenuFlyoutItem Text="Performance"/>
+    	<MenuFlyoutItem Text="Fashion"/>
+    	<MenuFlyoutItem Text="Media"/>
+    </MenuFlyout>
+    <Flyout x:Key="AdminFlyout">
+	<Grid Background="White">
+		<StackPanel Orientation="Vertical">
+		<PasswordBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" BorderBrush="{StaticResource AppBarUserControlBorderBackgroundBrush}" PlaceholderText="password" Margin="0,0,0,10" SelectionHighlightColor="{StaticResource OneMSQFTBlueBrush}"/>
+			<Button x:Name="submitbutton" Content="submit" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTBlackBrush}" BorderBrush="{StaticResource DefaultAppBarBrush}"/>
+		</StackPanel>
+	</Grid>
+    </Flyout>
 </ResourceDictionary>

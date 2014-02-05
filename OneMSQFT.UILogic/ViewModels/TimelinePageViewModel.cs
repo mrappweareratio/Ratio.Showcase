@@ -56,6 +56,10 @@ namespace OneMSQFT.UILogic.ViewModels
         private double _zoomedOutItemHeight;
         private double _fullScreenItemWidth;
         private double _fullScreenItemHeight;
+        private double _fullScreenWidth;
+        private double _fullScreenHeight;
+        private double _eventItemHeight;
+        private double _eventItemWidth;
 
         public double ZoomedOutItemWidth
         {
@@ -106,8 +110,31 @@ namespace OneMSQFT.UILogic.ViewModels
             FullScreenItemWidth = width - 100;
         }
 
-        public Microsoft.Practices.Prism.StoreApps.DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }        
+        public double EventItemWidth
+        {
+            get { return _eventItemWidth; }
+            set { SetProperty(ref _eventItemWidth, value); }
+        }
 
+        public double EventItemHeight
+        {
+            get { return _eventItemHeight; }
+            set { SetProperty(ref _eventItemHeight, value); }
+        }
+
+        public double FullScreenHeight
+        {
+            get { return _fullScreenHeight; }
+            set { SetProperty(ref _fullScreenHeight, value); }
+        }
+
+        public double FullScreenWidth
+        {
+            get { return _fullScreenWidth; }
+            set { SetProperty(ref _fullScreenWidth, value); }
+        }
+
+        public DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
         public void EventHeroItemClickCommandHandler(EventItemViewModel item)
         {
             throw new System.NotImplementedException();

@@ -23,11 +23,17 @@ namespace OneMSQFT.Windows.Views
         {
         }
 
+        public DelegateCommand<EventItemViewModel> TopAppBarEventButtonCommand { get; set; }
+        public DelegateCommand HomeButtonClickCommand { get; set; }
+        public DelegateCommand AboutButtonClickCommand { get; set; }
+        public DelegateCommand FilterButtonClickCommand { get; set; }
+        public DelegateCommand<AppBarButton> AdminButtonClickCommand { get; set; }
+        public DelegateCommand AdminSubmitButtonClickCommand { get; set; }
+
         protected StackPanel TopAppBarContentStackPanel;
         protected Boolean HomeButtonAddedToAppBar = false;
-        public DelegateCommand<EventItemViewModel> OMSQFTAppBarButtonCommand { get; set; }
         
-        public void InitAppBar()
+        public void InitAppBars()
         {
             var childTransitions = new TransitionCollection { new EntranceThemeTransition() };
 
@@ -38,8 +44,6 @@ namespace OneMSQFT.Windows.Views
                 MinHeight = 200.0,
                 MaxHeight = 200.0
             };
-            TopAppBar.Opened += TopAppBarOpened;
-
             TopAppBarContentStackPanel = new StackPanel()
             {
                 Margin = new Thickness(0, 0, 0, 0),
@@ -48,36 +52,67 @@ namespace OneMSQFT.Windows.Views
                 HorizontalAlignment = HorizontalAlignment.Center,
                 ChildrenTransitions = childTransitions
             };
-
             var topScrollViewer = new ScrollViewer
             {
-                Margin = new Thickness(0,0,0,-10),
-                Padding = new Thickness(10, 0, 10, 10), // using 10 so scroll bars don't obscure content
+                Margin = new Thickness(0),
+                Padding = new Thickness(0), 
                 Content = TopAppBarContentStackPanel,
                 Style = (Style)App.Current.Resources["HorizontalScrollViewerStyle"]
             };
             TopAppBar.Content = topScrollViewer;
 
-            OMSQFTAppBarButtonCommand = new DelegateCommand<EventItemViewModel>(OMSQFTAppBarButtonCommandHandler);
+            TopAppBarEventButtonCommand = new DelegateCommand<EventItemViewModel>(TopAppBarEventButtonCommandHandler);
+            HomeButtonClickCommand = new DelegateCommand(HomeButtonClickCommandHandler);
+            AboutButtonClickCommand = new DelegateCommand(AboutButtonClickCommandHandler);
+            FilterButtonClickCommand = new DelegateCommand(FilterButtonClickCommandHandler);
+            AdminButtonClickCommand = new DelegateCommand<AppBarButton>(AdminButtonClickCommandHandler);
+            AdminSubmitButtonClickCommand = new DelegateCommand(AdminSubmitButtonClickCommandHandler);
+
         }
 
-        void TopAppBarOpened(object sender, object e)
+        async public virtual void TopAppBarEventButtonCommandHandler(EventItemViewModel item)
         {
+            // overridden in local page
         }
-
-        async public virtual void OMSQFTAppBarButtonCommandHandler(EventItemViewModel item)
+        async public void HomeButtonClickCommandHandler()
         {
+            this.Frame.Navigate(typeof(TimelinePage));
+            TopAppBar.IsOpen = false;
+            BottomAppBar.IsOpen = false;
         }
 
-        public void PopulateTopAppbar(ITimelinePageViewModel vm)
+        async public void AboutButtonClickCommandHandler()
+        {
+            this.Frame.Navigate(typeof(AboutPage));
+            TopAppBar.IsOpen = false;
+            BottomAppBar.IsOpen = false;
+        }
+        async public virtual void FilterButtonClickCommandHandler()
+        {
+            // overridden in local page
+        }
+        async public virtual void AdminButtonClickCommandHandler(AppBarButton sender)
+        {
+            this.TopAppBar.IsOpen = false;
+        }
+
+        async public virtual void AdminSubmitButtonClickCommandHandler()
+        {
+            this.BottomAppBar.IsOpen = false;
+            this.TopAppBar.IsOpen = false;
+        }
+
+        public virtual void PopulateTopAppbar(BasePageViewModel vm)
         {
             var homeButton = new Button();
             homeButton.Style = (Style)App.Current.Resources["OMSQFTAppBarHomeButtonStyle"];
+            homeButton.Command = TopAppBarEventButtonCommand;
+            homeButton.CommandParameter = new EventItemViewModel(new Event() { Name = "Featured", Color = "FFFFFF", Id = "0" });
             TopAppBarContentStackPanel.Children.Add(homeButton);
             foreach (var e in vm.SquareFootEvents)
             {
                 var b = new Button();
-                b.Command = OMSQFTAppBarButtonCommand;
+                b.Command = TopAppBarEventButtonCommand;
                 b.CommandParameter = e;
                 b.Style = (Style)App.Current.Resources["OMSQFTAppBarButtonStyle"];
                 b.DataContext = e;

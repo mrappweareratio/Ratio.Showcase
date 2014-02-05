@@ -119,6 +119,8 @@
     <Compile Include="DataLayer\SampleLocalStorageProvider.cs" />
     <Compile Include="DataLayer\SampleDataRepository.cs" />
     <Compile Include="Interfaces\IOneMsqftApplication.cs" />
+    <Compile Include="Interfaces\ViewModels\IAboutPageViewModel.cs" />
+    <Compile Include="Interfaces\ViewModels\IExhibitDetailsPageViewModel.cs" />
     <Compile Include="Navigation\ViewLocator.cs" />
     <Compile Include="OneMsqftApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,6 +133,7 @@
     <Compile Include="ViewModels\ExhibitItemViewModel.cs" />
     <Compile Include="ViewModels\ItemBaseViewModel.cs" />
     <Compile Include="Interfaces\ViewModels\ITimelinePageViewModel.cs" />
+    <Compile Include="ViewModels\ExhibitDetailsPageViewModel.cs" />
     <Compile Include="ViewModels\TimelinePageViewModel.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
