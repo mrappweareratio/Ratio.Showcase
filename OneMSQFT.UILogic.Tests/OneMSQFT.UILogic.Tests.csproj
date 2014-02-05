@@ -112,6 +112,7 @@
     <SDKReference Include="TestPlatform, Version=11.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLayer\DataRepositoryTests.cs" />
     <Compile Include="Mocks\MockLaunchActivatedEventArgs.cs" />
     <Compile Include="Mocks\MockNavigationService.cs" />
     <Compile Include="OneMsqftApplicationFixture.cs" />
@@ -122,6 +123,9 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="DataLayer\sundance.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="OneMSQFT.UILogic.Tests_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -138,7 +142,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\OneMSQFT.Portable\OneMSQFT.Portable.csproj">
       <Project>{968da72e-61d0-4f0d-a6f1-4160ae8ac5fa}</Project>
