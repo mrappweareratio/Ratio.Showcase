@@ -18,10 +18,16 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
+using Microsoft.Practices.Unity;
+using OneMSQFT.Common.DataLayer;
+using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic;
+using OneMSQFT.UILogic.DataLayer;
 using OneMSQFT.UILogic.Interfaces;
 using Microsoft.Practices.Prism.StoreApps;
+using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.ViewModels;
+using OneMSQFT.Windows.DataLayer;
 
 namespace OneMSQFT.Windows
 {
@@ -30,21 +36,36 @@ namespace OneMSQFT.Windows
     /// </summary>
     sealed partial class App : MvvmAppBase
     {
-        private IOneMsqftApplication _application;
+        // Create the singleton container that will be used for type resolution in the app
+        private readonly IUnityContainer _container = new UnityContainer();
 
-        public IEventAggregator EventAggregator { get; set; }
+        private IOneMsqftApplication _application;
 
         protected override Task OnLaunchApplication(LaunchActivatedEventArgs args)
         {
-            return _application.OnLaunchApplication(args);                        
+            return _application.OnLaunchApplication(args);
         }
 
         protected override void OnInitialize(IActivatedEventArgs args)
-        {
+        {            
+            //register repositories
+            _container.RegisterType<IDataRepository, SampleDataRepository>(new ContainerControlledLifetimeManager());
+
+            //register services
+            _container.RegisterInstance<INavigationService>(NavigationService);
+            _container.RegisterType<IDataService, DataService>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IAlertMessageService, AlertMessageService>(new ContainerControlledLifetimeManager());
+
+            //create the application
             _application = new OneMsqftApplication(NavigationService);
 
+            //register the application
+            _container.RegisterInstance<IOneMsqftApplication>(_application);
+
+            _application.OnInitialize(args);
+
             ViewModelLocator.SetDefaultViewTypeToViewModelTypeResolver((viewType) =>
-            {                
+            {
 #if DESIGN
                 var viewModelTypeName = string.Format(CultureInfo.InvariantCulture, "OneMSQFT.Windows.DesignViewModels.Design{0}ViewModel, OneMSQFT.Windows", viewType.Name);
 #else
@@ -52,7 +73,12 @@ namespace OneMSQFT.Windows
 #endif
                 var viewModelType = Type.GetType(viewModelTypeName);
                 return viewModelType;
-            });
-        }        
+            });         
+        }
+
+        protected override object Resolve(Type type)
+        {
+            return _container.Resolve(type);
+        }
     }
 }

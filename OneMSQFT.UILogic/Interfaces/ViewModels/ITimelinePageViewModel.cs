@@ -10,9 +10,18 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         double ZoomedOutItemHeight{get;}
         double ZoomedOutItemWidth { get; }
         double FullScreenItemWidth { get; set; }
-        double FullScreenItemHeight { get; set; }
+        double FullScreenItemHeight { get; set; }        
+        /// <summary>
+        /// Application Navigation Bar Bound Top Level Event Items
+        /// </summary>
         ObservableCollection<EventItemViewModel> SquareFootEvents { get; }
+        /// <summary>
+        /// Timeline Page Zoomed In View Items
+        /// </summary>
         ObservableCollection<EventItemViewModel> TimeLineItems{ get; }       
+        /// <summary>
+        /// Timeline Page Zoomed Out View Items
+        /// </summary>
         ObservableCollection<EventItemViewModel> TimeLineMenuItems { get; }
         void WindowSizeChanged(double width, double height);
         DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }

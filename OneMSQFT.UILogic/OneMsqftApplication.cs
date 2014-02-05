@@ -20,5 +20,9 @@ namespace OneMSQFT.UILogic
             NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
             return Task.FromResult<object>(null);
         }
+
+        public void OnInitialize(IActivatedEventArgs args)
+        {
+        }
     }
 }

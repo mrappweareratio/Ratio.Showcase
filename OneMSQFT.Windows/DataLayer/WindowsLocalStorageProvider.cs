@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using OneMSQFT.Common.DataLayer;
 
-
-namespace OneMSQFT.Windows.Win8Libs
+namespace OneMSQFT.Windows.DataLayer
 {
-    class LocalStorageWin8 : ILocalStorageProvider
+    class WindowsLocalStorageProvider : ILocalStorageProvider
     {
         public async Task<string> LoadFile(string fileName)
         {

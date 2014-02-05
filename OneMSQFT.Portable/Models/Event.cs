@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System;
+using Newtonsoft.Json;
 
 namespace OneMSQFT.Common.Models
 {
@@ -13,6 +14,7 @@ namespace OneMSQFT.Common.Models
         public string SocialMediaDescription { get; set; }
         public string SocialMediaImagePath { get; set; }
         public int SquareFootage { get; set; }
+        [JsonProperty("title")]
         public string Name { get; set; }
         public string Description { get; set; }
         public string Longitude { get; set; }

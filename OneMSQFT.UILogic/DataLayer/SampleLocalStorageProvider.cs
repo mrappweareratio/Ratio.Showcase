@@ -4,18 +4,17 @@ using OneMSQFT.Common.DataLayer;
 
 namespace OneMSQFT.UILogic.DataLayer
 {
-    public class MockLocalStorageProvider : ILocalStorageProvider
+    public class SampleLocalStorageProvider : ILocalStorageProvider
     {
-        public MockLocalStorageProvider()
+        public SampleLocalStorageProvider()
         {
         }
 
         public async Task<string> LoadFile(string fileName)
         {
             var folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            folder = await folder.GetFolderAsync("DataLayer");
+            folder = await folder.GetFolderAsync("SampleData");            
             var jsonFile = await folder.GetFileAsync(fileName);
-
             var results = await Windows.Storage.FileIO.ReadTextAsync(jsonFile);
             return results;
         }
