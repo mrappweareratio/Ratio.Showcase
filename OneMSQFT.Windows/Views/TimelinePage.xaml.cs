@@ -17,6 +17,7 @@ using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
 using OneMSQFT.Windows.DesignViewModels;
+using OneMSQFT.Windows.Extensions;
 
 namespace OneMSQFT.Windows.Views
 {
@@ -28,13 +29,22 @@ namespace OneMSQFT.Windows.Views
         {
             this.InitializeComponent();
             this.StoryboardSeeker.Begin(); // a nice to have 
-            InitAppBar();
+            InitAppBars();
             Loaded += TimelinePage_Loaded;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter != null && e.Parameter is EventItemViewModel)
+            {
+                ScrollToThisEvent(e.Parameter as EventItemViewModel);
+            }
         }
 
         void TimelinePage_Loaded(object sender, RoutedEventArgs e)
         {
-            PopulateTopAppbar(((ITimelinePageViewModel)this.DataContext));
+            PopulateTopAppbar(((BasePageViewModel)this.DataContext));
             ITimelinePageViewModel vm = this.DataContext as ITimelinePageViewModel;
             if (vm != null)
             {
@@ -64,7 +74,7 @@ namespace OneMSQFT.Windows.Views
         {
             if (e.SourceItem.Item != null && e.IsSourceZoomedInView != true)
             {
-                itemsGridView.ScrollIntoView(((EventItemViewModel)e.SourceItem.Item));
+                ScrollToThisEvent(((EventItemViewModel)e.SourceItem.Item));
                 itemsGridView.Opacity = 1;
             }
         }
@@ -77,17 +87,38 @@ namespace OneMSQFT.Windows.Views
             }
         }
 
-        public override async void OMSQFTAppBarButtonCommandHandler(EventItemViewModel item)
+        public override async void TopAppBarEventButtonCommandHandler(EventItemViewModel item)
         {
             if (item == null) return;
+            ScrollToThisEvent(item);
+            TopAppBar.IsOpen = false;
+            BottomAppBar.IsOpen = false;
+        }
+
+        private void ScrollToThisEvent(EventItemViewModel item)
+        {
+            if (item == null) return;
+            VideoPopup.IsOpen = false;
             ITimelinePageViewModel vm = this.DataContext as ITimelinePageViewModel;
+            vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height); 
+
             if (vm != null)
             {
-                int itemIndex = vm.SquareFootEvents.IndexOf(item)+1;
-                _timelineGridViewScrollViewer.ScrollToHorizontalOffset((itemIndex*vm.FullScreenItemWidth) - 50);
+                if (item.Id == null || item.Id == "0")
+                {   
+                    // SCROLL HOME
+                    _timelineGridViewScrollViewer.ScrollToHorizontalOffsetWithAnimation(0);
+                    this.Frame.BackStack.Clear();
+                }
+                foreach (var e in vm.SquareFootEvents)
+                {
+                    if (e.Id == item.Id)
+                    {
+                        var itemIndex = vm.SquareFootEvents.IndexOf(e) + 1;
+                        _timelineGridViewScrollViewer.ScrollToHorizontalOffsetWithAnimation((itemIndex * vm.EventItemWidth) - 50);
+                    }
+                }
             }
-            //itemsGridView.ScrollIntoView(((EventItemViewModel)item));
-            TopAppBar.IsOpen = false;
         }
 
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
@@ -120,6 +151,14 @@ namespace OneMSQFT.Windows.Views
             {
                 VideoPopup.IsOpen = false;
             }
+        }
+
+        public override void PopulateTopAppbar(BasePageViewModel vm)
+        {
+            base.PopulateTopAppbar(vm);
+            this.AboutButton.Command = this.AboutButtonClickCommand;
+            this.AdminButton.Command = this.AdminButtonClickCommand;
+            this.AdminButton.CommandParameter = this.AdminButton;
         }
 
     }
