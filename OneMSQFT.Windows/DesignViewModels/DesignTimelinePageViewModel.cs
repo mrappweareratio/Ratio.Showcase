@@ -198,10 +198,7 @@ namespace OneMSQFT.Windows.DesignViewModels
             }
             set
             {
-                if (value != null)
-                {
-                    SetProperty(ref _exhibitItemWidth, value);
-                }
+                SetProperty(ref _exhibitItemWidth, value);
             }
         }
         public double ExhibitItemHeight
@@ -212,10 +209,7 @@ namespace OneMSQFT.Windows.DesignViewModels
             }
             set
             {
-                if (value != null)
-                {
-                    SetProperty(ref _exhibitItemHeight, value);
-                }
+                SetProperty(ref _exhibitItemHeight, value);
             }
         }
 

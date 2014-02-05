@@ -13,6 +13,8 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         double EventItemHeight { get; set; }
         double FullScreenHeight { get; set; }
         double FullScreenWidth { get; set; }
+        double ExhibitItemHeight { get; set; }
+        double ExhibitItemWidth { get; set; }
         /// <summary>
         /// Application Navigation Bar Bound Top Level Event Items
         /// </summary>

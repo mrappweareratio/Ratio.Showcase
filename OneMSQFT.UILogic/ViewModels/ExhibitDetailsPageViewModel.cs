@@ -9,9 +9,8 @@ namespace OneMSQFT.UILogic.ViewModels
     {
         public ExhibitDetailsPageViewModel()
         {
+            SquareFootEvents = new ObservableCollection<EventItemViewModel>();
         }
-
-        public ObservableCollection<EventItemViewModel> SquareFootEvents { get; private set; }
 
         public void WindowSizeChanged(double width, double height)
         {

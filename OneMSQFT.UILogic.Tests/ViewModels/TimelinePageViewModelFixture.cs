@@ -44,8 +44,8 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             vm.WindowSizeChanged(windowWidth, windowHeight);
             Assert.AreEqual(windowHeight / 4, vm.ZoomedOutItemHeight);
             Assert.AreEqual(windowWidth / 6, vm.ZoomedOutItemWidth);
-            Assert.AreEqual(windowHeight, vm.EventItemHeight);
-            Assert.IsTrue(vm.EventItemWidth < windowWidth, "EventItemWidth < Window");
+            Assert.AreEqual(windowHeight, vm.EventItemHeight, "EventItemHeight");
+            Assert.IsTrue(vm.EventItemWidth < windowWidth, "EventItemWidth < Window");         
         }
 
         [TestMethod]

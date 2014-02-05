@@ -47,8 +47,6 @@ namespace OneMSQFT.UILogic.ViewModels
 
         }
 
-        public ObservableCollection<EventItemViewModel> SquareFootEvents { get; private set; }
-        public ObservableCollection<EventItemViewModel> SquareFootPastEvents { get; private set; }
         public ObservableCollection<EventItemViewModel> TimeLineItems { get; private set; }
         public ObservableCollection<EventItemViewModel> TimeLineMenuItems { get; private set; }
 
@@ -60,6 +58,8 @@ namespace OneMSQFT.UILogic.ViewModels
         private double _fullScreenHeight;
         private double _eventItemHeight;
         private double _eventItemWidth;
+        private double _exhibitItemWidth;
+        private double _exhibitItemHeight;
 
         public double ZoomedOutItemWidth
         {
@@ -104,10 +104,14 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public void WindowSizeChanged(double width, double height)
         {
+            FullScreenHeight = height;
+            FullScreenWidth = width;
             ZoomedOutItemWidth = width / 6;
             ZoomedOutItemHeight = height / 4;
-            FullScreenItemHeight = height;
-            FullScreenItemWidth = width - 100;
+            EventItemHeight = height;
+            EventItemWidth = width * .9;
+            ExhibitItemWidth = (EventItemWidth / 3) - 1;
+            ExhibitItemHeight = (EventItemHeight / 4) - 1;
         }
 
         public double EventItemWidth
@@ -133,7 +137,28 @@ namespace OneMSQFT.UILogic.ViewModels
             get { return _fullScreenWidth; }
             set { SetProperty(ref _fullScreenWidth, value); }
         }
-
+        public double ExhibitItemWidth
+        {
+            get
+            {
+                return _exhibitItemWidth;
+            }
+            set
+            {
+                SetProperty(ref _exhibitItemWidth, value);
+            }
+        }
+        public double ExhibitItemHeight
+        {
+            get
+            {
+                return _exhibitItemHeight;
+            }
+            set
+            {
+                SetProperty(ref _exhibitItemHeight, value);
+            }
+        }
         public DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
         public void EventHeroItemClickCommandHandler(EventItemViewModel item)
         {
