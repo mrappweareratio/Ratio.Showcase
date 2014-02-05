@@ -73,7 +73,6 @@ namespace OneMSQFT.Windows.DesignViewModels
                     c.Add(e);
                     c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
                     c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
-                    c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
                 }
                 c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
                 c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
@@ -162,7 +161,7 @@ namespace OneMSQFT.Windows.DesignViewModels
             ZoomedOutItemWidth = width / 6;
             ZoomedOutItemHeight = height / 4;
             FullScreenItemHeight = height;
-            FullScreenItemWidth = width;
+            FullScreenItemWidth = width - 100;
         }
         async public void EventHeroItemClickCommandHandler(EventItemViewModel item)
         {

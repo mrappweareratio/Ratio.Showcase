@@ -45,8 +45,10 @@ namespace OneMSQFT.Windows.Views
         private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
         {
             _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(itemsGridView);
-           // _timelineGridViewScrollViewer.ScrollToHorizontalOffset(((ITimelinePageViewModel)DataContext).TimeLineItems.Count/2 * Window.Current.Bounds.Width);
-            _timelineGridViewScrollViewer.ViewChanged += _timelineGridViewScrollViewer_ViewChanged;
+            if(_timelineGridViewScrollViewer != null)
+            {
+                _timelineGridViewScrollViewer.ViewChanged += _timelineGridViewScrollViewer_ViewChanged;
+            }
             itemsGridView.Opacity = 1;
         }
 
@@ -73,6 +75,19 @@ namespace OneMSQFT.Windows.Views
             {
                 itemsGridView.Opacity = 0;
             }
+        }
+
+        public override async void OMSQFTAppBarButtonCommandHandler(EventItemViewModel item)
+        {
+            if (item == null) return;
+            ITimelinePageViewModel vm = this.DataContext as ITimelinePageViewModel;
+            if (vm != null)
+            {
+                int itemIndex = vm.SquareFootEvents.IndexOf(item)+1;
+                _timelineGridViewScrollViewer.ScrollToHorizontalOffset((itemIndex*vm.FullScreenItemWidth) - 50);
+            }
+            //itemsGridView.ScrollIntoView(((EventItemViewModel)item));
+            TopAppBar.IsOpen = false;
         }
 
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)

@@ -25,6 +25,7 @@ namespace OneMSQFT.Windows.Views
 
         protected StackPanel TopAppBarContentStackPanel;
         protected Boolean HomeButtonAddedToAppBar = false;
+        public DelegateCommand<EventItemViewModel> OMSQFTAppBarButtonCommand { get; set; }
         
         public void InitAppBar()
         {
@@ -56,9 +57,15 @@ namespace OneMSQFT.Windows.Views
                 Style = (Style)App.Current.Resources["HorizontalScrollViewerStyle"]
             };
             TopAppBar.Content = topScrollViewer;
+
+            OMSQFTAppBarButtonCommand = new DelegateCommand<EventItemViewModel>(OMSQFTAppBarButtonCommandHandler);
         }
 
         void TopAppBarOpened(object sender, object e)
+        {
+        }
+
+        async public virtual void OMSQFTAppBarButtonCommandHandler(EventItemViewModel item)
         {
         }
 
@@ -70,6 +77,8 @@ namespace OneMSQFT.Windows.Views
             foreach (var e in vm.SquareFootEvents)
             {
                 var b = new Button();
+                b.Command = OMSQFTAppBarButtonCommand;
+                b.CommandParameter = e;
                 b.Style = (Style)App.Current.Resources["OMSQFTAppBarButtonStyle"];
                 b.DataContext = e;
                 TopAppBarContentStackPanel.Children.Add(b);

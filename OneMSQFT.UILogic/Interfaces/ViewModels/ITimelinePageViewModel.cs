@@ -9,6 +9,8 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
     {
         double ZoomedOutItemHeight{get;}
         double ZoomedOutItemWidth { get; }
+        double FullScreenItemWidth { get; set; }
+        double FullScreenItemHeight { get; set; }
         ObservableCollection<EventItemViewModel> SquareFootEvents { get; }
         ObservableCollection<EventItemViewModel> TimeLineItems{ get; }       
         ObservableCollection<EventItemViewModel> TimeLineMenuItems { get; }

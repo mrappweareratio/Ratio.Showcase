@@ -523,7 +523,7 @@
 
         <DataTemplate x:Key="OMSQFTTimelineEventItemTemplate">
             <Border BorderThickness="1" Background="{Binding EventColor, Mode=OneWay}">
-                <Grid Width="{Binding ItemWidth, Mode=OneWay}">
+                <Grid Width="{Binding DataSource.FullScreenItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>

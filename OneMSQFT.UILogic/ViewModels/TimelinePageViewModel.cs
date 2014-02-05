@@ -74,5 +74,76 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             throw new System.NotImplementedException();
         }
+
+        double ITimelinePageViewModel.ZoomedOutItemHeight
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
+        double ITimelinePageViewModel.ZoomedOutItemWidth
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
+        double ITimelinePageViewModel.FullScreenItemWidth
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
+        double ITimelinePageViewModel.FullScreenItemHeight
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
+        ObservableCollection<EventItemViewModel> ITimelinePageViewModel.SquareFootEvents
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
+        ObservableCollection<EventItemViewModel> ITimelinePageViewModel.TimeLineItems
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
+        ObservableCollection<EventItemViewModel> ITimelinePageViewModel.TimeLineMenuItems
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
+        void ITimelinePageViewModel.WindowSizeChanged(double width, double height)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Microsoft.Practices.Prism.StoreApps.DelegateCommand<EventItemViewModel> ITimelinePageViewModel.EventHeroItemClickCommand
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
+        void ITimelinePageViewModel.EventHeroItemClickCommandHandler(EventItemViewModel item)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
