@@ -69,10 +69,12 @@ namespace OneMSQFT.Windows.Views
         {
         }
 
-        public void PopulateTopAppbar(ITimelinePageViewModel vm)
+        public void PopulateTopAppbar(BasePageViewModel vm)
         {
             var homeButton = new Button();
             homeButton.Style = (Style)App.Current.Resources["OMSQFTAppBarHomeButtonStyle"];
+            homeButton.Command = OMSQFTAppBarButtonCommand;
+            homeButton.CommandParameter = new EventItemViewModel(new Event() { Name = "Featured", Color = "FFFFFF", Id = "0" });
             TopAppBarContentStackPanel.Children.Add(homeButton);
             foreach (var e in vm.SquareFootEvents)
             {

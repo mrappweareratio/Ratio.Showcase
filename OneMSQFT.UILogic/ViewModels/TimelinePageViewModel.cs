@@ -75,17 +75,7 @@ namespace OneMSQFT.UILogic.ViewModels
             throw new System.NotImplementedException();
         }
 
-        double ITimelinePageViewModel.ZoomedOutItemHeight
-        {
-            get { throw new System.NotImplementedException(); }
-        }
-
-        double ITimelinePageViewModel.ZoomedOutItemWidth
-        {
-            get { throw new System.NotImplementedException(); }
-        }
-
-        double ITimelinePageViewModel.FullScreenItemWidth
+        public double EventItemWidth
         {
             get
             {
@@ -97,7 +87,7 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        double ITimelinePageViewModel.FullScreenItemHeight
+        public double EventItemHeight
         {
             get
             {
@@ -109,27 +99,7 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        ObservableCollection<EventItemViewModel> ITimelinePageViewModel.SquareFootEvents
-        {
-            get { throw new System.NotImplementedException(); }
-        }
-
-        ObservableCollection<EventItemViewModel> ITimelinePageViewModel.TimeLineItems
-        {
-            get { throw new System.NotImplementedException(); }
-        }
-
-        ObservableCollection<EventItemViewModel> ITimelinePageViewModel.TimeLineMenuItems
-        {
-            get { throw new System.NotImplementedException(); }
-        }
-
-        void ITimelinePageViewModel.WindowSizeChanged(double width, double height)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        Microsoft.Practices.Prism.StoreApps.DelegateCommand<EventItemViewModel> ITimelinePageViewModel.EventHeroItemClickCommand
+        public double FullScreenHeight
         {
             get
             {
@@ -141,9 +111,16 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        void ITimelinePageViewModel.EventHeroItemClickCommandHandler(EventItemViewModel item)
+        public double FullScreenWidth
         {
-            throw new System.NotImplementedException();
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
         }
     }
 }

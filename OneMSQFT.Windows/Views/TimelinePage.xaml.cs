@@ -32,9 +32,18 @@ namespace OneMSQFT.Windows.Views
             Loaded += TimelinePage_Loaded;
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter != null && e.Parameter is EventItemViewModel)
+            {
+                ScrollToThisEvent(e.Parameter as EventItemViewModel);
+            }
+        }
+
         void TimelinePage_Loaded(object sender, RoutedEventArgs e)
         {
-            PopulateTopAppbar(((ITimelinePageViewModel)this.DataContext));
+            PopulateTopAppbar(((BasePageViewModel)this.DataContext));
             ITimelinePageViewModel vm = this.DataContext as ITimelinePageViewModel;
             if (vm != null)
             {
@@ -64,7 +73,7 @@ namespace OneMSQFT.Windows.Views
         {
             if (e.SourceItem.Item != null && e.IsSourceZoomedInView != true)
             {
-                itemsGridView.ScrollIntoView(((EventItemViewModel)e.SourceItem.Item));
+                ScrollToThisEvent(((EventItemViewModel)e.SourceItem.Item));
                 itemsGridView.Opacity = 1;
             }
         }
@@ -80,14 +89,33 @@ namespace OneMSQFT.Windows.Views
         public override async void OMSQFTAppBarButtonCommandHandler(EventItemViewModel item)
         {
             if (item == null) return;
+            ScrollToThisEvent(item);
+            TopAppBar.IsOpen = false;
+        }
+
+        private void ScrollToThisEvent(EventItemViewModel item)
+        {
+            if (item == null) return;
+            VideoPopup.IsOpen = false;
             ITimelinePageViewModel vm = this.DataContext as ITimelinePageViewModel;
+            vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height); 
+
             if (vm != null)
             {
-                int itemIndex = vm.SquareFootEvents.IndexOf(item)+1;
-                _timelineGridViewScrollViewer.ScrollToHorizontalOffset((itemIndex*vm.FullScreenItemWidth) - 50);
+                if (item.Id == null || item.Id == "0")
+                {   
+                    // SCROLL HOME
+                    _timelineGridViewScrollViewer.ScrollToHorizontalOffset(0);
+                }
+                foreach (var e in vm.SquareFootEvents)
+                {
+                    if (e.Id == item.Id)
+                    {
+                        var itemIndex = vm.SquareFootEvents.IndexOf(e) + 1;
+                        _timelineGridViewScrollViewer.ScrollToHorizontalOffset((itemIndex * vm.EventItemWidth) - 50);
+                    }
+                }
             }
-            //itemsGridView.ScrollIntoView(((EventItemViewModel)item));
-            TopAppBar.IsOpen = false;
         }
 
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
@@ -121,6 +149,5 @@ namespace OneMSQFT.Windows.Views
                 VideoPopup.IsOpen = false;
             }
         }
-
     }
 }
