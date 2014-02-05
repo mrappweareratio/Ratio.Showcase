@@ -26,5 +26,6 @@ namespace OneMSQFT.Common.Models
         public IEnumerable<Curator> Curators { get; set; }
         public string Color { get; set; }
         public IEnumerable<MediaContentSource> MediaContent { get; private set; }
+        public string EventHeroVideoPath { get; set; }
     }
 }

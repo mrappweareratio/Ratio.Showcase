@@ -8,19 +8,13 @@ namespace OneMSQFT.Windows.DataTemplateSelectors
 {
     public class TimelineDataTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate PastTimeLineItemTemplate
+        public DataTemplate FeaturedTimelineItemTemplate
         {
             get;
             set;
         }
 
-        public DataTemplate HomeTimeLineItemTemplate
-        {
-            get;
-            set;
-        }
-
-        public DataTemplate FutureTimeLineItemTemplate
+        public DataTemplate EventTimelineItemTemplate
         {
             get;
             set;
@@ -28,20 +22,15 @@ namespace OneMSQFT.Windows.DataTemplateSelectors
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
-            var defaultLayoutType = HomeTimeLineItemTemplate;
             var vm = item as EventItemViewModel;
             if (vm != null)
             {
-                if (vm.Name == "Home")
+                if (vm.Name == "Featured")
                 {
-                    return HomeTimeLineItemTemplate;
-                }
-                if (vm.IsInTheFuture)
-                {
-                    return FutureTimeLineItemTemplate;
+                    return FeaturedTimelineItemTemplate;
                 }
             }
-            return PastTimeLineItemTemplate;
+            return EventTimelineItemTemplate;
         }
     }
 }

@@ -64,17 +64,10 @@ namespace OneMSQFT.Windows.Views
 
         public void PopulateTopAppbar(ITimelinePageViewModel vm)
         {
-            foreach (var e in vm.SquareFootPastEvents)
-            {
-                var b = new Button();
-                b.Style = (Style)App.Current.Resources["OMSQFTAppBarButtonStyle"];
-                b.DataContext = e;
-                TopAppBarContentStackPanel.Children.Add(b);
-            }
             var homeButton = new Button();
             homeButton.Style = (Style)App.Current.Resources["OMSQFTAppBarHomeButtonStyle"];
             TopAppBarContentStackPanel.Children.Add(homeButton);
-            foreach (var e in vm.SquareFootFutureEvents)
+            foreach (var e in vm.SquareFootEvents)
             {
                 var b = new Button();
                 b.Style = (Style)App.Current.Resources["OMSQFTAppBarButtonStyle"];
@@ -82,5 +75,6 @@ namespace OneMSQFT.Windows.Views
                 TopAppBarContentStackPanel.Children.Add(b);
             }
         }
+
     }
 }

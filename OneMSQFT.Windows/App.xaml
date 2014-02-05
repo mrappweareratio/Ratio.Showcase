@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/StandardStyles.xaml"/>
+                <!--<ResourceDictionary Source="../Styles/MMPPFstyles.xaml"/> // if we need to style the player activate these -->
                 <ResourceDictionary Source="../Styles/generic.xaml"/>
                 <ResourceDictionary Source="../Styles/OMSQFTStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>

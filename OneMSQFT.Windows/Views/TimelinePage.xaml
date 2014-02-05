@@ -11,6 +11,7 @@
     xmlns:prism="using:Microsoft.Practices.Prism.StoreApps"   
     xmlns:omsqft="using:OneMSQFT.Windows.Views"
     xmlns:omsqftcontrols="using:OneMSQFT.Windows.Controls"
+    xmlns:mmppf="using:Microsoft.PlayerFramework"
     xmlns:viewModels="using:OneMSQFT.UILogic.ViewModels"
     xmlns:designViewModels="using:OneMSQFT.Windows.DesignViewModels"
     x:Class="OneMSQFT.Windows.Views.TimelinePage"
@@ -19,24 +20,370 @@
 	d:DataContext="{d:DesignInstance designViewModels:DesignTimelinePageViewModel, IsDesignTimeCreatable=True}">
 
     <omsqft:BasePageView.Resources>
-        <Storyboard x:Name="StoryboardSeeker">
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="logoanimation">
-        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:5:0" Value="180"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="logoanimation">
-        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:5:0" Value="-134.658"/>
-        		<EasingDoubleKeyFrame KeyTime="0:10:0" Value="0"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="logoanimation">
-        		<EasingDoubleKeyFrame KeyTime="0:5:0" Value="374.05"/>
-        		<EasingDoubleKeyFrame KeyTime="0:10:0" Value="763.062"/>
-        	</DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <viewModels:DataContextProxy x:Key="DataContextProxy" />
 
-        <DataTemplate x:Key="OMSQFTItemTemplateSemanticZoom">
+        <viewModels:DataContextProxy x:Key="DataContextProxy" />
+        
+      
+        <Storyboard x:Name="StoryboardSeeker">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="logoanimation">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:5:0" Value="180"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="logoanimation">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:5:0" Value="-134.658"/>
+                <EasingDoubleKeyFrame KeyTime="0:10:0" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="logoanimation">
+                <EasingDoubleKeyFrame KeyTime="0:5:0" Value="374.05"/>
+                <EasingDoubleKeyFrame KeyTime="0:10:0" Value="763.062"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <!-- container styles -->
+
+        <Style x:Key="TimelineItemContainerStyle" TargetType="GridViewItem">
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewItem">
+                        <Grid>
+                            <Border x:Name="OuterContainer" HorizontalAlignment="Left" Background="Transparent">
+                                <Grid>
+                                    <ContentPresenter x:Name="contentPresenter"
+        								ContentTransitions="{TemplateBinding ContentTransitions}"
+        								ContentTemplate="{TemplateBinding ContentTemplate}"
+        								Content="{TemplateBinding Content}"
+        								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+        								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+        								Margin="0" />
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="TimelineExhibitItemContainerStyle" TargetType="GridViewItem">
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewItem">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverRectangle" Storyboard.TargetProperty="Fill">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOverPressed">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused"/>
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="PointerFocused"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionHintStates">
+                                    <VisualState x:Name="VerticalSelectionHint"/>
+                                    <VisualState x:Name="HorizontalSelectionHint"/>
+                                    <VisualState x:Name="NoSelectionHint" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselecting"/>
+                                    <VisualState x:Name="Unselected"/>
+                                    <VisualState x:Name="UnselectedPointerOver"/>
+                                    <VisualState x:Name="UnselectedSwiping"/>
+                                    <VisualState x:Name="Selecting"/>
+                                    <VisualState x:Name="Selected"/>
+                                    <VisualState x:Name="SelectedSwiping"/>
+                                    <VisualState x:Name="SelectedUnfocused"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DragStates">
+                                    <VisualState x:Name="NotDragging" />
+                                    <VisualState x:Name="Dragging"/>
+                                    <VisualState x:Name="DraggingTarget"/>
+                                    <VisualState x:Name="MultipleDraggingPrimary"/>
+                                    <VisualState x:Name="MultipleDraggingSecondary"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="ReorderHintStates">
+                                    <VisualState x:Name="NoReorderHint"/>
+                                    <VisualState x:Name="BottomReorderHint"/>
+                                    <VisualState x:Name="TopReorderHint"/>
+                                    <VisualState x:Name="RightReorderHint"/>
+                                    <VisualState x:Name="LeftReorderHint"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DataVirtualizationStates">
+                                    <VisualState x:Name="DataAvailable"/>
+                                    <VisualState x:Name="DataPlaceholder"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="OuterContainer" HorizontalAlignment="Left" Margin="0" Padding="0" Background="Transparent">
+                                <Grid x:Name="ReorderHintContent" Background="Transparent">
+                                    <Border x:Name="ContentContainer">
+                                        <Grid>
+                                            <Border x:Name="ContentBorder" Margin="0">
+                                                <Grid>
+                                                    <ContentPresenter x:Name="contentPresenter"
+        												ContentTransitions="{TemplateBinding ContentTransitions}"
+        												ContentTemplate="{TemplateBinding ContentTemplate}"
+        												Content="{TemplateBinding Content}"
+        												HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+        												VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+        												Margin="0" />
+                                                </Grid>
+                                            </Border>
+                                            <Rectangle x:Name="HoverRectangle" Opacity=".2"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="TimelineZoomedOutEventItemContainerStyle" TargetType="GridViewItem">
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewItem">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverRectangle" Storyboard.TargetProperty="Fill">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOverPressed">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused"/>
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="PointerFocused"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionHintStates">
+                                    <VisualState x:Name="VerticalSelectionHint"/>
+                                    <VisualState x:Name="HorizontalSelectionHint"/>
+                                    <VisualState x:Name="NoSelectionHint" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselecting"/>
+                                    <VisualState x:Name="Unselected"/>
+                                    <VisualState x:Name="UnselectedPointerOver"/>
+                                    <VisualState x:Name="UnselectedSwiping"/>
+                                    <VisualState x:Name="Selecting"/>
+                                    <VisualState x:Name="Selected"/>
+                                    <VisualState x:Name="SelectedSwiping"/>
+                                    <VisualState x:Name="SelectedUnfocused"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DragStates">
+                                    <VisualState x:Name="NotDragging" />
+                                    <VisualState x:Name="Dragging"/>
+                                    <VisualState x:Name="DraggingTarget"/>
+                                    <VisualState x:Name="MultipleDraggingPrimary"/>
+                                    <VisualState x:Name="MultipleDraggingSecondary"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="ReorderHintStates">
+                                    <VisualState x:Name="NoReorderHint"/>
+                                    <VisualState x:Name="BottomReorderHint"/>
+                                    <VisualState x:Name="TopReorderHint"/>
+                                    <VisualState x:Name="RightReorderHint"/>
+                                    <VisualState x:Name="LeftReorderHint"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DataVirtualizationStates">
+                                    <VisualState x:Name="DataAvailable"/>
+                                    <VisualState x:Name="DataPlaceholder"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="OuterContainer" HorizontalAlignment="Left" Margin="0" Padding="0" Background="Transparent">
+                                <Grid x:Name="ReorderHintContent" Background="Transparent">
+                                    <Border x:Name="ContentContainer">
+                                        <Grid>
+                                            <Border x:Name="ContentBorder" Margin="0">
+                                                <Grid>
+                                                    <ContentPresenter x:Name="contentPresenter"
+        												ContentTransitions="{TemplateBinding ContentTransitions}"
+        												ContentTemplate="{TemplateBinding ContentTemplate}"
+        												Content="{TemplateBinding Content}"
+        												HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+        												VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+        												Margin="0" />
+                                                </Grid>
+                                            </Border>
+                                            <Rectangle x:Name="HoverRectangle" Opacity=".2"/>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="HeroButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource ButtonBackgroundThemeBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundThemeBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderThemeBrush}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="Container" Background="White" RenderTransformOrigin="0.5,0.5">
+                            <Grid.RenderTransform>
+                                <CompositeTransform/>
+                            </Grid.RenderTransform>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverRectangle" Storyboard.TargetProperty="Fill">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+        										Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonPressedBackgroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+        										Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonPressedForegroundThemeBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <DoubleAnimation Duration="0" To="0.95" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="Container" d:IsOptimized="True"/>
+                                            <DoubleAnimation Duration="0" To="0.95" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="Container" d:IsOptimized="True"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="Border"
+        						Background="{TemplateBinding Background}"
+        						BorderBrush="{TemplateBinding BorderBrush}"
+        						BorderThickness="{TemplateBinding BorderThickness}"
+        						Margin="0">
+                                <Grid>
+                                    <ContentPresenter x:Name="ContentPresenter"
+        							    Content="{TemplateBinding Content}"
+        							    ContentTransitions="{TemplateBinding ContentTransitions}"
+        							    ContentTemplate="{TemplateBinding ContentTemplate}"
+        							    Margin="{TemplateBinding Padding}"
+        							    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+        							    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    <Rectangle x:Name="HoverRectangle" Opacity=".2"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="TimelineExhibitTemplate">
+            <Grid HorizontalAlignment="Stretch" 
+              Height="{Binding ExhibitItemHeight}"  
+              Width="{Binding ExhibitItemWidth}" 
+              VerticalAlignment="Stretch">
+                <Border Background="Transparent"
+				BorderBrush="White"
+				BorderThickness="0"
+				Margin="0">
+                    <Image Source="{Binding PhotoFilePath}"
+					Stretch="UniformToFill">
+                    </Image>
+                </Border>
+                <TextBlock Margin="0,20,0,0"
+					FontSize="42"
+					Height="Auto"
+					Text="{Binding SquareFootageString}"
+					TextWrapping="NoWrap"
+                    TextAlignment="Center"
+					TextTrimming="WordEllipsis" VerticalAlignment="Top">
+                </TextBlock>
+                <TextBlock Text="{Binding Name}"
+                    VerticalAlignment="Top"
+					Margin="0,60,0,0"
+					FontSize="20"
+					Height="Auto"
+					TextTrimming="CharacterEllipsis"
+					TextWrapping="NoWrap"
+                    TextAlignment="Center">
+                </TextBlock>
+                <TextBlock Text="{Binding Description}"
+                    VerticalAlignment="Top"
+					Margin="0,80,0,0"
+					FontSize="20"
+					Height="Auto"
+					TextTrimming="CharacterEllipsis"
+					TextWrapping="NoWrap"
+                    TextAlignment="Center">
+                </TextBlock>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TimelineZoomedOutEventItemTemplate">
             <Border BorderBrush="{StaticResource OneMSQFTAnswerGrayBrush}" 
                 BorderThickness="1,1,1,1" 
                 Background="{Binding EventColor, Mode=OneWay}" 
@@ -61,9 +408,10 @@
             </Border>
         </DataTemplate>
 
-        <DataTemplate x:Key="OMSQFTHomeItemTemplate">
+        <DataTemplate x:Key="OMSQFTTimelineFeaturedEventItemTemplate">
             <Border BorderThickness="1" Background="{Binding EventColor, Mode=OneWay}">
-                <Grid Width="{Binding ItemWidth, Mode=OneWay}" Height="{Binding ItemHeight, Mode=OneWay}">
+                <Grid Width="{Binding DataSource.FullScreenItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                      Height="{Binding DataSource.FullScreenItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" >
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -75,7 +423,9 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Grid Background="{StaticResource OneMSQFTWhiteBrush}" Margin="100" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" Width="{Binding ColorColumnWidth, Mode=OneWay}">
+                    <Grid Background="{StaticResource OneMSQFTWhiteBrush}" 
+                          Margin="100" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" 
+                          Width="{Binding ColorColumnWidth, Mode=OneWay}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" MinHeight="159" />
                             <RowDefinition Height="Auto" MinHeight="59"/>
@@ -100,7 +450,7 @@
             </Border>
         </DataTemplate>
 
-        <DataTemplate x:Key="OMSQFTPastItemTemplate">
+        <!--<DataTemplate x:Key="OMSQFTPastItemTemplate">
             <Border BorderThickness="1" Background="{Binding EventColor, Mode=OneWay}">
                 <Grid Width="{Binding ItemWidth, Mode=OneWay}">
                     <Grid.RowDefinitions>
@@ -114,7 +464,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Click="VideoButton_Clicked"  Grid.RowSpan="2" Grid.ColumnSpan="2" >
+                    <Button Click="VideoButton_Clicked"  Grid.RowSpan="2" Grid.ColumnSpan="2" Style="{StaticResource HeroButtonStyle}"  >
                         <Button.Content>
                             <Image Source="{Binding PhotoFilePath, Mode=OneWay}"
 					            VerticalAlignment="Center"
@@ -149,7 +499,7 @@
                     <Grid Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <GridView ItemsSource="{Binding Exhibits}"
                               ItemTemplate="{StaticResource TimelineExhibitTemplate}"
-                              ItemContainerStyle="{StaticResource TimelineSemanticZoomItemContainerStyle}"
+                              ItemContainerStyle="{StaticResource TimelineExhibitItemContainerStyle}"
                               SelectionMode="Single"
                               IsItemClickEnabled="True"
                               IsTapEnabled="True">
@@ -169,9 +519,9 @@
                     </Grid>
                 </Grid>
             </Border>
-        </DataTemplate>
+        </DataTemplate>-->
 
-        <DataTemplate x:Key="OMSQFTFutureItemTemplate">
+        <DataTemplate x:Key="OMSQFTTimelineEventItemTemplate">
             <Border BorderThickness="1" Background="{Binding EventColor, Mode=OneWay}">
                 <Grid Width="{Binding ItemWidth, Mode=OneWay}">
                     <Grid.RowDefinitions>
@@ -185,13 +535,21 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Image
-					Source="{Binding PhotoFilePath, Mode=OneWay}"
-					VerticalAlignment="Center"
-					HorizontalAlignment="Left"
-					AutomationProperties.Name="{Binding Name}" 
-					Grid.RowSpan="2" Stretch="Fill" 
-					Grid.Column="1" Grid.ColumnSpan="2"/>
+
+                    <Button Click="VideoButton_Clicked" 
+                            CommandParameter="{Binding}" 
+                            Command="{Binding DataSource.EventHeroItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                            Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" 
+                            Style="{StaticResource HeroButtonStyle}"  >
+                        <Button.Content>
+                            <Image Source="{Binding PhotoFilePath, Mode=OneWay}"
+					            VerticalAlignment="Center"
+					            HorizontalAlignment="Center"
+					            AutomationProperties.Name="{Binding Name}" 
+                                Stretch="Fill"/>
+                        </Button.Content>
+                    </Button>
+
                     <Grid Background="{Binding EventColor, Mode=OneWay}" Grid.RowSpan="4">
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -217,7 +575,7 @@
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <GridView ItemsSource="{Binding Exhibits}"
                               ItemTemplate="{StaticResource TimelineExhibitTemplate}"
-                              ItemContainerStyle="{StaticResource TimelineSemanticZoomItemContainerStyle}"
+                              ItemContainerStyle="{StaticResource TimelineExhibitItemContainerStyle}"
                               SelectionMode="Single"
                               IsItemClickEnabled="True"
                               IsTapEnabled="True">
@@ -238,21 +596,35 @@
                 </Grid>
             </Border>
         </DataTemplate>
+
+        <Style x:Key="VideoPopupStyle" TargetType="Popup">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="ChildTransitions">
+                <Setter.Value>
+                    <TransitionCollection>
+                        <PopupThemeTransition/>
+                    </TransitionCollection>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
     </omsqft:BasePageView.Resources>
-    
-	<Grid Background="White">
-		<Grid.ChildrenTransitions>
-			<TransitionCollection>
-				<EntranceThemeTransition/>
-			</TransitionCollection>
-		</Grid.ChildrenTransitions>
+
+    <Grid Background="White">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
 
 
         <Rectangle x:Name="logoanimation" Fill="Transparent" Height="153" Width="83" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
-			<Rectangle.RenderTransform>
-				<CompositeTransform/>
-			</Rectangle.RenderTransform>
-		</Rectangle>
+            <Rectangle.RenderTransform>
+                <CompositeTransform/>
+            </Rectangle.RenderTransform>
+        </Rectangle>
         <SemanticZoom Grid.Row="1"
                       x:Name="semanticZoom" 
                       IsZoomedInViewActive="True" 
@@ -269,8 +641,8 @@
                           ItemsSource="{Binding TimeLineMenuItems}"
                           AutomationProperties.AutomationId="HubPageGridView"
                           ScrollViewer.IsHorizontalScrollChainingEnabled="False"
-                          ItemTemplate="{StaticResource OMSQFTItemTemplateSemanticZoom}"
-                          ItemContainerStyle="{StaticResource TimelineSemanticZoomItemContainerStyle}">
+                          ItemTemplate="{StaticResource TimelineZoomedOutEventItemTemplate}"
+                          ItemContainerStyle="{StaticResource TimelineZoomedOutEventItemContainerStyle}">
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapGrid />
@@ -296,12 +668,11 @@
                     ScrollViewer.IsHorizontalScrollChainingEnabled="False"
                     Loaded="itemsGridView_Loaded" 
                     ItemContainerStyle="{StaticResource TimelineItemContainerStyle}">
-                    
-					<omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
+
+                    <omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
                         <templateSelectors:TimelineDataTemplateSelector
-                    				PastTimeLineItemTemplate="{StaticResource OMSQFTPastItemTemplate}" 
-                    				HomeTimeLineItemTemplate="{StaticResource OMSQFTHomeItemTemplate}" 
-                    				FutureTimeLineItemTemplate="{StaticResource OMSQFTFutureItemTemplate}"/>
+                            EventTimelineItemTemplate="{StaticResource OMSQFTTimelineEventItemTemplate}"
+                            FeaturedTimelineItemTemplate="{StaticResource OMSQFTTimelineFeaturedEventItemTemplate}"/>
                     </omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
                     <omsqftcontrols:MultipleSizedGridView.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -406,10 +777,14 @@
                 </omsqftcontrols:MultipleSizedGridView>
             </SemanticZoom.ZoomedInView>
         </SemanticZoom>
-        <Popup x:Name="VideoPopup" Height="500" Width="500" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" >
-            <Grid Height="400" Width="400">
-                <omsqftcontrols:VideoPlayerUserControl/>
+        <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
+            <Grid >
+                <omsqftcontrols:VideoPlayerUserControl 
+                    SelectedEvent="{Binding DataSource.SelectedEvent, Source={StaticResource DataContextProxy}}"
+                    Width="{Binding DataSource.FullScreenItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                    Height="{Binding DataSource.FullScreenItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
+                <AppBarButton Icon="Cancel" Click="AppBarButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
             </Grid>
         </Popup>
-	</Grid>
+    </Grid>
 </omsqft:BasePageView>

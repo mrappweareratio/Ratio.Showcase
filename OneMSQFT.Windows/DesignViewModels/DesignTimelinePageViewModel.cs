@@ -3,17 +3,27 @@ using System.Collections.ObjectModel;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
+using Microsoft.Practices.Prism.StoreApps;
+using System.Threading.Tasks;
+using System.Globalization;
 
 namespace OneMSQFT.Windows.DesignViewModels
 {
     public class DesignTimelinePageViewModel : BasePageViewModel, ITimelinePageViewModel
     {
-        public int TotalSquareFeet { get; set; }
+        private int _totalSquareFeet;
+        public String TotalSquareFeet
+        {
+            get
+            {
+                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", _totalSquareFeet)).Trim();
+            }
+        }
+        public DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
         public DesignTimelinePageViewModel()
         {
-            TotalSquareFeet = 36482;
-            SquareFootFutureEvents = new ObservableCollection<EventItemViewModel>();
-            SquareFootPastEvents = new ObservableCollection<EventItemViewModel>();
+            SquareFootEvents = new ObservableCollection<EventItemViewModel>();
+
             const int fakeEventsCount = 10;
             for (var i = 1; i < fakeEventsCount+1; i++)
             {
@@ -25,29 +35,28 @@ namespace OneMSQFT.Windows.DesignViewModels
                     Name = "Event Name " + i,
                     DateStart = DateTime.Now.Add(TimeSpan.FromDays(i * (i > fakeEventsCount / 2 ? 20 : -20) + 1)),
                     PhotoFilePath = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg",
-                    SquareFootage = Convert.ToInt32(i.ToString() + i.ToString() + i.ToString() + i.ToString())
+                    SquareFootage = Convert.ToInt32(i.ToString() + i.ToString() + i.ToString() + i.ToString()),
+                    EventHeroVideoPath ="http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
                 });
-                if (eivm.IsInTheFuture == true) { SquareFootFutureEvents.Add(eivm); } else { SquareFootPastEvents.Insert(0, eivm); }
+                SquareFootEvents.Add(eivm);
+                _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
             }
 
+            EventHeroItemClickCommand = new DelegateCommand<EventItemViewModel>(EventHeroItemClickCommandHandler);
         }
-        public ObservableCollection<EventItemViewModel> SquareFootFutureEvents { get; set; }
-        public ObservableCollection<EventItemViewModel> SquareFootPastEvents { get; set; }
+
+        public ObservableCollection<EventItemViewModel> SquareFootEvents { get; set; }
         public ObservableCollection<EventItemViewModel> TimeLineItems
         {
             get
             {
                 var c = new ObservableCollection<EventItemViewModel>();
-                foreach (var e in SquareFootPastEvents)
-                {
-                    c.Add(e);
-                }
                 c.Add(new EventItemViewModel(new Event() { 
-                    Name = "Home", 
+                    Name = "Featured", 
                     Color="FFFFFF",
-                    SquareFootage = TotalSquareFeet
+                    SquareFootage = _totalSquareFeet
                     }));
-                foreach (var e in SquareFootFutureEvents)
+                foreach (var e in SquareFootEvents)
                 {
                     c.Add(e);
                 }
@@ -64,6 +73,7 @@ namespace OneMSQFT.Windows.DesignViewModels
                     c.Add(e);
                     c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
                     c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
+                    c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
                 }
                 c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
                 c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
@@ -71,6 +81,21 @@ namespace OneMSQFT.Windows.DesignViewModels
                 return c as ObservableCollection<EventItemViewModel>;
         } }
 
+        private EventItemViewModel _selectedEvent;
+        public EventItemViewModel SelectedEvent
+        {
+            get
+            {
+                return _selectedEvent;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    SetProperty(ref _selectedEvent, value);
+                }
+            }
+        }
         private double _zoomedOutItemWidth;
         private double _zoomedOutItemHeight;
         public double ZoomedOutItemWidth
@@ -101,11 +126,48 @@ namespace OneMSQFT.Windows.DesignViewModels
                 }
             }
         }
+        private double _fullScreenItemWidth;
+        private double _fullScreenItemHeight;
+        public double FullScreenItemWidth
+        {
+            get
+            {
+                return _fullScreenItemWidth;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    SetProperty(ref _fullScreenItemWidth, value);
+                }
+            }
+        }
+        public double FullScreenItemHeight
+        {
+            get
+            {
+                return _fullScreenItemHeight;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    SetProperty(ref _fullScreenItemHeight, value);
+                }
+            }
+        }
 
         public void WindowSizeChanged(double width, double height)
         {
             ZoomedOutItemWidth = width / 6;
             ZoomedOutItemHeight = height / 4;
+            FullScreenItemHeight = height;
+            FullScreenItemWidth = width;
+        }
+        async public void EventHeroItemClickCommandHandler(EventItemViewModel item)
+        {
+            if (item == null) return;
+            SelectedEvent = item;
         }
     }
 }

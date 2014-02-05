@@ -45,7 +45,7 @@ namespace OneMSQFT.Windows.Views
         private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
         {
             _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(itemsGridView);
-            _timelineGridViewScrollViewer.ScrollToHorizontalOffset(((ITimelinePageViewModel)DataContext).TimeLineItems.Count/2 * Window.Current.Bounds.Width);
+           // _timelineGridViewScrollViewer.ScrollToHorizontalOffset(((ITimelinePageViewModel)DataContext).TimeLineItems.Count/2 * Window.Current.Bounds.Width);
             _timelineGridViewScrollViewer.ViewChanged += _timelineGridViewScrollViewer_ViewChanged;
             itemsGridView.Opacity = 1;
         }
@@ -89,7 +89,7 @@ namespace OneMSQFT.Windows.Views
         {
             if (!VideoPopup.IsOpen)
             {
-                semanticZoom.Opacity = 0;
+                semanticZoom.Opacity = .1;
                 VideoPopup.IsOpen = true; 
             }
         }
@@ -97,7 +97,14 @@ namespace OneMSQFT.Windows.Views
         private void VideoPopup_Closed(object sender, object e)
         {
             semanticZoom.Opacity = 1;
+        }
 
+        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (VideoPopup.IsOpen)
+            {
+                VideoPopup.IsOpen = false;
+            }
         }
 
     }
