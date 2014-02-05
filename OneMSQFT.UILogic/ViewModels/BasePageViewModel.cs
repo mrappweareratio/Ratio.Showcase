@@ -2,6 +2,7 @@
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml;
 
 namespace OneMSQFT.UILogic.ViewModels
 {

@@ -1,5 +1,5 @@
 ﻿<omsqft:BasePageView
-    x:Class="OneMSQFT.Windows.Views.ExhibitDetailsPage"
+    x:Class="OneMSQFT.Windows.Views.AboutPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:OneMSQFT.Windows.Views"
@@ -10,22 +10,11 @@
     xmlns:viewModels="using:OneMSQFT.UILogic.ViewModels"
     xmlns:designViewModels="using:OneMSQFT.Windows.DesignViewModels"
     mc:Ignorable="d"
+    Background="White"
     prism:ViewModelLocator.AutoWireViewModel="True"
 	d:DataContext="{d:DesignInstance designViewModels:DesignExhibitDetailsPageViewModel, IsDesignTimeCreatable=True}">
 
     <omsqft:BasePageView.Resources>
-        
-    	<DataTemplate x:Key="HeaderTemplate">
-    		<Grid>
-    			<StackPanel Orientation="Horizontal">
-    				        <Button x:Name="backButton" HorizontalAlignment="Left"
-    		Click="GoBack" 
-    		IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}"
-    		Style="{StaticResource BackButtonStyle}" Margin="100" VerticalAlignment="Top" />
-			<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding ExhibitTitleText}" VerticalAlignment="Top"/>
-    			</StackPanel>
-    		</Grid>
-    	</DataTemplate>
         
     </omsqft:BasePageView.Resources>
     <omsqft:BasePageView.BottomAppBar>
@@ -38,34 +27,30 @@
                 <StackPanel Orientation="Horizontal">
                     <AppBarButton x:Name="HomeButton" HorizontalAlignment="Stretch" Label="Home" VerticalAlignment="Stretch" Icon="Home"/>
                     <AppBarButton x:Name="AboutButton" HorizontalAlignment="Stretch" Label="About" VerticalAlignment="Stretch" Icon="More"/>
-                </StackPanel>
+                 </StackPanel>
                 <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
-                    <AppBarToggleButton x:Name="AdminButton" HorizontalAlignment="Stretch" Label="Admin" VerticalAlignment="Stretch" Icon="Admin"/>
+                    <AppBarButton x:Name="AdminButton" HorizontalAlignment="Stretch" Label="Admin" VerticalAlignment="Stretch" Icon="Admin" Flyout="{StaticResource AdminFlyout}"/>
                 </StackPanel>
             </Grid>
         </AppBar>
     </omsqft:BasePageView.BottomAppBar>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="backButton" HorizontalAlignment="Left"
+                    Click="GoBack"  Grid.Column="1" 
+                    IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}"
+                    Style="{StaticResource BlackBackButtonStyle}" />
 
-        <Hub HeaderTemplate="{StaticResource HeaderTemplate}">
-        	<HubSection Header="HubSection 0">
-        		<DataTemplate>
-        			<Grid>
-        				<Image HorizontalAlignment="Left"
-						VerticalAlignment="Top" 
-						Width="{Binding ExhibitItemWidth}" 
-						Height="{Binding ExhibitItemHeight}" 
-						Source="{Binding HeroPhotoPath}"/>
-        			</Grid>
-        		</DataTemplate>
-        	</HubSection>
-        	<HubSection Header="HubSection 1">
-        		<DataTemplate>
-        			<Grid/>
-        		</DataTemplate>
-        	</HubSection>
-        </Hub>
+        </Grid>
 
         <VisualStateManager.VisualStateGroups>
 

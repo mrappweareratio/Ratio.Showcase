@@ -1,6 +1,7 @@
 ﻿using OneMSQFT.Common.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -19,8 +20,10 @@ namespace OneMSQFT.UILogic.ViewModels
             Id = exhibitModel.Id;
             SquareFootage = exhibitModel.SquareFootage;
         }
-        
-        private IExhibit Exhibit { get; set; }        
+
+
+        private IExhibit Exhibit { get; set; } 
+
         public Uri PhotoFilePath
         {
             get
@@ -31,6 +34,6 @@ namespace OneMSQFT.UILogic.ViewModels
                 }
                 return new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
             }
-        }    
+        }
     }
 }

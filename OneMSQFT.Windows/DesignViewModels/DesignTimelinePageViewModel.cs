@@ -11,19 +11,12 @@ namespace OneMSQFT.Windows.DesignViewModels
 {
     public class DesignTimelinePageViewModel : BasePageViewModel, ITimelinePageViewModel
     {
-        private int _totalSquareFeet;
-        public String TotalSquareFeet
-        {
-            get
-            {
-                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", _totalSquareFeet)).Trim();
-            }
-        }
         public DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
         public DesignTimelinePageViewModel()
         {
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();
 
+            // construct Fake Data
             const int fakeEventsCount = 10;
             for (var i = 1; i < fakeEventsCount+1; i++)
             {
@@ -92,6 +85,15 @@ namespace OneMSQFT.Windows.DesignViewModels
                 {
                     SetProperty(ref _selectedEvent, value);
                 }
+            }
+        }
+
+        private int _totalSquareFeet;
+        public String TotalSquareFeet
+        {
+            get
+            {
+                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", _totalSquareFeet)).Trim();
             }
         }
         private double _zoomedOutItemWidth;

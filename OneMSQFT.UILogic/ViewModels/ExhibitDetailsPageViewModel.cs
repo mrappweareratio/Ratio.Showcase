@@ -65,5 +65,17 @@ namespace OneMSQFT.UILogic.ViewModels
                 throw new System.NotImplementedException();
             }
         }
+
+        public ExhibitItemViewModel Exhibit
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
     }
 }

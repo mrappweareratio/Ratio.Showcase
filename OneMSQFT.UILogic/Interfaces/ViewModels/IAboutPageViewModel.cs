@@ -5,12 +5,8 @@ using Microsoft.Practices.Prism.StoreApps;
 
 namespace OneMSQFT.UILogic.Interfaces.ViewModels
 {
-    public interface IExhibitDetailsPageViewModel
+    public interface IAboutPageViewModel
     {
-        ExhibitItemViewModel Exhibit { get; set; }
-        double FullScreenHeight { get; set; }
-        double FullScreenWidth { get; set; }
-        ObservableCollection<EventItemViewModel> SquareFootEvents { get; }
         void WindowSizeChanged(double width, double height);
     }
 }

@@ -9,9 +9,9 @@ using System.Globalization;
 
 namespace OneMSQFT.Windows.DesignViewModels
 {
-    public class DesignExhibitDetailsPageViewModel : BasePageViewModel, IExhibitDetailsPageViewModel
+    public class DesignAboutPageViewModel : BasePageViewModel, IAboutPageViewModel
     {
-        public DesignExhibitDetailsPageViewModel()
+        public DesignAboutPageViewModel()
         {
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             const int fakeEventsCount = 10;
@@ -29,61 +29,6 @@ namespace OneMSQFT.Windows.DesignViewModels
                     EventHeroVideoPath = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
                 });
                 SquareFootEvents.Add(eivm);
-            }
-
-        }
-
-        public ObservableCollection<Uri> PhotoCollection { get; set; }
-
-        private void PopulateExhibitPhotos()
-        {
-            PhotoCollection = new ObservableCollection<Uri>();
-            PhotoCollection.Add(HeroPhotoPath);
-            PhotoCollection.Add(HeroPhotoPath);
-            PhotoCollection.Add(HeroPhotoPath);
-            PhotoCollection.Add(HeroPhotoPath);
-            PhotoCollection.Add(HeroPhotoPath);
-        }
-
-        public String ExhibitTitleText
-        {
-            get
-            {
-                return Exhibit.SquareFootage + " square feet at " + Exhibit.Name;
-            }
-        }
-
-        public String ExhibitHeroText
-        {
-            get
-            {
-                return Exhibit.Description;
-            }
-        }
-
-        public Uri HeroPhotoPath
-        {
-            get
-            {
-                return Exhibit.PhotoFilePath;
-            }
-        }    
-             
-
-        private ExhibitItemViewModel _exhibit;
-        public ExhibitItemViewModel Exhibit
-        {
-            get
-            {
-                return _exhibit;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    SetProperty(ref _exhibit, value);
-                    PopulateExhibitPhotos();
-                }
             }
         }
 
@@ -153,8 +98,6 @@ namespace OneMSQFT.Windows.DesignViewModels
         {
             FullScreenHeight = height;
             FullScreenWidth = width;
-            ExhibitItemHeight = height;
-            ExhibitItemWidth = width * .9;
         }
     }
 }

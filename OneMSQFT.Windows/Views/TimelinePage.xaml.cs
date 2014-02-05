@@ -17,6 +17,7 @@ using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
 using OneMSQFT.Windows.DesignViewModels;
+using OneMSQFT.Windows.Extensions;
 
 namespace OneMSQFT.Windows.Views
 {
@@ -28,7 +29,7 @@ namespace OneMSQFT.Windows.Views
         {
             this.InitializeComponent();
             this.StoryboardSeeker.Begin(); // a nice to have 
-            InitAppBar();
+            InitAppBars();
             Loaded += TimelinePage_Loaded;
         }
 
@@ -86,11 +87,12 @@ namespace OneMSQFT.Windows.Views
             }
         }
 
-        public override async void OMSQFTAppBarButtonCommandHandler(EventItemViewModel item)
+        public override async void TopAppBarEventButtonCommandHandler(EventItemViewModel item)
         {
             if (item == null) return;
             ScrollToThisEvent(item);
             TopAppBar.IsOpen = false;
+            BottomAppBar.IsOpen = false;
         }
 
         private void ScrollToThisEvent(EventItemViewModel item)
@@ -105,14 +107,15 @@ namespace OneMSQFT.Windows.Views
                 if (item.Id == null || item.Id == "0")
                 {   
                     // SCROLL HOME
-                    _timelineGridViewScrollViewer.ScrollToHorizontalOffset(0);
+                    _timelineGridViewScrollViewer.ScrollToHorizontalOffsetWithAnimation(0);
+                    this.Frame.BackStack.Clear();
                 }
                 foreach (var e in vm.SquareFootEvents)
                 {
                     if (e.Id == item.Id)
                     {
                         var itemIndex = vm.SquareFootEvents.IndexOf(e) + 1;
-                        _timelineGridViewScrollViewer.ScrollToHorizontalOffset((itemIndex * vm.EventItemWidth) - 50);
+                        _timelineGridViewScrollViewer.ScrollToHorizontalOffsetWithAnimation((itemIndex * vm.EventItemWidth) - 50);
                     }
                 }
             }
@@ -149,5 +152,14 @@ namespace OneMSQFT.Windows.Views
                 VideoPopup.IsOpen = false;
             }
         }
+
+        public override void PopulateTopAppbar(BasePageViewModel vm)
+        {
+            base.PopulateTopAppbar(vm);
+            this.AboutButton.Command = this.AboutButtonClickCommand;
+            this.AdminButton.Command = this.AdminButtonClickCommand;
+            this.AdminButton.CommandParameter = this.AdminButton;
+        }
+
     }
 }
