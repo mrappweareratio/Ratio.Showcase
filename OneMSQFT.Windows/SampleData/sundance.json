@@ -4,7 +4,7 @@
       "id": 1,
       "square_feet": 1274,
       "title": "Sundance Film Festival",
-      "color": "orange",
+      "color": "AABBCC",
       "date": "Jan 17-19",
       "address": "444 Main st.",
       "City": "Park City, UT",
@@ -33,7 +33,7 @@
               "id":300,
               "square_feet":408,
               "title":"square feet guest curated by La Blogothèque",
-              "color":"lime",
+              "color":"AABBCC",
               "curator":"La Blogothèque",
               "logo_url":"http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/logo.png",
               "exhibits":[
