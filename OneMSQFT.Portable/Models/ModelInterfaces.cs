@@ -22,6 +22,7 @@ namespace OneMSQFT.Common.Models
         /// This also applies to all subsequent image file paths in this document.
         /// </summary>
         string PhotoFilePath { get; }
+        string EventHeroVideoPath { get; }
         IEnumerable<TCurator> Curators { get; }
     }
 

@@ -46,7 +46,19 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
         public DateTime DateStart { get { return Event.DateStart; } }
-       
+
+        public Uri EventHeroVideoUri
+        {
+            get
+            {
+                if (Event.EventHeroVideoPath != null)
+                {
+                    return new Uri(Event.EventHeroVideoPath, UriKind.Absolute);
+                }
+                return new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
+            }
+        }
+
         public Uri PhotoFilePath
         {
             get

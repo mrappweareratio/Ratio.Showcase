@@ -23,7 +23,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         public void TimelinePageViewModel_Constructs()
         {
             var vm = new TimelinePageViewModel() as ITimelinePageViewModel;
-            Assert.IsNotNull(vm.SquareFootFutureEvents);
+            Assert.IsNotNull(vm.SquareFootEvents);
             Assert.IsNotNull(vm.SquareFootPastEvents);
             Assert.IsNotNull(vm.TimeLineItems);
             Assert.IsNotNull(vm.TimeLineMenuItems);

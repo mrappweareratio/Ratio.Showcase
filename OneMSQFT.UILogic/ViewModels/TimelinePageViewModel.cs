@@ -9,13 +9,13 @@ namespace OneMSQFT.UILogic.ViewModels
     {
         public TimelinePageViewModel()
         {
-            this.SquareFootFutureEvents = new ObservableCollection<EventItemViewModel>();
+            this.SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             this.SquareFootPastEvents = new ObservableCollection<EventItemViewModel>();
             this.TimeLineItems = new ObservableCollection<EventItemViewModel>();
             this.TimeLineMenuItems = new ObservableCollection<EventItemViewModel>();
         }
 
-        public ObservableCollection<EventItemViewModel> SquareFootFutureEvents { get; private set; }
+        public ObservableCollection<EventItemViewModel> SquareFootEvents { get; private set; }
         public ObservableCollection<EventItemViewModel> SquareFootPastEvents { get; private set; }
         public ObservableCollection<EventItemViewModel> TimeLineItems { get; private set; }
         public ObservableCollection<EventItemViewModel> TimeLineMenuItems { get; private set; }
@@ -56,5 +56,94 @@ namespace OneMSQFT.UILogic.ViewModels
             ZoomedOutItemHeight = height / 4;
         }
 
+
+
+        public Microsoft.Practices.Prism.StoreApps.DelegateCommand<EventItemViewModel> EventHeroItemClickCommand
+        {
+            get
+            {
+               throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
+        public void EventHeroItemClickCommandHandler(EventItemViewModel item)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        double ITimelinePageViewModel.ZoomedOutItemHeight
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
+        double ITimelinePageViewModel.ZoomedOutItemWidth
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
+        double ITimelinePageViewModel.FullScreenItemWidth
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
+        double ITimelinePageViewModel.FullScreenItemHeight
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
+        ObservableCollection<EventItemViewModel> ITimelinePageViewModel.SquareFootEvents
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
+        ObservableCollection<EventItemViewModel> ITimelinePageViewModel.TimeLineItems
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
+        ObservableCollection<EventItemViewModel> ITimelinePageViewModel.TimeLineMenuItems
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
+        void ITimelinePageViewModel.WindowSizeChanged(double width, double height)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Microsoft.Practices.Prism.StoreApps.DelegateCommand<EventItemViewModel> ITimelinePageViewModel.EventHeroItemClickCommand
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
+        void ITimelinePageViewModel.EventHeroItemClickCommandHandler(EventItemViewModel item)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
