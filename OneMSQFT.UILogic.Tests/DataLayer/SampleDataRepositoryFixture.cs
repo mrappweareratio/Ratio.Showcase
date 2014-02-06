@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
@@ -47,9 +48,33 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
 
         public bool ValidateEvent(Event e)
         {
+            //Basic properties
+            Assert.IsNotNull(e.Id, "Id");
             Assert.IsNotNull(e.Name, "Name");
             Assert.IsNotNull(e.Color, "Color");
             Assert.IsTrue(e.Color.Length == 6, "Color is Hex");
+            Assert.IsNotNull(e.SquareFootage, "SquareFootage");
+            Assert.IsNotNull(e.DisplayDate, "DisplayDate");
+            Assert.IsNotNull(e.Description, "Description");
+            Assert.IsNotNull(e.DateStart, "DateStart");
+            Assert.IsNotNull(e.DateEnd, "DateEnd");
+            Assert.IsNotNull(e.CreatedAt, "CreatedAt");
+            //Assert.IsNotNull(e.UpdatedAt, "UpdatedAt");  Is this optional?
+            Assert.IsNotNull(e.Published, "Published");
+            //Possibly unused properties
+            //Assert.IsNotNull(e.Longitude, "Longitude");
+            //Assert.IsNotNull(e.Lattitude, "Lattitude");
+            Assert.IsNotNull(e.SocialMediaTitle, "SocialMediaTitle");
+            Assert.IsNotNull(e.SocialMediaDescription, "SocialMediaDescription");
+            Assert.IsNotNull(e.SocialMediaImagePath, "SocialMediaImagePath");
+            //Obsolete properties to be removed?
+            //Geolocation
+            //SeoMetaDescription
+            //PhotoFilePath
+            //Curators
+            //MediaContent
+            //EventHeroVideoPath
+
             return true;
         }
     }
