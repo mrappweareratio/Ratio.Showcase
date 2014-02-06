@@ -18,6 +18,8 @@ namespace OneMSQFT.Windows.DesignViewModels
 
             // construct Fake Data
             const int fakeEventsCount = 10;
+            var fakeExhibits = new ObservableCollection<ExhibitItemViewModel>();
+             
             for (var i = 1; i < fakeEventsCount+1; i++)
             {
                 var eivm = new EventItemViewModel(new Event()
@@ -31,6 +33,20 @@ namespace OneMSQFT.Windows.DesignViewModels
                     SquareFootage = Convert.ToInt32(i.ToString() + i.ToString() + i.ToString() + i.ToString()),
                     EventHeroVideoPath ="http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
                 });
+
+                var fakeExhibitsCount = Math.Round((decimal) new Random().Next(1, 10));
+                for (var j = 0; j < fakeExhibitsCount; j++)
+                {
+                    var exhibit = new ExhibitItemViewModel(new Exhibit()
+                    {
+                        Id = j.ToString(),
+                        Name = "Exhibit Name " + j,
+                        Description = "Exhibit Description Name " + j,
+                        PhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg",
+                        SquareFootage = j * 1234 + 123
+                    });
+                    eivm.Exhibits.Add(exhibit);
+                }         
                 SquareFootEvents.Add(eivm);
                 _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
             }

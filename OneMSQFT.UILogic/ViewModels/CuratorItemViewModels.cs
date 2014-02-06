@@ -10,6 +10,8 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class CuratorItemViewModel : ItemBaseViewModel
     {
+        public override string Id { get; set; }
+
         public CuratorItemViewModel(ICurator<IExhibit> curatorModel)
         {
             Curator = curatorModel;

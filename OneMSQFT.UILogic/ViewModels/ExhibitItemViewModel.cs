@@ -12,6 +12,8 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class ExhibitItemViewModel : ItemBaseViewModel
     {
+        public override string Id { get; set; }
+
         public ExhibitItemViewModel(IExhibit exhibitModel)
         {
             Exhibit = exhibitModel;

@@ -14,6 +14,8 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class EventItemViewModel : ItemBaseViewModel
     {
+        public override string Id { get; set; }
+
         public EventItemViewModel(IEvent<ICurator<IExhibit>> eventModel)
         {
             Event = eventModel;
@@ -21,30 +23,13 @@ namespace OneMSQFT.UILogic.ViewModels
             Description = eventModel.Description;
             Id = eventModel.Id;
             SquareFootage = eventModel.SquareFootage;
+            Exhibits = new ObservableCollection<ExhibitItemViewModel>();
         }
         
         private IEvent<ICurator<IExhibit>> Event { get; set; }
     
-        public ObservableCollection<ExhibitItemViewModel> Exhibits
-        {
-            get
-            {
-                var fakeExhibits = new ObservableCollection<ExhibitItemViewModel>();
-                for (var i = 0; i < 4; i++)
-                {
-                    var exhibit = new ExhibitItemViewModel(new Exhibit()
-                    {
-                        Id = i.ToString(),
-                        Name = "Exhibit Name " + i,
-                        Description = "Exhibit Description Name " + i,
-                        PhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg",
-                        SquareFootage = i*1234+123
-                    });
-                    fakeExhibits.Add(exhibit);
-                }
-                return fakeExhibits;
-            }
-        }
+        public ObservableCollection<ExhibitItemViewModel> Exhibits { get; private set; }
+        
         public DateTime DateStart { get { return Event.DateStart; } }
 
         public Uri EventHeroVideoUri
