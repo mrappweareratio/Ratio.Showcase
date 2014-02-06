@@ -7,6 +7,7 @@ namespace OneMSQFT.Common.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Color { get; set; }
         public int SquareFootage { get; set; }
         public List<Tag> Tags { get; set; }
         public string Exhibitor { get; set; }

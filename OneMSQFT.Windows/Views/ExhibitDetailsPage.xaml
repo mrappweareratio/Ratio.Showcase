@@ -14,20 +14,16 @@
 	d:DataContext="{d:DesignInstance designViewModels:DesignExhibitDetailsPageViewModel, IsDesignTimeCreatable=True}">
 
     <omsqft:BasePageView.Resources>
-        
-    	<DataTemplate x:Key="HeaderTemplate">
+    	<DataTemplate x:Key="PhotoCarouselTemplate">
     		<Grid>
-    			<StackPanel Orientation="Horizontal">
-    				        <Button x:Name="backButton" HorizontalAlignment="Left"
-    		Click="GoBack" 
-    		IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}"
-    		Style="{StaticResource BackButtonStyle}" Margin="100" VerticalAlignment="Top" />
-			<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding ExhibitTitleText}" VerticalAlignment="Top"/>
-    			</StackPanel>
-    		</Grid>
+				<Image 
+					Stretch="UniformToFill"
+        			Width="{Binding ExhibitItemWidth}" 
+        			Height="{Binding ExhibitItemHeight}" Source="{Binding}"/>
+			</Grid>
     	</DataTemplate>
-        
     </omsqft:BasePageView.Resources>
+
     <omsqft:BasePageView.BottomAppBar>
         <AppBar>
             <Grid>
@@ -44,28 +40,74 @@
                 </StackPanel>
             </Grid>
         </AppBar>
-    </omsqft:BasePageView.BottomAppBar>
-    <Grid>
-
-
-        <Hub HeaderTemplate="{StaticResource HeaderTemplate}">
-        	<HubSection Header="HubSection 0">
-        		<DataTemplate>
-        			<Grid>
-        				<Image HorizontalAlignment="Left"
-						VerticalAlignment="Top" 
-						Width="{Binding ExhibitItemWidth}" 
-						Height="{Binding ExhibitItemHeight}" 
-						Source="{Binding HeroPhotoPath}"/>
-        			</Grid>
-        		</DataTemplate>
-        	</HubSection>
-        	<HubSection Header="HubSection 1">
-        		<DataTemplate>
-        			<Grid/>
-        		</DataTemplate>
-        	</HubSection>
-        </Hub>
+    </omsqft:BasePageView.BottomAppBar>	
+	<Grid Background="White">
+    		<StackPanel Orientation="Horizontal">
+    		<Button x:Name="backButton" HorizontalAlignment="Left"
+    			Click="GoBack" 
+    			IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}"
+    			Style="{StaticResource BackButtonStyle}" Margin="100" VerticalAlignment="Top" />
+			<TextBlock HorizontalAlignment="Left" Margin="100" Text="{Binding ExhibitTitleText}" VerticalAlignment="Top" Foreground="Black" FontSize="24"/>
+    			</StackPanel>
+        <ScrollViewer Style="{StaticResource HorizontalScrollViewerStyle}" >
+        		<StackPanel Orientation="Horizontal">
+        		<Image 
+        			Width="{Binding ExhibitItemWidth}" 
+        			Height="{Binding ExhibitItemHeight}" 
+        			Source="{Binding HeroPhotoPath}" Stretch="UniformToFill"/>
+        		<Grid 
+        			Width="{Binding ExhibitItemWidth}" 
+        			Height="{Binding ExhibitItemHeight}" Background="{StaticResource OneMSQFTWhiteBrush}" >
+        			<Grid.ColumnDefinitions>
+        				<ColumnDefinition/>
+        				<ColumnDefinition Width="3*"/>
+        				<ColumnDefinition/>
+        			</Grid.ColumnDefinitions>
+        			<Grid.RowDefinitions>
+        				<RowDefinition/>
+        				<RowDefinition Height="3*"/>
+        				<RowDefinition/>
+        			</Grid.RowDefinitions>
+        			<Image Grid.Row="1" Grid.Column="1"
+        			Source="{Binding HeroPhotoPath}" Stretch="UniformToFill"/>
+        			<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding ExhibitHeroText}" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTBlackBrush}" FontSize="29.333" Grid.Row="2" Grid.Column="1"/>
+        		</Grid>
+        		<Grid 
+        			Width="{Binding ExhibitItemWidth}" 
+        			Height="{Binding ExhibitItemHeight}" Background="{StaticResource OneMSQFTWhiteBrush}" >
+        			<ListView HorizontalAlignment="Left" 
+					VerticalAlignment="Top" 
+        			Width="{Binding ExhibitItemWidth}" 
+					ItemsSource="{Binding PhotoCollection}" ItemTemplate="{StaticResource PhotoCarouselTemplate}" IsSwipeEnabled="False" SelectionMode="None"/>
+        		</Grid>
+        		<Grid 
+        			Width="{Binding ExhibitItemWidth}" 
+        			Height="{Binding ExhibitItemHeight}" Background="{Binding EventColor, Mode=OneWay}" >
+        			<Grid.ColumnDefinitions>
+        				<ColumnDefinition/>
+        				<ColumnDefinition Width="5*"/>
+        				<ColumnDefinition/>
+        			</Grid.ColumnDefinitions>
+        			<Grid.RowDefinitions>
+        				<RowDefinition/>
+        				<RowDefinition Height="5*"/>
+        				<RowDefinition/>
+        			</Grid.RowDefinitions>
+        			<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding ExhibitHeroText}" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="48" Grid.Row="2" Grid.Column="1"/>
+        		</Grid>
+        		<Grid 
+        			Width="{Binding ExhibitItemWidth}" 
+        			Height="{Binding ExhibitItemHeight}" Background="{Binding EventColor, Mode=OneWay}" >
+        			<Grid.RowDefinitions>
+        				<RowDefinition Height="2*"/>
+        				<RowDefinition Height="3*"/>
+        				<RowDefinition Height="3*"/>
+        			</Grid.RowDefinitions>
+        			<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="48" Grid.Column="1" Text="Next"/>
+        			<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="26.667" Grid.Row="1" Grid.Column="1" Text="Next" Grid.ColumnSpan="2" Margin="0.348,30,-0.349,0" FontWeight="Light"/>
+        		</Grid>
+        	</StackPanel>
+        </ScrollViewer>
 
         <VisualStateManager.VisualStateGroups>
 

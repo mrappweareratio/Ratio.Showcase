@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
@@ -8,6 +10,7 @@ using OneMSQFT.UILogic.ViewModels;
 using Microsoft.Practices.Prism.StoreApps;
 using System.Threading.Tasks;
 using System.Globalization;
+using OneMSQFT.Common.Services;
 
 namespace OneMSQFT.Windows.DesignViewModels
 {
@@ -25,14 +28,15 @@ namespace OneMSQFT.Windows.DesignViewModels
                 Name = "Exhibit Name " + id,
                 Description = "Exhibit Description Name " + id,
                 PhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg",
-                SquareFootage = Convert.ToInt32(id) * 1234 + 123
+                SquareFootage = Convert.ToInt32(id) * 1234 + 123,
+                Color = "F" + id + "C" + id + "0" + id
             });
             Exhibit = exhibit;
 
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
 
-        public DesignExhibitDetailsPageViewModel()
+        public DesignExhibitDetailsPageViewModel(IDataService dataService, IAlertMessageService messageService)
         {
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             const int fakeEventsCount = 10;
@@ -52,6 +56,23 @@ namespace OneMSQFT.Windows.DesignViewModels
                 SquareFootEvents.Add(eivm);
             }
 
+        }
+
+        private ExhibitItemViewModel _exhibit;
+        public ExhibitItemViewModel Exhibit
+        {
+            get
+            {
+                return _exhibit;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    SetProperty(ref _exhibit, value);
+                    PopulateExhibitPhotos();
+                }
+            }
         }
 
         public ObservableCollection<Uri> PhotoCollection { get; set; }
@@ -82,6 +103,14 @@ namespace OneMSQFT.Windows.DesignViewModels
             }
         }
 
+        public SolidColorBrush EventColor
+        {
+            get
+            {
+                return Exhibit.EventColor;
+            }
+        }
+
         public Uri HeroPhotoPath
         {
             get
@@ -89,24 +118,6 @@ namespace OneMSQFT.Windows.DesignViewModels
                 return Exhibit.PhotoFilePath;
             }
         }    
-             
-
-        private ExhibitItemViewModel _exhibit;
-        public ExhibitItemViewModel Exhibit
-        {
-            get
-            {
-                return _exhibit;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    SetProperty(ref _exhibit, value);
-                    PopulateExhibitPhotos();
-                }
-            }
-        }
 
         private double _fullScreenWidth;
         private double _fullScreenHeight;
