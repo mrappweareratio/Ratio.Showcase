@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Navigation;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
@@ -11,6 +13,25 @@ namespace OneMSQFT.Windows.DesignViewModels
 {
     public class DesignExhibitDetailsPageViewModel : BasePageViewModel, IExhibitDetailsPageViewModel
     {
+        public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
+        {
+            if(!(navigationParameter is String))
+                throw new ArgumentOutOfRangeException("No Exhibit Id String");
+            
+            var id = navigationParameter as String;
+            var exhibit = new ExhibitItemViewModel(new Exhibit()
+            {
+                Id = id,
+                Name = "Exhibit Name " + id,
+                Description = "Exhibit Description Name " + id,
+                PhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg",
+                SquareFootage = Convert.ToInt32(id) * 1234 + 123
+            });
+            Exhibit = exhibit;
+
+            base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
+        }
+
         public DesignExhibitDetailsPageViewModel()
         {
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();

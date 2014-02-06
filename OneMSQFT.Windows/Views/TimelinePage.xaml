@@ -519,7 +519,7 @@
                                 <core:EventTriggerBehavior EventName="ItemClick">
                                     <omsqftbehaviors:NavigateWithEventArgsToPageAction 
                                 TargetPage="OneMSQFT.Windows.Views.ExhibitDetailsPage"
-                                EventArgsParameterPath="ClickedItem" />
+                                EventArgsParameterPath="ClickedItem.Id" />
                                 </core:EventTriggerBehavior>
                             </interactivity:Interaction.Behaviors>
                         </GridView>

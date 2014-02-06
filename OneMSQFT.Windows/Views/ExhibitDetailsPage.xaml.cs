@@ -16,26 +16,12 @@ namespace OneMSQFT.Windows.Views
             this.InitializeComponent();
             InitAppBars();
             Loaded += ExhibitDetailsPage_Loaded;
-        }
-
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            if (e.Parameter != null && e.Parameter is ExhibitItemViewModel)
-            {
-                IExhibitDetailsPageViewModel vm = this.DataContext as IExhibitDetailsPageViewModel;
-                if (vm != null)
-                {
-                    vm.Exhibit = e.Parameter as ExhibitItemViewModel;
-                }
-            }
-        }
+        }       
 
         void ExhibitDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
             PopulateTopAppbar(((BasePageViewModel)this.DataContext));
-            IExhibitDetailsPageViewModel vm = this.DataContext as IExhibitDetailsPageViewModel;
+            var vm = this.DataContext as IExhibitDetailsPageViewModel;
             if (vm != null)
             {
                 vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
