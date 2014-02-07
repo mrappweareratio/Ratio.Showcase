@@ -79,18 +79,21 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             Assert.IsTrue(validEvents, "ValidEvents");
         }
 
-        private bool ValidateExhibit(Exhibit e)
+
+        //HELPER METHODS
+        public bool ValidateExhibit(Exhibit e)
         {
             //Basic properties
             Assert.IsNotNull(e.Id, "Id");
             Assert.IsNotNull(e.Name, "Name");
             Assert.IsNotNull(e.Exhibitor, "Exhibitor");
             Assert.IsNotNull(e.SquareFootage, "SquareFootage");
-            //Assert.IsNotNull(e.DisplayDate, "DisplayDate");
+            Assert.IsNotNull(e.DisplayDate, "DisplayDate");
             Assert.IsNotNull(e.Description, "Description");
-            //Assert.IsNotNull(e.DateStart, "DateStart");
-            //Assert.IsNotNull(e.DateEnd, "DateEnd");
-            //Assert.IsNotNull(e.CreatedAt, "CreatedAt");
+            Assert.IsNotNull(e.DateStart, "DateStart");
+            Assert.IsNotNull(e.DateEnd, "DateEnd");
+            Assert.IsNotNull(e.CreatedAt, "CreatedAt");
+            Assert.IsNotNull(e.UpdatedAt, "UpdatedAt"); 
 
             return true;
         }
@@ -109,11 +112,11 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             Assert.IsNotNull(e.DateStart, "DateStart");
             Assert.IsNotNull(e.DateEnd, "DateEnd");
             Assert.IsNotNull(e.CreatedAt, "CreatedAt");
-            //Assert.IsNotNull(e.UpdatedAt, "UpdatedAt");  Is this optional?
+            Assert.IsNotNull(e.UpdatedAt, "UpdatedAt");  //Is this optional?
             Assert.IsNotNull(e.Published, "Published");
             //Possibly unused properties
-            //Assert.IsNotNull(e.Longitude, "Longitude");
-            //Assert.IsNotNull(e.Lattitude, "Lattitude");
+            Assert.IsNotNull(e.Longitude, "Longitude");
+            Assert.IsNotNull(e.Lattitude, "Lattitude");
             Assert.IsNotNull(e.SocialMediaTitle, "SocialMediaTitle");
             Assert.IsNotNull(e.SocialMediaDescription, "SocialMediaDescription");
             Assert.IsNotNull(e.SocialMediaImagePath, "SocialMediaImagePath");
