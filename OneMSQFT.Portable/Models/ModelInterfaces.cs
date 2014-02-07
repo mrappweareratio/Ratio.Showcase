@@ -13,13 +13,6 @@ namespace OneMSQFT.Common.Models
 
     public interface IEvent<out TExhibit> : ISocialMedia, ILocation, ISquareFootageItem, IDatedItem, IColor, IHasMediaContent, ITimeStampedItem where TExhibit : IExhibit
     {        
-        /// <summary>
-        /// No specific hi-dpi paths will be in the database. 
-        /// Instead the standard @2x suffix will be used where hi-dpi support is implemented. 
-        /// This also applies to all subsequent image file paths in this document.
-        /// </summary>
-        string PhotoFilePath { get; }
-        string EventHeroVideoPath { get; }
         IEnumerable<TExhibit> Exhibits { get; }
     }
 
@@ -27,7 +20,6 @@ namespace OneMSQFT.Common.Models
     {
         string Longitude { get; }
         string Lattitude { get; }
-        string Geolocation { get; }
     }
 
     public interface IDatedItem
@@ -60,8 +52,6 @@ namespace OneMSQFT.Common.Models
         /// </summary>
         string Exhibitor { get; }
         string RsvpUrl { get; }
-        string HeroPhotoFilePath { get; set; }
-        string SubHeroPhotoFilePath { get; set; }
     }
 
     public interface IHasMediaContent

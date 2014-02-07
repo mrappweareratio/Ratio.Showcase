@@ -23,34 +23,25 @@ namespace OneMSQFT.UILogic.ViewModels
             Id = exhibitModel.Id;
             Description = exhibitModel.Description;
             SquareFootage = exhibitModel.SquareFootage;
+            LoadImages(exhibitModel.MediaContent);
+        }
+
+        private void LoadImages(IEnumerable<MediaContentSource> mediaContent)
+        {
+            if (mediaContent == null)
+            {
+                HeroPhotoFilePath = new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
+                return;
+            }
+            var images = mediaContent.Where(x => x.ContentSourceType == ContentSourceType.Image);
+            var firstImage = images.FirstOrDefault(x => x.ContentSourceType == ContentSourceType.Image);
+            HeroPhotoFilePath = firstImage == null ? new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute) : new Uri(firstImage.Source, UriKind.Absolute);            
         }
 
 
         private IExhibit Exhibit { get; set; }
 
-        public Uri HeroPhotoFilePath
-        {
-            get
-            {
-                if (Exhibit.HeroPhotoFilePath != null)
-                {
-                    return new Uri(Exhibit.HeroPhotoFilePath, UriKind.Absolute);
-                }
-                return new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
-            }
-        }
-
-        public Uri SubHeroPhotoFilePath
-        {
-            get
-            {
-                if (Exhibit.SubHeroPhotoFilePath != null)
-                {
-                    return new Uri(Exhibit.SubHeroPhotoFilePath, UriKind.Absolute);
-                }
-                return new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
-            }
-        }
+        public Uri HeroPhotoFilePath { get; set; }              
 
         public SolidColorBrush EventColor
         {

@@ -23,24 +23,19 @@ namespace OneMSQFT.Common.Models
         public string Description { get; set; }
         public string Longitude { get; set; }
         public string Lattitude { get; set; }
-        public string Geolocation { get; set; } //TODO: Remove?
         [JsonProperty("display_date")]
         public string DisplayDate { get; set; }
         [JsonProperty("start_date")]
         public DateTime DateStart { get; set; }
         [JsonProperty("end_date")]
         public DateTime DateEnd { get; set; }
-        public string SeoMetaDescription { get; set; } //TODO: Remove?
-        public string PhotoFilePath { get; set; } //TODO: Remove?
         [JsonProperty("exhibit_data")]
         public IEnumerable<Exhibit> Exhibits { get; set; }
         public string Color { get; set; }
-        public IEnumerable<MediaContentSource> MediaContent { get; private set; } //TODO: Remove?
-        public string EventHeroVideoPath { get; set; } //TODO: Remove?
+        public IEnumerable<MediaContentSource> MediaContent { get; set; }
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
         [JsonProperty("updated_at")]
         public DateTime UpdatedAt { get; set; }
-        public bool Published { get; set; }
     }
 }

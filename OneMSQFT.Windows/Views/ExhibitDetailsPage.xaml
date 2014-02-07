@@ -195,7 +195,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Grid.Row="1" Grid.Column="1"
-        				Source="{Binding Panel1PhotoPath}" Stretch="UniformToFill"/>
+        				Source="{Binding HeroPhotoFilePath}" Stretch="UniformToFill"/>
                     <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Panel1LongDescription}" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTBlackBrush}" FontSize="29.333" Grid.Row="2" Grid.Column="1"/>
                 </Grid>
                 <Grid x:Name="Panel2" 

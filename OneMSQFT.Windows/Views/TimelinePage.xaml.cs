@@ -32,6 +32,9 @@ namespace OneMSQFT.Windows.Views
             this.StoryboardSeeker.Begin(); // a nice to have 
             InitAppBars();
             Loaded += TimelinePage_Loaded;
+            var vm = this.DataContext as ITimelinePageViewModel;
+            vm.FullScreenHeight = Window.Current.Bounds.Height;
+            vm.FullScreenWidth = Window.Current.Bounds.Width;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -46,11 +49,8 @@ namespace OneMSQFT.Windows.Views
         void TimelinePage_Loaded(object sender, RoutedEventArgs e)
         {
             PopulateTopAppbar(((BasePageViewModel)this.DataContext));
-            ITimelinePageViewModel vm = this.DataContext as ITimelinePageViewModel;
-            if (vm != null)
-            {
-                vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-            }
+            var vm = this.DataContext as ITimelinePageViewModel;            
+            vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);            
         }
 
         private void itemsGridView_Loaded(object sender, RoutedEventArgs e)

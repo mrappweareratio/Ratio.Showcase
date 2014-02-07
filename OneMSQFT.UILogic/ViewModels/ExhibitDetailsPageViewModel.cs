@@ -151,16 +151,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 return Exhibit.Description;
             }
-        }
-
-        public Uri Panel1PhotoPath
-        {
-            get
-            {
-                return Exhibit.SubHeroPhotoFilePath;
-            }
-        }
-
+        }      
 
         public ObservableCollection<MediaContentSourceItemViewModel> MediaContentCollection { get; set; }
 

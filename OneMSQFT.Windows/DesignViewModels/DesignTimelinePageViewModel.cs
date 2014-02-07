@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 using OneMSQFT.Common.Models;
@@ -20,22 +21,33 @@ namespace OneMSQFT.Windows.DesignViewModels
             // construct Fake Data
             const int fakeEventsCount = 10;
             var fakeExhibits = new ObservableCollection<ExhibitItemViewModel>();
-             
-            for (var i = 1; i < fakeEventsCount+1; i++)
+
+            for (var i = 1; i < fakeEventsCount + 1; i++)
             {
                 var eivm = new EventItemViewModel(new Event()
                 {
-                    Color = (i*2).ToString()+i.ToString()+(i*2).ToString()+i.ToString()+i.ToString()+i.ToString(),
+                    Color = (i * 2).ToString() + i.ToString() + (i * 2).ToString() + i.ToString() + i.ToString() + i.ToString(),
                     Description = "Description Description " + i,
                     Id = i.ToString(),
                     Name = "Event Name " + i,
                     DateStart = DateTime.Now.Add(TimeSpan.FromDays(i * (i > fakeEventsCount / 2 ? 20 : -20) + 1)),
-                    PhotoFilePath = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg",
                     SquareFootage = Convert.ToInt32(i.ToString() + i.ToString() + i.ToString() + i.ToString()),
-                    EventHeroVideoPath ="http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
+                    MediaContent = new List<MediaContentSource>
+                    {
+                        new MediaContentSource
+                        {
+                            ContentSourceType = ContentSourceType.Image,
+                            Source = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg"
+                        },
+                        new MediaContentSource
+                        {
+                            ContentSourceType = ContentSourceType.Video,
+                            Source = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
+                        }
+                    },
                 });
 
-                var fakeExhibitsCount = Math.Round((decimal) new Random().Next(1, 10));
+                var fakeExhibitsCount = Math.Round((decimal)new Random().Next(1, 10));
                 for (var j = 0; j < fakeExhibitsCount; j++)
                 {
                     var exhibit = new ExhibitItemViewModel(new Exhibit()
@@ -43,11 +55,23 @@ namespace OneMSQFT.Windows.DesignViewModels
                         Id = j.ToString(),
                         Name = "Exhibit Name " + j,
                         Description = "Exhibit Description Name " + j,
-                        HeroPhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg",
-                        SquareFootage = j * 1234 + 123
+                        SquareFootage = j * 1234 + 123,
+                        MediaContent = new List<MediaContentSource>
+                        {
+                            new MediaContentSource
+                            {
+                                ContentSourceType = ContentSourceType.Image,
+                                Source = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg"
+                            },
+                            new MediaContentSource
+                            {
+                                ContentSourceType = ContentSourceType.Video,
+                                Source = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
+                            }
+                        }
                     });
                     eivm.Exhibits.Add(exhibit);
-                }         
+                }
                 SquareFootEvents.Add(eivm);
                 _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
             }
@@ -60,11 +84,12 @@ namespace OneMSQFT.Windows.DesignViewModels
             get
             {
                 var c = new ObservableCollection<EventItemViewModel>();
-                c.Add(new EventItemViewModel(new Event() { 
-                    Name = "Featured", 
-                    Color="FFFFFF",
+                c.Add(new EventItemViewModel(new Event()
+                {
+                    Name = "Featured",
+                    Color = "FFFFFF",
                     SquareFootage = _totalSquareFeet
-                    }));
+                }));
                 foreach (var e in SquareFootEvents)
                 {
                     c.Add(e);
@@ -87,7 +112,8 @@ namespace OneMSQFT.Windows.DesignViewModels
                 c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
                 c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
                 return c as ObservableCollection<EventItemViewModel>;
-        } }
+            }
+        }
 
         private EventItemViewModel _selectedEvent;
         public EventItemViewModel SelectedEvent
@@ -143,7 +169,7 @@ namespace OneMSQFT.Windows.DesignViewModels
         {
             get
             {
-                return FullScreenWidth *.9;
+                return FullScreenWidth * .9;
             }
         }
         public double EventItemHeight
@@ -175,7 +201,7 @@ namespace OneMSQFT.Windows.DesignViewModels
         public void WindowSizeChanged(double width, double height)
         {
             FullScreenHeight = height;
-            FullScreenWidth = width;            
+            FullScreenWidth = width;
             OnPropertyChanged("ZoomedOutItemWidth");
             OnPropertyChanged("ZoomedOutItemHeight");
             OnPropertyChanged("EventItemHeight");

@@ -6,6 +6,11 @@ namespace OneMSQFT.Common.Models
 {
     public class Exhibit : IExhibit
     {
+        public Exhibit()
+        {
+            MediaContent = new List<MediaContentSource>();
+        }
+
         public string Id { get; set; }
         [JsonProperty("title")]
         public string Name { get; set; }
@@ -18,9 +23,6 @@ namespace OneMSQFT.Common.Models
         public string Introduction { get; set; }
         public string RsvpUrl { get; set; }         
         public IEnumerable<MediaContentSource> MediaContent { get; set; }
-        public string HeroPhotoFilePath { get; set; }
-        public string SubHeroPhotoFilePath { get; set; }
-        public string ArtistName { get; set; }
         [JsonProperty("display_date")]
         public string DisplayDate { get; set; }
         public DateTime DateStart { get; set; }

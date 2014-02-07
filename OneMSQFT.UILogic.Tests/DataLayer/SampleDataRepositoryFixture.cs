@@ -113,7 +113,6 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             Assert.IsNotNull(e.DateEnd, "DateEnd");
             Assert.IsNotNull(e.CreatedAt, "CreatedAt");
             Assert.IsNotNull(e.UpdatedAt, "UpdatedAt");  //Is this optional?
-            Assert.IsNotNull(e.Published, "Published");
             //Possibly unused properties
             Assert.IsNotNull(e.Longitude, "Longitude");
             Assert.IsNotNull(e.Lattitude, "Lattitude");
