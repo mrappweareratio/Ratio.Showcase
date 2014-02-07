@@ -11,19 +11,15 @@ namespace OneMSQFT.Common.Models
         int SquareFootage { get; set; }
     }
 
-    public interface IEvent<out TExhibit> : ISocialMedia, ISquareFootageItem, IDatedItem, IColor, IHasMediaContent, ITimeStampedItem where TExhibit : IExhibit
+    public interface IEvent<out TExhibit> : ISocialMedia, ILocation, ISquareFootageItem, IDatedItem, IColor, IHasMediaContent, ITimeStampedItem where TExhibit : IExhibit
+    {        
+        IEnumerable<TExhibit> Exhibits { get; }
+    }
+
+    public interface ILocation
     {
         string Longitude { get; }
         string Lattitude { get; }
-        string Geolocation { get; }
-        /// <summary>
-        /// No specific hi-dpi paths will be in the database. 
-        /// Instead the standard @2x suffix will be used where hi-dpi support is implemented. 
-        /// This also applies to all subsequent image file paths in this document.
-        /// </summary>
-        string PhotoFilePath { get; }
-        string EventHeroVideoPath { get; }
-        IEnumerable<TExhibit> Exhibits { get; }
     }
 
     public interface IDatedItem
@@ -39,26 +35,23 @@ namespace OneMSQFT.Common.Models
         DateTime UpdatedAt { get; }
     }
 
-    public interface ICurator<out TExhibit> : ISquareFootageItem, ISocialMedia, IColor, ITimeStampedItem where TExhibit : IExhibit
+    public interface ICurator : ISquareFootageItem, ISocialMedia, ITimeStampedItem
     {
-        string EventId { get; }
         string LogoImageName { get; }
         /// <summary>
         /// CMS to enforce protocol prefix, i.e. http:// or https:// 
         /// </summary>
         string ExternalUrl { get; }
-        IEnumerable<TExhibit> Exhibits { get; }
     }
 
     public interface IExhibit : ISquareFootageItem, ITaggable, IHasMediaContent, IColor, IDatedItem, ISocialMedia, ITimeStampedItem  
     {
+        string Introduction { get; }
         /// <summary>
         /// Optional field if name is not in the title
         /// </summary>
         string Exhibitor { get; }
-        string FacebookEventUrl { get; }
-        string HeroPhotoFilePath { get; set; }
-        string SubHeroPhotoFilePath { get; set; }
+        string RsvpUrl { get; }
     }
 
     public interface IHasMediaContent
@@ -90,7 +83,6 @@ namespace OneMSQFT.Common.Models
         /// </summary>
         string SocialMediaDescription { get; }
         string SocialMediaImagePath { get; }
-        string SeoMetaDescription { get; }
     }    
 
     public interface IMediaContentSource

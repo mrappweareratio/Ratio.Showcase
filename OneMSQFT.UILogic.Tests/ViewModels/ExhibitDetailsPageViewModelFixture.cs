@@ -80,7 +80,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                         {
                             Id = id,
                             Description = "Description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in viverra neque. Ut dictum, massa ut sodales consectetur, mi eros consequat enim, quis pretium mauris justo non est. Duis sit amet est nulla. Mauris vehicula. ",
-                            ArtistName = "Artist Name",
+                            Exhibitor = "Artist Name",
                         }
                     });
                 }

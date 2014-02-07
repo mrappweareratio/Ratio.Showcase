@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
@@ -24,9 +25,21 @@ namespace OneMSQFT.Windows.DesignViewModels
                     Id = i.ToString(),
                     Name = "Event Name " + i,
                     DateStart = DateTime.Now.Add(TimeSpan.FromDays(i * (i > fakeEventsCount / 2 ? 20 : -20) + 1)),
-                    PhotoFilePath = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg",
-                    SquareFootage = Convert.ToInt32(i.ToString() + i.ToString() + i.ToString() + i.ToString()),
-                    EventHeroVideoPath = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
+                    MediaContent = new List<MediaContentSource>
+                    {
+                        new MediaContentSource
+                        {
+                            ContentSourceType = ContentSourceType.Image,
+                            Source = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg"
+                        },
+                        new MediaContentSource
+                        {
+                            ContentSourceType = ContentSourceType.Video,
+                            Source = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
+                        }
+
+                    } ,
+                    SquareFootage = Convert.ToInt32(i.ToString() + i.ToString() + i.ToString() + i.ToString()),                    
                 });
                 SquareFootEvents.Add(eivm);
             }

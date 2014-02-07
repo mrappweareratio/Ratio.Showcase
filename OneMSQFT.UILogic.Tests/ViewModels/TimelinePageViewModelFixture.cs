@@ -41,9 +41,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             double windowHeight = 768;
             double windowWidth = 1366;
             var vm = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService()) as ITimelinePageViewModel;
-            vm.WindowSizeChanged(windowWidth, windowHeight);
-            Assert.AreEqual(windowHeight / 4, vm.ZoomedOutItemHeight);
-            Assert.AreEqual(windowWidth / 6, vm.ZoomedOutItemWidth);
+            vm.WindowSizeChanged(windowWidth, windowHeight);            
             Assert.AreEqual(windowHeight, vm.EventItemHeight, "EventItemHeight");
             Assert.IsTrue(vm.EventItemWidth < windowWidth, "EventItemWidth < Window");         
         }

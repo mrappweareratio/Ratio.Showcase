@@ -12,13 +12,13 @@ namespace OneMSQFT.UILogic.ViewModels
     {
         public override string Id { get; set; }
 
-        public CuratorItemViewModel(ICurator<IExhibit> curatorModel)
+        public CuratorItemViewModel(ICurator curatorModel)
         {
             Curator = curatorModel;
             Name = curatorModel.Name;
             Id = curatorModel.Id;
             Description = curatorModel.Description;
         }
-        private ICurator<IExhibit> Curator { get; set; }
+        private ICurator Curator { get; set; }
     }
 }

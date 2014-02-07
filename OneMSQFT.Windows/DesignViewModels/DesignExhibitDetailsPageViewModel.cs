@@ -18,18 +18,30 @@ namespace OneMSQFT.Windows.DesignViewModels
 
         public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
-            if(!(navigationParameter is String))
+            if (!(navigationParameter is String))
                 throw new ArgumentOutOfRangeException("No Exhibit Id String");
-            
+
             var id = navigationParameter as String;
             var exhibit = new ExhibitItemViewModel(new Exhibit()
             {
                 Id = id,
                 Name = "Exhibit Name " + id,
                 Description = "Exhibit Description Name " + id,
-                HeroPhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg",
-                SubHeroPhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/2.jpg",
-                ArtistName = "Artist Name",
+                MediaContent = new List<MediaContentSource>
+                    {
+                        new MediaContentSource
+                        {
+                            ContentSourceType = ContentSourceType.Image,
+                            Source = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg"
+                        },
+                        new MediaContentSource
+                        {
+                            ContentSourceType = ContentSourceType.Video,
+                            Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/2.jpg"
+                        }
+
+                    },
+                Exhibitor = "Artist Name",
                 SquareFootage = Convert.ToInt32(id) * 1234 + 123,
                 Color = "0" + id + "C" + id + "F" + id
             });
@@ -51,10 +63,21 @@ namespace OneMSQFT.Windows.DesignViewModels
                     Id = i.ToString(),
                     Name = "Event Name " + i,
                     DateStart = DateTime.Now.Add(TimeSpan.FromDays(i * (i > fakeEventsCount / 2 ? 20 : -20) + 1)),
-                    PhotoFilePath = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg",
-                    
+                    MediaContent = new List<MediaContentSource>
+                    {
+                        new MediaContentSource
+                        {
+                            ContentSourceType = ContentSourceType.Image,
+                            Source = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg"
+                        },
+                        new MediaContentSource
+                        {
+                            ContentSourceType = ContentSourceType.Video,
+                            Source = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
+                        }
+
+                    },
                     SquareFootage = Convert.ToInt32(i.ToString() + i.ToString() + i.ToString() + i.ToString()),
-                    EventHeroVideoPath = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
                 });
                 SquareFootEvents.Add(eivm);
             }
@@ -190,17 +213,7 @@ namespace OneMSQFT.Windows.DesignViewModels
             }
         }
 
-        public Uri Panel1PhotoPath
-        {
-            get
-            {
-                return Exhibit.SubHeroPhotoFilePath;
-            }
-        }
-
         public ObservableCollection<MediaContentSourceItemViewModel> MediaContentCollection { get; set; }
-
-
 
         #endregion
 
@@ -225,7 +238,7 @@ namespace OneMSQFT.Windows.DesignViewModels
         {
             get
             {
-                return Window.Current.Bounds.Width*.9;
+                return Window.Current.Bounds.Width * .9;
             }
         }
 
@@ -239,7 +252,7 @@ namespace OneMSQFT.Windows.DesignViewModels
 
         public double OneThirdPanelWidth
         {
-            get { return ExhibitItemWidth/3; }
+            get { return ExhibitItemWidth / 3; }
         }
 
         public void WindowSizeChanged(double width, double height)
