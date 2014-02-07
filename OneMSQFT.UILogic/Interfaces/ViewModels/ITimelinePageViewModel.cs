@@ -7,14 +7,14 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
 {
     public interface ITimelinePageViewModel
     {
-        double ZoomedOutItemHeight{get;}
+        double ZoomedOutItemHeight { get; }
         double ZoomedOutItemWidth { get; }
-        double EventItemWidth { get; set; }
-        double EventItemHeight { get; set; }
-        double FullScreenHeight { get; set; }
-        double FullScreenWidth { get; set; }
-        double ExhibitItemHeight { get; set; }
-        double ExhibitItemWidth { get; set; }
+        double EventItemWidth { get; }
+        double EventItemHeight { get; }
+        double FullScreenHeight { get; }
+        double FullScreenWidth { get; }
+        double ExhibitItemHeight { get; }
+        double ExhibitItemWidth { get; }
         /// <summary>
         /// Application Navigation Bar Bound Top Level Event Items
         /// </summary>
