@@ -12,6 +12,8 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
     [TestClass]
     public class SampleDataRepositoryFixture
     {
+        //TIMELINE AND EVENT TESTS
+
         [TestMethod]
         async public Task MockDataRepository_TimlineResult_Not_Null()
         {
@@ -45,6 +47,54 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             var validEvents = result.Events.ToList().TrueForAll(ValidateEvent);            
             Assert.IsTrue(validEvents, "ValidEvents");
         }
+
+        //EXHIBIT TESTS
+
+        [TestMethod]
+        async public Task MockDataRepository_TimlineResult_Exhibits_Not_Null()
+        {
+            var dataRepo = new SampleDataRepository();
+            var result = await dataRepo.LoadAllData();
+            var e = result.Events.FirstOrDefault();
+            Assert.IsNotNull(e.Exhibits);
+        }
+
+        [TestMethod]
+        async public Task MockDataRepository_TimlineResult_Exhibits_HasOne()
+        {
+            var dataRepo = new SampleDataRepository();
+            var result = await dataRepo.LoadAllData();
+            var e = result.Events.FirstOrDefault();
+            var exhibit = e.Exhibits.FirstOrDefault();
+            Assert.IsNotNull(exhibit);
+        }
+
+        [TestMethod]
+        async public Task MockDataRepository_TimlineResult_Exhibits_Are_Valid()
+        {
+            var dataRepo = new SampleDataRepository();
+            var result = await dataRepo.LoadAllData();
+            var e = result.Events.FirstOrDefault();
+            var validEvents = e.Exhibits.ToList().TrueForAll(ValidateExhibit);
+            Assert.IsTrue(validEvents, "ValidEvents");
+        }
+
+        private bool ValidateExhibit(Exhibit e)
+        {
+            //Basic properties
+            Assert.IsNotNull(e.Id, "Id");
+            Assert.IsNotNull(e.Name, "Name");
+            Assert.IsNotNull(e.Exhibitor, "Exhibitor");
+            Assert.IsNotNull(e.SquareFootage, "SquareFootage");
+            //Assert.IsNotNull(e.DisplayDate, "DisplayDate");
+            Assert.IsNotNull(e.Description, "Description");
+            //Assert.IsNotNull(e.DateStart, "DateStart");
+            //Assert.IsNotNull(e.DateEnd, "DateEnd");
+            //Assert.IsNotNull(e.CreatedAt, "CreatedAt");
+
+            return true;
+        }
+
 
         public bool ValidateEvent(Event e)
         {
