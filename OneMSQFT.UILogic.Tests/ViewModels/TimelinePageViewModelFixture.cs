@@ -89,7 +89,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             };
             var timeLine = new TimelinePageViewModel(mockDataService, mockAlerts);          
             timeLine.OnNavigatedTo(null, NavigationMode.New,null);
-            await timeLine.LoadingTaskCompletionSource.Task;
+            var b = await timeLine.LoadingTaskCompletionSource.Task;
             Assert.IsTrue(called);
             Assert.IsTrue(alerted);
         }

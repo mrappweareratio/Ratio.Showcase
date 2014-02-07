@@ -12,5 +12,6 @@ namespace OneMSQFT.Common.Services
         Task<IEnumerable<Exhibit>> GetExhibitsByEvent(int eventId);
         Task<IEnumerable<Exhibit>> GetExhibitsByCurator(int curatorId);
         Task<IEnumerable<Exhibit>> SearchExhibits(string[] tags);
+        Task<ExhibitDetail> GetExhibitDetailByExhibitId(string id);
     }
 }

@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="DataLayer\IDataRepository.cs" />
     <Compile Include="JsonHelper.cs" />
+    <Compile Include="Models\ExhibitDetail.cs" />
     <Compile Include="Services\DialogCommand.cs" />
     <Compile Include="Services\IAlertMessageService.cs" />
     <Compile Include="Services\IDataService.cs" />

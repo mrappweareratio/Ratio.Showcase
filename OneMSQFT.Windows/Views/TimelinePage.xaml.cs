@@ -135,7 +135,7 @@ namespace OneMSQFT.Windows.Views
         {
             if (!VideoPopup.IsOpen)
             {
-                semanticZoom.Opacity = .1;
+                semanticZoom.Opacity = 0;
                 VideoPopup.IsOpen = true; 
             }
         }

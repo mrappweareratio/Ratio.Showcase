@@ -33,6 +33,11 @@ namespace OneMSQFT.Windows.Controls
                 player.Source = _selectedEvent.EventHeroVideoUri;
                 player.Play();
             }
+            if (_selectedMediaContentSource != null)
+            {
+                player.Source = _selectedMediaContentSource.MediaSource;
+                player.Play();
+            }
         }
 
         private EventItemViewModel _selectedEvent;
@@ -45,12 +50,36 @@ namespace OneMSQFT.Windows.Controls
         public static readonly DependencyProperty SelectedEventProperty =
             DependencyProperty.Register("SelectedEvent", typeof(EventItemViewModel), typeof(VideoPlayerUserControl), new PropertyMetadata(null, SelectedEventPropertyChanged));
 
+        private MediaContentSourceItemViewModel _selectedMediaContentSource;
+        public MediaContentSourceItemViewModel SelectedMediaContentSource
+        {
+            get { return (MediaContentSourceItemViewModel)GetValue(SelectedMediaContentSourceProperty); }
+            set { SetValue(SelectedMediaContentSourceProperty, value); }
+        }
+
+        public static readonly DependencyProperty SelectedMediaContentSourceProperty =
+            DependencyProperty.Register("SelectedMediaContentSource", typeof(MediaContentSourceItemViewModel), typeof(VideoPlayerUserControl), new PropertyMetadata(null, SelectedMediaContentSourcePropertyChanged));
+
         private static void SelectedEventPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            VideoPlayerUserControl vpuc = d as VideoPlayerUserControl;
+            var vpuc = d as VideoPlayerUserControl;
             if (vpuc == null) return;
             vpuc._selectedEvent = e.NewValue as EventItemViewModel;
-            vpuc.player.Source = vpuc._selectedEvent.EventHeroVideoUri;
+            if (vpuc._selectedEvent != null)
+            {
+                vpuc.player.Source = vpuc._selectedEvent.EventHeroVideoUri;
+            }
+        }
+
+        private static void SelectedMediaContentSourcePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var vpuc = d as VideoPlayerUserControl;
+            if (vpuc == null) return;
+            vpuc._selectedMediaContentSource = e.NewValue as MediaContentSourceItemViewModel;
+            if (vpuc._selectedMediaContentSource != null)
+            {
+                vpuc.player.Source = vpuc._selectedMediaContentSource.MediaSource;
+            }
         }
         
     }

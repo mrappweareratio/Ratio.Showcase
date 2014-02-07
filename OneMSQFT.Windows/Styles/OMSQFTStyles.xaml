@@ -110,9 +110,10 @@
         </Setter>
     </Style>
 
-
     <SolidColorBrush x:Key="OMSQFTItemBorderBrush" Color="White" />
+    
     <SolidColorBrush x:Key="OMSQFTItemForegroundBrush" Color="{StaticResource SystemColorWindowTextColor}" />
+    
     <MenuFlyout x:Key="FilterFlyout">
     	<MenuFlyoutItem Text="Music"/>
     	<MenuFlyoutItem Text="Performance"/>
@@ -127,4 +128,17 @@
 		</StackPanel>
 	</Grid>
     </Flyout>
+
+
+    <Style x:Key="VideoPopupStyle" TargetType="Popup">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="ChildTransitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <PopupThemeTransition/>
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

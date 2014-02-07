@@ -44,14 +44,15 @@ namespace OneMSQFT.Common.Models
         IEnumerable<TExhibit> Exhibits { get; }
     }
 
-    public interface IExhibit : ISquareFootageItem, ITaggable, IHasMediaContent        
+    public interface IExhibit : ISquareFootageItem, ITaggable, IHasMediaContent, IColor  
     {
         /// <summary>
         /// Optional field if name is not in the title
         /// </summary>
         string Exhibitor { get; }
         string FacebookEventUrl { get; }
-        string PhotoFilePath { get; set; }
+        string HeroPhotoFilePath { get; set; }
+        string SubHeroPhotoFilePath { get; set; }
     }
 
     public interface IHasMediaContent

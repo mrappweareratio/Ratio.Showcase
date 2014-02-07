@@ -13,6 +13,8 @@ namespace OneMSQFT.UILogic.Tests.Mocks
     {
         public Func<Task<IEnumerable<Event>>> GetEventsDelegate { get; set; }
 
+        public Func<String, Task<ExhibitDetail>> GetExhibitDetailByExhibitIdDelegate { get; set; }
+
         public MockDataService()
         {
         }
@@ -40,6 +42,11 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         public Task<IEnumerable<Exhibit>> SearchExhibits(string[] tags)
         {
             throw new NotImplementedException();
+        }
+
+        public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string id)
+        {
+            return GetExhibitDetailByExhibitIdDelegate(id);
         }
     }
 }

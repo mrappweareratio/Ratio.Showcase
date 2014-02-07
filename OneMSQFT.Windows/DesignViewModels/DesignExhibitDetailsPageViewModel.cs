@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
-using Microsoft.Practices.Prism.StoreApps;
-using System.Threading.Tasks;
-using System.Globalization;
+using OneMSQFT.Common.Services;
 
 namespace OneMSQFT.Windows.DesignViewModels
 {
     public class DesignExhibitDetailsPageViewModel : BasePageViewModel, IExhibitDetailsPageViewModel
     {
+        public DelegateCommand<MediaContentSourceItemViewModel> LaunchVideoCommand { get; set; }
+
         public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
             if(!(navigationParameter is String))
@@ -24,15 +27,18 @@ namespace OneMSQFT.Windows.DesignViewModels
                 Id = id,
                 Name = "Exhibit Name " + id,
                 Description = "Exhibit Description Name " + id,
-                PhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg",
-                SquareFootage = Convert.ToInt32(id) * 1234 + 123
+                HeroPhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg",
+                SubHeroPhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/2.jpg",
+                ArtistName = "Artist Name",
+                SquareFootage = Convert.ToInt32(id) * 1234 + 123,
+                Color = "0" + id + "C" + id + "F" + id
             });
             Exhibit = exhibit;
 
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
 
-        public DesignExhibitDetailsPageViewModel()
+        public DesignExhibitDetailsPageViewModel(IDataService dataService, IAlertMessageService messageService)
         {
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             const int fakeEventsCount = 10;
@@ -46,52 +52,96 @@ namespace OneMSQFT.Windows.DesignViewModels
                     Name = "Event Name " + i,
                     DateStart = DateTime.Now.Add(TimeSpan.FromDays(i * (i > fakeEventsCount / 2 ? 20 : -20) + 1)),
                     PhotoFilePath = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg",
+                    
                     SquareFootage = Convert.ToInt32(i.ToString() + i.ToString() + i.ToString() + i.ToString()),
                     EventHeroVideoPath = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
                 });
                 SquareFootEvents.Add(eivm);
             }
 
+            LaunchVideoCommand = new DelegateCommand<MediaContentSourceItemViewModel>(LaunchVideoCommandHandler);
         }
 
-        public ObservableCollection<Uri> PhotoCollection { get; set; }
-
-        private void PopulateExhibitPhotos()
+        private void PopulateExhibitMediaCollection()
         {
-            PhotoCollection = new ObservableCollection<Uri>();
-            PhotoCollection.Add(HeroPhotoPath);
-            PhotoCollection.Add(HeroPhotoPath);
-            PhotoCollection.Add(HeroPhotoPath);
-            PhotoCollection.Add(HeroPhotoPath);
-            PhotoCollection.Add(HeroPhotoPath);
+            MediaContentCollection = new ObservableCollection<MediaContentSourceItemViewModel>();
+
+            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
+            {
+                ContentSourceType = ContentSourceType.Image,
+                Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
+            }));
+            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
+            {
+                ContentSourceType = ContentSourceType.Video,
+                Source = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4",
+                ThumbnailSource = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/3.jpg"
+            }));
+            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
+            {
+                ContentSourceType = ContentSourceType.Image,
+                Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
+            }));
+            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
+            {
+                ContentSourceType = ContentSourceType.Video,
+                Source = "http://player.vimeo.com/external/85202186.hd.mp4?s=a78dd60b6d00d4ea3cb24c04f8123fc5",
+                ThumbnailSource = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/3.jpg"
+            }));
+            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
+            {
+                ContentSourceType = ContentSourceType.Video,
+                Source = "http://player.vimeo.com/external/85202186.sd.mp4?s=678c1a9e12fef16bc4db912bd6c69def",
+                ThumbnailSource = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/3.jpg"
+            }));
+            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
+            {
+                ContentSourceType = ContentSourceType.Video,
+                Source = "http://player.vimeo.com/external/85202186.mobile.mp4?s=0a50d2c088856672f467f909fc1a2c8c",
+                ThumbnailSource = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/3.jpg"
+            }));
+            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
+            {
+                ContentSourceType = ContentSourceType.Video,
+                Source = "http://player.vimeo.com/external/85202186.m3u8?p=high,standard,mobile&s=135089443cf7c01d8762cc206a7cc5e7",
+                ThumbnailSource = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/3.jpg"
+            }));
         }
 
-        public String ExhibitTitleText
+        async public void LaunchVideoCommandHandler(MediaContentSourceItemViewModel item)
+        {
+            if (item == null) return;
+            SelectedMediaContentSource = item;
+        }
+
+        #region ContentProperties
+
+        private MediaContentSourceItemViewModel _selectedMediaContentSource;
+        public MediaContentSourceItemViewModel SelectedMediaContentSource
         {
             get
             {
-                return Exhibit.SquareFootage + " square feet at " + Exhibit.Name;
+                return _selectedMediaContentSource;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    SetProperty(ref _selectedMediaContentSource, value);
+                }
             }
         }
 
-        public String ExhibitHeroText
+        public SolidColorBrush EventColor
         {
             get
             {
-                return Exhibit.Description;
+                return Exhibit.EventColor;
             }
         }
-
-        public Uri HeroPhotoPath
-        {
-            get
-            {
-                return Exhibit.PhotoFilePath;
-            }
-        }    
-             
 
         private ExhibitItemViewModel _exhibit;
+
         public ExhibitItemViewModel Exhibit
         {
             get
@@ -103,79 +153,103 @@ namespace OneMSQFT.Windows.DesignViewModels
                 if (value != null)
                 {
                     SetProperty(ref _exhibit, value);
-                    PopulateExhibitPhotos();
+                    PopulateExhibitMediaCollection();
                 }
             }
         }
 
-        private double _fullScreenWidth;
-        private double _fullScreenHeight;
+        public String Panel0Title
+        {
+            get
+            {
+                return Exhibit.SquareFootage + " square feet at " + Exhibit.Name;
+            }
+        }
+
+        public String Panel0Description
+        {
+            get
+            {
+                return Exhibit.Description;
+            }
+        }
+
+        public Uri HeroPhotoFilePath
+        {
+            get
+            {
+                return Exhibit.HeroPhotoFilePath;
+            }
+        }
+
+        public String Panel1LongDescription
+        {
+            get
+            {
+                return Exhibit.Description;
+            }
+        }
+
+        public Uri Panel1PhotoPath
+        {
+            get
+            {
+                return Exhibit.SubHeroPhotoFilePath;
+            }
+        }
+
+        public ObservableCollection<MediaContentSourceItemViewModel> MediaContentCollection { get; set; }
+
+
+
+        #endregion
+
+        #region ResizingProperties
+
         public double FullScreenWidth
         {
             get
             {
-                return _fullScreenWidth;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    SetProperty(ref _fullScreenWidth, value);
-                }
+                return Window.Current.Bounds.Width;
             }
         }
         public double FullScreenHeight
         {
             get
             {
-                return _fullScreenHeight;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    SetProperty(ref _fullScreenHeight, value);
-                }
+                return Window.Current.Bounds.Height;
             }
         }
 
-        private double _exhibitItemWidth;
-        private double _exhibitItemHeight;
         public double ExhibitItemWidth
         {
             get
             {
-                return _exhibitItemWidth;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    SetProperty(ref _exhibitItemWidth, value);
-                }
+                return Window.Current.Bounds.Width*.9;
             }
         }
+
         public double ExhibitItemHeight
         {
             get
             {
-                return _exhibitItemHeight;
+                return FullScreenHeight;
             }
-            set
-            {
-                if (value != null)
-                {
-                    SetProperty(ref _exhibitItemHeight, value);
-                }
-            }
+        }
+
+        public double OneThirdPanelWidth
+        {
+            get { return ExhibitItemWidth/3; }
         }
 
         public void WindowSizeChanged(double width, double height)
         {
-            FullScreenHeight = height;
-            FullScreenWidth = width;
-            ExhibitItemHeight = height;
-            ExhibitItemWidth = width * .9;
+            OnPropertyChanged("FullScreenHeight");
+            OnPropertyChanged("FullScreenWidth");
+            OnPropertyChanged("ExhibitItemHeight");
+            OnPropertyChanged("ExhibitItemWidth");
         }
+
+        #endregion
     }
 }
