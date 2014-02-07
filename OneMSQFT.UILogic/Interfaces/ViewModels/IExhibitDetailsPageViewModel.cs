@@ -9,10 +9,10 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
     public interface IExhibitDetailsPageViewModel
     {
         ExhibitItemViewModel Exhibit { get; set; }
-        double FullScreenHeight { get; set; }
-        double FullScreenWidth { get; set; }
+        double FullScreenHeight { get;}
+        double FullScreenWidth { get;}
         ObservableCollection<EventItemViewModel> SquareFootEvents { get; }
         void WindowSizeChanged(double width, double height);
-        ObservableCollection<Uri> PhotoCollection { get; set; }
+        ObservableCollection<MediaContentSourceItemViewModel> MediaContentCollection { get; set; }
     }
 }

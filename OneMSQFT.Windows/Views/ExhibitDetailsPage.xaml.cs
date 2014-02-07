@@ -44,5 +44,26 @@ namespace OneMSQFT.Windows.Views
             this.AdminButton.Command = this.AdminButtonClickCommand;
         }
 
+        private void LaunchVideoCommand_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!VideoPopup.IsOpen)
+            {
+                ExhibitDetailsPanels.Opacity = 0;
+                VideoPopup.IsOpen = true;
+            }
+        }
+
+        private void CloseVideo_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (VideoPopup.IsOpen)
+            {
+                VideoPopup.IsOpen = false;
+            }
+        }
+
+        private void VideoPopup_Closed(object sender, object e)
+        {
+            ExhibitDetailsPanels.Opacity = 1;
+        }
     }
 }

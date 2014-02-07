@@ -48,7 +48,6 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         public async Task ViewModel_NavigatededTo_Has_PhotoCollection_With_PhotoFilePath()
         {
             bool called = false;
-            var photo = "http://placekitten.com/100/100";
             var mockDataService = new MockDataService
             {
                 GetExhibitDetailByExhibitIdDelegate = (id) =>
@@ -56,7 +55,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                     called = true;
                     return Task.FromResult<ExhibitDetail>(new ExhibitDetail()
                     {
-                        Exhibit = new Exhibit() { Id = id, PhotoFilePath = photo}
+                        Exhibit = new Exhibit() { Id = id}
                     });
                 }
             };
@@ -65,33 +64,38 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             await vm.LoadingTaskCompletionSource.Task;
             Assert.IsTrue(called);
             Assert.IsNotNull(vm.Exhibit);
-            Assert.IsTrue(vm.PhotoCollection.Any(x => x.AbsoluteUri.Contains(photo)));
+            Assert.IsTrue(vm.MediaContentCollection.Any(x => x.ImageSource.AbsoluteUri.Contains("http://")));
         }
 
         [TestMethod]
         public async Task ViewModel_NavigatededTo_Has_HeroPhotoPath()
         {
-            bool called = false;
-            var photo = "http://placekitten.com/100/100";
             var mockDataService = new MockDataService
             {
                 GetExhibitDetailByExhibitIdDelegate = (id) =>
                 {
-                    called = true;
                     return Task.FromResult<ExhibitDetail>(new ExhibitDetail()
                     {
-                        Exhibit = new Exhibit() { Id = id, PhotoFilePath = photo }
+                        Exhibit = new Exhibit()
+                        {
+                            Id = id,
+                            Description = "Description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in viverra neque. Ut dictum, massa ut sodales consectetur, mi eros consequat enim, quis pretium mauris justo non est. Duis sit amet est nulla. Mauris vehicula. ",
+                            ArtistName = "Artist Name",
+                        }
                     });
                 }
             };
             var vm = new ExhibitDetailsPageViewModel(mockDataService, new MockAlertMessageService());
-            vm.OnNavigatedTo("1", NavigationMode.New, null);
+            vm.OnNavigatedTo("2", NavigationMode.New, null);
             await vm.LoadingTaskCompletionSource.Task;
-            Assert.IsTrue(called);
             Assert.IsNotNull(vm.Exhibit);
-            Assert.IsNotNull(vm.HeroPhotoPath);
-            Assert.IsTrue(vm.HeroPhotoPath.AbsoluteUri == photo);
             
+        }
+
+        [TestMethod]
+        public async Task ViewModel_NavigatedTo_Has_TextProperties()
+        {
+            // Actual text properties are still unknown at this point 
         }
     }
 }

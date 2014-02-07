@@ -21,10 +21,8 @@
 	d:DataContext="{d:DesignInstance designViewModels:DesignTimelinePageViewModel, IsDesignTimeCreatable=True}">
 
     <omsqft:BasePageView.Resources>
-
         <viewModels:DataContextProxy x:Key="DataContextProxy" />
         
-      
         <Storyboard x:Name="StoryboardSeeker">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="logoanimation">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
@@ -351,7 +349,7 @@
 				BorderBrush="White"
 				BorderThickness="0"
 				Margin="0">
-                    <Image Source="{Binding PhotoFilePath}"
+                    <Image Source="{Binding HeroPhotoFilePath}"
 					Stretch="UniformToFill">
                     </Image>
                 </Border>
@@ -528,18 +526,6 @@
             </Border>
         </DataTemplate>
 
-        <Style x:Key="VideoPopupStyle" TargetType="Popup">
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="ChildTransitions">
-                <Setter.Value>
-                    <TransitionCollection>
-                        <PopupThemeTransition/>
-                    </TransitionCollection>
-                </Setter.Value>
-            </Setter>
-
-        </Style>
 
     </omsqft:BasePageView.Resources>
 	<omsqft:BasePageView.BottomAppBar>

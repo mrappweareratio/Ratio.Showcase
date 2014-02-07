@@ -20,26 +20,37 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             Exhibit = exhibitModel;
             Name = exhibitModel.Name;
-            Description = exhibitModel.Description;
             Id = exhibitModel.Id;
+            Description = exhibitModel.Description;
             SquareFootage = exhibitModel.SquareFootage;
         }
 
 
-        private IExhibit Exhibit { get; set; } 
+        private IExhibit Exhibit { get; set; }
 
-        public Uri PhotoFilePath
+        public Uri HeroPhotoFilePath
         {
             get
             {
-                if (Exhibit.PhotoFilePath != null)
+                if (Exhibit.HeroPhotoFilePath != null)
                 {
-                    return new Uri(Exhibit.PhotoFilePath, UriKind.Absolute);
+                    return new Uri(Exhibit.HeroPhotoFilePath, UriKind.Absolute);
                 }
                 return new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
             }
         }
 
+        public Uri SubHeroPhotoFilePath
+        {
+            get
+            {
+                if (Exhibit.SubHeroPhotoFilePath != null)
+                {
+                    return new Uri(Exhibit.SubHeroPhotoFilePath, UriKind.Absolute);
+                }
+                return new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
+            }
+        }
 
         public SolidColorBrush EventColor
         {
@@ -55,5 +66,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 return new SolidColorBrush(c);
             }
         }
+
+
     }
 }

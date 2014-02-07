@@ -42,7 +42,7 @@ namespace OneMSQFT.Windows.DesignViewModels
                         Id = j.ToString(),
                         Name = "Exhibit Name " + j,
                         Description = "Exhibit Description Name " + j,
-                        PhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg",
+                        HeroPhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg",
                         SquareFootage = j * 1234 + 123
                     });
                     eivm.Exhibits.Add(exhibit);

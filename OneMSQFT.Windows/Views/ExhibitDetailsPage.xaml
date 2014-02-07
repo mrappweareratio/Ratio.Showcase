@@ -9,19 +9,129 @@
     xmlns:omsqft="using:OneMSQFT.Windows.Views"
     xmlns:viewModels="using:OneMSQFT.UILogic.ViewModels"
     xmlns:designViewModels="using:OneMSQFT.Windows.DesignViewModels"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:behaviors="using:OneMSQFT.Windows.Behaviors"
+    xmlns:controls="using:OneMSQFT.Windows.Controls"
     mc:Ignorable="d"
     prism:ViewModelLocator.AutoWireViewModel="True"
 	d:DataContext="{d:DesignInstance designViewModels:DesignExhibitDetailsPageViewModel, IsDesignTimeCreatable=True}">
 
     <omsqft:BasePageView.Resources>
-    	<DataTemplate x:Key="PhotoCarouselTemplate">
-    		<Grid>
-				<Image 
-					Stretch="UniformToFill"
-        			Width="{Binding ExhibitItemWidth}" 
-        			Height="{Binding ExhibitItemHeight}" Source="{Binding}"/>
-			</Grid>
-    	</DataTemplate>
+        <viewModels:DataContextProxy x:Key="DataContextProxy" />
+		
+    <Style x:Key="EmptyListViewItemContainerStyle" TargetType="ListViewItem">
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Template">
+    		<Setter.Value>
+    			<ControlTemplate TargetType="ListViewItem">
+                        <Border x:Name="ContentContainer">
+                            <Grid>
+                                <Border x:Name="ContentBorder" Margin="0">
+                                    <Grid>
+                                        <ContentPresenter x:Name="contentPresenter"
+        												ContentTransitions="{TemplateBinding ContentTransitions}"
+        												ContentTemplate="{TemplateBinding ContentTemplate}"
+        												Content="{TemplateBinding Content}"
+        												HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+        												VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+        												Margin="0" />
+                                    </Grid>
+                                </Border>
+                                <Rectangle x:Name="HoverRectangle" Opacity=".2"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+    		</Setter.Value>
+    	</Setter>
+    </Style>
+    <Style x:Key="AppBarPlayButtonStyle" TargetType="AppBarButton">
+    	<Setter Property="Foreground" Value="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+    	<Setter Property="VerticalAlignment" Value="Top"/>
+    	<Setter Property="HorizontalAlignment" Value="Left"/>
+    	<Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+    	<Setter Property="FontWeight" Value="Normal"/>
+    	<Setter Property="Template">
+    		<Setter.Value>
+    			<ControlTemplate TargetType="AppBarButton">
+    				<Grid x:Name="RootGrid" Background="Transparent" Width="100">
+    					<VisualStateManager.VisualStateGroups>
+    						<VisualStateGroup x:Name="ApplicationViewStates">
+    							<VisualState x:Name="FullSize"/>
+    							<VisualState x:Name="Compact">
+    								<Storyboard>
+    									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Width" Storyboard.TargetName="RootGrid">
+    										<DiscreteObjectKeyFrame KeyTime="0" Value="60"/>
+    									</ObjectAnimationUsingKeyFrames>
+    								</Storyboard>
+    							</VisualState>
+    						</VisualStateGroup>
+    						<VisualStateGroup x:Name="CommonStates">
+    							<VisualState x:Name="Normal"/>
+    							<VisualState x:Name="PointerOver">
+    								<Storyboard>
+    									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="BackgroundEllipse">
+    										<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}"/>
+    									</ObjectAnimationUsingKeyFrames>
+    									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Content">
+    										<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppBarItemPointerOverForegroundThemeBrush}"/>
+    									</ObjectAnimationUsingKeyFrames>
+    								</Storyboard>
+    							</VisualState>
+    							<VisualState x:Name="Pressed">
+    								<Storyboard>
+    									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="OutlineEllipse">
+    										<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+    									</ObjectAnimationUsingKeyFrames>
+    									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="BackgroundEllipse">
+    										<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppBarItemForegroundThemeBrush}"/>
+    									</ObjectAnimationUsingKeyFrames>
+    									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Content">
+    										<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppBarItemPressedForegroundThemeBrush}"/>
+    									</ObjectAnimationUsingKeyFrames>
+    								</Storyboard>
+    							</VisualState>
+    							<VisualState x:Name="Disabled">
+    								<Storyboard>
+    									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="OutlineEllipse">
+    										<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppBarItemDisabledForegroundThemeBrush}"/>
+    									</ObjectAnimationUsingKeyFrames>
+    									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Content">
+    										<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppBarItemDisabledForegroundThemeBrush}"/>
+    									</ObjectAnimationUsingKeyFrames>
+    								</Storyboard>
+    							</VisualState>
+    						</VisualStateGroup>
+    						<VisualStateGroup x:Name="FocusStates">
+    							<VisualState x:Name="Focused"/>
+    							<VisualState x:Name="Unfocused"/>
+    							<VisualState x:Name="PointerFocused"/>
+    						</VisualStateGroup>
+    					</VisualStateManager.VisualStateGroups>
+    					<StackPanel Margin="0,14,0,13" VerticalAlignment="Top">
+    						<Grid HorizontalAlignment="Center" Height="100" Margin="0,0,0,5" Width="100">
+    							<Ellipse x:Name="BackgroundEllipse" Fill="{ThemeResource AppBarItemBackgroundThemeBrush}" Height="100" UseLayoutRounding="False" Width="100"/>
+    							<Ellipse x:Name="OutlineEllipse" Height="100" Stroke="{ThemeResource AppBarItemForegroundThemeBrush}" StrokeThickness="2" UseLayoutRounding="False" Width="100"/>
+    							<ContentPresenter x:Name="Content" AutomationProperties.AccessibilityView="Raw" Content="{TemplateBinding Icon}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
+    								<ContentPresenter.RenderTransform>
+    									<CompositeTransform ScaleX="2" ScaleY="2"/>
+    								</ContentPresenter.RenderTransform>
+    							</ContentPresenter>
+    						</Grid>
+    					</StackPanel>
+    				</Grid>
+    			</ControlTemplate>
+    		</Setter.Value>
+    	</Setter>
+    </Style>
     </omsqft:BasePageView.Resources>
 
     <omsqft:BasePageView.BottomAppBar>
@@ -42,45 +152,81 @@
         </AppBar>
     </omsqft:BasePageView.BottomAppBar>	
 	<Grid Background="White">
-    		<StackPanel Orientation="Horizontal">
-    		<Button x:Name="backButton" HorizontalAlignment="Left"
-    			Click="GoBack" 
-    			IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}"
-    			Style="{StaticResource BackButtonStyle}" Margin="100" VerticalAlignment="Top" />
-			<TextBlock HorizontalAlignment="Left" Margin="100" Text="{Binding ExhibitTitleText}" VerticalAlignment="Top" Foreground="Black" FontSize="24"/>
-    			</StackPanel>
-        <ScrollViewer Style="{StaticResource HorizontalScrollViewerStyle}" >
-        		<StackPanel Orientation="Horizontal">
-        		<Image 
-        			Width="{Binding ExhibitItemWidth}" 
-        			Height="{Binding ExhibitItemHeight}" 
-        			Source="{Binding HeroPhotoPath}" Stretch="UniformToFill"/>
-        		<Grid 
-        			Width="{Binding ExhibitItemWidth}" 
-        			Height="{Binding ExhibitItemHeight}" Background="{StaticResource OneMSQFTWhiteBrush}" >
+    		<ScrollViewer x:Name="ExhibitDetailsPanels" Style="{StaticResource HorizontalScrollViewerStyle}" >
+        	<StackPanel Orientation="Horizontal">
+                <Grid x:Name="Panel0" >
         			<Grid.ColumnDefinitions>
         				<ColumnDefinition/>
-        				<ColumnDefinition Width="3*"/>
-        				<ColumnDefinition/>
-        			</Grid.ColumnDefinitions>
-        			<Grid.RowDefinitions>
-        				<RowDefinition/>
-        				<RowDefinition Height="3*"/>
-        				<RowDefinition/>
-        			</Grid.RowDefinitions>
-        			<Image Grid.Row="1" Grid.Column="1"
-        			Source="{Binding HeroPhotoPath}" Stretch="UniformToFill"/>
-        			<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding ExhibitHeroText}" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTBlackBrush}" FontSize="29.333" Grid.Row="2" Grid.Column="1"/>
-        		</Grid>
-        		<Grid 
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Border BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
+        				Height="{Binding ExhibitItemHeight}"
+        				Width="{Binding OneThirdPanelWidth}"
+					BorderThickness="9" 
+					Background="{Binding EventColor, Mode=OneWay}" Padding="10">
+        				<Grid Margin="0">
+        					<Grid.RowDefinitions>
+        						<RowDefinition Height="3*"/>
+        						<RowDefinition/>
+        						<RowDefinition/>
+        					</Grid.RowDefinitions>
+                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Panel0Title, Mode=OneWay}" VerticalAlignment="Top" Grid.Row="1" FontSize="18.667"/>
+                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Panel0Description}" VerticalAlignment="Top" Grid.Row="2"/>
+        				</Grid>
+        			</Border>
+                    <Grid Grid.Column="1"
+        				Width="{Binding ExhibitItemWidth}" 
+        				Height="{Binding ExhibitItemHeight}" >
+        			<Image
+        				Source="{Binding HeroPhotoFilePath}" Stretch="UniformToFill"/>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="Panel1" 
+        			Width="{Binding ExhibitItemWidth}" 
+        			Height="{Binding ExhibitItemHeight}" Background="{StaticResource OneMSQFTWhiteBrush}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="1" Grid.Column="1"
+        				Source="{Binding Panel1PhotoPath}" Stretch="UniformToFill"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Panel1LongDescription}" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTBlackBrush}" FontSize="29.333" Grid.Row="2" Grid.Column="1"/>
+                </Grid>
+                <Grid x:Name="Panel2" 
         			Width="{Binding ExhibitItemWidth}" 
         			Height="{Binding ExhibitItemHeight}" Background="{StaticResource OneMSQFTWhiteBrush}" >
         			<ListView HorizontalAlignment="Left" 
-					VerticalAlignment="Top" 
-        			Width="{Binding ExhibitItemWidth}" 
-					ItemsSource="{Binding PhotoCollection}" ItemTemplate="{StaticResource PhotoCarouselTemplate}" IsSwipeEnabled="False" SelectionMode="None"/>
+        				VerticalAlignment="Top" 
+        				Width="{Binding ExhibitItemWidth}" 
+        				ItemsSource="{Binding MediaContentCollection}"
+        				IsSwipeEnabled="False" SelectionMode="None" ItemContainerStyle="{StaticResource EmptyListViewItemContainerStyle}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Image 
+        								Stretch="UniformToFill"
+        								Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
+        								Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
+										Source="{Binding ImageSource}"/>
+                                    <TextBlock Text="{Binding MediaSource}" Margin="0,100,0,0" FontSize="20" TextWrapping="Wrap"></TextBlock>
+                                    <AppBarButton Icon="Play" 
+												Command="{Binding DataSource.LaunchVideoCommand, Source={StaticResource DataContextProxy}}" 
+                                                CommandParameter="{Binding}"
+                                                Click="LaunchVideoCommand_OnClick"
+                                                Height="250" Width="250" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" Style="{StaticResource AppBarPlayButtonStyle}"/>
+                                
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
         		</Grid>
-        		<Grid 
+        		<Grid x:Name="Panel3" 
         			Width="{Binding ExhibitItemWidth}" 
         			Height="{Binding ExhibitItemHeight}" Background="{Binding EventColor, Mode=OneWay}" >
         			<Grid.ColumnDefinitions>
@@ -93,21 +239,58 @@
         				<RowDefinition Height="5*"/>
         				<RowDefinition/>
         			</Grid.RowDefinitions>
-        			<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding ExhibitHeroText}" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="48" Grid.Row="2" Grid.Column="1"/>
+        			<TextBlock HorizontalAlignment="Center" 
+        				TextWrapping="Wrap" Text="{Binding Panel0_Description}" 
+        				VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTWhiteBrush}" 
+        				FontSize="48" Grid.Row="1" Grid.Column="1"/>
         		</Grid>
-        		<Grid 
-        			Width="{Binding ExhibitItemWidth}" 
-        			Height="{Binding ExhibitItemHeight}" Background="{Binding EventColor, Mode=OneWay}" >
-        			<Grid.RowDefinitions>
-        				<RowDefinition Height="2*"/>
-        				<RowDefinition Height="3*"/>
-        				<RowDefinition Height="3*"/>
-        			</Grid.RowDefinitions>
-        			<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="48" Grid.Column="1" Text="Next"/>
-        			<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="26.667" Grid.Row="1" Grid.Column="1" Text="Next" Grid.ColumnSpan="2" Margin="0.348,30,-0.349,0" FontWeight="Light"/>
+                <Grid x:Name="Panel4" Height="{Binding ExhibitItemHeight}" 
+        				Width="{Binding ExhibitItemWidth}" Margin="0,0,-500,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button HorizontalAlignment="Stretch" 
+        				VerticalAlignment="Stretch" 
+        				Background="{Binding EventColor, Mode=OneWay}" 
+                        Width="{Binding OneThirdPanelWidth}"
+        				Padding="0" Margin="0"
+        				BorderThickness="5">
+        				<Button.ContentTemplate>
+        					<DataTemplate>
+        						<Grid>
+        							<Grid.RowDefinitions>
+        								<RowDefinition Height="2*"/>
+        								<RowDefinition Height="3*"/>
+        								<RowDefinition Height="3*"/>
+        							</Grid.RowDefinitions>
+        							<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="48" Grid.Column="1" Text="Next"/>
+        							<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="26.667" Grid.Row="1" Grid.Column="1" Text="Next" Grid.ColumnSpan="2" Margin="0.348,30,-0.349,0" FontWeight="Light"/>
+        						</Grid>
+        					</DataTemplate>
+        				</Button.ContentTemplate>
+        			</Button>
         		</Grid>
         	</StackPanel>
         </ScrollViewer>
+
+        <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
+            <Grid >
+                <controls:VideoPlayerUserControl 
+                    SelectedMediaContentSource="{Binding DataSource.SelectedMediaContentSource, Source={StaticResource DataContextProxy}}"
+                    Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                    Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
+                <AppBarButton Icon="Cancel" Click="CloseVideo_OnClick" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
+            </Grid>
+        </Popup>
+
+        <StackPanel Orientation="Horizontal">
+    		<Button x:Name="BackButton" HorizontalAlignment="Left"
+    			    Click="GoBack" 
+    			    IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}"
+    			    Style="{StaticResource BackButtonStyle}" Margin="60" VerticalAlignment="Top" />
+    			</StackPanel>
 
         <VisualStateManager.VisualStateGroups>
 
