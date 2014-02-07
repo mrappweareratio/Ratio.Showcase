@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace OneMSQFT.Common.Models
 {
@@ -17,5 +18,7 @@ namespace OneMSQFT.Common.Models
         public string ExternalUrl { get; set; }
         public IEnumerable<Exhibit> Exhibits { get; set; }
         public string EventId { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

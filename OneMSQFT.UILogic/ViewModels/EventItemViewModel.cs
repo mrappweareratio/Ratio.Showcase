@@ -16,7 +16,7 @@ namespace OneMSQFT.UILogic.ViewModels
     {
         public override string Id { get; set; }
 
-        public EventItemViewModel(IEvent<ICurator<IExhibit>> eventModel)
+        public EventItemViewModel(IEvent<IExhibit> eventModel)
         {
             Event = eventModel;
             Name = eventModel.Name;
@@ -26,7 +26,7 @@ namespace OneMSQFT.UILogic.ViewModels
             Exhibits = new ObservableCollection<ExhibitItemViewModel>();
         }
         
-        private IEvent<ICurator<IExhibit>> Event { get; set; }
+        private IEvent<IExhibit> Event { get; set; }
     
         public ObservableCollection<ExhibitItemViewModel> Exhibits { get; private set; }
         
