@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace OneMSQFT.Common.Models
 {
@@ -18,5 +19,14 @@ namespace OneMSQFT.Common.Models
         public string HeroPhotoFilePath { get; set; }
         public string SubHeroPhotoFilePath { get; set; }
         public string ArtistName { get; set; }
+        public string DisplayDate { get; set; }
+        public DateTime DateStart { get; set; }
+        public DateTime DateEnd { get; set; }
+        public string SocialMediaTitle { get; set; }
+        public string SocialMediaDescription { get; set; }
+        public string SocialMediaImagePath { get; set; }
+        public string SeoMetaDescription { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }
