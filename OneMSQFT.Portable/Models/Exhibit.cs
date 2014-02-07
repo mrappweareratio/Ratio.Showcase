@@ -11,6 +11,8 @@ namespace OneMSQFT.Common.Models
         public int SquareFootage { get; set; }
         public List<Tag> Tags { get; set; }
         public string Exhibitor { get; set; }
+        public string Introduction { get; set; }
+        public string RsvpUrl { get; set; }
         public string FacebookEventUrl { get; set; }        
         public IEnumerable<MediaContentSource> MediaContent { get; set; }
         public string HeroPhotoFilePath { get; set; }
