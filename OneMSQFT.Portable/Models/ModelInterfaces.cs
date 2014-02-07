@@ -11,7 +11,7 @@ namespace OneMSQFT.Common.Models
         int SquareFootage { get; set; }
     }
 
-    public interface IEvent<out TExhibit> : ISocialMedia, ISquareFootageItem, IDatedItem, IColor, IHasMediaContent where TExhibit : IExhibit
+    public interface IEvent<out TExhibit> : ISocialMedia, ISquareFootageItem, IDatedItem, IColor, IHasMediaContent, ITimeStampedItem where TExhibit : IExhibit
     {
         string Longitude { get; }
         string Lattitude { get; }
@@ -33,7 +33,13 @@ namespace OneMSQFT.Common.Models
         DateTime DateEnd { get; }
     }
 
-    public interface ICurator<out TExhibit> : ISquareFootageItem, ISocialMedia, IColor where TExhibit : IExhibit
+    public interface ITimeStampedItem
+    {
+        DateTime CreatedAt { get; }
+        DateTime UpdatedAt { get; }
+    }
+
+    public interface ICurator<out TExhibit> : ISquareFootageItem, ISocialMedia, IColor, ITimeStampedItem where TExhibit : IExhibit
     {
         string EventId { get; }
         string LogoImageName { get; }
@@ -44,7 +50,7 @@ namespace OneMSQFT.Common.Models
         IEnumerable<TExhibit> Exhibits { get; }
     }
 
-    public interface IExhibit : ISquareFootageItem, ITaggable, IHasMediaContent, IColor  
+    public interface IExhibit : ISquareFootageItem, ITaggable, IHasMediaContent, IColor, IDatedItem, ISocialMedia, ITimeStampedItem  
     {
         /// <summary>
         /// Optional field if name is not in the title
