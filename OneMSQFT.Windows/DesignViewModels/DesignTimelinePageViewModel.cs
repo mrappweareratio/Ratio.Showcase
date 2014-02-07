@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
@@ -109,137 +110,93 @@ namespace OneMSQFT.Windows.DesignViewModels
         {
             get
             {
-                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", _totalSquareFeet)).Trim();
+                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", _totalSquareFeet)).Trim() + " sqft";
             }
         }
-        private double _zoomedOutItemWidth;
-        private double _zoomedOutItemHeight;
+        #region ResizingProperties
+
+        public double ZoomedOutGridHeight
+        {
+            get
+            {
+                return FullScreenHeight * .75;
+            }
+        }
+
         public double ZoomedOutItemWidth
         {
             get
             {
-                return _zoomedOutItemWidth;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    SetProperty(ref _zoomedOutItemWidth, value);
-                }
+                return FullScreenWidth / 6;
             }
         }
         public double ZoomedOutItemHeight
         {
             get
             {
-                return _zoomedOutItemHeight;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    SetProperty(ref _zoomedOutItemHeight, value);
-                }
+                return ZoomedOutGridHeight / 4;
             }
         }
-        private double _eventItemWidth;
-        private double _eventItemHeight;
+
         public double EventItemWidth
         {
             get
             {
-                return _eventItemWidth;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    SetProperty(ref _eventItemWidth, value);
-                }
+                return FullScreenWidth *.9;
             }
         }
         public double EventItemHeight
         {
             get
             {
-                return _eventItemHeight;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    SetProperty(ref _eventItemHeight, value);
-                }
+                return FullScreenHeight;
             }
         }
 
-        private double _fullScreenWidth;
-        private double _fullScreenHeight;
         public double FullScreenWidth
         {
             get
             {
-                return _fullScreenWidth;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    SetProperty(ref _fullScreenWidth, value);
-                }
+                return Window.Current.Bounds.Width;
             }
         }
         public double FullScreenHeight
         {
             get
             {
-                return _fullScreenHeight;
-            }
-            set
-            {
-                if (value != null)
-                {
-                    SetProperty(ref _fullScreenHeight, value);
-                }
+                return Window.Current.Bounds.Height;
             }
         }
 
-        private double _exhibitItemWidth;
-        private double _exhibitItemHeight;
         public double ExhibitItemWidth
         {
             get
             {
-                return _exhibitItemWidth;
-            }
-            set
-            {
-                SetProperty(ref _exhibitItemWidth, value);
+                return (EventItemWidth / 3) - 1;
             }
         }
         public double ExhibitItemHeight
         {
             get
             {
-                return _exhibitItemHeight;
-            }
-            set
-            {
-                SetProperty(ref _exhibitItemHeight, value);
+                return (EventItemHeight / 4) - 1;
             }
         }
-
         public void WindowSizeChanged(double width, double height)
         {
-            FullScreenHeight = height;
-            FullScreenWidth = width;
-            ZoomedOutItemWidth = width / 6;
-            ZoomedOutItemHeight = height / 4;
-            EventItemHeight = height;
-            EventItemWidth = width * .9;
-            ExhibitItemWidth = (EventItemWidth / 3) - 1;
-            ExhibitItemHeight = (EventItemHeight / 4) - 1;
+            OnPropertyChanged("FullScreenHeight");
+            OnPropertyChanged("FullScreenWidth");
+            OnPropertyChanged("ZoomedOutItemWidth");
+            OnPropertyChanged("ZoomedOutItemHeight");
+            OnPropertyChanged("EventItemHeight");
+            OnPropertyChanged("EventItemWidth");
+            OnPropertyChanged("ExhibitItemWidth");
+            OnPropertyChanged("ExhibitItemHeight");
+            OnPropertyChanged("ZoomedOutGridHeight");
         }
+
+        #endregion
+
         async public void EventHeroItemClickCommandHandler(EventItemViewModel item)
         {
             if (item == null) return;

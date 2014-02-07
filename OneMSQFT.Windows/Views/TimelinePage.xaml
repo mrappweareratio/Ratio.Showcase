@@ -341,10 +341,10 @@
         </Style>
 
         <DataTemplate x:Key="TimelineExhibitTemplate">
-            <Grid HorizontalAlignment="Stretch" 
+            <Grid HorizontalAlignment="Left" 
                 Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
                 Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
-              VerticalAlignment="Stretch">
+              VerticalAlignment="Top">
                 <Border Background="Transparent"
 				BorderBrush="White"
 				BorderThickness="0"
@@ -546,6 +546,10 @@
 	</omsqft:BasePageView.BottomAppBar>
 
     <Grid Background="White">
+    	<Grid.RowDefinitions>
+    		<RowDefinition/>
+    		<RowDefinition Height="5*"/>
+    	</Grid.RowDefinitions>
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
@@ -558,14 +562,19 @@
                 <CompositeTransform/>
             </Rectangle.RenderTransform>
         </Rectangle>
-        <SemanticZoom Grid.Row="1"
-                      x:Name="semanticZoom" 
+        <Grid x:Name="LogoGrid" Margin="20" Visibility="Collapsed">
+        	<Rectangle Fill="Red" HorizontalAlignment="Left" Height="100" VerticalAlignment="Center" Width="100"/>
+        	<TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding TotalSquareFeet, Mode=OneWay}" VerticalAlignment="Center" Foreground="Black" FontSize="32" Margin="0,31,0,30"/>
+        </Grid>
+        <SemanticZoom x:Name="semanticZoom" Background="White"
                       IsZoomedInViewActive="True" 
                       ViewChangeCompleted="semanticZoom_ViewChangeCompleted" 
-                      ViewChangeStarted="semanticZoom_ViewChangeStarted">
+                      ViewChangeStarted="semanticZoom_ViewChangeStarted" Grid.RowSpan="2">
             <SemanticZoom.ZoomedOutView>
                 <GridView x:Name="zoomedOutGrid"
+                          VerticalAlignment="Bottom"
                           Padding="0"
+                          Height="{Binding DataSource.ZoomedOutGridHeight, Source={StaticResource DataContextProxy}}"
                           Background="White"
                           IsSwipeEnabled="False"
                           SelectionMode="Single"
@@ -617,37 +626,7 @@
                             <StackPanel Orientation="Vertical" />
                         </ItemsPanelTemplate>
                     </omsqftcontrols:MultipleSizedGridView.PortraitItemsPanel>
-                    <omsqftcontrols:MultipleSizedGridView.GroupStyle>
-                        <GroupStyle>
-                            <GroupStyle.HeaderTemplate>
-                                <DataTemplate>
-                                    <Button AutomationProperties.Name="{Binding Title}"
-                                            Style="{StaticResource TextPrimaryButtonStyle}"
-                                            Command="{Binding CategoryNavigationCommand}"
-                                            Margin="5,0,0,10">
-                                        <Button.Content>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding Title}"
-                                                           Style="{StaticResource GroupHeaderTextStyle}" />
-                                                <TextBlock Text="{StaticResource ChevronGlyph}"
-                                                           Style="{StaticResource GroupHeaderTextStyle}"
-                                                           FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                                           Margin="10,0" />
-                                            </StackPanel>
-                                        </Button.Content>
-                                    </Button>
-                                </DataTemplate>
-                            </GroupStyle.HeaderTemplate>
-                            <GroupStyle.Panel>
-                                <ItemsPanelTemplate>
-                                    <VariableSizedWrapGrid ItemWidth="250"
-                                                           ItemHeight="250"
-                                                           Orientation="Vertical"
-                                                           Margin="0,0,80,0" />
-                                </ItemsPanelTemplate>
-                            </GroupStyle.Panel>
-                        </GroupStyle>
-                    </omsqftcontrols:MultipleSizedGridView.GroupStyle>
+
                     <omsqftcontrols:MultipleSizedGridView.PortraitGroupStyle>
                         <GroupStyle>
                             <GroupStyle.HeaderTemplate>

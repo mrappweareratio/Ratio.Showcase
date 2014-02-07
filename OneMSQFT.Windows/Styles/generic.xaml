@@ -3609,25 +3609,25 @@
                     <Border BorderBrush="{TemplateBinding BorderBrush}"
                             Background="{TemplateBinding Background}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <ScrollViewer x:Name="ScrollViewer"
-                                      TabNavigation="{TemplateBinding TabNavigation}"
-                                      HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
-                                      HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                      IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}"
-                                      VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
-                                      VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
-                                      IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}"
-                                      IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
-                                      IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
-                                      ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
-                                      IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
-                                      BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}">
-                            <ItemsPresenter
-                                Header="{TemplateBinding Header}" 
-                                HeaderTemplate="{TemplateBinding HeaderTemplate}"
-                                HeaderTransitions="{TemplateBinding HeaderTransitions}"
-                                Padding="{TemplateBinding Padding}"/>
-                        </ScrollViewer>
+                    		<ScrollViewer x:Name="ScrollViewer"
+                    			TabNavigation="{TemplateBinding TabNavigation}"
+                    			HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                    			HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                    			IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}"
+                    			VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                    			VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                    			IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}"
+                    			IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                    			IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                    			ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
+                    			IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                    			BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" Margin="0">
+                    			<ItemsPresenter
+                    				Header="{TemplateBinding Header}" 
+                    				HeaderTemplate="{TemplateBinding HeaderTemplate}"
+                    				HeaderTransitions="{TemplateBinding HeaderTransitions}"
+                    				Padding="{TemplateBinding Padding}"/>
+                    		</ScrollViewer>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

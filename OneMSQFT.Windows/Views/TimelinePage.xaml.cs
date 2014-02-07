@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -77,6 +78,13 @@ namespace OneMSQFT.Windows.Views
                 ScrollToThisEvent(((EventItemViewModel)e.SourceItem.Item));
                 itemsGridView.Opacity = 1;
             }
+
+            if (e.IsSourceZoomedInView == true)
+            {
+                this.semanticZoom.Background = new SolidColorBrush(Colors.Transparent);
+                LogoGrid.Visibility = Visibility.Visible;
+            }
+
         }
 
         private void semanticZoom_ViewChangeStarted(object sender, SemanticZoomViewChangedEventArgs e)
@@ -85,6 +93,8 @@ namespace OneMSQFT.Windows.Views
             {
                 itemsGridView.Opacity = 0;
             }
+            LogoGrid.Visibility = Visibility.Collapsed;
+          //  this.semanticZoom.Background = new SolidColorBrush(Colors.White);
         }
 
         public override async void TopAppBarEventButtonCommandHandler(EventItemViewModel item)
