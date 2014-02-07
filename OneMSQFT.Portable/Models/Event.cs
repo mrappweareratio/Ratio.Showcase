@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace OneMSQFT.Common.Models
 {
-    public class Event : IEvent<Curator>
+    public class Event : IEvent<Exhibit>
     {
         public string Id { get; set; }
         [JsonProperty("meta_title")]
@@ -32,7 +32,8 @@ namespace OneMSQFT.Common.Models
         public DateTime DateEnd { get; set; }
         public string SeoMetaDescription { get; set; } //TODO: Remove?
         public string PhotoFilePath { get; set; } //TODO: Remove?
-        public IEnumerable<Curator> Curators { get; set; } //TODO: Remove?
+        [JsonProperty("exhibit_data")]
+        public IEnumerable<Exhibit> Exhibits { get; set; }
         public string Color { get; set; }
         public IEnumerable<MediaContentSource> MediaContent { get; private set; } //TODO: Remove?
         public string EventHeroVideoPath { get; set; } //TODO: Remove?

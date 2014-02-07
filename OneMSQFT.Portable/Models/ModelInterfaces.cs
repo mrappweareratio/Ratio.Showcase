@@ -11,7 +11,7 @@ namespace OneMSQFT.Common.Models
         int SquareFootage { get; set; }
     }
 
-    public interface IEvent<out TCurator> : ISocialMedia, ISquareFootageItem, IDatedItem, IColor, IHasMediaContent where TCurator : ICurator<IExhibit>
+    public interface IEvent<out TExhibit> : ISocialMedia, ISquareFootageItem, IDatedItem, IColor, IHasMediaContent where TExhibit : IExhibit
     {
         string Longitude { get; }
         string Lattitude { get; }
@@ -23,7 +23,7 @@ namespace OneMSQFT.Common.Models
         /// </summary>
         string PhotoFilePath { get; }
         string EventHeroVideoPath { get; }
-        IEnumerable<TCurator> Curators { get; }
+        IEnumerable<TExhibit> Exhibits { get; }
     }
 
     public interface IDatedItem
