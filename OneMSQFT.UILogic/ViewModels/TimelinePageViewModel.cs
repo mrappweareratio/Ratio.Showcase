@@ -107,20 +107,9 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        public double FullScreenWidth
-        {
-            get
-            {
-                return Window.Current.Bounds.Width;
-            }
-        }
-        public double FullScreenHeight
-        {
-            get
-            {
-                return Window.Current.Bounds.Height;
-            }
-        }
+        public double FullScreenWidth { get; set; }
+
+        public double FullScreenHeight { get; set; }
 
         public double ExhibitItemWidth
         {
@@ -140,8 +129,8 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public void WindowSizeChanged(double width, double height)
         {
-            OnPropertyChanged("FullScreenHeight");
-            OnPropertyChanged("FullScreenWidth");
+            FullScreenHeight = height;
+            FullScreenWidth = width;
             OnPropertyChanged("ZoomedOutItemWidth");
             OnPropertyChanged("ZoomedOutItemHeight");
             OnPropertyChanged("EventItemHeight");
