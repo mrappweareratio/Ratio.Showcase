@@ -24,26 +24,6 @@ namespace OneMSQFT.UILogic.Services
             return result.Events;
         }
 
-        public Task<IEnumerable<Curator>> GetCuratorsByEvent(int eventId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Exhibit>> GetExhibitsByEvent(int eventId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Exhibit>> GetExhibitsByCurator(int curatorId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Exhibit>> SearchExhibits(string[] tags)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string id)
         {
             throw new NotImplementedException();

@@ -22,27 +22,7 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         public Task<IEnumerable<Event>> GetEvents()
         {
             return GetEventsDelegate();
-        }
-
-        public Task<IEnumerable<Curator>> GetCuratorsByEvent(int eventId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Exhibit>> GetExhibitsByEvent(int eventId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Exhibit>> GetExhibitsByCurator(int curatorId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Exhibit>> SearchExhibits(string[] tags)
-        {
-            throw new NotImplementedException();
-        }
+        }      
 
         public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string id)
         {

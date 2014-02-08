@@ -28,5 +28,22 @@ namespace OneMSQFT.UILogic.Tests.Services
             await dataService.GetEvents();
             Assert.IsTrue(called);
         }
+
+        [TestMethod]
+        async public Task DataService_GetSiteData_ChecksCache()
+        {
+            bool called = false;
+            var mock = new MockDataRepository
+            {
+                LoadAllDataDelegate = () =>
+                {
+                    called = true;
+                    return Task.FromResult(new TimelineResult());
+                }
+            };
+            var dataService = new DataService(mock);
+            await dataService.GetEvents();
+            Assert.IsTrue(called);
+        }
     }
 }

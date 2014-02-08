@@ -7,11 +7,7 @@ namespace OneMSQFT.Common.Services
 {
     public interface IDataService
     {
-        Task<IEnumerable<Event>> GetEvents();
-        Task<IEnumerable<Curator>> GetCuratorsByEvent(int eventId);
-        Task<IEnumerable<Exhibit>> GetExhibitsByEvent(int eventId);
-        Task<IEnumerable<Exhibit>> GetExhibitsByCurator(int curatorId);
-        Task<IEnumerable<Exhibit>> SearchExhibits(string[] tags);
+        Task<IEnumerable<Event>> GetEvents();      
         Task<ExhibitDetail> GetExhibitDetailByExhibitId(string id);
     }
 }
