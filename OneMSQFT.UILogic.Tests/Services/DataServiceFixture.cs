@@ -18,7 +18,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             bool called = false;
             var mock = new MockDataRepository
             {
-                LoadAllDataDelegate = () =>
+                GetSiteDataDelegate = () =>
                 {
                     called = true;
                     return Task.FromResult(new SiteDataResult());
@@ -30,12 +30,12 @@ namespace OneMSQFT.UILogic.Tests.Services
         }
 
         [TestMethod]
-        async public Task DataService_GetSiteData_ChecksCache()
+        async public Task DataService_GetSiteData_Checks_Cache()
         {
             bool called = false;
             var mock = new MockDataRepository
             {
-                LoadAllDataDelegate = () =>
+                GetSiteDataDelegate = () =>
                 {
                     called = true;
                     return Task.FromResult(new SiteDataResult());
