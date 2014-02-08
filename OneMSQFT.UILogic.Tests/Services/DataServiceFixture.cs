@@ -21,7 +21,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 LoadAllDataDelegate = () =>
                 {
                     called = true;
-                    return Task.FromResult(new TimelineResult());
+                    return Task.FromResult(new SiteDataResult());
                 }
             };
             var dataService = new DataService(mock);
@@ -38,7 +38,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 LoadAllDataDelegate = () =>
                 {
                     called = true;
-                    return Task.FromResult(new TimelineResult());
+                    return Task.FromResult(new SiteDataResult());
                 }
             };
             var dataService = new DataService(mock);

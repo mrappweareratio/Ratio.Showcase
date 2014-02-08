@@ -9,6 +9,6 @@ namespace OneMSQFT.Common.DataLayer
 {
     public interface IDataRepository
     {
-        Task<TimelineResult> LoadAllData();
+        Task<SiteDataResult> GetSiteData();
     }
 }

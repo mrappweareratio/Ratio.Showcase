@@ -68,7 +68,7 @@
     <Compile Include="Models\ModelInterfaces.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\TimelineResponse.cs" />
-    <Compile Include="Models\TimelineResult.cs" />
+    <Compile Include="Models\SiteDataResult.cs" />
     <Compile Include="PortableStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings.Designer.cs">

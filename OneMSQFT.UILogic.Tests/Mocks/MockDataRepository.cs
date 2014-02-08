@@ -7,9 +7,9 @@ namespace OneMSQFT.UILogic.Tests.Mocks
 {
     public class MockDataRepository : IDataRepository
     {
-        public Func<Task<TimelineResult>> LoadAllDataDelegate { get; set; }
+        public Func<Task<SiteDataResult>> LoadAllDataDelegate { get; set; }
 
-        public Task<TimelineResult> LoadAllData()
+        public Task<SiteDataResult> GetSiteData()
         {
             return LoadAllDataDelegate();
         }        

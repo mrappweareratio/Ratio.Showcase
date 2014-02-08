@@ -20,7 +20,7 @@ namespace OneMSQFT.UILogic.Services
 
         public async Task<IEnumerable<Event>> GetEvents()
         {
-            var result = await _repository.LoadAllData();
+            var result = await _repository.GetSiteData();
             return result.Events;
         }
 
