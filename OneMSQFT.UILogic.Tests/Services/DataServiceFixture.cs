@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,13 +25,13 @@ namespace OneMSQFT.UILogic.Tests.Services
                     return Task.FromResult(new SiteDataResult());
                 }
             };
-            var dataService = new DataService(mock);
+            var dataService = new DataService(mock, new MockDataCacheService() { ContainsKeyDelegate = s => Task.FromResult(false) });
             await dataService.GetEvents();
             Assert.IsTrue(called);
         }
 
         [TestMethod]
-        async public Task DataService_GetSiteData_Checks_Cache()
+        async public Task DataService_GetSiteData_Checks_Cache_False_Then_Calls_Repository()
         {
             bool called = false;
             var mock = new MockDataRepository
@@ -41,9 +42,136 @@ namespace OneMSQFT.UILogic.Tests.Services
                     return Task.FromResult(new SiteDataResult());
                 }
             };
-            var dataService = new DataService(mock);
+            var cache = new MockDataCacheService
+            {
+                ContainsKeyDelegate = s =>
+                {
+                    called = true;
+                    return Task.FromResult(false);
+                }
+            };
+            var dataService = new DataService(mock, cache);
             await dataService.GetEvents();
             Assert.IsTrue(called);
+        }
+        [TestMethod]
+        async public Task DataService_GetSiteData_Checks_Cache_True_Then_Skips_Repository()
+        {
+            bool called = false;
+            var mock = new MockDataRepository
+            {
+                GetSiteDataDelegate = () =>
+                {                    
+                    return Task.FromResult(new SiteDataResult());
+                }
+            };
+            var cache = new MockDataCacheService
+            {
+                ContainsKeyDelegate = s => Task.FromResult(true),
+                GetKeyDelegate = s => {
+                    {
+                        called = true;
+                        return Task.FromResult<object>(null);
+                    }},
+                InvalidateKeyDelegate = s => Task.FromResult(0)
+            };
+            var dataService = new DataService(mock, cache);
+            await dataService.GetEvents();     
+            Assert.IsTrue(called, "called cache");
+        }
+        [TestMethod]
+        async public Task DataService_GetSiteData_Checks_Cache_True_Then_Null_Invalidates_Cache()
+        {
+            bool called = false;
+            var mock = new MockDataRepository
+            {
+                GetSiteDataDelegate = () =>
+                {                    
+                    return Task.FromResult(new SiteDataResult());
+                }
+            };
+            var cache = new MockDataCacheService
+            {
+                ContainsKeyDelegate = s => Task.FromResult(true),
+                GetKeyDelegate = s =>
+                {
+                    {
+                        return Task.FromResult<object>(null);
+                    }
+                },
+                InvalidateKeyDelegate = s =>
+                {
+                    called = true;
+                    return Task.FromResult(0);
+                }
+            };
+            var dataService = new DataService(mock, cache);
+            await dataService.GetEvents();
+            Assert.IsTrue(called, "callede InvalidateKeyDelegate");
+        }
+        [TestMethod]
+        async public Task DataService_GetSiteData_Checks_Cache_True_Then_Null_Invalidates_Cache_Calls_Repo()
+        {
+            bool called = false;            
+            var mock = new MockDataRepository
+            {
+                GetSiteDataDelegate = () =>
+                {
+                    called = true;
+                    return Task.FromResult(new SiteDataResult());
+                }
+            };
+            var cache = new MockDataCacheService
+            {
+                ContainsKeyDelegate = s => Task.FromResult(true),
+                GetKeyDelegate = s =>
+                {
+                    {
+                        return Task.FromResult<object>(null);
+                    }
+                },
+                InvalidateKeyDelegate = s =>
+                {                    
+                    return Task.FromResult(0);
+                }
+            };
+            var dataService = new DataService(mock, cache);
+            await dataService.GetEvents();
+            Assert.IsTrue(called, "invalidated cache then called repo");
+        }
+        [TestMethod]
+        async public Task DataService_GetSiteData_Calls_Repo_Then_StoreKeyAsync()
+        {
+            bool called = false;
+            var mock = new MockDataRepository
+            {
+                GetSiteDataDelegate = () =>
+                {                    
+                    return Task.FromResult(new SiteDataResult());
+                }
+            };
+            var cache = new MockDataCacheService
+            {
+                ContainsKeyDelegate = s => Task.FromResult(true),
+                GetKeyDelegate = s =>
+                {
+                    {
+                        return Task.FromResult<object>(null);
+                    }
+                },
+                InvalidateKeyDelegate = s =>
+                {
+                    return Task.FromResult(0);
+                },
+                StoreKeyDelegate = (s, o) =>
+                {
+                    called = true;
+                    return Task.FromResult(0);
+                }
+            };
+            var dataService = new DataService(mock, cache);
+            await dataService.GetEvents();
+            Assert.IsTrue(called, "Call StoreKeyAsync");
         }
     }
 }

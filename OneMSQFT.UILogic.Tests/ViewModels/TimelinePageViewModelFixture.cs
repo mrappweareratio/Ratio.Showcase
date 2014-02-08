@@ -41,9 +41,9 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             double windowHeight = 768;
             double windowWidth = 1366;
             var vm = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService()) as ITimelinePageViewModel;
-            vm.WindowSizeChanged(windowWidth, windowHeight);            
+            vm.WindowSizeChanged(windowWidth, windowHeight);
             Assert.AreEqual(windowHeight, vm.EventItemHeight, "EventItemHeight");
-            Assert.IsTrue(vm.EventItemWidth < windowWidth, "EventItemWidth < Window");         
+            Assert.IsTrue(vm.EventItemWidth < windowWidth, "EventItemWidth < Window");
         }
 
         [TestMethod]
@@ -85,8 +85,8 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                     return Task.FromResult(0);
                 }
             };
-            var timeLine = new TimelinePageViewModel(mockDataService, mockAlerts);          
-            timeLine.OnNavigatedTo(null, NavigationMode.New,null);
+            var timeLine = new TimelinePageViewModel(mockDataService, mockAlerts);
+            timeLine.OnNavigatedTo(null, NavigationMode.New, null);
             var b = await timeLine.LoadingTaskCompletionSource.Task;
             Assert.IsTrue(called);
             Assert.IsTrue(alerted);
@@ -96,13 +96,12 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         [TestMethod]
         async public Task TimelinePageViewModel_Loading_Sample_Populates_Events()
         {
-            var timeLine = new TimelinePageViewModel(new DataService(new SampleDataRepository()), new MockAlertMessageService());
+            var timeLine = new TimelinePageViewModel(new DataService(new SampleDataRepository(), new MockDataCacheService() { ContainsKeyDelegate = s => Task.FromResult(false) }), new MockAlertMessageService());
             timeLine.OnNavigatedTo(null, NavigationMode.New, null);
             await timeLine.LoadingTaskCompletionSource.Task;
-            Assert.IsTrue(timeLine.SquareFootEvents.Any()); 
+            Assert.IsTrue(timeLine.SquareFootEvents.Any());
             Assert.IsTrue(timeLine.TimeLineItems.Any());
             Assert.IsTrue(timeLine.TimeLineMenuItems.Any());
-
         }
     }
 }
