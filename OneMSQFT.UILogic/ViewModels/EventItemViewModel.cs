@@ -17,14 +17,14 @@ namespace OneMSQFT.UILogic.ViewModels
     {
         public override string Id { get; set; }
 
-        public EventItemViewModel(IEvent<IExhibit> eventModel)
+        public EventItemViewModel(Event eventModel)
         {
             Event = eventModel;
             Name = eventModel.Name;
             Description = eventModel.Description;
             Id = eventModel.Id;
             SquareFootage = eventModel.SquareFootage;
-            Exhibits = new ObservableCollection<ExhibitItemViewModel>();
+            Exhibits = new ObservableCollection<ExhibitItemViewModel>(eventModel.Exhibits.Select(x => new ExhibitItemViewModel(x)));
             LoadImages(eventModel.MediaContent);
         }
 
@@ -50,7 +50,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
         }
         
-        private IEvent<IExhibit> Event { get; set; }
+        private Event Event { get; set; }
     
         public ObservableCollection<ExhibitItemViewModel> Exhibits { get; private set; }
         
@@ -83,7 +83,7 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        public double ItemWidth { get { return Window.Current.Bounds.Width; } }
-        public double ItemHeight { get { return Window.Current.Bounds.Width; } }
+        //public double ItemWidth { get { return Window.Current.Bounds.Width; } }
+        //public double ItemHeight { get { return Window.Current.Bounds.Width; } }
     }
 }

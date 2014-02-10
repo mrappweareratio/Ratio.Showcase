@@ -12,7 +12,6 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class TimelinePageViewModel : BasePageViewModel, ITimelinePageViewModel
     {
-        public TaskCompletionSource<bool> LoadingTaskCompletionSource { get; set; }
         private readonly IDataService _dataService;
         private readonly IAlertMessageService _messageService;
 
@@ -28,23 +27,15 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public override async void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
-            LoadingTaskCompletionSource = new TaskCompletionSource<bool>();
-            try
+            var events = await _dataService.GetEvents();
+            if (events == null)
             {
-                var events = await _dataService.GetEvents();
-                if (events == null)
-                {
-                    await _messageService.ShowAsync("Error", "There was a problem loading events");
-                    return;
-                }
-                SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
-                TimeLineItems = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
-                TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
+                await _messageService.ShowAsync("Error", "There was a problem loading events");
+                return;
             }
-            finally
-            {
-                LoadingTaskCompletionSource.SetResult(true);
-            }
+            SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
+            TimeLineItems = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
+            TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
 
         }
 

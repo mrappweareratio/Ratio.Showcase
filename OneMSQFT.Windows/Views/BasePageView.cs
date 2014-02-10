@@ -23,7 +23,7 @@ namespace OneMSQFT.Windows.Views
         {
         }
 
-        public DelegateCommand<EventItemViewModel> TopAppBarEventButtonCommand { get; set; }
+        public DelegateCommand<String> TopAppBarEventButtonCommand { get; set; }
         public DelegateCommand HomeButtonClickCommand { get; set; }
         public DelegateCommand AboutButtonClickCommand { get; set; }
         public DelegateCommand FilterButtonClickCommand { get; set; }
@@ -61,7 +61,7 @@ namespace OneMSQFT.Windows.Views
             };
             TopAppBar.Content = topScrollViewer;
 
-            TopAppBarEventButtonCommand = new DelegateCommand<EventItemViewModel>(TopAppBarEventButtonCommandHandler);
+            TopAppBarEventButtonCommand = new DelegateCommand<String>(TopAppBarEventButtonCommandHandler);
             HomeButtonClickCommand = new DelegateCommand(HomeButtonClickCommandHandler);
             AboutButtonClickCommand = new DelegateCommand(AboutButtonClickCommandHandler);
             FilterButtonClickCommand = new DelegateCommand(FilterButtonClickCommandHandler);
@@ -70,10 +70,10 @@ namespace OneMSQFT.Windows.Views
 
         }
 
-        async public virtual void TopAppBarEventButtonCommandHandler(EventItemViewModel item)
-        {
-            // overridden in local page
+        public virtual void TopAppBarEventButtonCommandHandler(String eventId)
+        {            
         }
+
         async public void HomeButtonClickCommandHandler()
         {
             this.Frame.Navigate(typeof(TimelinePage));
@@ -107,13 +107,13 @@ namespace OneMSQFT.Windows.Views
             var homeButton = new Button();
             homeButton.Style = (Style)App.Current.Resources["OMSQFTAppBarHomeButtonStyle"];
             homeButton.Command = TopAppBarEventButtonCommand;
-            homeButton.CommandParameter = new EventItemViewModel(new Event() { Name = "Featured", Color = "FFFFFF", Id = "0" });
+            homeButton.CommandParameter = null;
             TopAppBarContentStackPanel.Children.Add(homeButton);
             foreach (var e in vm.SquareFootEvents)
             {
                 var b = new Button();
                 b.Command = TopAppBarEventButtonCommand;
-                b.CommandParameter = e;
+                b.CommandParameter = e.Id;
                 b.Style = (Style)App.Current.Resources["OMSQFTAppBarButtonStyle"];
                 b.DataContext = e;
                 TopAppBarContentStackPanel.Children.Add(b);

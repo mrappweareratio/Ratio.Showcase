@@ -45,6 +45,7 @@ namespace OneMSQFT.Windows.DesignViewModels
                             Source = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
                         }
                     },
+                    Exhibits = new List<Exhibit>()
                 });
 
                 var fakeExhibitsCount = Math.Round((decimal)new Random().Next(1, 10));

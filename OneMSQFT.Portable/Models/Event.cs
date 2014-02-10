@@ -9,6 +9,11 @@ namespace OneMSQFT.Common.Models
 {
     public class Event : IEvent<Exhibit>
     {
+        public Event()
+        {
+            Exhibits = new List<Exhibit>();
+        }
+
         public string Id { get; set; }
         [JsonProperty("meta_title")]
         public string SocialMediaTitle { get; set; }
