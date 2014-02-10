@@ -18,7 +18,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         async public Task MockDataRepository_TimlineResult_Not_Null()
         {
             var dataRepo = new SampleDataRepository();
-            var result = await dataRepo.LoadAllData();
+            var result = await dataRepo.GetSiteData();
             Assert.IsNotNull(result);
         }
 
@@ -26,7 +26,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         async public Task MockDataRepository_TimlineResult_Events_Not_Null()
         {
             var dataRepo = new SampleDataRepository();
-            var result = await dataRepo.LoadAllData();
+            var result = await dataRepo.GetSiteData();
             Assert.IsNotNull(result.Events);
         }
 
@@ -34,7 +34,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         async public Task MockDataRepository_TimlineResult_Events_Has_One()
         {
             var dataRepo = new SampleDataRepository();
-            var result = await dataRepo.LoadAllData();
+            var result = await dataRepo.GetSiteData();
             var e = result.Events.FirstOrDefault();
             Assert.IsNotNull(e);
         }
@@ -43,7 +43,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         async public Task MockDataRepository_TimlineResult_Events_Are_Valid()
         {
             var dataRepo = new SampleDataRepository();
-            var result = await dataRepo.LoadAllData();
+            var result = await dataRepo.GetSiteData();
             var validEvents = result.Events.ToList().TrueForAll(ValidateEvent);            
             Assert.IsTrue(validEvents, "ValidEvents");
         }
@@ -54,7 +54,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         async public Task MockDataRepository_TimlineResult_Exhibits_Not_Null()
         {
             var dataRepo = new SampleDataRepository();
-            var result = await dataRepo.LoadAllData();
+            var result = await dataRepo.GetSiteData();
             var e = result.Events.FirstOrDefault();
             Assert.IsNotNull(e.Exhibits);
         }
@@ -63,7 +63,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         async public Task MockDataRepository_TimlineResult_Exhibits_HasOne()
         {
             var dataRepo = new SampleDataRepository();
-            var result = await dataRepo.LoadAllData();
+            var result = await dataRepo.GetSiteData();
             var e = result.Events.FirstOrDefault();
             var exhibit = e.Exhibits.FirstOrDefault();
             Assert.IsNotNull(exhibit);
@@ -73,7 +73,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         async public Task MockDataRepository_TimlineResult_Exhibits_Are_Valid()
         {
             var dataRepo = new SampleDataRepository();
-            var result = await dataRepo.LoadAllData();
+            var result = await dataRepo.GetSiteData();
             var e = result.Events.FirstOrDefault();
             var validEvents = e.Exhibits.ToList().TrueForAll(ValidateExhibit);
             Assert.IsTrue(validEvents, "ValidEvents");

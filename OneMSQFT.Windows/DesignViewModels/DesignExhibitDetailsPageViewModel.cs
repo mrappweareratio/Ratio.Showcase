@@ -50,7 +50,7 @@ namespace OneMSQFT.Windows.DesignViewModels
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
 
-        public DesignExhibitDetailsPageViewModel(IDataService dataService, IAlertMessageService messageService)
+        public DesignExhibitDetailsPageViewModel()
         {
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             const int fakeEventsCount = 10;

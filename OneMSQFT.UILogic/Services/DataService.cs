@@ -12,36 +12,32 @@ namespace OneMSQFT.UILogic.Services
     public class DataService : IDataService
     {
         private readonly IDataRepository _repository;
+        private readonly IDataCacheService _cache;
 
-        public DataService(IDataRepository repository)
+        public DataService(IDataRepository repository, IDataCacheService cache)
         {
             _repository = repository;
+            _cache = cache;
         }
 
         public async Task<IEnumerable<Event>> GetEvents()
         {
-            var result = await _repository.LoadAllData();
+            if (await _cache.ContainsKeyAsync("site_data"))
+            {
+                var siteData = await _cache.GetKeyAsync<SiteDataResult>("site_data");
+                if (siteData == null)
+                {
+                    await _cache.InvalidateKeyAsync("site_data");
+                }
+                else
+                {
+                    return siteData.Events;
+                }
+            }
+            var result = await _repository.GetSiteData();
+            if (result != null)
+                await _cache.StoreKeyAsync("site_data", result);
             return result.Events;
-        }
-
-        public Task<IEnumerable<Curator>> GetCuratorsByEvent(int eventId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Exhibit>> GetExhibitsByEvent(int eventId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Exhibit>> GetExhibitsByCurator(int curatorId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Exhibit>> SearchExhibits(string[] tags)
-        {
-            throw new NotImplementedException();
         }
 
         public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string id)
