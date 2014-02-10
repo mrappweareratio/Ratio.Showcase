@@ -27,7 +27,7 @@ namespace OneMSQFT.Windows.Views
         public DelegateCommand HomeButtonClickCommand { get; set; }
         public DelegateCommand AboutButtonClickCommand { get; set; }
         public DelegateCommand FilterButtonClickCommand { get; set; }
-        public DelegateCommand<AppBarButton> AdminButtonClickCommand { get; set; }
+        public DelegateCommand<Button> AdminButtonClickCommand { get; set; }
         public DelegateCommand AdminSubmitButtonClickCommand { get; set; }
 
         protected StackPanel TopAppBarContentStackPanel;
@@ -65,7 +65,7 @@ namespace OneMSQFT.Windows.Views
             HomeButtonClickCommand = new DelegateCommand(HomeButtonClickCommandHandler);
             AboutButtonClickCommand = new DelegateCommand(AboutButtonClickCommandHandler);
             FilterButtonClickCommand = new DelegateCommand(FilterButtonClickCommandHandler);
-            AdminButtonClickCommand = new DelegateCommand<AppBarButton>(AdminButtonClickCommandHandler);
+            AdminButtonClickCommand = new DelegateCommand<Button>(AdminButtonClickCommandHandler);
             AdminSubmitButtonClickCommand = new DelegateCommand(AdminSubmitButtonClickCommandHandler);
 
         }
@@ -91,7 +91,7 @@ namespace OneMSQFT.Windows.Views
         {
             // overridden in local page
         }
-        async public virtual void AdminButtonClickCommandHandler(AppBarButton sender)
+        async public virtual void AdminButtonClickCommandHandler(Button sender)
         {
             this.TopAppBar.IsOpen = false;
         }

@@ -44,7 +44,7 @@ namespace OneMSQFT.Windows.DesignViewModels
                         Name = "Exhibit Name " + j,
                         Description = "Exhibit Description Name " + j,
                         HeroPhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg",
-                        SquareFootage = j * 1234 + 123
+                        SquareFootage = j * 123 + 123
                     });
                     eivm.Exhibits.Add(exhibit);
                 }         
@@ -60,11 +60,6 @@ namespace OneMSQFT.Windows.DesignViewModels
             get
             {
                 var c = new ObservableCollection<EventItemViewModel>();
-                c.Add(new EventItemViewModel(new Event() { 
-                    Name = "Featured", 
-                    Color="FFFFFF",
-                    SquareFootage = _totalSquareFeet
-                    }));
                 foreach (var e in SquareFootEvents)
                 {
                     c.Add(e);
@@ -80,12 +75,11 @@ namespace OneMSQFT.Windows.DesignViewModels
                 foreach (var e in TimeLineItems)
                 {
                     c.Add(e);
-                    c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
-                    c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
                 }
-                c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
-                c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
-                c.Add(new EventItemViewModel(new Event() { Name = "Spacer", Color = "FFFFFF" }));
+                c.Insert(2, new EventItemViewModel(new Event() { Name = "Coming Soon", Color = "DDDDDD" }));
+                c.Insert(3, new EventItemViewModel(new Event() { Name = "Coming Soon", Color = "DDDDDD" }));
+                c.Insert(8, new EventItemViewModel(new Event() { Name = "Coming Soon", Color = "DDDDDD" }));
+                c.Insert(10, new EventItemViewModel(new Event() { Name = "Coming Soon", Color = "DDDDDD" }));
                 return c as ObservableCollection<EventItemViewModel>;
         } }
 
@@ -105,6 +99,16 @@ namespace OneMSQFT.Windows.DesignViewModels
             }
         }
 
+
+
+        public String SinceString
+        {
+            get
+            {
+                return "since December 2013";
+            }
+        }
+
         private int _totalSquareFeet;
         public String TotalSquareFeet
         {
@@ -113,13 +117,14 @@ namespace OneMSQFT.Windows.DesignViewModels
                 return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", _totalSquareFeet)).Trim() + " sqft";
             }
         }
+
         #region ResizingProperties
 
         public double ZoomedOutGridHeight
         {
             get
             {
-                return FullScreenHeight * .75;
+                return FullScreenHeight;
             }
         }
 
@@ -127,14 +132,14 @@ namespace OneMSQFT.Windows.DesignViewModels
         {
             get
             {
-                return FullScreenWidth / 6;
+                return (FullScreenWidth-44) / 4; // 42 is GridView padding
             }
         }
         public double ZoomedOutItemHeight
         {
             get
             {
-                return ZoomedOutGridHeight / 4;
+                return ((ZoomedOutGridHeight-165) / 3)-18;
             }
         }
 

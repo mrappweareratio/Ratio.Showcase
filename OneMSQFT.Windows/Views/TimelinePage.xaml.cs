@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -94,7 +95,6 @@ namespace OneMSQFT.Windows.Views
                 itemsGridView.Opacity = 0;
             }
             LogoGrid.Visibility = Visibility.Collapsed;
-          //  this.semanticZoom.Background = new SolidColorBrush(Colors.White);
         }
 
         public override async void TopAppBarEventButtonCommandHandler(EventItemViewModel item)
@@ -171,5 +171,10 @@ namespace OneMSQFT.Windows.Views
             this.AdminButton.CommandParameter = this.AdminButton;
         }
 
+        private void AdminButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            SettingsPane.Show();
+
+        }
     }
 }
