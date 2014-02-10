@@ -128,6 +128,7 @@
     <Compile Include="Services\AlertMessageService.cs" />
     <Compile Include="Services\DataCacheService.cs" />
     <Compile Include="Services\DataService.cs" />
+    <Compile Include="Utils\MediaContentSourceUtils.cs" />
     <Compile Include="ViewModels\BasePageViewModel.cs" />
     <Compile Include="ViewModels\MediaContentSourceItemViewModel.cs" />
     <Compile Include="ViewModels\CuratorItemViewModels.cs" />
