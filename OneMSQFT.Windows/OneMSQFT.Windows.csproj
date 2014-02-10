@@ -111,6 +111,9 @@
     </Compile>
     <Compile Include="Behaviors\NavigateWithEventArgsToPageAction.cs" />
     <Compile Include="Controls\AutoRotatingGridView.cs" />
+    <Compile Include="Controls\LogoUserControl.xaml.cs">
+      <DependentUpon>LogoUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MultipleSizedGridView.cs" />
     <Compile Include="Controls\VideoPlayerUserControl.xaml.cs">
       <DependentUpon>VideoPlayerUserControl.xaml</DependentUpon>
@@ -140,6 +143,7 @@
     </AppxManifest>
     <None Include="OneMSQFT.Windows_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <Content Include="Assets\02_home-semantic-zoom.png" />
     <Content Include="SampleData\sundance.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -156,6 +160,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\LogoUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\VideoPlayerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

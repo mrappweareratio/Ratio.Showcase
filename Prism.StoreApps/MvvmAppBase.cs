@@ -281,10 +281,12 @@ namespace Microsoft.Practices.Prism.StoreApps
 
             var applicationCommands = args.Request.ApplicationCommands;
             var settingsCommands = GetSettingsCommands();
-
-            foreach (var settingsCommand in settingsCommands)
+            if (settingsCommands != null)
             {
-                applicationCommands.Add(settingsCommand);
+                foreach (var settingsCommand in settingsCommands)
+                {
+                    applicationCommands.Add(settingsCommand);
+                }
             }
         }
     }

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -58,13 +60,31 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
+
+        public String SinceString
+        {
+            get
+            {
+                return "since December 2013";
+            }
+        }
+
+        private int _totalSquareFeet;
+        public String TotalSquareFeet
+        {
+            get
+            {
+                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", _totalSquareFeet)).Trim() + " sqft";
+            }
+        }
+
         #region ResizingProperties
 
         public double ZoomedOutGridHeight
         {
             get
             {
-                return FullScreenHeight * .75;
+                return FullScreenHeight;
             }
         }
 
