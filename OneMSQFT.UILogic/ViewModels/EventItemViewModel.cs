@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common.Models;
@@ -16,45 +17,49 @@ namespace OneMSQFT.UILogic.ViewModels
     {
         public override string Id { get; set; }
 
-        public EventItemViewModel(IEvent<ICurator<IExhibit>> eventModel)
+        public EventItemViewModel(Event eventModel)
         {
             Event = eventModel;
             Name = eventModel.Name;
             Description = eventModel.Description;
             Id = eventModel.Id;
             SquareFootage = eventModel.SquareFootage;
-            Exhibits = new ObservableCollection<ExhibitItemViewModel>();
+            Exhibits = new ObservableCollection<ExhibitItemViewModel>(eventModel.Exhibits.Select(x => new ExhibitItemViewModel(x)));
+            LoadImages(eventModel.MediaContent);
+        }
+
+
+        private void LoadImages(IEnumerable<MediaContentSource> mediaContent)
+        {
+            //todo revert test image code
+            if (mediaContent == null)
+            {
+                PhotoFilePath = new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
+                EventHeroVideoUri = new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
+                return;
+            }
+
+            var mediaContentSources = mediaContent as MediaContentSource[] ?? mediaContent.ToArray();
+            var images = mediaContentSources.Where(x => x.ContentSourceType == ContentSourceType.Image);
+
+            var firstImage = images.FirstOrDefault(x => x.ContentSourceType == ContentSourceType.Image);
+            PhotoFilePath = firstImage == null ? new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute) : new Uri(firstImage.Source, UriKind.Absolute);
+            
+            var firstVideo = mediaContentSources.FirstOrDefault(x => x.ContentSourceType == ContentSourceType.Video);
+            EventHeroVideoUri = firstVideo == null ? new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute) : new Uri(firstVideo.Source, UriKind.Absolute);
+
         }
         
-        private IEvent<ICurator<IExhibit>> Event { get; set; }
+        private Event Event { get; set; }
     
         public ObservableCollection<ExhibitItemViewModel> Exhibits { get; private set; }
         
         public DateTime DateStart { get { return Event.DateStart; } }
 
-        public Uri EventHeroVideoUri
-        {
-            get
-            {
-                if (Event.EventHeroVideoPath != null)
-                {
-                    return new Uri(Event.EventHeroVideoPath, UriKind.Absolute);
-                }
-                return new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
-            }
-        }
+        public Uri EventHeroVideoUri { get; set; }        
 
-        public Uri PhotoFilePath
-        {
-            get
-            {
-                if (Event.PhotoFilePath != null)
-                {
-                    return new Uri(Event.PhotoFilePath, UriKind.Absolute);
-                }
-                return new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
-            }
-        }
+        public Uri PhotoFilePath { get; set; }
+        
         public bool IsInTheFuture
         {
             get
@@ -78,7 +83,7 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        public double ItemWidth { get { return Window.Current.Bounds.Width; } }
-        public double ItemHeight { get { return Window.Current.Bounds.Width; } }
+        //public double ItemWidth { get { return Window.Current.Bounds.Width; } }
+        //public double ItemHeight { get { return Window.Current.Bounds.Width; } }
     }
 }

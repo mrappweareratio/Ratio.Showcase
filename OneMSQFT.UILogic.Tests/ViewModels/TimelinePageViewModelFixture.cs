@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
@@ -42,27 +43,27 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             double windowWidth = 1366;
             var vm = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService()) as ITimelinePageViewModel;
             vm.WindowSizeChanged(windowWidth, windowHeight);
-            Assert.AreEqual(windowHeight / 4, vm.ZoomedOutItemHeight);
-            Assert.AreEqual(windowWidth / 6, vm.ZoomedOutItemWidth);
             Assert.AreEqual(windowHeight, vm.EventItemHeight, "EventItemHeight");
-            Assert.IsTrue(vm.EventItemWidth < windowWidth, "EventItemWidth < Window");         
+            Assert.IsTrue(vm.EventItemWidth < windowWidth, "EventItemWidth < Window");
         }
 
         [TestMethod]
-        async public Task TimelinePageViewModel_NavigatededTo_Calls_DataService()
+        public void TimelinePageViewModel_NavigatededTo_Calls_DataService()
         {
+            var autoResetEvent = new AutoResetEvent(false);
             bool called = false;
             var mockDataService = new MockDataService
             {
-                GetEventsDelegate = () =>
+                GetEventsDelegate = async () =>
                 {
                     called = true;
-                    return Task.FromResult<IEnumerable<Event>>(new List<Event>());
+                    autoResetEvent.Set();
+                    return await Task.FromResult<IEnumerable<Event>>(new List<Event>());
                 }
             };
             var timeLine = new TimelinePageViewModel(mockDataService, new MockAlertMessageService());
             timeLine.OnNavigatedTo(null, NavigationMode.New, null);
-            await timeLine.LoadingTaskCompletionSource.Task;
+            autoResetEvent.WaitOne(500);
             Assert.IsTrue(called);
         }
 
@@ -71,11 +72,12 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         {
             bool called = false;
             bool alerted = false;
+            var autoResetEvent = new AutoResetEvent(false);
             var mockDataService = new MockDataService
             {
                 GetEventsDelegate = () =>
                 {
-                    called = true;
+                    called = true;                    
                     return Task.FromResult<IEnumerable<Event>>(null);
                 }
             };
@@ -84,27 +86,28 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                 ShowAsyncDelegate = (s, s1) =>
                 {
                     alerted = true;
+                    autoResetEvent.Set();
                     return Task.FromResult(0);
                 }
             };
-            var timeLine = new TimelinePageViewModel(mockDataService, mockAlerts);          
-            timeLine.OnNavigatedTo(null, NavigationMode.New,null);
-            var b = await timeLine.LoadingTaskCompletionSource.Task;
+            var timeLine = new TimelinePageViewModel(mockDataService, mockAlerts);
+            timeLine.OnNavigatedTo(null, NavigationMode.New, null);            
+            autoResetEvent.WaitOne(500);
             Assert.IsTrue(called);
             Assert.IsTrue(alerted);
         }
 
 
         [TestMethod]
-        async public Task TimelinePageViewModel_Loading_Sample_Populates_Events()
+        public void TimelinePageViewModel_Loading_Sample_Populates_Events()
         {
-            var timeLine = new TimelinePageViewModel(new DataService(new SampleDataRepository()), new MockAlertMessageService());
+            var timeLine = new TimelinePageViewModel(new DataService(new SampleDataRepository(), new MockDataCacheService() { ContainsKeyDelegate = s => Task.FromResult(false) }), new MockAlertMessageService());
+            var autoResetEvent = new AutoResetEvent(false);
             timeLine.OnNavigatedTo(null, NavigationMode.New, null);
-            await timeLine.LoadingTaskCompletionSource.Task;
-            Assert.IsTrue(timeLine.SquareFootEvents.Any()); 
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(timeLine.SquareFootEvents.Any());
             Assert.IsTrue(timeLine.TimeLineItems.Any());
             Assert.IsTrue(timeLine.TimeLineMenuItems.Any());
-
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Windows.Storage;
 using OneMSQFT.Common;
 using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
@@ -17,13 +18,13 @@ namespace OneMSQFT.UILogic.DataLayer
         {
         }
 
-        public async Task<TimelineResult> LoadAllData()
+        public async Task<SiteDataResult> GetSiteData()
         {
-            var folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var folder = Windows.ApplicationModel.Package.Current.InstalledLocation;           
             folder = await folder.GetFolderAsync("SampleData");
             var jsonFile = await folder.GetFileAsync(JsonFileName);
             var jsonData = await Windows.Storage.FileIO.ReadTextAsync(jsonFile);            
-            var dataFromJson = JsonHelper.DeserializeObject<TimelineResult>(jsonData);
+            var dataFromJson = JsonHelper.DeserializeObject<SiteDataResult>(jsonData);
             return dataFromJson;
         }
     }

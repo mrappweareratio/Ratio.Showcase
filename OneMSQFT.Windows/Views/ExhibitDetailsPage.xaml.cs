@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Prism.StoreApps;
+﻿using System;
+using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
@@ -28,10 +29,9 @@ namespace OneMSQFT.Windows.Views
             }
         }
 
-        public override async void TopAppBarEventButtonCommandHandler(EventItemViewModel item)
+        public override async void TopAppBarEventButtonCommandHandler(String eventId)
         {
-            if (item == null) return;
-            this.Frame.Navigate(typeof(TimelinePage), item);
+            this.Frame.Navigate(typeof(TimelinePage), eventId);
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
         }

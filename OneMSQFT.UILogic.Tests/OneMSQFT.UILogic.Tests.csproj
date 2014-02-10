@@ -112,7 +112,7 @@
     <SDKReference Include="TestPlatform, Version=11.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataLayer\SampleDataRepositoryFixture.cs" />
+    <Compile Include="DataLayer\DataRepositoryFixture.cs" />
     <Compile Include="Mocks\MockAlertService.cs" />
     <Compile Include="Mocks\MockDataService.cs" />
     <Compile Include="Mocks\MockLaunchActivatedEventArgs.cs" />
@@ -121,6 +121,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DataServiceFixture.cs" />
     <Compile Include="Mocks\MockDataRepository.cs" />
+    <Compile Include="Mocks\MockDataCacheService.cs" />
     <Compile Include="ViewModels\ExhibitDetailsPageViewModelFixture.cs" />
     <Compile Include="ViewModels\TimelinePageViewModelFixture.cs" />
   </ItemGroup>

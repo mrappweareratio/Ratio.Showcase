@@ -49,10 +49,12 @@ namespace OneMSQFT.Windows
         protected override void OnInitialize(IActivatedEventArgs args)
         {            
             //register repositories
-            _container.RegisterType<IDataRepository, SampleDataRepository>(new ContainerControlledLifetimeManager());
+            //_container.RegisterType<IDataRepository, SampleDataRepository>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IDataRepository, DemoDataRepository>(new ContainerControlledLifetimeManager());            
 
             //register services
             _container.RegisterInstance<INavigationService>(NavigationService);
+            _container.RegisterType<IDataCacheService, DataCacheService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IDataService, DataService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IAlertMessageService, AlertMessageService>(new ContainerControlledLifetimeManager());
 
