@@ -42,7 +42,7 @@ namespace OneMSQFT.UILogic.Services
 
         public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string id)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("GetExhibitDetailByExhibitId");
         }
     }
 }

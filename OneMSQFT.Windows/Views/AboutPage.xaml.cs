@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Prism.StoreApps;
+﻿using System;
+using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Xaml;
@@ -19,17 +20,16 @@ namespace OneMSQFT.Windows.Views
         void AboutPage_Loaded(object sender, RoutedEventArgs e)
         {
             PopulateTopAppbar(((BasePageViewModel)this.DataContext));
-            IAboutPageViewModel vm = this.DataContext as IAboutPageViewModel;
+            var vm = this.DataContext as IAboutPageViewModel;
             if (vm != null)
             {
                 vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
             }
         }
 
-        public override async void TopAppBarEventButtonCommandHandler(EventItemViewModel item)
+        public override async void TopAppBarEventButtonCommandHandler(string eventId)
         {
-            if (item == null) return;
-            this.Frame.Navigate(typeof(TimelinePage), item);
+            this.Frame.Navigate(typeof(TimelinePage), eventId);
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
         }
