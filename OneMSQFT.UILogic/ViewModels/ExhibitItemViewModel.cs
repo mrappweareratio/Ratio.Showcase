@@ -9,10 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using OneMSQFT.UILogic.Utils;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
-    public class ExhibitItemViewModel : ItemBaseViewModel
+    public class ExhibitItemViewModel : ItemBaseViewModel, IHasMediaContentViewModel
     {
         public override string Id { get; set; }
 
@@ -23,41 +24,32 @@ namespace OneMSQFT.UILogic.ViewModels
             Id = exhibitModel.Id;
             Description = exhibitModel.Description;
             SquareFootage = exhibitModel.SquareFootage;
-            LoadImages(exhibitModel.MediaContent);
+            LoadMediaContent(exhibitModel.MediaContent);
+            EventColor = ColorUtils.GetExhibitColor(exhibitModel);
         }
 
-        private void LoadImages(IEnumerable<MediaContentSource> mediaContent)
+        private void LoadMediaContent(IEnumerable<MediaContentSource> mediaContent)
         {
-            if (mediaContent == null)
-            {
-                HeroPhotoFilePath = new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
+            var mediaContentViewModels = MediaContentSourceUtils.GetMediaContentSourceItemViewModels(mediaContent).ToList();
+            MediaContent = new ObservableCollection<MediaContentSourceItemViewModel>(mediaContentViewModels);
+            MediaContentVisibility = MediaContent.Any() ? Visibility.Visible : Visibility.Collapsed;
+            
+            var firstImage = mediaContentViewModels.FirstOrDefault(x => x.ContentSourceType == ContentSourceType.Image);
+            if (firstImage == null)
                 return;
-            }
-            var images = mediaContent.Where(x => x.ContentSourceType == ContentSourceType.Image);
-            var firstImage = images.FirstOrDefault(x => x.ContentSourceType == ContentSourceType.Image);
-            HeroPhotoFilePath = firstImage == null ? new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute) : new Uri(firstImage.Source, UriKind.Absolute);            
+            //todo remove HeroFilePath
+            HeroPhotoFilePath = firstImage.ImageSource;
         }
 
 
         private IExhibit Exhibit { get; set; }
 
-        public Uri HeroPhotoFilePath { get; set; }              
+        public Uri HeroPhotoFilePath { get; set; }
 
-        public SolidColorBrush EventColor
-        {
-            get
-            {
-                string color = "FF" + Exhibit.Color;
-                var c = Color.FromArgb(
-                Convert.ToByte(color.Substring(0, 2), 16),
-                Convert.ToByte(color.Substring(2, 2), 16),
-                Convert.ToByte(color.Substring(4, 2), 16),
-                Convert.ToByte(color.Substring(6, 2), 16));
+        public SolidColorBrush EventColor { get; set; }
 
-                return new SolidColorBrush(c);
-            }
-        }
+        public ObservableCollection<MediaContentSourceItemViewModel> MediaContent { get; set; }
 
-
+        public Visibility MediaContentVisibility { get; set; }
     }
 }

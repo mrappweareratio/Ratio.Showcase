@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -50,25 +51,16 @@ namespace OneMSQFT.Windows.Views
         {
             PopulateTopAppbar(((BasePageViewModel)this.DataContext));
             var vm = this.DataContext as ITimelinePageViewModel;
-            vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
+            if (vm != null)
+            {
+                vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
+            }
         }
 
         private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
         {
             _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(itemsGridView);
-            if (_timelineGridViewScrollViewer != null)
-            {
-                _timelineGridViewScrollViewer.ViewChanged += _timelineGridViewScrollViewer_ViewChanged;
-            }
             itemsGridView.Opacity = 1;
-        }
-
-        void _timelineGridViewScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
-        {
-            this.StoryboardSeeker.Resume();
-            int offSet = Convert.ToInt32(_timelineGridViewScrollViewer.HorizontalOffset);
-            this.StoryboardSeeker.Seek(new TimeSpan(0, 0, offSet));
-            this.StoryboardSeeker.Pause();
         }
 
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
@@ -94,23 +86,24 @@ namespace OneMSQFT.Windows.Views
                 itemsGridView.Opacity = 0;
             }
             LogoGrid.Visibility = Visibility.Collapsed;
-            //  this.semanticZoom.Background = new SolidColorBrush(Colors.White);
         }
 
-        public override async void TopAppBarEventButtonCommandHandler(string eventId)
+        public override async void TopAppBarEventButtonCommandHandler(String eventId)
         {
             ScrollToEventById(eventId);
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
         }
 
-        async private void ScrollToEventById(string eventId)
+        async private void ScrollToEventById(String eventId)
         {
             VideoPopup.IsOpen = false;
-            var vm = this.DataContext as ITimelinePageViewModel;
-            vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
+            var vm = DataContext as ITimelinePageViewModel;
+            vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height); 
+
             if (String.IsNullOrEmpty(eventId))
-            {
+            {   
+                // SCROLL HOME
                 await _timelineGridViewScrollViewer.ScrollToHorizontalOffsetWithAnimation(0);
             }
 
@@ -123,8 +116,8 @@ namespace OneMSQFT.Windows.Views
 
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
-            ITimelinePageViewModel vm = this.DataContext as ITimelinePageViewModel;
-            if (vm != null)
+            var vm = DataContext as ITimelinePageViewModel;
+            if(vm != null)
             {
                 vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
             }
@@ -136,7 +129,7 @@ namespace OneMSQFT.Windows.Views
             if (!VideoPopup.IsOpen)
             {
                 semanticZoom.Opacity = 0;
-                VideoPopup.IsOpen = true;
+                VideoPopup.IsOpen = true; 
             }
         }
 
@@ -161,5 +154,9 @@ namespace OneMSQFT.Windows.Views
             this.AdminButton.CommandParameter = this.AdminButton;
         }
 
+        private void AdminButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            SettingsPane.Show();
+        }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -37,6 +39,11 @@ namespace OneMSQFT.UILogic.ViewModels
             TimeLineItems = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
             TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
 
+            foreach (var eivm in events)
+            {
+                _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
+                
+            }
         }
 
         public ObservableCollection<EventItemViewModel> TimeLineItems { get; private set; }
@@ -58,13 +65,31 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
+
+        public String SinceString
+        {
+            get
+            {
+                return "since December 2013";
+            }
+        }
+
+        private int _totalSquareFeet;
+        public String TotalSquareFeet
+        {
+            get
+            {
+                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", _totalSquareFeet)).Trim() + " sqft";
+            }
+        }
+
         #region ResizingProperties
 
         public double ZoomedOutGridHeight
         {
             get
             {
-                return FullScreenHeight * .75;
+                return FullScreenHeight;
             }
         }
 
@@ -72,14 +97,14 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return FullScreenWidth / 6;
+                return (FullScreenWidth - 44) / 4; // 42 is GridView padding
             }
         }
         public double ZoomedOutItemHeight
         {
             get
             {
-                return FullScreenHeight / 4;
+                return ((ZoomedOutGridHeight - 165) / 3) - 18;
             }
         }
 

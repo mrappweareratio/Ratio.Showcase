@@ -6,7 +6,6 @@
         public string ParentId { get; set; }
         public string Source { get; set; }
         public ContentSourceType ContentSourceType { get; set; }
-        public string ThumbnailSource { get; set; }
     }
 
     public enum ContentSourceType
