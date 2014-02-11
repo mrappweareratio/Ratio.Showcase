@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
+using OneMSQFT.Common.Models;
+
+namespace OneMSQFT.UILogic.Utils
+{
+    public class ColorUtils
+    {
+        public static SolidColorBrush GetEventColor(IEvent<IExhibit> e)
+        {
+            return GetColor(e.Color);
+        }
+
+        public static SolidColorBrush GetExhibitColor(IExhibit e)
+        {
+            return GetColor(e.Color);
+        }        
+
+        static SolidColorBrush GetColor(string colorHex)
+        {
+            string color = "FF" + colorHex;
+            var c = Color.FromArgb(
+            Convert.ToByte(color.Substring(0, 2), 16),
+            Convert.ToByte(color.Substring(2, 2), 16),
+            Convert.ToByte(color.Substring(4, 2), 16),
+            Convert.ToByte(color.Substring(6, 2), 16));
+
+            return new SolidColorBrush(c);   
+        }        
+    }
+}

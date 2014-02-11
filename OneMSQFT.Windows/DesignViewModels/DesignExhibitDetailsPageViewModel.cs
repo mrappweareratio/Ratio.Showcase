@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
+using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
 using OneMSQFT.Common.Services;
 
@@ -87,48 +88,67 @@ namespace OneMSQFT.Windows.DesignViewModels
 
         private void PopulateExhibitMediaCollection()
         {
-            MediaContentCollection = new ObservableCollection<MediaContentSourceItemViewModel>();
+            var mediaContentSources = new List<MediaContentSource>();
 
-            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
-            {
-                ContentSourceType = ContentSourceType.Image,
-                Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
-            }));
-            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
+            mediaContentSources.Add(new MediaContentSource()
             {
                 ContentSourceType = ContentSourceType.Video,
+                Id = "Video0",
                 Source = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4",
-                ThumbnailSource = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/3.jpg"
-            }));
-            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
+            });
+
+            mediaContentSources.Add(new MediaContentSource()
             {
                 ContentSourceType = ContentSourceType.Image,
+                ParentId = "Video0",
                 Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
-            }));
-            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
+            });
+
+            mediaContentSources.Add(new MediaContentSource()
             {
                 ContentSourceType = ContentSourceType.Video,
+                Id = "a78dd60b6d00d4ea3cb24c04f8123fc5",
                 Source = "http://player.vimeo.com/external/85202186.hd.mp4?s=a78dd60b6d00d4ea3cb24c04f8123fc5",
-                ThumbnailSource = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/3.jpg"
-            }));
-            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
+            });
+
+            mediaContentSources.Add(new MediaContentSource()
             {
-                ContentSourceType = ContentSourceType.Video,
-                Source = "http://player.vimeo.com/external/85202186.sd.mp4?s=678c1a9e12fef16bc4db912bd6c69def",
-                ThumbnailSource = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/3.jpg"
-            }));
-            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
+                ContentSourceType = ContentSourceType.Image,
+                ParentId = "a78dd60b6d00d4ea3cb24c04f8123fc5",
+                Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
+            });
+
+            mediaContentSources.Add(new MediaContentSource()
+          {
+              ContentSourceType = ContentSourceType.Video,
+              Id = "678c1a9e12fef16bc4db912bd6c69def",
+              Source = "http://player.vimeo.com/external/85202186.sd.mp4?s=678c1a9e12fef16bc4db912bd6c69def"
+          });
+            mediaContentSources.Add(new MediaContentSource()
             {
-                ContentSourceType = ContentSourceType.Video,
-                Source = "http://player.vimeo.com/external/85202186.mobile.mp4?s=0a50d2c088856672f467f909fc1a2c8c",
-                ThumbnailSource = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/3.jpg"
-            }));
-            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
+                ContentSourceType = ContentSourceType.Image,
+                ParentId = "678c1a9e12fef16bc4db912bd6c69def",
+                Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
+            });
+
+            mediaContentSources.Add(new MediaContentSource()
+          {
+              ContentSourceType = ContentSourceType.Video,
+              Id = "135089443cf7c01d8762cc206a7cc5e7",
+              Source = "http://player.vimeo.com/external/85202186.m3u8?p=high,standard,mobile&s=135089443cf7c01d8762cc206a7cc5e7"
+          });
+
+            mediaContentSources.Add(new MediaContentSource()
             {
-                ContentSourceType = ContentSourceType.Video,
-                Source = "http://player.vimeo.com/external/85202186.m3u8?p=high,standard,mobile&s=135089443cf7c01d8762cc206a7cc5e7",
-                ThumbnailSource = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/3.jpg"
-            }));
+                ContentSourceType = ContentSourceType.Image,
+                ParentId = "135089443cf7c01d8762cc206a7cc5e7",
+                Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
+            });         
+
+            //Source = "http://player.vimeo.com/external/85202186.sd.mp4?s=678c1a9e12fef16bc4db912bd6c69def",                    
+            //Source = "http://player.vimeo.com/external/85202186.mobile.mp4?s=0a50d2c088856672f467f909fc1a2c8c",                            
+            //Source = "http://player.vimeo.com/external/85202186.m3u8?p=high,standard,mobile&s=135089443cf7c01d8762cc206a7cc5e7",
+            MediaContentCollection = new ObservableCollection<MediaContentSourceItemViewModel>(MediaContentSourceUtils.GetMediaContentSourceItemViewModels(mediaContentSources));
         }
 
         async public void LaunchVideoCommandHandler(MediaContentSourceItemViewModel item)

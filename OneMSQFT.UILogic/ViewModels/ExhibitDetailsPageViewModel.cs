@@ -50,34 +50,6 @@ namespace OneMSQFT.UILogic.ViewModels
             SelectedMediaContentSource = item;
         }
 
-        private void PopulateExhibitMediaCollection()
-        {
-            MediaContentCollection = new ObservableCollection<MediaContentSourceItemViewModel>();
-
-            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
-            {
-                ContentSourceType = ContentSourceType.Image,
-                Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
-            }));
-            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
-            {
-                ContentSourceType = ContentSourceType.Video,
-                Source = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4",
-                ThumbnailSource = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/3.jpg"
-            }));
-            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
-            {
-                ContentSourceType = ContentSourceType.Image,
-                Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
-            }));
-            MediaContentCollection.Add(new MediaContentSourceItemViewModel(new MediaContentSource()
-            {
-                ContentSourceType = ContentSourceType.Video,
-                Source = "http://smf.blob.core.windows.net/samples/videos/wildlife.mp4",
-                ThumbnailSource = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/3.jpg"
-            }));
-        }
-
         #region ContentProperties
 
         private MediaContentSourceItemViewModel _selectedMediaContentSource;
@@ -116,7 +88,6 @@ namespace OneMSQFT.UILogic.ViewModels
                 if (value != null)
                 {
                     SetProperty(ref _exhibit, value);
-                    PopulateExhibitMediaCollection();
                 }
             }
         }
