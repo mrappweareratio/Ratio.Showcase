@@ -10,6 +10,7 @@
     xmlns:ViewModels="using:OneMSQFT.UILogic.ViewModels"
     mc:Ignorable="d">
 
+    
     <Style x:Key="OMSQFTAppBarButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="{ThemeResource ButtonBackgroundThemeBrush}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -91,8 +92,8 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="Border" BorderThickness="0" Background="White">
-                            <Grid Height="200" Width="200" Margin="4">
+                        <Border x:Name="Border" BorderThickness="0" Background="White" Padding="0">
+                            <Grid Height="192" Width="330" Margin="4">
                                 <TextBlock Text="HOME" Foreground="Black" FontSize="20"/>
                             </Grid>
                         </Border>
@@ -193,5 +194,4 @@
     		</Setter.Value>
     	</Setter>
     </Style>
-    <SolidColorBrush x:Key="OMSQFT_LogoDarkBlue" Color="#FF2A3282"/>
 </ResourceDictionary>

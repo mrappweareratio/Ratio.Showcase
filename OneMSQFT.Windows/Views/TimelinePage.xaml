@@ -17,6 +17,7 @@
     x:Class="OneMSQFT.Windows.Views.TimelinePage"
     NavigationCacheMode="Required"
     mc:Ignorable="d"
+    Background="White"
     prism:ViewModelLocator.AutoWireViewModel="True" 
 	d:DataContext="{d:DesignInstance designViewModels:DesignTimelinePageViewModel, IsDesignTimeCreatable=True}">
 
@@ -515,7 +516,7 @@
 
     </omsqft:BasePageView.Resources>
 	<omsqft:BasePageView.BottomAppBar>
-		<AppBar Background="White" BorderThickness="0" IsOpen="True" Padding="0" BorderBrush="Transparent">
+		<AppBar Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent">
 			<Border Height="90" BorderBrush="{StaticResource OneMSQFTAppBarAccentGrayBrush}" BorderThickness="0,10,0,0" >
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -533,14 +534,15 @@
 		</AppBar>
 	</omsqft:BasePageView.BottomAppBar>
 
+    <Grid Background="White">
     <Grid>
-    	<Grid.Background>
+    	<!--<Grid.Background>
     		<ImageBrush Stretch="UniformToFill" ImageSource="ms-appx:///Assets/02_home-semantic-zoom.png">
     			<ImageBrush.RelativeTransform>
     				<CompositeTransform CenterY="0.5" CenterX="0.5" ScaleX="1.35" ScaleY="1.35"/>
     			</ImageBrush.RelativeTransform>
     		</ImageBrush>
-    	</Grid.Background>
+    	</Grid.Background>-->
     	<Grid.RowDefinitions>
     		<RowDefinition/>
     		<RowDefinition Height="4*"/>
@@ -552,7 +554,7 @@
         </Grid.ChildrenTransitions>
         <Grid x:Name="LogoGrid" Margin="0">
             <StackPanel Margin="0,0,36,4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-        		<TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding TotalSquareFeet, Mode=OneWay}" VerticalAlignment="Bottom" Foreground="{StaticResource OMSQFT_LogoDarkBlue}" FontSize="40" Margin="0,0,13,6" FontFamily="Segoe UI Light" FontWeight="Light"/>
+        		<TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding TotalSquareFeet, Mode=OneWay}" VerticalAlignment="Bottom" Foreground="{StaticResource OMSQFT_LogoDarkBlueBrush}" FontSize="40" Margin="0,0,13,6" FontFamily="Segoe UI Light" FontWeight="Light"/>
         		<TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="since December 2013" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTSinceTextGray}" FontSize="24" Margin="0,0,0,10" FontFamily="Segoe UI Light" FontWeight="Light"/>
         	</StackPanel>
         	<omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,38,0,0">
@@ -567,7 +569,6 @@
                       ViewChangeStarted="semanticZoom_ViewChangeStarted" Grid.RowSpan="2" d:IsHidden="True" VerticalAlignment="Top">
             <SemanticZoom.ZoomedOutView>
                 <GridView x:Name="zoomedOutGrid"
-                          Opacity=".5"
                           Padding="44,165,0,0"
 						  Margin="0"
                           Height="{Binding DataSource.ZoomedOutGridHeight, Source={StaticResource DataContextProxy}}"
@@ -636,5 +637,6 @@
                 <AppBarButton Icon="Cancel" Click="AppBarButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
             </Grid>
         </Popup>
+        </Grid>
     </Grid>
 </omsqft:BasePageView>

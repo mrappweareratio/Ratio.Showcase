@@ -37,9 +37,12 @@ namespace OneMSQFT.Windows.Views
             TopAppBar = new AppBar()
             {
                 Padding = new Thickness(0),
-                Height = 200.0,
-                MinHeight = 200.0,
-                MaxHeight = 200.0
+                Height = 192.0,
+                MinHeight = 192.0,
+                MaxHeight = 192.0,
+                Background = new SolidColorBrush(Colors.White),
+                BorderBrush = new SolidColorBrush(Colors.Transparent),
+                BorderThickness = new Thickness(0),
             };
             TopAppBarContentStackPanel = new StackPanel()
             {
@@ -52,7 +55,7 @@ namespace OneMSQFT.Windows.Views
             var topScrollViewer = new ScrollViewer
             {
                 Margin = new Thickness(0),
-                Padding = new Thickness(0), 
+                Padding = new Thickness(0),
                 Content = TopAppBarContentStackPanel,
                 Style = (Style)App.Current.Resources["HorizontalScrollViewerStyle"]
             };

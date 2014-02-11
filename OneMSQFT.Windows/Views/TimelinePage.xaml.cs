@@ -49,7 +49,6 @@ namespace OneMSQFT.Windows.Views
 
         void TimelinePage_Loaded(object sender, RoutedEventArgs e)
         {
-            PopulateTopAppbar(((BasePageViewModel)this.DataContext));
             var vm = this.DataContext as ITimelinePageViewModel;
             if (vm != null)
             {
@@ -61,6 +60,7 @@ namespace OneMSQFT.Windows.Views
         {
             _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(itemsGridView);
             itemsGridView.Opacity = 1;
+            PopulateTopAppbar(((BasePageViewModel)this.DataContext));
         }
 
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
