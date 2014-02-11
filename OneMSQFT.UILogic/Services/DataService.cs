@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
+using Windows.UI.Xaml.Documents;
 using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
@@ -32,8 +35,15 @@ namespace OneMSQFT.UILogic.Services
             }
             var result = await _repository.GetSiteData();
             if (result != null)
-                await _cache.StoreDataAsync("site_data", result);
-            return result.Events;
+            {
+                Task.Run( () =>
+                {
+                    _cache.StoreDataAsync("site_data", result);
+                });
+                return result.Events;            
+            }
+
+            return null;
         }
 
         async public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string exhibitId)
