@@ -39,6 +39,11 @@ namespace OneMSQFT.UILogic.ViewModels
             TimeLineItems = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
             TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
 
+            foreach (var eivm in events)
+            {
+                _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
+                
+            }
         }
 
         public ObservableCollection<EventItemViewModel> TimeLineItems { get; private set; }
@@ -92,14 +97,14 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return FullScreenWidth / 6;
+                return (FullScreenWidth - 44) / 4; // 42 is GridView padding
             }
         }
         public double ZoomedOutItemHeight
         {
             get
             {
-                return FullScreenHeight / 4;
+                return ((ZoomedOutGridHeight - 165) / 3) - 18;
             }
         }
 

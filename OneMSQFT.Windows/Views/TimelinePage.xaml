@@ -525,7 +525,7 @@
                     <Button x:Name="AboutButton" HorizontalAlignment="Stretch" Content="ABOUT" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}" />
                 </StackPanel>
 				<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button x:Name="AdminButton" Click="AdminButton_OnClick" HorizontalAlignment="Stretch" Content="SETTINGS" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+                    <Button x:Name="AdminButton" HorizontalAlignment="Stretch" Content="SETTINGS" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
 				</StackPanel>
 			</Grid>
 		</AppBar>

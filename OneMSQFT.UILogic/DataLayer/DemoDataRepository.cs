@@ -30,21 +30,9 @@ namespace OneMSQFT.UILogic.DataLayer
                         DisplayDate = "MMM D-D",
                         Description = "Sundance Film Festival",
                         Color = "AABBCC",                      
-                        DateStart = DateTime.Now.Add(TimeSpan.FromDays(2)),
-                        SquareFootage = 5000,
-                        MediaContent = new List<MediaContentSource>
-                        {
-                            new MediaContentSource
-                            {
-                                ContentSourceType = ContentSourceType.Image,
-                                Source = HeroImage
-                            },
-                            new MediaContentSource
-                            {
-                                ContentSourceType = ContentSourceType.Video,
-                                Source = VideoUrl
-                            }
-                        },
+                        DateStart = DateTime.Now.AddDays(2),
+                        SquareFootage = 5647,
+                        MediaContent = GetMediaCollection(2),
                         Exhibits = new List<Exhibit>
                         {
                             new Exhibit()
@@ -54,15 +42,8 @@ namespace OneMSQFT.UILogic.DataLayer
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
                                 Description = DemoExhibitDescription,
-                                SquareFootage = 1000,
-                                MediaContent = new List<MediaContentSource>
-                                {
-                                    new MediaContentSource
-                                    {
-                                        ContentSourceType = ContentSourceType.Image,
-                                        Source = HeroImage
-                                    }
-                                }
+                                SquareFootage = 1236,
+                                MediaContent = GetMediaCollection(1),
                             }
                         }
                     },
@@ -72,17 +53,10 @@ namespace OneMSQFT.UILogic.DataLayer
                         Name = "Miami",
                         DisplayDate = "MMM D-D",
                         Description = "Event at Miami",
-                        Color = "AABBCC",     
+                        Color = "11FF00",     
                         DateStart = DateTime.Now.AddDays(-2),
-                        SquareFootage = 10000,
-                        MediaContent = new List<MediaContentSource>
-                        {
-                            new MediaContentSource
-                            {
-                                ContentSourceType = ContentSourceType.Image,
-                                Source = HeroImage
-                            }
-                        },
+                        SquareFootage = 7845,
+                        MediaContent = GetMediaCollection(1),
                         Exhibits = new List<Exhibit>
                         {
                             new Exhibit()
@@ -93,14 +67,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Exhibitor = "Exhibitor",
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1000,
-                                MediaContent = new List<MediaContentSource>
-                                {
-                                    new MediaContentSource
-                                    {
-                                        ContentSourceType = ContentSourceType.Image,
-                                        Source = HeroImage
-                                    }
-                                }
+                                MediaContent = GetMediaCollection(2),
                             },
                              new Exhibit()
                             {
@@ -110,20 +77,125 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Exhibitor = "Exhibitor",
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1000,
-                                MediaContent = new List<MediaContentSource>
-                                {
-                                    new MediaContentSource
-                                    {
-                                        ContentSourceType = ContentSourceType.Image,
-                                        Source = HeroImage
-                                    }
-                                }
+                                MediaContent = GetMediaCollection(3),
+                            }
+                        }
+                    },
+                     new Event
+                    {
+                        Id="3",
+                        Name = "New York",
+                        DisplayDate = "MMM D-D",
+                        Description = "Event at New York",
+                        Color = "6699AA",     
+                        DateStart = DateTime.Now.AddDays(-6),
+                        SquareFootage = 2587,
+                        MediaContent = GetMediaCollection(1),
+                        Exhibits = new List<Exhibit>
+                        {
+                            new Exhibit()
+                            {
+                                Id = "1",
+                                Name = "New York Exhibit One",
+                                  DisplayDate = "MMM D-D",
+                                Exhibitor = "Exhibitor",
+                                Description = DemoExhibitDescription,
+                                SquareFootage = 2345,
+                                MediaContent = GetMediaCollection(2),
+                            },
+                             new Exhibit()
+                            {
+                                Id = "2",
+                                Name = "New York Exhibit Two",
+                                DisplayDate = "MMM D-D",
+                                Exhibitor = "Exhibitor",
+                                Description = DemoExhibitDescription,
+                                SquareFootage = 1279,
+                                MediaContent = GetMediaCollection(3),
+                            },
+                             new Exhibit()
+                            {
+                                Id = "3",
+                                Name = "New York Exhibit Three",
+                                DisplayDate = "MMM D-D",
+                                Exhibitor = "Exhibitor",
+                                Description = DemoExhibitDescription,
+                                SquareFootage = 4578,
+                                MediaContent = GetMediaCollection(3),
+                            }
+                        }
+                    },
+                     new Event
+                    {
+                        Id="4",
+                        Name = "New Jersy",
+                        DisplayDate = "MMM D-D",
+                        Description = "Event at New Jersy",
+                        Color = "1122FF",     
+                        DateStart = DateTime.Now.AddDays(6),
+                        SquareFootage = 9587,
+                        MediaContent = GetMediaCollection(1),
+                        Exhibits = new List<Exhibit>
+                        {
+                            new Exhibit()
+                            {
+                                Id = "1",
+                                Name = "New Jersy Exhibit One",
+                                  DisplayDate = "MMM D-D",
+                                Exhibitor = "Exhibitor",
+                                Description = DemoExhibitDescription,
+                                SquareFootage = 2345,
+                                MediaContent = GetMediaCollection(2),
+                            },
+                             new Exhibit()
+                            {
+                                Id = "2",
+                                Name = "New Jersy Exhibit Two",
+                                DisplayDate = "MMM D-D",
+                                Exhibitor = "Exhibitor",
+                                Description = DemoExhibitDescription,
+                                SquareFootage = 1279,
+                                MediaContent = GetMediaCollection(3),
+                            },
+                             new Exhibit()
+                            {
+                                Id = "3",
+                                Name = "New Jersy Exhibit Three",
+                                DisplayDate = "MMM D-D",
+                                Exhibitor = "Exhibitor",
+                                Description = DemoExhibitDescription,
+                                SquareFootage = 4578,
+                                MediaContent = GetMediaCollection(3),
                             }
                         }
                     }
                 }
             };
             return Task.FromResult(result);
+        }
+
+
+        public List<MediaContentSource> GetMediaCollection(int count)
+        {
+            var mc = new List<MediaContentSource>();
+            for (var i = 0; i < count; i++)
+            {
+                var mcsI = new MediaContentSource()
+                {
+                    ContentSourceType = ContentSourceType.Image,
+                    Source = HeroImage
+                    
+                };
+                var mcsV = new MediaContentSource()
+                {
+                    ContentSourceType = ContentSourceType.Video,
+                    Source = VideoUrl
+
+                };
+                mc.Add(mcsI);
+                mc.Add(mcsV);
+            }
+            return mc;
         }
     }
 }
