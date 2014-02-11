@@ -42,7 +42,6 @@ namespace OneMSQFT.UILogic.ViewModels
             foreach (var eivm in events)
             {
                 _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
-                
             }
         }
 

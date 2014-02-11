@@ -625,7 +625,7 @@
             </SemanticZoom.ZoomedInView>
         </SemanticZoom>
         <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
-            <Grid >
+            <Grid>
                 <omsqftcontrols:VideoPlayerUserControl 
                     SelectedEvent="{Binding DataSource.SelectedEvent, Source={StaticResource DataContextProxy}}"
                     Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 

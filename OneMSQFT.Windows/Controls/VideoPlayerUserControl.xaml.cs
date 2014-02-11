@@ -60,6 +60,7 @@ namespace OneMSQFT.Windows.Controls
         public static readonly DependencyProperty SelectedMediaContentSourceProperty =
             DependencyProperty.Register("SelectedMediaContentSource", typeof(MediaContentSourceItemViewModel), typeof(VideoPlayerUserControl), new PropertyMetadata(null, SelectedMediaContentSourcePropertyChanged));
 
+        // SelectedEvent changed from Timeline Page
         private static void SelectedEventPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var vpuc = d as VideoPlayerUserControl;
@@ -71,6 +72,7 @@ namespace OneMSQFT.Windows.Controls
             }
         }
 
+        // MediaContentSourceItemViewModel changed from Exhibits Page
         private static void SelectedMediaContentSourcePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var vpuc = d as VideoPlayerUserControl;

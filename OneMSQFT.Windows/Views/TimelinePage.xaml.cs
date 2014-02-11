@@ -110,8 +110,8 @@ namespace OneMSQFT.Windows.Views
             var e = vm.SquareFootEvents.FirstOrDefault(x => x.Id == eventId);
             if (e == null)
                 return;
-            var itemIndex = vm.SquareFootEvents.IndexOf(e) + 1;
-            await _timelineGridViewScrollViewer.ScrollToHorizontalOffsetWithAnimation((itemIndex * vm.EventItemWidth) - 50);
+            var itemIndex = vm.SquareFootEvents.IndexOf(e);
+            await _timelineGridViewScrollViewer.ScrollToHorizontalOffsetWithAnimation((itemIndex * vm.EventItemWidth));
         }
 
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
