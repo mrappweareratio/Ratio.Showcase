@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -36,6 +37,18 @@ namespace OneMSQFT.Windows
     /// </summary>
     sealed partial class App : MvvmAppBase
     {
+        public App()
+        {
+            this.UnhandledException += App_UnhandledException; 
+        }
+
+        void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (Debugger.IsAttached)
+            {
+                Debugger.Break();
+            }
+        }
         // Create the singleton container that will be used for type resolution in the app
         private readonly IUnityContainer _container = new UnityContainer();
 
