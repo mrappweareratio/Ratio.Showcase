@@ -171,15 +171,18 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="GridViewItem">
-                        <Grid>
+                        <Grid x:Name="ContentContainer" RenderTransformOrigin="0.5,0.5">
+                            <Grid.RenderTransform>
+                                <CompositeTransform/>
+                            </Grid.RenderTransform>
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal"/>
                                     <VisualState x:Name="PointerOver">
                                         <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HoverRectangle" Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
-                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
+                                            <!--<DoubleAnimation Duration="0" To="0.95" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="Container" d:IsOptimized="True"/>-->
+                                            <!--<DoubleAnimation Duration="0" To="0.95" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="Container" d:IsOptimized="True"/>-->
                                         </Storyboard>
                                     </VisualState>
                                     <VisualState x:Name="Pressed">
@@ -235,20 +238,15 @@
                             </VisualStateManager.VisualStateGroups>
                             <Border x:Name="OuterContainer" HorizontalAlignment="Left" Margin="0" Padding="0" Background="Transparent">
                                 <Grid x:Name="ReorderHintContent" Background="Transparent">
-                                    <Border x:Name="ContentContainer">
+                                    <Border x:Name="ContentBorder" Margin="0">
                                         <Grid>
-                                            <Border x:Name="ContentBorder" Margin="0">
-                                                <Grid>
-                                                    <ContentPresenter x:Name="contentPresenter"
-        												ContentTransitions="{TemplateBinding ContentTransitions}"
-        												ContentTemplate="{TemplateBinding ContentTemplate}"
-        												Content="{TemplateBinding Content}"
-        												HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-        												VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-        												Margin="0" />
-                                                </Grid>
-                                            </Border>
-                                            <Rectangle x:Name="HoverRectangle" Opacity=".2"/>
+                                            <ContentPresenter x:Name="contentPresenter"
+        										ContentTransitions="{TemplateBinding ContentTransitions}"
+        										ContentTemplate="{TemplateBinding ContentTemplate}"
+        										Content="{TemplateBinding Content}"
+        										HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+        										VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+        										Margin="0" />
                                         </Grid>
                                     </Border>
                                 </Grid>
@@ -531,14 +529,14 @@
 		</AppBar>
 	</omsqft:BasePageView.BottomAppBar>
 
-    <Grid Background="White">
-    	<!--<Grid.Background>
+    <Grid>
+    	<Grid.Background>
     		<ImageBrush Stretch="UniformToFill" ImageSource="ms-appx:///Assets/02_home-semantic-zoom.png">
     			<ImageBrush.RelativeTransform>
     				<CompositeTransform CenterY="0.5" CenterX="0.5" ScaleX="1.35" ScaleY="1.35"/>
     			</ImageBrush.RelativeTransform>
     		</ImageBrush>
-    	</Grid.Background>-->
+    	</Grid.Background>
     	<Grid.RowDefinitions>
     		<RowDefinition/>
     		<RowDefinition Height="4*"/>
@@ -565,6 +563,7 @@
                       ViewChangeStarted="semanticZoom_ViewChangeStarted" Grid.RowSpan="2" d:IsHidden="True" VerticalAlignment="Top">
             <SemanticZoom.ZoomedOutView>
                 <GridView x:Name="zoomedOutGrid"
+                          Opacity=".5"
                           Padding="44,165,0,0"
 						  Margin="0"
                           Height="{Binding DataSource.ZoomedOutGridHeight, Source={StaticResource DataContextProxy}}"
@@ -625,7 +624,7 @@
             </SemanticZoom.ZoomedInView>
         </SemanticZoom>
         <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
-            <Grid >
+            <Grid>
                 <omsqftcontrols:VideoPlayerUserControl 
                     SelectedEvent="{Binding DataSource.SelectedEvent, Source={StaticResource DataContextProxy}}"
                     Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
