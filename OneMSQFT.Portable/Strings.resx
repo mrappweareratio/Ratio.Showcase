@@ -123,4 +123,10 @@
   <data name="IntroBlurb" xml:space="preserve">
     <value>Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet.</value>
   </data>
+  <data name="SqftFormat" xml:space="preserve">
+    <value>{0} sqft</value>
+  </data>
+  <data name="SquareFeetAtNameFormat" xml:space="preserve">
+    <value>{0} square feet at {1}</value>
+  </data>
 </root>

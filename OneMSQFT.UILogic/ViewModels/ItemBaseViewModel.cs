@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OneMSQFT.Common;
 using OneMSQFT.Common.Models;
 using System.Globalization;
+using OneMSQFT.UILogic.Utils;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
@@ -21,10 +23,7 @@ namespace OneMSQFT.UILogic.ViewModels
         public int SquareFootage { get; set; }
         public String SquareFootageString  
         {
-            get
-            {
-                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", SquareFootage)).Trim() + " sqft";
-            }
-        }
+            get { return (String.Format(Strings.SqftFormat, StringUtils.ToSquareFeet(SquareFootage))); }
+        }        
     }
 }

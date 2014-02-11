@@ -78,5 +78,23 @@ namespace OneMSQFT.Common {
                 return ResourceManager.GetString("IntroBlurb", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} sqft.
+        /// </summary>
+        public static string SqftFormat {
+            get {
+                return ResourceManager.GetString("SqftFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} square feet at {1}.
+        /// </summary>
+        public static string SquareFeetAtNameFormat {
+            get {
+                return ResourceManager.GetString("SquareFeetAtNameFormat", resourceCulture);
+            }
+        }
     }
 }

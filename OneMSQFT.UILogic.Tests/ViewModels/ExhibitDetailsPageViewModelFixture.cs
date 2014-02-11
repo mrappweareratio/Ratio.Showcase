@@ -77,7 +77,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             autoResetEvent.WaitOne(200);
             Assert.IsTrue(called);
             Assert.IsNotNull(vm.Exhibit);
-            Assert.IsTrue(vm.MediaContentCollection.Any(x => x.ImageSource.AbsoluteUri.Contains("http://")));
+            Assert.IsNotNull(vm.Exhibit.MediaContent);         
         }
 
         [TestMethod]
