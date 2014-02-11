@@ -27,10 +27,17 @@ namespace OneMSQFT.UILogic.Services
         public async Task<bool> ContainsDataAsync(string key)
         {
             bool result = false;
-            StorageFile file = await _cacheFolder.GetFileAsync(key);
-            if (file != null)
+            try
             {
-                result = true;
+                StorageFile file = await _cacheFolder.GetFileAsync(key);
+            
+                if (file != null)
+                {
+                    result = true;
+                }            
+            }
+            catch (Exception)
+            {
             }
 
             return result;
