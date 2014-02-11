@@ -25,7 +25,7 @@ namespace OneMSQFT.UILogic.ViewModels
             Description = exhibitModel.Description;
             SquareFootage = exhibitModel.SquareFootage;
             LoadMediaContent(exhibitModel.MediaContent);
-            EventColor = ColorUtils.GetExhibitColor(exhibitModel);
+            ColorBrush = ColorUtils.GetExhibitColor(exhibitModel);
         }
 
         private void LoadMediaContent(IEnumerable<MediaContentSource> mediaContent)
@@ -46,7 +46,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public Uri HeroPhotoFilePath { get; set; }
 
-        public SolidColorBrush EventColor { get; set; }
+        public SolidColorBrush ColorBrush { get; set; }
 
         public ObservableCollection<MediaContentSourceItemViewModel> MediaContent { get; set; }
 

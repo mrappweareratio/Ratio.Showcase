@@ -157,6 +157,9 @@ namespace OneMSQFT.Windows.DesignViewModels
             SelectedMediaContentSource = item;
         }
 
+        public ExhibitItemViewModel NextExhibit { get; private set; }
+        public DelegateCommand<string> NextExhibitCommand { get; private set; }
+
         #region ContentProperties
 
         private MediaContentSourceItemViewModel _selectedMediaContentSource;
@@ -179,7 +182,7 @@ namespace OneMSQFT.Windows.DesignViewModels
         {
             get
             {
-                return Exhibit.EventColor;
+                return Exhibit.ColorBrush;
             }
         }
 
