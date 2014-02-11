@@ -10,10 +10,11 @@ using System.Collections;
 using Windows.UI.Xaml;
 using System.Globalization;
 using System.Collections.ObjectModel;
+using OneMSQFT.UILogic.Utils;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
-    public class EventItemViewModel : ItemBaseViewModel
+    public class EventItemViewModel : ItemBaseViewModel, IHasMediaContentViewModel
     {
         public override string Id { get; set; }
 
@@ -25,41 +26,41 @@ namespace OneMSQFT.UILogic.ViewModels
             Id = eventModel.Id;
             SquareFootage = eventModel.SquareFootage;
             Exhibits = new ObservableCollection<ExhibitItemViewModel>(eventModel.Exhibits.Select(x => new ExhibitItemViewModel(x)));
-            LoadImages(eventModel.MediaContent);
+            LoadMediaContent(eventModel.MediaContent);
+            EventColor = ColorUtils.GetEventColor(eventModel);
         }
 
 
-        private void LoadImages(IEnumerable<MediaContentSource> mediaContent)
+
+        private void LoadMediaContent(IEnumerable<MediaContentSource> mediaContent)
         {
-            //todo revert test image code
-            if (mediaContent == null)
+            var mediaContentViewModels = MediaContentSourceUtils.GetMediaContentSourceItemViewModels(mediaContent).ToList();
+            MediaContent = new ObservableCollection<MediaContentSourceItemViewModel>(mediaContentViewModels);
+            MediaContentVisibility = MediaContent.Any() ? Visibility.Visible : Visibility.Collapsed;
+
+            if (!MediaContent.Any())
             {
-                PhotoFilePath = new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
-                EventHeroVideoUri = new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute);
                 return;
             }
-
-            var mediaContentSources = mediaContent as MediaContentSource[] ?? mediaContent.ToArray();
-            var images = mediaContentSources.Where(x => x.ContentSourceType == ContentSourceType.Image);
-
-            var firstImage = images.FirstOrDefault(x => x.ContentSourceType == ContentSourceType.Image);
-            PhotoFilePath = firstImage == null ? new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute) : new Uri(firstImage.Source, UriKind.Absolute);
-            
-            var firstVideo = mediaContentSources.FirstOrDefault(x => x.ContentSourceType == ContentSourceType.Video);
-            EventHeroVideoUri = firstVideo == null ? new Uri("ms-appx:///Assets/BG_AllWhite.png", UriKind.RelativeOrAbsolute) : new Uri(firstVideo.Source, UriKind.Absolute);
-
+            //todo remove PhotoFilePath and EventHeroVideoUri
+            PhotoFilePath = MediaContent.First().ImageSource;
+            EventHeroVideoUri = MediaContent.First().VideoSource;
         }
-        
+
         private Event Event { get; set; }
-    
+
         public ObservableCollection<ExhibitItemViewModel> Exhibits { get; private set; }
-        
+
         public DateTime DateStart { get { return Event.DateStart; } }
 
-        public Uri EventHeroVideoUri { get; set; }        
+        public Uri EventHeroVideoUri { get; set; }
 
         public Uri PhotoFilePath { get; set; }
-        
+
+        public Visibility MediaContentVisibility { get; set; }
+
+        public ObservableCollection<MediaContentSourceItemViewModel> MediaContent { get; private set; }
+
         public bool IsInTheFuture
         {
             get
@@ -68,22 +69,6 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        public SolidColorBrush EventColor
-        {
-            get
-            {
-                string color = "FF" + Event.Color;
-                var c = Color.FromArgb(
-                Convert.ToByte(color.Substring(0, 2), 16),
-                Convert.ToByte(color.Substring(2, 2), 16),
-                Convert.ToByte(color.Substring(4, 2), 16),
-                Convert.ToByte(color.Substring(6, 2), 16));
-
-                return new SolidColorBrush(c);
-            }
-        }
-
-        //public double ItemWidth { get { return Window.Current.Bounds.Width; } }
-        //public double ItemHeight { get { return Window.Current.Bounds.Width; } }
+        public SolidColorBrush EventColor { get; set; }        
     }
 }

@@ -213,8 +213,7 @@
         								Stretch="UniformToFill"
         								Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
         								Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
-										Source="{Binding ImageSource}"/>
-                                    <TextBlock Text="{Binding MediaSource}" Margin="0,100,0,0" FontSize="20" TextWrapping="Wrap"></TextBlock>
+										Source="{Binding ImageSource}"/>                                    
                                     <AppBarButton Icon="Play" 
 												Command="{Binding DataSource.LaunchVideoCommand, Source={StaticResource DataContextProxy}}" 
                                                 CommandParameter="{Binding}"

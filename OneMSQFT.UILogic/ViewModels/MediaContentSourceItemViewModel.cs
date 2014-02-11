@@ -13,44 +13,31 @@ namespace OneMSQFT.UILogic.ViewModels
     {
         public override string Id { get; set; }
 
-        public MediaContentSourceItemViewModel(MediaContentSource mediaContentSource)
+        public MediaContentSourceItemViewModel(MediaContentSource image)
         {
-            MediaContentSource = mediaContentSource;
+            if (image.ContentSourceType == ContentSourceType.Video)
+                throw new ArgumentOutOfRangeException("MediaContentSourceItemViewModel Constructor for an Image");
+            ContentSourceType = ContentSourceType.Image;            
+            IsVideoButtonVisible = Visibility.Collapsed;
+            ImageSource = new Uri(image.Source, UriKind.RelativeOrAbsolute);
         }
 
-        private MediaContentSource MediaContentSource { get; set; }
-
-        public Visibility IsVideoButtonVisible 
+        public MediaContentSourceItemViewModel(MediaContentSource video, MediaContentSource image)
         {
-            get
-            {
-                if (MediaContentSource.ContentSourceType == ContentSourceType.Video)
-                {
-                    return Visibility.Visible;
-                }
-                return Visibility.Collapsed;
-            }
+            if(!String.Equals(image.ParentId, video.Id))
+                throw new ArgumentOutOfRangeException("video Id does not Match Image Parent Id");
+            ContentSourceType = ContentSourceType.Video;
+            IsVideoButtonVisible = Visibility.Visible;
+            ImageSource = new Uri(image.Source, UriKind.RelativeOrAbsolute);
+            VideoSource = new Uri(video.Source, UriKind.RelativeOrAbsolute);
         }
 
-        public Uri ImageSource
-        {
-            get
-            {
-                if (MediaContentSource.ContentSourceType == ContentSourceType.Image)
-                {
-                    return new Uri(MediaContentSource.Source, UriKind.Absolute);
-                }
-                return new Uri(MediaContentSource.ThumbnailSource, UriKind.Absolute);
-            }
-        }
+        public ContentSourceType ContentSourceType { get; set; }
 
-        public Uri MediaSource
-        {
-            get
-            {
-                return new Uri(MediaContentSource.Source, UriKind.Absolute);
-            }
-        }
+        public Visibility IsVideoButtonVisible { get; set; }        
 
+        public Uri ImageSource { get; set; }        
+
+        public Uri VideoSource { get; set; }        
     }
 }

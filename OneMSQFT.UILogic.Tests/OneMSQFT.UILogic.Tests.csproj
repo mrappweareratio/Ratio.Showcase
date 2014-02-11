@@ -122,6 +122,7 @@
     <Compile Include="Services\DataServiceFixture.cs" />
     <Compile Include="Mocks\MockDataRepository.cs" />
     <Compile Include="Mocks\MockDataCacheService.cs" />
+    <Compile Include="Utils\MediaContentSourceUtilsFixture.cs" />
     <Compile Include="ViewModels\ExhibitDetailsPageViewModelFixture.cs" />
     <Compile Include="ViewModels\TimelinePageViewModelFixture.cs" />
   </ItemGroup>
