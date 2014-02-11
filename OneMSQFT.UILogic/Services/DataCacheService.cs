@@ -13,7 +13,7 @@ namespace OneMSQFT.UILogic.Services
     public class DataCacheService : IDataCacheService
     {
         private static readonly StorageFolder _cacheFolder = ApplicationData.Current.TemporaryFolder;
-        private static TimeSpan _expirationPolicy = new TimeSpan(0, 5, 0); // 5 minutes
+        private static TimeSpan _expirationPolicy = new TimeSpan(0, 15, 0); // 15 minutes
 
         // We remember the most recently started task for each cache key, since only one I/O operation at a time may 
         // access that key. Cache read and write operations always wait for the prior task of the current cache key
@@ -51,9 +51,17 @@ namespace OneMSQFT.UILogic.Services
             return await result;
         }
 
-        public Task InvalidateDataAsync(string key)
+        public async Task InvalidateDataAsync(string key)
         {
-            return Task.FromResult(0);
+            var found = await ContainsDataAsync(key);
+            if (found)
+            {
+                StorageFile file = await _cacheFolder.GetFileAsync(key);
+                if (null != file)
+                {
+                    await file.DeleteAsync();
+                }
+            }
         }
 
         public async Task StoreDataAsync<T>(string key, T data) where T : class
@@ -100,8 +108,8 @@ namespace OneMSQFT.UILogic.Services
             var fileBasicProperties = await file.GetBasicPropertiesAsync();
             var expirationDate = fileBasicProperties.DateModified.Add(_expirationPolicy).DateTime;
             bool fileIsValid = DateTime.Now.CompareTo(expirationDate) < 0;
-            if (!fileIsValid) 
-                throw new FileNotFoundException("Cache entry has expired.");
+            if (!fileIsValid)
+                return null;
 
             string JsonText = await FileIO.ReadTextAsync(file);
             var dataFromJson = JsonHelper.DeserializeObject<T>(JsonText);
