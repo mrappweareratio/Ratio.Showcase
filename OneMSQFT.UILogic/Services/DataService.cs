@@ -13,7 +13,8 @@ using OneMSQFT.Common.Services;
 namespace OneMSQFT.UILogic.Services
 {
     public class DataService : IDataService
-    {
+    {        
+        private readonly Dictionary<string, object> _memDictionary = new Dictionary<string, object>();
         private readonly IDataRepository _repository;
         private readonly IDataCacheService _cache;
 
@@ -25,14 +26,30 @@ namespace OneMSQFT.UILogic.Services
 
         public async Task<IEnumerable<Event>> GetEvents()
         {
-            if (await _cache.ContainsDataAsync("site_data"))
+            SiteDataResult result = null;
+
+            const string key = "site_data";
+            if (_memDictionary.ContainsKey(key))
             {
-                var siteData = await _cache.GetDataAsync<SiteDataResult>("site_data");
+                result = _memDictionary[key] as SiteDataResult;
+                if (result == null)
+                {
+                    _memDictionary.Remove(key);
+                }
+                else
+                {
+                    return result.Events;
+                }
+            }
+
+            if (await _cache.ContainsDataAsync(key))
+            {
+                var siteData = await _cache.GetDataAsync<SiteDataResult>(key);
                 if (siteData == null)
                 {
                     var invalidate = Task.Run(async () =>
                     {
-                        await _cache.InvalidateDataAsync("site_data").ConfigureAwait(false);
+                        await _cache.InvalidateDataAsync(key).ConfigureAwait(false);
                     });
                 }
                 else
@@ -40,12 +57,13 @@ namespace OneMSQFT.UILogic.Services
                     return siteData.Events;
                 }
             }
-            var result = await _repository.GetSiteData();
+
+            result = await _repository.GetSiteData();
             if (result != null)
             {
                 var storeData = Task.Run(async () =>
                 {
-                    await _cache.StoreDataAsync("site_data", result).ConfigureAwait(false);
+                    await _cache.StoreDataAsync(key, result).ConfigureAwait(false);
                 });
                 return result.Events;
             }
@@ -71,6 +89,6 @@ namespace OneMSQFT.UILogic.Services
                 NextExhibit = nextExhibit
             };
             return detail;
-        }
+        }        
     }
 }

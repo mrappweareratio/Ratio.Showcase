@@ -229,8 +229,8 @@ namespace OneMSQFT.UILogic.Tests.Services
                 }
             };
             var cache = new MockDataCacheService();
-            var dataService = new DataService(mock, cache);            
-            var exhibitDetail = await dataService.GetExhibitDetailByExhibitId(exhibitId);            
+            var dataService = new DataService(mock, cache);
+            var exhibitDetail = await dataService.GetExhibitDetailByExhibitId(exhibitId);
             Assert.IsNotNull(exhibitDetail, "exhibitDetail");
             Assert.AreEqual(exhibitDetail.Exhibit.Id, exhibitId);
 
@@ -337,6 +337,28 @@ namespace OneMSQFT.UILogic.Tests.Services
             Assert.IsNotNull(exhibitDetail, "exhibitDetail");
             Assert.AreEqual(exhibitDetail.Exhibit.Id, exhibitId, "Exhibit");
             Assert.IsNull(exhibitDetail.NextExhibit, "Next Exhibit Null");
+        }
+
+        [TestMethod]
+        async public Task DataService_Subsequent_GetEvents_Skips_Cache()
+        {        
+                  bool called = false;
+            var mock = new MockDataRepository
+            {
+                GetSiteDataDelegate = () =>
+                {
+                    return Task.FromResult(new SiteDataResult());
+                }
+            };
+            var cache = new MockDataCacheService();
+            var dataService = new DataService(mock, cache);
+            await dataService.GetEvents();
+            cache.ContainsDataDelegate = s =>
+            {
+                called = true;
+                return Task.FromResult(true);
+            };
+            Assert.IsFalse(called);
         }
     }
 }
