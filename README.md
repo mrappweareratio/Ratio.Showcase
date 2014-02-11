@@ -52,3 +52,7 @@ Design Guidance
 
 [OneMSQFT].Windows.App.xaml.cs reads a compile time DESIGN constant to instruct the ViewModelLocator to search in OneMSQFT.Windows.DesignViewModels rather than OneMSQFT.UILogic.ViewModels
 
+
+Dependencies
+-----
+[Install Player Framework Version 1.3.2 from this link](http://playerframework.codeplex.com/releases/view/116468)
