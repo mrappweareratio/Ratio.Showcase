@@ -12,35 +12,35 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         {
         }
 
-        public Func<String, Task<bool>> ContainsKeyDelegate { get; set; }
-        public Func<String, Task<object>> GetKeyDelegate { get; set; }
-        public Func<String, Task> InvalidateKeyDelegate { get; set; }
-        public Func<String, object, Task> StoreKeyDelegate { get; set; }
+        public Func<String, Task<bool>> ContainsDataDelegate { get; set; }
+        public Func<String, Task<object>> GetDataDelegate { get; set; }
+        public Func<String, Task> InvalidateDataDelegate { get; set; }
+        public Func<String, object, Task> StoreDataDelegate { get; set; }
 
-        async public Task<bool> ContainsKeyAsync(string key)
+        async public Task<bool> ContainsDataAsync(string key)
         {
-            if (ContainsKeyDelegate != null)
-                return await ContainsKeyDelegate(key);
+            if (ContainsDataDelegate != null)
+                return await ContainsDataDelegate(key);
             return false;
         }
 
-        async public Task<T> GetKeyAsync<T>(string key) where T : class
+        async public Task<T> GetDataAsync<T>(string key) where T : class
         {
-            if (GetKeyDelegate != null)
-                return await GetKeyDelegate(key) as T;
+            if (GetDataDelegate != null)
+                return await GetDataDelegate(key) as T;
             return default(T);
         }
 
-        async public Task InvalidateKeyAsync(string key)
+        async public Task InvalidateDataAsync(string key)
         {
-            if (InvalidateKeyDelegate != null)
-                await InvalidateKeyDelegate(key);
+            if (InvalidateDataDelegate != null)
+                await InvalidateDataDelegate(key);
         }
 
-        async public Task StoreKeyAsync<T>(string key, T data) where T : class
+        async public Task StoreDataAsync<T>(string key, T data) where T : class
         {
-            if (StoreKeyDelegate != null)
-                await StoreKeyDelegate(key, data);
+            if (StoreDataDelegate != null)
+                await StoreDataDelegate(key, data);
         }
     }
 }
