@@ -145,7 +145,7 @@
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
     										Storyboard.TargetProperty="Foreground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource OneMSQFTAnswerGrayBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource OneMSQFTAppBarButtonForegroundPressedBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
