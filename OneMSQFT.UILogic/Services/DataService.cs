@@ -25,11 +25,7 @@ namespace OneMSQFT.UILogic.Services
             if (await _cache.ContainsDataAsync("site_data"))
             {
                 var siteData = await _cache.GetDataAsync<SiteDataResult>("site_data");
-                if (siteData == null)
-                {
-                    await _cache.InvalidateDataAsync("site_data");
-                }
-                else
+                if (siteData != null)
                 {
                     return siteData.Events;
                 }

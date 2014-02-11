@@ -27,14 +27,18 @@ namespace OneMSQFT.UILogic.Services
         public async Task<bool> ContainsDataAsync(string key)
         {
             bool result = false;
+
             try
             {
                 StorageFile file = await _cacheFolder.GetFileAsync(key);
-            
-                if (file != null)
-                {
-                    result = true;
-                }            
+                result = true;
+                // Check if the file has expired
+                var fileBasicProperties = await file.GetBasicPropertiesAsync();
+                var expirationDate = fileBasicProperties.DateModified.Add(_expirationPolicy).DateTime;
+                bool fileIsValid = DateTime.Now.CompareTo(expirationDate) < 0;
+                
+                if (!fileIsValid)
+                    result = false;
             }
             catch (Exception)
             {
@@ -100,16 +104,15 @@ namespace OneMSQFT.UILogic.Services
 
         private async Task<T> GetDataAsyncInternal<T>(string cacheKey) where T : class
         {
-            StorageFile file = await _cacheFolder.GetFileAsync(cacheKey);
-            if (file == null) 
-                throw new FileNotFoundException("File does not exist");
-
-            // Check if the file has expired
-            var fileBasicProperties = await file.GetBasicPropertiesAsync();
-            var expirationDate = fileBasicProperties.DateModified.Add(_expirationPolicy).DateTime;
-            bool fileIsValid = DateTime.Now.CompareTo(expirationDate) < 0;
-            if (!fileIsValid)
+            StorageFile file;
+            try
+            {
+                file = await _cacheFolder.GetFileAsync(cacheKey);
+            }
+            catch (Exception)
+            {
                 return null;
+            }
 
             string JsonText = await FileIO.ReadTextAsync(file);
             var dataFromJson = JsonHelper.DeserializeObject<T>(JsonText);
