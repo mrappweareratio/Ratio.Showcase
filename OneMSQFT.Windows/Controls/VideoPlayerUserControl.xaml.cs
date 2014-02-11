@@ -35,7 +35,7 @@ namespace OneMSQFT.Windows.Controls
             }
             if (_selectedMediaContentSource != null)
             {
-                player.Source = _selectedMediaContentSource.MediaSource;
+                player.Source = _selectedMediaContentSource.VideoSource;
                 player.Play();
             }
         }
@@ -78,7 +78,7 @@ namespace OneMSQFT.Windows.Controls
             vpuc._selectedMediaContentSource = e.NewValue as MediaContentSourceItemViewModel;
             if (vpuc._selectedMediaContentSource != null)
             {
-                vpuc.player.Source = vpuc._selectedMediaContentSource.MediaSource;
+                vpuc.player.Source = vpuc._selectedMediaContentSource.VideoSource;
             }
         }
         

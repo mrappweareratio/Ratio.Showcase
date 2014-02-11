@@ -53,6 +53,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Name = "Exhibit Zero",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
+                                Color = "AABBCC",
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1000,
                                 MediaContent = new List<MediaContentSource>
@@ -91,6 +92,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Name = "Miami Exhibit One",
                                   DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
+                                Color = "AABBCC",
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1000,
                                 MediaContent = new List<MediaContentSource>
@@ -108,6 +110,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Name = "Miami Exhibit Two",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
+                                Color = "AABBCC",
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1000,
                                 MediaContent = new List<MediaContentSource>

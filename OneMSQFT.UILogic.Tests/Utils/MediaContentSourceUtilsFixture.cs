@@ -26,7 +26,7 @@ namespace OneMSQFT.UILogic.Tests.Utils
             Assert.IsTrue(mediaContent.Count() == 1, "One Media Item");
             Assert.IsTrue(mediaContent.First().IsVideoButtonVisible == Visibility.Visible, "Video Visible");
             Assert.IsTrue(mediaContent.First().ImageSource.AbsoluteUri.Equals("http://url.com/imagesource"), "ImageSource Matches");
-            Assert.IsTrue(mediaContent.First().MediaSource.AbsoluteUri.Equals("http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"), "MediaSource Matches");
+            Assert.IsTrue(mediaContent.First().VideoSource.AbsoluteUri.Equals("http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"), "MediaSource Matches");
         }
 
         [TestMethod]

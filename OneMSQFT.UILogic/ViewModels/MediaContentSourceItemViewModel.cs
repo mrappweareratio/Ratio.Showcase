@@ -17,6 +17,7 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             if (image.ContentSourceType == ContentSourceType.Video)
                 throw new ArgumentOutOfRangeException("MediaContentSourceItemViewModel Constructor for an Image");
+            ContentSourceType = ContentSourceType.Image;            
             IsVideoButtonVisible = Visibility.Collapsed;
             ImageSource = new Uri(image.Source, UriKind.RelativeOrAbsolute);
         }
@@ -25,15 +26,18 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             if(!String.Equals(image.ParentId, video.Id))
                 throw new ArgumentOutOfRangeException("video Id does not Match Image Parent Id");
+            ContentSourceType = ContentSourceType.Video;
             IsVideoButtonVisible = Visibility.Visible;
             ImageSource = new Uri(image.Source, UriKind.RelativeOrAbsolute);
-            MediaSource = new Uri(video.Source, UriKind.RelativeOrAbsolute);
+            VideoSource = new Uri(video.Source, UriKind.RelativeOrAbsolute);
         }
+
+        public ContentSourceType ContentSourceType { get; set; }
 
         public Visibility IsVideoButtonVisible { get; set; }        
 
         public Uri ImageSource { get; set; }        
 
-        public Uri MediaSource { get; set; }        
+        public Uri VideoSource { get; set; }        
     }
 }
