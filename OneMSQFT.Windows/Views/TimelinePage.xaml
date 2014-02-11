@@ -373,8 +373,8 @@
                 Padding="5">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*1"/>
-                        <RowDefinition Height="*1"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="{Binding SquareFootageString}"
     				    TextTrimming="WordEllipsis"
