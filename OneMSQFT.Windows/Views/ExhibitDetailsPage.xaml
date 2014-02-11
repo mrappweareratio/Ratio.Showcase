@@ -163,22 +163,22 @@
         				Height="{Binding ExhibitItemHeight}"
         				Width="{Binding OneThirdPanelWidth}"
 					BorderThickness="9" 
-					Background="{Binding EventColor, Mode=OneWay}" Padding="10">
+					Background="{Binding Exhibit.ColorBrush, Mode=OneWay}" Padding="10">
         				<Grid Margin="0">
         					<Grid.RowDefinitions>
         						<RowDefinition Height="3*"/>
         						<RowDefinition/>
         						<RowDefinition/>
         					</Grid.RowDefinitions>
-                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Panel0Title, Mode=OneWay}" VerticalAlignment="Top" Grid.Row="1" FontSize="18.667"/>
-                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Panel0Description}" VerticalAlignment="Top" Grid.Row="2"/>
+                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding ExhibitDetailTitle, Mode=OneWay}" VerticalAlignment="Top" Grid.Row="1" FontSize="18.667"/>
+                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Exhibit.Description}" VerticalAlignment="Top" Grid.Row="2"/>
         				</Grid>
         			</Border>
                     <Grid Grid.Column="1"
         				Width="{Binding ExhibitItemWidth}" 
         				Height="{Binding ExhibitItemHeight}" >
         			<Image
-        				Source="{Binding HeroPhotoFilePath}" Stretch="UniformToFill"/>
+        				Source="{Binding Exhibit.HeroPhotoFilePath}" Stretch="UniformToFill"/>
                     </Grid>
                 </Grid>
                 <Grid x:Name="Panel1" 
@@ -195,8 +195,8 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Grid.Row="1" Grid.Column="1"
-        				Source="{Binding HeroPhotoFilePath}" Stretch="UniformToFill"/>
-                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Panel1LongDescription}" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTBlackBrush}" FontSize="29.333" Grid.Row="2" Grid.Column="1"/>
+        				Source="{Binding Exhibit.HeroPhotoFilePath}" Stretch="UniformToFill"/>
+                    <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Exhibit.Description}" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTBlackBrush}" FontSize="29.333" Grid.Row="2" Grid.Column="1"/>
                 </Grid>
                 <Grid x:Name="Panel2" 
         			Width="{Binding ExhibitItemWidth}" 
@@ -204,7 +204,8 @@
         			<ListView HorizontalAlignment="Left" 
         				VerticalAlignment="Top" 
         				Width="{Binding ExhibitItemWidth}" 
-        				ItemsSource="{Binding MediaContentCollection}"
+        				ItemsSource="{Binding Exhibit.MediaContent}"
+                        Visibility="{Binding Exhibit.MediaContentVisibility}"
         				IsSwipeEnabled="False" SelectionMode="None" ItemContainerStyle="{StaticResource EmptyListViewItemContainerStyle}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -227,7 +228,7 @@
         		</Grid>
         		<Grid x:Name="Panel3" 
         			Width="{Binding ExhibitItemWidth}" 
-        			Height="{Binding ExhibitItemHeight}" Background="{Binding EventColor, Mode=OneWay}" >
+        			Height="{Binding ExhibitItemHeight}" Background="{Binding Exhibit.ColorBrush, Mode=OneWay}" >
         			<Grid.ColumnDefinitions>
         				<ColumnDefinition/>
         				<ColumnDefinition Width="5*"/>
@@ -239,7 +240,7 @@
         				<RowDefinition/>
         			</Grid.RowDefinitions>
         			<TextBlock HorizontalAlignment="Center" 
-        				TextWrapping="Wrap" Text="{Binding Panel0_Description}" 
+        				TextWrapping="Wrap" Text="{Binding Exhibit.Description}" 
         				VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTWhiteBrush}" 
         				FontSize="48" Grid.Row="1" Grid.Column="1"/>
         		</Grid>
@@ -252,7 +253,7 @@
                     </Grid.ColumnDefinitions>
                     <Button HorizontalAlignment="Stretch" 
         				VerticalAlignment="Stretch" 
-        				Background="{Binding EventColor, Mode=OneWay}" 
+        				Background="{Binding Exhibit.ColorBrush, Mode=OneWay}" 
                         Width="{Binding OneThirdPanelWidth}"
         				Padding="0" Margin="0"
         				BorderThickness="5">
