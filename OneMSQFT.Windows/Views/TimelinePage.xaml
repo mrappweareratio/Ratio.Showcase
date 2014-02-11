@@ -181,8 +181,6 @@
                                     <VisualState x:Name="PointerOver">
                                         <Storyboard>
                                             <PointerDownThemeAnimation TargetName="ContentContainer" />
-                                            <!--<DoubleAnimation Duration="0" To="0.95" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="Container" d:IsOptimized="True"/>-->
-                                            <!--<DoubleAnimation Duration="0" To="0.95" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="Container" d:IsOptimized="True"/>-->
                                         </Storyboard>
                                     </VisualState>
                                     <VisualState x:Name="Pressed">
@@ -375,18 +373,22 @@
                 Padding="5">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50*"/>
-                        <RowDefinition Height="50*"/>
-                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="{Binding SquareFootageString}"
-    				TextTrimming="WordEllipsis"
-    				FontSize="30"
-    				Margin="0,10,0,16" HorizontalAlignment="Center" FontFamily="Segoe UI"/>
+    				    TextTrimming="WordEllipsis"
+    				    FontSize="40"
+                        FontWeight="Light"
+    				    Margin="0" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Bottom" 
+                        FontFamily="Segoe UI"/>
                     <TextBlock Text="{Binding Name, Mode=OneWay}"
-    				FontSize="20" Grid.Row="1" HorizontalAlignment="Center"/>
-                    <TextBlock Text="{Binding DateStart, Mode=OneWay}"
-    				FontSize="20" Grid.Row="2" HorizontalAlignment="Center"/>
+                        VerticalAlignment="Top"
+                        FontSize="20" 
+                        Grid.Row="1" 
+                        HorizontalAlignment="Center"/>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -513,19 +515,21 @@
 
     </omsqft:BasePageView.Resources>
 	<omsqft:BasePageView.BottomAppBar>
-		<AppBar Background="White" BorderThickness="20" BorderBrush="DarkGray">
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition/>
-					<ColumnDefinition/>
-				</Grid.ColumnDefinitions>
-				<StackPanel Orientation="Horizontal">
-                    <Button x:Name="AboutButton" HorizontalAlignment="Stretch" Content="ABOUT" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}" />
-                </StackPanel>
-				<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button x:Name="AdminButton" HorizontalAlignment="Stretch" Content="SETTINGS" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
-				</StackPanel>
-			</Grid>
+		<AppBar Background="White" BorderThickness="0" IsOpen="True" Padding="0" BorderBrush="Transparent">
+			<Border Height="90" BorderBrush="{StaticResource OneMSQFTAppBarAccentGrayBrush}" BorderThickness="0,10,0,0" >
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<StackPanel Orientation="Horizontal"  Margin="20,0,0,0">
+						<Button x:Name="AboutButton" HorizontalAlignment="Stretch" Content="ABOUT" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}" Visibility="Collapsed" />
+					</StackPanel>
+					<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
+						<Button x:Name="AdminButton" HorizontalAlignment="Stretch" Content="ABOUT 1MSQFT" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+					</StackPanel>
+				</Grid>
+			</Border>
 		</AppBar>
 	</omsqft:BasePageView.BottomAppBar>
 
@@ -549,7 +553,7 @@
         <Grid x:Name="LogoGrid" Margin="0">
             <StackPanel Margin="0,0,36,4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
         		<TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding TotalSquareFeet, Mode=OneWay}" VerticalAlignment="Bottom" Foreground="{StaticResource OMSQFT_LogoDarkBlue}" FontSize="40" Margin="0,0,13,6" FontFamily="Segoe UI Light" FontWeight="Light"/>
-        		<TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="since December 2013" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTAppBarGrayBrushLight}" FontSize="24" Margin="0,0,0,10" FontFamily="Segoe UI Light" FontWeight="Light"/>
+        		<TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="since December 2013" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTSinceTextGray}" FontSize="24" Margin="0,0,0,10" FontFamily="Segoe UI Light" FontWeight="Light"/>
         	</StackPanel>
         	<omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,38,0,0">
         		<omsqftcontrols:LogoUserControl.RenderTransform>

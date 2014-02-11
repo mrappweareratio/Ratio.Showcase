@@ -8,6 +8,12 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class BasePageViewModel : ViewModel
     {
-        public ObservableCollection<EventItemViewModel> SquareFootEvents { get; set; }        
+        private ObservableCollection<EventItemViewModel> _squareFootEvents;
+
+        public ObservableCollection<EventItemViewModel> SquareFootEvents
+        {
+            get { return _squareFootEvents; }
+            set { SetProperty(ref _squareFootEvents, value); }
+        }
     }
 }
