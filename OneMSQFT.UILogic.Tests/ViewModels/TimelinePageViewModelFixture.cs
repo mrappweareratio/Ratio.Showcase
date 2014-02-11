@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.Foundation;
+using Windows.UI.Core;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneMSQFT.Common.DataLayer;
@@ -19,6 +21,11 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
     [TestClass]
     public class TimelinePageViewModelFixture
     {
+        public IAsyncAction ExecuteOnUIThread(DispatchedHandler action)
+        {
+            return Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, action);
+        }
+
         [TestMethod]
         public void TimelinePageViewModel_Implements_Interface()
         {
@@ -34,18 +41,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             Assert.IsNotNull(vm.TimeLineItems, "TimeLineItems");
             Assert.IsNotNull(vm.TimeLineMenuItems, "TimeLineMenuItems");
             Assert.IsNotNull(vm.EventHeroItemClickCommand, "EventHeroItemClickCommand");
-        }
-
-        [TestMethod]
-        public void WindowSizeChanged_Sets_Zoom_Heights()
-        {
-            double windowHeight = 768;
-            double windowWidth = 1366;
-            var vm = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService()) as ITimelinePageViewModel;
-            vm.WindowSizeChanged(windowWidth, windowHeight);
-            Assert.AreEqual(windowHeight, vm.EventItemHeight, "EventItemHeight");
-            Assert.IsTrue(vm.EventItemWidth < windowWidth, "EventItemWidth < Window");
-        }
+        }       
 
         [TestMethod]
         public void TimelinePageViewModel_NavigatededTo_Calls_DataService()
@@ -62,7 +58,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                 }
             };
             var timeLine = new TimelinePageViewModel(mockDataService, new MockAlertMessageService());
-            timeLine.OnNavigatedTo(null, NavigationMode.New, null);
+            ExecuteOnUIThread(() => timeLine.OnNavigatedTo(null, NavigationMode.New, null));
             autoResetEvent.WaitOne(500);
             Assert.IsTrue(called);
         }
@@ -77,7 +73,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             {
                 GetEventsDelegate = () =>
                 {
-                    called = true;                    
+                    called = true;
                     return Task.FromResult<IEnumerable<Event>>(null);
                 }
             };
@@ -91,7 +87,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                 }
             };
             var timeLine = new TimelinePageViewModel(mockDataService, mockAlerts);
-            timeLine.OnNavigatedTo(null, NavigationMode.New, null);            
+            ExecuteOnUIThread(() => timeLine.OnNavigatedTo(null, NavigationMode.New, null));
             autoResetEvent.WaitOne(500);
             Assert.IsTrue(called);
             Assert.IsTrue(alerted);
@@ -103,7 +99,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         {
             var timeLine = new TimelinePageViewModel(new DataService(new SampleDataRepository(), new MockDataCacheService() { ContainsDataDelegate = s => Task.FromResult(false) }), new MockAlertMessageService());
             var autoResetEvent = new AutoResetEvent(false);
-            timeLine.OnNavigatedTo(null, NavigationMode.New, null);
+            ExecuteOnUIThread(() => timeLine.OnNavigatedTo(null, NavigationMode.New, null));
             autoResetEvent.WaitOne(500);
             Assert.IsTrue(timeLine.SquareFootEvents.Any());
             Assert.IsTrue(timeLine.TimeLineItems.Any());

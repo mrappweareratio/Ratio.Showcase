@@ -446,7 +446,7 @@ namespace OneMSQFT.UILogic.DataLayer
         }
 
 
-        public List<MediaContentSource> GetMediaCollection(int count)
+        public static List<MediaContentSource> GetMediaCollection(int count)
         {
             var mc = new List<MediaContentSource>();
             for (var i = 0; i < count; i++)

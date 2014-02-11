@@ -564,7 +564,7 @@
         	</omsqftcontrols:LogoUserControl>
         </Grid>
         <SemanticZoom x:Name="semanticZoom" Background="{x:Null}"
-                      IsZoomedInViewActive="False" 
+                      IsZoomedInViewActive="True" 
                       ViewChangeCompleted="semanticZoom_ViewChangeCompleted" 
                       ViewChangeStarted="semanticZoom_ViewChangeStarted" Grid.RowSpan="2" d:IsHidden="True" VerticalAlignment="Top">
             <SemanticZoom.ZoomedOutView>

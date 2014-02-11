@@ -4,19 +4,21 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
+using OneMSQFT.Common;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Core;
 using OneMSQFT.Common.Services;
 using System;
+using OneMSQFT.UILogic.Utils;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
     public class ExhibitDetailsPageViewModel : BasePageViewModel, IExhibitDetailsPageViewModel
     {
-        public TaskCompletionSource<bool> LoadingTaskCompletionSource { get; set; }
         public DelegateCommand<MediaContentSourceItemViewModel> LaunchVideoCommand { get; set; }
+        public DelegateCommand<string> NextExhibitCommand { get; private set; }
         private readonly IDataService _dataService;
         private readonly IAlertMessageService _messageService;
 
@@ -26,22 +28,37 @@ namespace OneMSQFT.UILogic.ViewModels
             _messageService = messageService;
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             LaunchVideoCommand = new DelegateCommand<MediaContentSourceItemViewModel>(LaunchVideoCommandHandler);
+            NextExhibitCommand = new DelegateCommand<string>(NextExhibitCommandExecuteMethod, NextExhibitCommandCanExecuteMethod);
+        }
+
+        private bool NextExhibitCommandCanExecuteMethod(string s)
+        {
+            return NextExhibit != null;
+        }
+
+        async private void NextExhibitCommandExecuteMethod(string exhibitId)
+        {
+            var ed = await _dataService.GetExhibitDetailByExhibitId(exhibitId);
+            Exhibit = new ExhibitItemViewModel(ed.Exhibit);
+            NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit);
+        }
+
+        public ExhibitItemViewModel NextExhibit
+        {
+            get { return _nextExhibit; }
+            set
+            {
+                SetProperty(ref _nextExhibit, value);
+                NextExhibitCommand.RaiseCanExecuteChanged();
+            }
         }
 
         async public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
-
-            LoadingTaskCompletionSource = new TaskCompletionSource<bool>();
-            try
-            {
-                ExhibitDetail ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as string);
-                Exhibit = new ExhibitItemViewModel(ed.Exhibit);
-                base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
-            }
-            finally
-            {
-                LoadingTaskCompletionSource.SetResult(true);
-            }
+            var ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as String);
+            Exhibit = new ExhibitItemViewModel(ed.Exhibit);
+            NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit);
+            base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
 
         async public void LaunchVideoCommandHandler(MediaContentSourceItemViewModel item)
@@ -68,15 +85,10 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        public SolidColorBrush EventColor
-        {
-            get
-            {
-                return Exhibit.EventColor;
-            }
-        }
-
         private ExhibitItemViewModel _exhibit;
+        private string _exhibitDetailTitle;
+        private ExhibitItemViewModel _nextExhibit;
+
         public ExhibitItemViewModel Exhibit
         {
             get
@@ -88,44 +100,16 @@ namespace OneMSQFT.UILogic.ViewModels
                 if (value != null)
                 {
                     SetProperty(ref _exhibit, value);
+                    ExhibitDetailTitle = String.Format(Strings.SquareFeetAtNameFormat, StringUtils.ToSquareFeet(Exhibit.SquareFootage), value.Name);
                 }
             }
         }
 
-        public String Panel0Title
+        public String ExhibitDetailTitle
         {
-            get
-            {
-                return Exhibit.SquareFootage + " square feet at " + Exhibit.Name;
-            }
+            get { return _exhibitDetailTitle; }
+            set { SetProperty(ref _exhibitDetailTitle, value); }
         }
-
-        public String Panel0Description
-        {
-            get
-            {
-                return Exhibit.Description;
-            }
-        }
-
-        public Uri HeroPhotoFilePath
-        {
-            get
-            {
-                return Exhibit.HeroPhotoFilePath;
-            }
-        }
-
-        public String Panel1LongDescription
-        {
-            get
-            {
-                return Exhibit.Description;
-            }
-        }      
-
-        public ObservableCollection<MediaContentSourceItemViewModel> MediaContentCollection { get; set; }
-
 
         #endregion
 
@@ -177,6 +161,6 @@ namespace OneMSQFT.UILogic.ViewModels
 
         #endregion
 
-       
+
     }
 }

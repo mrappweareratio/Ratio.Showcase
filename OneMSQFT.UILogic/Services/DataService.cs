@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
+using Windows.UI.Xaml.Documents;
 using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
@@ -25,24 +28,42 @@ namespace OneMSQFT.UILogic.Services
             if (await _cache.ContainsDataAsync("site_data"))
             {
                 var siteData = await _cache.GetDataAsync<SiteDataResult>("site_data");
-                if (siteData == null)
-                {
-                    await _cache.InvalidateDataAsync("site_data");
-                }
-                else
+                if (siteData != null)
                 {
                     return siteData.Events;
                 }
             }
             var result = await _repository.GetSiteData();
             if (result != null)
-                await _cache.StoreDataAsync("site_data", result);
-            return result.Events;
+            {
+                Task.Run( () =>
+                {
+                    _cache.StoreDataAsync("site_data", result);
+                });
+                return result.Events;            
+            }
+
+            return null;
         }
 
-        public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string id)
+        async public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string exhibitId)
         {
-            throw new NotImplementedException("GetExhibitDetailByExhibitId");
+            var events = await GetEvents();
+            var exhibits = events.SelectMany(x => x.Exhibits).ToList();
+            if (exhibits.Count == 0)
+                throw new ArgumentOutOfRangeException("ExhibitId");
+            var exhibit = exhibits.FirstOrDefault(x => x.Id.Equals(exhibitId));
+            if (exhibitId == null)
+                throw new ArgumentOutOfRangeException("ExhibitId");
+            var index = exhibits.IndexOf(exhibit);
+            var nextIndex = index == exhibits.Count - 1 ? 0 : index + 1;
+            var nextExhibit = exhibits.Count == 1 ? null : exhibits[nextIndex];
+            var detail = new ExhibitDetail()
+            {
+                Exhibit = exhibit,
+                NextExhibit = nextExhibit
+            };
+            return detail;
         }
     }
 }
