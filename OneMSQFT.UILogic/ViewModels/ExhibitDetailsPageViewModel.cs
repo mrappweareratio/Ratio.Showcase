@@ -10,12 +10,12 @@ using Windows.UI.Xaml;
 using Windows.UI.Core;
 using OneMSQFT.Common.Services;
 using System;
+using OneMSQFT.UILogic.Utils;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
     public class ExhibitDetailsPageViewModel : BasePageViewModel, IExhibitDetailsPageViewModel
-    {
-        public TaskCompletionSource<bool> LoadingTaskCompletionSource { get; set; }
+    {        
         public DelegateCommand<MediaContentSourceItemViewModel> LaunchVideoCommand { get; set; }
         private readonly IDataService _dataService;
         private readonly IAlertMessageService _messageService;
@@ -30,18 +30,10 @@ namespace OneMSQFT.UILogic.ViewModels
 
         async public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
-
-            LoadingTaskCompletionSource = new TaskCompletionSource<bool>();
-            try
-            {
-                ExhibitDetail ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as string);
-                Exhibit = new ExhibitItemViewModel(ed.Exhibit);
-                base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
-            }
-            finally
-            {
-                LoadingTaskCompletionSource.SetResult(true);
-            }
+            ExhibitDetail ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as string);
+            Exhibit = new ExhibitItemViewModel(ed.Exhibit);
+            MediaContentCollection = Exhibit.MediaContent;
+            base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
 
         async public void LaunchVideoCommandHandler(MediaContentSourceItemViewModel item)
@@ -122,7 +114,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 return Exhibit.Description;
             }
-        }      
+        }
 
         public ObservableCollection<MediaContentSourceItemViewModel> MediaContentCollection { get; set; }
 
@@ -177,6 +169,6 @@ namespace OneMSQFT.UILogic.ViewModels
 
         #endregion
 
-       
+
     }
 }

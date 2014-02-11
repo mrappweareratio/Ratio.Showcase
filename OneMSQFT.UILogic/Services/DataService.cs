@@ -36,9 +36,24 @@ namespace OneMSQFT.UILogic.Services
             return result.Events;
         }
 
-        public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string id)
+        async public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string exhibitId)
         {
-            throw new NotImplementedException("GetExhibitDetailByExhibitId");
+            var events = await GetEvents();
+            var exhibits = events.SelectMany(x => x.Exhibits).ToList();
+            if (exhibits.Count == 0)
+                throw new ArgumentOutOfRangeException("ExhibitId");
+            var exhibit = exhibits.FirstOrDefault(x => x.Id.Equals(exhibitId));
+            if (exhibitId == null)
+                throw new ArgumentOutOfRangeException("ExhibitId");
+            var index = exhibits.IndexOf(exhibit);
+            var nextIndex = index == exhibits.Count - 1 ? 0 : index + 1;
+            var nextExhibit = exhibits.Count == 1 ? null : exhibits[nextIndex];
+            var detail = new ExhibitDetail()
+            {
+                Exhibit = exhibit,
+                NextExhibit = nextExhibit
+            };
+            return detail;
         }
     }
 }

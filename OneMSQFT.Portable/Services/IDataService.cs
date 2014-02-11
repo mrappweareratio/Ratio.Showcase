@@ -8,6 +8,6 @@ namespace OneMSQFT.Common.Services
     public interface IDataService
     {
         Task<IEnumerable<Event>> GetEvents();      
-        Task<ExhibitDetail> GetExhibitDetailByExhibitId(string id);
+        Task<ExhibitDetail> GetExhibitDetailByExhibitId(string exhibitId);
     }
 }

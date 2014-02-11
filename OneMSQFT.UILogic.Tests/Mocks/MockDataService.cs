@@ -24,9 +24,9 @@ namespace OneMSQFT.UILogic.Tests.Mocks
             return GetEventsDelegate();
         }      
 
-        public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string id)
+        public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string exhibitId)
         {
-            return GetExhibitDetailByExhibitIdDelegate(id);
+            return GetExhibitDetailByExhibitIdDelegate(exhibitId);
         }
     }
 }
