@@ -45,8 +45,17 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        public ObservableCollection<EventItemViewModel> TimeLineItems { get; private set; }
-        public ObservableCollection<EventItemViewModel> TimeLineMenuItems { get; private set; }
+        public ObservableCollection<EventItemViewModel> TimeLineItems
+        {
+            get { return _timeLineItems; }
+            private set { SetProperty(ref _timeLineItems, value); }
+        }
+
+        public ObservableCollection<EventItemViewModel> TimeLineMenuItems
+        {
+            get { return _timeLineMenuItems; }
+            private set { SetProperty(ref _timeLineMenuItems, value); }
+        }
 
         private EventItemViewModel _selectedEvent;
         public EventItemViewModel SelectedEvent
@@ -74,6 +83,9 @@ namespace OneMSQFT.UILogic.ViewModels
         }
 
         private int _totalSquareFeet;
+        private ObservableCollection<EventItemViewModel> _timeLineItems;
+        private ObservableCollection<EventItemViewModel> _timeLineMenuItems;
+
         public String TotalSquareFeet
         {
             get

@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Prism.StoreApps;
+﻿using Microsoft.Practices.Prism.PubSubEvents;
+using Microsoft.Practices.Prism.StoreApps;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +20,6 @@ namespace OneMSQFT.Windows.Views
 {
     public class BasePageView : VisualStateAwarePage
     {
-        public BasePageView()
-        {
-        }
-
         public DelegateCommand<String> TopAppBarEventButtonCommand { get; set; }
         public DelegateCommand HomeButtonClickCommand { get; set; }
         public DelegateCommand AboutButtonClickCommand { get; set; }

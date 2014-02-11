@@ -23,7 +23,7 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", SquareFootage)).Trim();
+                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", SquareFootage)).Trim() + " sqft";
             }
         }
     }
