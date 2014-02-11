@@ -104,6 +104,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Exhibitor = "Exhibitor",
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2345,
+                                Color = "AABBCC",
                                 MediaContent = GetMediaCollection(2),
                             },
                              new Exhibit()
@@ -114,6 +115,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Exhibitor = "Exhibitor",
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1279,
+                                Color = "AABBCC",
                                 MediaContent = GetMediaCollection(3),
                             },
                              new Exhibit()
@@ -124,6 +126,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Exhibitor = "Exhibitor",
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
+                                Color = "AABBCC",
                                 MediaContent = GetMediaCollection(3),
                             }
                         }
@@ -131,9 +134,9 @@ namespace OneMSQFT.UILogic.DataLayer
                      new Event
                     {
                         Id="4",
-                        Name = "New Jersy",
+                        Name = "New Jersey",
                         DisplayDate = "MMM D-D",
-                        Description = "Event at New Jersy",
+                        Description = "Event at New Jersey",
                         Color = "1122FF",     
                         DateStart = DateTime.Now.AddDays(6),
                         SquareFootage = 9587,
@@ -143,8 +146,9 @@ namespace OneMSQFT.UILogic.DataLayer
                             new Exhibit()
                             {
                                 Id = "1",
-                                Name = "New Jersy Exhibit One",
+                                Name = "New Jersey Exhibit One",
                                   DisplayDate = "MMM D-D",
+                                Color = "AABBCC",
                                 Exhibitor = "Exhibitor",
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2345,
@@ -153,8 +157,9 @@ namespace OneMSQFT.UILogic.DataLayer
                              new Exhibit()
                             {
                                 Id = "2",
-                                Name = "New Jersy Exhibit Two",
+                                Name = "New Jersey Exhibit Two",
                                 DisplayDate = "MMM D-D",
+                                Color = "AABBCC",
                                 Exhibitor = "Exhibitor",
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1279,
@@ -163,8 +168,9 @@ namespace OneMSQFT.UILogic.DataLayer
                              new Exhibit()
                             {
                                 Id = "3",
-                                Name = "New Jersy Exhibit Three",
+                                Name = "New Jersey Exhibit Three",
                                 DisplayDate = "MMM D-D",
+                                Color = "AABBCC",
                                 Exhibitor = "Exhibitor",
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,

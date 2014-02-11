@@ -30,9 +30,7 @@ namespace OneMSQFT.Windows.DesignViewModels
                     Id = i.ToString(),
                     Name = "Event Name " + i,
                     DateStart = DateTime.Now.Add(TimeSpan.FromDays(i * (i > fakeEventsCount / 2 ? 20 : -20) + 1)),
-                    PhotoFilePath = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg",
-                    SquareFootage = Convert.ToInt32(i.ToString() + i.ToString() + i.ToString() + i.ToString()),
-                    EventHeroVideoPath ="http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
+                    SquareFootage = Convert.ToInt32(i.ToString() + i.ToString() + i.ToString() + i.ToString())
                 });
 
                 var fakeExhibitsCount = Math.Round((decimal) new Random().Next(1, 10));
@@ -43,7 +41,6 @@ namespace OneMSQFT.Windows.DesignViewModels
                         Id = j.ToString(),
                         Name = "Exhibit Name " + j,
                         Description = "Exhibit Description Name " + j,
-                        HeroPhotoFilePath = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg",
                         SquareFootage = j * 123 + 123
                     });
                     eivm.Exhibits.Add(exhibit);
