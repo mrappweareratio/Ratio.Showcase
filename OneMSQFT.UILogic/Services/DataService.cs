@@ -28,7 +28,14 @@ namespace OneMSQFT.UILogic.Services
             if (await _cache.ContainsDataAsync("site_data"))
             {
                 var siteData = await _cache.GetDataAsync<SiteDataResult>("site_data");
-                if (siteData != null)
+                if (siteData == null)
+                {
+                    var invalidate = Task.Run(async () =>
+                    {
+                        await _cache.InvalidateDataAsync("site_data").ConfigureAwait(false);
+                    });
+                }
+                else
                 {
                     return siteData.Events;
                 }
@@ -36,11 +43,11 @@ namespace OneMSQFT.UILogic.Services
             var result = await _repository.GetSiteData();
             if (result != null)
             {
-                Task.Run( () =>
+                var storeData = Task.Run(async () =>
                 {
-                    _cache.StoreDataAsync("site_data", result);
+                    await _cache.StoreDataAsync("site_data", result).ConfigureAwait(false);
                 });
-                return result.Events;            
+                return result.Events;
             }
 
             return null;

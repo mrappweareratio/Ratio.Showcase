@@ -103,20 +103,18 @@ namespace OneMSQFT.UILogic.Services
         }
 
         private async Task<T> GetDataAsyncInternal<T>(string cacheKey) where T : class
-        {
-            StorageFile file;
+        {            
             try
             {
-                file = await _cacheFolder.GetFileAsync(cacheKey);
+                StorageFile file = await _cacheFolder.GetFileAsync(cacheKey);
+                string JsonText = await FileIO.ReadTextAsync(file);
+                var dataFromJson = JsonHelper.DeserializeObject<T>(JsonText);
+                return dataFromJson;
             }
             catch (Exception)
             {
                 return null;
-            }
-
-            string JsonText = await FileIO.ReadTextAsync(file);
-            var dataFromJson = JsonHelper.DeserializeObject<T>(JsonText);
-            return dataFromJson;
+            }            
         }
 
         // Note: This method assumes that we are controlling the interleaving of async methods on a single thread.
