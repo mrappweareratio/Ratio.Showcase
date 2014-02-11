@@ -116,6 +116,7 @@
     <Compile Include="Mocks\MockAlertService.cs" />
     <Compile Include="Mocks\MockDataService.cs" />
     <Compile Include="Mocks\MockLaunchActivatedEventArgs.cs" />
+    <Compile Include="Mocks\MockModelGenerator.cs" />
     <Compile Include="Mocks\MockNavigationService.cs" />
     <Compile Include="OneMsqftApplicationFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
