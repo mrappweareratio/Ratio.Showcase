@@ -25,7 +25,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                     return Task.FromResult(new SiteDataResult());
                 }
             };
-            var dataService = new DataService(mock, new MockDataCacheService() { ContainsKeyDelegate = s => Task.FromResult(false) });
+            var dataService = new DataService(mock, new MockDataCacheService() { ContainsDataDelegate = s => Task.FromResult(false) });
             await dataService.GetEvents();
             Assert.IsTrue(called);
         }
@@ -44,7 +44,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             };
             var cache = new MockDataCacheService
             {
-                ContainsKeyDelegate = s =>
+                ContainsDataDelegate = s =>
                 {
                     called = true;
                     return Task.FromResult(false);
@@ -67,13 +67,14 @@ namespace OneMSQFT.UILogic.Tests.Services
             };
             var cache = new MockDataCacheService
             {
-                ContainsKeyDelegate = s => Task.FromResult(true),
-                GetKeyDelegate = s => {
+                ContainsDataDelegate = s => Task.FromResult(true),
+                GetDataDelegate = s =>
+                {
                     {
                         called = true;
                         return Task.FromResult<object>(null);
                     }},
-                InvalidateKeyDelegate = s => Task.FromResult(0)
+                InvalidateDataDelegate = s => Task.FromResult(0)
             };
             var dataService = new DataService(mock, cache);
             await dataService.GetEvents();     
@@ -92,14 +93,14 @@ namespace OneMSQFT.UILogic.Tests.Services
             };
             var cache = new MockDataCacheService
             {
-                ContainsKeyDelegate = s => Task.FromResult(true),
-                GetKeyDelegate = s =>
+                ContainsDataDelegate = s => Task.FromResult(true),
+                GetDataDelegate = s =>
                 {
                     {
                         return Task.FromResult<object>(null);
                     }
                 },
-                InvalidateKeyDelegate = s =>
+                InvalidateDataDelegate = s =>
                 {
                     called = true;
                     return Task.FromResult(0);
@@ -107,7 +108,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             };
             var dataService = new DataService(mock, cache);
             await dataService.GetEvents();
-            Assert.IsTrue(called, "callede InvalidateKeyDelegate");
+            Assert.IsTrue(called, "callede InvalidateDataDelegate");
         }
         [TestMethod]
         async public Task DataService_GetSiteData_Checks_Cache_True_Then_Null_Invalidates_Cache_Calls_Repo()
@@ -123,14 +124,14 @@ namespace OneMSQFT.UILogic.Tests.Services
             };
             var cache = new MockDataCacheService
             {
-                ContainsKeyDelegate = s => Task.FromResult(true),
-                GetKeyDelegate = s =>
+                ContainsDataDelegate = s => Task.FromResult(true),
+                GetDataDelegate = s =>
                 {
                     {
                         return Task.FromResult<object>(null);
                     }
                 },
-                InvalidateKeyDelegate = s =>
+                InvalidateDataDelegate = s =>
                 {                    
                     return Task.FromResult(0);
                 }
@@ -152,18 +153,18 @@ namespace OneMSQFT.UILogic.Tests.Services
             };
             var cache = new MockDataCacheService
             {
-                ContainsKeyDelegate = s => Task.FromResult(true),
-                GetKeyDelegate = s =>
+                ContainsDataDelegate = s => Task.FromResult(true),
+                GetDataDelegate = s =>
                 {
                     {
                         return Task.FromResult<object>(null);
                     }
                 },
-                InvalidateKeyDelegate = s =>
+                InvalidateDataDelegate = s =>
                 {
                     return Task.FromResult(0);
                 },
-                StoreKeyDelegate = (s, o) =>
+                StoreDataDelegate = (s, o) =>
                 {
                     called = true;
                     return Task.FromResult(0);
@@ -171,7 +172,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             };
             var dataService = new DataService(mock, cache);
             await dataService.GetEvents();
-            Assert.IsTrue(called, "Call StoreKeyAsync");
+            Assert.IsTrue(called, "Call StoreDataAsync");
         }
     }
 }

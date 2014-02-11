@@ -13,5 +13,10 @@ namespace OneMSQFT.Common
         {
             return JsonConvert.DeserializeObject<TObject>(json);
         }
+
+        public static string SerializeObject<TObject>(TObject obj) where TObject : class
+        {
+            return JsonConvert.SerializeObject(obj);
+        }
     }
 }
