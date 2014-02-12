@@ -551,7 +551,7 @@
                 <EntranceThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <Grid x:Name="LogoGrid" Margin="0">
+        <Grid x:Name="LogoGrid" Margin="0" Visibility="Collapsed">
             <StackPanel Margin="0,0,36,4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
         		<TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding TotalSquareFeet, Mode=OneWay}" VerticalAlignment="Bottom" Foreground="{StaticResource OMSQFT_LogoDarkBlueBrush}" FontSize="40" Margin="0,0,13,6" FontFamily="Segoe UI Light" FontWeight="Light"/>
         		<TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="since December 2013" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTSinceTextGray}" FontSize="24" Margin="0,0,0,10" FontFamily="Segoe UI Light" FontWeight="Light"/>
