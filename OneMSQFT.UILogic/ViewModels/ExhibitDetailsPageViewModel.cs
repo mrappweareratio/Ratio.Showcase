@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -58,6 +59,14 @@ namespace OneMSQFT.UILogic.ViewModels
             var ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as String);
             Exhibit = new ExhibitItemViewModel(ed.Exhibit);
             NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit);
+
+            var events = await _dataService.GetEvents();
+            if (events == null)
+            {
+                await _messageService.ShowAsync("Error", "There was a problem loading events");
+                return;
+            }
+            SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
 

@@ -40,6 +40,7 @@ namespace OneMSQFT.Windows.Views
                 Height = 192.0,
                 MinHeight = 192.0,
                 MaxHeight = 192.0,
+                Margin = new Thickness(0, -2, 0, 0),
                 Background = new SolidColorBrush(Colors.White),
                 BorderBrush = new SolidColorBrush(Colors.Transparent),
                 BorderThickness = new Thickness(0),
@@ -108,10 +109,12 @@ namespace OneMSQFT.Windows.Views
             homeButton.Style = (Style)App.Current.Resources["OMSQFTAppBarHomeButtonStyle"];
             homeButton.Command = TopAppBarEventButtonCommand;
             homeButton.CommandParameter = null;
-            TopAppBarContentStackPanel.Children.Add(homeButton);
+           // TopAppBarContentStackPanel.Children.Add(homeButton);
             foreach (var e in vm.SquareFootEvents)
             {
                 var b = new Button();
+                b.Margin = new Thickness(0);
+                b.Padding = new Thickness(0);
                 b.Command = TopAppBarEventButtonCommand;
                 b.CommandParameter = e.Id;
                 b.Style = (Style)App.Current.Resources["OMSQFTAppBarButtonStyle"];

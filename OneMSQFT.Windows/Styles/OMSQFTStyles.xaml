@@ -12,7 +12,7 @@
 
     
     <Style x:Key="OMSQFTAppBarButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="{ThemeResource ButtonBackgroundThemeBrush}"/>
+        <Setter Property="Background" Value="White"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
@@ -42,11 +42,29 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Border x:Name="Border" BorderThickness="0" Margin="0" Background="{Binding EventColor}" >
-                            <Grid Height="192" Width="330" Margin="0">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding SquareFootageString}"/>
-                                    <TextBlock Text="{Binding Name}"/>
-                                </StackPanel>
+                                <Grid Height="192" Width="330" Margin="0">
+                                    <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                    <TextBlock Text="{Binding SquareFootageString}"
+    				                    TextTrimming="WordEllipsis"
+    				                    FontSize="40"
+                                        FontWeight="Light"
+    				                    Margin="0" 
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Bottom" 
+                                        FontFamily="Segoe UI"/>
+                                <TextBlock Text="{Binding Name, Mode=OneWay}"
+                                            VerticalAlignment="Top"
+                                            FontSize="20" 
+                                            Grid.Row="1" 
+                                            HorizontalAlignment="Center"/>
+                                <Rectangle Fill="{StaticResource OneMSQFTBlackBrush}" 
+                                           Grid.Row="2" Opacity=".5" 
+                                           Height="20" Width="Auto" 
+                                           VerticalAlignment="Bottom"></Rectangle>
                             </Grid>
                         </Border>
                     </Grid>
