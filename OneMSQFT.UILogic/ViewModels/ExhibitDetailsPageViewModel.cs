@@ -163,7 +163,7 @@ namespace OneMSQFT.UILogic.ViewModels
             get { return ExhibitItemWidth / 3; }
         }
 
-        public void WindowSizeChanged(double width, double height)
+        public override void WindowSizeChanged(double width, double height)
         {
             OnPropertyChanged("FullScreenHeight");
             OnPropertyChanged("FullScreenWidth");

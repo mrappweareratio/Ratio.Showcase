@@ -121,6 +121,7 @@
     <Compile Include="DataLayer\SampleDataRepository.cs" />
     <Compile Include="Interfaces\IOneMsqftApplication.cs" />
     <Compile Include="Interfaces\ViewModels\IAboutPageViewModel.cs" />
+    <Compile Include="Interfaces\ViewModels\IBasePageViewModel.cs" />
     <Compile Include="Interfaces\ViewModels\IExhibitDetailsPageViewModel.cs" />
     <Compile Include="Navigation\ViewLocator.cs" />
     <Compile Include="OneMsqftApplication.cs" />

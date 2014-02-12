@@ -8,6 +8,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
+using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Navigation;
@@ -42,11 +43,13 @@ namespace OneMSQFT.UILogic.ViewModels
                 await _messageService.ShowAsync("Error", "There was a problem loading events");
                 return;
             }
-            SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
-            TimeLineItems = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
-            TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
+            var eventsList = events as IList<Event> ?? events.ToList();
+            
+            SquareFootEvents = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
+            TimeLineItems = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
+            TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
 
-            foreach (var eivm in events)
+            foreach (var eivm in eventsList)
             {
                 _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
             }
@@ -161,7 +164,7 @@ namespace OneMSQFT.UILogic.ViewModels
         }
 
 
-        public void WindowSizeChanged(double width, double height)
+        public override void WindowSizeChanged(double width, double height)
         {
             FullScreenHeight = height;
             FullScreenWidth = width;

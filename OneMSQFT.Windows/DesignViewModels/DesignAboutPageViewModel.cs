@@ -107,7 +107,7 @@ namespace OneMSQFT.Windows.DesignViewModels
             }
         }
 
-        public void WindowSizeChanged(double width, double height)
+        public override void WindowSizeChanged(double width, double height)
         {
             FullScreenHeight = height;
             FullScreenWidth = width;
