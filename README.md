@@ -56,3 +56,11 @@ Design Guidance
 Dependencies
 -----
 [Install Player Framework Version 1.3.2 from this link](http://playerframework.codeplex.com/releases/view/116468)
+
+Deployment
+-----
+
+- Debug > Runs Store Application in Debug Mode
+- Debug Kiosk > Runs Kiosk Application in Debug Mode
+- Release > Runs Store Application in Release Mode
+- Release Kiosk > Runs Kiosk Application in Release Mode
