@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
+using Microsoft.Practices.Prism.StoreApps.Interfaces;
 using OneMSQFT.Common;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
@@ -12,6 +13,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Core;
 using OneMSQFT.Common.Services;
 using System;
+using OneMSQFT.UILogic.Navigation;
 using OneMSQFT.UILogic.Utils;
 
 namespace OneMSQFT.UILogic.ViewModels
@@ -22,11 +24,13 @@ namespace OneMSQFT.UILogic.ViewModels
         public DelegateCommand<string> NextExhibitCommand { get; private set; }
         private readonly IDataService _dataService;
         private readonly IAlertMessageService _messageService;
+        private readonly INavigationService _navigationService;
 
-        public ExhibitDetailsPageViewModel(IDataService dataService, IAlertMessageService messageService)
+        public ExhibitDetailsPageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService)
         {
             _dataService = dataService;
             _messageService = messageService;
+            _navigationService = navigationService;
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             LaunchVideoCommand = new DelegateCommand<MediaContentSourceItemViewModel>(LaunchVideoCommandHandler);
             NextExhibitCommand = new DelegateCommand<string>(NextExhibitCommandExecuteMethod, NextExhibitCommandCanExecuteMethod);
@@ -37,11 +41,9 @@ namespace OneMSQFT.UILogic.ViewModels
             return NextExhibit != null;
         }
 
-        async private void NextExhibitCommandExecuteMethod(string exhibitId)
+        private void NextExhibitCommandExecuteMethod(string exhibitId)
         {
-            var ed = await _dataService.GetExhibitDetailByExhibitId(exhibitId);
-            Exhibit = new ExhibitItemViewModel(ed.Exhibit);
-            NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit);
+            _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, exhibitId);
         }
 
         private ExhibitItemViewModel _nextExhibit;

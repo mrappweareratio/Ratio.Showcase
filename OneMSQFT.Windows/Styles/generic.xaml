@@ -3611,6 +3611,8 @@
                             BorderThickness="{TemplateBinding BorderThickness}">
                     		<ScrollViewer x:Name="ScrollViewer"
                     			TabNavigation="{TemplateBinding TabNavigation}"
+                                          HorizontalSnapPointsAlignment="{TemplateBinding ScrollViewer.HorizontalSnapPointsAlignment}"
+                                          HorizontalSnapPointsType="{TemplateBinding ScrollViewer.HorizontalSnapPointsType}"
                     			HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
                     			HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
                     			IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}"
