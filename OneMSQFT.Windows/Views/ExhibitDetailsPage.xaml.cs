@@ -17,7 +17,6 @@ namespace OneMSQFT.Windows.Views
             this.InitializeComponent();
             InitAppBars();
             Loaded += ExhibitDetailsPage_Loaded;
-
         }       
 
         void ExhibitDetailsPage_Loaded(object sender, RoutedEventArgs e)

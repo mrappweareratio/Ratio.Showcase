@@ -30,9 +30,10 @@ namespace OneMSQFT.Windows.Views
         public TimelinePage()
         {
             this.InitializeComponent();
-            this.StoryboardSeeker.Begin(); // a nice to have 
+
             InitAppBars();
             Loaded += TimelinePage_Loaded;
+
             var vm = this.DataContext as ITimelinePageViewModel;
             vm.FullScreenHeight = Window.Current.Bounds.Height;
             vm.FullScreenWidth = Window.Current.Bounds.Width;
@@ -139,14 +140,13 @@ namespace OneMSQFT.Windows.Views
         {
             if (!VideoPopup.IsOpen)
             {
-                semanticZoom.Opacity = 0;
                 VideoPopup.IsOpen = true; 
             }
         }
 
         private void VideoPopup_Closed(object sender, object e)
         {
-            semanticZoom.Opacity = 1;
+
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
@@ -160,7 +160,7 @@ namespace OneMSQFT.Windows.Views
         public override void PopulateTopAppbar(BasePageViewModel vm)
         {
             base.PopulateTopAppbar(vm);
-            this.AboutButton.Command = this.AboutButtonClickCommand;
+            AboutButton.Command = AboutButtonClickCommand;
         }
 
         private void AdminButton_OnClick(object sender, RoutedEventArgs e)
