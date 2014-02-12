@@ -54,11 +54,14 @@ namespace OneMSQFT.UILogic.Services
                 }
                 else
                 {
+                    _memDictionary.Add(key, siteData);
                     return siteData.Events;
                 }
             }
 
             result = await _repository.GetSiteData();
+            _memDictionary.Add(key, result);
+            
             if (result != null)
             {
                 var storeData = Task.Run(async () =>
