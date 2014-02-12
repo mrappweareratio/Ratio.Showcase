@@ -18,7 +18,7 @@
 
     </omsqft:BasePageView.Resources>
     <omsqft:BasePageView.BottomAppBar>
-        <AppBar Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent">
+        <AppBar x:Name="appBar" Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent" Visibility="Collapsed">
             <Border Height="90" BorderBrush="{StaticResource OneMSQFTAppBarAccentGrayBrush}" BorderThickness="0,10,0,0" >
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -36,19 +36,20 @@
         </AppBar>
     </omsqft:BasePageView.BottomAppBar>
     <Grid Background="White">
-
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="700" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Button x:Name="backButton" HorizontalAlignment="Left"
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="700" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="backButton" HorizontalAlignment="Left"
                     Click="GoBack"  Grid.Column="1" VerticalAlignment="Top" Margin="0,100,0,0"
                     IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}"
                     Style="{StaticResource BlackBackButtonStyle}" />
-            <Rectangle Fill="{StaticResource OMSQFT_LogoDarkBlueBrush}" Grid.Column="2" Width="2000"></Rectangle>
-
+                <Rectangle Fill="{StaticResource OMSQFT_LogoDarkBlueBrush}" Grid.Column="2" Width="2000"></Rectangle>
+            </Grid>
+            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Black" Opacity=".7" Visibility="{Binding Visibility, ElementName=appBar, Mode=TwoWay}" IsHitTestVisible="False"></Rectangle>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>

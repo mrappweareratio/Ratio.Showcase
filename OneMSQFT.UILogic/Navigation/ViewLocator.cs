@@ -5,6 +5,8 @@
         public static class Pages
         {
             public static string Timeline = "Timeline";
+            public static string About = "About";
+            public static string ExhibitDetails = "ExhibitDetails";
         }        
     }
 }

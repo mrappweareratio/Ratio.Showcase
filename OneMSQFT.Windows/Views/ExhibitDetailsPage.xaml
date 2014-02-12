@@ -206,10 +206,16 @@
     </omsqft:BasePageView.BottomAppBar>
     <Grid  Background="White">
     <Grid>
-    		<ScrollViewer x:Name="ExhibitDetailsPanels" Style="{StaticResource HorizontalScrollViewerStyle}" >
-        	<StackPanel Orientation="Horizontal">
-                <Grid x:Name="Panel0" >
-        			<Grid.ColumnDefinitions>
+            <ScrollViewer x:Name="ExhibitDetailsPanels" Style="{StaticResource HorizontalScrollViewerStyle}" >
+
+                <StackPanel Orientation="Horizontal">
+                    <Grid x:Name="Panel0" >
+                        <Grid.ChildrenTransitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition IsStaggeringEnabled="True"/>
+                            </TransitionCollection>
+                        </Grid.ChildrenTransitions>
+                        <Grid.ColumnDefinitions>
         				<ColumnDefinition/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
@@ -218,14 +224,15 @@
         				Width="{Binding OneThirdPanelWidth}"
 					BorderThickness="9" 
 					Background="{Binding Exhibit.ColorBrush, Mode=OneWay}" Padding="10">
-        				<Grid Margin="0">
+        				<Grid Margin="10">
         					<Grid.RowDefinitions>
         						<RowDefinition Height="3*"/>
         						<RowDefinition/>
         						<RowDefinition/>
-        					</Grid.RowDefinitions>
-                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Exhibit.Name, Mode=OneWay}" VerticalAlignment="Top" Grid.Row="1" FontSize="18.667"/>
-                            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Exhibit.Description}" VerticalAlignment="Top" Grid.Row="2"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Exhibit.SquareFootageString}" VerticalAlignment="Bottom" Grid.Row="0" FontSize="32"/>
+                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Exhibit.Name}" VerticalAlignment="Top" Grid.Row="1" FontSize="18.667"/>
+                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Exhibit.Description}" VerticalAlignment="Top" Grid.Row="2"/>
         				</Grid>
         			</Border>
                     <Grid Grid.Column="1"
@@ -236,7 +243,7 @@
                     </Grid>
                 </Grid>
                 
-                <Grid x:Name="Panel2" 
+                    <Grid x:Name="Panel2" 
         			Width="{Binding ExhibitItemWidth}" 
         			Height="{Binding ExhibitItemHeight}" Background="{StaticResource OneMSQFTWhiteBrush}" >
         			<ListView HorizontalAlignment="Left" 
@@ -265,7 +272,7 @@
                     </ListView>
         		</Grid>
         		
-                <Grid x:Name="Panel4" Height="{Binding ExhibitItemHeight}" 
+                    <Grid x:Name="Panel4" Height="{Binding ExhibitItemHeight}" 
         				Width="{Binding ExhibitItemWidth}" Margin="0,0,-500,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -274,8 +281,9 @@
                     </Grid.ColumnDefinitions>
                     <Button HorizontalAlignment="Stretch" 
                         Command="{Binding NextExhibitCommand}"
+                        CommandParameter="{Binding NextExhibit.Id}"
         				VerticalAlignment="Stretch" 
-        				Background="{Binding Exhibit.ColorBrush, Mode=OneWay}" 
+        				Background="{Binding NextExhibit.ColorBrush, Mode=OneWay}" 
                         Width="{Binding OneThirdPanelWidth}"
         				Padding="0" Margin="0"
         				BorderThickness="5" Style="{StaticResource NextButtonStyle}">
@@ -287,7 +295,7 @@
         								<RowDefinition Height="3*"/>
         								<RowDefinition Height="3*"/>
         							</Grid.RowDefinitions>
-                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="48" Text="Next"/>
+                                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="48" Text="{Binding Strings.Next, Source={StaticResource PortableStrings}}"/>
                                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="26.667" Grid.Row="1" Text="{Binding NextExhibit.Name}"  Margin="0,30,0,0" FontWeight="Light"/>
         						</Grid>
         					</DataTemplate>
@@ -308,9 +316,8 @@
         </Popup>
 
         <StackPanel Orientation="Horizontal">
-    		<Button x:Name="BackButton" HorizontalAlignment="Left"
-    			    Click="GoBack" 
-    			    IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}"
+    		<Button HorizontalAlignment="Left"
+    			    Click="GoHome" 
     			    Style="{StaticResource BackButtonStyle}" Margin="60" VerticalAlignment="Top" />
     			</StackPanel>
 
