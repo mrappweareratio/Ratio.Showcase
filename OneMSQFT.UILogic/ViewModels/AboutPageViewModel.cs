@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Navigation;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
+using OneMSQFT.UILogic.Interfaces.ViewModels;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
-    public class AboutPageViewModel : BasePageViewModel
+    public class AboutPageViewModel : BasePageViewModel, IAboutPageViewModel
     {
         private readonly IDataService _dataService;
         private readonly IAlertMessageService _messageService;
@@ -36,6 +37,10 @@ namespace OneMSQFT.UILogic.ViewModels
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
 
+        public override void WindowSizeChanged(double width, double height)
+        {
+            //no-op
+        }
     }
 
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Prism.PubSubEvents;
+﻿using System.ComponentModel;
+using Microsoft.Practices.Prism.PubSubEvents;
 using Microsoft.Practices.Prism.StoreApps;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace OneMSQFT.Windows.Views
 
         protected StackPanel TopAppBarContentStackPanel;
         protected Boolean HomeButtonAddedToAppBar = false;
-        
+
         public void InitAppBars()
         {
             var childTransitions = new TransitionCollection { new EntranceThemeTransition() };
@@ -93,7 +94,7 @@ namespace OneMSQFT.Windows.Views
         }
 
         public virtual void TopAppBarEventButtonCommandHandler(String eventId)
-        {            
+        {
         }
 
         async public void HomeButtonClickCommandHandler()
@@ -119,13 +120,13 @@ namespace OneMSQFT.Windows.Views
             TopAppBar.IsOpen = false;
         }
 
-        public virtual void PopulateTopAppbar(BasePageViewModel vm)
+        public virtual void PopulateTopAppbar(IBasePageViewModel vm)
         {
             var homeButton = new Button();
             homeButton.Style = (Style)App.Current.Resources["OMSQFTAppBarHomeButtonStyle"];
             homeButton.Command = TopAppBarEventButtonCommand;
             homeButton.CommandParameter = null;
-        //    TopAppBarContentStackPanel.Children.Add(homeButton);
+            //    TopAppBarContentStackPanel.Children.Add(homeButton);
             foreach (var e in vm.SquareFootEvents)
             {
                 var b = new Button();
@@ -139,5 +140,9 @@ namespace OneMSQFT.Windows.Views
             }
         }
 
+        public T GetDataContextAsViewModel<T>() where T : INotifyPropertyChanged
+        {
+            return (T)DataContext;
+        }
     }
 }

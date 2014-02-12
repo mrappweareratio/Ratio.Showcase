@@ -1,11 +1,12 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
 using Microsoft.Practices.Prism.StoreApps;
 
 namespace OneMSQFT.UILogic.Interfaces.ViewModels
 {
-    public interface ITimelinePageViewModel
+    public interface ITimelinePageViewModel : IBasePageViewModel
     {
         double ZoomedOutItemHeight { get; }
         double ZoomedOutItemWidth { get; }
@@ -14,11 +15,7 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         double FullScreenHeight { get; set; }
         double FullScreenWidth { get; set; }
         double ExhibitItemHeight { get; }
-        double ExhibitItemWidth { get; }
-        /// <summary>
-        /// Application Navigation Bar Bound Top Level Event Items
-        /// </summary>
-        ObservableCollection<EventItemViewModel> SquareFootEvents { get; }
+        double ExhibitItemWidth { get; }        
         /// <summary>
         /// Timeline Page Zoomed In View Items
         /// </summary>
@@ -27,7 +24,6 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         /// Timeline Page Zoomed Out View Items
         /// </summary>
         ObservableCollection<EventItemViewModel> TimeLineMenuItems { get; }
-        void WindowSizeChanged(double width, double height);
         DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
         void EventHeroItemClickCommandHandler(EventItemViewModel item);
     }

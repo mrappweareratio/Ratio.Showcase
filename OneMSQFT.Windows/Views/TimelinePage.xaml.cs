@@ -34,19 +34,19 @@ namespace OneMSQFT.Windows.Views
             InitAppBars();
             Loaded += TimelinePage_Loaded;
 
-            var vm = this.DataContext as ITimelinePageViewModel;
+            var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
             vm.FullScreenHeight = Window.Current.Bounds.Height;
             vm.FullScreenWidth = Window.Current.Bounds.Width;
-            ((TimelinePageViewModel)this.DataContext).PropertyChanged += TimelinePage_PropertyChanged;
+            vm.PropertyChanged += TimelinePage_PropertyChanged;
         }
 
         void TimelinePage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "SquareFootEvents")
             {
-                if (((TimelinePageViewModel)this.DataContext).SquareFootEvents.Count > 0)
+                if (GetDataContextAsViewModel<ITimelinePageViewModel>().SquareFootEvents.Count > 0)
                 {
-                    this.PopulateTopAppbar(((BasePageViewModel)this.DataContext));
+                    this.PopulateTopAppbar(GetDataContextAsViewModel<TimelinePageViewModel>());
                 }
             }
         }
@@ -157,7 +157,7 @@ namespace OneMSQFT.Windows.Views
             }
         }
 
-        public override void PopulateTopAppbar(BasePageViewModel vm)
+        public override void PopulateTopAppbar(IBasePageViewModel vm)
         {
             base.PopulateTopAppbar(vm);
             AboutButton.Command = AboutButtonClickCommand;

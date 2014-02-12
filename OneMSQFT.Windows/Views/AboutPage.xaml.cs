@@ -15,25 +15,22 @@ namespace OneMSQFT.Windows.Views
             this.InitializeComponent();
             InitAppBars();
             Loaded += AboutPage_Loaded;
+            var vm = GetDataContextAsViewModel<IBasePageViewModel>();
+            vm.PropertyChanged += AboutPage_PropertyChanged;
         }
 
         void AboutPage_Loaded(object sender, RoutedEventArgs e)
         {
-            ((AboutPageViewModel)this.DataContext).PropertyChanged += AboutPage_PropertyChanged;
-            var vm = this.DataContext as IAboutPageViewModel;
-            if (vm != null)
-            {
-                vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-            }
+            GetDataContextAsViewModel<IBasePageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
         }
 
         void AboutPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "SquareFootEvents")
             {
-                if (((AboutPageViewModel)this.DataContext).SquareFootEvents.Count > 0)
+                if (GetDataContextAsViewModel<IBasePageViewModel>().SquareFootEvents.Count > 0)
                 {
-                    this.PopulateTopAppbar(((BasePageViewModel)this.DataContext));
+                    this.PopulateTopAppbar(GetDataContextAsViewModel<IBasePageViewModel>());
                 }
             }
         }
@@ -45,7 +42,7 @@ namespace OneMSQFT.Windows.Views
             BottomAppBar.IsOpen = false;
         }
 
-        public override void PopulateTopAppbar(BasePageViewModel vm)
+        public override void PopulateTopAppbar(IBasePageViewModel vm)
         {
             base.PopulateTopAppbar(vm);
             this.HomeButton.Command = this.HomeButtonClickCommand;

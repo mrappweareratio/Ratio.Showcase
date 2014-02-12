@@ -173,7 +173,7 @@ namespace OneMSQFT.Windows.DesignViewModels
                 return (EventItemHeight / 4) - 1;
             }
         }
-        public void WindowSizeChanged(double width, double height)
+        public override void WindowSizeChanged(double width, double height)
         {
             FullScreenHeight = height;
             FullScreenWidth = width;
@@ -192,6 +192,6 @@ namespace OneMSQFT.Windows.DesignViewModels
         {
             if (item == null) return;
             SelectedEvent = item;
-        }
+        }       
     }
 }

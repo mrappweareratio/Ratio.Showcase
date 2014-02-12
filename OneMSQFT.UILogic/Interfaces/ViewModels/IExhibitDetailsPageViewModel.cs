@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
@@ -7,7 +8,7 @@ using System;
 
 namespace OneMSQFT.UILogic.Interfaces.ViewModels
 {
-    public interface IExhibitDetailsPageViewModel
+    public interface IExhibitDetailsPageViewModel : IBasePageViewModel
     {
         ExhibitItemViewModel Exhibit { get; set; }
         ExhibitItemViewModel NextExhibit { get; }
@@ -17,7 +18,5 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         double ExhibitItemHeight { get; }
         DelegateCommand<MediaContentSourceItemViewModel> LaunchVideoCommand { get; }
         DelegateCommand<String> NextExhibitCommand { get; }
-        ObservableCollection<EventItemViewModel> SquareFootEvents { get; }
-        void WindowSizeChanged(double width, double height);        
     }
 }

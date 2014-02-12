@@ -5,8 +5,8 @@ using Microsoft.Practices.Prism.StoreApps;
 
 namespace OneMSQFT.UILogic.Interfaces.ViewModels
 {
-    public interface IAboutPageViewModel
+    public interface IAboutPageViewModel : IBasePageViewModel
     {
-        void WindowSizeChanged(double width, double height);
+        
     }
 }
