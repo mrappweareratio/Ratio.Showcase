@@ -158,7 +158,7 @@
 
     </UserControl.Resources>
 
-    <Grid Background="Black" Opacity=".8">
+    <Grid Background="Black">
         <mmppf:MediaPlayer x:Name="player" Grid.Row="1" IsSkipPreviousVisible="True" IsSkipNextVisible="True" IsFullScreen="True" Loaded="player_Loaded">
             <mmppf:MediaPlayer.Plugins>
                 <StaticResource ResourceKey="PlaylistPlugin"/>

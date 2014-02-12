@@ -44,6 +44,7 @@ namespace OneMSQFT.UILogic.ViewModels
             NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit);
         }
 
+        private ExhibitItemViewModel _nextExhibit;
         public ExhibitItemViewModel NextExhibit
         {
             get { return _nextExhibit; }
@@ -97,7 +98,6 @@ namespace OneMSQFT.UILogic.ViewModels
 
         private ExhibitItemViewModel _exhibit;
         private string _exhibitDetailTitle;
-        private ExhibitItemViewModel _nextExhibit;
 
         public ExhibitItemViewModel Exhibit
         {

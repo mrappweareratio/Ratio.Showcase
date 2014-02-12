@@ -19,11 +19,22 @@ namespace OneMSQFT.Windows.Views
 
         void AboutPage_Loaded(object sender, RoutedEventArgs e)
         {
-            PopulateTopAppbar(((BasePageViewModel)this.DataContext));
+            ((AboutPageViewModel)this.DataContext).PropertyChanged += AboutPage_PropertyChanged;
             var vm = this.DataContext as IAboutPageViewModel;
             if (vm != null)
             {
                 vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
+            }
+        }
+
+        void AboutPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SquareFootEvents")
+            {
+                if (((AboutPageViewModel)this.DataContext).SquareFootEvents.Count > 0)
+                {
+                    this.PopulateTopAppbar(((BasePageViewModel)this.DataContext));
+                }
             }
         }
 
@@ -38,7 +49,7 @@ namespace OneMSQFT.Windows.Views
         {
             base.PopulateTopAppbar(vm);
             this.HomeButton.Command = this.HomeButtonClickCommand;
-            this.AdminButton.Command = this.AdminButtonClickCommand;
+            this.AboutButton.Command = this.AboutButtonClickCommand;
         }
 
     }

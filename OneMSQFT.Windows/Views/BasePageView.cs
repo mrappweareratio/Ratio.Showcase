@@ -25,7 +25,6 @@ namespace OneMSQFT.Windows.Views
         public DelegateCommand AboutButtonClickCommand { get; set; }
         public DelegateCommand FilterButtonClickCommand { get; set; }
         public DelegateCommand<Button> AdminButtonClickCommand { get; set; }
-        public DelegateCommand AdminSubmitButtonClickCommand { get; set; }
 
         protected StackPanel TopAppBarContentStackPanel;
         protected Boolean HomeButtonAddedToAppBar = false;
@@ -61,14 +60,36 @@ namespace OneMSQFT.Windows.Views
                 Style = (Style)App.Current.Resources["HorizontalScrollViewerStyle"]
             };
             TopAppBar.Content = topScrollViewer;
+            TopAppBar.Opened += TopAppBar_Opened;
+            BottomAppBar.Opened += BottomAppBar_Opened;
+            TopAppBar.Closed += TopAppBar_Closed;
+            BottomAppBar.Closed += BottomAppBar_Closed;
 
             TopAppBarEventButtonCommand = new DelegateCommand<String>(TopAppBarEventButtonCommandHandler);
             HomeButtonClickCommand = new DelegateCommand(HomeButtonClickCommandHandler);
             AboutButtonClickCommand = new DelegateCommand(AboutButtonClickCommandHandler);
             FilterButtonClickCommand = new DelegateCommand(FilterButtonClickCommandHandler);
             AdminButtonClickCommand = new DelegateCommand<Button>(AdminButtonClickCommandHandler);
-            AdminSubmitButtonClickCommand = new DelegateCommand(AdminSubmitButtonClickCommandHandler);
+        }
 
+        void BottomAppBar_Closed(object sender, object e)
+        {
+            BottomAppBar.Visibility = Visibility.Collapsed;
+        }
+
+        void TopAppBar_Closed(object sender, object e)
+        {
+            BottomAppBar.Visibility = Visibility.Collapsed;
+        }
+
+        void BottomAppBar_Opened(object sender, object e)
+        {
+            BottomAppBar.Visibility = Visibility.Visible;
+        }
+
+        void TopAppBar_Opened(object sender, object e)
+        {
+            BottomAppBar.Visibility = Visibility.Visible;
         }
 
         public virtual void TopAppBarEventButtonCommandHandler(String eventId)
@@ -77,14 +98,14 @@ namespace OneMSQFT.Windows.Views
 
         async public void HomeButtonClickCommandHandler()
         {
-            this.Frame.Navigate(typeof(TimelinePage));
+            Frame.Navigate(typeof(TimelinePage));
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
         }
 
         async public void AboutButtonClickCommandHandler()
         {
-            this.Frame.Navigate(typeof(AboutPage));
+            Frame.Navigate(typeof(AboutPage));
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
         }
@@ -94,13 +115,8 @@ namespace OneMSQFT.Windows.Views
         }
         async public virtual void AdminButtonClickCommandHandler(Button sender)
         {
-            this.TopAppBar.IsOpen = false;
-        }
-
-        async public virtual void AdminSubmitButtonClickCommandHandler()
-        {
-            this.BottomAppBar.IsOpen = false;
-            this.TopAppBar.IsOpen = false;
+            BottomAppBar.IsOpen = false;
+            TopAppBar.IsOpen = false;
         }
 
         public virtual void PopulateTopAppbar(BasePageViewModel vm)
@@ -109,7 +125,7 @@ namespace OneMSQFT.Windows.Views
             homeButton.Style = (Style)App.Current.Resources["OMSQFTAppBarHomeButtonStyle"];
             homeButton.Command = TopAppBarEventButtonCommand;
             homeButton.CommandParameter = null;
-           // TopAppBarContentStackPanel.Children.Add(homeButton);
+        //    TopAppBarContentStackPanel.Children.Add(homeButton);
             foreach (var e in vm.SquareFootEvents)
             {
                 var b = new Button();

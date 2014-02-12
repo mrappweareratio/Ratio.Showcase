@@ -30,12 +30,25 @@ namespace OneMSQFT.Windows.Views
         public TimelinePage()
         {
             this.InitializeComponent();
-            this.StoryboardSeeker.Begin(); // a nice to have 
+
             InitAppBars();
             Loaded += TimelinePage_Loaded;
+
             var vm = this.DataContext as ITimelinePageViewModel;
             vm.FullScreenHeight = Window.Current.Bounds.Height;
             vm.FullScreenWidth = Window.Current.Bounds.Width;
+            ((TimelinePageViewModel)this.DataContext).PropertyChanged += TimelinePage_PropertyChanged;
+        }
+
+        void TimelinePage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SquareFootEvents")
+            {
+                if (((TimelinePageViewModel)this.DataContext).SquareFootEvents.Count > 0)
+                {
+                    this.PopulateTopAppbar(((BasePageViewModel)this.DataContext));
+                }
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -59,8 +72,7 @@ namespace OneMSQFT.Windows.Views
         private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
         {
             _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(itemsGridView);
-            itemsGridView.Opacity = 1;
-            PopulateTopAppbar(((BasePageViewModel)this.DataContext));
+           // itemsGridView.Opacity = 1;
         }
 
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
@@ -128,14 +140,13 @@ namespace OneMSQFT.Windows.Views
         {
             if (!VideoPopup.IsOpen)
             {
-                semanticZoom.Opacity = 0;
                 VideoPopup.IsOpen = true; 
             }
         }
 
         private void VideoPopup_Closed(object sender, object e)
         {
-            semanticZoom.Opacity = 1;
+
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
@@ -149,9 +160,7 @@ namespace OneMSQFT.Windows.Views
         public override void PopulateTopAppbar(BasePageViewModel vm)
         {
             base.PopulateTopAppbar(vm);
-            this.AboutButton.Command = this.AboutButtonClickCommand;
-            this.AdminButton.Command = this.AdminButtonClickCommand;
-            this.AdminButton.CommandParameter = this.AdminButton;
+            AboutButton.Command = AboutButtonClickCommand;
         }
 
         private void AdminButton_OnClick(object sender, RoutedEventArgs e)

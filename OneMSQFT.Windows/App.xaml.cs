@@ -10,6 +10,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -94,6 +95,11 @@ namespace OneMSQFT.Windows
         protected override object Resolve(Type type)
         {
             return _container.Resolve(type);
+        }
+
+        protected override IList<SettingsCommand> GetSettingsCommands()
+        {
+            return _application.GetSettingsCommands();
         }
     }
 }

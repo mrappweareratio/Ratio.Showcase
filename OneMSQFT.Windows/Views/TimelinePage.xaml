@@ -437,7 +437,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="OMSQFTTimelineEventItemTemplate">
-            <Border BorderThickness="0">
+            <Border BorderThickness="0" Margin="10">
                 <Grid Width="{Binding DataSource.EventItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                       Height="{Binding DataSource.EventItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}">
                     <Grid.RowDefinitions>
@@ -456,7 +456,7 @@
                             CommandParameter="{Binding}" 
                             Command="{Binding DataSource.EventHeroItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                             Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" 
-                            Style="{StaticResource HeroButtonStyle}"  >
+                            Style="{StaticResource HeroButtonStyle}" Margin="0,0,1,0">
                         <Button.Content>
                             <Image Source="{Binding PhotoFilePath, Mode=OneWay}"
 					            VerticalAlignment="Center"
@@ -516,7 +516,7 @@
 
     </omsqft:BasePageView.Resources>
 	<omsqft:BasePageView.BottomAppBar>
-		<AppBar Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent">
+		<AppBar x:Name="appBar" Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent" Visibility="Collapsed">
 			<Border Height="90" BorderBrush="{StaticResource OneMSQFTAppBarAccentGrayBrush}" BorderThickness="0,10,0,0" >
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -524,10 +524,9 @@
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
 					<StackPanel Orientation="Horizontal"  Margin="20,0,0,0">
-						<Button x:Name="AboutButton" HorizontalAlignment="Stretch" Content="ABOUT" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}" Visibility="Collapsed" />
 					</StackPanel>
 					<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
-						<Button x:Name="AdminButton" HorizontalAlignment="Stretch" Content="ABOUT 1MSQFT" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+						<Button x:Name="AboutButton" HorizontalAlignment="Stretch" Content="ABOUT 1MSQFT" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
 					</StackPanel>
 				</Grid>
 			</Border>
@@ -565,12 +564,15 @@
         </Grid>
         <SemanticZoom x:Name="semanticZoom" Background="{x:Null}"
                       IsZoomedInViewActive="True" 
+                      Transitions="{x:Null}"
                       ViewChangeCompleted="semanticZoom_ViewChangeCompleted" 
                       ViewChangeStarted="semanticZoom_ViewChangeStarted" Grid.RowSpan="2" d:IsHidden="True" VerticalAlignment="Top">
             <SemanticZoom.ZoomedOutView>
                 <GridView x:Name="zoomedOutGrid"
                           Padding="44,165,0,0"
 						  Margin="0"
+                          Transitions="{x:Null}"
+                          ItemContainerTransitions="{x:Null}"
                           Height="{Binding DataSource.ZoomedOutGridHeight, Source={StaticResource DataContextProxy}}"
                           Background="Transparent"
                           IsSwipeEnabled="False"
@@ -593,9 +595,9 @@
                 <!-- The MultipleSizedGridView is a custom user control that is used to display multiple-sized elements in the grid.
                 It also includes the functionality of the custom AutoRotatingGridView control, that automatically rearranges items,
                 when the app is switched to portrait mode, or to minimal layout mode. -->
-                <omsqftcontrols:MultipleSizedGridView x:Name="itemsGridView"
-                    AutomationProperties.AutomationId="HubPageItemGridView"
-                    AutomationProperties.Name="Grouped Items"
+                    <omsqftcontrols:MultipleSizedGridView x:Name="itemsGridView"
+                    Transitions="{x:Null}"
+                    ItemContainerTransitions="{x:Null}"
                     Margin="0"
                     Padding="0"
                     Background="White"
@@ -638,5 +640,6 @@
             </Grid>
         </Popup>
         </Grid>
+        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Black" Opacity=".7" Visibility="{Binding Visibility, ElementName=appBar, Mode=TwoWay}" IsHitTestVisible="False"></Rectangle>
     </Grid>
 </omsqft:BasePageView>
