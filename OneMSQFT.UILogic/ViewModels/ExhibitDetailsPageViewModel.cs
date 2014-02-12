@@ -56,10 +56,6 @@ namespace OneMSQFT.UILogic.ViewModels
 
         async public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
-            var ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as String);
-            Exhibit = new ExhibitItemViewModel(ed.Exhibit);
-            NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit);
-
             var events = await _dataService.GetEvents();
             if (events == null)
             {
@@ -67,10 +63,15 @@ namespace OneMSQFT.UILogic.ViewModels
                 return;
             }
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
+            
+            var ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as String);
+            Exhibit = new ExhibitItemViewModel(ed.Exhibit);
+            NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit);
+                        
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
 
-        async public void LaunchVideoCommandHandler(MediaContentSourceItemViewModel item)
+        public void LaunchVideoCommandHandler(MediaContentSourceItemViewModel item)
         {
             if (item == null) return;
             SelectedMediaContentSource = item;

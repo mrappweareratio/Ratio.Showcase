@@ -82,6 +82,24 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             Assert.IsTrue(validEvents, "ValidEvents");
         }
 
+        [TestMethod]
+        async public Task DataRepository_Events_Unique()
+        {
+            var result = await DataRepository.GetSiteData();
+            var events = result.Events.ToList();
+            var uniqueEvents = result.Events.Select(x => x.Id).Distinct().Count();            
+            Assert.AreEqual(events.Count, uniqueEvents,  "All Events Unique");
+        }
+
+        [TestMethod]
+        async public Task DataRepository_Exhibits_Unique()
+        {
+            var result = await DataRepository.GetSiteData();
+            var exhibits = result.Events.SelectMany(x => x.Exhibits).ToList();
+            var uniqueEvents = exhibits.Select(x => x.Id).Distinct().Count();
+            Assert.AreEqual(exhibits.Count, uniqueEvents, "All Exhibits Unique");
+        }
+
 
         //HELPER METHODS
         public bool ValidateExhibit(IExhibit e)

@@ -18,6 +18,8 @@ namespace OneMSQFT.UILogic.DataLayer
 
         public Task<SiteDataResult> GetSiteData()
         {
+            var exhibitId = 0;
+            var eventId = 0;
             var result = new SiteDataResult
             {
                 Events = new List<Event>
@@ -25,7 +27,7 @@ namespace OneMSQFT.UILogic.DataLayer
                      new Event
                     {
                           
-                        Id = "0",
+                        Id = Convert.ToString(eventId++),
                         Name = "Sundance",
                         DisplayDate = "MMM D-D",
                         Description = "Sundance Film Festival",
@@ -37,7 +39,7 @@ namespace OneMSQFT.UILogic.DataLayer
                         {
                             new Exhibit()
                             {
-                                Id = "0",
+                                Id = Convert.ToString(exhibitId++),
                                 Name = "Sundance Exhibit Zero",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
@@ -48,7 +50,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                             new Exhibit()
                             {
-                                Id = "1",
+                                Id = Convert.ToString(exhibitId++),
                                 Name = "Sundance Exhibit One",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
@@ -61,7 +63,7 @@ namespace OneMSQFT.UILogic.DataLayer
                     },
                      new Event
                     {
-                        Id="1",
+                       Id = Convert.ToString(eventId++),
                         Name = "Miami",
                         DisplayDate = "MMM D-D",
                         Description = "Event at Miami",
@@ -73,7 +75,7 @@ namespace OneMSQFT.UILogic.DataLayer
                         {
                             new Exhibit()
                             {
-                                Id = "0",
+                                Id = Convert.ToString(exhibitId++),
                                 Name = "Miami Exhibit Zero",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
@@ -84,7 +86,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                             new Exhibit()
                             {
-                                Id = "1",
+                                Id = Convert.ToString(exhibitId++),
                                 Name = "Miami Exhibit One",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
@@ -95,7 +97,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "2",
+                                Id = Convert.ToString(exhibitId++),
                                 Name = "Miami Exhibit Two",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
@@ -108,7 +110,7 @@ namespace OneMSQFT.UILogic.DataLayer
                     },
                      new Event
                     {
-                        Id="3",
+                        Id = Convert.ToString(eventId++),
                         Name = "New York",
                         DisplayDate = "MMM D-D",
                         Description = "Event at New York",
@@ -120,7 +122,7 @@ namespace OneMSQFT.UILogic.DataLayer
                         {
                             new Exhibit()
                             {
-                                Id = "0",
+                                Id = Convert.ToString(exhibitId++),
                                 Name = "New York Exhibit Zero",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
@@ -131,7 +133,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                             new Exhibit()
                             {
-                                Id = "1",
+                               Id = Convert.ToString(exhibitId++),
                                 Name = "New York Exhibit One",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
@@ -142,7 +144,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "2",
+                               Id = Convert.ToString(exhibitId++),
                                 Name = "New York Exhibit Two",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
@@ -153,7 +155,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "3",
+                               Id = Convert.ToString(exhibitId++),
                                 Name = "New York Exhibit Three",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
@@ -166,7 +168,7 @@ namespace OneMSQFT.UILogic.DataLayer
                     },
                      new Event
                     {
-                        Id="4",
+                       Id = Convert.ToString(eventId++),
                         Name = "New Jersey",
                         DisplayDate = "MMM D-D",
                         Description = "Event at New Jersey",
@@ -178,7 +180,7 @@ namespace OneMSQFT.UILogic.DataLayer
                         {
                             new Exhibit()
                             {
-                                Id = "0",
+                               Id = Convert.ToString(exhibitId++),
                                 Name = "New Jersey Exhibit Zero",
                                 DisplayDate = "MMM D-D",
                                 Color = "555FE4",
@@ -189,7 +191,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                             new Exhibit()
                             {
-                                Id = "1",
+                               Id = Convert.ToString(exhibitId++),
                                 Name = "New Jersey Exhibit One",
                                 DisplayDate = "MMM D-D",
                                 Color = "555FE4",
@@ -200,7 +202,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "2",
+                                Id = Convert.ToString(exhibitId++),
                                 Name = "New Jersey Exhibit Two",
                                 DisplayDate = "MMM D-D",
                                 Color = "555FE4",
@@ -211,7 +213,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "3",
+                               Id = Convert.ToString(exhibitId++),
                                 Name = "New Jersey Exhibit Three",
                                 DisplayDate = "MMM D-D",
                                 Color = "555FE4",
@@ -224,7 +226,7 @@ namespace OneMSQFT.UILogic.DataLayer
                     },
                      new Event
                     {
-                        Id="5",
+                        Id = Convert.ToString(eventId++),
                         Name = "Dallas",
                         DisplayDate = "MMM D-D",
                         Description = "Event at Dallas",
@@ -236,7 +238,7 @@ namespace OneMSQFT.UILogic.DataLayer
                         {
                             new Exhibit()
                             {
-                                Id = "0",
+                               Id = Convert.ToString(exhibitId++),
                                 Name = "Dallas Exhibit Zero",
                                   DisplayDate = "MMM D-D",
                                 Color = "4CC661",
@@ -247,7 +249,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                             new Exhibit()
                             {
-                                Id = "1",
+                          Id = Convert.ToString(exhibitId++),
                                 Name = "Dallas Exhibit One",
                                   DisplayDate = "MMM D-D",
                                 Color = "4CC661",
@@ -258,7 +260,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "2",
+                               Id = Convert.ToString(exhibitId++),
                                 Name = "Dallas Exhibit Two",
                                 DisplayDate = "MMM D-D",
                                 Color = "4CC661",
@@ -269,7 +271,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "3",
+                              Id = Convert.ToString(exhibitId++),
                                 Name = "Dallas Exhibit Three",
                                 DisplayDate = "MMM D-D",
                                 Color = "4CC661",
@@ -280,7 +282,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "4",
+                               Id = Convert.ToString(exhibitId++),
                                 Name = "Dallas Exhibit Four",
                                 DisplayDate = "MMM D-D",
                                 Color = "4CC661",
@@ -293,7 +295,7 @@ namespace OneMSQFT.UILogic.DataLayer
                     },
                      new Event
                     {
-                        Id="6",
+                       Id = Convert.ToString(eventId++),
                         Name = "Portland",
                         DisplayDate = "MMM D-D",
                         Description = "Event at Portland",
@@ -305,7 +307,7 @@ namespace OneMSQFT.UILogic.DataLayer
                         {
                             new Exhibit()
                             {
-                                Id = "0",
+                               Id = Convert.ToString(exhibitId++),
                                 Name = "Portland Exhibit Zero",
                                   DisplayDate = "MMM D-D",
                                 Color = "6357E4",
@@ -316,7 +318,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                             new Exhibit()
                             {
-                                Id = "1",
+                                Id = Convert.ToString(exhibitId++),
                                 Name = "Portland Exhibit One",
                                   DisplayDate = "MMM D-D",
                                 Color = "6357E4",
@@ -327,7 +329,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "2",
+                               Id = Convert.ToString(exhibitId++),
                                 Name = "Portland Exhibit Two",
                                 DisplayDate = "MMM D-D",
                                 Color = "6357E4",
@@ -338,7 +340,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "3",
+                               Id = Convert.ToString(exhibitId++),
                                 Name = "Portland Exhibit Three",
                                 DisplayDate = "MMM D-D",
                                 Color = "6357E4",
@@ -349,7 +351,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "4",
+                               Id = Convert.ToString(exhibitId++),
                                 Name = "Portland Exhibit Four",
                                 DisplayDate = "MMM D-D",
                                 Color = "6357E4",
@@ -362,7 +364,7 @@ namespace OneMSQFT.UILogic.DataLayer
                     },
                      new Event
                     {
-                        Id="7",
+                       Id = Convert.ToString(eventId++),
                         Name = "Nashville",
                         DisplayDate = "MMM D-D",
                         Description = "Event at Nashville",
@@ -374,7 +376,7 @@ namespace OneMSQFT.UILogic.DataLayer
                         {
                             new Exhibit()
                             {
-                                Id = "0",
+                              Id = Convert.ToString(exhibitId++),
                                 Name = "Nashville Exhibit Zero",
                                 DisplayDate = "MMM D-D",
                                 Color = "CB4D3A",
@@ -385,7 +387,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                             new Exhibit()
                             {
-                                Id = "1",
+                              Id = Convert.ToString(exhibitId++),
                                 Name = "Nashville Exhibit One",
                                   DisplayDate = "MMM D-D",
                                 Color = "CB4D3A",
@@ -396,7 +398,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "2",
+                             Id = Convert.ToString(exhibitId++),
                                 Name = "Nashville Exhibit Two",
                                 DisplayDate = "MMM D-D",
                                 Color = "CB4D3A",
@@ -407,7 +409,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "3",
+                             Id = Convert.ToString(exhibitId++),
                                 Name = "Nashville Exhibit Three",
                                 DisplayDate = "MMM D-D",
                                 Color = "6357E4",
@@ -418,7 +420,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "4",
+                               Id = Convert.ToString(exhibitId++),
                                 Name = "Nashville Exhibit Four",
                                 DisplayDate = "MMM D-D",
                                 Color = "CB4D3A",
@@ -429,7 +431,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             },
                              new Exhibit()
                             {
-                                Id = "5",
+                              Id = Convert.ToString(exhibitId++),
                                 Name = "Nashville Exhibit Four",
                                 DisplayDate = "MMM D-D",
                                 Color = "CB4D3A",
