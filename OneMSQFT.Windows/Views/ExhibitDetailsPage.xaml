@@ -295,7 +295,7 @@
         								<RowDefinition Height="3*"/>
         								<RowDefinition Height="3*"/>
         							</Grid.RowDefinitions>
-                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="48" Text="Next"/>
+                                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="48" Text="{Binding Strings.Next, Source={StaticResource PortableStrings}}"/>
                                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="26.667" Grid.Row="1" Text="{Binding NextExhibit.Name}"  Margin="0,30,0,0" FontWeight="Light"/>
         						</Grid>
         					</DataTemplate>

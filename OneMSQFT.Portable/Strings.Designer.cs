@@ -80,6 +80,15 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to since December 2013.
+        /// </summary>
+        public static string Since {
+            get {
+                return ResourceManager.GetString("Since", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} sqft.
         /// </summary>
         public static string SqftFormat {

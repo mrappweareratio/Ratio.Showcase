@@ -28,6 +28,66 @@
 
         <!-- Container styles -->
 
+        <Style x:Key="EventGalleryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource ButtonBackgroundThemeBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundThemeBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderThemeBrush}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="ContentContainer" Background="White" RenderTransformOrigin="0.5,0.5">
+                            <Grid.RenderTransform>
+                                <CompositeTransform/>
+                            </Grid.RenderTransform>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOverPressed">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="Border"
+        						Background="{TemplateBinding Background}"
+        						BorderBrush="{TemplateBinding BorderBrush}"
+        						BorderThickness="{TemplateBinding BorderThickness}"
+        						Margin="0">
+                                <Grid>
+                                    <ContentPresenter x:Name="ContentPresenter"
+        							    Content="{TemplateBinding Content}"
+        							    ContentTransitions="{TemplateBinding ContentTransitions}"
+        							    ContentTemplate="{TemplateBinding ContentTemplate}"
+        							    Margin="{TemplateBinding Padding}"
+        							    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+        							    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="TimelineItemContainerStyle" TargetType="GridViewItem">
             <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
             <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
@@ -41,17 +101,138 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="GridViewItem">
                         <Grid>
-                            <Border x:Name="OuterContainer" HorizontalAlignment="Left" Background="Transparent">
-                                <Grid>
-                                    <ContentPresenter x:Name="contentPresenter"
-        								ContentTransitions="{TemplateBinding ContentTransitions}"
-        								ContentTemplate="{TemplateBinding ContentTemplate}"
-        								Content="{TemplateBinding Content}"
-        								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-        								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-        								Margin="0" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver"/>
+                                    <VisualState x:Name="Pressed"/>
+                                    <VisualState x:Name="PointerOverPressed"/>
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused"/>
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="PointerFocused"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionHintStates">
+                                    <VisualState x:Name="VerticalSelectionHint"/>
+                                    <VisualState x:Name="HorizontalSelectionHint"/>
+                                    <VisualState x:Name="NoSelectionHint" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselecting"/>
+                                    <VisualState x:Name="Unselected"/>
+                                    <VisualState x:Name="UnselectedPointerOver"/>
+                                    <VisualState x:Name="UnselectedSwiping"/>
+                                    <VisualState x:Name="Selecting">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="SelectedBorder"
+    										Storyboard.TargetProperty="Opacity"
+    										Duration="0"
+    										To="1" />
+                                            <DoubleAnimation Storyboard.TargetName="SelectedCheckMark"
+    										Storyboard.TargetProperty="Opacity"
+    										Duration="0"
+    										To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="SelectedBorder"
+    										Storyboard.TargetProperty="Opacity"
+    										Duration="0"
+    										To="1" />
+                                            <DoubleAnimation Storyboard.TargetName="SelectedCheckMark"
+    										Storyboard.TargetProperty="Opacity"
+    										Duration="0"
+    										To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="SelectedSwiping">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="SelectedBorder"
+    										Storyboard.TargetProperty="Opacity"
+    										Duration="0"
+    										To="1" />
+                                            <DoubleAnimation Storyboard.TargetName="SelectedCheckMark"
+    										Storyboard.TargetProperty="Opacity"
+    										Duration="0"
+    										To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="SelectedUnfocused">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="SelectedBorder"
+    										Storyboard.TargetProperty="Opacity"
+    										Duration="0"
+    										To="1" />
+                                            <DoubleAnimation Storyboard.TargetName="SelectedCheckMark"
+    										Storyboard.TargetProperty="Opacity"
+    										Duration="0"
+    										To="1" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DragStates">
+                                    <VisualState x:Name="NotDragging" />
+                                    <VisualState x:Name="Dragging"/>
+                                    <VisualState x:Name="DraggingTarget"/>
+                                    <VisualState x:Name="MultipleDraggingPrimary"/>
+                                    <VisualState x:Name="MultipleDraggingSecondary"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="ReorderHintStates">
+                                    <VisualState x:Name="NoReorderHint"/>
+                                    <VisualState x:Name="BottomReorderHint"/>
+                                    <VisualState x:Name="TopReorderHint"/>
+                                    <VisualState x:Name="RightReorderHint"/>
+                                    <VisualState x:Name="LeftReorderHint"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DataVirtualizationStates">
+                                    <VisualState x:Name="DataAvailable"/>
+                                    <VisualState x:Name="DataPlaceholder"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="OuterContainer" Background="Transparent">
+                                <Grid x:Name="ReorderHintContent" Background="Transparent">
+                                    <Border x:Name="ContentContainer">
+                                        <Grid x:Name="InnerDragContent">
+                                            <Border x:Name="ContentBorder"
+    									Background="{TemplateBinding Background}"
+    									BorderBrush="{TemplateBinding BorderBrush}"
+    									BorderThickness="{TemplateBinding BorderThickness}"
+    									Margin="0">
+                                                <Grid>
+                                                    <ContentPresenter x:Name="contentPresenter"
+    											ContentTransitions="{TemplateBinding ContentTransitions}"
+    											ContentTemplate="{TemplateBinding ContentTemplate}"
+    											Content="{TemplateBinding Content}"
+    											HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+    											VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+    											Margin="0" />
+                                                </Grid>
+                                            </Border>
+                                            <Rectangle x:Name="SelectedBorder"
+    									IsHitTestVisible="False"
+    									Opacity="0"
+                                        HorizontalAlignment="Stretch"
+    									Stroke="{StaticResource OMSQFT_LogoDarkBlueBrush}"
+    									StrokeThickness="{StaticResource ListViewItemSelectedBorderThemeThickness}"
+    									Margin="0" />
+                                            <Border x:Name="SelectedCheckMarkOuter"
+    									IsHitTestVisible="False"
+    									HorizontalAlignment="Right"
+    									VerticalAlignment="Top"
+    									Margin="0">
+                                                <Grid x:Name="SelectedCheckMark" Opacity="0" Height="40" Width="40">
+                                                    <Path x:Name="SelectedEarmark" Data="M0,0 L40,0 L40,40 z"  Fill="{StaticResource OMSQFT_LogoDarkBlueBrush}" Stretch="Fill"/>
+                                                    <Path Data="F1 M133.1,17.9 L137.2,13.2 L144.6,19.6 L156.4,5.8 L161.2,9.9 L145.6,28.4 z" Fill="{StaticResource ListViewItemCheckThemeBrush}" Height="13" Stretch="Fill" Width="15" HorizontalAlignment="Right" Margin="0,5.5,5.5,0" VerticalAlignment="Top" FlowDirection="LeftToRight"/>
+                                                </Grid>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
                                 </Grid>
                             </Border>
+
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -75,21 +256,9 @@
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal"/>
-                                    <VisualState x:Name="PointerOver">
-                                        <Storyboard>
-                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="PointerOverPressed">
-                                        <Storyboard>
-                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
-                                        </Storyboard>
-                                    </VisualState>
+                                    <VisualState x:Name="PointerOver"/>
+                                    <VisualState x:Name="Pressed"/>
+                                    <VisualState x:Name="PointerOverPressed"/>
                                     <VisualState x:Name="Disabled"/>
                                 </VisualStateGroup>
                                 <VisualStateGroup x:Name="FocusStates">
@@ -131,19 +300,19 @@
                                     <VisualState x:Name="DataPlaceholder"/>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <Border x:Name="OuterContainer" HorizontalAlignment="Left" Margin="0" Padding="0" Background="Transparent">
-                                <Grid x:Name="ReorderHintContent" Background="Transparent">
-                                    <Border x:Name="ContentBorder" Margin="0">
-                                        <Grid>
-                                            <ContentPresenter x:Name="contentPresenter"
-        										ContentTransitions="{TemplateBinding ContentTransitions}"
-        										ContentTemplate="{TemplateBinding ContentTemplate}"
-        										Content="{TemplateBinding Content}"
-        										HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-        										VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-        										Margin="0" />
-                                        </Grid>
-                                    </Border>
+                            <Border x:Name="Border"
+        						    Background="{TemplateBinding Background}"
+        						    BorderBrush="{TemplateBinding BorderBrush}"
+        						    BorderThickness="{TemplateBinding BorderThickness}"
+        						    Margin="0">
+                                <Grid>
+                                    <ContentPresenter x:Name="ContentPresenter"
+        							        Content="{TemplateBinding Content}"
+        							        ContentTransitions="{TemplateBinding ContentTransitions}"
+        							        ContentTemplate="{TemplateBinding ContentTemplate}"
+        							        Margin="{TemplateBinding Padding}"
+        							        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+        							        VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                                 </Grid>
                             </Border>
                         </Grid>
@@ -249,70 +418,14 @@
             </Setter>
         </Style>
 
-        <Style x:Key="EventGalleryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{StaticResource ButtonBackgroundThemeBrush}" />
-            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundThemeBrush}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderThemeBrush}" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="Margin" Value="0" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Grid x:Name="ContentContainer" Background="White" RenderTransformOrigin="0.5,0.5">
-                            <Grid.RenderTransform>
-                                <CompositeTransform/>
-                            </Grid.RenderTransform>
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal" />
-                                    <VisualState x:Name="PointerOver">
-                                        <Storyboard>
-                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="PointerOverPressed">
-                                        <Storyboard>
-                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <Border x:Name="Border"
-        						Background="{TemplateBinding Background}"
-        						BorderBrush="{TemplateBinding BorderBrush}"
-        						BorderThickness="{TemplateBinding BorderThickness}"
-        						Margin="0">
-                                <Grid>
-                                    <ContentPresenter x:Name="ContentPresenter"
-        							    Content="{TemplateBinding Content}"
-        							    ContentTransitions="{TemplateBinding ContentTransitions}"
-        							    ContentTemplate="{TemplateBinding ContentTemplate}"
-        							    Margin="{TemplateBinding Padding}"
-        							    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-        							    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                                </Grid>
-                            </Border>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
 
         <!-- ItemTemplates styles -->
 
         <DataTemplate x:Key="TimelineExhibitTemplate">
-            <Grid HorizontalAlignment="Left" 
+            <Button Style="{StaticResource EventGalleryButtonStyle}"
+                            CommandParameter="{Binding Id}" 
+                            Command="{Binding DataSource.ExhibitItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" >
+                <Grid HorizontalAlignment="Left" 
                 Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
                 Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
               VerticalAlignment="Top">
@@ -350,7 +463,8 @@
 					TextWrapping="NoWrap"
                     TextAlignment="Center">
                 </TextBlock>
-            </Grid>
+                </Grid>
+            </Button>
         </DataTemplate>
 
         <DataTemplate x:Key="TimelineZoomedOutEventItemTemplate">
@@ -425,9 +539,10 @@
         </DataTemplate>
 
         <DataTemplate x:Key="OMSQFTTimelineEventItemTemplate">
-            <Border BorderThickness="0" Margin="10">
+                <Border BorderThickness="0" Margin="10" Background="Transparent">
                 <Grid Width="{Binding DataSource.EventItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
-                      Height="{Binding DataSource.EventItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}">
+                      Height="{Binding DataSource.EventItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                      Background="Transparent">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -462,39 +577,42 @@
                             <RowDefinition Height="Auto" MinHeight="167"/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="{Binding SquareFootageString}"
-						Foreground="{StaticResource OneMSQFTWhiteBrush}"
-						FontSize="60"
-						Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
+						    Foreground="{StaticResource OneMSQFTWhiteBrush}"
+						    FontSize="60"
+						    Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
                         <TextBlock Text="{Binding Name, Mode=OneWay}"
-						Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-						Style="{StaticResource TitleTextStyle}"
-						TextWrapping="NoWrap"
-						Margin="15,0,15,0" Grid.Row="2"/>
+						    Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+						    Style="{StaticResource TitleTextStyle}"
+						    TextWrapping="NoWrap"
+						    Margin="15,0,15,0" Grid.Row="2"/>
                         <TextBlock Text="{Binding Description}"
-						Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
-						Style="{StaticResource CaptionTextStyle}"
-						TextWrapping="NoWrap"
-						Margin="15,0" Grid.Row="3" HorizontalAlignment="Left"/>
+						    Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
+						    Style="{StaticResource CaptionTextStyle}"
+						    TextWrapping="NoWrap"
+						    Margin="15,0" Grid.Row="3" HorizontalAlignment="Left"/>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <GridView ItemsSource="{Binding Exhibits}"
                               ItemTemplate="{StaticResource TimelineExhibitTemplate}"
                               ItemContainerStyle="{StaticResource TimelineExhibitItemContainerStyle}"
-                              SelectionMode="Single"
+                              SelectionMode="None"
                               IsItemClickEnabled="True"
-                              IsTapEnabled="True">
+                              IsSwipeEnabled="False"
+                              IsHoldingEnabled="False"
+                              ScrollViewer.IsHorizontalScrollChainingEnabled="False"
+                                  ScrollViewer.HorizontalScrollMode="Disabled"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  ScrollViewer.IsHorizontalRailEnabled="False"
+                              ScrollViewer.IsVerticalScrollChainingEnabled="False"
+                                  ScrollViewer.VerticalScrollMode="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                  ScrollViewer.IsVerticalRailEnabled="False"
+                              IsTapEnabled="False">
                             <GridView.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal" />
+                                    <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"   />
                                 </ItemsPanelTemplate>
                             </GridView.ItemsPanel>
-                            <interactivity:Interaction.Behaviors>
-                                <core:EventTriggerBehavior EventName="ItemClick">
-                                    <omsqftbehaviors:NavigateWithEventArgsToPageAction 
-                                TargetPage="OneMSQFT.Windows.Views.ExhibitDetailsPage"
-                                EventArgsParameterPath="ClickedItem.Id" />
-                                </core:EventTriggerBehavior>
-                            </interactivity:Interaction.Behaviors>
                         </GridView>
                     </Grid>
                 </Grid>
@@ -502,6 +620,33 @@
         </DataTemplate>
 
 
+        <Style x:Key="GridViewStyle" TargetType="GridView">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridView">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <ScrollViewer HorizontalSnapPointsAlignment="Center" 
+                                          HorizontalSnapPointsType="Mandatory" 
+                                          HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" 
+                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" 
+                                          IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" 
+                                          IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}" 
+                                          IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}" 
+                                          IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" 
+                                          TabNavigation="{TemplateBinding TabNavigation}" 
+                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" 
+                                          VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" 
+                                          ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                                <ItemsPresenter HeaderTemplate="{TemplateBinding HeaderTemplate}" 
+                                                Header="{TemplateBinding Header}" 
+                                                HeaderTransitions="{TemplateBinding HeaderTransitions}" 
+                                                Padding="0"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </omsqft:BasePageView.Resources>
 	<omsqft:BasePageView.BottomAppBar>
 		<AppBar x:Name="appBar" Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent" Visibility="Collapsed">
@@ -542,7 +687,7 @@
         <Grid x:Name="LogoGrid" Margin="0" Visibility="Collapsed">
             <StackPanel Margin="0,0,36,4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
         		<TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding TotalSquareFeet, Mode=OneWay}" VerticalAlignment="Bottom" Foreground="{StaticResource OMSQFT_LogoDarkBlueBrush}" FontSize="40" Margin="0,0,13,6" FontFamily="Segoe UI Light" FontWeight="Light"/>
-        		<TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="since December 2013" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTSinceTextGray}" FontSize="24" Margin="0,0,0,10" FontFamily="Segoe UI Light" FontWeight="Light"/>
+                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Strings.Since, Source={StaticResource PortableStrings}}" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTSinceTextGray}" FontSize="24" Margin="0,0,0,10" FontFamily="Segoe UI Light" FontWeight="Light"/>
         	</StackPanel>
         	<omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,38,0,0">
         		<omsqftcontrols:LogoUserControl.RenderTransform>
@@ -587,14 +732,14 @@
                     Transitions="{x:Null}"
                     ItemContainerTransitions="{x:Null}"
                     Margin="0"
-                    Padding="0"
+                    Padding="0"                              
                     Background="White"
-                    SelectionMode="None"
+                    SelectionMode="Single"
                     ItemsSource="{Binding TimeLineItems}"
-                    IsSwipeEnabled="False"
+                    IsSwipeEnabled="True"
+                    IsRightTapEnabled="True"
                     IsTapEnabled="False"
                     IsItemClickEnabled="False"
-                    ScrollViewer.IsHorizontalScrollChainingEnabled="False"
                     Loaded="itemsGridView_Loaded" 
                     ItemContainerStyle="{StaticResource TimelineItemContainerStyle}" d:IsHidden="True">
 
