@@ -68,6 +68,7 @@ namespace OneMSQFT.Windows
 
             //register services
             _container.RegisterInstance<INavigationService>(NavigationService);
+            _container.RegisterType<IInternetConnection, InternetConnectionService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IDataCacheService, DataCacheService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IDataService, DataService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IAlertMessageService, AlertMessageService>(new ContainerControlledLifetimeManager());

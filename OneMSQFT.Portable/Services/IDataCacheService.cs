@@ -4,7 +4,7 @@ namespace OneMSQFT.Common.Services
 {
     public interface IDataCacheService
     {
-        Task<bool> ContainsDataAsync(string key);
+        Task<bool> ContainsDataAsync(string key, bool ignoreExpirationPolicy);
 
         /// <summary>
         /// Returns cached key deserialized to a given type T

@@ -34,7 +34,7 @@ namespace OneMSQFT.UILogic.Tests.Services
         [TestMethod]
         async public Task DataCacheService_ContainsDataAsync_IsFalse()
         {
-            var result = await DataCache.ContainsDataAsync(dataKey);
+            var result = await DataCache.ContainsDataAsync(dataKey, true);
             Assert.IsFalse(result);
         }
 
@@ -73,7 +73,7 @@ namespace OneMSQFT.UILogic.Tests.Services
         //[TestMethod]
         //async public Task DataCacheService_GetDataAsync_HasValidData()
         //{
-        //    var result = await DataCache.ContainsDataAsync(dataKey);
+        //    var result = await DataCache.ContainsDataAsync(dataKey, false);
         //    Assert.IsFalse(result);
         //}
     }

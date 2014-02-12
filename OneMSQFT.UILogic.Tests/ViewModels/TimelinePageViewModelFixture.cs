@@ -97,7 +97,11 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         [TestMethod]
         public void TimelinePageViewModel_Loading_Sample_Populates_Events()
         {
-            var timeLine = new TimelinePageViewModel(new DataService(new SampleDataRepository(), new MockDataCacheService() { ContainsDataDelegate = s => Task.FromResult(false) }), new MockAlertMessageService());
+            var internetConnection = new MockInternetConnectionService
+            {
+                IsConnectedDelegate = () => true
+            };
+            var timeLine = new TimelinePageViewModel(new DataService(new SampleDataRepository(), new MockDataCacheService() { ContainsDataDelegate = s => Task.FromResult(false) }, internetConnection), new MockAlertMessageService());
             var autoResetEvent = new AutoResetEvent(false);
             ExecuteOnUIThread(() => timeLine.OnNavigatedTo(null, NavigationMode.New, null));
             autoResetEvent.WaitOne(500);

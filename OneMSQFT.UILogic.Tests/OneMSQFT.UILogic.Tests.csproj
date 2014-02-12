@@ -115,6 +115,7 @@
     <Compile Include="DataLayer\DataRepositoryFixture.cs" />
     <Compile Include="Mocks\MockAlertService.cs" />
     <Compile Include="Mocks\MockDataService.cs" />
+    <Compile Include="Mocks\MockInternetConnectionService.cs" />
     <Compile Include="Mocks\MockLaunchActivatedEventArgs.cs" />
     <Compile Include="Mocks\MockModelGenerator.cs" />
     <Compile Include="Mocks\MockNavigationService.cs" />

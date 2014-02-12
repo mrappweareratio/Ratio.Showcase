@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneMSQFT.Common.Models;
+using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.Tests.Mocks;
 
@@ -15,6 +16,17 @@ namespace OneMSQFT.UILogic.Tests.Services
     [TestClass]
     public class DataServiceFixture
     {
+        [TestInitialize]
+        public void Init()
+        {
+            this.InternetConnection = new MockInternetConnectionService
+            {
+                IsConnectedDelegate = () => true
+            };
+        }
+
+        public IInternetConnection InternetConnection { get; set; }
+
         [TestMethod]
         async public Task DataService_GetEvents_Calls_Repository()
         {
@@ -27,7 +39,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                     return Task.FromResult(new SiteDataResult());
                 }
             };
-            var dataService = new DataService(mock, new MockDataCacheService() { ContainsDataDelegate = s => Task.FromResult(false) });
+            var dataService = new DataService(mock, new MockDataCacheService() { ContainsDataDelegate = s => Task.FromResult(false) }, InternetConnection);
             await dataService.GetEvents();
             Assert.IsTrue(called);
         }
@@ -52,7 +64,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                     return Task.FromResult(false);
                 }
             };
-            var dataService = new DataService(mock, cache);
+            var dataService = new DataService(mock, cache, InternetConnection);
             await dataService.GetEvents();
             Assert.IsTrue(called);
         }
@@ -79,7 +91,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 },
                 InvalidateDataDelegate = s => Task.FromResult(0)
             };
-            var dataService = new DataService(mock, cache);
+            var dataService = new DataService(mock, cache, InternetConnection);
             await dataService.GetEvents();
             Assert.IsTrue(called, "called cache");
         }
@@ -87,6 +99,8 @@ namespace OneMSQFT.UILogic.Tests.Services
         async public Task DataService_GetSiteData_Checks_Cache_True_Then_Null_Invalidates_Cache()
         {
             bool called = false;
+            var autoResetEvent = new AutoResetEvent(false);
+
             var mock = new MockDataRepository
             {
                 GetSiteDataDelegate = () =>
@@ -109,8 +123,9 @@ namespace OneMSQFT.UILogic.Tests.Services
                     return Task.FromResult(0);
                 }
             };
-            var dataService = new DataService(mock, cache);
+            var dataService = new DataService(mock, cache, InternetConnection);
             await dataService.GetEvents();
+            autoResetEvent.WaitOne(200);
             Assert.IsTrue(called, "callede InvalidateDataDelegate");
         }
         [TestMethod]
@@ -139,7 +154,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                     return Task.FromResult(0);
                 }
             };
-            var dataService = new DataService(mock, cache);
+            var dataService = new DataService(mock, cache, InternetConnection);
             await dataService.GetEvents();
             Assert.IsTrue(called, "invalidated cache then called repo");
         }
@@ -147,6 +162,8 @@ namespace OneMSQFT.UILogic.Tests.Services
         async public Task DataService_GetSiteData_Calls_Repo_Then_StoreKeyAsync()
         {
             bool called = false;
+            var autoResetEvent = new AutoResetEvent(false);
+
             var mock = new MockDataRepository
             {
                 GetSiteDataDelegate = () =>
@@ -173,8 +190,9 @@ namespace OneMSQFT.UILogic.Tests.Services
                     return Task.FromResult(0);
                 }
             };
-            var dataService = new DataService(mock, cache);
+            var dataService = new DataService(mock, cache, InternetConnection);
             await dataService.GetEvents();
+            autoResetEvent.WaitOne(200);
             Assert.IsTrue(called, "Call StoreDataAsync");
         }
 
@@ -189,7 +207,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 }
             };
             var cache = new MockDataCacheService();
-            var dataService = new DataService(mock, cache);
+            var dataService = new DataService(mock, cache, InternetConnection);
             try
             {
                 await dataService.GetExhibitDetailByExhibitId("0");
@@ -229,7 +247,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 }
             };
             var cache = new MockDataCacheService();
-            var dataService = new DataService(mock, cache);
+            var dataService = new DataService(mock, cache, InternetConnection);
             var exhibitDetail = await dataService.GetExhibitDetailByExhibitId(exhibitId);
             Assert.IsNotNull(exhibitDetail, "exhibitDetail");
             Assert.AreEqual(exhibitDetail.Exhibit.Id, exhibitId);
@@ -265,7 +283,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 }
             };
             var cache = new MockDataCacheService();
-            var dataService = new DataService(mock, cache);
+            var dataService = new DataService(mock, cache, InternetConnection);
             var exhibitDetail = await dataService.GetExhibitDetailByExhibitId(exhibitId);
             Assert.IsNotNull(exhibitDetail, "exhibitDetail");
             Assert.AreEqual(exhibitDetail.Exhibit.Id, exhibitId);
@@ -301,7 +319,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 }
             };
             var cache = new MockDataCacheService();
-            var dataService = new DataService(mock, cache);
+            var dataService = new DataService(mock, cache, InternetConnection);
             var exhibitDetail = await dataService.GetExhibitDetailByExhibitId(exhibitId);
             Assert.IsNotNull(exhibitDetail, "exhibitDetail");
             Assert.AreEqual(exhibitDetail.Exhibit.Id, exhibitId);
@@ -332,7 +350,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 }
             };
             var cache = new MockDataCacheService();
-            var dataService = new DataService(mock, cache);
+            var dataService = new DataService(mock, cache, InternetConnection);
             var exhibitDetail = await dataService.GetExhibitDetailByExhibitId(exhibitId);
             Assert.IsNotNull(exhibitDetail, "exhibitDetail");
             Assert.AreEqual(exhibitDetail.Exhibit.Id, exhibitId, "Exhibit");
@@ -351,7 +369,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 }
             };
             var cache = new MockDataCacheService();
-            var dataService = new DataService(mock, cache);
+            var dataService = new DataService(mock, cache, InternetConnection);
             await dataService.GetEvents();
             cache.ContainsDataDelegate = s =>
             {
