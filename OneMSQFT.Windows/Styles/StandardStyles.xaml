@@ -33,6 +33,7 @@
     <SolidColorBrush x:Key="OneMSQFTBlackBrush" Color="#000000" />
     <SolidColorBrush x:Key="OneMSQFTWhiteBrush" Color="#ffffff" />
     <SolidColorBrush x:Key="OneMSQFTOverlayBgBrush" Color="{StaticResource OneMSQFTOverlayBgColor}" />
+    <SolidColorBrush x:Key="OMSQFT_LogoDarkBlueBrush" Color="#FF2A3282"/>
 
 
     <!-- RichTextBlock styles -->
