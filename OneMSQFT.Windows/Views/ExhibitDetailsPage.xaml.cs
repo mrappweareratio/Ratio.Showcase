@@ -51,9 +51,8 @@ namespace OneMSQFT.Windows.Views
         public override void PopulateTopAppbar(BasePageViewModel vm)
         {
             base.PopulateTopAppbar(vm);
+            this.HomeButton.Command = this.HomeButtonClickCommand;
             this.AboutButton.Command = this.AboutButtonClickCommand;
-          //  this.HomeButton.Command = this.HomeButtonClickCommand;
-            this.AdminButton.Command = this.AdminButtonClickCommand;
         }
 
         private void LaunchVideoCommand_OnClick(object sender, RoutedEventArgs e)

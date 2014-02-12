@@ -36,6 +36,18 @@ namespace OneMSQFT.Windows.Views
             var vm = this.DataContext as ITimelinePageViewModel;
             vm.FullScreenHeight = Window.Current.Bounds.Height;
             vm.FullScreenWidth = Window.Current.Bounds.Width;
+            ((TimelinePageViewModel)this.DataContext).PropertyChanged += TimelinePage_PropertyChanged;
+        }
+
+        void TimelinePage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SquareFootEvents")
+            {
+                if (((TimelinePageViewModel)this.DataContext).SquareFootEvents.Count > 0)
+                {
+                    this.PopulateTopAppbar(((BasePageViewModel)this.DataContext));
+                }
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -59,8 +71,7 @@ namespace OneMSQFT.Windows.Views
         private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
         {
             _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(itemsGridView);
-            itemsGridView.Opacity = 1;
-            PopulateTopAppbar(((BasePageViewModel)this.DataContext));
+           // itemsGridView.Opacity = 1;
         }
 
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
@@ -150,8 +161,6 @@ namespace OneMSQFT.Windows.Views
         {
             base.PopulateTopAppbar(vm);
             this.AboutButton.Command = this.AboutButtonClickCommand;
-            this.AdminButton.Command = this.AdminButtonClickCommand;
-            this.AdminButton.CommandParameter = this.AdminButton;
         }
 
         private void AdminButton_OnClick(object sender, RoutedEventArgs e)
