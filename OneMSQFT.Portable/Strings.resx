@@ -120,6 +120,9 @@
   <data name="AppTitle" xml:space="preserve">
     <value>1 Million Square Feet</value>
   </data>
+  <data name="Config" xml:space="preserve">
+    <value>Config</value>
+  </data>
   <data name="IntroBlurb" xml:space="preserve">
     <value>Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet.</value>
   </data>
