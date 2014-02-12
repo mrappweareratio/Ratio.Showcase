@@ -17,11 +17,15 @@ namespace OneMSQFT.UILogic.Services
         private readonly Dictionary<string, object> _memDictionary = new Dictionary<string, object>();
         private readonly IDataRepository _repository;
         private readonly IDataCacheService _cache;
+        private readonly IInternetConnection _internetConnection;
+        private bool isConnected = false;
 
-        public DataService(IDataRepository repository, IDataCacheService cache)
+        public DataService(IDataRepository repository, IDataCacheService cache, IInternetConnection connection)
         {
             _repository = repository;
             _cache = cache;
+            _internetConnection = connection;
+            isConnected = _internetConnection.IsConnected();
         }
 
         public async Task<IEnumerable<Event>> GetEvents()
@@ -42,7 +46,7 @@ namespace OneMSQFT.UILogic.Services
                 }
             }
 
-            if (await _cache.ContainsDataAsync(key))
+            if (await _cache.ContainsDataAsync(key, !isConnected))
             {
                 var siteData = await _cache.GetDataAsync<SiteDataResult>(key);
                 if (siteData == null)

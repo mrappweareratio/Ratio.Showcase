@@ -17,7 +17,7 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         public Func<String, Task> InvalidateDataDelegate { get; set; }
         public Func<String, object, Task> StoreDataDelegate { get; set; }
 
-        async public Task<bool> ContainsDataAsync(string key)
+        async public Task<bool> ContainsDataAsync(string key, bool ignoreExpirationPolicy)
         {
             if (ContainsDataDelegate != null)
                 return await ContainsDataDelegate(key);

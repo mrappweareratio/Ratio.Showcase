@@ -24,7 +24,7 @@ namespace OneMSQFT.UILogic.Services
         {
         }
 
-        public async Task<bool> ContainsDataAsync(string key)
+        public async Task<bool> ContainsDataAsync(string key, bool ignoreExpirationPolicy)
         {
             bool result = false;
 
@@ -32,13 +32,16 @@ namespace OneMSQFT.UILogic.Services
             {
                 StorageFile file = await _cacheFolder.GetFileAsync(key);
                 result = true;
-                // Check if the file has expired
-                var fileBasicProperties = await file.GetBasicPropertiesAsync();
-                var expirationDate = fileBasicProperties.DateModified.Add(_expirationPolicy).DateTime;
-                bool fileIsValid = DateTime.Now.CompareTo(expirationDate) < 0;
-                
-                if (!fileIsValid)
-                    result = false;
+                if (!ignoreExpirationPolicy)
+                {
+                    // Check if the file has expired
+                    var fileBasicProperties = await file.GetBasicPropertiesAsync();
+                    var expirationDate = fileBasicProperties.DateModified.Add(_expirationPolicy).DateTime;
+                    bool fileIsValid = DateTime.Now.CompareTo(expirationDate) < 0;
+
+                    if (!fileIsValid)
+                        result = false;
+                }
             }
             catch (Exception)
             {
@@ -57,7 +60,7 @@ namespace OneMSQFT.UILogic.Services
 
         public async Task InvalidateDataAsync(string key)
         {
-            var found = await ContainsDataAsync(key);
+            var found = await ContainsDataAsync(key, true);
             if (found)
             {
                 StorageFile file = await _cacheFolder.GetFileAsync(key);
