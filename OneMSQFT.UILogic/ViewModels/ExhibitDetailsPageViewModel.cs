@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -55,13 +56,22 @@ namespace OneMSQFT.UILogic.ViewModels
 
         async public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
+            var events = await _dataService.GetEvents();
+            if (events == null)
+            {
+                await _messageService.ShowAsync("Error", "There was a problem loading events");
+                return;
+            }
+            SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
+            
             var ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as String);
             Exhibit = new ExhibitItemViewModel(ed.Exhibit);
             NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit);
+                        
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
 
-        async public void LaunchVideoCommandHandler(MediaContentSourceItemViewModel item)
+        public void LaunchVideoCommandHandler(MediaContentSourceItemViewModel item)
         {
             if (item == null) return;
             SelectedMediaContentSource = item;

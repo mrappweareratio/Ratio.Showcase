@@ -104,6 +104,32 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             autoResetEvent.WaitOne(200);
             Assert.IsNotNull(vm.Exhibit);
             
-        }      
+        }
+
+        [TestMethod]
+        public void GetExhibitDetailByExhibitId_NextExhibitCommand_Enabled()
+        {
+            var autoResetEvent = new AutoResetEvent(false);
+            bool called = false;
+            var mockDataService = new MockDataService
+            {
+                GetExhibitDetailByExhibitIdDelegate = (id) =>
+                {
+                    called = true;
+                    return Task.FromResult<ExhibitDetail>(new ExhibitDetail()
+                    {
+                        Exhibit = MockModelGenerator.NewExhibit(id, "Exhibit"),
+                        NextExhibit = MockModelGenerator.NewExhibit("1", "Next Exhibit")
+                                         
+                    });
+                }
+            };
+            var vm = new ExhibitDetailsPageViewModel(mockDataService, new MockAlertMessageService());
+            ExecuteOnUIThread(() => vm.OnNavigatedTo("0", NavigationMode.New, null));
+            autoResetEvent.WaitOne(200);
+            Assert.IsTrue(called);
+            Assert.IsNotNull(vm.Exhibit);
+            Assert.IsTrue(vm.NextExhibitCommand.CanExecute("1"));
+        }
     }
 }
