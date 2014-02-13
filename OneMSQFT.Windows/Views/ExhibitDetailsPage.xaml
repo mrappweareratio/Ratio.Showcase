@@ -362,7 +362,7 @@
 
             <StackPanel Orientation="Horizontal">
                 <Button HorizontalAlignment="Left"
-    			    Click="GoHome" 
+    			    Click="GoBack" 
     			    Style="{StaticResource BackButtonStyle}" Margin="60" VerticalAlignment="Top" />
             </StackPanel>
 
