@@ -224,17 +224,40 @@
         				Width="{Binding OneThirdPanelWidth}"
 					BorderThickness="9" 
 					Background="{Binding Exhibit.ColorBrush, Mode=OneWay}" Padding="10">
-        				<Grid Margin="10">
-        					<Grid.RowDefinitions>
-        						<RowDefinition Height="3*"/>
-        						<RowDefinition/>
-        						<RowDefinition/>
+                            <Grid  >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="3*"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Exhibit.SquareFootageString}" VerticalAlignment="Bottom" Grid.Row="0" FontSize="32"/>
-                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Exhibit.Name}" VerticalAlignment="Top" Grid.Row="1" FontSize="18.667"/>
-                                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Exhibit.Description}" VerticalAlignment="Top" Grid.Row="2"/>
-        				</Grid>
-        			</Border>
+                                <TextBlock Text="{Binding Exhibit.SquareFootageString}"
+                    			   Foreground="{StaticResource OneMSQFTWhiteBrush}"
+                    			   FontSize="60" 
+                                   HorizontalAlignment="Left"
+                    			   Margin="40,0,0,0" 
+                                   Grid.Row="1" 
+                                   FontFamily="Segoe UI Light" 
+                                   FontWeight="Light"/>
+                                <TextBlock Text="{Binding Exhibit.Name, Mode=OneWay}" 
+                    			    Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+                    			    FontSize="32" 
+                                    HorizontalAlignment="Left"
+                    		    	TextWrapping="Wrap" 
+                                    FontFamily="Segoe UI Light" 
+                                    FontWeight="Light"
+                    		    	Margin="40,0,0,0" 
+                                    Grid.Row="2"/>
+                                <TextBlock Text="{Binding Exhibit.Description}"
+                    			    Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
+                    			    FontSize="18"
+                    			    TextWrapping="Wrap" 
+                                    FontFamily="Segoe UI Light" 
+                                    FontWeight="Light"
+                    			    Margin="40,0,0,0" Grid.Row="3" 
+                                    HorizontalAlignment="Left"/>
+                            </Grid>
+                        </Border>
                     <Grid Grid.Column="1"
         				Width="{Binding ExhibitItemWidth}" 
         				Height="{Binding ExhibitItemHeight}" >
@@ -244,14 +267,13 @@
                 </Grid>
                 
                     <Grid x:Name="Panel2" 
-        			Width="{Binding ExhibitItemWidth}" 
+        			Width="Auto" 
         			Height="{Binding ExhibitItemHeight}" Background="{StaticResource OneMSQFTWhiteBrush}" >
         			<ListView HorizontalAlignment="Left" 
         				VerticalAlignment="Top" 
-        				Width="{Binding ExhibitItemWidth}" 
         				ItemsSource="{Binding Exhibit.MediaContent}"
                         Visibility="{Binding Exhibit.MediaContentVisibility}"
-        				IsSwipeEnabled="False" SelectionMode="None" ItemContainerStyle="{StaticResource EmptyListViewItemContainerStyle}">
+        				ItemContainerStyle="{StaticResource EmptyListViewItemContainerStyle}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -269,6 +291,11 @@
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel Orientation="Horizontal"></VirtualizingStackPanel>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
                     </ListView>
         		</Grid>
         		
@@ -289,16 +316,40 @@
         				BorderThickness="5" Style="{StaticResource NextButtonStyle}">
         				<Button.ContentTemplate>
         					<DataTemplate>
-        						<Grid>
-        							<Grid.RowDefinitions>
-        								<RowDefinition Height="2*"/>
-        								<RowDefinition Height="3*"/>
-        								<RowDefinition Height="3*"/>
-        							</Grid.RowDefinitions>
-                                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="48" Text="{Binding Strings.Next, Source={StaticResource PortableStrings}}"/>
-                                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="{StaticResource OneMSQFTWhiteBrush}" FontSize="26.667" Grid.Row="1" Text="{Binding NextExhibit.Name}"  Margin="0,30,0,0" FontWeight="Light"/>
-        						</Grid>
-        					</DataTemplate>
+                                    <Grid  >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="3*"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{Binding Strings.Next, Source={StaticResource PortableStrings}}"
+                    			   Foreground="{StaticResource OneMSQFTWhiteBrush}"
+                    			   FontSize="60" 
+                                   HorizontalAlignment="Left"
+                    			   Margin="40,0,0,0" 
+                                   Grid.Row="1" 
+                                   FontFamily="Segoe UI Light" 
+                                   FontWeight="Light"/>
+                                        <TextBlock Text="{Binding NextExhibit.Name, Mode=OneWay}" 
+                    			    Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+                    			    FontSize="32" 
+                                    HorizontalAlignment="Left"
+                    		    	TextWrapping="Wrap" 
+                                    FontFamily="Segoe UI Light" 
+                                    FontWeight="Light"
+                    		    	Margin="40,0,0,0" 
+                                    Grid.Row="2"/>
+                                        <TextBlock Text="{Binding NextExhibit.Description}"
+                    			    Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
+                    			    FontSize="18"
+                    			    TextWrapping="Wrap" 
+                                    FontFamily="Segoe UI Light" 
+                                    FontWeight="Light"
+                    			    Margin="40,0,0,0" Grid.Row="3" 
+                                    HorizontalAlignment="Left"/>
+                                    </Grid>
+                                </DataTemplate>
         				</Button.ContentTemplate>
         			</Button>
         		</Grid>
