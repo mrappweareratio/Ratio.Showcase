@@ -25,6 +25,15 @@ namespace OneMSQFT.UILogic.Services
             _repository = repository;
             _cache = cache;
             _internetConnection = connection;
+            if (_internetConnection != null)
+            {
+                isConnected = _internetConnection.IsConnected();
+                _internetConnection.InternetConnectionChanged += OnInternetConnectionChanged;
+            }
+        }
+
+        private void OnInternetConnectionChanged(object sender, EventArgs eventArgs)
+        {
             isConnected = _internetConnection.IsConnected();
         }
 
