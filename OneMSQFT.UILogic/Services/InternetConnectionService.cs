@@ -10,6 +10,11 @@ namespace OneMSQFT.UILogic.Services
 {
     public class InternetConnectionService : IInternetConnection
     {
+        InternetConnectionService()
+        {
+            NetworkInformation.NetworkStatusChanged += NetworkInformation_NetworkStatusChanged;
+        }
+
         public bool IsConnected()
         {
             return NetworkInformation.GetInternetConnectionProfile() != null;
@@ -17,11 +22,6 @@ namespace OneMSQFT.UILogic.Services
         
         public event EventHandler InternetConnectionChanged;
 
-        InternetConnectionService()
-        {
-            NetworkInformation.NetworkStatusChanged += NetworkInformation_NetworkStatusChanged;
-        }
- 
         private void NetworkInformation_NetworkStatusChanged(object sender)
         {
             var arg = new InternetConnectionChangedEventArgs
