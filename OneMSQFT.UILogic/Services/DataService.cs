@@ -25,6 +25,11 @@ namespace OneMSQFT.UILogic.Services
             _repository = repository;
             _cache = cache;
             _internetConnection = connection;
+            Task.Run(() => Initialize());
+        }
+
+        private void Initialize()
+        {
             if (_internetConnection != null)
             {
                 isConnected = _internetConnection.IsConnected();
