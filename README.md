@@ -64,3 +64,38 @@ Deployment
 - Debug Kiosk > Runs Kiosk Application in Debug Mode
 - Release > Runs Store Application in Release Mode
 - Release Kiosk > Runs Kiosk Application in Release Mode
+
+Application Life Cycle
+-----
+###Launch
+
+####Extended Splash
+- Load Site Data
+    - Check Memory Cache
+    - Check Network Connectivity
+    - Check Cache if no connectivity
+    - Call Repository if connectivity
+    - Cache return data in memory and disk
+
+####Launch Navigation and/or [Activate](http://msdn.microsoft.com/en-us/library/windows/apps/xx130647.aspx#Activating) Navigation
+- Check Navigation for Deep Link Item (Event or Exhibit)
+- Check Configuration for Startup Item (Event or Exhibit)
+-   If Item Found
+    -   If Event
+        -   Navigate to TimelinePage(eventId)
+    -   If Exhibit
+        -   Navigate to ExhibitDetailsPage(exhibitId)
+-   Else, Navigate to TimelinePage()
+
+###Resume
+-   If Kiosk Mode
+    - Regard a Resume as an Inactivity Reset
+    - Check Configuration for Startup Item (Event or Exhibit)
+    -   If Item Found
+        -   If Event
+            -   Navigate to TimelinePage(eventId)
+        -   If Exhibit
+            -   Navigate to ExhibitDetailsPage(exhibitId)
+    -   Else, Navigate to TimelinePage()
+-   Else
+    -  Restore Session State and Resume Current Page
