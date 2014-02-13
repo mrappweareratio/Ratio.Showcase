@@ -149,14 +149,14 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return (EventItemWidth / 3)-1;
+                return (EventItemWidth / 3) - 9;
             }
         }
         public double ExhibitItemHeight
         {
             get
             {
-                return (EventItemHeight / 4) - 1;
+                return (EventItemHeight / 4) - 6;
             }
         }
 

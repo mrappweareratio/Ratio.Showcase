@@ -420,49 +420,42 @@
 
 
         <!-- ItemTemplates styles -->
-
+        
         <DataTemplate x:Key="TimelineExhibitTemplate">
             <Button Style="{StaticResource EventGalleryButtonStyle}"
                             CommandParameter="{Binding Id}" 
-                            Command="{Binding DataSource.ExhibitItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" >
-                <Grid HorizontalAlignment="Left" 
-                Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
-                Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
-              VerticalAlignment="Top">
+                            Command="{Binding DataSource.ExhibitItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                            BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
+							BorderThickness="5,0,0,5">
+                <Grid
+                    Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
+                    Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
+                    VerticalAlignment="Top">
                 <Border Background="Transparent"
-				BorderBrush="White"
-				BorderThickness="0"
-				Margin="0">
+				    BorderBrush="White"
+				    BorderThickness="0"
+				    Margin="0">
                     <Image Source="{Binding HeroPhotoFilePath}"
-					Stretch="UniformToFill">
-                    </Image>
+					    Stretch="UniformToFill"/>
                 </Border>
-                <TextBlock Margin="0,20,0,0"
+                <TextBlock Margin="0,40,0,0"
 					FontSize="42"
 					Height="Auto"
 					Text="{Binding SquareFootageString}"
 					TextWrapping="NoWrap"
                     TextAlignment="Center"
-					TextTrimming="WordEllipsis" VerticalAlignment="Top">
+					TextTrimming="WordEllipsis" VerticalAlignment="Top"
+					Foreground="{StaticResource OneMSQFTWhiteBrush}" FontFamily="Segoe UI Light" FontWeight="Light">
                 </TextBlock>
                 <TextBlock Text="{Binding Name}"
-                    VerticalAlignment="Top"
-					Margin="0,60,0,0"
+                    VerticalAlignment="Bottom"
+					Margin="0,0,0,65"
 					FontSize="20"
-					Height="Auto"
 					TextTrimming="CharacterEllipsis"
 					TextWrapping="NoWrap"
-                    TextAlignment="Center">
-                </TextBlock>
-                <TextBlock Text="{Binding Description}"
-                    VerticalAlignment="Top"
-					Margin="0,80,0,0"
-					FontSize="20"
-					Height="Auto"
-					TextTrimming="CharacterEllipsis"
-					TextWrapping="NoWrap"
-                    TextAlignment="Center">
-                </TextBlock>
+                    TextAlignment="Center"
+					Foreground="{StaticResource OneMSQFTWhiteBrush}" FontFamily="Segoe UI Light" FontWeight="Light">
+                    </TextBlock>
                 </Grid>
             </Button>
         </DataTemplate>
@@ -539,7 +532,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="OMSQFTTimelineEventItemTemplate">
-                <Border BorderThickness="0" Margin="10" Background="Transparent">
+            <Border BorderThickness="0" Margin="0" Background="Transparent">
                 <Grid Width="{Binding DataSource.EventItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                       Height="{Binding DataSource.EventItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                       Background="Transparent">
@@ -559,17 +552,28 @@
                             CommandParameter="{Binding}" 
                             Command="{Binding DataSource.EventHeroItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                             Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" 
-                            Style="{StaticResource EventGalleryButtonStyle}" Margin="0,0,1,0">
-                        <Button.Content>
+                            Style="{StaticResource EventGalleryButtonStyle}" Margin="0,0,1,0" BorderBrush="{StaticResource OneMSQFTWhiteBrush}" BorderThickness="5">
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Image Source="{Binding PhotoFilePath, Mode=OneWay}"
-					            VerticalAlignment="Center"
-					            HorizontalAlignment="Center"
-					            AutomationProperties.Name="{Binding Name}" 
-                                Stretch="Fill"/>
-                        </Button.Content>
+                        		VerticalAlignment="Center"
+                        		HorizontalAlignment="Center"
+                        		AutomationProperties.Name="{Binding Name}" 
+                        		Stretch="Fill"/>
+                            <Border Background="{Binding EventColor, Mode=OneWay}" 
+                        		HorizontalAlignment="Center" Height="70"  
+                        		VerticalAlignment="Center" Width="70">
+                                <Path Data="M1,1 L49,1 L49,49" 
+                        			HorizontalAlignment="Center" Height="30" Margin="15.5,20,24.5,20" Stretch="Fill" Stroke="White" 
+                        			StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
+                                    <Path.RenderTransform>
+                                        <CompositeTransform Rotation="45" TranslateY="5.4206452659855131E-09"/>
+                                    </Path.RenderTransform>
+                                </Path>
+                            </Border>
+                        </Grid>
                     </Button>
 
-                    <Grid Background="{Binding EventColor, Mode=OneWay}" Grid.RowSpan="4">
+                    <Grid Background="{Binding EventColor, Mode=OneWay}"  Grid.RowSpan="4" >
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition Height="Auto" MinHeight="59"/>
@@ -577,19 +581,19 @@
                             <RowDefinition Height="Auto" MinHeight="167"/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="{Binding SquareFootageString}"
-						    Foreground="{StaticResource OneMSQFTWhiteBrush}"
-						    FontSize="60"
-						    Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
+                    			Foreground="{StaticResource OneMSQFTWhiteBrush}"
+                    			FontSize="60"
+                    			Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
                         <TextBlock Text="{Binding Name, Mode=OneWay}"
-						    Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-						    Style="{StaticResource TitleTextStyle}"
-						    TextWrapping="NoWrap"
-						    Margin="15,0,15,0" Grid.Row="2"/>
+                    			Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+                    			Style="{StaticResource TitleTextStyle}"
+                    			TextWrapping="NoWrap"
+                    			Margin="15,0,15,0" Grid.Row="2"/>
                         <TextBlock Text="{Binding Description}"
-						    Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
-						    Style="{StaticResource CaptionTextStyle}"
-						    TextWrapping="NoWrap"
-						    Margin="15,0" Grid.Row="3" HorizontalAlignment="Left"/>
+                    			Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
+                    			Style="{StaticResource CaptionTextStyle}"
+                    			TextWrapping="NoWrap"
+                    			Margin="15,0" Grid.Row="3" HorizontalAlignment="Left"/>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <GridView ItemsSource="{Binding Exhibits}"
@@ -647,6 +651,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
     </omsqft:BasePageView.Resources>
 	<omsqft:BasePageView.BottomAppBar>
 		<AppBar x:Name="appBar" Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent" Visibility="Collapsed">
@@ -695,13 +700,13 @@
         		</omsqftcontrols:LogoUserControl.RenderTransform>
         	</omsqftcontrols:LogoUserControl>
         </Grid>
-        <SemanticZoom x:Name="semanticZoom" Background="{x:Null}"
+            <SemanticZoom x:Name="semanticZoom" Background="{x:Null}"
                       IsZoomedInViewActive="True" 
                       Transitions="{x:Null}"
                       ViewChangeCompleted="semanticZoom_ViewChangeCompleted" 
-                      ViewChangeStarted="semanticZoom_ViewChangeStarted" Grid.RowSpan="2" d:IsHidden="True" VerticalAlignment="Top">
-            <SemanticZoom.ZoomedOutView>
-                <GridView x:Name="zoomedOutGrid"
+                      ViewChangeStarted="semanticZoom_ViewChangeStarted" Grid.RowSpan="2" VerticalAlignment="Top">
+                <SemanticZoom.ZoomedOutView>
+                    <GridView x:Name="zoomedOutGrid"
                           Padding="44,165,0,0"
 						  Margin="0"
                           Transitions="{x:Null}"
@@ -717,15 +722,15 @@
                           ScrollViewer.IsHorizontalScrollChainingEnabled="False"
                           ItemTemplate="{StaticResource TimelineZoomedOutEventItemTemplate}"
                           ItemContainerStyle="{StaticResource TimelineZoomedOutEventItemContainerStyle}">
-                    <GridView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapGrid MaximumRowsOrColumns="3" />
-                        </ItemsPanelTemplate>
-                    </GridView.ItemsPanel>
-                </GridView>
-            </SemanticZoom.ZoomedOutView>
-            <SemanticZoom.ZoomedInView>
-                <!-- The MultipleSizedGridView is a custom user control that is used to display multiple-sized elements in the grid.
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapGrid MaximumRowsOrColumns="3" />
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
+                    </GridView>
+                </SemanticZoom.ZoomedOutView>
+                <SemanticZoom.ZoomedInView>
+                    <!-- The MultipleSizedGridView is a custom user control that is used to display multiple-sized elements in the grid.
                 It also includes the functionality of the custom AutoRotatingGridView control, that automatically rearranges items,
                 when the app is switched to portrait mode, or to minimal layout mode. -->
                     <omsqftcontrols:MultipleSizedGridView x:Name="itemsGridView"
@@ -743,27 +748,27 @@
                     Loaded="itemsGridView_Loaded" 
                     ItemContainerStyle="{StaticResource TimelineItemContainerStyle}" d:IsHidden="True">
 
-                    <omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
-                        <templateSelectors:TimelineDataTemplateSelector
+                        <omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
+                            <templateSelectors:TimelineDataTemplateSelector
                             EventTimelineItemTemplate="{StaticResource OMSQFTTimelineEventItemTemplate}"
                             FeaturedTimelineItemTemplate="{StaticResource OMSQFTTimelineFeaturedEventItemTemplate}"/>
-                    </omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
-                    <omsqftcontrols:MultipleSizedGridView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </omsqftcontrols:MultipleSizedGridView.ItemsPanel>
-                    <omsqftcontrols:MultipleSizedGridView.PortraitItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical" />
-                        </ItemsPanelTemplate>
-                    </omsqftcontrols:MultipleSizedGridView.PortraitItemsPanel>
+                        </omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
+                        <omsqftcontrols:MultipleSizedGridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </omsqftcontrols:MultipleSizedGridView.ItemsPanel>
+                        <omsqftcontrols:MultipleSizedGridView.PortraitItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </omsqftcontrols:MultipleSizedGridView.PortraitItemsPanel>
 
-                    
-                </omsqftcontrols:MultipleSizedGridView>
-            </SemanticZoom.ZoomedInView>
-        </SemanticZoom>
-        <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
+
+                    </omsqftcontrols:MultipleSizedGridView>
+                </SemanticZoom.ZoomedInView>
+            </SemanticZoom>
+            <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
             <Grid>
                 <omsqftcontrols:VideoPlayerUserControl 
                     SelectedEvent="{Binding DataSource.SelectedEvent, Source={StaticResource DataContextProxy}}"
