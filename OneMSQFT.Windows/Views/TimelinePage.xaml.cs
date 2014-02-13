@@ -25,7 +25,7 @@ namespace OneMSQFT.Windows.Views
 {
     public sealed partial class TimelinePage
     {
-        private ScrollViewer _timelineGridViewScrollViewer;
+        private ScrollViewer _timelineGridViewScrollViewer;        
 
         public TimelinePage()
         {
@@ -75,15 +75,24 @@ namespace OneMSQFT.Windows.Views
            // itemsGridView.Opacity = 1;
         }
 
+        private bool _semanticZoomClosedFromTopAppBarEvent;
+
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
-            if (e.SourceItem.Item != null && e.IsSourceZoomedInView != true)
+            if (e.SourceItem.Item != null && e.IsSourceZoomedInView == false)
             {
-                ScrollToEventById(((EventItemViewModel)e.SourceItem.Item).Id);
+                if (_semanticZoomClosedFromTopAppBarEvent)
+                {
+                    _semanticZoomClosedFromTopAppBarEvent = false;
+                }
+                else
+                {
+                    ScrollToEventById(((EventItemViewModel) e.SourceItem.Item).Id);
+                }
                 itemsGridView.Opacity = 1;
             }
 
-            if (e.IsSourceZoomedInView == true)
+            if (e.IsSourceZoomedInView)
             {
                 this.semanticZoom.Background = new SolidColorBrush(Colors.Transparent);
                 LogoGrid.Visibility = Visibility.Visible;
@@ -102,6 +111,11 @@ namespace OneMSQFT.Windows.Views
 
         public override async void TopAppBarEventButtonCommandHandler(String eventId)
         {
+            if (semanticZoom.IsZoomedInViewActive == false)
+            {
+                _semanticZoomClosedFromTopAppBarEvent = true;
+                semanticZoom.ToggleActiveView();                                
+            }            
             ScrollToEventById(eventId);
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
