@@ -267,14 +267,13 @@
                 </Grid>
                 
                     <Grid x:Name="Panel2" 
-        			Width="{Binding ExhibitItemWidth}" 
+        			Width="Auto" 
         			Height="{Binding ExhibitItemHeight}" Background="{StaticResource OneMSQFTWhiteBrush}" >
         			<ListView HorizontalAlignment="Left" 
         				VerticalAlignment="Top" 
-        				Width="{Binding ExhibitItemWidth}" 
         				ItemsSource="{Binding Exhibit.MediaContent}"
                         Visibility="{Binding Exhibit.MediaContentVisibility}"
-        				IsSwipeEnabled="False" SelectionMode="None" ItemContainerStyle="{StaticResource EmptyListViewItemContainerStyle}">
+        				ItemContainerStyle="{StaticResource EmptyListViewItemContainerStyle}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -292,6 +291,11 @@
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel Orientation="Horizontal"></VirtualizingStackPanel>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
                     </ListView>
         		</Grid>
         		
