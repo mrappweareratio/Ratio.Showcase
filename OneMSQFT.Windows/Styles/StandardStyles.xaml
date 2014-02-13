@@ -23,7 +23,7 @@
 
     <!-- Colors -->
     <Color x:Key="OneMSQFTAppBarAccentColor">#FFCCCCCC</Color>
-    <Color x:Key="OneMSQFTOverlayBgColor">#BF000000</Color>
+    <Color x:Key="OneMSQFTOverlayBgColor">#33000000</Color> <!-- 20% black -->
 
     <!-- Brushes -->
     <SolidColorBrush x:Key="OneMSQFTAppBarAccentGrayBrush" Color="{StaticResource OneMSQFTAppBarAccentColor}" />
