@@ -193,7 +193,7 @@
                         <Border BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
         				Height="{Binding ExhibitItemHeight}"
         				Width="{Binding OneThirdPanelWidth}"
-					BorderThickness="9" 
+					BorderThickness="0" 
 					Background="{Binding Exhibit.ColorBrush, Mode=OneWay}" Padding="10">
                             <Grid  >
                                 <Grid.RowDefinitions>
@@ -238,10 +238,18 @@
         				VerticalAlignment="Top" 
         				ItemsSource="{Binding Exhibit.MediaContent}"
                         Visibility="{Binding Exhibit.MediaContentVisibility}"
-        				ItemContainerStyle="{StaticResource EmptyListViewItemContainerStyle}">
+        				ItemContainerStyle="{StaticResource EmptyListViewItemContainerStyle}"
+                              ScrollViewer.IsHorizontalScrollChainingEnabled="False"
+                                  ScrollViewer.HorizontalScrollMode="Disabled"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                  ScrollViewer.IsHorizontalRailEnabled="False"
+                              ScrollViewer.IsVerticalScrollChainingEnabled="False"
+                                  ScrollViewer.VerticalScrollMode="Disabled"
+                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                  ScrollViewer.IsVerticalRailEnabled="False">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid>
+                                    <Grid Margin="0,0,10,0">
                                         <Image 
         								Stretch="UniformToFill"
         								Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
@@ -283,7 +291,7 @@
         				Background="{Binding NextExhibit.ColorBrush, Mode=OneWay}" 
                         Width="{Binding OneThirdPanelWidth}"
         				Padding="0" Margin="0"
-        				BorderThickness="5" Style="{StaticResource NextButtonStyle}">
+        				BorderThickness="0,5,5,5" Style="{StaticResource NextButtonStyle}">
                             <Button.ContentTemplate>
                                 <DataTemplate>
                                     <Grid  >
@@ -293,7 +301,7 @@
                                             <RowDefinition Height="1*"/>
                                             <RowDefinition Height="3*"/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock Text="{Binding Strings.Next, Source={StaticResource PortableStrings}}"
+                                        <TextBlock Text="{Binding Strings.NextString, Source={StaticResource PortableStrings}}"
                     			   Foreground="{StaticResource OneMSQFTWhiteBrush}"
                     			   FontSize="60" 
                                    HorizontalAlignment="Left"
