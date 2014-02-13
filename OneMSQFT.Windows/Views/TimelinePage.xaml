@@ -423,10 +423,10 @@
 
         <DataTemplate x:Key="TimelineExhibitTemplate">
             <Button Style="{StaticResource EventGalleryButtonStyle}"
-                            CommandParameter="{Binding Id}" 
-                            Command="{Binding DataSource.ExhibitItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                            BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
-							BorderThickness="5,0,0,5">
+                    CommandParameter="{Binding Id}" 
+                    Command="{Binding DataSource.ExhibitItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                    BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
+					BorderThickness="5,0,0,5">
                 <Grid
                     Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
                     Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
@@ -438,23 +438,26 @@
                         <Image Source="{Binding HeroPhotoFilePath}"
 					    Stretch="UniformToFill"/>
                     </Border>
+                    <Rectangle Fill="{StaticResource OneMSQFTOverlayBgBrush}"/>
                     <TextBlock Margin="0,40,0,0"
-					FontSize="42"
-					Height="Auto"
-					Text="{Binding SquareFootageString}"
-					TextWrapping="NoWrap"
-                    TextAlignment="Center"
-					TextTrimming="WordEllipsis" VerticalAlignment="Top"
-					Foreground="{StaticResource OneMSQFTWhiteBrush}" FontFamily="Segoe UI Light" FontWeight="Light">
+					    FontSize="42"
+					    Height="Auto"
+					    Text="{Binding SquareFootageString}"
+					    TextWrapping="NoWrap"
+                        TextAlignment="Center"
+					    TextTrimming="WordEllipsis" VerticalAlignment="Top"
+					    Foreground="{StaticResource OneMSQFTWhiteBrush}" 
+                        FontFamily="Segoe UI Light" FontWeight="Light">
                     </TextBlock>
                     <TextBlock Text="{Binding Name}"
-                    VerticalAlignment="Bottom"
-					Margin="0,0,0,65"
-					FontSize="20"
-					TextTrimming="CharacterEllipsis"
-					TextWrapping="NoWrap"
-                    TextAlignment="Center"
-					Foreground="{StaticResource OneMSQFTWhiteBrush}" FontFamily="Segoe UI Light" FontWeight="Light">
+                        VerticalAlignment="Bottom"
+					    Margin="0,0,0,65"
+					    FontSize="20"
+					    TextTrimming="CharacterEllipsis"
+					    TextWrapping="NoWrap"
+                        TextAlignment="Center"
+					    Foreground="{StaticResource OneMSQFTWhiteBrush}" 
+                        FontFamily="Segoe UI Light" FontWeight="Light">
                     </TextBlock>
                 </Grid>
             </Button>
@@ -563,10 +566,10 @@
                         		HorizontalAlignment="Center" Height="70"  
                         		VerticalAlignment="Center" Width="70">
                                 <Path Data="M1,1 L49,1 L49,49" 
-                        			HorizontalAlignment="Center" Height="30" Margin="15.5,20,24.5,20" Stretch="Fill" Stroke="White" 
+                        			HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
                         			StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
                                     <Path.RenderTransform>
-                                        <CompositeTransform Rotation="45" TranslateY="5.4206452659855131E-09"/>
+                                        <CompositeTransform Rotation="45" TranslateY="5.43"/>
                                     </Path.RenderTransform>
                                 </Path>
                             </Border>

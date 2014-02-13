@@ -121,11 +121,6 @@
         </Setter>
     </Style>
 
-    <SolidColorBrush x:Key="OMSQFTItemBorderBrush" Color="White" />
-    
-    <SolidColorBrush x:Key="OMSQFTItemForegroundBrush" Color="{StaticResource SystemColorWindowTextColor}" />
-
-
     <Style x:Key="VideoPopupStyle" TargetType="Popup">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Stretch" />

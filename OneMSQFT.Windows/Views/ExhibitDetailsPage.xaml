@@ -66,49 +66,19 @@
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="ApplicationViewStates">
                                     <VisualState x:Name="FullSize"/>
-                                    <VisualState x:Name="Compact">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Width" Storyboard.TargetName="RootGrid">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="60"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
+                                    <VisualState x:Name="Compact"/>
                                 </VisualStateGroup>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal"/>
                                     <VisualState x:Name="PointerOver">
                                         <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="BackgroundEllipse">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Content">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppBarItemPointerOverForegroundThemeBrush}"/>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value=".7"/>
                                             </ObjectAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="OutlineEllipse">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="BackgroundEllipse">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppBarItemForegroundThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Content">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppBarItemPressedForegroundThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Disabled">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="OutlineEllipse">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppBarItemDisabledForegroundThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="Content">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppBarItemDisabledForegroundThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
+                                    <VisualState x:Name="Pressed"/>
+                                    <VisualState x:Name="Disabled"/>
                                 </VisualStateGroup>
                                 <VisualStateGroup x:Name="FocusStates">
                                     <VisualState x:Name="Focused"/>
@@ -117,15 +87,17 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <StackPanel Margin="0,14,0,13" VerticalAlignment="Top">
-                                <Grid HorizontalAlignment="Center" Height="100" Margin="0,0,0,5" Width="100">
-                                    <Ellipse x:Name="BackgroundEllipse" Fill="{ThemeResource AppBarItemBackgroundThemeBrush}" Height="100" UseLayoutRounding="False" Width="100"/>
-                                    <Ellipse x:Name="OutlineEllipse" Height="100" Stroke="{ThemeResource AppBarItemForegroundThemeBrush}" StrokeThickness="2" UseLayoutRounding="False" Width="100"/>
-                                    <ContentPresenter x:Name="Content" AutomationProperties.AccessibilityView="Raw" Content="{TemplateBinding Icon}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
-                                        <ContentPresenter.RenderTransform>
-                                            <CompositeTransform ScaleX="2" ScaleY="2"/>
-                                        </ContentPresenter.RenderTransform>
-                                    </ContentPresenter>
-                                </Grid>
+                                <Border x:Name="Background" Background="{TemplateBinding Background}" 
+                        		HorizontalAlignment="Center" Height="90"  
+                        		VerticalAlignment="Center" Width="90">
+                                    <Path Data="M1,1 L49,1 L49,49" 
+                        			HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
+                        			StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
+                                        <Path.RenderTransform>
+                                            <CompositeTransform Rotation="45" TranslateY="5.43"/>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                </Border>
                             </StackPanel>
                         </Grid>
                     </ControlTemplate>
@@ -204,10 +176,9 @@
             </Border>
         </AppBar>
     </omsqft:BasePageView.BottomAppBar>
-    <Grid  Background="White">
+    <Grid Background="White">
         <Grid>
             <ScrollViewer x:Name="ExhibitDetailsPanels" Style="{StaticResource HorizontalScrollViewerStyle}" >
-
                 <StackPanel Orientation="Horizontal">
                     <Grid x:Name="Panel0" >
                         <Grid.ChildrenTransitions>
@@ -276,11 +247,16 @@
         								Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
         								Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
 										Source="{Binding ImageSource}"/>
-                                        <AppBarButton Icon="Play" 
+                                        <AppBarButton
 												Command="{Binding DataSource.LaunchVideoCommand, Source={StaticResource DataContextProxy}}" 
                                                 CommandParameter="{Binding}"
                                                 Click="LaunchVideoCommand_OnClick"
-                                                Height="250" Width="250" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" Style="{StaticResource AppBarPlayButtonStyle}"/>
+                                                HorizontalAlignment="Center" 
+                                                VerticalAlignment="Center" 
+                                                Margin="0"
+                                                Background="{Binding DataSource.Exhibit.ColorBrush, Source={StaticResource DataContextProxy}}"
+                                                Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" 
+                                                Style="{StaticResource AppBarPlayButtonStyle}"/>
 
                                     </Grid>
                                 </DataTemplate>
