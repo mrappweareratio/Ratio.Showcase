@@ -23,7 +23,7 @@
 
     <omsqft:BasePageView.Resources>
         <viewModels:DataContextProxy x:Key="DataContextProxy" />
-        
+
         <Storyboard x:Name="StoryboardSeeker"/>
 
         <!-- Container styles -->
@@ -420,7 +420,7 @@
 
 
         <!-- ItemTemplates styles -->
-        
+
         <DataTemplate x:Key="TimelineExhibitTemplate">
             <Button Style="{StaticResource EventGalleryButtonStyle}"
                             CommandParameter="{Binding Id}" 
@@ -431,14 +431,14 @@
                     Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
                     Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
                     VerticalAlignment="Top">
-                <Border Background="Transparent"
+                    <Border Background="Transparent"
 				    BorderBrush="White"
 				    BorderThickness="0"
 				    Margin="0">
-                    <Image Source="{Binding HeroPhotoFilePath}"
+                        <Image Source="{Binding HeroPhotoFilePath}"
 					    Stretch="UniformToFill"/>
-                </Border>
-                <TextBlock Margin="0,40,0,0"
+                    </Border>
+                    <TextBlock Margin="0,40,0,0"
 					FontSize="42"
 					Height="Auto"
 					Text="{Binding SquareFootageString}"
@@ -446,8 +446,8 @@
                     TextAlignment="Center"
 					TextTrimming="WordEllipsis" VerticalAlignment="Top"
 					Foreground="{StaticResource OneMSQFTWhiteBrush}" FontFamily="Segoe UI Light" FontWeight="Light">
-                </TextBlock>
-                <TextBlock Text="{Binding Name}"
+                    </TextBlock>
+                    <TextBlock Text="{Binding Name}"
                     VerticalAlignment="Bottom"
 					Margin="0,0,0,65"
 					FontSize="20"
@@ -575,25 +575,36 @@
 
                     <Grid Background="{Binding EventColor, Mode=OneWay}"  Grid.RowSpan="4" >
                         <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="Auto" MinHeight="59"/>
-                            <RowDefinition Height="Auto" MinHeight="59"/>
-                            <RowDefinition Height="Auto" MinHeight="167"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="3*"/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="{Binding SquareFootageString}"
-                    			Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                    			FontSize="60"
-                    			Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
-                        <TextBlock Text="{Binding Name, Mode=OneWay}"
-                    			Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-                    			Style="{StaticResource TitleTextStyle}"
-                    			TextWrapping="NoWrap"
-                    			Margin="15,0,15,0" Grid.Row="2"/>
+                    			   Foreground="{StaticResource OneMSQFTWhiteBrush}"
+                    			   FontSize="60" 
+                                   HorizontalAlignment="Left"
+                    			   Margin="40,0,0,0" 
+                                   Grid.Row="1" 
+                                   FontFamily="Segoe UI Light" 
+                                   FontWeight="Light"/>
+                        <TextBlock Text="{Binding Name, Mode=OneWay}" 
+                    			    Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+                    			    FontSize="32" 
+                                    HorizontalAlignment="Left"
+                    		    	TextWrapping="Wrap" 
+                                    FontFamily="Segoe UI Light" 
+                                    FontWeight="Light"
+                    		    	Margin="40,0,0,0" 
+                                    Grid.Row="2"/>
                         <TextBlock Text="{Binding Description}"
-                    			Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
-                    			Style="{StaticResource CaptionTextStyle}"
-                    			TextWrapping="NoWrap"
-                    			Margin="15,0" Grid.Row="3" HorizontalAlignment="Left"/>
+                    			    Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
+                    			    FontSize="18"
+                    			    TextWrapping="Wrap" 
+                                    FontFamily="Segoe UI Light" 
+                                    FontWeight="Light"
+                    			    Margin="40,0,0,0" Grid.Row="3" 
+                                    HorizontalAlignment="Left"/>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <GridView ItemsSource="{Binding Exhibits}"
@@ -653,53 +664,53 @@
         </Style>
 
     </omsqft:BasePageView.Resources>
-	<omsqft:BasePageView.BottomAppBar>
-		<AppBar x:Name="appBar" Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent" Visibility="Collapsed">
-			<Border Height="90" BorderBrush="{StaticResource OneMSQFTAppBarAccentGrayBrush}" BorderThickness="0,10,0,0" >
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition/>
-						<ColumnDefinition/>
-					</Grid.ColumnDefinitions>
-					<StackPanel Orientation="Horizontal"  Margin="20,0,0,0">
-					</StackPanel>
-					<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
-						<Button x:Name="AboutButton" HorizontalAlignment="Stretch" Content="ABOUT 1MSQFT" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
-					</StackPanel>
-				</Grid>
-			</Border>
-		</AppBar>
-	</omsqft:BasePageView.BottomAppBar>
+    <omsqft:BasePageView.BottomAppBar>
+        <AppBar x:Name="appBar" Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent" Visibility="Collapsed">
+            <Border Height="90" BorderBrush="{StaticResource OneMSQFTAppBarAccentGrayBrush}" BorderThickness="0,10,0,0" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal"  Margin="20,0,0,0">
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
+                        <Button x:Name="AboutButton" HorizontalAlignment="Stretch" Content="ABOUT 1MSQFT" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </AppBar>
+    </omsqft:BasePageView.BottomAppBar>
 
     <Grid Background="White">
-    <Grid>
-    	<!--<Grid.Background>
+        <Grid>
+            <!--<Grid.Background>
     		<ImageBrush Stretch="UniformToFill" ImageSource="ms-appx:///Assets/02_home-semantic-zoom.png">
     			<ImageBrush.RelativeTransform>
     				<CompositeTransform CenterY="0.5" CenterX="0.5" ScaleX="1.35" ScaleY="1.35"/>
     			</ImageBrush.RelativeTransform>
     		</ImageBrush>
     	</Grid.Background>-->
-    	<Grid.RowDefinitions>
-    		<RowDefinition/>
-    		<RowDefinition Height="4*"/>
-    	</Grid.RowDefinitions>
-        <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <EntranceThemeTransition/>
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
-        <Grid x:Name="LogoGrid" Margin="0" Visibility="Collapsed">
-            <StackPanel Margin="0,0,36,4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-        		<TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding TotalSquareFeet, Mode=OneWay}" VerticalAlignment="Bottom" Foreground="{StaticResource OMSQFT_LogoDarkBlueBrush}" FontSize="40" Margin="0,0,13,6" FontFamily="Segoe UI Light" FontWeight="Light"/>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <Grid.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </Grid.ChildrenTransitions>
+            <Grid x:Name="LogoGrid" Margin="0" Visibility="Collapsed">
+                <StackPanel Margin="0,0,36,4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding TotalSquareFeet, Mode=OneWay}" VerticalAlignment="Bottom" Foreground="{StaticResource OMSQFT_LogoDarkBlueBrush}" FontSize="40" Margin="0,0,13,6" FontFamily="Segoe UI Light" FontWeight="Light"/>
                     <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Strings.Since, Source={StaticResource PortableStrings}}" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTSinceTextGray}" FontSize="24" Margin="0,0,0,10" FontFamily="Segoe UI Light" FontWeight="Light"/>
-        	</StackPanel>
-        	<omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,38,0,0">
-        		<omsqftcontrols:LogoUserControl.RenderTransform>
-        			<CompositeTransform ScaleX="0.35" ScaleY="0.35"/>
-        		</omsqftcontrols:LogoUserControl.RenderTransform>
-        	</omsqftcontrols:LogoUserControl>
-        </Grid>
+                </StackPanel>
+                <omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,38,0,0">
+                    <omsqftcontrols:LogoUserControl.RenderTransform>
+                        <CompositeTransform ScaleX="0.35" ScaleY="0.35"/>
+                    </omsqftcontrols:LogoUserControl.RenderTransform>
+                </omsqftcontrols:LogoUserControl>
+            </Grid>
             <SemanticZoom x:Name="semanticZoom" Background="{x:Null}"
                       IsZoomedInViewActive="True" 
                       Transitions="{x:Null}"
@@ -769,14 +780,14 @@
                 </SemanticZoom.ZoomedInView>
             </SemanticZoom>
             <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
-            <Grid>
-                <omsqftcontrols:VideoPlayerUserControl 
+                <Grid>
+                    <omsqftcontrols:VideoPlayerUserControl 
                     SelectedEvent="{Binding DataSource.SelectedEvent, Source={StaticResource DataContextProxy}}"
                     Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                     Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
-                <AppBarButton Icon="Cancel" Click="AppBarButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
-            </Grid>
-        </Popup>
+                    <AppBarButton Icon="Cancel" Click="AppBarButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
+                </Grid>
+            </Popup>
         </Grid>
         <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Black" Opacity=".7" Visibility="{Binding Visibility, ElementName=appBar, Mode=TwoWay}" IsHitTestVisible="False"></Rectangle>
     </Grid>
