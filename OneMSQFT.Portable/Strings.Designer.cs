@@ -114,5 +114,13 @@ namespace OneMSQFT.Common {
                 return ResourceManager.GetString("SquareFeetAtNameFormat", resourceCulture);
             }
         }
+
+        public static string NextString
+        {
+            get
+            {
+                return ResourceManager.GetString("NextString", resourceCulture);
+            }
+        }
     }
 }
