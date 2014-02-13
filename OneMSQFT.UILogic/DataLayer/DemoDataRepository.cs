@@ -12,8 +12,25 @@ namespace OneMSQFT.UILogic.DataLayer
 {
     public class DemoDataRepository : IDataRepository
     {
-        private const string HeroImage = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg";
+        private static readonly Random ImageRandomizer = new Random();
+        private static readonly List<string> Images = new List<string>()
+        {
+            "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg",
+            "http://www.1msqft.com/assets/img/carousel/2/1.jpg",
+            "http://www.1msqft.com/assets/img/carousel/2/2.jpg",
+            "http://www.1msqft.com/assets/img/carousel/2/3.jpg",
+            "http://www.1msqft.com/assets/img/carousel/2/4.jpg",
+            "http://www.1msqft.com/assets/img/carousel/2/5.jpg",
+            "http://www.1msqft.com/assets/img/carousel/2/6.jpg",
+            "http://www.1msqft.com/assets/img/carousel/2/7.jpg",
+            "http://www.1msqft.com/assets/img/carousel/2/8.jpg",
+            "http://www.1msqft.com/assets/img/carousel/2/9.jpg",
+            "http://www.1msqft.com/assets/img/carousel/2/10.jpg",
+            "http://www.1msqft.com/assets/img/carousel/2/11.jpg"
+        };
+
         private const string VideoUrl = "http://player.vimeo.com/external/85202186.hd.mp4?s=a78dd60b6d00d4ea3cb24c04f8123fc5";
+
         private const string DemoExhibitDescription = "";
 
         public Task<SiteDataResult> GetSiteData()
@@ -111,9 +128,9 @@ namespace OneMSQFT.UILogic.DataLayer
                      new Event
                     {
                         Id = Convert.ToString(eventId++),
-                        Name = "New York",
+                        Name = "Fashion Week",
                         DisplayDate = "MMM D-D",
-                        Description = "Event at New York",
+                        Description = "Event at Fasion Week",
                         Color = "922580",     
                         DateStart = DateTime.Now.AddDays(-6),
                         SquareFootage = 2587,
@@ -123,7 +140,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             new Exhibit()
                             {
                                 Id = Convert.ToString(exhibitId++),
-                                Name = "New York Exhibit Zero",
+                                Name = "Fasion Week Exhibit Zero",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
                                 Description = DemoExhibitDescription,
@@ -134,7 +151,7 @@ namespace OneMSQFT.UILogic.DataLayer
                             new Exhibit()
                             {
                                Id = Convert.ToString(exhibitId++),
-                                Name = "New York Exhibit One",
+                                Name = "Fasion Week Exhibit One",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
                                 Description = DemoExhibitDescription,
@@ -145,7 +162,7 @@ namespace OneMSQFT.UILogic.DataLayer
                              new Exhibit()
                             {
                                Id = Convert.ToString(exhibitId++),
-                                Name = "New York Exhibit Two",
+                                Name = "Fasion Week Exhibit Two",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
                                 Description = DemoExhibitDescription,
@@ -156,7 +173,7 @@ namespace OneMSQFT.UILogic.DataLayer
                              new Exhibit()
                             {
                                Id = Convert.ToString(exhibitId++),
-                                Name = "New York Exhibit Three",
+                                Name = "Fasion Week Exhibit Three",
                                 DisplayDate = "MMM D-D",
                                 Exhibitor = "Exhibitor",
                                 Description = DemoExhibitDescription,
@@ -450,9 +467,10 @@ namespace OneMSQFT.UILogic.DataLayer
 
         public static List<MediaContentSource> GetMediaCollection(int count)
         {
-            var mc = new List<MediaContentSource>();
+            var mc = new List<MediaContentSource>();            
             for (var i = 0; i < count; i++)
             {
+                var img = ImageRandomizer.Next(Images.Count - 1);                
                 var mcsV = new MediaContentSource()
                 {
                     ContentSourceType = ContentSourceType.Video,
@@ -462,8 +480,7 @@ namespace OneMSQFT.UILogic.DataLayer
                 var mcsI = new MediaContentSource()
                 {
                     ContentSourceType = ContentSourceType.Image,
-                    Source = HeroImage
-
+                    Source = Images[img]
                 };
                 mc.Add(mcsV);
                 mc.Add(mcsI);
