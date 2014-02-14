@@ -17,8 +17,14 @@ namespace OneMSQFT.UILogic.Services
 
         public bool IsConnected()
         {
-            return NetworkInformation.GetInternetConnectionProfile() != null;
-            //return true;
+            var prof = NetworkInformation.GetInternetConnectionProfile();
+            bool connected = false;
+
+            if (prof != null)
+            {
+                connected = prof.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
+            }
+            return connected;
         }
         
         public event EventHandler InternetConnectionChanged;
@@ -26,7 +32,7 @@ namespace OneMSQFT.UILogic.Services
         private void NetworkInformation_NetworkStatusChanged(object sender)
         {
             var arg = new InternetConnectionChangedEventArgs
-                          {IsConnected = (NetworkInformation.GetInternetConnectionProfile() != null)};
+                          {IsConnected = this.IsConnected()};
  
             if (InternetConnectionChanged != null)
                 InternetConnectionChanged(null, arg);
