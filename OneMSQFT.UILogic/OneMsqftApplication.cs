@@ -41,6 +41,7 @@ namespace OneMSQFT.UILogic
                     NavigationService.Navigate(ViewLocator.Pages.Timeline, Configuration.StartupItemId);            
                     break;
                 case StartupItemType.Exhibit:
+                    NavigationService.Navigate(ViewLocator.Pages.ExhibitDetails, Configuration.StartupItemId);            
                     break;                
             }            
         }

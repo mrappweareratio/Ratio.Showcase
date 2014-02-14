@@ -148,5 +148,33 @@ namespace OneMSQFT.UILogic.Tests
             Assert.AreEqual(page, ViewLocator.Pages.Timeline, "On Timeline");
             Assert.AreEqual(pageParam, eventId, "Event Id");
         }
+
+        [TestMethod]
+        public void Application_Launch_Configuration_To_Exhibit()
+        {
+            string page = null;
+            object pageParam = null;
+            const string eventId = "0";
+            bool called = false;
+            var autoResetEvent = new AutoResetEvent(false);
+            var navigationService = new MockNavigationService()
+            {
+                NavigateDelegate = (a, b) =>
+                {
+                    page = a;
+                    pageParam = b;
+                    return true;
+                }
+            };
+            var app = new OneMsqftApplication(navigationService, new MockDataService(), new MockConfigurationService()
+            {
+                StartupItemId = eventId,
+                StartupItemType = StartupItemType.Exhibit
+            });
+            ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
+            autoResetEvent.WaitOne(2000);
+            Assert.AreEqual(page, ViewLocator.Pages.ExhibitDetails, "On Exhibits");
+            Assert.AreEqual(pageParam, eventId, "Exhibit Id");
+        }
     }
 }
