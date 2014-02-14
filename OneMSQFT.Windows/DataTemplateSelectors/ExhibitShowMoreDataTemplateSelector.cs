@@ -22,13 +22,10 @@ namespace OneMSQFT.Windows.DataTemplateSelectors
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
-            var vm = item as EventItemViewModel;
+            var vm = item as ShowMoreFakeExhibitItemViewModel;
             if (vm != null)
             {
-                if (vm.Name == "Show More")
-                {
-                    return TimelineShowMoreExhibitTemplate;
-                }
+                return TimelineShowMoreExhibitTemplate;
             }
             return TimelineExhibitTemplate;
         }
