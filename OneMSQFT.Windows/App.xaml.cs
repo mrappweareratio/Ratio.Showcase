@@ -73,6 +73,7 @@ namespace OneMSQFT.Windows
             _container.RegisterType<IDataCacheService, DataCacheService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IDataService, DataService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IAlertMessageService, AlertMessageService>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IConfigurationService, ConfigurationService>(new ContainerControlledLifetimeManager());
 
             //create the application
             _application = new OneMsqftApplication(NavigationService, _container.Resolve<IDataService>());

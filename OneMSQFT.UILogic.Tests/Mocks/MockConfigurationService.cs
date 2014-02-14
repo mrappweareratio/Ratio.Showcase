@@ -1,4 +1,5 @@
 using System;
+using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Tests.ViewModels;
 

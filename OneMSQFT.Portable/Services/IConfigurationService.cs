@@ -1,4 +1,4 @@
-using OneMSQFT.UILogic.Tests.ViewModels;
+using OneMSQFT.Common.Models;
 
 namespace OneMSQFT.Common.Services
 {

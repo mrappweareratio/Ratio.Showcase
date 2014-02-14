@@ -3,13 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
+using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.Tests.ViewModels;
 
 namespace OneMSQFT.UILogic.Services
 {
     public class ConfigurationService : IConfigurationService
     {
+        readonly ApplicationDataContainer _localSettings = ApplicationData.Current.LocalSettings;
+        private readonly ApplicationDataContainer _container;
+
+        public ConfigurationService()
+        {
+            _container = _localSettings.CreateContainer("Configuration", ApplicationDataCreateDisposition.Always);
+        }
+
         public void SetStartupEvent(string id)
         {
             StartupItemType = StartupItemType.Event;
@@ -24,12 +33,21 @@ namespace OneMSQFT.UILogic.Services
         }
 
         public void ClearStartupItem()
-        {           
+        {
             StartupItemType = StartupItemType.None;
             StartupItemId = null;
         }
 
-        public StartupItemType StartupItemType { get; private set; }
-        public string StartupItemId { get; private set; }
+        public StartupItemType StartupItemType
+        {
+            get { return (StartupItemType)(Convert.ToInt32(_container.Values["StartupItemType"])); }
+            private set { _container.Values["StartupItemType"] = (int)value; }
+        }
+
+        public string StartupItemId
+        {
+            get { return _container.Values["StartupItemId"] as string; }
+            private set { _container.Values["StartupItemId"] = value; }
+        }
     }
 }
