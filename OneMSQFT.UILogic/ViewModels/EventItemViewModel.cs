@@ -27,22 +27,27 @@ namespace OneMSQFT.UILogic.ViewModels
             Description = eventModel.Description;
             Id = eventModel.Id;
             SquareFootage = eventModel.SquareFootage;
-            _exhibitsIndex = 0;
-            Exhibits = new List<ExhibitItemViewModel>(eventModel.Exhibits.Select(x => new ExhibitItemViewModel(x)));
-            DisplayedExhibits = new ObservableCollection<ExhibitItemViewModel>(Exhibits.Count > 4
-                ? Exhibits.Take(3)
-                : Exhibits.Take(4));                        
-            LoadMediaContent(eventModel.MediaContent);
             EventColor = ColorUtils.GetEventColor(eventModel);
-            ShowMoreCommand = new DelegateCommand(ShowMoreCommandExecuteMethod);
+            Exhibits = new List<ExhibitItemViewModel>(eventModel.Exhibits.Select(x => new ExhibitItemViewModel(x)));
+            LoadMediaContent(eventModel.MediaContent);
+            LoadDisplayedExhibits();
+            ShowMoreCommand = new DelegateCommand(ShowMoreCommandExecuteMethod, ShowMoreCommandCanExecuteMethod);
             ShowMoreVisibility = ShowMoreCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
+        }
 
-            if (DisplayedExhibits.Count == 3)
+        private void LoadDisplayedExhibits()
+        {
+            _exhibitsIndex = 0;
+            if (Exhibits.Count > 4)
             {
-                DisplayedExhibits.Add(new ShowMoreFakeExhibitItemViewModel(new Exhibit(), true));
+                DisplayedExhibits = new ObservableCollection<ExhibitItemViewModel>(Exhibits.Take(3));
+                DisplayedExhibits.Add(new ShowMoreFakeExhibitItemViewModel());
             }
-        }     
-
+            else
+            {
+                DisplayedExhibits = new ObservableCollection<ExhibitItemViewModel>(Exhibits.Take(4));
+            }
+        }
         private void LoadMediaContent(IEnumerable<MediaContentSource> mediaContent)
         {
             var mediaContentViewModels = MediaContentSourceUtils.GetMediaContentSourceItemViewModels(mediaContent).ToList();
@@ -109,7 +114,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 DisplayedExhibits.Add(ex);
             }
-            DisplayedExhibits.Add(new ShowMoreFakeExhibitItemViewModel(new Exhibit(), true));
+            DisplayedExhibits.Add(new ShowMoreFakeExhibitItemViewModel());
         }
     }
 }

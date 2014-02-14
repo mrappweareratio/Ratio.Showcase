@@ -9,12 +9,9 @@ using OneMSQFT.Common.Models;
 namespace OneMSQFT.UILogic.ViewModels
 {
     public class ShowMoreFakeExhibitItemViewModel : ExhibitItemViewModel
-    {
-        public bool IsShowMoreItem = true;
-
-        public ShowMoreFakeExhibitItemViewModel(IExhibit exhibitModel, bool isShowMoreItem) : base(exhibitModel)
-        {
-            IsShowMoreItem = isShowMoreItem;
+    {        
+        public ShowMoreFakeExhibitItemViewModel() : base(null)
+        {            
         }
     }
 }

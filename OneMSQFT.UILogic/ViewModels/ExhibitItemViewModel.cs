@@ -19,6 +19,8 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public ExhibitItemViewModel(IExhibit exhibitModel)
         {
+            if (exhibitModel == null)
+                return;
             Exhibit = exhibitModel;
             Name = exhibitModel.Name;
             Id = exhibitModel.Id;
