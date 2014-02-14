@@ -176,5 +176,36 @@ namespace OneMSQFT.UILogic.Tests
             Assert.AreEqual(page, ViewLocator.Pages.ExhibitDetails, "On Exhibits");
             Assert.AreEqual(pageParam, eventId, "Exhibit Id");
         }
+
+        [TestMethod]
+        public void Application_Handles_Bad_Deep_Link()
+        {
+            string page = null;
+            object pageParam = null;
+            const string eventId = "0";
+            var autoResetEvent = new AutoResetEvent(false);
+            var navigationService = new MockNavigationService()
+            {
+                NavigateDelegate = (a, b) =>
+                {
+                    page = a;
+                    pageParam = b;
+                    return true;
+                }
+            };
+            var data = new MockDataService()
+            {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>())
+            };
+            var app = new OneMsqftApplication(navigationService, data, new MockConfigurationService()
+            {
+                StartupItemId = eventId,
+                StartupItemType = StartupItemType.Exhibit
+            });
+            ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
+            autoResetEvent.WaitOne(2000);
+            Assert.AreEqual(page, ViewLocator.Pages.Timeline, "Revert to Timeline");
+            Assert.IsNull(pageParam, "null param");
+        }
     }
 }

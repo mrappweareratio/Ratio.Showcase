@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.ApplicationSettings;
@@ -15,6 +17,7 @@ namespace OneMSQFT.UILogic
 {
     public class OneMsqftApplication : IOneMsqftApplication
     {
+        private IEnumerable<Event> _events;
         public IConfigurationService Configuration { get; private set; }
         public IDataService DataService { get; private set; }
         public INavigationService NavigationService { get; private set; }
@@ -24,26 +27,42 @@ namespace OneMSQFT.UILogic
             Configuration = configuration;
             DataService = dataService;
             NavigationService = navigationService;
+            _events = new List<Event>();
         }
 
         async public Task OnLaunchApplication(ILaunchActivatedEventArgs args)
         {
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
-                await DataService.GetEvents();
+                _events = await DataService.GetEvents();
             }
             switch (Configuration.StartupItemType)
             {
                 case StartupItemType.None:
-                    NavigationService.Navigate(ViewLocator.Pages.Timeline, null);            
+                    NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
                     break;
                 case StartupItemType.Event:
-                    NavigationService.Navigate(ViewLocator.Pages.Timeline, Configuration.StartupItemId);            
+                    if (_events == null || !_events.Any(x => x.Id.Equals(Configuration.StartupItemId)))
+                    {
+                        NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
+                    }
+                    else
+                    {
+                        NavigationService.Navigate(ViewLocator.Pages.Timeline, Configuration.StartupItemId);
+                    }
                     break;
                 case StartupItemType.Exhibit:
-                    NavigationService.Navigate(ViewLocator.Pages.ExhibitDetails, Configuration.StartupItemId);            
-                    break;                
-            }            
+                    if (_events == null ||
+                        !_events.SelectMany(x => x.Exhibits).Any(x => x.Id.Equals(Configuration.StartupItemId)))
+                    {
+                        NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
+                    }
+                    else
+                    {
+                        NavigationService.Navigate(ViewLocator.Pages.ExhibitDetails, Configuration.StartupItemId);
+                    }
+                    break;
+            }
         }
 
         public void OnInitialize(IActivatedEventArgs args)
