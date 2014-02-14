@@ -75,7 +75,7 @@ namespace OneMSQFT.Windows
             _container.RegisterType<IAlertMessageService, AlertMessageService>(new ContainerControlledLifetimeManager());
 
             //create the application
-            _application = new OneMsqftApplication(NavigationService);
+            _application = new OneMsqftApplication(NavigationService, _container.Resolve<IDataService>());
 
             //register the application
             _container.RegisterInstance<IOneMsqftApplication>(_application);
