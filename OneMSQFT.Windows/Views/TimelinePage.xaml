@@ -471,22 +471,31 @@
                     Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
                     Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
                     VerticalAlignment="Top">
-                    <Border Background="Gray"
+                    <Border Background="{Binding ElementName=GridView, Path=DataContext.EventColor}"
 				    BorderBrush="White"
 				    BorderThickness="0"
 				    Margin="0">
                     </Border>
-                    <Rectangle Fill="{StaticResource OneMSQFTOverlayBgBrush}"/>
-                    <TextBlock
-					    FontSize="42"
-					    Height="Auto"
-					    Text="{Binding Strings.ShowMore, Source={StaticResource PortableStrings}}"
-					    TextWrapping="NoWrap"
-                        TextAlignment="Center"
-					    TextTrimming="WordEllipsis" VerticalAlignment="Center"
-					    Foreground="{StaticResource OneMSQFTWhiteBrush}" 
-                        FontFamily="Segoe UI Light" FontWeight="Light">
-                    </TextBlock>
+                    <StackPanel Margin="0" Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock
+    			            FontSize="40"
+    			            Text="show"
+    			            TextWrapping="NoWrap"
+    			            TextAlignment="Center"
+    			            Foreground="white" 
+    			            FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
+				            Margin="0,0,0,0" 
+                            LineHeight="36"/>
+                        <TextBlock
+    			            FontSize="40"
+    			            Text="more"
+    			            TextWrapping="NoWrap"
+    			            TextAlignment="Center"
+    			            Foreground="white" 
+    			            FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
+				            Margin="0,0,0,0" 
+                            LineHeight="36"/>
+                    </StackPanel>
                 </Grid>
             </Button>
         </DataTemplate>
