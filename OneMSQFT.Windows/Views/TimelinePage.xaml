@@ -651,7 +651,7 @@
                                     HorizontalAlignment="Left"/>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
-                        <GridView ItemsSource="{Binding Exhibits}"
+                        <GridView ItemsSource="{Binding DisplayedExhibits}"
                               ItemTemplate="{StaticResource TimelineExhibitTemplate}"
                               ItemContainerStyle="{StaticResource TimelineExhibitItemContainerStyle}"
                               SelectionMode="None"

@@ -21,12 +21,16 @@ namespace OneMSQFT.UILogic.Tests.Mocks
 
         public Task ShowAsync(string message, string title)
         {
-            return ShowAsyncDelegate(message, title);
+            if (ShowAsyncDelegate != null)
+                return ShowAsyncDelegate(message, title);
+            return Task.FromResult(0);
         }
 
         public Task ShowAsync(string message, string title, IEnumerable<DialogCommand> dialogCommands)
         {
-            return ShowAsyncWithCommandsDelegate(message, title, dialogCommands);
+            if (ShowAsyncWithCommandsDelegate != null)
+                return ShowAsyncWithCommandsDelegate(message, title, dialogCommands);
+            return Task.FromResult(0);
         }
     }
 }

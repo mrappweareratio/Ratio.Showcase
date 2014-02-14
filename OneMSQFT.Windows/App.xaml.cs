@@ -40,7 +40,8 @@ namespace OneMSQFT.Windows
     {
         public App()
         {
-            this.UnhandledException += App_UnhandledException; 
+            this.UnhandledException += App_UnhandledException;
+            this.ExtendedSplashScreenFactory = (splashscreen) => new ExtendedSplashScreen(splashscreen);
         }
 
         void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
