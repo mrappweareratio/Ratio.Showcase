@@ -9,5 +9,11 @@ namespace OneMSQFT.Common.Services
     public interface IInternetConnection
     {
         bool IsConnected();
+        event EventHandler InternetConnectionChanged;
+    }
+
+    public class InternetConnectionChangedEventArgs : EventArgs
+    {
+        public bool IsConnected { get; set; }
     }
 }

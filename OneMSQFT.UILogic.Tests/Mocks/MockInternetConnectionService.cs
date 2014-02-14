@@ -17,5 +17,7 @@ namespace OneMSQFT.UILogic.Tests.Mocks
                 return IsConnectedDelegate();
             return false;
         }
+
+        public event EventHandler InternetConnectionChanged;
     }
 }

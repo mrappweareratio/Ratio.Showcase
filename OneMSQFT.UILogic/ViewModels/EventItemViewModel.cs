@@ -34,8 +34,13 @@ namespace OneMSQFT.UILogic.ViewModels
                 : Exhibits.Take(4));                        
             LoadMediaContent(eventModel.MediaContent);
             EventColor = ColorUtils.GetEventColor(eventModel);
-            ShowMoreCommand = new DelegateCommand(ShowMoreCommandExecuteMethod, ShowMoreCommandCanExecuteMethod);
+            ShowMoreCommand = new DelegateCommand(ShowMoreCommandExecuteMethod);
             ShowMoreVisibility = ShowMoreCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
+
+            if (DisplayedExhibits.Count == 3)
+            {
+                DisplayedExhibits.Add(new ShowMoreFakeExhibitItemViewModel(new Exhibit(), true));
+            }
         }     
 
         private void LoadMediaContent(IEnumerable<MediaContentSource> mediaContent)
@@ -104,6 +109,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 DisplayedExhibits.Add(ex);
             }
+            DisplayedExhibits.Add(new ShowMoreFakeExhibitItemViewModel(new Exhibit(), true));
         }
     }
 }

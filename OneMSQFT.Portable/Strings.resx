@@ -129,6 +129,9 @@
   <data name="NextString" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>show more</value>
+  </data>
   <data name="Since" xml:space="preserve">
     <value>since December 2013</value>
   </data>
