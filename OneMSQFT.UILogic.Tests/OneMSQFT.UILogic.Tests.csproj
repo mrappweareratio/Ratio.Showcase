@@ -121,6 +121,7 @@
     <Compile Include="Mocks\MockNavigationService.cs" />
     <Compile Include="OneMsqftApplicationFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ConfigurationServiceFixture.cs" />
     <Compile Include="Services\DataCacheServiceFixture.cs" />
     <Compile Include="Services\DataServiceFixture.cs" />
     <Compile Include="Mocks\MockDataRepository.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Utils\MediaContentSourceUtilsFixture.cs" />
     <Compile Include="ViewModels\EventItemViewModelFixture.cs" />
     <Compile Include="ViewModels\ExhibitDetailsPageViewModelFixture.cs" />
+    <Compile Include="Mocks\MockConfigurationService.cs" />
     <Compile Include="ViewModels\TimelinePageViewModelFixture.cs" />
   </ItemGroup>
   <ItemGroup>
