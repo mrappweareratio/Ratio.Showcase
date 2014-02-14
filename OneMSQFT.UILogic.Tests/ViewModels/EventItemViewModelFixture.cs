@@ -40,6 +40,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                 vm = new EventItemViewModel(ev);
             });
             Assert.IsFalse(vm.ShowMoreCommand.CanExecute(), "CanExecute");
+            Assert.IsFalse(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel);
             Assert.AreEqual(vm.ShowMoreVisibility, Visibility.Collapsed, "Collapsed");
         }
 
@@ -61,6 +62,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                 vm = new EventItemViewModel(ev);
             });
             Assert.IsTrue(vm.DisplayedExhibits.Count == 4);
+            Assert.IsFalse(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel, "No Show More Item");
         }
 
         [TestMethod]
@@ -80,7 +82,8 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             {
                 vm = new EventItemViewModel(ev);
             });
-            Assert.IsTrue(vm.DisplayedExhibits.Count == 3, "Displays 3");
+            Assert.IsTrue(vm.DisplayedExhibits.Count == 4, "Displays 4 Total");
+            Assert.IsTrue(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel, "Last is Show More Item");
             Assert.IsTrue(vm.ShowMoreCommand.CanExecute(), "ShowMoreCanExecute");
             Assert.AreEqual(vm.ShowMoreVisibility, Visibility.Visible, "Visible");
         }
@@ -102,11 +105,13 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             {
                 vm = new EventItemViewModel(ev);
             });
-            Assert.IsTrue(vm.DisplayedExhibits.Count == 3, "Displays 3");
+            Assert.IsTrue(vm.DisplayedExhibits.Count == 4, "Displays 4 Total");
+            Assert.IsTrue(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel, "Last is Show More Item");
             Assert.IsTrue(vm.ShowMoreCommand.CanExecute(), "ShowMoreCanExecute");
             await ExecuteOnUIThread(() => vm.ShowMoreCommand.Execute());
             Assert.AreEqual(vm.DisplayedExhibits.First().Id, "3", "Next Id Loaded");
-            Assert.IsTrue(vm.DisplayedExhibits.Count == 2);
+            Assert.IsTrue(vm.DisplayedExhibits.Count == 3, "Displays Next 2 with Show More");
+            Assert.IsTrue(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel, "Last is Show More Item");
         }
         [TestMethod]
         async public Task ShowMore_Loops()
@@ -127,22 +132,25 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             {
                 vm = new EventItemViewModel(ev);
             });
-            Assert.IsTrue(vm.DisplayedExhibits.Count == 3, "Displays 3");
+            Assert.IsTrue(vm.DisplayedExhibits.Count == 4, "Displays 1st 3 with Show More");
+            Assert.IsTrue(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel, "Last is Show More Item");
             Assert.IsTrue(vm.ShowMoreCommand.CanExecute(), "ShowMoreCanExecute");
             
             await ExecuteOnUIThread(() => vm.ShowMoreCommand.Execute());
             Assert.AreEqual(vm.DisplayedExhibits.First().Id, "4", "Next Id 4 Loaded");
-            Assert.IsTrue(vm.DisplayedExhibits.Count == 3);
-            Assert.IsTrue(vm.ShowMoreCommand.CanExecute(), "ShowMoreCanExecute");
+            Assert.IsTrue(vm.DisplayedExhibits.Count == 4, "Displays Next 3 with Show More");
+            Assert.IsTrue(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel, "Last is Show More Item");
             
             await ExecuteOnUIThread(() => vm.ShowMoreCommand.Execute());
             Assert.AreEqual(vm.DisplayedExhibits.First().Id, "7", "Next Id 7 Loaded");
-            Assert.IsTrue(vm.DisplayedExhibits.Count == 1);
+            Assert.IsTrue(vm.DisplayedExhibits.Count == 2, "Displays 7th item with Show More");
+            Assert.IsTrue(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel, "Last is Show More Item");
             Assert.IsTrue(vm.ShowMoreCommand.CanExecute(), "ShowMoreCanExecute");
             
             await ExecuteOnUIThread(() => vm.ShowMoreCommand.Execute());
             Assert.AreEqual(vm.DisplayedExhibits.First().Id, "1", "Back to Id 1");
-            Assert.IsTrue(vm.DisplayedExhibits.Count == 3);
+            Assert.IsTrue(vm.DisplayedExhibits.Count == 4, "Displays 1st 3 with Show More");
+            Assert.IsTrue(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel, "Last is Show More Item");
         }
     }
 }
