@@ -122,5 +122,17 @@ namespace OneMSQFT.Common {
                 return ResourceManager.GetString("NextString", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to show more.
+        /// </summary>
+        public static string ShowMore
+        {
+            get
+            {
+                return ResourceManager.GetString("ShowMore", resourceCulture);
+            }
+        }
+        
     }
 }

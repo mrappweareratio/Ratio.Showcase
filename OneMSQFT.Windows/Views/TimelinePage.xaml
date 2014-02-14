@@ -18,8 +18,7 @@
     NavigationCacheMode="Required"
     mc:Ignorable="d"
     Background="White"
-    prism:ViewModelLocator.AutoWireViewModel="True" 
-	d:DataContext="{d:DesignInstance designViewModels:DesignTimelinePageViewModel, IsDesignTimeCreatable=True}">
+    prism:ViewModelLocator.AutoWireViewModel="True" >
 
     <omsqft:BasePageView.Resources>
         <viewModels:DataContextProxy x:Key="DataContextProxy" />
@@ -463,6 +462,48 @@
             </Button>
         </DataTemplate>
 
+        <DataTemplate x:Key="TimelineShowMoreExhibitTemplate">
+            <Button Style="{StaticResource EventGalleryButtonStyle}"
+                    CommandParameter="{Binding Id}" 
+                    Command="{Binding DataContext.Departments, RelativeSource={RelativeSource Mode=TemplatedParent}} " 
+                    BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
+					BorderThickness="5,0,0,5">
+                <Grid
+                    Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
+                    Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
+                    VerticalAlignment="Top">
+                    <Border Background="Transparent"
+				    BorderBrush="White"
+				    BorderThickness="0"
+				    Margin="0">
+                        <Image Source="{Binding HeroPhotoFilePath}"
+					    Stretch="UniformToFill"/>
+                    </Border>
+                    <Rectangle Fill="{StaticResource OneMSQFTOverlayBgBrush}"/>
+                    <TextBlock Margin="0,40,0,0"
+					    FontSize="42"
+					    Height="Auto"
+					    Text="{Binding SquareFootageString}"
+					    TextWrapping="NoWrap"
+                        TextAlignment="Center"
+					    TextTrimming="WordEllipsis" VerticalAlignment="Top"
+					    Foreground="{StaticResource OneMSQFTWhiteBrush}" 
+                        FontFamily="Segoe UI Light" FontWeight="Light">
+                    </TextBlock>
+                    <TextBlock Text="{Binding Name}"
+                        VerticalAlignment="Bottom"
+					    Margin="0,0,0,65"
+					    FontSize="20"
+					    TextTrimming="CharacterEllipsis"
+					    TextWrapping="NoWrap"
+                        TextAlignment="Center"
+					    Foreground="{StaticResource OneMSQFTWhiteBrush}" 
+                        FontFamily="Segoe UI Light" FontWeight="Light">
+                    </TextBlock>
+                </Grid>
+            </Button>
+        </DataTemplate>
+
         <DataTemplate x:Key="TimelineZoomedOutEventItemTemplate">
             <Border Margin="0,0,8,8"
                 BorderThickness="0" 
@@ -618,14 +659,19 @@
                               IsSwipeEnabled="False"
                               IsHoldingEnabled="False"
                               ScrollViewer.IsHorizontalScrollChainingEnabled="False"
-                                  ScrollViewer.HorizontalScrollMode="Disabled"
-                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                  ScrollViewer.IsHorizontalRailEnabled="False"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              ScrollViewer.IsHorizontalRailEnabled="False"
                               ScrollViewer.IsVerticalScrollChainingEnabled="False"
-                                  ScrollViewer.VerticalScrollMode="Disabled"
-                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                  ScrollViewer.IsVerticalRailEnabled="False"
+                              ScrollViewer.VerticalScrollMode="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                              ScrollViewer.IsVerticalRailEnabled="False"
                               IsTapEnabled="False">
+                            <GridView.ItemTemplateSelector>
+                                <templateSelectors:ExhibitShowMoreDataTemplateSelector
+                            TimelineExhibitTemplate="{StaticResource TimelineExhibitTemplate}"
+                            TimelineShowMoreExhibitTemplate="{StaticResource TimelineShowMoreExhibitTemplate}"/>
+                            </GridView.ItemTemplateSelector>
                             <GridView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"   />
