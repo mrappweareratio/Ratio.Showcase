@@ -32,7 +32,7 @@ namespace OneMSQFT.UILogic.Tests.Mocks
             ClearStartupItemDelegate();
         }
 
-        public StartupItemType StartupItemType { get; private set; }
-        public string StartupItemId { get; private set; }
+        public StartupItemType StartupItemType { get; set; }
+        public string StartupItemId { get; set; }
     }
 }

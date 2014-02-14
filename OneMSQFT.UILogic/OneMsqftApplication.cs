@@ -5,6 +5,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Popups;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
+using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Interfaces;
 using OneMSQFT.UILogic.Navigation;
@@ -14,11 +15,13 @@ namespace OneMSQFT.UILogic
 {
     public class OneMsqftApplication : IOneMsqftApplication
     {
+        public IConfigurationService Configuration { get; private set; }
         public IDataService DataService { get; private set; }
         public INavigationService NavigationService { get; private set; }
 
-        public OneMsqftApplication(INavigationService navigationService, IDataService dataService)
+        public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration)
         {
+            Configuration = configuration;
             DataService = dataService;
             NavigationService = navigationService;
         }
@@ -29,7 +32,17 @@ namespace OneMSQFT.UILogic
             {
                 await DataService.GetEvents();
             }
-            NavigationService.Navigate(ViewLocator.Pages.Timeline, null);            
+            switch (Configuration.StartupItemType)
+            {
+                case StartupItemType.None:
+                    NavigationService.Navigate(ViewLocator.Pages.Timeline, null);            
+                    break;
+                case StartupItemType.Event:
+                    NavigationService.Navigate(ViewLocator.Pages.Timeline, Configuration.StartupItemId);            
+                    break;
+                case StartupItemType.Exhibit:
+                    break;                
+            }            
         }
 
         public void OnInitialize(IActivatedEventArgs args)

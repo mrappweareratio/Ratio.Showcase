@@ -37,7 +37,7 @@ namespace OneMSQFT.UILogic.Tests
                         return true;
                     }
                 };
-            var app = new OneMsqftApplication(navigationService, new MockDataService());
+            var app = new OneMsqftApplication(navigationService, new MockDataService(), new MockConfigurationService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
             autoResetEvent.WaitOne(2000);
             Assert.AreEqual(page, ViewLocator.Pages.Timeline, "On Timeline");
@@ -64,7 +64,7 @@ namespace OneMSQFT.UILogic.Tests
                     called = true;
                     return new List<Event>();
                 }
-            });
+            }, new MockConfigurationService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
             autoResetEvent.WaitOne(200);
             Assert.IsTrue(called, "Called Data Service");
@@ -87,7 +87,7 @@ namespace OneMSQFT.UILogic.Tests
             };
             var dataService = new DataService(new DemoDataRepository(), new DataCacheService(),
                 new MockInternetConnectionService() { IsConnectedDelegate = () => true });
-            var app = new OneMsqftApplication(navigationService, dataService);
+            var app = new OneMsqftApplication(navigationService, dataService, new MockConfigurationService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
             autoResetEvent.WaitOne(1500);
             Assert.AreEqual(page, ViewLocator.Pages.Timeline, "On Timeline");
@@ -114,11 +114,39 @@ namespace OneMSQFT.UILogic.Tests
                     called = true;
                     return new List<Event>();
                 }
-            });
+            }, new MockConfigurationService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs() { PreviousExecutionState = ApplicationExecutionState.Running }));
             autoResetEvent.WaitOne(200);
             Assert.IsFalse(called, "Skipped Data Service");
             Assert.AreEqual(page, ViewLocator.Pages.Timeline, "On Timeline");
+        }
+
+        [TestMethod]
+        public void Application_Launch_Configuration_To_Event()
+        {
+            string page = null;
+            object pageParam = null;
+            const string eventId = "0";
+            bool called = false;
+            var autoResetEvent = new AutoResetEvent(false);
+            var navigationService = new MockNavigationService()
+            {
+                NavigateDelegate = (a, b) =>
+                {
+                    page = a;
+                    pageParam = b;
+                    return true;
+                }
+            };
+            var app = new OneMsqftApplication(navigationService, new MockDataService(), new MockConfigurationService()
+            {
+                StartupItemId = eventId,
+                StartupItemType = StartupItemType.Event                
+            });
+            ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));            
+            autoResetEvent.WaitOne(2000);
+            Assert.AreEqual(page, ViewLocator.Pages.Timeline, "On Timeline");
+            Assert.AreEqual(pageParam, eventId, "Event Id");
         }
     }
 }
