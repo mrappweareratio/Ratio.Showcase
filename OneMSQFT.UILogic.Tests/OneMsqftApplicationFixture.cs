@@ -85,7 +85,7 @@ namespace OneMSQFT.UILogic.Tests
                     return true;
                 }
             };
-            var dataService = new DataService(new DemoDataRepository(), new DataCacheService(),
+            var dataService = new DataService(new DemoDataRepository(), new MockDataCacheService(), 
                 new MockInternetConnectionService() { IsConnectedDelegate = () => true });
             var app = new OneMsqftApplication(navigationService, dataService, new MockConfigurationService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
@@ -138,12 +138,16 @@ namespace OneMSQFT.UILogic.Tests
                     return true;
                 }
             };
-            var app = new OneMsqftApplication(navigationService, new MockDataService(), new MockConfigurationService()
+            var data = new MockDataService()
+            {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>() { MockModelGenerator.NewEvent(eventId, "Event") })
+            };
+            var app = new OneMsqftApplication(navigationService, data, new MockConfigurationService()
             {
                 StartupItemId = eventId,
-                StartupItemType = StartupItemType.Event                
+                StartupItemType = StartupItemType.Event
             });
-            ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));            
+            ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
             autoResetEvent.WaitOne(2000);
             Assert.AreEqual(page, ViewLocator.Pages.Timeline, "On Timeline");
             Assert.AreEqual(pageParam, eventId, "Event Id");
@@ -154,8 +158,7 @@ namespace OneMSQFT.UILogic.Tests
         {
             string page = null;
             object pageParam = null;
-            const string eventId = "0";
-            bool called = false;
+            const string exhibitId = "0";
             var autoResetEvent = new AutoResetEvent(false);
             var navigationService = new MockNavigationService()
             {
@@ -166,15 +169,24 @@ namespace OneMSQFT.UILogic.Tests
                     return true;
                 }
             };
-            var app = new OneMsqftApplication(navigationService, new MockDataService(), new MockConfigurationService()
+            var data = new MockDataService()
             {
-                StartupItemId = eventId,
+                GetEventsDelegate = () =>
+                {
+                    var ev = MockModelGenerator.NewEvent(exhibitId, "Event");
+                    ev.Exhibits = new List<Exhibit> { MockModelGenerator.NewExhibit(exhibitId, "Exhibit") };
+                    return Task.FromResult<IEnumerable<Event>>(new List<Event>() { ev });
+                }
+            };
+            var app = new OneMsqftApplication(navigationService, data, new MockConfigurationService()
+            {
+                StartupItemId = exhibitId,
                 StartupItemType = StartupItemType.Exhibit
             });
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
             autoResetEvent.WaitOne(2000);
             Assert.AreEqual(page, ViewLocator.Pages.ExhibitDetails, "On Exhibits");
-            Assert.AreEqual(pageParam, eventId, "Exhibit Id");
+            Assert.AreEqual(pageParam, exhibitId, "Exhibit Id");
         }
 
         [TestMethod]
