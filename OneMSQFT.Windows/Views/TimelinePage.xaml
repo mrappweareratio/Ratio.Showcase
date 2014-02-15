@@ -214,7 +214,7 @@
     									IsHitTestVisible="False"
     									Opacity="0"
                                         HorizontalAlignment="Stretch"
-    									Stroke="{StaticResource OMSQFT_LogoDarkBlueBrush}"
+    									Stroke="{StaticResource OneMSQFTLogoDarkBlueBrush}"
     									StrokeThickness="{StaticResource ListViewItemSelectedBorderThemeThickness}"
     									Margin="0" />
                                             <Border x:Name="SelectedCheckMarkOuter"
@@ -223,7 +223,7 @@
     									VerticalAlignment="Top"
     									Margin="0">
                                                 <Grid x:Name="SelectedCheckMark" Opacity="0" Height="40" Width="40">
-                                                    <Path x:Name="SelectedEarmark" Data="M0,0 L40,0 L40,40 z"  Fill="{StaticResource OMSQFT_LogoDarkBlueBrush}" Stretch="Fill"/>
+                                                    <Path x:Name="SelectedEarmark" Data="M0,0 L40,0 L40,40 z"  Fill="{StaticResource OneMSQFTLogoDarkBlueBrush}" Stretch="Fill"/>
                                                     <Path Data="F1 M133.1,17.9 L137.2,13.2 L144.6,19.6 L156.4,5.8 L161.2,9.9 L145.6,28.4 z" Fill="{StaticResource ListViewItemCheckThemeBrush}" Height="13" Stretch="Fill" Width="15" HorizontalAlignment="Right" Margin="0,5.5,5.5,0" VerticalAlignment="Top" FlowDirection="LeftToRight"/>
                                                 </Grid>
                                             </Border>
@@ -416,6 +416,86 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="TimelineZoomedOutComingSoonItemContainerStyle" TargetType="GridViewItem">
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="TabNavigation" Value="Local"/>
+            <Setter Property="IsHoldingEnabled" Value="True"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewItem">
+                        <Grid x:Name="ContentContainer" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False">
+                            <Grid.RenderTransform>
+                                <CompositeTransform/>
+                            </Grid.RenderTransform>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver"/>
+                                    <VisualState x:Name="Pressed"/>
+                                    <VisualState x:Name="PointerOverPressed"/>
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused"/>
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="PointerFocused"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionHintStates">
+                                    <VisualState x:Name="VerticalSelectionHint"/>
+                                    <VisualState x:Name="HorizontalSelectionHint"/>
+                                    <VisualState x:Name="NoSelectionHint" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselecting"/>
+                                    <VisualState x:Name="Unselected"/>
+                                    <VisualState x:Name="UnselectedPointerOver"/>
+                                    <VisualState x:Name="UnselectedSwiping"/>
+                                    <VisualState x:Name="Selecting"/>
+                                    <VisualState x:Name="Selected"/>
+                                    <VisualState x:Name="SelectedSwiping"/>
+                                    <VisualState x:Name="SelectedUnfocused"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DragStates">
+                                    <VisualState x:Name="NotDragging" />
+                                    <VisualState x:Name="Dragging"/>
+                                    <VisualState x:Name="DraggingTarget"/>
+                                    <VisualState x:Name="MultipleDraggingPrimary"/>
+                                    <VisualState x:Name="MultipleDraggingSecondary"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="ReorderHintStates">
+                                    <VisualState x:Name="NoReorderHint"/>
+                                    <VisualState x:Name="BottomReorderHint"/>
+                                    <VisualState x:Name="TopReorderHint"/>
+                                    <VisualState x:Name="RightReorderHint"/>
+                                    <VisualState x:Name="LeftReorderHint"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="DataVirtualizationStates">
+                                    <VisualState x:Name="DataAvailable"/>
+                                    <VisualState x:Name="DataPlaceholder"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="OuterContainer" HorizontalAlignment="Left" Margin="0" Padding="0" Background="Transparent">
+                                <Grid>
+                                    <ContentPresenter x:Name="contentPresenter"
+        								ContentTransitions="{TemplateBinding ContentTransitions}"
+        								ContentTemplate="{TemplateBinding ContentTemplate}"
+        								Content="{TemplateBinding Content}"
+        								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+        								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+        								Margin="0" />
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
 
         <!-- ItemTemplates styles -->
@@ -508,23 +588,44 @@
                 Height="{Binding DataSource.ZoomedOutItemHeight, Source={StaticResource DataContextProxy}}" 
                 Padding="5">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="{Binding SquareFootageString}"
-    				    TextTrimming="WordEllipsis"
-    				    FontSize="40"
+                    <StackPanel Margin="0" Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock
+    			            FontSize="40"
+    			            Text="{Binding SquareFootageString}"
+    			            TextWrapping="NoWrap"
+    			            TextAlignment="Center"
+    			            Foreground="white" 
+    			            FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
+				            Margin="0,0,0,0" LineHeight="36"/>
+                        <TextBlock
+    			            FontSize="20"
+    			            Text="{Binding Name, Mode=OneWay}"
+    			            TextWrapping="NoWrap"
+    			            TextAlignment="Center"
+    			            Foreground="white" 
+    			            FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
+				            Margin="0,0,0,0" LineHeight="36"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TimelineZoomedOutComingSoonItemTemplate">
+            <Border Margin="0,0,8,8" IsHitTestVisible="False"
+                BorderThickness="0" 
+                Background="{StaticResource OneMSQFTComingSoonBrush}" 
+                Width="{Binding DataSource.ZoomedOutItemWidth, Source={StaticResource DataContextProxy}}" 
+                Height="{Binding DataSource.ZoomedOutItemHeight, Source={StaticResource DataContextProxy}}" 
+                Padding="5">
+                <Grid>
+                    <TextBlock Text="{Binding Strings.ComingSoon, Source={StaticResource PortableStrings}}"
+    				    FontSize="24"
+                        Foreground="{StaticResource OneMSQFTAppBarAccentGrayBrush}"
                         FontWeight="Light"
     				    Margin="0" 
                         HorizontalAlignment="Center" 
-                        VerticalAlignment="Bottom" 
+                        VerticalAlignment="Center" 
                         FontFamily="Segoe UI"/>
-                    <TextBlock Text="{Binding Name, Mode=OneWay}"
-                        VerticalAlignment="Top"
-                        FontSize="20" 
-                        Grid.Row="1" 
-                        HorizontalAlignment="Center"/>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -636,35 +737,6 @@
             </Border>
         </DataTemplate>
 
-
-        <Style x:Key="GridViewStyle" TargetType="GridView">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="GridView">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                            <ScrollViewer HorizontalSnapPointsAlignment="Center" 
-                                          HorizontalSnapPointsType="Mandatory" 
-                                          HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" 
-                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" 
-                                          IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" 
-                                          IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}" 
-                                          IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}" 
-                                          IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" 
-                                          TabNavigation="{TemplateBinding TabNavigation}" 
-                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" 
-                                          VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" 
-                                          ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
-                                <ItemsPresenter HeaderTemplate="{TemplateBinding HeaderTemplate}" 
-                                                Header="{TemplateBinding Header}" 
-                                                HeaderTransitions="{TemplateBinding HeaderTransitions}" 
-                                                Padding="0"/>
-                            </ScrollViewer>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
     </omsqft:BasePageView.Resources>
     <omsqft:BasePageView.BottomAppBar>
         <AppBar x:Name="appBar" Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent" Visibility="Collapsed">
@@ -704,7 +776,7 @@
             </Grid.ChildrenTransitions>
             <Grid x:Name="LogoGrid" Margin="0" Visibility="Collapsed">
                 <StackPanel Margin="0,0,36,4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding TotalSquareFeet, Mode=OneWay}" VerticalAlignment="Bottom" Foreground="{StaticResource OMSQFT_LogoDarkBlueBrush}" FontSize="40" Margin="0,0,13,6" FontFamily="Segoe UI Light" FontWeight="Light"/>
+                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding TotalSquareFeet, Mode=OneWay}" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTLogoDarkBlueBrush}" FontSize="40" Margin="0,0,13,6" FontFamily="Segoe UI Light" FontWeight="Light"/>
                     <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Strings.Since, Source={StaticResource PortableStrings}}" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTSinceTextGray}" FontSize="24" Margin="0,0,0,10" FontFamily="Segoe UI Light" FontWeight="Light"/>
                 </StackPanel>
                 <omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,38,0,0">
@@ -727,14 +799,22 @@
                           Height="{Binding DataSource.ZoomedOutGridHeight, Source={StaticResource DataContextProxy}}"
                           Background="Transparent"
                           IsSwipeEnabled="False"
-                          SelectionMode="Single"
+                          SelectionMode="None"
                           IsItemClickEnabled="True"
                           IsTapEnabled="True"
                           ItemsSource="{Binding TimeLineMenuItems}"
                           AutomationProperties.AutomationId="HubPageGridView"
-                          ScrollViewer.IsHorizontalScrollChainingEnabled="False"
-                          ItemTemplate="{StaticResource TimelineZoomedOutEventItemTemplate}"
-                          ItemContainerStyle="{StaticResource TimelineZoomedOutEventItemContainerStyle}">
+                          ScrollViewer.IsHorizontalScrollChainingEnabled="False">
+                        <GridView.ItemTemplateSelector>
+                            <templateSelectors:ZoomedOutTimelineDataTemplateSelector
+                            TimelineZoomedOutEventItemTemplate="{StaticResource TimelineZoomedOutEventItemTemplate}"
+                            TimelineZoomedOutComingSoonItemTemplate="{StaticResource TimelineZoomedOutComingSoonItemTemplate}"/>
+                        </GridView.ItemTemplateSelector>
+                        <GridView.ItemContainerStyleSelector>
+                            <templateSelectors:ZoomedOutItemContainerStyleSelector
+                                TimelineZoomedOutComingSoonItemContainerStyle="{StaticResource TimelineZoomedOutComingSoonItemContainerStyle}"
+                                TimelineZoomedOutEventItemContainerStyle ="{StaticResource TimelineZoomedOutEventItemContainerStyle}"/>
+                        </GridView.ItemContainerStyleSelector>
                         <GridView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapGrid MaximumRowsOrColumns="3" />
@@ -760,7 +840,6 @@
                     IsItemClickEnabled="False"
                     Loaded="itemsGridView_Loaded" 
                     ItemContainerStyle="{StaticResource TimelineItemContainerStyle}" d:IsHidden="True">
-
                         <omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
                             <templateSelectors:TimelineDataTemplateSelector
                             EventTimelineItemTemplate="{StaticResource OMSQFTTimelineEventItemTemplate}"

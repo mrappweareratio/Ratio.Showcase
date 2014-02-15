@@ -141,5 +141,17 @@ namespace OneMSQFT.Common {
                 return ResourceManager.GetString("SquareFeetAtNameFormat", resourceCulture);
             }
         }
+
+
+        /// <summary>
+        ///   Looks up a localized string similar to Coming Soon.
+        /// </summary>
+        public static string ComingSoon
+        {
+            get
+            {
+                return ResourceManager.GetString("ComingSoon", resourceCulture);
+            }
+        }
     }
 }
