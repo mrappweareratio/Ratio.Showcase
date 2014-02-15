@@ -47,7 +47,7 @@
                     Click="GoBack"  Grid.Column="1" VerticalAlignment="Top" Margin="0,100,0,0"
                     IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}"
                     Style="{StaticResource BlackBackButtonStyle}" />
-                <Rectangle Fill="{StaticResource OMSQFT_LogoDarkBlueBrush}" Grid.Column="2" Width="2000"></Rectangle>
+                <Rectangle Fill="{StaticResource OneMSQFTLogoDarkBlueBrush}" Grid.Column="2" Width="2000"></Rectangle>
             </Grid>
             <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Black" Opacity=".7" Visibility="{Binding Visibility, ElementName=appBar, Mode=TwoWay}" IsHitTestVisible="False"></Rectangle>
         </Grid>
