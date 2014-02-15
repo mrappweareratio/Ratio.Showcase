@@ -16,6 +16,9 @@ namespace OneMSQFT.UILogic.ViewModels
     public class ExhibitItemViewModel : ItemBaseViewModel, IHasMediaContentViewModel
     {
         public override string Id { get; set; }
+        public CuratorItemViewModel Curator { get; set; }
+        public ObservableCollection<LinkItemViewModel> Links { get; set; }
+
 
         public ExhibitItemViewModel(IExhibit exhibitModel)
         {
@@ -26,6 +29,7 @@ namespace OneMSQFT.UILogic.ViewModels
             SquareFootage = exhibitModel.SquareFootage;
             LoadMediaContent(exhibitModel.MediaContent);
             ColorBrush = ColorUtils.GetExhibitColor(exhibitModel);
+            Curator = new CuratorItemViewModel(exhibitModel.Curator);
         }
 
         private void LoadMediaContent(IEnumerable<MediaContentSource> mediaContent)

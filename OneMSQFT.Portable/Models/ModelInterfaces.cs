@@ -36,8 +36,12 @@ namespace OneMSQFT.Common.Models
         DateTime UpdatedAt { get; }
     }
 
-    public interface ICurator : ISquareFootageItem, ISocialMedia, ITimeStampedItem
+    public interface ICurator
     {
+        string Id { get; }
+        string Name { get; }
+        string Description { get; }
+        string WhiteLogoImage { get; }
         string LogoImageName { get; }
         /// <summary>
         /// CMS to enforce protocol prefix, i.e. http:// or https:// 

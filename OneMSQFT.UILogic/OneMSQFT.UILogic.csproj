@@ -136,6 +136,7 @@
     <Compile Include="ViewModels\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\BasePageViewModel.cs" />
     <Compile Include="ViewModels\IHasMediaContentViewModel.cs" />
+    <Compile Include="ViewModels\LinkItemViewModel.cs" />
     <Compile Include="ViewModels\MediaContentSourceItemViewModel.cs" />
     <Compile Include="ViewModels\CuratorItemViewModels.cs" />
     <Compile Include="ViewModels\DataContextProxy.cs" />
