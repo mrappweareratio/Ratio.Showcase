@@ -22,6 +22,8 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public EventItemViewModel(Event eventModel)
         {
+            if (eventModel == null)
+                return;
             Event = eventModel;
             Name = eventModel.Name;
             Description = eventModel.Description;

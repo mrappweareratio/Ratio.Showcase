@@ -122,6 +122,8 @@
       <DependentUpon>VideoPlayerUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataTemplateSelectors\ExhibitShowMoreDataTemplateSelector.cs" />
+    <Compile Include="DataTemplateSelectors\ZoomedOutItemContainerStyleSelector.cs" />
+    <Compile Include="DataTemplateSelectors\ZoomedOutTimelineDataTemplateSelector.cs" />
     <Compile Include="DataTemplateSelectors\TimelineDataTemplateSelector.cs" />
     <Compile Include="DesignViewModels\DesignAboutPageViewModel.cs" />
     <Compile Include="DesignViewModels\DesignExhibitDetailsPageViewModel.cs" />
