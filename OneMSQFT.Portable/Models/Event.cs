@@ -12,6 +12,7 @@ namespace OneMSQFT.Common.Models
         public Event()
         {
             Exhibits = new List<Exhibit>();
+            MediaContent = new List<MediaContentSource>();
         }
 
         public string Id { get; set; }

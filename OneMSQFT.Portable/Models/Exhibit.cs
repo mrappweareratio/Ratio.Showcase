@@ -8,6 +8,7 @@ namespace OneMSQFT.Common.Models
     {
         public Exhibit()
         {
+            Tags = new List<Tag>();
             MediaContent = new List<MediaContentSource>();
         }
 

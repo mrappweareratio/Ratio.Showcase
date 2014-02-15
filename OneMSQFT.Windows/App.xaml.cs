@@ -40,7 +40,8 @@ namespace OneMSQFT.Windows
     {
         public App()
         {
-            this.UnhandledException += App_UnhandledException; 
+            this.UnhandledException += App_UnhandledException;
+            this.ExtendedSplashScreenFactory = (splashscreen) => new ExtendedSplashScreen(splashscreen);
         }
 
         void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -74,7 +75,7 @@ namespace OneMSQFT.Windows
             _container.RegisterType<IAlertMessageService, AlertMessageService>(new ContainerControlledLifetimeManager());
 
             //create the application
-            _application = new OneMsqftApplication(NavigationService);
+            _application = new OneMsqftApplication(NavigationService, _container.Resolve<IDataService>());
 
             //register the application
             _container.RegisterInstance<IOneMsqftApplication>(_application);

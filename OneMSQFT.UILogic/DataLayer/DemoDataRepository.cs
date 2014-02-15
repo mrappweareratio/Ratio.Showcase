@@ -33,8 +33,9 @@ namespace OneMSQFT.UILogic.DataLayer
 
         private const string DemoExhibitDescription = "";
 
-        public Task<SiteDataResult> GetSiteData()
+        async public Task<SiteDataResult> GetSiteData()
         {
+            await Task.Delay(1000);
             var exhibitId = 0;
             var eventId = 0;
             var result = new SiteDataResult
@@ -461,7 +462,7 @@ namespace OneMSQFT.UILogic.DataLayer
                     }
                 }
             };
-            return Task.FromResult(result);
+            return result;
         }
 
 

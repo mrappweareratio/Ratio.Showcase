@@ -16,6 +16,8 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class EventItemViewModel : ItemBaseViewModel, IHasMediaContentViewModel
     {
+        private int _exhibitsIndex;
+        private Visibility _showMoreVisibility;
         public override string Id { get; set; }
 
         public EventItemViewModel(Event eventModel)
@@ -25,13 +27,27 @@ namespace OneMSQFT.UILogic.ViewModels
             Description = eventModel.Description;
             Id = eventModel.Id;
             SquareFootage = eventModel.SquareFootage;
-            Exhibits = new ObservableCollection<ExhibitItemViewModel>(eventModel.Exhibits.Select(x => new ExhibitItemViewModel(x)));
-            LoadMediaContent(eventModel.MediaContent);
             EventColor = ColorUtils.GetEventColor(eventModel);
+            Exhibits = new List<ExhibitItemViewModel>(eventModel.Exhibits.Select(x => new ExhibitItemViewModel(x)));
+            LoadMediaContent(eventModel.MediaContent);
+            LoadDisplayedExhibits();
+            ShowMoreCommand = new DelegateCommand(ShowMoreCommandExecuteMethod, ShowMoreCommandCanExecuteMethod);
+            ShowMoreVisibility = ShowMoreCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
         }
 
-
-
+        private void LoadDisplayedExhibits()
+        {
+            _exhibitsIndex = 0;
+            if (Exhibits.Count > 4)
+            {
+                DisplayedExhibits = new ObservableCollection<ExhibitItemViewModel>(Exhibits.Take(3));
+                DisplayedExhibits.Add(new ShowMoreFakeExhibitItemViewModel());
+            }
+            else
+            {
+                DisplayedExhibits = new ObservableCollection<ExhibitItemViewModel>(Exhibits.Take(4));
+            }
+        }
         private void LoadMediaContent(IEnumerable<MediaContentSource> mediaContent)
         {
             var mediaContentViewModels = MediaContentSourceUtils.GetMediaContentSourceItemViewModels(mediaContent).ToList();
@@ -49,7 +65,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
         private Event Event { get; set; }
 
-        public ObservableCollection<ExhibitItemViewModel> Exhibits { get; private set; }
+        public List<ExhibitItemViewModel> Exhibits { get; private set; }
 
         public DateTime DateStart { get { return Event.DateStart; } }
 
@@ -69,6 +85,36 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        public SolidColorBrush EventColor { get; set; }        
+        public SolidColorBrush EventColor { get; set; }
+
+        public DelegateCommand ShowMoreCommand { get; private set; }
+
+        public ObservableCollection<ExhibitItemViewModel> DisplayedExhibits { get; private set; }
+        public Visibility ShowMoreVisibility
+        {
+            get { return _showMoreVisibility; }
+            set { SetProperty(ref _showMoreVisibility, value); }
+        }
+
+        private bool ShowMoreCommandCanExecuteMethod()
+        {
+            return Exhibits.Count > 4;
+        }
+
+        private void ShowMoreCommandExecuteMethod()
+        {
+            //load next three
+            _exhibitsIndex += 3;
+            if (_exhibitsIndex > Exhibits.Count - 1)
+            {
+                _exhibitsIndex = 0;
+            }
+            DisplayedExhibits.Clear();
+            foreach (var ex in Exhibits.GetRange(_exhibitsIndex, Math.Min(3, Exhibits.Count - _exhibitsIndex)))
+            {
+                DisplayedExhibits.Add(ex);
+            }
+            DisplayedExhibits.Add(new ShowMoreFakeExhibitItemViewModel());
+        }
     }
 }

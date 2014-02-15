@@ -18,8 +18,7 @@
     NavigationCacheMode="Required"
     mc:Ignorable="d"
     Background="White"
-    prism:ViewModelLocator.AutoWireViewModel="True" 
-	d:DataContext="{d:DesignInstance designViewModels:DesignTimelinePageViewModel, IsDesignTimeCreatable=True}">
+    prism:ViewModelLocator.AutoWireViewModel="True" >
 
     <omsqft:BasePageView.Resources>
         <viewModels:DataContextProxy x:Key="DataContextProxy" />
@@ -463,6 +462,44 @@
             </Button>
         </DataTemplate>
 
+        <DataTemplate x:Key="TimelineShowMoreExhibitTemplate">
+            <Button Style="{StaticResource EventGalleryButtonStyle}"
+                    Command="{Binding ElementName=GridView, Path=DataContext.ShowMoreCommand}" 
+                    BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
+					BorderThickness="5,0,0,5">
+                <Grid
+                    Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
+                    Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
+                    VerticalAlignment="Top">
+                    <Border Background="{Binding ElementName=GridView, Path=DataContext.EventColor}"
+				    BorderBrush="White"
+				    BorderThickness="0"
+				    Margin="0">
+                    </Border>
+                    <StackPanel Margin="0" Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock
+    			            FontSize="40"
+    			            Text="show"
+    			            TextWrapping="NoWrap"
+    			            TextAlignment="Center"
+    			            Foreground="white" 
+    			            FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
+				            Margin="0,0,0,0" 
+                            LineHeight="36"/>
+                        <TextBlock
+    			            FontSize="40"
+    			            Text="more"
+    			            TextWrapping="NoWrap"
+    			            TextAlignment="Center"
+    			            Foreground="white" 
+    			            FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
+				            Margin="0,0,0,0" 
+                            LineHeight="36"/>
+                    </StackPanel>
+                </Grid>
+            </Button>
+        </DataTemplate>
+
         <DataTemplate x:Key="TimelineZoomedOutEventItemTemplate">
             <Border Margin="0,0,8,8"
                 BorderThickness="0" 
@@ -488,48 +525,6 @@
                         FontSize="20" 
                         Grid.Row="1" 
                         HorizontalAlignment="Center"/>
-                </Grid>
-            </Border>
-        </DataTemplate>
-
-        <DataTemplate x:Key="OMSQFTTimelineFeaturedEventItemTemplate">
-            <Border BorderThickness="1" Background="{Binding EventColor, Mode=OneWay}">
-                <Grid Width="{Binding DataSource.EventItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
-                      Height="{Binding DataSource.EventItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" >
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Background="{StaticResource OneMSQFTWhiteBrush}" 
-                          Margin="100" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" 
-                          Width="{Binding ColorColumnWidth, Mode=OneWay}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" MinHeight="159" />
-                            <RowDefinition Height="Auto" MinHeight="59"/>
-                            <RowDefinition Height="Auto" MinHeight="159"/>
-                            <RowDefinition Height="Auto" MinHeight="167"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding DataSource.TotalSquareFeet, Source={StaticResource DataContextProxy}}"
-						Foreground="{StaticResource OneMSQFTBlackBrush}"
-						FontSize="60"
-						Margin="15,0,15,0" Grid.Row="1" FontFamily="Segoe UI Light"/>
-                        <TextBlock Text="{Binding Strings.IntroBlurb, Source={StaticResource PortableStrings}}"
-						Foreground="{StaticResource OneMSQFTBlackBrush}"
-						TextWrapping="Wrap"
-						Margin="15,20,15,19" Grid.Row="2" VerticalAlignment="Center" FontSize="24" FontWeight="Light" LineHeight="32" LineStackingStrategy="BlockLineHeight"/>
-                        <TextBlock Text="{Binding Strings.AppTitle, Source={StaticResource PortableStrings}}"
-						Foreground="{StaticResource OneMSQFTBlackBrush}"
-						Style="{StaticResource CaptionTextStyle}"
-						TextWrapping="NoWrap"
-						Margin="15,0" Grid.Row="3" VerticalAlignment="Top" Height="20"/>
-                    </Grid>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -610,22 +605,26 @@
                                     HorizontalAlignment="Left"/>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
-                        <GridView ItemsSource="{Binding Exhibits}"
-                              ItemTemplate="{StaticResource TimelineExhibitTemplate}"
+                        <GridView ItemsSource="{Binding DisplayedExhibits}" x:Name="GridView"
                               ItemContainerStyle="{StaticResource TimelineExhibitItemContainerStyle}"
                               SelectionMode="None"
                               IsItemClickEnabled="True"
                               IsSwipeEnabled="False"
                               IsHoldingEnabled="False"
                               ScrollViewer.IsHorizontalScrollChainingEnabled="False"
-                                  ScrollViewer.HorizontalScrollMode="Disabled"
-                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                  ScrollViewer.IsHorizontalRailEnabled="False"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              ScrollViewer.IsHorizontalRailEnabled="False"
                               ScrollViewer.IsVerticalScrollChainingEnabled="False"
-                                  ScrollViewer.VerticalScrollMode="Disabled"
-                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                  ScrollViewer.IsVerticalRailEnabled="False"
+                              ScrollViewer.VerticalScrollMode="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                              ScrollViewer.IsVerticalRailEnabled="False"
                               IsTapEnabled="False">
+                            <GridView.ItemTemplateSelector>
+                                <templateSelectors:ExhibitShowMoreDataTemplateSelector
+                            TimelineExhibitTemplate="{StaticResource TimelineExhibitTemplate}"
+                            TimelineShowMoreExhibitTemplate="{StaticResource TimelineShowMoreExhibitTemplate}"/>
+                            </GridView.ItemTemplateSelector>
                             <GridView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"   />
@@ -765,7 +764,7 @@
                         <omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
                             <templateSelectors:TimelineDataTemplateSelector
                             EventTimelineItemTemplate="{StaticResource OMSQFTTimelineEventItemTemplate}"
-                            FeaturedTimelineItemTemplate="{StaticResource OMSQFTTimelineFeaturedEventItemTemplate}"/>
+                            FeaturedTimelineItemTemplate="{StaticResource OMSQFTTimelineEventItemTemplate}"/>
                         </omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
                         <omsqftcontrols:MultipleSizedGridView.ItemsPanel>
                             <ItemsPanelTemplate>

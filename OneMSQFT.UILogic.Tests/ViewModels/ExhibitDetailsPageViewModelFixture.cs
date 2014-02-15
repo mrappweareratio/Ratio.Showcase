@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Navigation;
@@ -38,13 +39,14 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             bool called = false;
             var mockDataService = new MockDataService
             {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>()),
                 GetExhibitDetailByExhibitIdDelegate = (id) =>
                 {
                     called = true;
                     return Task.FromResult<ExhibitDetail>(new ExhibitDetail()
                     {
                         Exhibit = MockModelGenerator.NewExhibit(id, "Exhibit")
-                    });                    
+                    });
                 }
             };
             var vm = new ExhibitDetailsPageViewModel(mockDataService, new MockAlertMessageService(), new MockNavigationService());
@@ -63,6 +65,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             exhibit.MediaContent = DemoDataRepository.GetMediaCollection(1);
             var mockDataService = new MockDataService
             {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>()),
                 GetExhibitDetailByExhibitIdDelegate = (id) =>
                 {
                     called = true;
@@ -86,6 +89,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             var autoResetEvent = new AutoResetEvent(false);
             var mockDataService = new MockDataService
             {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>()),
                 GetExhibitDetailByExhibitIdDelegate = (id) =>
                 {
                     return Task.FromResult<ExhibitDetail>(new ExhibitDetail()
@@ -113,6 +117,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             bool called = false;
             var mockDataService = new MockDataService
             {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>()),
                 GetExhibitDetailByExhibitIdDelegate = (id) =>
                 {
                     called = true;
