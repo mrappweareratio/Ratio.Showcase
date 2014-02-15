@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Prism.StoreApps;
+﻿using System.Runtime.InteropServices.WindowsRuntime;
+using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common.Models;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public CuratorItemViewModel(ICurator curatorModel)
         {
+            if (curatorModel == null)
+                return;
+
             Curator = curatorModel;
             Name = curatorModel.Name;
             Id = curatorModel.Id;
