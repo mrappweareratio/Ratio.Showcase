@@ -41,8 +41,11 @@
                                 <VisualState x:Name="Disabled"/>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="Border" BorderThickness="0" Margin="0" Background="{Binding EventColor}" >
-                                <Grid Height="192" Width="330" Margin="0">
+                        <Border x:Name="Border" BorderThickness="0" Margin="0">
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
+                            </Border.Background>
+                            <Grid Height="192" Width="330" Margin="0">
                                     <Grid.RowDefinitions>
                                     <RowDefinition/>
                                     <RowDefinition/>
