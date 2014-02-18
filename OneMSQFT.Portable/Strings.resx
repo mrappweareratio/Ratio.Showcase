@@ -147,4 +147,7 @@
   <data name="ComingSoon" xml:space="preserve">
     <value>Coming Soon</value>
   </data>
+  <data name="SquareFeet" xml:space="preserve">
+    <value>square feet at</value>
+  </data>
 </root>

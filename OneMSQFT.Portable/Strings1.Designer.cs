@@ -142,6 +142,16 @@ namespace OneMSQFT.Common {
             }
         }
 
+        /// <summary>
+        ///   Looks up a localized string similar to square feet at.
+        /// </summary>
+        public static string SquareFeet
+        {
+            get
+            {
+                return ResourceManager.GetString("SquareFeet", resourceCulture);
+            }
+        }
 
         /// <summary>
         ///   Looks up a localized string similar to Coming Soon.

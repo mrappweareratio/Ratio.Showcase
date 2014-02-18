@@ -37,6 +37,10 @@ TDD Guidance
 -   Mocks
    -   Implementation of Services Interfaces
 
+#####Testing HttpClient in UILogic.Tests
+[HowTo](http://stackoverflow.com/questions/13360309/using-fiddler-with-windows-store-unit-test)
+LoopbackExempt	OneMSQFT.UILogic.Tests
+
 Design Guidance
 -----
 

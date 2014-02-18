@@ -31,7 +31,8 @@ namespace OneMSQFT.UILogic.DataLayer
 
         private const string VideoUrl = "http://player.vimeo.com/external/85202186.hd.mp4?s=a78dd60b6d00d4ea3cb24c04f8123fc5";
 
-        private const string DemoExhibitDescription = "";
+        private const string DemoExhibitDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum laoreet magna, ut rutrum purus cursus ut. Nulla convallis, elit et consequat sollicitudin, eros ligula pretium dolor, a bibendum est eros eu mauris. Sed in mi cursus, dapibus justo et, condimentum est. Vestibulum velit eros, rhoncus a ante sed, tincidunt scelerisque nibh. Maecenas ullamcorper lacus quis justo aliquet iaculis at placerat nulla. Phasellus dictum lectus vel erat vehicula cursus. Suspendisse euismod consequat rhoncus. Duis id lectus orci.";
+        private const string DemoEventDescription = DemoExhibitDescription;
 
         async public Task<SiteDataResult> GetSiteData()
         {
@@ -49,7 +50,8 @@ namespace OneMSQFT.UILogic.DataLayer
                         Name = "Sundance",
                         Location = "Park City",
                         DisplayDate = "MMM D-D",
-                        Description = "Sundance Film Festival",
+                      //  Location = "444 Main St. Park City, UT",
+                        Description = DemoEventDescription,
                         Color = "CE7C0D",                      
                         DateStart = DateTime.Now.AddDays(2),
                         SquareFootage = 5647,
@@ -97,7 +99,7 @@ namespace OneMSQFT.UILogic.DataLayer
                        Id = Convert.ToString(eventId++),
                         Name = "Miami",
                         DisplayDate = "MMM D-D",
-                        Description = "Event at Miami",
+                        Description = DemoEventDescription,
                         Location = "Miami",
                         Color = "306D2C",     
                         DateStart = DateTime.Now.AddDays(-2),
