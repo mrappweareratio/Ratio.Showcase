@@ -685,36 +685,92 @@
                             <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
                         </Grid.Background>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="2*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="52*"/>
+                            <RowDefinition Height="23*"/>
+                            <RowDefinition Height="12*"/>
+                            <RowDefinition Height="26*"/>
+                            <RowDefinition Height="8*"/>
+                            <RowDefinition Height="16*"/>
+                            <RowDefinition Height="70*"/>
+                            <RowDefinition Height="50*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding SquareFootageString}"
-                    			   Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                    			   FontSize="60" 
-                                   HorizontalAlignment="Left"
-                    			   Margin="40,0,0,0" 
-                                   Grid.Row="1" 
-                                   FontFamily="Segoe UI Light" 
-                                   FontWeight="Light"/>
+                        <TextBlock Text="{Binding SquareFootageStringPlain}"
+    			            Grid.Row="1" 
+    			            Foreground="White"
+    			            FontSize="60" 
+    			            HorizontalAlignment="Left"
+    			            Margin="40,0,0,0" 
+    			            FontFamily="Segoe UI Light" 
+    			            FontWeight="Light" 
+				            VerticalAlignment="Top"/>
+                        <TextBlock Text="{Binding Strings.SquareFeet, Source={StaticResource PortableStrings}}" 
+    			            Grid.Row="2"
+    			            Foreground="White"
+    			            FontSize="32" 
+    			            HorizontalAlignment="Left"
+    			            TextWrapping="NoWrap" 
+    			            FontFamily="Segoe UI Light" 
+    			            FontWeight="Light"
+    			            Margin="40,0,0,0"  
+                           VerticalAlignment="Top" />
                         <TextBlock Text="{Binding Name, Mode=OneWay}" 
-                    			    Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-                    			    FontSize="32" 
-                                    HorizontalAlignment="Left"
-                    		    	TextWrapping="Wrap" 
-                                    FontFamily="Segoe UI Light" 
-                                    FontWeight="Light"
-                    		    	Margin="40,0,0,0" 
-                                    Grid.Row="2"/>
-                        <TextBlock Text="{Binding Description}"
-                    			    Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
-                    			    FontSize="18"
-                    			    TextWrapping="Wrap" 
-                                    FontFamily="Segoe UI Light" 
-                                    FontWeight="Light"
-                    			    Margin="40,0,0,0" Grid.Row="3" 
-                                    HorizontalAlignment="Left"/>
+    			            Grid.Row="3"
+    			            Foreground="White"
+    			            FontSize="32" 
+    			            HorizontalAlignment="Left"
+    			            TextWrapping="NoWrap" 
+    			            FontFamily="Segoe UI Light" 
+    			            FontWeight="Light"
+    			            Margin="40,0,0,0"  
+				            VerticalAlignment="Top"/>
+                        <TextBlock Text="{Binding DisplayDate, Mode=OneWay}" 
+    			            Grid.Row="4"
+    			            Foreground="White"
+    			            FontSize="18" 
+    			            HorizontalAlignment="Left"
+    			            TextWrapping="NoWrap" 
+    			            FontFamily="Segoe UI" 
+    			            FontWeight="SemiBold"
+    			            Margin="40,0,0,0"  
+				            VerticalAlignment="Top"/>
+
+                        <TextBlock Text="{Binding Location, Mode=OneWay}" 
+    			            Grid.Row="5"
+    			            Foreground="White"
+    			            FontSize="18" 
+    			            HorizontalAlignment="Left"
+    			            TextWrapping="NoWrap" 
+    			            FontFamily="Segoe UI Light" 
+    			            FontWeight="Light"
+    			            Margin="40,0,0,0" 
+				            VerticalAlignment="Top"/>
+
+                        <ScrollViewer Style="{StaticResource VerticalScrollViewerStyle}"
+					        Grid.Row="6"
+					        Margin="40,0,40,0" 
+					        VerticalAlignment="Top">
+                            <TextBlock Text="{Binding Description}"
+						        Foreground="White"
+						        FontSize="18"
+						        TextWrapping="Wrap" 
+						        FontFamily="Segoe UI Light" 
+						        FontWeight="Light"/>
+                        </ScrollViewer>
+                        <ItemsControl
+					        Grid.Row="7" ItemsSource="{Binding Curators}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Image Source="{Binding}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid MaximumRowsOrColumns="2"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <GridView ItemsSource="{Binding DisplayedExhibits}" x:Name="GridView"
@@ -871,6 +927,12 @@
                     </omsqftcontrols:MultipleSizedGridView>
                 </SemanticZoom.ZoomedInView>
             </SemanticZoom>
+
+            <omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="125,38,0,0" LogoColor="FFFFFF">
+                <omsqftcontrols:LogoUserControl.RenderTransform>
+                    <CompositeTransform ScaleX="0.35" ScaleY="0.35"/>
+                </omsqftcontrols:LogoUserControl.RenderTransform>
+            </omsqftcontrols:LogoUserControl>
             <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
                 <Grid>
                     <omsqftcontrols:VideoPlayerUserControl 
