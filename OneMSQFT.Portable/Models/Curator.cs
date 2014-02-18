@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace OneMSQFT.Common.Models
 {
@@ -8,14 +9,11 @@ namespace OneMSQFT.Common.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int SquareFootage { get; set; }
-        public string SocialMediaTitle { get; set; }
-        public string SocialMediaDescription { get; set; }
-        public string SocialMediaImagePath { get; set; }
-        public string Color { get; set; }
+        [JsonProperty("white_logo_img")]
+        public string WhiteLogoImage { get; set; }
+        [JsonProperty("logo_img")]
         public string LogoImageName { get; set; }
+        [JsonProperty("external_url")]
         public string ExternalUrl { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
     }
 }
