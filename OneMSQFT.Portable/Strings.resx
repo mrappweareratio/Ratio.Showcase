@@ -144,4 +144,7 @@
   <data name="SquareFeetAtNameFormat" xml:space="preserve">
     <value>{0} square feet at {1}</value>
   </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>Coming Soon</value>
+  </data>
 </root>

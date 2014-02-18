@@ -53,6 +53,37 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
             }
+            AddComingSoonItems();
+        }
+
+        private void AddComingSoonItems()
+        {
+            if (TimeLineMenuItems.Count == 4)
+            {
+                TimeLineMenuItems.Insert(1, new ComingSoonFakeEventItemViewModel());
+                TimeLineMenuItems.Insert(2, new ComingSoonFakeEventItemViewModel());
+                return;
+            }
+
+            if (TimeLineMenuItems.Count == 6)
+            {
+                TimeLineMenuItems.Insert(2, new ComingSoonFakeEventItemViewModel());
+                TimeLineMenuItems.Insert(2, new ComingSoonFakeEventItemViewModel());
+                TimeLineMenuItems.Insert(6, new ComingSoonFakeEventItemViewModel());
+                TimeLineMenuItems.Insert(8, new ComingSoonFakeEventItemViewModel());
+                return;
+            }
+
+
+            if (TimeLineMenuItems.Count == 7)
+            {
+                TimeLineMenuItems.Insert(2, new ComingSoonFakeEventItemViewModel());
+                TimeLineMenuItems.Insert(2, new ComingSoonFakeEventItemViewModel());
+                TimeLineMenuItems.Insert(6, new ComingSoonFakeEventItemViewModel());
+                TimeLineMenuItems.Insert(9, new ComingSoonFakeEventItemViewModel());
+                TimeLineMenuItems.Insert(TimeLineMenuItems.Count-1, new ComingSoonFakeEventItemViewModel());
+                return;
+            }
         }
 
         public ObservableCollection<EventItemViewModel> TimeLineItems
