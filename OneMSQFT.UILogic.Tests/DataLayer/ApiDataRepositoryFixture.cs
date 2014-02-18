@@ -5,28 +5,69 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneMSQFT.Common.DataLayer;
+using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.DataLayer;
 using OneMSQFT.UILogic.Tests.Mocks;
+using OneMSQFT.UILogic.Tests.Services;
 
 namespace OneMSQFT.UILogic.Tests.DataLayer
 {
     [TestClass]
     public class ApiDataRepositoryFixture
     {
+        private SiteData result;
+
         [TestInitialize]
-        public void Init()
+        async public Task Init()
         {            
-            this.ApiConfiguration = new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api");            
+            this.ApiConfiguration = new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api");
+            var apiDataRepository = new ApiDataRepository(ApiConfiguration);
+            result = await apiDataRepository.GetSiteData();
         }
 
         public IApiConfiguration ApiConfiguration { get; set; }
 
         [TestMethod]
         async public Task Loads_Site_Data()
-        {
-            var apiDataRepository = new ApiDataRepository(ApiConfiguration);
-            var result = await apiDataRepository.GetSiteData();
+        {          
             Assert.IsNotNull(result, "Result");
+            Assert.IsNotNull(result.Events, "Events");
+            Assert.IsNotNull(result.Themes, "Themes");
+        }
+
+        [TestMethod]
+        async public Task Loads_Site_Data_Valid_Events()
+        {         
+            Assert.IsTrue(result.Events.ToList().TrueForAll(DataRepositoryFixture.ValidateEvent), "ValidateEvent");            
+        }
+
+        [TestMethod]
+        async public Task Loads_Site_Data_Valid_Exhibits()
+        {         
+            Assert.IsTrue(result.Events.SelectMany(x => x.Exhibits).ToList().TrueForAll(DataRepositoryFixture.ValidateExhibit), "ValidateExhibit");            
+        }
+
+        [TestMethod]
+        async public Task Loads_Site_Data_Theme_Ids_Valid()
+        {         
+            Assert.IsNotNull(result.Themes, "Themes");
+            Assert.IsTrue(result.Themes.Any(), "Multiple Themes");
+            Assert.IsTrue(result.Themes.ToList().TrueForAll(x => !String.IsNullOrEmpty(x.Color)), "Theme Colors");
+            var themeIds = result.Themes.Select(x => x.Id);
+            Assert.IsTrue(result.Events.ToList().TrueForAll(x => themeIds.Contains(x.ThemeId)));
+        }
+
+        [TestMethod]
+        async public Task Loads_Site_Data_Valid_Event_Colors()
+        {         
+            Assert.IsTrue(result.Events.ToList().TrueForAll(x => !String.IsNullOrEmpty(x.Color)), "Event Colors");            
+        }
+
+        [TestMethod]
+        async public Task Loads_Site_Data_Valid_Exhibit_Colors()
+        {         
+            Assert.IsTrue(result.Events.ToList().TrueForAll(x => !String.IsNullOrEmpty(x.Color)), "Event Colors");
+            Assert.IsTrue(result.Events.SelectMany(x => x.Exhibits).ToList().TrueForAll(x => !String.IsNullOrEmpty(x.Color)), "Exhibit Colors");            
         }
     }
 }

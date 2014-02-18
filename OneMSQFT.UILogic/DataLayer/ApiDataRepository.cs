@@ -23,6 +23,18 @@ namespace OneMSQFT.UILogic.DataLayer
         async public Task<SiteData> GetSiteData()
         {
             var response = await GetSiteDataResponse();
+            var themes = response.Result.Data.Themes.ToList();
+            foreach (var evt in response.Result.Data.Events)
+            {
+                var theme = themes.FirstOrDefault(x => x.Id.Equals(evt.ThemeId));
+                if (theme == null) continue;
+                evt.Color = theme.Color;
+                if (String.IsNullOrEmpty(evt.Color)) continue;
+                foreach (var ex in evt.Exhibits)
+                {
+                    ex.Color = evt.Color;
+                }
+            }
             return response.Result.Data;
         }
 

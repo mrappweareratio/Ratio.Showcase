@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace OneMSQFT.Common.Models
 {
@@ -38,6 +39,7 @@ namespace OneMSQFT.Common.Models
         [JsonProperty("exhibit_data")]
         public IEnumerable<Exhibit> Exhibits { get; set; }
         public string Color { get; set; }
+        [JsonProperty("theme_color")]
         public string ThemeId { get; set; }
         public IEnumerable<MediaContentSource> MediaContent { get; set; }
         [JsonProperty("created_at")]
