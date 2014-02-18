@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.UI.Core;
@@ -287,6 +288,38 @@ namespace OneMSQFT.UILogic.Tests
             app.OnInitialize(args);
             await app.OnLaunchApplication(args);
             Assert.IsTrue(called, "StartSessionDelegate");
-        }   
+        }
+
+        [TestMethod]
+        public async Task Suspend_Stops_Session()
+        {
+            bool called = false;
+            string page = null;
+            object pageParam = null;
+            var navigationService = new MockNavigationService()
+            {
+                NavigateDelegate = (a, b) =>
+                {
+                    page = a;
+                    pageParam = b;
+                    return true;
+                }
+            };
+            var data = new MockDataService()
+            {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>())
+            };
+            var configuration = new ConfigurationService();
+            var analytics = new MockAnalyticsService()
+            {
+                StopSessionDelegate = () => { called = true; }
+            };
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var args = new MockLaunchActivatedEventArgs();
+            app.OnInitialize(args);
+            await app.OnLaunchApplication(args);
+            app.OnSuspending(new MockSuspendingEventArgs());
+            Assert.IsTrue(called, "StopSessionDelegate");
+        }  
     }
 }

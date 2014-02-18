@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Popups;
@@ -72,6 +73,16 @@ namespace OneMSQFT.UILogic
         public void OnInitialize(IActivatedEventArgs args)
         {
             Analytics.Configure();
+        }
+
+        public void OnSuspending(ISuspendingEventArgs suspendingEventArgs)
+        {
+            Analytics.StopSession();
+        }
+
+        public void OnResuming()
+        {
+            
         }
 
         public bool KioskModeEnabled

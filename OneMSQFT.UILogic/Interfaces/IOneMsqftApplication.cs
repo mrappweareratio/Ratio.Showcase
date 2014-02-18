@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.ApplicationSettings;
 
@@ -11,5 +12,7 @@ namespace OneMSQFT.UILogic.Interfaces
         void OnInitialize(IActivatedEventArgs args);
         bool KioskModeEnabled { get; }
         IList<SettingsCommand> GetSettingsCommands();
+        void OnSuspending(ISuspendingEventArgs suspendingEventArgs);
+        void OnResuming();
     }
 }

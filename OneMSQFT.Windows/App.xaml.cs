@@ -43,6 +43,18 @@ namespace OneMSQFT.Windows
         {
             this.UnhandledException += App_UnhandledException;
             this.ExtendedSplashScreenFactory = (splashscreen) => new ExtendedSplashScreen(splashscreen);
+            this.Suspending += App_Suspending;
+            this.Resuming += App_Resuming;
+        }
+
+        void App_Resuming(object sender, object e)
+        {
+            _application.OnResuming();
+        }
+
+        void App_Suspending(object sender, SuspendingEventArgs e)
+        {
+            _application.OnSuspending(e);
         }
 
         void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -102,6 +114,6 @@ namespace OneMSQFT.Windows
         protected override IList<SettingsCommand> GetSettingsCommands()
         {
             return _application.GetSettingsCommands();
-        }
+        }        
     }
 }

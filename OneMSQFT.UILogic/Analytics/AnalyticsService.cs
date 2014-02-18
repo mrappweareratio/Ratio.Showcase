@@ -21,5 +21,10 @@ namespace OneMSQFT.UILogic.Analytics
         {
             _measure.StartSession();
         }
+
+        public void StopSession()
+        {
+            _measure.StopSession();
+        }
     }
 }

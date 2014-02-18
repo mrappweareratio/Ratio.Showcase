@@ -7,6 +7,7 @@ namespace OneMSQFT.UILogic.Tests.Mocks
     {
         public Action ConfigureDelegate { get; set; }
         public Action StartSessionDelegate { get; set; }
+        public Action StopSessionDelegate { get; set; }
 
         public void Configure()
         {
@@ -18,6 +19,12 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         {
             if (StartSessionDelegate != null)
                 StartSessionDelegate();
+        }
+
+        public void StopSession()
+        {
+            if (StopSessionDelegate != null)
+                StopSessionDelegate();
         }
     }
 }
