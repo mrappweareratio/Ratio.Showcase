@@ -88,6 +88,7 @@ namespace OneMSQFT.Windows.Views
             _timelineGridViewScrollViewer.HorizontalSnapPointsType = SnapPointsType.Mandatory;
             _timelineGridViewScrollViewer.ViewChanging += _timelineGridViewScrollViewer_ViewChanging;
             _timelineGridViewScrollViewer.ViewChanged += _timelineGridViewScrollViewer_ViewChanged;
+
         }
 
         private void ShowTimelineMasks(bool show)
@@ -101,12 +102,14 @@ namespace OneMSQFT.Windows.Views
                 MaskLeft.Opacity = 0;
                 MaskRight.Opacity = 0;
             }
-            
         }
 
         void _timelineGridViewScrollViewer_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
             ShowTimelineMasks(false);
+            var vm = GetDataContextAsViewModel<TimelinePageViewModel>();
+            var svv = e.FinalView as ScrollViewerView;
+            var o = svv.HorizontalOffset;
         }
 
         void _timelineGridViewScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
@@ -116,8 +119,18 @@ namespace OneMSQFT.Windows.Views
                 if (AppBarIsAutoScrolling == false)
                 {
                     ShowTimelineMasks(true);
+                    var vm = GetDataContextAsViewModel<TimelinePageViewModel>();
+                    vm.SelectedEvent = itemsGridView.SelectedItem as EventItemViewModel;
+                    SelectItemByOffset(((ScrollViewer) sender).HorizontalOffset);
                 }
             }
+        }
+
+        private void SelectItemByOffset(double offset)
+        {
+                    var vm = GetDataContextAsViewModel<TimelinePageViewModel>();
+            var i = Convert.ToInt32(offset/vm.EventItemWidth);
+            vm.SelectedEvent = vm.TimeLineItems[i+1];
         }
 
         private bool _semanticZoomClosedFromTopAppBarEvent;
@@ -169,7 +182,7 @@ namespace OneMSQFT.Windows.Views
         async private void ScrollToEventById(String eventId)
         {
             VideoPopup.IsOpen = false;
-            var vm = DataContext as ITimelinePageViewModel;
+            var vm = GetDataContextAsViewModel<TimelinePageViewModel>();
             vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height); 
 
             if (String.IsNullOrEmpty(eventId))
@@ -181,6 +194,7 @@ namespace OneMSQFT.Windows.Views
             var e = vm.SquareFootEvents.FirstOrDefault(x => x.Id == eventId);
             if (e == null)
                 return;
+            vm.SelectedEvent = e as EventItemViewModel;
             var itemIndex = vm.SquareFootEvents.IndexOf(e) +1 ; // +1 for buffer items
 
             AppBarIsAutoScrolling = true;

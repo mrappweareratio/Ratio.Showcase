@@ -93,6 +93,11 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
+                if (((_timeLineItems[0] is BufferItemFakeEventItemViewModel)) &&
+                    (_timeLineItems.Last() is BufferItemFakeEventItemViewModel))
+                {
+                    return _timeLineItems;
+                }
                 _timeLineItems.Insert(0, new BufferItemFakeEventItemViewModel());
                 _timeLineItems.Add(new BufferItemFakeEventItemViewModel());
                 return _timeLineItems;
