@@ -19,6 +19,7 @@ namespace OneMSQFT.Common.Models
 
     public interface ILocation
     {
+        string Location { get; }
         string Longitude { get; }
         string Lattitude { get; }
     }
@@ -60,7 +61,7 @@ namespace OneMSQFT.Common.Models
         IEnumerable<Link> Links { get; }
         string CuratorId { get; }
         string ThumbImage { get; }
-        ICurator Curator { get; }
+        Curator Curator { get; }
     }
 
     public interface IHasMediaContent

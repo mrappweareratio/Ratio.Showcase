@@ -27,12 +27,14 @@ namespace OneMSQFT.UILogic.ViewModels
             Event = eventModel;
             Name = eventModel.Name;
             Description = eventModel.Description;
+            Location = eventModel.Location;
             Id = eventModel.Id;
             SquareFootage = eventModel.SquareFootage;
             EventColor = ColorUtils.GetEventColor(eventModel);
             Exhibits = new List<ExhibitItemViewModel>(eventModel.Exhibits.Select(x => new ExhibitItemViewModel(x)));
             LoadMediaContent(eventModel.MediaContent);
             LoadDisplayedExhibits();
+            LoadCuratorLogos();
             ShowMoreCommand = new DelegateCommand(ShowMoreCommandExecuteMethod, ShowMoreCommandCanExecuteMethod);
             ShowMoreVisibility = ShowMoreCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
         }
@@ -50,6 +52,33 @@ namespace OneMSQFT.UILogic.ViewModels
                 DisplayedExhibits = new ObservableCollection<ExhibitItemViewModel>(Exhibits.Take(4));
             }
         }
+
+        /// <summary>
+        /// Navigates contained Exhibits and creates a collection of their curators.
+        /// No duplicate curators are added to this list.
+        /// </summary>
+        private void LoadCuratorLogos()
+        {
+            CuratorLogos = new ObservableCollection<Uri>();
+
+            if (Exhibits == null || Exhibits.Count < 1)
+                return;
+
+            var logos = new Dictionary<string, int>();
+
+            foreach (var exhibit in Exhibits)
+            {
+                if (exhibit.Curator != null && exhibit.Curator.LogoImage != null)
+                    logos[exhibit.Curator.LogoImage] = 1; //Add or replace logo dictionary entry. We use the key to store the url. The value is irrelevant.
+            }
+
+            foreach (var logo in logos.Keys)
+            {
+                var url = new Uri(logo, UriKind.RelativeOrAbsolute);
+                CuratorLogos.Add(url);
+            }
+        }
+
         private void LoadMediaContent(IEnumerable<MediaContentSource> mediaContent)
         {
             var mediaContentViewModels = MediaContentSourceUtils.GetMediaContentSourceItemViewModels(mediaContent).ToList();
@@ -68,6 +97,10 @@ namespace OneMSQFT.UILogic.ViewModels
         private Event Event { get; set; }
 
         public List<ExhibitItemViewModel> Exhibits { get; private set; }
+
+        public ObservableCollection<Uri> CuratorLogos { get; set; }
+
+        public string Location { get; set; }
 
         public DateTime DateStart { get { return Event.DateStart; } }
 

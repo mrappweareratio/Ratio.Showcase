@@ -29,7 +29,7 @@ namespace OneMSQFT.Common.Models
         [JsonProperty("curator_id")]
         public string CuratorId { get; set; } //TODO: This property should probably go away, waiting on final schema from third party.
         [JsonProperty("curator_data")]
-        public ICurator Curator { get; set; }
+        public Curator Curator { get; set; }
         [JsonProperty("thumb_img")]
         public string ThumbImage { get; set; }
         [JsonProperty("content_data")]

@@ -26,6 +26,7 @@ namespace OneMSQFT.Common.Models
         public int SquareFootage { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Location { get; set; }
         public string Longitude { get; set; }
         public string Lattitude { get; set; }
         [JsonProperty("display_date")]
