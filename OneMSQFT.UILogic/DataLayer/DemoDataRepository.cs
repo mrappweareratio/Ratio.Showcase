@@ -48,6 +48,7 @@ namespace OneMSQFT.UILogic.DataLayer
                           
                         Id = Convert.ToString(eventId++),
                         Name = "Sundance",
+                        Location = "Park City",
                         DisplayDate = "MMM D-D",
                       //  Location = "444 Main St. Park City, UT",
                         Description = DemoEventDescription,
@@ -67,6 +68,12 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1946,
                                 MediaContent = GetMediaCollection(1),
+                                Curator = new Curator()
+                                {
+                                    Id = "4",
+                                    Name ="Pitchfork",
+                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/4.png"
+                                }
                             },
                             new Exhibit()
                             {
@@ -78,6 +85,12 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2236,
                                 MediaContent = GetMediaCollection(1),
+                                Curator = new Curator()
+                                {
+                                    Id = "5",
+                                    Name ="Lucky Peach",
+                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                }
                             }
                         }
                     },
@@ -87,6 +100,7 @@ namespace OneMSQFT.UILogic.DataLayer
                         Name = "Miami",
                         DisplayDate = "MMM D-D",
                         Description = DemoEventDescription,
+                        Location = "Miami",
                         Color = "306D2C",     
                         DateStart = DateTime.Now.AddDays(-2),
                         SquareFootage = 7845,
@@ -103,6 +117,12 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 560,
                                 MediaContent = GetMediaCollection(2),
+                                Curator = new Curator()
+                                {
+                                    Id = "6",
+                                    Name ="IFP",
+                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/6.png"
+                                }
                             },
                             new Exhibit()
                             {
@@ -114,6 +134,12 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1070,
                                 MediaContent = GetMediaCollection(2),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="La Blogotheque",
+                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/2.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -125,6 +151,12 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2340,
                                 MediaContent = GetMediaCollection(3),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="Lucky Peach",
+                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/2.png"
+                                }
                             }
                         }
                     },
@@ -132,6 +164,7 @@ namespace OneMSQFT.UILogic.DataLayer
                     {
                         Id = Convert.ToString(eventId++),
                         Name = "Fashion Week",
+                        Location = "New York",
                         DisplayDate = "MMM D-D",
                         Description = "Event at Fasion Week",
                         Color = "922580",     
@@ -150,6 +183,12 @@ namespace OneMSQFT.UILogic.DataLayer
                                 SquareFootage = 2345,
                                 Color = "922580",
                                 MediaContent = GetMediaCollection(2),
+                                Curator = new Curator()
+                                {
+                                    Id = "5",
+                                    Name ="Lucky Peach",
+                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                }
                             },
                             new Exhibit()
                             {
@@ -161,6 +200,12 @@ namespace OneMSQFT.UILogic.DataLayer
                                 SquareFootage = 2345,
                                 Color = "922580",
                                 MediaContent = GetMediaCollection(2),
+                                Curator = new Curator()
+                                {
+                                    Id = "5",
+                                    Name ="Lucky Peach",
+                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -172,6 +217,12 @@ namespace OneMSQFT.UILogic.DataLayer
                                 SquareFootage = 1279,
                                 Color = "922580",
                                 MediaContent = GetMediaCollection(3),
+                                Curator = new Curator()
+                                {
+                                    Id = "5",
+                                    Name ="Lucky Peach",
+                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -183,6 +234,12 @@ namespace OneMSQFT.UILogic.DataLayer
                                 SquareFootage = 4578,
                                 Color = "922580",
                                 MediaContent = GetMediaCollection(3),
+                                Curator = new Curator()
+                                {
+                                    Id = "5",
+                                    Name ="Lucky Peach",
+                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                }
                             }
                         }
                     },
@@ -192,6 +249,7 @@ namespace OneMSQFT.UILogic.DataLayer
                         Name = "New Jersey",
                         DisplayDate = "MMM D-D",
                         Description = "Event at New Jersey",
+                        Location = "New Jersey",
                         Color = "555FE4",     
                         DateStart = DateTime.Now.AddDays(6),
                         SquareFootage = 6587,
