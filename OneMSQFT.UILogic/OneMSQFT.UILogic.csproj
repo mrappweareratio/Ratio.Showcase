@@ -138,6 +138,7 @@
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="ViewModels\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\BasePageViewModel.cs" />
+    <Compile Include="ViewModels\BufferItemFakeEventItemViewModel.cs" />
     <Compile Include="ViewModels\ComingSoonFakeEventItemViewModel.cs" />
     <Compile Include="ViewModels\IHasMediaContentViewModel.cs" />
     <Compile Include="ViewModels\LinkItemViewModel.cs" />

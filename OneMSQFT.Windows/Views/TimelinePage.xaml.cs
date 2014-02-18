@@ -25,7 +25,9 @@ namespace OneMSQFT.Windows.Views
 {
     public sealed partial class TimelinePage
     {
-        private ScrollViewer _timelineGridViewScrollViewer;        
+        private ScrollViewer _timelineGridViewScrollViewer;
+        private DispatcherTimer scrollerTimer;
+        private Boolean AppBarIsAutoScrolling;
 
         public TimelinePage()
         {
@@ -38,6 +40,16 @@ namespace OneMSQFT.Windows.Views
             vm.FullScreenHeight = Window.Current.Bounds.Height;
             vm.FullScreenWidth = Window.Current.Bounds.Width;
             vm.PropertyChanged += TimelinePage_PropertyChanged;
+            scrollerTimer = new DispatcherTimer();
+            scrollerTimer.Interval = new TimeSpan(0,0,0,1);
+            scrollerTimer.Tick += scrollerTimer_Tick;
+        }
+
+        void scrollerTimer_Tick(object sender, object e)
+        {
+            ShowTimelineMasks(true);
+            scrollerTimer.Stop();
+            AppBarIsAutoScrolling = false;
         }
 
         void TimelinePage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -72,7 +84,40 @@ namespace OneMSQFT.Windows.Views
         private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
         {
             _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(itemsGridView);
-           // itemsGridView.Opacity = 1;
+            _timelineGridViewScrollViewer.HorizontalSnapPointsAlignment = SnapPointsAlignment.Center;
+            _timelineGridViewScrollViewer.HorizontalSnapPointsType = SnapPointsType.Mandatory;
+            _timelineGridViewScrollViewer.ViewChanging += _timelineGridViewScrollViewer_ViewChanging;
+            _timelineGridViewScrollViewer.ViewChanged += _timelineGridViewScrollViewer_ViewChanged;
+        }
+
+        private void ShowTimelineMasks(bool show)
+        {
+            if (show)
+            {
+                MaskStoryboard.Begin();
+            }
+            else
+            {
+                MaskLeft.Opacity = 0;
+                MaskRight.Opacity = 0;
+            }
+            
+        }
+
+        void _timelineGridViewScrollViewer_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        {
+            ShowTimelineMasks(false);
+        }
+
+        void _timelineGridViewScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            if (e.IsIntermediate == false)
+            {
+                if (AppBarIsAutoScrolling == false)
+                {
+                    ShowTimelineMasks(true);
+                }
+            }
         }
 
         private bool _semanticZoomClosedFromTopAppBarEvent;
@@ -136,8 +181,12 @@ namespace OneMSQFT.Windows.Views
             var e = vm.SquareFootEvents.FirstOrDefault(x => x.Id == eventId);
             if (e == null)
                 return;
-            var itemIndex = vm.SquareFootEvents.IndexOf(e);
-            await _timelineGridViewScrollViewer.ScrollToHorizontalOffsetWithAnimation((itemIndex * vm.EventItemWidth));
+            var itemIndex = vm.SquareFootEvents.IndexOf(e) +1 ; // +1 for buffer items
+
+            AppBarIsAutoScrolling = true;
+            ShowTimelineMasks(false);
+            await _timelineGridViewScrollViewer.ScrollToHorizontalOffsetWithAnimation((itemIndex * vm.EventItemWidth) - vm.MaskItemWidth - vm.BufferItemWidth, new TimeSpan(0, 0, 0, 1));
+            scrollerTimer.Start();
         }
 
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
