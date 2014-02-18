@@ -21,10 +21,9 @@ namespace OneMSQFT.Common.Models
         [JsonProperty("meta_desc")]
         public string SocialMediaDescription { get; set; }
         [JsonProperty("meta_img")]
-        public string SocialMediaImagePath { get; set; }
+        public string SocialMediaImagePath { get; set; } //Not currently used but may be needed in the future
         [JsonProperty("sqft")]
         public int SquareFootage { get; set; }
-        [JsonProperty("title")]
         public string Name { get; set; }
         public string Description { get; set; }
         public string Longitude { get; set; }

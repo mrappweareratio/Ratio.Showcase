@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace OneMSQFT.Common.Models
 {
@@ -35,8 +36,12 @@ namespace OneMSQFT.Common.Models
         DateTime UpdatedAt { get; }
     }
 
-    public interface ICurator : ISquareFootageItem, ISocialMedia, ITimeStampedItem
+    public interface ICurator
     {
+        string Id { get; }
+        string Name { get; }
+        string Description { get; }
+        string WhiteLogoImage { get; }
         string LogoImageName { get; }
         /// <summary>
         /// CMS to enforce protocol prefix, i.e. http:// or https:// 
@@ -52,6 +57,10 @@ namespace OneMSQFT.Common.Models
         /// </summary>
         string Exhibitor { get; }
         string RsvpUrl { get; }
+        IEnumerable<Link> Links { get; }
+        string CuratorId { get; }
+        string ThumbImage { get; }
+        ICurator Curator { get; }
     }
 
     public interface IHasMediaContent
@@ -70,6 +79,14 @@ namespace OneMSQFT.Common.Models
         /// Hex 6 Digits
         /// </summary>
         string Color { get; }
+    }
+
+    public interface ILink
+    {
+        string Id { get; }
+        string ExhibitId { get; }
+        string Title { get; }
+        string Url { get; }
     }
 
     public interface ISocialMedia
