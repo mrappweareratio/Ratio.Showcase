@@ -15,6 +15,7 @@ namespace OneMSQFT.Common.Models
     public interface IEvent<out TExhibit> : ISocialMedia, ILocation, ISquareFootageItem, IDatedItem, IColor, IHasMediaContent, ITimeStampedItem where TExhibit : IExhibit<ICurator>
     {        
         IEnumerable<TExhibit> Exhibits { get; }
+        string ThemeId { get; }
     }
 
     public interface ILocation
@@ -50,7 +51,7 @@ namespace OneMSQFT.Common.Models
         string ExternalUrl { get; }
     }
 
-    public interface IExhibit<out TCurator> : ISquareFootageItem, ITaggable, IHasMediaContent, IColor, IDatedItem, ISocialMedia, ITimeStampedItem 
+    public interface IExhibit<out TCurator> : ISquareFootageItem, ITaggable, IColor, IHasMediaContent, IDatedItem, ISocialMedia, ITimeStampedItem 
         where TCurator : ICurator
     {
         string Introduction { get; }
@@ -76,7 +77,7 @@ namespace OneMSQFT.Common.Models
     }
 
     public interface IColor
-    {
+    {        
         /// <summary>
         /// Hex 6 Digits
         /// </summary>

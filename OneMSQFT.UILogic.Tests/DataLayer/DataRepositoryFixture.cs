@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.DataLayer;
+using OneMSQFT.UILogic.Tests.Mocks;
 
 namespace OneMSQFT.UILogic.Tests.DataLayer
 {
@@ -17,7 +18,8 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         public void Init()
         {
             //this.DataRepository = new SampleDataRepository();
-            this.DataRepository = new DemoDataRepository();
+            //this.DataRepository = new DemoDataRepository();
+            this.DataRepository = new ApiDataRepository(new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api"));
         }
 
         public IDataRepository DataRepository { get; set; }
