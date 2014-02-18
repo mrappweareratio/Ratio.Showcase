@@ -192,6 +192,18 @@ namespace OneMSQFT.Windows.DesignViewModels
         {
             if (item == null) return;
             SelectedEvent = item;
-        }       
+        }
+
+
+        public double MaskItemWidth
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+
+        public double BufferItemWidth
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

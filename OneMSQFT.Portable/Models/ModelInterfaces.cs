@@ -19,6 +19,7 @@ namespace OneMSQFT.Common.Models
 
     public interface ILocation
     {
+        string Location { get; }
         string Longitude { get; }
         string Lattitude { get; }
     }
