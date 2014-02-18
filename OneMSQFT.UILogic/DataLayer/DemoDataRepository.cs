@@ -72,7 +72,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "4",
                                     Name ="Pitchfork",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/4.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/4.png"
                                 }
                             },
                             new Exhibit()
@@ -89,7 +89,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "5",
                                     Name ="Lucky Peach",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
                                 }
                             }
                         }
@@ -121,7 +121,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "6",
                                     Name ="IFP",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/6.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/6.png"
                                 }
                             },
                             new Exhibit()
@@ -138,7 +138,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "2",
                                     Name ="La Blogotheque",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/2.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2.png"
                                 }
                             },
                              new Exhibit()
@@ -155,7 +155,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "2",
                                     Name ="Lucky Peach",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/2.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2.png"
                                 }
                             }
                         }
@@ -187,7 +187,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "5",
                                     Name ="Lucky Peach",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
                                 }
                             },
                             new Exhibit()
@@ -204,7 +204,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "5",
                                     Name ="Lucky Peach",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
                                 }
                             },
                              new Exhibit()
@@ -221,7 +221,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "5",
                                     Name ="Lucky Peach",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
                                 }
                             },
                              new Exhibit()
@@ -238,7 +238,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "5",
                                     Name ="Lucky Peach",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
                                 }
                             }
                         }
