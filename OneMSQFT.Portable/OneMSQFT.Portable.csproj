@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Models\Link.cs" />
     <Compile Include="Models\StartupItemType.cs" />
+    <Compile Include="Services\IAnalyticsService.cs" />
     <Compile Include="Services\IConfigurationService.cs" />
     <Compile Include="Services\IDataCacheService.cs" />
     <Compile Include="DataLayer\IDataRepository.cs" />

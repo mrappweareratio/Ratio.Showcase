@@ -24,6 +24,7 @@ using Microsoft.Practices.Unity;
 using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic;
+using OneMSQFT.UILogic.Analytics;
 using OneMSQFT.UILogic.DataLayer;
 using OneMSQFT.UILogic.Interfaces;
 using Microsoft.Practices.Prism.StoreApps;
@@ -42,6 +43,18 @@ namespace OneMSQFT.Windows
         {
             this.UnhandledException += App_UnhandledException;
             this.ExtendedSplashScreenFactory = (splashscreen) => new ExtendedSplashScreen(splashscreen);
+            this.Suspending += App_Suspending;
+            this.Resuming += App_Resuming;
+        }
+
+        void App_Resuming(object sender, object e)
+        {
+            _application.OnResuming();
+        }
+
+        void App_Suspending(object sender, SuspendingEventArgs e)
+        {
+            _application.OnSuspending(e);
         }
 
         void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -74,9 +87,10 @@ namespace OneMSQFT.Windows
             _container.RegisterType<IDataService, DataService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IAlertMessageService, AlertMessageService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IConfigurationService, ConfigurationService>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IAnalyticsService, AnalyticsService>(new ContainerControlledLifetimeManager());
 
             //create the application
-            _application = new OneMsqftApplication(_container.Resolve<INavigationService>(), _container.Resolve<IDataService>(), _container.Resolve<IConfigurationService>());            
+            _application = new OneMsqftApplication(_container.Resolve<INavigationService>(), _container.Resolve<IDataService>(), _container.Resolve<IConfigurationService>(), _container.Resolve<IAnalyticsService>());            
 
             _application.OnInitialize(args);
 
@@ -100,6 +114,6 @@ namespace OneMSQFT.Windows
         protected override IList<SettingsCommand> GetSettingsCommands()
         {
             return _application.GetSettingsCommands();
-        }
+        }        
     }
 }
