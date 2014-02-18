@@ -291,6 +291,37 @@ namespace OneMSQFT.UILogic.Tests
         }
 
         [TestMethod]
+        public async Task Running_Launch_Skips_Starts_Session()
+        {
+            bool called = false;
+            string page = null;
+            object pageParam = null;
+            var autoResetEvent = new AutoResetEvent(false);
+            var navigationService = new MockNavigationService()
+            {
+                NavigateDelegate = (a, b) =>
+                {
+                    page = a;
+                    pageParam = b;
+                    return true;
+                }
+            };
+            var data = new MockDataService()
+            {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>())
+            };
+            var configuration = new ConfigurationService();
+            var analytics = new MockAnalyticsService()
+            {
+                StartSessionDelegate = () => { called = true; }
+            };
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var args = new MockLaunchActivatedEventArgs(){PreviousExecutionState = ApplicationExecutionState.Running};
+            await app.OnLaunchApplication(args);
+            Assert.IsFalse(called, "StartSessionDelegate");
+        }
+
+        [TestMethod]
         public async Task Suspend_Stops_Session()
         {
             bool called = false;

@@ -35,10 +35,10 @@ namespace OneMSQFT.UILogic
         }
 
         async public Task OnLaunchApplication(ILaunchActivatedEventArgs args)
-        {
-            Analytics.StartSession();
+        {            
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
+                Analytics.StartSession();
                 _events = await DataService.GetEvents();
             }
             switch (Configuration.StartupItemType)
