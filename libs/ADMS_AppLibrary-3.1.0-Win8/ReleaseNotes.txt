@@ -1,0 +1,46 @@
+Release Notes for Windows 8 App Measurement Library:
+
+For full documentation please visit:
+http://microsite.omniture.com/t2/help/en_US/sc/appmeasurement/winrt/index.html
+
+3.1.0 (17 Oct, 2013)
+
+- Windows 8.1 compatibility
+
+3.0.5 (18 Apr, 2013)
+
+- Fixed an issue that was causing previous session length to sometimes be calculated incorrectly
+
+3.0.4 (21 Mar, 2013)
+
+- ADMS_Measurement.visitorID now gets pre-populated with the default value
+- Fixed an issue with retrieving device info
+
+3.0.3 (21 Feb, 2013)
+
+- "offlineThrottleDelay" has been deprecated. The calls still exist to preserve backward 
+  compatibility but no longer have any effect
+- "DayOfWeek" is now 1-based starting on Sunday to match the values collected on other 
+  platforms
+- Added auto-subscribing to event listeners in the TrackingHelper.js to streamline lifecycle
+  tracking
+  
+  
+3.0.2
+
+- Screen resolution is now accurately being collected for c#, c++, and HTML5/WinJS platforms
+- ADMS_Churn class is now internal.  To use best practices for application lifecycle tracking, 
+  call public void ADMS_Measurement.StartSession(); and public void ADMS_Measurement.StopSession(); 
+  methods as desired
+- Added public double maxSessionLength variable to ADMS_Measurement to allow the user to set a maximum 
+  session length for the previous user session.  If the registered session length exceeds the max,
+  your max session length will be sent.  Default maxSessionLength is 3600 (seconds)
+- Added public double lifecycleSessionTimeout variable to ADMS_Measurement to allow the user to set the 
+  maximum amount of time that a user can not have the app active before it triggers a new session on 
+  the next launch.  Changed default lifecycleSessionTimeout to 300 (seconds)
+- Updated TrackingHelper for clarity
+
+
+3.0.1
+
+- Initial release
