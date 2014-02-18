@@ -20,19 +20,22 @@ namespace OneMSQFT.UILogic.ViewModels
         private readonly IDataService _dataService;
         private readonly IAlertMessageService _messageService;
         private readonly INavigationService _navigationService;
+        private readonly IConfigurationService _configuration;
         public DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
         public DelegateCommand<String> ExhibitItemClickCommand { get; set; }
 
-        public TimelinePageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService)
+        public TimelinePageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration)            
         {
             _dataService = dataService;
             _messageService = messageService;
             _navigationService = navigationService;
+            _configuration = configuration;
             this.SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             this.TimeLineItems = new ObservableCollection<EventItemViewModel>();
             this.TimeLineMenuItems = new ObservableCollection<EventItemViewModel>();
             this.EventHeroItemClickCommand = new DelegateCommand<EventItemViewModel>(EventHeroItemClickCommandHandler);
             this.ExhibitItemClickCommand = new DelegateCommand<String>(ExhibitItemClickCommandHandler);
+            this.SetStartupEventCommand = new DelegateCommand(SetStartupEventCommandExecuteMethod, SetStartupEventCommandCanExecuteMethod);
         }
 
         public override async void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
@@ -44,7 +47,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 return;
             }
             var eventsList = events as IList<Event> ?? events.ToList();
-            
+
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
             TimeLineItems = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
             TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
@@ -110,6 +113,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 if (value != null)
                 {
                     SetProperty(ref _selectedEvent, value);
+                    SetStartupEventCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -220,6 +224,18 @@ namespace OneMSQFT.UILogic.ViewModels
         public void ExhibitItemClickCommandHandler(String itemId)
         {
             _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, itemId);
+        }        
+
+        public DelegateCommand SetStartupEventCommand { get; set; }
+
+        private void SetStartupEventCommandExecuteMethod()
+        {
+            _configuration.SetStartupEvent(SelectedEvent.Id);
+        }
+
+        protected bool SetStartupEventCommandCanExecuteMethod()
+        {
+            return SelectedEvent != null;
         }
     }
 }
