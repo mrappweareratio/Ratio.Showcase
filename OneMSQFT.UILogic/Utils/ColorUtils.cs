@@ -23,7 +23,7 @@ namespace OneMSQFT.UILogic.Utils
             return GetColor(e.Color, defaultColor);
         }        
 
-        static Color GetColor(string colorHex, Color defaultColor)
+        public static Color GetColor(string colorHex, Color defaultColor)
         {
             if (String.IsNullOrEmpty(colorHex) || colorHex.Length != 6)
             {

@@ -87,10 +87,7 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-       // public SolidColorBrush EventColor { get; set; }
-
         public Color EventColor { get; set; }
-        
 
         public DelegateCommand ShowMoreCommand { get; private set; }
 
