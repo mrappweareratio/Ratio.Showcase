@@ -23,7 +23,7 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         {
             if(GetEventsDelegate != null)
                 return GetEventsDelegate();
-            return Task.FromResult<IEnumerable<Event>>(null);
+            return Task.FromResult<IEnumerable<Event>>(new List<Event>());
         }      
 
         public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string exhibitId)

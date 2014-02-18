@@ -193,9 +193,11 @@
                         <Border BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
         				Height="{Binding ExhibitItemHeight}"
         				Width="{Binding OneThirdPanelWidth}"
-					BorderThickness="0" 
-					Background="{Binding Exhibit.ColorBrush, Mode=OneWay}" Padding="10">
-                            <Grid  >
+					    BorderThickness="0" Padding="10">
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding Exhibit.ExhibitColor, Mode=OneWay}"/>
+                            </Border.Background>
+                            <Grid >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="1*"/>
                                     <RowDefinition Height="1*"/>
@@ -262,9 +264,12 @@
                                                 HorizontalAlignment="Center" 
                                                 VerticalAlignment="Center" 
                                                 Margin="0"
-                                                Background="{Binding DataSource.Exhibit.ColorBrush, Source={StaticResource DataContextProxy}}"
                                                 Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" 
-                                                Style="{StaticResource AppBarPlayButtonStyle}"/>
+                                                Style="{StaticResource AppBarPlayButtonStyle}">
+                                            <AppBarButton.Background>
+                                                <SolidColorBrush Color="{Binding DataSource.Exhibit.ExhibitColor, Source={StaticResource DataContextProxy}}"/>
+                                            </AppBarButton.Background>
+                                        </AppBarButton>
 
                                     </Grid>
                                 </DataTemplate>
@@ -288,10 +293,12 @@
                         Command="{Binding NextExhibitCommand}"
                         CommandParameter="{Binding NextExhibit.Id}"
         				VerticalAlignment="Stretch" 
-        				Background="{Binding NextExhibit.ColorBrush, Mode=OneWay}" 
                         Width="{Binding OneThirdPanelWidth}"
         				Padding="0" Margin="0"
         				BorderThickness="0,5,5,5" Style="{StaticResource NextButtonStyle}">
+                            <Button.Background>
+                                <SolidColorBrush Color="{Binding NextExhibit.ExhibitColor, Mode=OneWay}"/>
+                            </Button.Background>
                             <Button.ContentTemplate>
                                 <DataTemplate>
                                     <Grid  >

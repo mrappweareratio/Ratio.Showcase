@@ -126,7 +126,7 @@ namespace OneMSQFT.Windows.Views
             homeButton.Style = (Style)App.Current.Resources["OMSQFTAppBarHomeButtonStyle"];
             homeButton.Command = TopAppBarEventButtonCommand;
             homeButton.CommandParameter = null;
-            //    TopAppBarContentStackPanel.Children.Add(homeButton);
+            TopAppBarContentStackPanel.Children.Clear();
             foreach (var e in vm.SquareFootEvents)
             {
                 var b = new Button();

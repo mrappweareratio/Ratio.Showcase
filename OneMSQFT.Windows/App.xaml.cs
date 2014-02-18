@@ -62,10 +62,10 @@ namespace OneMSQFT.Windows
         }
 
         protected override void OnInitialize(IActivatedEventArgs args)
-        {            
+        {
             //register repositories
             //_container.RegisterType<IDataRepository, SampleDataRepository>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<IDataRepository, DemoDataRepository>(new ContainerControlledLifetimeManager());            
+            _container.RegisterType<IDataRepository, DemoDataRepository>(new ContainerControlledLifetimeManager());
 
             //register services
             _container.RegisterInstance<INavigationService>(NavigationService);
@@ -73,12 +73,10 @@ namespace OneMSQFT.Windows
             _container.RegisterType<IDataCacheService, DataCacheService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IDataService, DataService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IAlertMessageService, AlertMessageService>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IConfigurationService, ConfigurationService>(new ContainerControlledLifetimeManager());
 
             //create the application
-            _application = new OneMsqftApplication(NavigationService, _container.Resolve<IDataService>());
-
-            //register the application
-            _container.RegisterInstance<IOneMsqftApplication>(_application);
+            _application = new OneMsqftApplication(_container.Resolve<INavigationService>(), _container.Resolve<IDataService>(), _container.Resolve<IConfigurationService>());            
 
             _application.OnInitialize(args);
 
@@ -91,7 +89,7 @@ namespace OneMSQFT.Windows
 #endif
                 var viewModelType = Type.GetType(viewModelTypeName);
                 return viewModelType;
-            });         
+            });
         }
 
         protected override object Resolve(Type type)

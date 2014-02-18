@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -178,11 +179,11 @@ namespace OneMSQFT.Windows.DesignViewModels
             }
         }
 
-        public SolidColorBrush EventColor
+        public Color EventColor
         {
             get
             {
-                return Exhibit.ColorBrush;
+                return Exhibit.ExhibitColor;
             }
         }
 

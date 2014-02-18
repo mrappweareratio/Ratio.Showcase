@@ -30,7 +30,7 @@ namespace OneMSQFT.UILogic.ViewModels
             Description = exhibitModel.Description;
             SquareFootage = exhibitModel.SquareFootage;
             LoadMediaContent(exhibitModel.MediaContent);
-            ColorBrush = ColorUtils.GetExhibitColor(exhibitModel);
+            ExhibitColor = ColorUtils.GetExhibitColor(exhibitModel);
             Curator = new CuratorItemViewModel(exhibitModel.Curator);
         }
 
@@ -52,7 +52,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public Uri HeroPhotoFilePath { get; set; }
 
-        public SolidColorBrush ColorBrush { get; set; }
+        public Color ExhibitColor { get; set; }
 
         public ObservableCollection<MediaContentSourceItemViewModel> MediaContent { get; set; }
 
