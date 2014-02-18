@@ -120,6 +120,7 @@
     <Compile Include="Mocks\MockLaunchActivatedEventArgs.cs" />
     <Compile Include="Mocks\MockModelGenerator.cs" />
     <Compile Include="Mocks\MockNavigationService.cs" />
+    <Compile Include="Mocks\MockSuspendingEventArgs.cs" />
     <Compile Include="OneMsqftApplicationFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AnalyticsServiceFixture.cs" />

@@ -280,8 +280,8 @@ namespace OneMSQFT.UILogic.Tests
             };
             var configuration = new ConfigurationService();
             var analytics = new MockAnalyticsService()
-            {                
-                StartSessionDelegate = () => { called = true; }                
+            {
+                StartSessionDelegate = () => { called = true; }
             };
             var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
             var args = new MockLaunchActivatedEventArgs();
@@ -320,6 +320,42 @@ namespace OneMSQFT.UILogic.Tests
             await app.OnLaunchApplication(args);
             app.OnSuspending(new MockSuspendingEventArgs());
             Assert.IsTrue(called, "StopSessionDelegate");
-        }  
+        }
+
+        [TestMethod]
+        public async Task Resume_Restarts_Session()
+        {
+            bool calledStop = false;
+            int calledStart = 0;
+            string page = null;
+            object pageParam = null;
+            var navigationService = new MockNavigationService()
+            {
+                NavigateDelegate = (a, b) =>
+                {
+                    page = a;
+                    pageParam = b;
+                    return true;
+                }
+            };
+            var data = new MockDataService()
+            {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>())
+            };
+            var configuration = new ConfigurationService();
+            var analytics = new MockAnalyticsService()
+            {
+                StartSessionDelegate = () => { calledStart++; },
+                StopSessionDelegate = () => { calledStop = true; }
+            };
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var args = new MockLaunchActivatedEventArgs();
+            app.OnInitialize(args);
+            await app.OnLaunchApplication(args);
+            app.OnSuspending(new MockSuspendingEventArgs());
+            app.OnResuming();
+            Assert.IsTrue(calledStop, "StopSessionDelegate");
+            Assert.AreEqual(calledStart, 2, "Called Start Twice after Resume");
+        }
     }
 }

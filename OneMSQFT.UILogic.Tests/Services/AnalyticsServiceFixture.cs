@@ -92,6 +92,34 @@ namespace OneMSQFT.UILogic.Tests.Services
             app.OnInitialize(args);
             await app.OnLaunchApplication(args);
             app.OnSuspending(new MockSuspendingEventArgs());            
-        }  
+        }
+
+        [TestMethod]
+        public async Task Resume_Restarts_Session()
+        {            
+            string page = null;
+            object pageParam = null;
+            var navigationService = new MockNavigationService()
+            {
+                NavigateDelegate = (a, b) =>
+                {
+                    page = a;
+                    pageParam = b;
+                    return true;
+                }
+            };
+            var data = new MockDataService()
+            {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>())
+            };
+            var configuration = new ConfigurationService();
+            var analytics =new AnalyticsService();
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var args = new MockLaunchActivatedEventArgs();
+            app.OnInitialize(args);
+            await app.OnLaunchApplication(args);
+            app.OnSuspending(new MockSuspendingEventArgs());
+            app.OnResuming();            
+        }
     }
 }

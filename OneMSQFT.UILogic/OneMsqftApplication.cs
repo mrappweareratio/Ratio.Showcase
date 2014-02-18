@@ -82,7 +82,7 @@ namespace OneMSQFT.UILogic
 
         public void OnResuming()
         {
-            
+            Analytics.StartSession();
         }
 
         public bool KioskModeEnabled
