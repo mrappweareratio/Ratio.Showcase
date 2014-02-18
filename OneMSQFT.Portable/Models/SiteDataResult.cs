@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace OneMSQFT.Common.Models
-{
-    public class SiteDataResult
+{        
+    [JsonObject]
+    public class SiteDataResult : IBaseResult<SiteData>
     {
-        [JsonProperty("events")]
-        public IEnumerable<Event> Events { get; set; }
-        [JsonProperty("tag_data")]
-        public IEnumerable<Tag> Tags { get; set; }
+        [JsonProperty("site_data")]
+        public SiteData Data { get; set; }
     }
 }

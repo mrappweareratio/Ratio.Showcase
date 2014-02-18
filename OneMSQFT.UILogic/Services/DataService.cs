@@ -44,12 +44,12 @@ namespace OneMSQFT.UILogic.Services
 
         public async Task<IEnumerable<Event>> GetEvents()
         {
-            SiteDataResult result = null;
+            SiteData result = null;
 
             const string key = "site_data";
             if (_memDictionary.ContainsKey(key))
             {
-                result = _memDictionary[key] as SiteDataResult;
+                result = _memDictionary[key] as SiteData;
                 if (result == null)
                 {
                     _memDictionary.Remove(key);
@@ -62,7 +62,7 @@ namespace OneMSQFT.UILogic.Services
 
             if (await _cache.ContainsDataAsync(key, !isConnected))
             {
-                var siteData = await _cache.GetDataAsync<SiteDataResult>(key);
+                var siteData = await _cache.GetDataAsync<SiteData>(key);
                 if (siteData == null)
                 {
                     var invalidate = Task.Run(async () =>

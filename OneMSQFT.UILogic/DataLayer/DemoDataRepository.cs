@@ -31,14 +31,14 @@ namespace OneMSQFT.UILogic.DataLayer
 
         private const string VideoUrl = "http://player.vimeo.com/external/85202186.hd.mp4?s=a78dd60b6d00d4ea3cb24c04f8123fc5";
 
-        private const string DemoExhibitDescription = "";
+        private const string DemoExhibitDescription = "";       
 
-        async public Task<SiteDataResult> GetSiteData()
+        async public Task<SiteData> GetSiteData()
         {
             await Task.Delay(1000);
             var exhibitId = 0;
             var eventId = 0;
-            var result = new SiteDataResult
+            var result = new SiteData
             {
                 Events = new List<Event>
                 {
@@ -468,10 +468,10 @@ namespace OneMSQFT.UILogic.DataLayer
 
         public static List<MediaContentSource> GetMediaCollection(int count)
         {
-            var mc = new List<MediaContentSource>();            
+            var mc = new List<MediaContentSource>();
             for (var i = 0; i < count; i++)
             {
-                var img = ImageRandomizer.Next(Images.Count - 1);                
+                var img = ImageRandomizer.Next(Images.Count - 1);
                 var mcsV = new MediaContentSource()
                 {
                     ContentSourceType = ContentSourceType.Video,

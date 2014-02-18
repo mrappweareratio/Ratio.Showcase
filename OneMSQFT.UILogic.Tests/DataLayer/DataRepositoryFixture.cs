@@ -102,7 +102,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
 
 
         //HELPER METHODS
-        public bool ValidateExhibit(IExhibit e)
+        public bool ValidateExhibit(IExhibit<ICurator> e)
         {
             //Basic properties
             Assert.IsNotNull(e.Id, "Id");
@@ -120,7 +120,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         }
 
 
-        public bool ValidateEvent(IEvent<IExhibit> e)
+        public bool ValidateEvent(IEvent<IExhibit<ICurator>> e)
         {
             //Basic properties
             Assert.IsNotNull(e.Id, "Id");

@@ -69,7 +69,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public List<ExhibitItemViewModel> Exhibits { get; private set; }
 
-        public DateTime DateStart { get { return Event.DateStart; } }
+        public DateTime DateStart { get { return Event.DateStart.GetValueOrDefault(); } }
 
         public Uri EventHeroVideoUri { get; set; }
 

@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace OneMSQFT.Common.Models
 {
-    public class Exhibit : IExhibit
+    public class Exhibit : IExhibit<Curator>
     {
         public Exhibit()
         {
@@ -29,23 +29,23 @@ namespace OneMSQFT.Common.Models
         [JsonProperty("curator_id")]
         public string CuratorId { get; set; } //TODO: This property should probably go away, waiting on final schema from third party.
         [JsonProperty("curator_data")]
-        public ICurator Curator { get; set; }
+        public Curator Curator { get; set; }
         [JsonProperty("thumb_img")]
         public string ThumbImage { get; set; }
         [JsonProperty("content_data")]
         public IEnumerable<MediaContentSource> MediaContent { get; set; }
         [JsonProperty("display_date")]
         public string DisplayDate { get; set; }
-        [JsonProperty("start_date")]
-        public DateTime DateStart { get; set; }
+        [JsonProperty("start_date")]        
+        public DateTime? DateStart { get; set; }
         [JsonProperty("end_date")]
-        public DateTime DateEnd { get; set; }
+        public DateTime? DateEnd { get; set; }
         [JsonProperty("meta_title")]
         public string SocialMediaTitle { get; set; }
         [JsonProperty("meta_desc")]
         public string SocialMediaDescription { get; set; }
         public string SocialMediaImagePath { get; set; } //Currently not being used but for future support we might need it.
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }
