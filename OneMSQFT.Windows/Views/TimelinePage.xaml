@@ -551,10 +551,13 @@
                     Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
                     Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
                     VerticalAlignment="Top">
-                    <Border Background="{Binding ElementName=GridView, Path=DataContext.EventColor}"
+                    <Border
 				    BorderBrush="White"
 				    BorderThickness="0"
 				    Margin="0">
+                        <Border.Background>
+                            <SolidColorBrush Color="{Binding ElementName=GridView, Path=DataContext.EventColor}"/>
+                        </Border.Background>
                     </Border>
                     <StackPanel Margin="0" Orientation="Vertical" VerticalAlignment="Center">
                         <TextBlock
@@ -583,10 +586,12 @@
         <DataTemplate x:Key="TimelineZoomedOutEventItemTemplate">
             <Border Margin="0,0,8,8"
                 BorderThickness="0" 
-                Background="{Binding EventColor, Mode=OneWay}" 
                 Width="{Binding DataSource.ZoomedOutItemWidth, Source={StaticResource DataContextProxy}}" 
                 Height="{Binding DataSource.ZoomedOutItemHeight, Source={StaticResource DataContextProxy}}" 
                 Padding="5">
+                <Border.Background>
+                    <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
+                </Border.Background>
                 <Grid>
                     <StackPanel Margin="0" Orientation="Vertical" VerticalAlignment="Center">
                         <TextBlock
@@ -658,9 +663,12 @@
                         		HorizontalAlignment="Center"
                         		AutomationProperties.Name="{Binding Name}" 
                         		Stretch="Fill"/>
-                            <Border Background="{Binding EventColor, Mode=OneWay}" 
+                            <Border 
                         		HorizontalAlignment="Center" Height="70"  
                         		VerticalAlignment="Center" Width="70">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
+                                </Border.Background>
                                 <Path Data="M1,1 L49,1 L49,49" 
                         			HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
                         			StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
@@ -672,7 +680,10 @@
                         </Grid>
                     </Button>
 
-                    <Grid Background="{Binding EventColor, Mode=OneWay}"  Grid.RowSpan="4" >
+                    <Grid Grid.RowSpan="4">
+                        <Grid.Background>
+                            <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
+                        </Grid.Background>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="2*"/>
                             <RowDefinition Height="1*"/>

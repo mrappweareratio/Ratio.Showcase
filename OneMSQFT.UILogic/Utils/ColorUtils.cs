@@ -10,24 +10,24 @@ using OneMSQFT.Common.Models;
 namespace OneMSQFT.UILogic.Utils
 {
     public class ColorUtils
-    {        
-        public static SolidColorBrush GetEventColor(IEvent<IExhibit> e)
+    {
+        public static Color GetEventColor(IEvent<IExhibit> e)
         {
             var defaultColor = Colors.Blue;
             return GetColor(e.Color, defaultColor);
         }
 
-        public static SolidColorBrush GetExhibitColor(IExhibit e)
+        public static Color GetExhibitColor(IExhibit e)
         {
             var defaultColor = Colors.Orange;
             return GetColor(e.Color, defaultColor);
         }        
 
-        static SolidColorBrush GetColor(string colorHex, Color defaultColor)
+        static Color GetColor(string colorHex, Color defaultColor)
         {
             if (String.IsNullOrEmpty(colorHex) || colorHex.Length != 6)
             {
-                return new SolidColorBrush(defaultColor);  
+                return defaultColor;  
             }
             string color = "FF" + colorHex;
             var c = Color.FromArgb(
@@ -35,7 +35,7 @@ namespace OneMSQFT.UILogic.Utils
             Convert.ToByte(color.Substring(2, 2), 16),
             Convert.ToByte(color.Substring(4, 2), 16),
             Convert.ToByte(color.Substring(6, 2), 16));
-            return new SolidColorBrush(c);   
+            return c;
         }        
     }
 }
