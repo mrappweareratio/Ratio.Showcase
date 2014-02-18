@@ -23,7 +23,17 @@
     <omsqft:BasePageView.Resources>
         <viewModels:DataContextProxy x:Key="DataContextProxy" />
 
-        <Storyboard x:Name="StoryboardSeeker"/>
+        
+        <Storyboard x:Name="MaskStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MaskLeft">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MaskRight">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
 
         <!-- Container styles -->
 
@@ -804,6 +814,15 @@
             </Border>
         </DataTemplate>
 
+        <DataTemplate x:Key="BufferItemFakeEventItemTemplate">
+            <Border BorderThickness="0" Margin="0" Background="Transparent">
+                <Grid Width="{Binding DataSource.BufferItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
+                      Height="{Binding DataSource.EventItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                      Background="Transparent">
+                </Grid>
+            </Border>
+        </DataTemplate>
+
     </omsqft:BasePageView.Resources>
     <omsqft:BasePageView.BottomAppBar>
         <AppBar x:Name="appBar" Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent" Visibility="Collapsed">
@@ -825,13 +844,6 @@
 
     <Grid Background="White">
         <Grid>
-            <!--<Grid.Background>
-    		<ImageBrush Stretch="UniformToFill" ImageSource="ms-appx:///Assets/02_home-semantic-zoom.png">
-    			<ImageBrush.RelativeTransform>
-    				<CompositeTransform CenterY="0.5" CenterX="0.5" ScaleX="1.35" ScaleY="1.35"/>
-    			</ImageBrush.RelativeTransform>
-    		</ImageBrush>
-    	</Grid.Background>-->
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="4*"/>
@@ -899,10 +911,9 @@
                     Margin="0"
                     Padding="0"                              
                     Background="White"
-                    SelectionMode="Single"
+                    SelectionMode="None"
                     ItemsSource="{Binding TimeLineItems}"
-                    IsSwipeEnabled="True"
-                    IsRightTapEnabled="True"
+                    IsRightTapEnabled="False"
                     IsTapEnabled="False"
                     IsItemClickEnabled="False"
                     Loaded="itemsGridView_Loaded" 
@@ -910,7 +921,7 @@
                         <omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
                             <templateSelectors:TimelineDataTemplateSelector
                             EventTimelineItemTemplate="{StaticResource OMSQFTTimelineEventItemTemplate}"
-                            FeaturedTimelineItemTemplate="{StaticResource OMSQFTTimelineEventItemTemplate}"/>
+                            BufferItemFakeEventItemTemplate="{StaticResource BufferItemFakeEventItemTemplate}"/>
                         </omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
                         <omsqftcontrols:MultipleSizedGridView.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -928,11 +939,23 @@
                 </SemanticZoom.ZoomedInView>
             </SemanticZoom>
 
-            <omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="125,38,0,0" LogoColor="FFFFFF">
+            <omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,38,0,0" LogoColor="FFFFFF">
                 <omsqftcontrols:LogoUserControl.RenderTransform>
                     <CompositeTransform ScaleX="0.35" ScaleY="0.35"/>
                 </omsqftcontrols:LogoUserControl.RenderTransform>
             </omsqftcontrols:LogoUserControl>
+                    <Rectangle x:Name="MaskLeft" 
+                       Width="{Binding DataSource.MaskItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                       Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}"
+                       Fill="#AAFFFFFF" 
+                       Grid.RowSpan="2"
+                       HorizontalAlignment="Left" />
+                    <Rectangle x:Name="MaskRight" 
+                       Width="{Binding DataSource.MaskItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                       Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}"
+                       Fill="#AAffffff" 
+                       Grid.RowSpan="2"
+                       HorizontalAlignment="Right" />
             <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
                 <Grid>
                     <omsqftcontrols:VideoPlayerUserControl 

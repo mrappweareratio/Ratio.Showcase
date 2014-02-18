@@ -14,6 +14,8 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         double EventItemHeight { get; }
         double FullScreenHeight { get; set; }
         double FullScreenWidth { get; set; }
+        double MaskItemWidth { get; }
+        double BufferItemWidth { get; }
         double ExhibitItemHeight { get; }
         double ExhibitItemWidth { get; }        
         /// <summary>
