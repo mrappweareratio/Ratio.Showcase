@@ -5,8 +5,13 @@ namespace OneMSQFT.UILogic.Analytics
 {
 	public static class TrackingHelper
 	{
-		private static string TRACKING_RSID = @"YOUR_RSID_HERE";
-		private static string TRACKING_SERVER = @"YOUR_SERVER_HERE";		
+
+#if RELEASE
+		private static string TRACKING_RSID = @"mswindows1msqftapp";
+#else
+        private static string TRACKING_RSID = @"mswindows1msqftappdev";
+#endif
+        private static string TRACKING_SERVER = @"microsoftwindows.112.2o7.net";		
 
 		public static void ConfigureAppMeasurement()
 		{
