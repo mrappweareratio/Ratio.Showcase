@@ -36,6 +36,7 @@
     <SolidColorBrush x:Key="OneMSQFTWhiteBrush" Color="#ffffff" />
     <SolidColorBrush x:Key="OneMSQFTOverlayBgBrush" Color="{StaticResource OneMSQFTOverlayBgColor}" />
     <SolidColorBrush x:Key="OneMSQFTLogoDarkBlueBrush" Color="#FF2A3282"/>
+    <SolidColorBrush x:Key="OneMSQFTLogoLightBlueBrush" Color="#FF00AEEF"/>
     <SolidColorBrush x:Key="OneMSQFTComingSoonBrush" Color="{StaticResource OneMSQFTComingSoonColor}"/>
 
 

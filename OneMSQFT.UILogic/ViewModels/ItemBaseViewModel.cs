@@ -24,6 +24,10 @@ namespace OneMSQFT.UILogic.ViewModels
         public String SquareFootageString  
         {
             get { return (String.Format(Strings.SqftFormat, StringUtils.ToSquareFeet(SquareFootage))).Trim(); }
-        }        
+        }
+        public String SquareFootageStringPlain
+        {
+            get { return StringUtils.ToSquareFeet(SquareFootage).Trim(); }
+        }  
     }
 }
