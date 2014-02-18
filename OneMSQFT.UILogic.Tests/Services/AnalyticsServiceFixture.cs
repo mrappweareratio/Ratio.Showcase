@@ -1,0 +1,70 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using OneMSQFT.Common.Models;
+using OneMSQFT.UILogic.Analytics;
+using OneMSQFT.UILogic.Services;
+using OneMSQFT.UILogic.Tests.Mocks;
+
+namespace OneMSQFT.UILogic.Tests.Services
+{
+    [TestClass]
+    public class AnalyticsServiceFixture
+    {
+        [TestMethod]
+        public void Init_Configures_Analytics()
+        {
+            bool called = false;
+            string page = null;
+            object pageParam = null;
+            var autoResetEvent = new AutoResetEvent(false);
+            var navigationService = new MockNavigationService()
+            {
+                NavigateDelegate = (a, b) =>
+                {
+                    page = a;
+                    pageParam = b;
+                    return true;
+                }
+            };
+            var data = new MockDataService()
+            {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>())
+            };
+            var configuration = new ConfigurationService();
+            var app = new OneMsqftApplication(navigationService, data, configuration, new AnalyticsService());            
+            app.OnInitialize(new MockLaunchActivatedEventArgs());            
+        }
+
+        [TestMethod]
+        async public Task Launch_Starts_Session()
+        {
+            bool called = false;
+            string page = null;
+            object pageParam = null;
+            var autoResetEvent = new AutoResetEvent(false);
+            var navigationService = new MockNavigationService()
+            {
+                NavigateDelegate = (a, b) =>
+                {
+                    page = a;
+                    pageParam = b;
+                    return true;
+                }
+            };
+            var data = new MockDataService()
+            {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>())
+            };
+            var configuration = new ConfigurationService();
+            var app = new OneMsqftApplication(navigationService, data, configuration, new AnalyticsService());
+            var args = new MockLaunchActivatedEventArgs();
+            app.OnInitialize(args);            
+            await app.OnLaunchApplication(args);
+        }
+    }
+}

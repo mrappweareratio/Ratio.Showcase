@@ -9,6 +9,7 @@ using Windows.UI.Popups;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
+using OneMSQFT.UILogic.Analytics;
 using OneMSQFT.UILogic.Interfaces;
 using OneMSQFT.UILogic.Navigation;
 using Strings = OneMSQFT.Common.Strings;
@@ -17,13 +18,15 @@ namespace OneMSQFT.UILogic
 {
     public class OneMsqftApplication : IOneMsqftApplication
     {
+        public IAnalyticsService Analytics { get; private set; }
         private IEnumerable<Event> _events;
         public IConfigurationService Configuration { get; private set; }
         public IDataService DataService { get; private set; }
         public INavigationService NavigationService { get; private set; }
 
-        public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration)
+        public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics)
         {
+            Analytics = analytics;
             Configuration = configuration;
             DataService = dataService;
             NavigationService = navigationService;
@@ -32,6 +35,7 @@ namespace OneMSQFT.UILogic
 
         async public Task OnLaunchApplication(ILaunchActivatedEventArgs args)
         {
+            Analytics.StartSession();
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                 _events = await DataService.GetEvents();
@@ -67,6 +71,7 @@ namespace OneMSQFT.UILogic
 
         public void OnInitialize(IActivatedEventArgs args)
         {
+            Analytics.Configure();
         }
 
         public bool KioskModeEnabled

@@ -116,6 +116,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analytics\AnalyticsService.cs" />
     <Compile Include="Analytics\TrackingHelper.cs" />
     <Compile Include="DataLayer\DemoDataRepository.cs" />
     <Compile Include="DataLayer\SampleLocalStorageProvider.cs" />
