@@ -7,7 +7,7 @@ using Windows.ApplicationModel.Activation;
 
 namespace OneMSQFT.UILogic.Tests.Mocks
 {
-    class MockLaunchActivatedEventArgs : ILaunchActivatedEventArgs
+    public class MockLaunchActivatedEventArgs : ILaunchActivatedEventArgs
     {
         public ActivationKind Kind { get; set; }
         public ApplicationExecutionState PreviousExecutionState { get; set; }

@@ -91,7 +91,12 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public ObservableCollection<EventItemViewModel> TimeLineItems
         {
-            get { return _timeLineItems; }
+            get
+            {
+                _timeLineItems.Insert(0, new BufferItemFakeEventItemViewModel());
+                _timeLineItems.Add(new BufferItemFakeEventItemViewModel());
+                return _timeLineItems;
+            }
             private set { SetProperty(ref _timeLineItems, value); }
         }
 
@@ -117,7 +122,6 @@ namespace OneMSQFT.UILogic.ViewModels
                 }
             }
         }
-
 
         public String SinceString
         {
@@ -164,6 +168,7 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
+
         public double EventItemWidth
         {
             get
@@ -171,6 +176,23 @@ namespace OneMSQFT.UILogic.ViewModels
                 return FullScreenWidth * .9;
             }
         }
+
+        public double BufferItemWidth
+        {
+            get
+            {
+                return EventItemWidth /2;
+            }
+        }
+
+        public double MaskItemWidth
+        {
+            get
+            {
+                return ((FullScreenWidth - EventItemWidth) / 2) + 1;
+            }
+        }
+
         public double EventItemHeight
         {
             get
@@ -210,6 +232,8 @@ namespace OneMSQFT.UILogic.ViewModels
             OnPropertyChanged("ExhibitItemWidth");
             OnPropertyChanged("ExhibitItemHeight");
             OnPropertyChanged("ZoomedOutGridHeight");
+            OnPropertyChanged("MaskItemWidth");
+            OnPropertyChanged("BufferItemWidth");
         }
 
         #endregion

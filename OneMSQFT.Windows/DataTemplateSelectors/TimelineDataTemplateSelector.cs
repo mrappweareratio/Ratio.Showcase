@@ -8,7 +8,7 @@ namespace OneMSQFT.Windows.DataTemplateSelectors
 {
     public class TimelineDataTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate FeaturedTimelineItemTemplate
+        public DataTemplate BufferItemFakeEventItemTemplate
         {
             get;
             set;
@@ -22,13 +22,10 @@ namespace OneMSQFT.Windows.DataTemplateSelectors
 
         protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
         {
-            var vm = item as EventItemViewModel;
+            var vm = item as BufferItemFakeEventItemViewModel;
             if (vm != null)
             {
-                if (vm.Name == "Featured")
-                {
-                    return FeaturedTimelineItemTemplate;
-                }
+                return BufferItemFakeEventItemTemplate;
             }
             return EventTimelineItemTemplate;
         }
