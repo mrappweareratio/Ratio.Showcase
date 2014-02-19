@@ -48,8 +48,7 @@ namespace OneMSQFT.Windows.Views
             var app = AppLocator.Current;
             if (app != null)
             {
-                SetStartupEventButton.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
-                ClearStartupEventButton.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
+                StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;                
             }
         }
 
@@ -93,6 +92,11 @@ namespace OneMSQFT.Windows.Views
             if (_navigationEventArgs != null && _navigationEventArgs.Parameter is String)
             {
                 ScrollToEventById(_navigationEventArgs.Parameter as String);
+            }
+            else
+            {
+                // scroll to first event item, first item is buffer item
+                ScrollToEventById(this.GetDataContextAsViewModel<TimelinePageViewModel>().TimeLineItems[1].Id);
             }
         }
 
@@ -220,6 +224,16 @@ namespace OneMSQFT.Windows.Views
             if (!VideoPopup.IsOpen)
             {
                 VideoPopup.IsOpen = true;
+                VideoPlayerUserControl.SelectedMediaContentSource = ((MediaContentSourceItemViewModel) FlipViewer.SelectedItem);
+            }
+        }
+
+        private void FlipViewButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (!FlipViewPopup.IsOpen)
+            {
+                FlipViewPopup.IsOpen = true;
+                VideoPopup.IsOpen = false;
             }
         }
 
@@ -228,11 +242,19 @@ namespace OneMSQFT.Windows.Views
 
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        private void VideoPopUpCloseButton_Click(object sender, RoutedEventArgs e)
         {
             if (VideoPopup.IsOpen)
             {
                 VideoPopup.IsOpen = false;
+            }
+        }
+
+        private void FlipViewPopUpCloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (FlipViewPopup.IsOpen)
+            {
+                FlipViewPopup.IsOpen = false;
             }
         }
 

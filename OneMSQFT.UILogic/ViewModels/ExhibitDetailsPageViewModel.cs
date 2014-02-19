@@ -22,19 +22,25 @@ namespace OneMSQFT.UILogic.ViewModels
     {
         public DelegateCommand<MediaContentSourceItemViewModel> LaunchVideoCommand { get; set; }
         public DelegateCommand<string> NextExhibitCommand { get; private set; }
+        public DelegateCommand SetStartupCommand { get; private set; }
+        public DelegateCommand ClearStartupCommand { get; private set; }
         private readonly IDataService _dataService;
         private readonly IAlertMessageService _messageService;
         private readonly INavigationService _navigationService;
+        private readonly IConfigurationService _configuration;
 
-        public ExhibitDetailsPageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService)
+        public ExhibitDetailsPageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration)
         {
             _dataService = dataService;
             _messageService = messageService;
             _navigationService = navigationService;
+            _configuration = configuration;
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             LaunchVideoCommand = new DelegateCommand<MediaContentSourceItemViewModel>(LaunchVideoCommandHandler);
             NextExhibitCommand = new DelegateCommand<string>(NextExhibitCommandExecuteMethod, NextExhibitCommandCanExecuteMethod);
-        }
+            SetStartupCommand = new DelegateCommand(SetStartupCommandExecuteMethod, SetStartupCommandCanExecuteMethod);
+            ClearStartupCommand = new DelegateCommand(ClearStartupCommandExecuteMethod, ClearStartupCommandCanExecuteMethod);
+        }       
 
         private bool NextExhibitCommandCanExecuteMethod(string s)
         {
@@ -113,6 +119,8 @@ namespace OneMSQFT.UILogic.ViewModels
                 {
                     SetProperty(ref _exhibit, value);
                     ExhibitDetailTitle = String.Format(Strings.SquareFeetAtNameFormat, StringUtils.ToSquareFeet(Exhibit.SquareFootage), value.Name);
+                    SetStartupCommand.RaiseCanExecuteChanged();
+                    ClearStartupCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -173,6 +181,35 @@ namespace OneMSQFT.UILogic.ViewModels
 
         #endregion
 
+        private bool ClearStartupCommandCanExecuteMethod()
+        {
+            return _configuration.StartupItemType != StartupItemType.None;
+        }
 
+        private void ClearStartupCommandExecuteMethod()
+        {
+            _configuration.ClearStartupItem();
+            SetStartupCommand.RaiseCanExecuteChanged();
+            ClearStartupCommand.RaiseCanExecuteChanged();
+        }
+
+        private bool SetStartupCommandCanExecuteMethod()
+        {
+            if (Exhibit == null)
+                return false;
+            if (_configuration.StartupItemType == StartupItemType.None)
+                return true;
+            if (_configuration.StartupItemType == StartupItemType.Event)
+                return true;
+            return !_configuration.StartupItemId.Equals(Exhibit.Id);
+        }
+
+        private void SetStartupCommandExecuteMethod()
+        {
+            _configuration.SetStartupExhibit(Exhibit.Id);
+            SetStartupCommand.RaiseCanExecuteChanged();
+            ClearStartupCommand.RaiseCanExecuteChanged();
+
+        }
     }
 }

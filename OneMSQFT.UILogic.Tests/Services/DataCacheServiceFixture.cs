@@ -14,10 +14,11 @@ namespace OneMSQFT.UILogic.Tests.Services
     public class DataCacheServiceFixture
     {
         [TestInitialize]
-        public void Init()
+        public async Task Init()
         {
             this.DataCache = new DataCacheService();
             this.DataRepository = new DemoDataRepository();
+            await DataCache.InvalidateDataAsync(dataKey);
         }
 
         public IDataCacheService DataCache { get; set; }
