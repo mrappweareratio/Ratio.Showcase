@@ -11,13 +11,13 @@ namespace OneMSQFT.UILogic.Utils
 {
     public class ColorUtils
     {
-        public static Color GetEventColor(IEvent<IExhibit> e)
+        public static Color GetEventColor(IEvent<IExhibit<ICurator>> e)
         {
             var defaultColor = Colors.Blue;
             return GetColor(e.Color, defaultColor);
         }
 
-        public static Color GetExhibitColor(IExhibit e)
+        public static Color GetExhibitColor(IExhibit<ICurator> e)
         {
             var defaultColor = Colors.Orange;
             return GetColor(e.Color, defaultColor);

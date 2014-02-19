@@ -112,9 +112,11 @@
     <SDKReference Include="TestPlatform, Version=11.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLayer\ApiDataRepositoryFixture.cs" />
     <Compile Include="DataLayer\DataRepositoryFixture.cs" />
     <Compile Include="Mocks\MockAnalyticsService.cs" />
     <Compile Include="Mocks\MockAlertService.cs" />
+    <Compile Include="Mocks\MockApiConfiguration.cs" />
     <Compile Include="Mocks\MockDataService.cs" />
     <Compile Include="Mocks\MockInternetConnectionService.cs" />
     <Compile Include="Mocks\MockLaunchActivatedEventArgs.cs" />

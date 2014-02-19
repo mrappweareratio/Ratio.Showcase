@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.DataLayer;
+using OneMSQFT.UILogic.Tests.Mocks;
 
 namespace OneMSQFT.UILogic.Tests.DataLayer
 {
@@ -17,7 +18,8 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         public void Init()
         {
             //this.DataRepository = new SampleDataRepository();
-            this.DataRepository = new DemoDataRepository();
+            //this.DataRepository = new DemoDataRepository();
+            this.DataRepository = new ApiDataRepository(new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api"));
         }
 
         public IDataRepository DataRepository { get; set; }
@@ -102,14 +104,14 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
 
 
         //HELPER METHODS
-        public bool ValidateExhibit(IExhibit e)
+        public static bool ValidateExhibit(IExhibit<ICurator> e)
         {
             //Basic properties
             Assert.IsNotNull(e.Id, "Id");
             Assert.IsNotNull(e.Name, "Name");
-            Assert.IsNotNull(e.Exhibitor, "Exhibitor");
+            //Assert.IsNotNull(e.Exhibitor, "Exhibitor");
             Assert.IsNotNull(e.SquareFootage, "SquareFootage");
-            Assert.IsNotNull(e.DisplayDate, "DisplayDate");
+            //Assert.IsNotNull(e.DisplayDate, "DisplayDate");
             Assert.IsNotNull(e.Description, "Description");
             //Assert.IsNotNull(e.DateStart, "DateStart");
             //Assert.IsNotNull(e.DateEnd, "DateEnd");
@@ -120,18 +122,18 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         }
 
 
-        public bool ValidateEvent(IEvent<IExhibit> e)
+        public static bool ValidateEvent(IEvent<IExhibit<ICurator>> e)
         {
             //Basic properties
             Assert.IsNotNull(e.Id, "Id");
             Assert.IsNotNull(e.Name, "Name");
-            Assert.IsNotNull(e.Description, "Description");
+            Assert.IsNotNull(e.Description, "Description");            
             Assert.IsNotNull(e.Color, "Color");
             Assert.IsTrue(e.Color.Length == 6, "Color is Hex");
             Assert.IsNotNull(e.SquareFootage, "SquareFootage");
             Assert.IsNotNull(e.DisplayDate, "DisplayDate");            
-            Assert.IsNotNull(e.DateStart, "DateStart");
-            Assert.IsNotNull(e.DateEnd, "DateEnd");
+            //Assert.IsNotNull(e.DateStart, "DateStart");
+            //Assert.IsNotNull(e.DateEnd, "DateEnd");
             //Assert.IsNotNull(e.CreatedAt, "CreatedAt");
             //Assert.IsNotNull(e.UpdatedAt, "UpdatedAt");
             //Assert.IsNotNull(e.Longitude, "Longitude");

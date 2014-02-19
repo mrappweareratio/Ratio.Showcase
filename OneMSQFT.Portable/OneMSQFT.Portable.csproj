@@ -69,8 +69,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLayer\IApiConfiguration.cs" />
     <Compile Include="Models\Link.cs" />
+    <Compile Include="Models\SiteData.cs" />
     <Compile Include="Models\StartupItemType.cs" />
+    <Compile Include="Models\Theme.cs" />
     <Compile Include="Services\IAnalyticsService.cs" />
     <Compile Include="Services\IConfigurationService.cs" />
     <Compile Include="Services\IDataCacheService.cs" />
@@ -90,7 +93,6 @@
     <Compile Include="Models\GalleryItem.cs" />
     <Compile Include="Models\ModelInterfaces.cs" />
     <Compile Include="Models\Tag.cs" />
-    <Compile Include="Models\TimelineResponse.cs" />
     <Compile Include="Models\SiteDataResult.cs" />
     <Compile Include="PortableStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
