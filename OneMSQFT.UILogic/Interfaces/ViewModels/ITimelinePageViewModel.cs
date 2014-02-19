@@ -29,7 +29,7 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         ObservableCollection<EventItemViewModel> TimeLineMenuItems { get; }
         DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
         void EventHeroItemClickCommandHandler(EventItemViewModel item);
-        DelegateCommand SetStartupEventCommand { get; }
-        DelegateCommand ClearStartupEventCommand { get; }        
+        DelegateCommand SetStartupCommand { get; }
+        DelegateCommand ClearStartupCommand { get; }        
     }
 }
