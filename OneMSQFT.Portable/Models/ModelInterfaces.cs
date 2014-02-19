@@ -108,9 +108,13 @@ namespace OneMSQFT.Common.Models
     public interface IMediaContentSource
     {
         string Id { get; }
-        string ParentId { get; }
-        string Source { get; }
+        string Img { get; }
+        string VideoId { get; }
+        string VideoUrlHd { get; }
+        string VideoUrlSd { get; }
+        string VideoUrlMobile { get; }
         ContentSourceType ContentSourceType { get; }
+        int SortOrder { get; }
     }
 
     public interface IBaseResponse<TResult, TResultData, TError>
