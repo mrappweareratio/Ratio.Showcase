@@ -953,30 +953,52 @@
                        Fill="#AAffffff" 
                        Grid.RowSpan="2"
                        HorizontalAlignment="Right" />
-            <Popup x:Name="FlipViewPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
+            <Popup x:Name="FlipViewPopup" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
                 <Grid>
-                    <FlipView Background="Tomato" 
+                    <FlipView Background="White" x:Name="FlipViewer"
+                              Margin="0"
+                              Padding="0"
+                              Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                              Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                               UseTouchAnimationsForAllNavigation="True"
-                              ItemsSource="{Binding DataSource.SelectedEvent.MediaContent}">
+                              ItemsSource="{Binding DataSource.SelectedEvent.MediaContent, Mode=OneWay, Source={StaticResource DataContextProxy}}">
                         <FlipView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <Image Source="{Binding Source}"/>
-                                    <Button Content="{Binding ContentSourceType}" Click="VideoButton_Clicked"/>
+                                    <Image Source="{Binding ImageSource}" Stretch="UniformToFill"/>
+                                    <Button Click="VideoButton_Clicked" 
+                                            Style="{StaticResource EmptyButtonStyle}"
+                                            Visibility="{Binding IsVideoButtonVisible}" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                        <Border 
+                        		            HorizontalAlignment="Center" Height="70"  
+                        		            VerticalAlignment="Center" Width="70">
+                                            <Border.Background>
+                                                <SolidColorBrush Color="{Binding DataSource.SelectedEvent.EventColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"/>
+                                            </Border.Background>
+                                            <Path Data="M1,1 L49,1 L49,49" 
+                        			            HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
+                        			            StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
+                                                <Path.RenderTransform>
+                                                    <CompositeTransform Rotation="45" TranslateY="5.43"/>
+                                                </Path.RenderTransform>
+                                            </Path>
+                                        </Border>
+                                    </Button>
                                 </Grid>
                             </DataTemplate>
                         </FlipView.ItemTemplate>
                     </FlipView>
-                    <AppBarButton Icon="Cancel" Click="AppBarButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
+                    <AppBarButton Icon="Cancel" Click="FlipViewPopUpCloseButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
                 </Grid>
             </Popup>
             <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
                 <Grid>
-                    <omsqftcontrols:VideoPlayerUserControl 
-                    SelectedEvent="{Binding DataSource.SelectedEvent, Source={StaticResource DataContextProxy}}"
+                    <omsqftcontrols:VideoPlayerUserControl x:Name="VideoPlayerUserControl"
                     Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                     Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
-                    <AppBarButton Icon="Cancel" Click="AppBarButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
+                    <AppBarButton Icon="Cancel" Click="VideoPopUpCloseButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
                 </Grid>
             </Popup>
         </Grid>

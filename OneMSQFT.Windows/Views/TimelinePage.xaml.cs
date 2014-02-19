@@ -224,6 +224,7 @@ namespace OneMSQFT.Windows.Views
             if (!VideoPopup.IsOpen)
             {
                 VideoPopup.IsOpen = true;
+                VideoPlayerUserControl.SelectedMediaContentSource = ((MediaContentSourceItemViewModel) FlipViewer.SelectedItem);
             }
         }
 
@@ -241,11 +242,19 @@ namespace OneMSQFT.Windows.Views
 
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        private void VideoPopUpCloseButton_Click(object sender, RoutedEventArgs e)
         {
             if (VideoPopup.IsOpen)
             {
                 VideoPopup.IsOpen = false;
+            }
+        }
+
+        private void FlipViewPopUpCloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (FlipViewPopup.IsOpen)
+            {
+                FlipViewPopup.IsOpen = false;
             }
         }
 

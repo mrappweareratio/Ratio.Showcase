@@ -111,7 +111,18 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public Visibility MediaContentVisibility { get; set; }
 
-        public ObservableCollection<MediaContentSourceItemViewModel> MediaContent { get; private set; }
+        private ObservableCollection<MediaContentSourceItemViewModel> _mediaContent;
+        public ObservableCollection<MediaContentSourceItemViewModel> MediaContent
+        {
+            get
+            {
+                return _mediaContent;
+            }
+            private set
+            {
+                SetProperty(ref _mediaContent, value); 
+            }
+        }
 
         public bool IsInTheFuture
         {
