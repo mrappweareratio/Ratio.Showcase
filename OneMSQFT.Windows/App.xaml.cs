@@ -93,6 +93,8 @@ namespace OneMSQFT.Windows
 
             //create the application
             _application = new OneMsqftApplication(_container.Resolve<INavigationService>(), _container.Resolve<IDataService>(), _container.Resolve<IConfigurationService>(), _container.Resolve<IAnalyticsService>());            
+            //register the application
+            AppLocator.Register(_application);
 
             _application.OnInitialize(args);
 

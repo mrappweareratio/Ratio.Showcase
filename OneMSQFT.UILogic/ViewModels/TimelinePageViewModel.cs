@@ -36,7 +36,8 @@ namespace OneMSQFT.UILogic.ViewModels
             this.EventHeroItemClickCommand = new DelegateCommand<EventItemViewModel>(EventHeroItemClickCommandHandler);
             this.ExhibitItemClickCommand = new DelegateCommand<String>(ExhibitItemClickCommandHandler);
             this.SetStartupEventCommand = new DelegateCommand(SetStartupEventCommandExecuteMethod, SetStartupEventCommandCanExecuteMethod);
-        }
+            this.ClearStartupEventCommand = new DelegateCommand(ClearStartupEventExecuteMethod, ClearStartupEventCanExecuteMethod);
+        }        
 
         public override async void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
@@ -247,11 +248,27 @@ namespace OneMSQFT.UILogic.ViewModels
         private void SetStartupEventCommandExecuteMethod()
         {
             _configuration.SetStartupEvent(SelectedEvent.Id);
+            SetStartupEventCommand.RaiseCanExecuteChanged();
+            ClearStartupEventCommand.RaiseCanExecuteChanged();
         }
 
         protected bool SetStartupEventCommandCanExecuteMethod()
         {
-            return SelectedEvent != null;
+            return SelectedEvent != null && !SelectedEvent.Id.Equals(_configuration.StartupItemId);
+        }
+
+        public DelegateCommand ClearStartupEventCommand { get; private set; }
+
+        private bool ClearStartupEventCanExecuteMethod()
+        {
+            return _configuration.StartupItemType != StartupItemType.None;
+        }
+
+        public void ClearStartupEventExecuteMethod()
+        {
+            _configuration.ClearStartupItem();
+            SetStartupEventCommand.RaiseCanExecuteChanged();
+            ClearStartupEventCommand.RaiseCanExecuteChanged();         
         }
     }
 }
