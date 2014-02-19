@@ -36,12 +36,12 @@ namespace OneMSQFT.Windows.DesignViewModels
                         new MediaContentSource
                         {
                             ContentSourceType = ContentSourceType.Image,
-                            Source = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg"
+                            Img = "http://www.1msqft.com/assets/img/cultivators/sundance/laBlogo/1.jpg"
                         },
                         new MediaContentSource
                         {
                             ContentSourceType = ContentSourceType.Video,
-                            Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/2.jpg"
+                            VideoUrlHd = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/2.jpg"
                         }
 
                     },
@@ -72,12 +72,12 @@ namespace OneMSQFT.Windows.DesignViewModels
                         new MediaContentSource
                         {
                             ContentSourceType = ContentSourceType.Image,
-                            Source = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg"
+                            Img = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg"
                         },
                         new MediaContentSource
                         {
                             ContentSourceType = ContentSourceType.Video,
-                            Source = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
+                            VideoUrlHd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
                         }
 
                     },
@@ -99,55 +99,51 @@ namespace OneMSQFT.Windows.DesignViewModels
             {
                 ContentSourceType = ContentSourceType.Video,
                 Id = "Video0",
-                Source = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4",
+                VideoUrlHd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4",
             });
 
             mediaContentSources.Add(new MediaContentSource()
             {
                 ContentSourceType = ContentSourceType.Image,
-                ParentId = "Video0",
-                Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
+                Img = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
             });
 
             mediaContentSources.Add(new MediaContentSource()
             {
                 ContentSourceType = ContentSourceType.Video,
                 Id = "a78dd60b6d00d4ea3cb24c04f8123fc5",
-                Source = "http://player.vimeo.com/external/85202186.hd.mp4?s=a78dd60b6d00d4ea3cb24c04f8123fc5",
+                VideoUrlHd = "http://player.vimeo.com/external/85202186.hd.mp4?s=a78dd60b6d00d4ea3cb24c04f8123fc5",
             });
 
             mediaContentSources.Add(new MediaContentSource()
             {
                 ContentSourceType = ContentSourceType.Image,
-                ParentId = "a78dd60b6d00d4ea3cb24c04f8123fc5",
-                Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
+                Img = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
             });
 
             mediaContentSources.Add(new MediaContentSource()
           {
               ContentSourceType = ContentSourceType.Video,
               Id = "678c1a9e12fef16bc4db912bd6c69def",
-              Source = "http://player.vimeo.com/external/85202186.sd.mp4?s=678c1a9e12fef16bc4db912bd6c69def"
+              VideoUrlHd = "http://player.vimeo.com/external/85202186.sd.mp4?s=678c1a9e12fef16bc4db912bd6c69def"
           });
             mediaContentSources.Add(new MediaContentSource()
             {
                 ContentSourceType = ContentSourceType.Image,
-                ParentId = "678c1a9e12fef16bc4db912bd6c69def",
-                Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
+                Img = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
             });
 
             mediaContentSources.Add(new MediaContentSource()
           {
               ContentSourceType = ContentSourceType.Video,
               Id = "135089443cf7c01d8762cc206a7cc5e7",
-              Source = "http://player.vimeo.com/external/85202186.m3u8?p=high,standard,mobile&s=135089443cf7c01d8762cc206a7cc5e7"
+              VideoUrlHd = "http://player.vimeo.com/external/85202186.m3u8?p=high,standard,mobile&s=135089443cf7c01d8762cc206a7cc5e7"
           });
 
             mediaContentSources.Add(new MediaContentSource()
             {
                 ContentSourceType = ContentSourceType.Image,
-                ParentId = "135089443cf7c01d8762cc206a7cc5e7",
-                Source = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
+                Img = "http://www.1msqft.com/assets/img/cultivators/sundance/kenMiller/1.jpg"
             });         
 
             //Source = "http://player.vimeo.com/external/85202186.sd.mp4?s=678c1a9e12fef16bc4db912bd6c69def",                    
