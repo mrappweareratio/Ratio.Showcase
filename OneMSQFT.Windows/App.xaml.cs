@@ -79,6 +79,8 @@ namespace OneMSQFT.Windows
             //register repositories
             //_container.RegisterType<IDataRepository, SampleDataRepository>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IDataRepository, DemoDataRepository>(new ContainerControlledLifetimeManager());
+            //_container.RegisterType<IApiConfiguration, ApiConfiguration>(new ContainerControlledLifetimeManager());
+            //_container.RegisterType<IDataRepository, ApiDataRepository>(new ContainerControlledLifetimeManager());
 
             //register services
             _container.RegisterInstance<INavigationService>(NavigationService);
@@ -91,6 +93,8 @@ namespace OneMSQFT.Windows
 
             //create the application
             _application = new OneMsqftApplication(_container.Resolve<INavigationService>(), _container.Resolve<IDataService>(), _container.Resolve<IConfigurationService>(), _container.Resolve<IAnalyticsService>());            
+            //register the application
+            AppLocator.Register(_application);
 
             _application.OnInitialize(args);
 

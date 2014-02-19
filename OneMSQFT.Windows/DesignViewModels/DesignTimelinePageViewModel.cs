@@ -195,5 +195,8 @@ namespace OneMSQFT.Windows.DesignViewModels
         {
             get { throw new NotImplementedException(); }
         }
+
+        public DelegateCommand SetStartupEventCommand { get; private set; }
+        public DelegateCommand ClearStartupEventCommand { get; private set; }
     }
 }
