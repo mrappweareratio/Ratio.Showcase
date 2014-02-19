@@ -126,7 +126,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             await ExecuteOnUIThread(async () =>
             {
                 timeLine.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("0", "Event"));
-                await timeLine.SetStartupEventCommand.Execute();
+                await timeLine.SetStartupCommand.Execute();
             });
             Assert.IsTrue(called);
             Assert.AreEqual(passedEventId, "0");
@@ -142,7 +142,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                     {                        
                     }
                 });                        
-            Assert.IsFalse(timeLine.SetStartupEventCommand.CanExecute());
+            Assert.IsFalse(timeLine.SetStartupCommand.CanExecute());
         }
 
         [TestMethod]
@@ -158,7 +158,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             ExecuteOnUIThread(() =>
             {
                 timeLine.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("0", "Event"));
-                Assert.IsTrue(timeLine.SetStartupEventCommand.CanExecute(), "CanExecute True");
+                Assert.IsTrue(timeLine.SetStartupCommand.CanExecute(), "CanExecute True");
             });            
         }
 

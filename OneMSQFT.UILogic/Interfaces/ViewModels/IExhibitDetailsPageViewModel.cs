@@ -18,5 +18,7 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         double ExhibitItemHeight { get; }
         DelegateCommand<MediaContentSourceItemViewModel> LaunchVideoCommand { get; }
         DelegateCommand<String> NextExhibitCommand { get; }
+        DelegateCommand SetStartupCommand { get; }
+        DelegateCommand ClearStartupCommand { get; }     
     }
 }

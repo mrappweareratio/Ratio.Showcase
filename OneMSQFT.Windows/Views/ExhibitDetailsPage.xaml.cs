@@ -19,6 +19,11 @@ namespace OneMSQFT.Windows.Views
             Loaded += ExhibitDetailsPage_Loaded;
             var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();
             vm.PropertyChanged += ExhibitDetailsPage_PropertyChanged;
+            var app = AppLocator.Current;
+            if (app != null)
+            {
+                StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
 
         void ExhibitDetailsPage_Loaded(object sender, RoutedEventArgs e)

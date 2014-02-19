@@ -12,6 +12,7 @@ using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Navigation;
+using OneMSQFT.UILogic.Utils;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
@@ -24,7 +25,7 @@ namespace OneMSQFT.UILogic.ViewModels
         public DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
         public DelegateCommand<String> ExhibitItemClickCommand { get; set; }
 
-        public TimelinePageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration)            
+        public TimelinePageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration)
         {
             _dataService = dataService;
             _messageService = messageService;
@@ -35,9 +36,9 @@ namespace OneMSQFT.UILogic.ViewModels
             this.TimeLineMenuItems = new ObservableCollection<EventItemViewModel>();
             this.EventHeroItemClickCommand = new DelegateCommand<EventItemViewModel>(EventHeroItemClickCommandHandler);
             this.ExhibitItemClickCommand = new DelegateCommand<String>(ExhibitItemClickCommandHandler);
-            this.SetStartupEventCommand = new DelegateCommand(SetStartupEventCommandExecuteMethod, SetStartupEventCommandCanExecuteMethod);
-            this.ClearStartupEventCommand = new DelegateCommand(ClearStartupEventExecuteMethod, ClearStartupEventCanExecuteMethod);
-        }        
+            this.SetStartupCommand = new DelegateCommand(SetStartupCommandExecuteMethod, SetStartupCommandCanExecuteMethod);
+            this.ClearStartupCommand = new DelegateCommand(ClearStartupCommandExecuteMethod, ClearStartupCommandCanExecuteMethod);
+        }
 
         public override async void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
@@ -50,47 +51,21 @@ namespace OneMSQFT.UILogic.ViewModels
             var eventsList = events as IList<Event> ?? events.ToList();
 
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
-            TimeLineItems = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
-            TimeLineItems.Insert(0, new BufferItemFakeEventItemViewModel()); // first buffer item
-            TimeLineItems.Add(new BufferItemFakeEventItemViewModel()); // last buffer item
-            TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
+            
+            var timelineEvents = eventsList.Select(x => new EventItemViewModel(x)).ToList();
+            timelineEvents.Insert(0, new BufferItemFakeEventItemViewModel()); // first buffer item
+            timelineEvents.Add(new BufferItemFakeEventItemViewModel()); // last buffer item
+            TimeLineItems = new ObservableCollection<EventItemViewModel>(timelineEvents);
+            
+            var timelineMenuEvents = eventsList.Select(x => new EventItemViewModel(x)).ToList();
+            timelineMenuEvents = ComingSoonUtils.InsertComingSoonItems(12, timelineMenuEvents);
+            TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(timelineMenuEvents);
 
             foreach (var eivm in eventsList)
             {
                 _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
-            }
-            AddComingSoonItems();
-        }
-
-        private void AddComingSoonItems()
-        {
-            if (TimeLineMenuItems.Count == 4)
-            {
-                TimeLineMenuItems.Insert(1, new ComingSoonFakeEventItemViewModel());
-                TimeLineMenuItems.Insert(2, new ComingSoonFakeEventItemViewModel());
-                return;
-            }
-
-            if (TimeLineMenuItems.Count == 6)
-            {
-                TimeLineMenuItems.Insert(2, new ComingSoonFakeEventItemViewModel());
-                TimeLineMenuItems.Insert(2, new ComingSoonFakeEventItemViewModel());
-                TimeLineMenuItems.Insert(6, new ComingSoonFakeEventItemViewModel());
-                TimeLineMenuItems.Insert(8, new ComingSoonFakeEventItemViewModel());
-                return;
-            }
-
-
-            if (TimeLineMenuItems.Count == 7)
-            {
-                TimeLineMenuItems.Insert(2, new ComingSoonFakeEventItemViewModel());
-                TimeLineMenuItems.Insert(2, new ComingSoonFakeEventItemViewModel());
-                TimeLineMenuItems.Insert(6, new ComingSoonFakeEventItemViewModel());
-                TimeLineMenuItems.Insert(9, new ComingSoonFakeEventItemViewModel());
-                TimeLineMenuItems.Insert(TimeLineMenuItems.Count-1, new ComingSoonFakeEventItemViewModel());
-                return;
-            }
-        }
+            }            
+        }        
 
         public ObservableCollection<EventItemViewModel> TimeLineItems
         {
@@ -119,7 +94,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 if (value != null)
                 {
                     SetProperty(ref _selectedEvent, value);
-                    SetStartupEventCommand.RaiseCanExecuteChanged();
+                    SetStartupCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -174,7 +149,7 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return EventItemWidth /2;
+                return EventItemWidth / 2;
             }
         }
 
@@ -241,34 +216,34 @@ namespace OneMSQFT.UILogic.ViewModels
         public void ExhibitItemClickCommandHandler(String itemId)
         {
             _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, itemId);
-        }        
-
-        public DelegateCommand SetStartupEventCommand { get; set; }
-
-        private void SetStartupEventCommandExecuteMethod()
-        {
-            _configuration.SetStartupEvent(SelectedEvent.Id);
-            SetStartupEventCommand.RaiseCanExecuteChanged();
-            ClearStartupEventCommand.RaiseCanExecuteChanged();
         }
 
-        protected bool SetStartupEventCommandCanExecuteMethod()
+        public DelegateCommand SetStartupCommand { get; set; }
+
+        private void SetStartupCommandExecuteMethod()
+        {
+            _configuration.SetStartupEvent(SelectedEvent.Id);
+            SetStartupCommand.RaiseCanExecuteChanged();
+            ClearStartupCommand.RaiseCanExecuteChanged();
+        }
+
+        protected bool SetStartupCommandCanExecuteMethod()
         {
             return SelectedEvent != null && !SelectedEvent.Id.Equals(_configuration.StartupItemId);
         }
 
-        public DelegateCommand ClearStartupEventCommand { get; private set; }
+        public DelegateCommand ClearStartupCommand { get; private set; }
 
-        private bool ClearStartupEventCanExecuteMethod()
+        private bool ClearStartupCommandCanExecuteMethod()
         {
             return _configuration.StartupItemType != StartupItemType.None;
         }
 
-        public void ClearStartupEventExecuteMethod()
+        public void ClearStartupCommandExecuteMethod()
         {
             _configuration.ClearStartupItem();
-            SetStartupEventCommand.RaiseCanExecuteChanged();
-            ClearStartupEventCommand.RaiseCanExecuteChanged();         
+            SetStartupCommand.RaiseCanExecuteChanged();
+            ClearStartupCommand.RaiseCanExecuteChanged();
         }
     }
 }
