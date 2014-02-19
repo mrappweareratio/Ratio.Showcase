@@ -766,21 +766,13 @@
 						        FontFamily="Segoe UI Light" 
 						        FontWeight="Light"/>
                         </ScrollViewer>
-                        <ItemsControl Margin="40,20,0,50" VerticalAlignment="Bottom" HorizontalAlignment="Left"
-					        Grid.Row="7" ItemsSource="{Binding CuratorLogos}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="0,0,10,10" Height="35" Width="124" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                        <Image Source="{Binding}" Height="35" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Top" MaxWidth="124"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Vertical"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
+                        <omsqftcontrols:CuratorLogoStackerUserControl 
+                            Grid.Row="7"
+                            CuratorLogoCollection="{Binding CuratorLogos}"
+                            Margin="40,20,0,50" 
+                            VerticalAlignment="Bottom" 
+                            HorizontalAlignment="Left"/>
+                       
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <GridView ItemsSource="{Binding DisplayedExhibits}" x:Name="GridView"
