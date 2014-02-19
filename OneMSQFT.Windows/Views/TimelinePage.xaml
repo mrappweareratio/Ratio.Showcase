@@ -947,12 +947,14 @@
                 </omsqftcontrols:LogoUserControl.RenderTransform>
             </omsqftcontrols:LogoUserControl>
                     <Rectangle x:Name="MaskLeft" 
+                       IsHitTestVisible="False"
                        Width="{Binding DataSource.MaskItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                        Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                        Fill="#AAFFFFFF" 
                        Grid.RowSpan="2"
                        HorizontalAlignment="Left" />
                     <Rectangle x:Name="MaskRight" 
+                       IsHitTestVisible="False"
                        Width="{Binding DataSource.MaskItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                        Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                        Fill="#AAffffff" 
