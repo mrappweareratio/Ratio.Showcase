@@ -48,5 +48,22 @@ namespace OneMSQFT.UILogic.Tests.Utils
             Assert.IsTrue(mediaContent.Count == 6, "Media Item Count");
             Assert.IsTrue(mediaContent.Count(x => x.IsVideoButtonVisible == Visibility.Visible) == 3, "3 Visible Videos");
         }
+
+        [TestMethod]
+        public void Ignores_Bad_Videos()
+        {
+            var mediaContentSources = new List<MediaContentSource>
+            {
+                new MediaContentSource(){ContentSourceType = ContentSourceType.Image, Img = "http://url.com/imagesource"},
+                new MediaContentSource(){ContentSourceType = ContentSourceType.Video, Id = "5", Img = "http://url.com/imagesource"},//bad video
+                new MediaContentSource(){ContentSourceType = ContentSourceType.Image, Img = "http://url.com/imagesource"},
+                new MediaContentSource(){ContentSourceType = ContentSourceType.Video, Id = "6",Img = "http://url.com/imagesource", VideoUrlHd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"},                
+
+            };
+            var mediaContent = MediaContentSourceUtils.GetMediaContentSourceItemViewModels(mediaContentSources).ToList();
+            Assert.IsNotNull(mediaContent);
+            Assert.IsTrue(mediaContent.Count == 3, "Media Item Count");
+            Assert.IsTrue(mediaContent.Count(x => x.ContentSourceType == ContentSourceType.Video) == 1, "1 Valid Video");
+        }
     }
 }
