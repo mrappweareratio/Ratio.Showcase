@@ -9,12 +9,7 @@ using OneMSQFT.UILogic.ViewModels;
 namespace OneMSQFT.UILogic.Utils
 {
     public class MediaContentSourceUtils
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mediaContentSources"></param>
-        /// <returns></returns>
+    {        
         public static IEnumerable<MediaContentSourceItemViewModel> GetMediaContentSourceItemViewModels(
             IEnumerable<MediaContentSource> mediaContentSources)
         {
