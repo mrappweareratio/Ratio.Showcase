@@ -12,7 +12,8 @@ namespace OneMSQFT.Windows.DesignViewModels
 {
     public class DesignTimelinePageViewModel : BasePageViewModel, ITimelinePageViewModel
     {
-        public DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
+        public DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }        
+
         public DesignTimelinePageViewModel()
         {
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();
@@ -196,7 +197,7 @@ namespace OneMSQFT.Windows.DesignViewModels
             get { throw new NotImplementedException(); }
         }
 
-        public DelegateCommand SetStartupEventCommand { get; private set; }
-        public DelegateCommand ClearStartupEventCommand { get; private set; }
+        public DelegateCommand SetStartupCommand { get; private set; }
+        public DelegateCommand ClearStartupCommand { get; private set; }
     }
 }

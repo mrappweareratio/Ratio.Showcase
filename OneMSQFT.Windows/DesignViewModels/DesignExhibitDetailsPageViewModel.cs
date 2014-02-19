@@ -17,6 +17,8 @@ namespace OneMSQFT.Windows.DesignViewModels
     public class DesignExhibitDetailsPageViewModel : BasePageViewModel, IExhibitDetailsPageViewModel
     {
         public DelegateCommand<MediaContentSourceItemViewModel> LaunchVideoCommand { get; set; }
+        public DelegateCommand SetStartupCommand { get; private set; }
+        public DelegateCommand ClearStartupCommand { get; private set; }
 
         public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
@@ -85,6 +87,8 @@ namespace OneMSQFT.Windows.DesignViewModels
             }
 
             LaunchVideoCommand = new DelegateCommand<MediaContentSourceItemViewModel>(LaunchVideoCommandHandler);
+            SetStartupCommand = new DelegateCommand(() => { });
+            ClearStartupCommand = new DelegateCommand(() => { });
         }
 
         private void PopulateExhibitMediaCollection()

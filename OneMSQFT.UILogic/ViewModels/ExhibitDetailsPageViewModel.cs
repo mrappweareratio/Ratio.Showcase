@@ -22,6 +22,8 @@ namespace OneMSQFT.UILogic.ViewModels
     {
         public DelegateCommand<MediaContentSourceItemViewModel> LaunchVideoCommand { get; set; }
         public DelegateCommand<string> NextExhibitCommand { get; private set; }
+        public DelegateCommand SetStartupCommand { get; private set; }
+        public DelegateCommand ClearStartupCommand { get; private set; }
         private readonly IDataService _dataService;
         private readonly IAlertMessageService _messageService;
         private readonly INavigationService _navigationService;
@@ -34,7 +36,9 @@ namespace OneMSQFT.UILogic.ViewModels
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             LaunchVideoCommand = new DelegateCommand<MediaContentSourceItemViewModel>(LaunchVideoCommandHandler);
             NextExhibitCommand = new DelegateCommand<string>(NextExhibitCommandExecuteMethod, NextExhibitCommandCanExecuteMethod);
-        }
+            SetStartupCommand = new DelegateCommand(SetStartupCommandExecuteMethod, SetStartupCommandCanExecuteMethod);
+            ClearStartupCommand = new DelegateCommand(ClearStartupCommandExecuteMethod, ClearStartupCommandCanExecuteMethod);
+        }       
 
         private bool NextExhibitCommandCanExecuteMethod(string s)
         {
@@ -173,6 +177,22 @@ namespace OneMSQFT.UILogic.ViewModels
 
         #endregion
 
+        private bool ClearStartupCommandCanExecuteMethod()
+        {
+            return false;
+        }
 
+        private void ClearStartupCommandExecuteMethod()
+        {
+        }
+
+        private bool SetStartupCommandCanExecuteMethod()
+        {
+            return false;
+        }
+
+        private void SetStartupCommandExecuteMethod()
+        {
+        }
     }
 }

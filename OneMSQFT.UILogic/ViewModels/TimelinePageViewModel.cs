@@ -36,8 +36,8 @@ namespace OneMSQFT.UILogic.ViewModels
             this.TimeLineMenuItems = new ObservableCollection<EventItemViewModel>();
             this.EventHeroItemClickCommand = new DelegateCommand<EventItemViewModel>(EventHeroItemClickCommandHandler);
             this.ExhibitItemClickCommand = new DelegateCommand<String>(ExhibitItemClickCommandHandler);
-            this.SetStartupEventCommand = new DelegateCommand(SetStartupEventCommandExecuteMethod, SetStartupEventCommandCanExecuteMethod);
-            this.ClearStartupEventCommand = new DelegateCommand(ClearStartupEventExecuteMethod, ClearStartupEventCanExecuteMethod);
+            this.SetStartupCommand = new DelegateCommand(SetStartupCommandExecuteMethod, SetStartupCommandCanExecuteMethod);
+            this.ClearStartupCommand = new DelegateCommand(ClearStartupCommandExecuteMethod, ClearStartupCommandCanExecuteMethod);
         }
 
         public override async void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
@@ -94,7 +94,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 if (value != null)
                 {
                     SetProperty(ref _selectedEvent, value);
-                    SetStartupEventCommand.RaiseCanExecuteChanged();
+                    SetStartupCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -218,32 +218,32 @@ namespace OneMSQFT.UILogic.ViewModels
             _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, itemId);
         }
 
-        public DelegateCommand SetStartupEventCommand { get; set; }
+        public DelegateCommand SetStartupCommand { get; set; }
 
-        private void SetStartupEventCommandExecuteMethod()
+        private void SetStartupCommandExecuteMethod()
         {
             _configuration.SetStartupEvent(SelectedEvent.Id);
-            SetStartupEventCommand.RaiseCanExecuteChanged();
-            ClearStartupEventCommand.RaiseCanExecuteChanged();
+            SetStartupCommand.RaiseCanExecuteChanged();
+            ClearStartupCommand.RaiseCanExecuteChanged();
         }
 
-        protected bool SetStartupEventCommandCanExecuteMethod()
+        protected bool SetStartupCommandCanExecuteMethod()
         {
             return SelectedEvent != null && !SelectedEvent.Id.Equals(_configuration.StartupItemId);
         }
 
-        public DelegateCommand ClearStartupEventCommand { get; private set; }
+        public DelegateCommand ClearStartupCommand { get; private set; }
 
-        private bool ClearStartupEventCanExecuteMethod()
+        private bool ClearStartupCommandCanExecuteMethod()
         {
             return _configuration.StartupItemType != StartupItemType.None;
         }
 
-        public void ClearStartupEventExecuteMethod()
+        public void ClearStartupCommandExecuteMethod()
         {
             _configuration.ClearStartupItem();
-            SetStartupEventCommand.RaiseCanExecuteChanged();
-            ClearStartupEventCommand.RaiseCanExecuteChanged();
+            SetStartupCommand.RaiseCanExecuteChanged();
+            ClearStartupCommand.RaiseCanExecuteChanged();
         }
     }
 }
