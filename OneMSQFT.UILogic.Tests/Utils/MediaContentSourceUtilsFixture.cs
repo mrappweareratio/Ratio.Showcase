@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneMSQFT.Common.Models;
+using OneMSQFT.UILogic.DataLayer;
 using OneMSQFT.UILogic.Utils;
 
 namespace OneMSQFT.UILogic.Tests.Utils
 {
     [TestClass]
     public class MediaContentSourceUtilsFixture
-    {
+    {    
         [TestMethod]
         public void Parses_SortedImageAndVideoMediaList()
         {
@@ -65,5 +66,21 @@ namespace OneMSQFT.UILogic.Tests.Utils
             Assert.IsTrue(mediaContent.Count == 3, "Media Item Count");
             Assert.IsTrue(mediaContent.Count(x => x.ContentSourceType == ContentSourceType.Video) == 1, "1 Valid Video");
         }
+
+        [TestMethod]
+        public void Sorts_Media_Content()
+        {
+            var mediaContentSources = new List<MediaContentSource>
+            {
+                new MediaContentSource(){ContentSourceType = ContentSourceType.Image, Id = "8", Img = "http://url.com/imagesource", SortOrder = 20},                
+                new MediaContentSource(){ContentSourceType = ContentSourceType.Image, Img = "http://url.com/imagesource", SortOrder = 10},
+                new MediaContentSource(){ContentSourceType = ContentSourceType.Video, Id = "6",Img = "http://url.com/imagesource", VideoUrlHd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4", SortOrder = 0},                
+            };
+            var mediaContent = MediaContentSourceUtils.GetMediaContentSourceItemViewModels(mediaContentSources).ToList();
+            Assert.IsNotNull(mediaContent);
+            Assert.IsTrue(mediaContent.Count == 3, "Media Item Count");
+            Assert.AreEqual(mediaContent.First().Id, "6", "First Sorted");
+            Assert.AreEqual(mediaContent.First().Id, "8", "Last Sorted");
+        }      
     }
 }
