@@ -48,8 +48,7 @@ namespace OneMSQFT.Windows.Views
             var app = AppLocator.Current;
             if (app != null)
             {
-                SetStartupButton.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
-                ClearStartupButton.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
+                StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;                
             }
         }
 
