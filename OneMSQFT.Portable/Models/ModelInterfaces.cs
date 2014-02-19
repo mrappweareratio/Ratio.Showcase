@@ -12,9 +12,10 @@ namespace OneMSQFT.Common.Models
         int SquareFootage { get; set; }
     }
 
-    public interface IEvent<out TExhibit> : ISocialMedia, ILocation, ISquareFootageItem, IDatedItem, IColor, IHasMediaContent, ITimeStampedItem where TExhibit : IExhibit
+    public interface IEvent<out TExhibit> : ISocialMedia, ILocation, ISquareFootageItem, IDatedItem, IColor, IHasMediaContent, ITimeStampedItem where TExhibit : IExhibit<ICurator>
     {        
         IEnumerable<TExhibit> Exhibits { get; }
+        string ThemeId { get; }
     }
 
     public interface ILocation
@@ -27,14 +28,14 @@ namespace OneMSQFT.Common.Models
     public interface IDatedItem
     {
         string DisplayDate { get; }
-        DateTime DateStart { get; }
-        DateTime DateEnd { get; }
+        DateTime? DateStart { get; }
+        DateTime? DateEnd { get; }
     }
 
     public interface ITimeStampedItem
     {
-        DateTime CreatedAt { get; }
-        DateTime UpdatedAt { get; }
+        DateTime? CreatedAt { get; }
+        DateTime? UpdatedAt { get; }
     }
 
     public interface ICurator
@@ -50,7 +51,8 @@ namespace OneMSQFT.Common.Models
         string ExternalUrl { get; }
     }
 
-    public interface IExhibit : ISquareFootageItem, ITaggable, IHasMediaContent, IColor, IDatedItem, ISocialMedia, ITimeStampedItem  
+    public interface IExhibit<out TCurator> : ISquareFootageItem, ITaggable, IColor, IHasMediaContent, IDatedItem, ISocialMedia, ITimeStampedItem 
+        where TCurator : ICurator
     {
         string Introduction { get; }
         /// <summary>
@@ -61,7 +63,7 @@ namespace OneMSQFT.Common.Models
         IEnumerable<Link> Links { get; }
         string CuratorId { get; }
         string ThumbImage { get; }
-        Curator Curator { get; }
+        TCurator Curator { get; }
     }
 
     public interface IHasMediaContent
@@ -75,7 +77,7 @@ namespace OneMSQFT.Common.Models
     }
 
     public interface IColor
-    {
+    {        
         /// <summary>
         /// Hex 6 Digits
         /// </summary>
@@ -111,14 +113,20 @@ namespace OneMSQFT.Common.Models
         ContentSourceType ContentSourceType { get; }
     }
 
-    public interface IBaseResponse<TResult, TError>
-        where TResult : class
+    public interface IBaseResponse<TResult, TResultData, TError>
         where TError : IError
+        where TResult : IBaseResult<TResultData>
+        where TResultData : class
     {
-        string SystemResponse { get; set; }
-        bool Success { get; set; }
+        string SystemResponse { get; set; }                
+        bool IsSuccess { get; set; }
         TError Error { get; set; }
         TResult Result { get; set; }
+    }
+
+    public interface IBaseResult<TResult> where TResult : class
+    {
+        TResult Data { get; set; }
     }
 
     public interface IError

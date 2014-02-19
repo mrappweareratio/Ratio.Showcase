@@ -20,7 +20,7 @@ namespace OneMSQFT.UILogic.ViewModels
         public ObservableCollection<LinkItemViewModel> Links { get; set; }
 
 
-        public ExhibitItemViewModel(IExhibit exhibitModel)
+        public ExhibitItemViewModel(IExhibit<ICurator> exhibitModel)
         {
             if (exhibitModel == null)
                 return;
@@ -48,7 +48,7 @@ namespace OneMSQFT.UILogic.ViewModels
         }
 
 
-        private IExhibit Exhibit { get; set; }
+        private IExhibit<ICurator> Exhibit { get; set; }
 
         public Uri HeroPhotoFilePath { get; set; }
 

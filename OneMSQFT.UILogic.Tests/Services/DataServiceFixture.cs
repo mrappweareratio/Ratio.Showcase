@@ -36,7 +36,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 GetSiteDataDelegate = () =>
                 {
                     called = true;
-                    return Task.FromResult(new SiteDataResult());
+                    return Task.FromResult(new SiteData());
                 }
             };
             var dataService = new DataService(mock, new MockDataCacheService() { ContainsDataDelegate = s => Task.FromResult(false) }, InternetConnection);
@@ -53,7 +53,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 GetSiteDataDelegate = () =>
                 {
                     called = true;
-                    return Task.FromResult(new SiteDataResult());
+                    return Task.FromResult(new SiteData());
                 }
             };
             var cache = new MockDataCacheService
@@ -76,7 +76,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             {
                 GetSiteDataDelegate = () =>
                 {
-                    return Task.FromResult(new SiteDataResult());
+                    return Task.FromResult(new SiteData());
                 }
             };
             var cache = new MockDataCacheService
@@ -105,7 +105,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             {
                 GetSiteDataDelegate = () =>
                 {
-                    return Task.FromResult(new SiteDataResult());
+                    return Task.FromResult(new SiteData());
                 }
             };
             var cache = new MockDataCacheService
@@ -137,7 +137,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 GetSiteDataDelegate = () =>
                 {
                     called = true;
-                    return Task.FromResult(new SiteDataResult());
+                    return Task.FromResult(new SiteData());
                 }
             };
             var cache = new MockDataCacheService
@@ -168,7 +168,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             {
                 GetSiteDataDelegate = () =>
                 {
-                    return Task.FromResult(new SiteDataResult());
+                    return Task.FromResult(new SiteData());
                 }
             };
             var cache = new MockDataCacheService
@@ -203,7 +203,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             {
                 GetSiteDataDelegate = () =>
                 {
-                    return Task.FromResult(new SiteDataResult() { Events = new List<Event> { } });
+                    return Task.FromResult(new SiteData() { Events = new List<Event> { } });
                 }
             };
             var cache = new MockDataCacheService();
@@ -227,7 +227,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             {
                 GetSiteDataDelegate = () =>
                 {
-                    return Task.FromResult(new SiteDataResult()
+                    return Task.FromResult(new SiteData()
                     {
                         Events = new List<Event> {
                         {
@@ -263,7 +263,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             {
                 GetSiteDataDelegate = () =>
                 {
-                    return Task.FromResult(new SiteDataResult()
+                    return Task.FromResult(new SiteData()
                     {
                         Events = new List<Event> {
                         {
@@ -299,7 +299,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             {
                 GetSiteDataDelegate = () =>
                 {
-                    return Task.FromResult(new SiteDataResult()
+                    return Task.FromResult(new SiteData()
                     {
                         Events = new List<Event> {
                         {
@@ -334,7 +334,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             {
                 GetSiteDataDelegate = () =>
                 {
-                    return Task.FromResult(new SiteDataResult()
+                    return Task.FromResult(new SiteData()
                     {
                         Events = new List<Event> {
                         {
@@ -365,7 +365,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             {
                 GetSiteDataDelegate = () =>
                 {
-                    return Task.FromResult(new SiteDataResult());
+                    return Task.FromResult(new SiteData());
                 }
             };
             var cache = new MockDataCacheService();

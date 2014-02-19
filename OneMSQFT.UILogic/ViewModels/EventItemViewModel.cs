@@ -102,7 +102,8 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public string Location { get; set; }
 
-        public DateTime DateStart { get { return Event.DateStart; } }
+
+        public DateTime DateStart { get { return Event.DateStart.GetValueOrDefault(); } }
 
         public Uri EventHeroVideoUri { get; set; }
 

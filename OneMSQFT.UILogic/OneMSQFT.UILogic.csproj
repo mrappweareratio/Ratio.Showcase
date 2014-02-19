@@ -118,6 +118,8 @@
   <ItemGroup>
     <Compile Include="Analytics\AnalyticsService.cs" />
     <Compile Include="Analytics\TrackingHelper.cs" />
+    <Compile Include="DataLayer\ApiConfiguration.cs" />
+    <Compile Include="DataLayer\ApiDataRepository.cs" />
     <Compile Include="DataLayer\DemoDataRepository.cs" />
     <Compile Include="DataLayer\SampleLocalStorageProvider.cs" />
     <Compile Include="DataLayer\SampleDataRepository.cs" />
