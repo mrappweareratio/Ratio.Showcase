@@ -24,7 +24,7 @@ namespace OneMSQFT.UILogic.ViewModels
             Name = curatorModel.Name;
             Id = curatorModel.Id;
             Description = curatorModel.Description;
-            LogoImage = curatorModel.LogoImageName; //TODO: Do we use WhiteLogoImage?
+            LogoImage = curatorModel.WhiteLogoImage; 
             ExternalUrl = curatorModel.ExternalUrl;
         }
         private ICurator Curator { get; set; }
