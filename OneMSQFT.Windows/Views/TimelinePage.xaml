@@ -766,18 +766,18 @@
 						        FontFamily="Segoe UI Light" 
 						        FontWeight="Light"/>
                         </ScrollViewer>
-                        <ItemsControl Margin="40,20,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                        <ItemsControl Margin="40,20,0,50" VerticalAlignment="Bottom" HorizontalAlignment="Left"
 					        Grid.Row="7" ItemsSource="{Binding CuratorLogos}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid Margin="0,0,10,10" Height="50" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                        <Image Source="{Binding}" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <Grid Margin="0,0,10,10" Height="35" Width="124" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                        <Image Source="{Binding}" Height="35" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Top" MaxWidth="124"/>
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"/>
+                                    <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Vertical"/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
