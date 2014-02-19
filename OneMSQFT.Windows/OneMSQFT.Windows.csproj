@@ -114,6 +114,9 @@
     </Compile>
     <Compile Include="Behaviors\NavigateWithEventArgsToPageAction.cs" />
     <Compile Include="Controls\AutoRotatingGridView.cs" />
+    <Compile Include="Controls\CuratorLogoStackerUserControl.xaml.cs">
+      <DependentUpon>CuratorLogoStackerUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\LogoUserControl.xaml.cs">
       <DependentUpon>LogoUserControl.xaml</DependentUpon>
     </Compile>
@@ -170,6 +173,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\CuratorLogoStackerUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\LogoUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

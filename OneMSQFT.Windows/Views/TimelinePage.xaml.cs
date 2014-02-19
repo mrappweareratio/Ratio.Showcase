@@ -227,6 +227,15 @@ namespace OneMSQFT.Windows.Views
             }
         }
 
+        private void FlipViewButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (!FlipViewPopup.IsOpen)
+            {
+                FlipViewPopup.IsOpen = true;
+                VideoPopup.IsOpen = false;
+            }
+        }
+
         private void VideoPopup_Closed(object sender, object e)
         {
 
