@@ -50,6 +50,8 @@ namespace OneMSQFT.UILogic.ViewModels
 
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
             TimeLineItems = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
+            TimeLineItems.Insert(0, new BufferItemFakeEventItemViewModel()); // first buffer item
+            TimeLineItems.Add(new BufferItemFakeEventItemViewModel()); // last buffer item
             TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
 
             foreach (var eivm in eventsList)
@@ -93,8 +95,6 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                _timeLineItems.Insert(0, new BufferItemFakeEventItemViewModel());
-                _timeLineItems.Add(new BufferItemFakeEventItemViewModel());
                 return _timeLineItems;
             }
             private set { SetProperty(ref _timeLineItems, value); }
@@ -120,14 +120,6 @@ namespace OneMSQFT.UILogic.ViewModels
                     SetProperty(ref _selectedEvent, value);
                     SetStartupEventCommand.RaiseCanExecuteChanged();
                 }
-            }
-        }
-
-        public String SinceString
-        {
-            get
-            {
-                return "since December 2013";
             }
         }
 
