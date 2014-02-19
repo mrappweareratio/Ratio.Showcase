@@ -34,12 +34,12 @@ namespace OneMSQFT.UILogic.DataLayer
         private const string DemoExhibitDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum laoreet magna, ut rutrum purus cursus ut. Nulla convallis, elit et consequat sollicitudin, eros ligula pretium dolor, a bibendum est eros eu mauris. Sed in mi cursus, dapibus justo et, condimentum est. Vestibulum velit eros, rhoncus a ante sed, tincidunt scelerisque nibh. Maecenas ullamcorper lacus quis justo aliquet iaculis at placerat nulla. Phasellus dictum lectus vel erat vehicula cursus. Suspendisse euismod consequat rhoncus. Duis id lectus orci.";
         private const string DemoEventDescription = DemoExhibitDescription;
 
-        async public Task<SiteDataResult> GetSiteData()
+        async public Task<SiteData> GetSiteData()
         {
             await Task.Delay(1000);
             var exhibitId = 0;
             var eventId = 0;
-            var result = new SiteDataResult
+            var result = new SiteData
             {
                 Events = new List<Event>
                 {
@@ -72,7 +72,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "4",
                                     Name ="Pitchfork",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/4.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/4.png"
                                 }
                             },
                             new Exhibit()
@@ -89,7 +89,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "5",
                                     Name ="Lucky Peach",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
                                 }
                             }
                         }
@@ -121,7 +121,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "6",
                                     Name ="IFP",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/6.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/6.png"
                                 }
                             },
                             new Exhibit()
@@ -138,7 +138,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "2",
                                     Name ="La Blogotheque",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/2.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2.png"
                                 }
                             },
                              new Exhibit()
@@ -155,7 +155,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "2",
                                     Name ="Lucky Peach",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/2.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2.png"
                                 }
                             }
                         }
@@ -187,7 +187,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "5",
                                     Name ="Lucky Peach",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
                                 }
                             },
                             new Exhibit()
@@ -204,7 +204,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "5",
                                     Name ="Lucky Peach",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
                                 }
                             },
                              new Exhibit()
@@ -221,7 +221,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "5",
                                     Name ="Lucky Peach",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
                                 }
                             },
                              new Exhibit()
@@ -238,7 +238,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 {
                                     Id = "5",
                                     Name ="Lucky Peach",
-                                    LogoImageName = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/5.png"
                                 }
                             }
                         }
@@ -528,10 +528,10 @@ namespace OneMSQFT.UILogic.DataLayer
 
         public static List<MediaContentSource> GetMediaCollection(int count)
         {
-            var mc = new List<MediaContentSource>();            
+            var mc = new List<MediaContentSource>();
             for (var i = 0; i < count; i++)
             {
-                var img = ImageRandomizer.Next(Images.Count - 1);                
+                var img = ImageRandomizer.Next(Images.Count - 1);
                 var mcsV = new MediaContentSource()
                 {
                     ContentSourceType = ContentSourceType.Video,

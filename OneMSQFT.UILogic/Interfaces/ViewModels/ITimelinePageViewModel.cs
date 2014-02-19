@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Windows.UI.Xaml;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
 using Microsoft.Practices.Prism.StoreApps;
@@ -28,5 +29,7 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         ObservableCollection<EventItemViewModel> TimeLineMenuItems { get; }
         DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
         void EventHeroItemClickCommandHandler(EventItemViewModel item);
+        DelegateCommand SetStartupEventCommand { get; }
+        DelegateCommand ClearStartupEventCommand { get; }        
     }
 }

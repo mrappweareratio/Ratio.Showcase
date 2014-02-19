@@ -12,19 +12,15 @@ namespace OneMSQFT.UILogic.DataLayer
     /// </summary>
     public class SampleDataRepository : IDataRepository
     {
-        private const string JsonFileName = "sundance.json";
+        private const string JsonFileName = "sundance.json";        
 
-        public SampleDataRepository()
-        {
-        }
-
-        public async Task<SiteDataResult> GetSiteData()
+        public async Task<SiteData> GetSiteData()
         {
             var folder = Windows.ApplicationModel.Package.Current.InstalledLocation;           
             folder = await folder.GetFolderAsync("SampleData");
             var jsonFile = await folder.GetFileAsync(JsonFileName);
             var jsonData = await Windows.Storage.FileIO.ReadTextAsync(jsonFile);            
-            var dataFromJson = JsonHelper.DeserializeObject<SiteDataResult>(jsonData);
+            var dataFromJson = JsonHelper.DeserializeObject<SiteData>(jsonData);
             return dataFromJson;
         }
     }

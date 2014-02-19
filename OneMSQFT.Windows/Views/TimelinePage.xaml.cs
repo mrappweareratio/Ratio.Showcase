@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
+using OneMSQFT.UILogic.Interfaces;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
@@ -41,8 +42,15 @@ namespace OneMSQFT.Windows.Views
             vm.FullScreenWidth = Window.Current.Bounds.Width;
             vm.PropertyChanged += TimelinePage_PropertyChanged;
             scrollerTimer = new DispatcherTimer();
-            scrollerTimer.Interval = new TimeSpan(0,0,0,1);
+            scrollerTimer.Interval = new TimeSpan(0, 0, 0, 1);
             scrollerTimer.Tick += scrollerTimer_Tick;
+
+            var app = AppLocator.Current;
+            if (app != null)
+            {
+                SetStartupEventButton.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
+                ClearStartupEventButton.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
 
         void scrollerTimer_Tick(object sender, object e)
@@ -66,19 +74,13 @@ namespace OneMSQFT.Windows.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.Parameter != null && e.Parameter is String)
-            {
-                ScrollToEventById(e.Parameter as String);
-            }
+            this._navigationEventArgs = e;
         }
 
         void TimelinePage_Loaded(object sender, RoutedEventArgs e)
         {
-            var vm = this.DataContext as ITimelinePageViewModel;
-            if (vm != null)
-            {
-                vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-            }
+            var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
+            vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
         }
 
         private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
@@ -88,6 +90,10 @@ namespace OneMSQFT.Windows.Views
             _timelineGridViewScrollViewer.HorizontalSnapPointsType = SnapPointsType.Mandatory;
             _timelineGridViewScrollViewer.ViewChanging += _timelineGridViewScrollViewer_ViewChanging;
             _timelineGridViewScrollViewer.ViewChanged += _timelineGridViewScrollViewer_ViewChanged;
+            if (_navigationEventArgs != null && _navigationEventArgs.Parameter is String)
+            {
+                ScrollToEventById(_navigationEventArgs.Parameter as String);
+            }
         }
 
         private void ShowTimelineMasks(bool show)
@@ -128,6 +134,7 @@ namespace OneMSQFT.Windows.Views
         }
 
         private bool _semanticZoomClosedFromTopAppBarEvent;
+        private NavigationEventArgs _navigationEventArgs;
 
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
@@ -139,7 +146,7 @@ namespace OneMSQFT.Windows.Views
                 }
                 else
                 {
-                    ScrollToEventById(((EventItemViewModel) e.SourceItem.Item).Id);
+                    ScrollToEventById(((EventItemViewModel)e.SourceItem.Item).Id);
                 }
                 itemsGridView.Opacity = 1;
             }
@@ -167,8 +174,8 @@ namespace OneMSQFT.Windows.Views
             if (semanticZoom.IsZoomedInViewActive == false)
             {
                 _semanticZoomClosedFromTopAppBarEvent = true;
-                semanticZoom.ToggleActiveView();                                
-            }            
+                semanticZoom.ToggleActiveView();
+            }
             ScrollToEventById(eventId);
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
@@ -178,10 +185,10 @@ namespace OneMSQFT.Windows.Views
         {
             VideoPopup.IsOpen = false;
             var vm = GetDataContextAsViewModel<TimelinePageViewModel>();
-            vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height); 
+            vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
 
             if (String.IsNullOrEmpty(eventId))
-            {   
+            {
                 // SCROLL HOME
                 await _timelineGridViewScrollViewer.ScrollToHorizontalOffsetWithAnimation(0);
             }
@@ -190,7 +197,7 @@ namespace OneMSQFT.Windows.Views
             if (e == null)
                 return;
             vm.SelectedEvent = e as EventItemViewModel;
-            var itemIndex = vm.SquareFootEvents.IndexOf(e) +1 ; // +1 for buffer items
+            var itemIndex = vm.SquareFootEvents.IndexOf(e) + 1; // +1 for buffer items
 
             AppBarIsAutoScrolling = true;
             ShowTimelineMasks(false);
@@ -201,7 +208,7 @@ namespace OneMSQFT.Windows.Views
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
             var vm = DataContext as ITimelinePageViewModel;
-            if(vm != null)
+            if (vm != null)
             {
                 vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
             }
@@ -212,7 +219,7 @@ namespace OneMSQFT.Windows.Views
         {
             if (!VideoPopup.IsOpen)
             {
-                VideoPopup.IsOpen = true; 
+                VideoPopup.IsOpen = true;
             }
         }
 
