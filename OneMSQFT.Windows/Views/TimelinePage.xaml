@@ -953,13 +953,13 @@
                        Fill="#AAffffff" 
                        Grid.RowSpan="2"
                        HorizontalAlignment="Right" />
-            <Popup x:Name="FlipViewPopup" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
+            <Popup x:Name="FlipViewPopup" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}">
                 <Grid>
                     <FlipView Background="White" x:Name="FlipViewer"
+                              Style="{StaticResource FlipViewStyle}"
+                              BorderBrush="Transparent"
                               Margin="0"
                               Padding="0"
-                              Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                              Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                               UseTouchAnimationsForAllNavigation="True"
                               ItemsSource="{Binding DataSource.SelectedEvent.MediaContent, Mode=OneWay, Source={StaticResource DataContextProxy}}">
                         <FlipView.ItemTemplate>
