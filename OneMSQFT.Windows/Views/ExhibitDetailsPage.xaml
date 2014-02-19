@@ -164,11 +164,15 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition/>                        
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal"  Margin="20,0,0,0">
                         <Button x:Name="HomeButton" HorizontalAlignment="Stretch" Content="HOME" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}" />
-                    </StackPanel>
+                        <StackPanel x:Name="StartupButtonStackPanel" Orientation="Horizontal" Visibility="Visible">
+                            <Button HorizontalAlignment="Stretch" Content="Set as Startup" Command="{Binding SetStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+                            <Button HorizontalAlignment="Stretch" Content="Clear Startup" Command="{Binding ClearStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+                        </StackPanel>
+                    </StackPanel>                  
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
                         <Button x:Name="AboutButton" HorizontalAlignment="Stretch" Content="ABOUT 1MSQFT" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
                     </StackPanel>
@@ -178,7 +182,7 @@
     </omsqft:BasePageView.BottomAppBar>
     <Grid Background="White">
         <Grid>
-            <ScrollViewer x:Name="ExhibitDetailsPanels" Style="{StaticResource HorizontalScrollViewerStyle}" >
+            <ScrollViewer x:Name="ExhibitDetailsPanels" Style="{StaticResource HorizontalScrollViewerStyle}" Margin="0,-95,0,95" >
                 <StackPanel Orientation="Horizontal">
                     <Grid x:Name="Panel0" >
                         <Grid.ChildrenTransitions>
