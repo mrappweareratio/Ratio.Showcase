@@ -182,7 +182,7 @@
     </omsqft:BasePageView.BottomAppBar>
     <Grid Background="White">
         <Grid>
-            <ScrollViewer x:Name="ExhibitDetailsPanels" Style="{StaticResource HorizontalScrollViewerStyle}" Margin="0,-95,0,95" >
+            <ScrollViewer x:Name="ExhibitDetailsPanels" Style="{StaticResource HorizontalScrollViewerStyle}" >
                 <StackPanel Orientation="Horizontal">
                     <Grid x:Name="Panel0" >
                         <Grid.ChildrenTransitions>
