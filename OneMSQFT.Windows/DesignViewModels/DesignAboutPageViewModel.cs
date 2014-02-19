@@ -30,12 +30,12 @@ namespace OneMSQFT.Windows.DesignViewModels
                         new MediaContentSource
                         {
                             ContentSourceType = ContentSourceType.Image,
-                            Source = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg"
+                            Img = "http://www.1msqft.com/assets/img/2.2/Sundance_hero_s.jpg"
                         },
                         new MediaContentSource
                         {
                             ContentSourceType = ContentSourceType.Video,
-                            Source = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
+                            VideoUrlHd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
                         }
 
                     } ,
