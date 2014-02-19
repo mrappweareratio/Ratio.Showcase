@@ -93,6 +93,11 @@ namespace OneMSQFT.Windows.Views
             {
                 ScrollToEventById(_navigationEventArgs.Parameter as String);
             }
+            else
+            {
+                // scroll to first event item, first item is buffer item
+                ScrollToEventById(this.GetDataContextAsViewModel<TimelinePageViewModel>().TimeLineItems[1].Id);
+            }
         }
 
         private void ShowTimelineMasks(bool show)
