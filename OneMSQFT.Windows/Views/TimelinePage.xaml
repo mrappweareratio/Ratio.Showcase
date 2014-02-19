@@ -662,7 +662,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Click="VideoButton_Clicked" 
+                    <Button Click="FlipViewButton_Clicked" 
                             CommandParameter="{Binding}" 
                             Command="{Binding DataSource.EventHeroItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                             Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" 
@@ -953,6 +953,23 @@
                        Fill="#AAffffff" 
                        Grid.RowSpan="2"
                        HorizontalAlignment="Right" />
+            <Popup x:Name="FlipViewPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
+                <Grid>
+                    <FlipView Background="Tomato" 
+                              UseTouchAnimationsForAllNavigation="True"
+                              ItemsSource="{Binding DataSource.SelectedEvent.MediaContent}">
+                        <FlipView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Image Source="{Binding Source}"/>
+                                    <Button Content="{Binding ContentSourceType}" Click="VideoButton_Clicked"/>
+                                </Grid>
+                            </DataTemplate>
+                        </FlipView.ItemTemplate>
+                    </FlipView>
+                    <AppBarButton Icon="Cancel" Click="AppBarButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
+                </Grid>
+            </Popup>
             <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
                 <Grid>
                     <omsqftcontrols:VideoPlayerUserControl 
