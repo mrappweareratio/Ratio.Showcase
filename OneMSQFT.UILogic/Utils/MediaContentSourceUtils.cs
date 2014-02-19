@@ -18,17 +18,14 @@ namespace OneMSQFT.UILogic.Utils
         public static IEnumerable<MediaContentSourceItemViewModel> GetMediaContentSourceItemViewModels(
             IEnumerable<MediaContentSource> mediaContentSources)
         {
-            var vms = new List<MediaContentSourceItemViewModel>();
             var contentSources = mediaContentSources as MediaContentSource[] ?? mediaContentSources.ToArray();
             var sortedContent = contentSources.OrderBy(x => x.SortOrder);
+            return sortedContent.Select(mediaContent => new MediaContentSourceItemViewModel(mediaContent)).ToList();
+        }
 
-            foreach (var mediaContent in sortedContent)
-            {
-                var mediaVm = new MediaContentSourceItemViewModel(mediaContent);
-                vms.Add(mediaVm);
-            }
-
-            return vms;
+        public static string SelectVideoUrl(MediaContentSource media)
+        {
+            return media.VideoUrlHd;
         }
     }
 }
