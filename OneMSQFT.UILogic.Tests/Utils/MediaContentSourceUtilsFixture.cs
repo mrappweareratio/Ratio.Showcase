@@ -80,7 +80,27 @@ namespace OneMSQFT.UILogic.Tests.Utils
             Assert.IsNotNull(mediaContent);
             Assert.IsTrue(mediaContent.Count == 3, "Media Item Count");
             Assert.AreEqual(mediaContent.First().Id, "6", "First Sorted");
-            Assert.AreEqual(mediaContent.First().Id, "8", "Last Sorted");
-        }      
+            Assert.AreEqual(mediaContent.Last().Id, "8", "Last Sorted");
+        }
+
+        public static void ValidateMediaContent(List<MediaContentSource> mediaContent)
+        {
+            foreach(var media in mediaContent)
+                ValidateMediaContent(media);
+        }
+
+        public static void ValidateMediaContent(MediaContentSource mediaContent)
+        {
+            Assert.IsNotNull(mediaContent.ContentSourceType, "ContentSourceType IsNotNull");
+            if (mediaContent.ContentSourceType == ContentSourceType.Image)
+            {
+                Assert.IsNotNull(mediaContent.Img, "Img IsNotNull");
+            }
+            else if (mediaContent.ContentSourceType == ContentSourceType.Video)
+            {
+                Assert.IsTrue(MediaContentSourceUtils.HasVideoUrl(mediaContent), "HasVideoUrl");
+                Assert.IsNotNull(MediaContentSourceUtils.SelectVideoUrl(mediaContent), "SelectVideoUrl");
+            }
+        }
     }
 }

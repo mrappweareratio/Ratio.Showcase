@@ -16,6 +16,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public MediaContentSourceItemViewModel(MediaContentSource media)
         {
+            Id = media.Id;
             if (media.ContentSourceType == ContentSourceType.Image)
             {
                 ContentSourceType = ContentSourceType.Image;

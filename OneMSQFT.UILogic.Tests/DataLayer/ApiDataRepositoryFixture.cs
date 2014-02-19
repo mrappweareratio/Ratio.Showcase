@@ -9,6 +9,7 @@ using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.DataLayer;
 using OneMSQFT.UILogic.Tests.Mocks;
 using OneMSQFT.UILogic.Tests.Services;
+using OneMSQFT.UILogic.Tests.Utils;
 
 namespace OneMSQFT.UILogic.Tests.DataLayer
 {
@@ -68,6 +69,21 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         {         
             Assert.IsTrue(result.Events.ToList().TrueForAll(x => !String.IsNullOrEmpty(x.Color)), "Event Colors");
             Assert.IsTrue(result.Events.SelectMany(x => x.Exhibits).ToList().TrueForAll(x => !String.IsNullOrEmpty(x.Color)), "Exhibit Colors");            
+        }
+
+        [TestMethod]
+        async public Task Loads_Site_Data_Valid_Media()
+        {
+            foreach (var evt in result.Events)
+            {
+                Assert.IsNotNull(evt.MediaContent, "Event MediaContent IsNotNull");
+                MediaContentSourceUtilsFixture.ValidateMediaContent(evt.MediaContent.ToList());
+                foreach (var ex in evt.Exhibits)
+                {
+                    Assert.IsNotNull(evt.MediaContent, "Exhibit MediaContent IsNotNull");
+                    MediaContentSourceUtilsFixture.ValidateMediaContent(ex.MediaContent.ToList());
+                }
+            }
         }
     }
 }
