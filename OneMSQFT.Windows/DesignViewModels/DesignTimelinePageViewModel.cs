@@ -96,16 +96,6 @@ namespace OneMSQFT.Windows.DesignViewModels
             }
         }
 
-
-
-        public String SinceString
-        {
-            get
-            {
-                return "since December 2013";
-            }
-        }
-
         private int _totalSquareFeet;
         public String TotalSquareFeet
         {
