@@ -26,6 +26,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 ContentSourceType = ContentSourceType.Video;
                 IsVideoButtonVisible = Visibility.Visible;
                 VideoSource = new Uri(media.VideoUrlHd, UriKind.RelativeOrAbsolute);
+                ImageSource = new Uri(media.Img, UriKind.RelativeOrAbsolute);
             }
         }
 

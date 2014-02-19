@@ -535,8 +535,8 @@ namespace OneMSQFT.UILogic.DataLayer
                 var mcsV = new MediaContentSource()
                 {
                     ContentSourceType = ContentSourceType.Video,
-                    VideoUrlHd = VideoUrl
-
+                    VideoUrlHd = VideoUrl,
+                    Img = Images[img]
                 };
                 var mcsI = new MediaContentSource()
                 {

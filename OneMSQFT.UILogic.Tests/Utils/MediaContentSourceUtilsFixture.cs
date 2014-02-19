@@ -19,7 +19,7 @@ namespace OneMSQFT.UILogic.Tests.Utils
             var mediaContentSources = new List<MediaContentSource>
             {
                 new MediaContentSource(){SortOrder = 1, ContentSourceType = ContentSourceType.Image, Img = "http://url.com/imagesource"},
-                new MediaContentSource(){SortOrder = 2, ContentSourceType = ContentSourceType.Video, Id = "5", VideoUrlHd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"}
+                new MediaContentSource(){SortOrder = 2, ContentSourceType = ContentSourceType.Video, Id = "5",Img = "http://url.com/imagesource", VideoUrlHd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"}
             };
             var mediaContent = MediaContentSourceUtils.GetMediaContentSourceItemViewModels(mediaContentSources);
             Assert.IsNotNull(mediaContent);            
@@ -36,11 +36,11 @@ namespace OneMSQFT.UILogic.Tests.Utils
             var mediaContentSources = new List<MediaContentSource>
             {
                 new MediaContentSource(){ContentSourceType = ContentSourceType.Image, Img = "http://url.com/imagesource"},
-                new MediaContentSource(){ContentSourceType = ContentSourceType.Video, Id = "5", VideoUrlHd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"},
+                new MediaContentSource(){ContentSourceType = ContentSourceType.Video, Id = "5", Img = "http://url.com/imagesource", VideoUrlHd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"},
                 new MediaContentSource(){ContentSourceType = ContentSourceType.Image, Img = "http://url.com/imagesource"},
-                new MediaContentSource(){ContentSourceType = ContentSourceType.Video, Id = "6", VideoUrlHd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"},
+                new MediaContentSource(){ContentSourceType = ContentSourceType.Video, Id = "6",Img = "http://url.com/imagesource", VideoUrlHd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"},
                 new MediaContentSource(){ContentSourceType = ContentSourceType.Image, Img = "http://url.com/imagesource"},
-                new MediaContentSource(){ContentSourceType = ContentSourceType.Video, Id = "blank", VideoUrlHd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"}
+                new MediaContentSource(){ContentSourceType = ContentSourceType.Video, Id = "blank",Img = "http://url.com/imagesource", VideoUrlHd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"}
 
             };
             var mediaContent = MediaContentSourceUtils.GetMediaContentSourceItemViewModels(mediaContentSources).ToList();
