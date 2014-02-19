@@ -101,13 +101,13 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             {
                 IsConnectedDelegate = () => true
             };
-            var timeLine = new TimelinePageViewModel(new DataService(new SampleDataRepository(), new MockDataCacheService() { ContainsDataDelegate = s => Task.FromResult(false) }, internetConnection), new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService());
+            var timeLine = new TimelinePageViewModel(new DataService(new DemoDataRepository(), new MockDataCacheService() { ContainsDataDelegate = s => Task.FromResult(false) }, internetConnection), new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService());
             var autoResetEvent = new AutoResetEvent(false);
             ExecuteOnUIThread(() => timeLine.OnNavigatedTo(null, NavigationMode.New, null));
-            autoResetEvent.WaitOne(500);
-            Assert.IsTrue(timeLine.SquareFootEvents.Any());
-            Assert.IsTrue(timeLine.TimeLineItems.Any());
-            Assert.IsTrue(timeLine.TimeLineMenuItems.Any());
+            autoResetEvent.WaitOne(2000);
+            Assert.IsTrue(timeLine.SquareFootEvents.Any(), "SquareFootEvents");
+            Assert.IsTrue(timeLine.TimeLineItems.Any(), "TimeLineItems");
+            Assert.IsTrue(timeLine.TimeLineMenuItems.Any(), "TimelineMenuItems");
         }
 
         [TestMethod]
