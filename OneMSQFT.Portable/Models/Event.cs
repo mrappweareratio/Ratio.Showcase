@@ -41,6 +41,7 @@ namespace OneMSQFT.Common.Models
         public string Color { get; set; }
         [JsonProperty("theme_color")]
         public string ThemeId { get; set; }
+        [JsonProperty("content_data")]
         public IEnumerable<MediaContentSource> MediaContent { get; set; }
         [JsonProperty("created_at")]
         public DateTime? CreatedAt { get; set; }
