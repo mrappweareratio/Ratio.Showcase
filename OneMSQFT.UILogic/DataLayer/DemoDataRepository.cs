@@ -68,6 +68,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1946,
                                 MediaContent = GetMediaCollection(1),
+                                ThumbImage = GetRandomThumbnailImage(),
                                 Curator = new Curator()
                                 {
                                     Id = "4",
@@ -85,6 +86,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2236,
                                 MediaContent = GetMediaCollection(1),
+                                ThumbImage = GetRandomThumbnailImage(),
                                 Curator = new Curator()
                                 {
                                     Id = "5",
@@ -117,6 +119,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 560,
                                 MediaContent = GetMediaCollection(2),
+                                ThumbImage = GetRandomThumbnailImage(),
                                 Curator = new Curator()
                                 {
                                     Id = "6",
@@ -183,6 +186,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 SquareFootage = 2345,
                                 Color = "922580",
                                 MediaContent = GetMediaCollection(2),
+                                ThumbImage = GetRandomThumbnailImage(),
                                 Curator = new Curator()
                                 {
                                     Id = "5",
@@ -200,6 +204,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 SquareFootage = 2345,
                                 Color = "922580",
                                 MediaContent = GetMediaCollection(2),
+                                ThumbImage = GetRandomThumbnailImage(),
                                 Curator = new Curator()
                                 {
                                     Id = "5",
@@ -217,6 +222,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 SquareFootage = 1279,
                                 Color = "922580",
                                 MediaContent = GetMediaCollection(3),
+                                ThumbImage = GetRandomThumbnailImage(),
                                 Curator = new Curator()
                                 {
                                     Id = "5",
@@ -234,6 +240,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 SquareFootage = 4578,
                                 Color = "922580",
                                 MediaContent = GetMediaCollection(3),
+                                ThumbImage = GetRandomThumbnailImage(),
                                 Curator = new Curator()
                                 {
                                     Id = "5",
@@ -266,6 +273,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2345,
                                 MediaContent = GetMediaCollection(2),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                             new Exhibit()
                             {
@@ -277,6 +285,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2345,
                                 MediaContent = GetMediaCollection(2),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                              new Exhibit()
                             {
@@ -288,6 +297,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1279,
                                 MediaContent = GetMediaCollection(3),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                              new Exhibit()
                             {
@@ -299,6 +309,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(3),
+                                ThumbImage = GetRandomThumbnailImage()
                             }
                         }
                     },
@@ -324,6 +335,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2345,
                                 MediaContent = GetMediaCollection(2),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                             new Exhibit()
                             {
@@ -335,6 +347,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2345,
                                 MediaContent = GetMediaCollection(2),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                              new Exhibit()
                             {
@@ -346,6 +359,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1279,
                                 MediaContent = GetMediaCollection(3),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                              new Exhibit()
                             {
@@ -357,6 +371,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(1),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                              new Exhibit()
                             {
@@ -368,6 +383,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(3),
+                                ThumbImage = GetRandomThumbnailImage()
                             }
                         }
                     },
@@ -393,6 +409,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2345,
                                 MediaContent = GetMediaCollection(2),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                             new Exhibit()
                             {
@@ -404,6 +421,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2345,
                                 MediaContent = GetMediaCollection(2),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                              new Exhibit()
                             {
@@ -415,6 +433,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1279,
                                 MediaContent = GetMediaCollection(3),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                              new Exhibit()
                             {
@@ -426,6 +445,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(1),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                              new Exhibit()
                             {
@@ -437,6 +457,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(3),
+                                ThumbImage = GetRandomThumbnailImage()
                             }
                         }
                     },
@@ -462,6 +483,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 215,
                                 MediaContent = GetMediaCollection(2),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                             new Exhibit()
                             {
@@ -473,6 +495,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2945,
                                 MediaContent = GetMediaCollection(2),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                              new Exhibit()
                             {
@@ -484,6 +507,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1279,
                                 MediaContent = GetMediaCollection(3),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                              new Exhibit()
                             {
@@ -495,6 +519,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(1),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                              new Exhibit()
                             {
@@ -506,6 +531,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(3),
+                                ThumbImage = GetRandomThumbnailImage()
                             },
                              new Exhibit()
                             {
@@ -517,12 +543,19 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(3),
+                                ThumbImage = GetRandomThumbnailImage()
                             }
                         }
                     }
                 }
             };
             return result;
+        }
+
+        private string GetRandomThumbnailImage()
+        {
+            var img = ImageRandomizer.Next(Images.Count - 1);
+            return Images[img];
         }
 
 

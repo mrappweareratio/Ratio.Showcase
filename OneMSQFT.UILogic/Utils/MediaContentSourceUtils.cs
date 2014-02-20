@@ -10,25 +10,31 @@ namespace OneMSQFT.UILogic.Utils
 {
     public class MediaContentSourceUtils
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mediaContentSources"></param>
-        /// <returns></returns>
         public static IEnumerable<MediaContentSourceItemViewModel> GetMediaContentSourceItemViewModels(
             IEnumerable<MediaContentSource> mediaContentSources)
         {
-            var vms = new List<MediaContentSourceItemViewModel>();
             var contentSources = mediaContentSources as MediaContentSource[] ?? mediaContentSources.ToArray();
-            var sortedContent = contentSources.OrderBy(x => x.SortOrder);
+            contentSources = contentSources.Where(ValidateMediaContent).OrderBy(x => x.SortOrder).ToArray();
+            return contentSources.Select(mediaContent => new MediaContentSourceItemViewModel(mediaContent)).ToList();
+        }
 
-            foreach (var mediaContent in sortedContent)
+        public static string SelectVideoUrl(MediaContentSource media)
+        {
+            return media.VideoUrlHd;
+        }
+
+        public static bool HasVideoUrl(MediaContentSource media)
+        {
+            return !String.IsNullOrEmpty(media.VideoUrlHd) || !String.IsNullOrEmpty(media.VideoUrlSd) || !String.IsNullOrEmpty(media.VideoUrlMobile);
+        }
+
+        public static bool ValidateMediaContent(MediaContentSource mediaContent)
+        {
+            if (mediaContent.ContentSourceType == ContentSourceType.Image)
             {
-                var mediaVm = new MediaContentSourceItemViewModel(mediaContent);
-                vms.Add(mediaVm);
+                return !String.IsNullOrEmpty(mediaContent.Img);
             }
-
-            return vms;
+            return HasVideoUrl(mediaContent);
         }
     }
 }
