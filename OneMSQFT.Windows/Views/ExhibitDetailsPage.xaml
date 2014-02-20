@@ -141,8 +141,8 @@
                             <Border x:Name="Border"
     						Background="{TemplateBinding Background}"
     						BorderBrush="{TemplateBinding BorderBrush}"
-    						BorderThickness="{TemplateBinding BorderThickness}"
-    						Margin="3">
+    						BorderThickness="0"
+    						Margin="0">
                                 <ContentPresenter x:Name="ContentPresenter"
     							Content="{TemplateBinding Content}"
     							ContentTransitions="{TemplateBinding ContentTransitions}"
@@ -155,6 +155,76 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+        <Style x:Key="ExitLinkButtonStyle" TargetType="HyperlinkButton">
+        	<Setter Property="Background" Value="{StaticResource ButtonBackgroundThemeBrush}" />
+        	<Setter Property="Foreground" Value="{StaticResource ButtonForegroundThemeBrush}"/>
+        	<Setter Property="BorderBrush" Value="{StaticResource ButtonBorderThemeBrush}" />
+        	<Setter Property="BorderThickness" Value="{StaticResource ButtonBorderThemeThickness}" />
+        	<Setter Property="Padding" Value="12,4,12,4" />
+        	<Setter Property="HorizontalAlignment" Value="Left" />
+        	<Setter Property="VerticalAlignment" Value="Center" />
+        	<Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+        	<Setter Property="FontWeight" Value="SemiBold" />
+        	<Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+        	<Setter Property="Template">
+        		<Setter.Value>
+                    <ControlTemplate TargetType="HyperlinkButton">
+                        <Grid x:Name="ContentContainer" RenderTransformOrigin="0.5,0.5">
+                            <Grid.RenderTransform>
+                                <CompositeTransform/>
+                            </Grid.RenderTransform>
+                            <VisualStateManager.VisualStateGroups>
+        						<VisualStateGroup x:Name="CommonStates">
+        							<VisualState x:Name="Normal" />
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation TargetName="ContentContainer" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled"/>
+        						</VisualStateGroup>
+        						<VisualStateGroup x:Name="FocusStates">
+        							<VisualState x:Name="Focused"/>
+        							<VisualState x:Name="Unfocused" />
+        							<VisualState x:Name="PointerFocused" />
+        						</VisualStateGroup>
+        					</VisualStateManager.VisualStateGroups>
+        					<Grid Background="Transparent" Margin="0" HorizontalAlignment="Left"/>
+                            <StackPanel x:Name="StackPanel" Margin="0" Orientation="Horizontal">
+        						<Path Data="M0,0 L0.034885,2.80084 L12.5188,15.6502 L0,27.7812 L0,31.1127 L15.5564,15.5564 z" 
+        							Fill="White" HorizontalAlignment="Left" 
+        							Height="32" 
+        							Stretch="Fill" 
+        							UseLayoutRounding="True" 
+        							VerticalAlignment="Top" 
+        							Width="16" RenderTransformOrigin="0.5,0.5" 
+                                    Margin="-3,-3,0,0" Stroke="White">
+        							<Path.RenderTransform>
+        								<CompositeTransform ScaleX="0.4" ScaleY="0.4"/>
+        							</Path.RenderTransform>
+        						</Path>
+        						<Border HorizontalAlignment="Left" 
+                                        VerticalAlignment="Top" 
+                                        Margin="0" 
+                                        BorderBrush="White" 
+                                        BorderThickness="0,0,0,1" 
+                                        Padding="0,0,0,3">
+        							<TextBlock TextWrapping="NoWrap" 
+        								Text="{TemplateBinding Content}" 
+                                        Foreground="White" 
+                                        FontSize="18.667" />
+        						</Border>
+        					</StackPanel>
+        				</Grid>
+        			</ControlTemplate>
+        		</Setter.Value>
+        	</Setter>
         </Style>
     </omsqft:BasePageView.Resources>
 
@@ -182,6 +252,9 @@
     </omsqft:BasePageView.BottomAppBar>
     <Grid Background="White">
         <Grid>
+            <!--<Grid.Background>
+                <ImageBrush ImageSource="ms-appx:///Assets/ExhibitDetailsComp.png"></ImageBrush>
+            </Grid.Background>-->
             <ScrollViewer x:Name="ExhibitDetailsPanels" Style="{StaticResource HorizontalScrollViewerStyle}" >
                 <StackPanel Orientation="Horizontal">
                     <Grid x:Name="Panel0" >
@@ -195,71 +268,125 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Border BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
-        				Height="{Binding ExhibitItemHeight}"
-        				Width="{Binding OneThirdPanelWidth}"
-					    BorderThickness="0" Padding="10">
+        					Height="{Binding ExhibitItemHeight}"
+        					Width="{Binding OneThirdPanelWidth}"
+							BorderThickness="0" Padding="10">
                             <Border.Background>
                                 <SolidColorBrush Color="{Binding Exhibit.ExhibitColor, Mode=OneWay}"/>
                             </Border.Background>
                             <Grid >
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="3*"/>
+                                    <RowDefinition Height="143*"/>
+                                    <RowDefinition Height="72*"/>
+                                    <RowDefinition Height="54*"/>
+                                    <RowDefinition Height="108*"/>
+                                    <RowDefinition Height="25*"/>
+                                    <RowDefinition Height="42*"/>
+                                    <RowDefinition Height="202*"/>
+                                    <RowDefinition Height="102*"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="{Binding Exhibit.SquareFootageString}"
                     			   Foreground="{StaticResource OneMSQFTWhiteBrush}"
                     			   FontSize="60" 
                                    HorizontalAlignment="Left"
-                    			   Margin="40,0,0,0" 
+                    			   Margin="36,0,0,0" 
                                    Grid.Row="1" 
                                    FontFamily="Segoe UI Light" 
                                    FontWeight="Light"/>
                                 <TextBlock Text="{Binding Exhibit.Name, Mode=OneWay}" 
-                    			    Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+                    			    Foreground="{StaticResource OneMSQFTWhiteBrush}"
                     			    FontSize="32" 
                                     HorizontalAlignment="Left"
-                    		    	TextWrapping="Wrap" 
+                    		    	TextWrapping="NoWrap" 
+                                    TextTrimming="CharacterEllipsis"
                                     FontFamily="Segoe UI Light" 
                                     FontWeight="Light"
-                    		    	Margin="40,0,0,0" 
+                    		    	Margin="38,0,20,0" 
                                     Grid.Row="2"/>
-                                <TextBlock Text="{Binding Exhibit.Description}"
-                    			    Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
+                                <Border HorizontalAlignment="Left" Grid.Row="3" Height="34" Grid.RowSpan="2" VerticalAlignment="Top" Width="124" Margin="38,0,0,0" >
+                                    <Image Source="{Binding Exhibit.Curator.LogoImage}" Stretch="Uniform" MaxWidth="124"/>
+                                </Border>
+									
+                                <TextBlock Text="{Binding Exhibit.DisplayDate}"
+                    			    Foreground="{StaticResource OneMSQFTWhiteBrush}"
                     			    FontSize="18"
-                    			    TextWrapping="Wrap" 
+                    			    TextWrapping="NoWrap" 
+                                    FontFamily="Segoe UI" 
+                                    FontWeight="SemiBold"
+                    			    Margin="38,0,0,0" 
+									Grid.Row="4" 
+                                    HorizontalAlignment="Left"/>
+									
+                                <TextBlock Text="{Binding Exhibit.Location}"
+                    			    Foreground="{StaticResource OneMSQFTWhiteBrush}"
+                    			    FontSize="18"
+                    			    TextWrapping="NoWrap" 
                                     FontFamily="Segoe UI Light" 
                                     FontWeight="Light"
-                    			    Margin="40,0,0,0" Grid.Row="3" 
-                                    HorizontalAlignment="Left"/>
+                    			    Margin="38,0,0,0" 
+									Grid.Row="5" 
+                                    HorizontalAlignment="Left" 
+									VerticalAlignment="Top"/>
+                                <ScrollViewer
+                                	Margin="22,0,10,30" 
+                                	Grid.Row="6" Grid.RowSpan="2" Style="{StaticResource VerticalScrollViewerStyle}">
+
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding Exhibit.Description}" Margin="16,0,20,10"
+                                		Foreground="{StaticResource OneMSQFTWhiteBrush}"
+                                		FontSize="18"
+                                        LineStackingStrategy="BlockLineHeight"
+                                        LineHeight="20"
+                                		TextWrapping="Wrap" 
+                                		FontFamily="Segoe UI Light" 
+                                		FontWeight="Light"/>
+                                        <HyperlinkButton x:Name="HyperlinkButton"
+                                			Command="{Binding Exhibit.RsvpLinkCommand}" 
+                                			Style="{StaticResource ExitLinkButtonStyle}" 
+                                			CommandParameter="{Binding Exhibit.RsvpUrl}" 
+                                            Content="{Binding Strings.RSVP, Source={StaticResource PortableStrings}}" 
+                                            Margin="0,0,0,10" />
+                                        <ItemsControl ItemsSource="{Binding Exhibit.Links}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <HyperlinkButton 
+                                			            Command="{Binding ElementName=HyperlinkButton, Path=DataContext.Exhibit.ExitLinkCommand}" 
+                                			            Style="{StaticResource ExitLinkButtonStyle}" 
+                                			            CommandParameter="{Binding Url}" 
+                                                        Content="{Binding Title}" Margin="0,0,0,10" />
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                </ScrollViewer>
                             </Grid>
                         </Border>                        
                     </Grid>
 
                     <Grid x:Name="Panel2" 
-        			Width="Auto" 
-        			Height="{Binding ExhibitItemHeight}" Background="{StaticResource OneMSQFTWhiteBrush}" >
+        			        Width="Auto" 
+        			        Height="{Binding ExhibitItemHeight}" 
+                          Background="{StaticResource OneMSQFTWhiteBrush}" >
                         <ListView HorizontalAlignment="Left" 
-        				VerticalAlignment="Top" 
-        				ItemsSource="{Binding Exhibit.MediaContent}"
-                        Visibility="{Binding Exhibit.MediaContentVisibility}"
-        				ItemContainerStyle="{StaticResource EmptyListViewItemContainerStyle}"
-                              ScrollViewer.IsHorizontalScrollChainingEnabled="False"
-                                  ScrollViewer.HorizontalScrollMode="Disabled"
-                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                  ScrollViewer.IsHorizontalRailEnabled="False"
-                              ScrollViewer.IsVerticalScrollChainingEnabled="False"
-                                  ScrollViewer.VerticalScrollMode="Disabled"
-                                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                  ScrollViewer.IsVerticalRailEnabled="False">
+        				    VerticalAlignment="Top" 
+        				    ItemsSource="{Binding Exhibit.MediaContent}"
+                            Visibility="{Binding Exhibit.MediaContentVisibility}"
+        				    ItemContainerStyle="{StaticResource EmptyListViewItemContainerStyle}"
+                            ScrollViewer.IsHorizontalScrollChainingEnabled="False"
+                            ScrollViewer.HorizontalScrollMode="Disabled"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            ScrollViewer.IsHorizontalRailEnabled="False"
+                            ScrollViewer.IsVerticalScrollChainingEnabled="False"
+                            ScrollViewer.VerticalScrollMode="Disabled"
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                            ScrollViewer.IsVerticalRailEnabled="False">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid Margin="0,0,10,0">
+                                    <Grid Margin="0,0,0,0">
                                         <Image 
         								Stretch="UniformToFill"
-        								Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
-        								Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
+        								Width="{Binding DataSource.FullScreenWidth, Source={StaticResource DataContextProxy}}" 
+        								Height="{Binding DataSource.FullScreenHeight, Source={StaticResource DataContextProxy}}" 
 										Source="{Binding ImageSource}"/>
                                         <AppBarButton
 												Command="{Binding DataSource.LaunchVideoCommand, Source={StaticResource DataContextProxy}}" 
@@ -286,26 +413,26 @@
                         </ListView>
                     </Grid>
 
-                    <Grid x:Name="Panel4" Height="{Binding ExhibitItemHeight}" 
-        				Width="{Binding ExhibitItemWidth}" Margin="0,0,-500,0">
+                    <Grid x:Name="Panel4" Height="{Binding FullScreenHeight}" 
+        				Width="{Binding FullScreenWidth}" Margin="0,0,-500,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Button HorizontalAlignment="Stretch" 
-                        Command="{Binding NextExhibitCommand}"
-                        CommandParameter="{Binding NextExhibit.Id}"
-        				VerticalAlignment="Stretch" 
-                        Width="{Binding OneThirdPanelWidth}"
-        				Padding="0" Margin="0"
-        				BorderThickness="0,5,5,5" Style="{StaticResource NextButtonStyle}">
+                        <Button HorizontalAlignment="Left" 
+                            Command="{Binding NextExhibitCommand}"
+                            CommandParameter="{Binding NextExhibit.Id}"
+        				    VerticalAlignment="Stretch" 
+                            Width="{Binding OneThirdPanelWidth}"
+        				    Padding="0" Margin="0"
+        				    BorderThickness="0" Style="{StaticResource NextButtonStyle}">
                             <Button.Background>
                                 <SolidColorBrush Color="{Binding NextExhibit.ExhibitColor, Mode=OneWay}"/>
                             </Button.Background>
                             <Button.ContentTemplate>
                                 <DataTemplate>
-                                    <Grid  >
+                                    <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="1*"/>
                                             <RowDefinition Height="1*"/>
@@ -313,30 +440,34 @@
                                             <RowDefinition Height="3*"/>
                                         </Grid.RowDefinitions>
                                         <TextBlock Text="{Binding Strings.NextString, Source={StaticResource PortableStrings}}"
-                    			   Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                    			   FontSize="60" 
-                                   HorizontalAlignment="Left"
-                    			   Margin="40,0,0,0" 
-                                   Grid.Row="1" 
-                                   FontFamily="Segoe UI Light" 
-                                   FontWeight="Light"/>
+                    			           Foreground="{StaticResource OneMSQFTWhiteBrush}"
+                    			           FontSize="60" 
+                                           HorizontalAlignment="Left"
+                                           TextTrimming="CharacterEllipsis"
+                    			           Margin="40,0,10,0" 
+                                           Grid.Row="1" 
+                                           FontFamily="Segoe UI Light" 
+                                           FontWeight="Light"/>
                                         <TextBlock Text="{Binding NextExhibit.Name, Mode=OneWay}" 
-                    			    Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-                    			    FontSize="32" 
-                                    HorizontalAlignment="Left"
-                    		    	TextWrapping="Wrap" 
-                                    FontFamily="Segoe UI Light" 
-                                    FontWeight="Light"
-                    		    	Margin="40,0,0,0" 
-                                    Grid.Row="2"/>
-                                        <TextBlock Text="{Binding NextExhibit.Description}"
-                    			    Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}"
-                    			    FontSize="18"
-                    			    TextWrapping="Wrap" 
-                                    FontFamily="Segoe UI Light" 
-                                    FontWeight="Light"
-                    			    Margin="40,0,0,0" Grid.Row="3" 
-                                    HorizontalAlignment="Left"/>
+                    			            Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+                    			            FontSize="32" 
+                                            TextTrimming="CharacterEllipsis"
+                                            HorizontalAlignment="Left"
+                    		    	        TextWrapping="NoWrap" 
+                                            FontFamily="Segoe UI Light" 
+                                            FontWeight="Light"
+                    		    	        Margin="40,0,10,0" 
+                                            Grid.Row="2"/>
+                                        <ScrollViewer Margin="38,0,20,0" Grid.Row="3">
+                                            <TextBlock Text="{Binding NextExhibit.Description}" Margin="0,0,10,0"
+                                		        Foreground="{StaticResource OneMSQFTWhiteBrush}"
+                                		        FontSize="18"
+                                                LineStackingStrategy="BlockLineHeight"
+                                                LineHeight="20"
+                                		        TextWrapping="Wrap" 
+                                		        FontFamily="Segoe UI Light" 
+                                		        FontWeight="Light"/>
+                                        </ScrollViewer>
                                     </Grid>
                                 </DataTemplate>
                             </Button.ContentTemplate>
@@ -354,12 +485,9 @@
                     <AppBarButton Icon="Cancel" Click="CloseVideo_OnClick" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
                 </Grid>
             </Popup>
-
-            <StackPanel Orientation="Horizontal">
-                <Button HorizontalAlignment="Left"
-    			    Click="GoBack" 
-    			    Style="{StaticResource BackButtonStyle}" Margin="60" VerticalAlignment="Top" />
-            </StackPanel>
+            <Button HorizontalAlignment="Left"
+            	Click="GoBack" 
+            	Style="{StaticResource CustomBackButtonStyle}" Margin="47,26,0,0" VerticalAlignment="Top" />
 
             <VisualStateManager.VisualStateGroups>
 

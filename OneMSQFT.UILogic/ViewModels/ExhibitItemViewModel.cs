@@ -1,5 +1,8 @@
-﻿using Windows.UI;
+﻿using Windows.System;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Media;
+using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common.Models;
 using System;
 using System.Collections.Generic;
@@ -27,6 +30,8 @@ namespace OneMSQFT.UILogic.ViewModels
         public Uri RsvpUrl { get; set; }
         public Visibility RsvpVisibility { get; set; }
         public bool RsvpEnabled { get; set; }
+        public DelegateCommand<string> ExitLinkCommand { get; private set; }
+        public DelegateCommand<string> RsvpLinkCommand { get; private set; }
 
 
         public ExhibitItemViewModel(IExhibit<ICurator> exhibitModel)
@@ -56,6 +61,32 @@ namespace OneMSQFT.UILogic.ViewModels
                 RsvpEnabled = true;
                 RsvpVisibility = Visibility.Visible;
             }
+            ExitLinkCommand = new DelegateCommand<string>(ExitLinkNavigate, CanExitLinkNavigate);
+            RsvpLinkCommand = new DelegateCommand<string>(RsvpNavigate, CanRsvpNavigate);
+        }
+
+        private bool CanRsvpNavigate(string s)
+        {
+            //TODO: Confirm Rsvp can navigate
+            return true;
+        }
+
+        async private void RsvpNavigate(string s)
+        {
+            var la = new LauncherOptions { DesiredRemainingView = ViewSizePreference.UseHalf };
+            if (s != null) await Launcher.LaunchUriAsync(new Uri(s), la);
+        }
+
+        private bool CanExitLinkNavigate(string s)
+        {
+            //TODO: Confirm ExitLink can navigate
+            return true;
+        }
+
+        async private void ExitLinkNavigate(string s)
+        {
+            var la = new LauncherOptions { DesiredRemainingView = ViewSizePreference.UseHalf };
+            if (s != null) await Launcher.LaunchUriAsync(new Uri(s), la);
         }
 
         private void LoadMediaContent(IEnumerable<MediaContentSource> mediaContent)
