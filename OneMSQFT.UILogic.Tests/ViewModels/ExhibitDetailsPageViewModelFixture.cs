@@ -95,12 +95,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                 {
                     return Task.FromResult<ExhibitDetail>(new ExhibitDetail()
                     {
-                        Exhibit = new Exhibit()
-                        {
-                            Id = id,
-                            Description = "Description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in viverra neque. Ut dictum, massa ut sodales consectetur, mi eros consequat enim, quis pretium mauris justo non est. Duis sit amet est nulla. Mauris vehicula. ",
-                            Exhibitor = "Artist Name",
-                        }
+                        Exhibit = MockModelGenerator.NewExhibit(id, "Exhibit")
                     });
                 }
             };

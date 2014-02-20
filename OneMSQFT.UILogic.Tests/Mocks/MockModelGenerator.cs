@@ -26,7 +26,8 @@ namespace OneMSQFT.UILogic.Tests.Mocks
             {
                 Id = id,
                 Name = name,
-                Color = "AABBCC"
+                Color = "AABBCC",
+                ThumbImage = "http://url.com/image"
             };
         }
     }

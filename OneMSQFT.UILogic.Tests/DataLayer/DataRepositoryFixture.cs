@@ -16,9 +16,9 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
     {
         [TestInitialize]
         public void Init()
-        {            
-            this.DataRepository = new DemoDataRepository();
-            //this.DataRepository = new ApiDataRepository(new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api"));
+        {
+            //this.DataRepository = new DemoDataRepository();
+            this.DataRepository = new ApiDataRepository(new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api"));
         }
 
         public IDataRepository DataRepository { get; set; }

@@ -29,6 +29,7 @@ namespace OneMSQFT.UILogic.ViewModels
             Id = exhibitModel.Id;
             Description = exhibitModel.Description;
             SquareFootage = exhibitModel.SquareFootage;
+            HeroPhotoFilePath = new Uri(exhibitModel.ThumbImage, UriKind.RelativeOrAbsolute);
             LoadMediaContent(exhibitModel.MediaContent);
             ExhibitColor = ColorUtils.GetExhibitColor(exhibitModel);
             Curator = new CuratorItemViewModel(exhibitModel.Curator);
@@ -38,13 +39,7 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             var mediaContentViewModels = MediaContentSourceUtils.GetMediaContentSourceItemViewModels(mediaContent).ToList();
             MediaContent = new ObservableCollection<MediaContentSourceItemViewModel>(mediaContentViewModels);
-            MediaContentVisibility = MediaContent.Any() ? Visibility.Visible : Visibility.Collapsed;
-            
-            var firstImage = mediaContentViewModels.FirstOrDefault(x => x.ContentSourceType == ContentSourceType.Image);
-            if (firstImage == null)
-                return;
-            //todo remove HeroFilePath
-            HeroPhotoFilePath = firstImage.ImageSource;
+            MediaContentVisibility = MediaContent.Any() ? Visibility.Visible : Visibility.Collapsed;                                    
         }
 
 
