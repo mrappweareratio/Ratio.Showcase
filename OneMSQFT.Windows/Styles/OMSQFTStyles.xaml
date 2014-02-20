@@ -47,26 +47,26 @@
                                 <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
                             </Border.Background>
                             <Grid Height="192" Width="330" Margin="0">
-                                    <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                    <TextBlock Text="{Binding SquareFootageString}"
-    				                    TextTrimming="WordEllipsis"
-    				                    FontSize="40"
-                                        FontWeight="Light"
-    				                    Margin="0" 
-                                        HorizontalAlignment="Center" 
-                                        VerticalAlignment="Bottom" 
-                                        FontFamily="Segoe UI"/>
-                                <TextBlock Text="{Binding Name, Mode=OneWay}"
-                                            VerticalAlignment="Top"
-                                            FontSize="20" 
-                                            Grid.Row="1" 
-                                            HorizontalAlignment="Center"/>
-                                <Rectangle Fill="{StaticResource OneMSQFTBlackBrush}" 
-                                           Grid.Row="2" Opacity=".5" 
+                                <StackPanel Margin="0" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBlock
+    			                        FontSize="40"
+    			                        Text="{Binding SquareFootageString}"
+    			                        TextWrapping="NoWrap"
+    			                        TextAlignment="Center"
+    			                        Foreground="white" 
+    			                        FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
+				                        Margin="0,0,0,0" LineHeight="36"/>
+                                    <TextBlock
+    			                        FontSize="20"
+    			                        Text="{Binding Name, Mode=OneWay}"
+    			                        TextWrapping="NoWrap"
+    			                        TextAlignment="Center"
+    			                        Foreground="white" 
+    			                        FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
+				                        Margin="0,0,0,0" LineHeight="36"/>
+                                </StackPanel>
+                                <Rectangle Fill="{StaticResource OneMSQFTBlackBrush}"
+                                           Opacity=".5" 
                                            Height="20" Width="Auto" 
                                            VerticalAlignment="Bottom"></Rectangle>
                             </Grid>
