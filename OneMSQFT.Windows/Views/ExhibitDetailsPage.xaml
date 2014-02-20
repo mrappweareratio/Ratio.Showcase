@@ -166,9 +166,9 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>                        
                     </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Horizontal"  Margin="20,0,0,0">
-                        <Button x:Name="HomeButton" HorizontalAlignment="Stretch" Content="HOME" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}" />
+                    <StackPanel Orientation="Horizontal"  Margin="20,0,0,0">                        
                         <StackPanel x:Name="StartupButtonStackPanel" Orientation="Horizontal" Visibility="Collapsed">
+                            <Button x:Name="HomeButton" HorizontalAlignment="Stretch" Content="HOME" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}" />
                             <Button HorizontalAlignment="Stretch" Content="Set as Startup" Visibility="{Binding SetStartupVisibility}" Command="{Binding SetStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
                             <Button HorizontalAlignment="Stretch" Content="Clear Startup" Visibility="{Binding ClearStartupVisibility}" Command="{Binding ClearStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
                         </StackPanel>

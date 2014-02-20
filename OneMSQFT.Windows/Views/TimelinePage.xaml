@@ -824,7 +824,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel x:Name="StartupButtonStackPanel" Orientation="Horizontal" Visibility="Collapsed"  Margin="20,0,0,0">
+                    <StackPanel x:Name="StartupButtonStackPanel" Orientation="Horizontal" Visibility="Collapsed"  Margin="20,0,0,0">                        
                         <Button HorizontalAlignment="Stretch" Visibility="{Binding SetStartupVisibility}" Content="Set as Startup" Command="{Binding SetStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
                         <Button HorizontalAlignment="Stretch" Visibility="{Binding ClearStartupVisibility}" Content="Clear Startup" Command="{Binding ClearStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
                     </StackPanel>

@@ -70,6 +70,11 @@ namespace OneMSQFT.UILogic
             }
         }
 
+        public void GoHome()
+        {
+            
+        }
+
         public void OnInitialize(IActivatedEventArgs args)
         {
             Analytics.Configure();
