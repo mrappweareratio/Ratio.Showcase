@@ -852,11 +852,7 @@
                     <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding TotalSquareFeet, Mode=OneWay}" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTLogoDarkBlueBrush}" FontSize="40" Margin="0,0,13,6" FontFamily="Segoe UI Light" FontWeight="Light"/>
                     <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Strings.Since, Source={StaticResource PortableStrings}}" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTSinceTextGray}" FontSize="24" Margin="0,0,0,10" FontFamily="Segoe UI Light" FontWeight="Light"/>
                 </StackPanel>
-                <omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,38,0,0">
-                    <omsqftcontrols:LogoUserControl.RenderTransform>
-                        <CompositeTransform ScaleX="0.35" ScaleY="0.35"/>
-                    </omsqftcontrols:LogoUserControl.RenderTransform>
-                </omsqftcontrols:LogoUserControl>
+                <omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,38,0,0"/>
             </Grid>
             <SemanticZoom x:Name="semanticZoom" Background="{x:Null}"
                       IsZoomedInViewActive="True" 
@@ -934,11 +930,7 @@
                 </SemanticZoom.ZoomedInView>
             </SemanticZoom>
 
-            <omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,38,0,0" LogoColor="FFFFFF">
-                <omsqftcontrols:LogoUserControl.RenderTransform>
-                    <CompositeTransform ScaleX="0.35" ScaleY="0.35"/>
-                </omsqftcontrols:LogoUserControl.RenderTransform>
-            </omsqftcontrols:LogoUserControl>
+            <omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,38,0,0" LogoColor="FFFFFF"/>
                     <Rectangle x:Name="MaskLeft" 
                        IsHitTestVisible="False"
                        Width="{Binding DataSource.MaskItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 

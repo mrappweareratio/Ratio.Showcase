@@ -50,7 +50,7 @@ namespace OneMSQFT.Windows.Views
                 Margin = new Thickness(0, 0, 0, 0),
                 Orientation = Orientation.Horizontal,
                 VerticalAlignment = VerticalAlignment.Top,
-                HorizontalAlignment = HorizontalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Left,
                 ChildrenTransitions = childTransitions
             };
             var topScrollViewer = new ScrollViewer
@@ -124,9 +124,11 @@ namespace OneMSQFT.Windows.Views
         {
             var homeButton = new Button();
             homeButton.Style = (Style)App.Current.Resources["OMSQFTAppBarHomeButtonStyle"];
-            homeButton.Command = TopAppBarEventButtonCommand;
+            homeButton.Command = null;
+            homeButton.IsHitTestVisible=false;
             homeButton.CommandParameter = null;
             TopAppBarContentStackPanel.Children.Clear();
+            TopAppBarContentStackPanel.Children.Add(homeButton);
             foreach (var e in vm.SquareFootEvents)
             {
                 var b = new Button();
