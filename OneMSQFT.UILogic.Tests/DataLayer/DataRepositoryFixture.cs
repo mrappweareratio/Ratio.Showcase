@@ -16,10 +16,9 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
     {
         [TestInitialize]
         public void Init()
-        {
-            //this.DataRepository = new SampleDataRepository();
-            //this.DataRepository = new DemoDataRepository();
-            this.DataRepository = new ApiDataRepository(new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api"));
+        {            
+            this.DataRepository = new DemoDataRepository();
+            //this.DataRepository = new ApiDataRepository(new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api"));
         }
 
         public IDataRepository DataRepository { get; set; }
@@ -113,6 +112,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             Assert.IsNotNull(e.SquareFootage, "SquareFootage");
             //Assert.IsNotNull(e.DisplayDate, "DisplayDate");
             Assert.IsNotNull(e.Description, "Description");
+            Assert.IsNotNull(e.ThumbImage, "ThumbImage");
             //Assert.IsNotNull(e.DateStart, "DateStart");
             //Assert.IsNotNull(e.DateEnd, "DateEnd");
             //Assert.IsNotNull(e.CreatedAt, "CreatedAt");
