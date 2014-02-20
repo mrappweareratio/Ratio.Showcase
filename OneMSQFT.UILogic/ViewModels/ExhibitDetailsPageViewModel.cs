@@ -40,6 +40,8 @@ namespace OneMSQFT.UILogic.ViewModels
             NextExhibitCommand = new DelegateCommand<string>(NextExhibitCommandExecuteMethod, NextExhibitCommandCanExecuteMethod);
             SetStartupCommand = new DelegateCommand(SetStartupCommandExecuteMethod, SetStartupCommandCanExecuteMethod);
             ClearStartupCommand = new DelegateCommand(ClearStartupCommandExecuteMethod, ClearStartupCommandCanExecuteMethod);
+            SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;            
+            ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
         }       
 
         private bool NextExhibitCommandCanExecuteMethod(string s)
@@ -122,7 +124,9 @@ namespace OneMSQFT.UILogic.ViewModels
                     SetProperty(ref _exhibit, value);
                     ExhibitDetailTitle = String.Format(Strings.SquareFeetAtNameFormat, StringUtils.ToSquareFeet(Exhibit.SquareFootage), value.Name);
                     SetStartupCommand.RaiseCanExecuteChanged();
+                    SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
                     ClearStartupCommand.RaiseCanExecuteChanged();
+                    ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
                 }
             }
         }
