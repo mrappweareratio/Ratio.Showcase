@@ -137,10 +137,24 @@ namespace OneMSQFT.Windows.Views
                 b.Style = (Style)App.Current.Resources["OMSQFTAppBarButtonStyle"];
                 b.DataContext = e;
                 TopAppBarContentStackPanel.Children.Add(b);
+            }
+            var homeIndex = 0;
+            var ev = vm.SquareFootEvents.FirstOrDefault(x => x.IsInThePast.HasValue && x.IsInThePast.Value);
+            if (ev != null)
+                homeIndex = vm.SquareFootEvents.IndexOf(ev);
+            else
+            {
+                ev = vm.SquareFootEvents.LastOrDefault(x => x.IsInTheFuture.HasValue && x.IsInTheFuture.Value);
+                if (ev != null)
+                {
+                    homeIndex = vm.SquareFootEvents.IndexOf(ev) + 1;
+                    if (homeIndex == vm.SquareFootEvents.Count)
+                    {
+                        homeIndex = 0;
+                    }
+                }
             }            
-            var ev = vm.SquareFootEvents.FirstOrDefault(x => x.IsInThePast.GetValueOrDefault());
-            var evIndex = ev == null ? 0 : vm.SquareFootEvents.IndexOf(ev);
-            TopAppBarContentStackPanel.Children.Insert(evIndex, homeButton);
+            TopAppBarContentStackPanel.Children.Insert(homeIndex, homeButton);
         }
 
         public T GetDataContextAsViewModel<T>() where T : INotifyPropertyChanged
