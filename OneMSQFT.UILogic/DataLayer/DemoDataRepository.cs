@@ -137,6 +137,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1070,
                                 MediaContent = GetMediaCollection(2),
+                                ThumbImage = GetRandomThumbnailImage(),
                                 Curator = new Curator()
                                 {
                                     Id = "2",
@@ -154,6 +155,7 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2340,
                                 MediaContent = GetMediaCollection(3),
+                                ThumbImage = GetRandomThumbnailImage(),
                                 Curator = new Curator()
                                 {
                                     Id = "2",

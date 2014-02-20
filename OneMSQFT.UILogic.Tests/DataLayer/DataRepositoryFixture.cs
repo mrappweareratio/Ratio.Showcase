@@ -17,8 +17,8 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         [TestInitialize]
         public void Init()
         {
-            //this.DataRepository = new DemoDataRepository();
-            this.DataRepository = new ApiDataRepository(new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api"));
+            this.DataRepository = new DemoDataRepository();
+            //this.DataRepository = new ApiDataRepository(new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api"));
         }
 
         public IDataRepository DataRepository { get; set; }
@@ -53,7 +53,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             var result = await DataRepository.GetSiteData();
             var validEvents = result.Events.ToList().TrueForAll(ValidateEvent);            
             Assert.IsTrue(validEvents, "ValidEvents");
-        }
+        }        
 
         //EXHIBIT TESTS
 
@@ -78,9 +78,8 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         async public Task DataRepository_TimlineResult_Exhibits_Are_Valid()
         {
             var result = await DataRepository.GetSiteData();
-            var e = result.Events.FirstOrDefault();
-            var validEvents = e.Exhibits.ToList().TrueForAll(ValidateExhibit);
-            Assert.IsTrue(validEvents, "ValidEvents");
+            var exhibits = result.Events.SelectMany(x => x.Exhibits).ToList();
+            Assert.IsTrue(exhibits.TrueForAll(ValidateExhibit), "ValidateExhibit");
         }
 
         [TestMethod]
