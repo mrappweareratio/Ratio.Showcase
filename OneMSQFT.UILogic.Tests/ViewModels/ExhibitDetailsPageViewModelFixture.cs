@@ -2,6 +2,7 @@
 using System.Threading;
 using Windows.Foundation;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneMSQFT.Common.Models;
@@ -160,6 +161,8 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             Assert.IsTrue(vm.SetStartupCommand.CanExecute(), "SetStartupCommand CanExecute");
             await vm.SetStartupCommand.Execute();
             Assert.IsTrue(vm.ClearStartupCommand.CanExecute(), "ClearStartupCommand CanExecute IsTrue");
+            Assert.IsTrue(vm.ClearStartupVisibility == Visibility.Visible, "ClearStartupVisibility Visible");
+            Assert.IsTrue(vm.SetStartupVisibility == Visibility.Collapsed, "SetStartupVisibility Collapsed");
             Assert.IsTrue(configuration.StartupItemType == StartupItemType.Exhibit, "StartupItemType Exhibit");
             Assert.AreEqual(configuration.StartupItemId, "0", "StartupItemType Id");
             data.GetExhibitDetailByExhibitIdDelegate = s =>
@@ -174,9 +177,8 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             {
                 vm.OnNavigatedTo("1", NavigationMode.New, null);
             });
-            Assert.IsTrue(vm.ClearStartupCommand.CanExecute(), "ClearStartupCommand CanExecute IsTrue");
-            await vm.ClearStartupCommand.Execute();
             Assert.IsFalse(vm.ClearStartupCommand.CanExecute(), "ClearStartupCommand CanExecute IsFalse");
+            Assert.IsTrue(vm.SetStartupCommand.CanExecute(), "SetStartupCommand CanExecute IsTrue");                        
             await vm.SetStartupCommand.Execute();
             Assert.IsTrue(vm.ClearStartupCommand.CanExecute(), "ClearStartupCommand CanExecute IsTrue");
             Assert.IsTrue(configuration.StartupItemType == StartupItemType.Exhibit, "StartupItemType Exhibit");

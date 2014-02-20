@@ -106,6 +106,8 @@ namespace OneMSQFT.UILogic.ViewModels
 
         private ExhibitItemViewModel _exhibit;
         private string _exhibitDetailTitle;
+        private Visibility _setStartupVisibility;
+        private Visibility _clearStartupVisibility;
 
         public ExhibitItemViewModel Exhibit
         {
@@ -171,6 +173,18 @@ namespace OneMSQFT.UILogic.ViewModels
             get { return ExhibitItemWidth / 3; }
         }
 
+        public Visibility ClearStartupVisibility
+        {
+            get { return _clearStartupVisibility; }
+            set { SetProperty(ref _clearStartupVisibility, value); }
+        }
+
+        public Visibility SetStartupVisibility
+        {
+            get { return _setStartupVisibility; }
+            set { SetProperty(ref _setStartupVisibility, value); }
+        }
+
         public override void WindowSizeChanged(double width, double height)
         {
             OnPropertyChanged("FullScreenHeight");
@@ -183,14 +197,16 @@ namespace OneMSQFT.UILogic.ViewModels
 
         private bool ClearStartupCommandCanExecuteMethod()
         {
-            return _configuration.StartupItemType != StartupItemType.None;
+            return Exhibit != null && _configuration.StartupItemType == StartupItemType.Exhibit && Exhibit.Id.Equals(_configuration.StartupItemId);
         }
 
         private void ClearStartupCommandExecuteMethod()
         {
             _configuration.ClearStartupItem();
             SetStartupCommand.RaiseCanExecuteChanged();
+            SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
             ClearStartupCommand.RaiseCanExecuteChanged();
+            ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private bool SetStartupCommandCanExecuteMethod()
@@ -208,8 +224,9 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             _configuration.SetStartupExhibit(Exhibit.Id);
             SetStartupCommand.RaiseCanExecuteChanged();
+            SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
             ClearStartupCommand.RaiseCanExecuteChanged();
-
+            ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneMSQFT.Common.DataLayer;
@@ -146,21 +147,35 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         }
 
         [TestMethod]
-        public void Set_Startup_Event_CanExecute_With_Selected_Event()
+        public async Task Startup_Flow()
         {
+            var configuration = new ConfigurationService();
+            configuration.ClearStartupItem();
+
             var timeLine = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService(),
-                new MockNavigationService(), new MockConfigurationService()
-                {
-                    SetStartupEventDelegate = s =>
-                    {
-                    }
-                });
-            ExecuteOnUIThread(() =>
-            {
-                timeLine.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("0", "Event"));
-                Assert.IsTrue(timeLine.SetStartupCommand.CanExecute(), "CanExecute True");
-            });
+                new MockNavigationService(), configuration);
+            
+            timeLine.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("0", "Event"));
+            Assert.IsTrue(timeLine.SetStartupCommand.CanExecute(), "SetStartupCommand IsTrue");
+            Assert.IsFalse(timeLine.ClearStartupCommand.CanExecute(), "ClearStartupCommand IsFalse");
+            Assert.AreEqual(timeLine.SetStartupVisibility, Visibility.Visible, "SetStartupVisibility");
+            Assert.AreEqual(timeLine.ClearStartupVisibility, Visibility.Collapsed, "ClearStartupVisibility");
+            
+            //set event, can clear afterwards
+            await timeLine.SetStartupCommand.Execute();
+            Assert.IsTrue(timeLine.ClearStartupCommand.CanExecute(), "ClearStartupCommand IsTrue");
+            Assert.IsFalse(timeLine.SetStartupCommand.CanExecute(), "SetStartupCommand IsFalse");
+            Assert.AreEqual(timeLine.ClearStartupVisibility, Visibility.Visible, "ClearStartupVisibility");
+            Assert.AreEqual(timeLine.SetStartupVisibility, Visibility.Collapsed, "SetStartupVisibility");
+            
+            //select new event, back to being able to set
+            timeLine.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("1", "Event"));
+            Assert.IsTrue(timeLine.SetStartupCommand.CanExecute(), "SetStartupCommand IsTrue");
+            Assert.IsFalse(timeLine.ClearStartupCommand.CanExecute(), "ClearStartupCommand IsFalse");
+            Assert.AreEqual(timeLine.SetStartupVisibility, Visibility.Visible, "SetStartupVisibility");
+            Assert.AreEqual(timeLine.ClearStartupVisibility, Visibility.Collapsed, "ClearStartupVisibility");
         }
+
 
         [TestMethod]
         public void SquareFootEventsSorted()

@@ -89,6 +89,8 @@ namespace OneMSQFT.Windows.DesignViewModels
             LaunchVideoCommand = new DelegateCommand<MediaContentSourceItemViewModel>(LaunchVideoCommandHandler);
             SetStartupCommand = new DelegateCommand(() => { });
             ClearStartupCommand = new DelegateCommand(() => { });
+            ClearStartupVisibility = Visibility.Collapsed;
+            SetStartupVisibility = Visibility.Collapsed;
         }
 
         private void PopulateExhibitMediaCollection()
@@ -288,5 +290,8 @@ namespace OneMSQFT.Windows.DesignViewModels
         }
 
         #endregion
+
+        public Visibility ClearStartupVisibility { get; set; }
+        public Visibility SetStartupVisibility { get; set; }
     }
 }

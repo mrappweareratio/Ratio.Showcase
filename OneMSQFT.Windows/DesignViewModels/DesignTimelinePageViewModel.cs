@@ -51,6 +51,10 @@ namespace OneMSQFT.Windows.DesignViewModels
             }
 
             EventHeroItemClickCommand = new DelegateCommand<EventItemViewModel>(EventHeroItemClickCommandHandler);
+            SetStartupCommand = new DelegateCommand(() => { });
+            ClearStartupCommand = new DelegateCommand(() => { });
+            ClearStartupVisibility = Visibility.Collapsed;
+            SetStartupVisibility = Visibility.Collapsed;
         }
 
         public ObservableCollection<EventItemViewModel> TimeLineItems
@@ -199,5 +203,7 @@ namespace OneMSQFT.Windows.DesignViewModels
 
         public DelegateCommand SetStartupCommand { get; private set; }
         public DelegateCommand ClearStartupCommand { get; private set; }
+        public Visibility ClearStartupVisibility { get; set; }
+        public Visibility SetStartupVisibility { get; set; }
     }
 }
