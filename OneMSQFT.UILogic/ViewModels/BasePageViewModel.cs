@@ -20,7 +20,7 @@ namespace OneMSQFT.UILogic.ViewModels
         }
 
         public abstract void WindowSizeChanged(double width, double height);
-        public DelegateCommand PinToStartCommand { get; set; }
+
         public event EventHandler<EventArgs> PinContextChanged;
 
         protected void RaisePinContextChanged()

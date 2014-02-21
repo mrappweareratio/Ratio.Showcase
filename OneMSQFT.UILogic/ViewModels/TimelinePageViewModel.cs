@@ -42,17 +42,6 @@ namespace OneMSQFT.UILogic.ViewModels
             this.ClearStartupCommand = new DelegateCommand(ClearStartupCommandExecuteMethod, ClearStartupCommandCanExecuteMethod);
             SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
             ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
-            this.PinToStartCommand = new DelegateCommand(PinToStartCommandExecuteMethod, PinEventToStartCommandCanExecuteMethod);
-        }
-
-        private bool PinEventToStartCommandCanExecuteMethod()
-        {
-            return SelectedEvent != null;
-        }
-
-        private void PinToStartCommandExecuteMethod()
-        {
-            
         }
 
         public override async void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
