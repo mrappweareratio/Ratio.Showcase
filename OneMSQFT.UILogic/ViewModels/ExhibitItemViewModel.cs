@@ -28,10 +28,32 @@ namespace OneMSQFT.UILogic.ViewModels
         public CuratorItemViewModel Curator { get; set; }
         public ObservableCollection<LinkItemViewModel> Links { get; set; }
         public Uri RsvpUrl { get; set; }
-        public Visibility RsvpVisibility { get; set; }
-        public bool RsvpEnabled { get; set; }
+        public DateTime? DateStart;
+        public DateTime? DateEnd;
         public DelegateCommand<string> ExitLinkCommand { get; private set; }
         public DelegateCommand<string> RsvpLinkCommand { get; private set; }
+
+        public Visibility RsvpVisibility
+        {
+            get {
+                if (ExhibitItemUtils.IsRsvpValid(this.RsvpUrl) && !ExhibitItemUtils.IsRsvpExpired(this.DateStart))
+                {
+                    return Visibility.Visible;
+                }
+                else
+                {
+                    return Visibility.Collapsed;
+                }
+            }
+        }
+
+        public bool RsvpEnabled
+        {
+            get
+            {
+                return ExhibitItemUtils.IsRsvpValid(this.RsvpUrl) && !ExhibitItemUtils.IsRsvpExpired(this.DateStart);
+            }
+        }
 
 
         public ExhibitItemViewModel(IExhibit<ICurator> exhibitModel)
@@ -48,18 +70,13 @@ namespace OneMSQFT.UILogic.ViewModels
             LoadLinks(exhibitModel.Links);
             ExhibitColor = ColorUtils.GetExhibitColor(exhibitModel);
             Curator = new CuratorItemViewModel(exhibitModel.Curator);
+            DateStart = exhibitModel.DateStart;
+            DateEnd = exhibitModel.DateEnd;
 
-            //TODO: Confirm Rsvp visibility / enable logic
-            if (string.IsNullOrEmpty(exhibitModel.RsvpUrl))
-            {
-                RsvpEnabled = false;
-                RsvpVisibility = Visibility.Collapsed;
-            }
-            else
+
+            if (!string.IsNullOrEmpty(exhibitModel.RsvpUrl))
             {
                 RsvpUrl = new Uri(exhibitModel.RsvpUrl, UriKind.RelativeOrAbsolute);
-                RsvpEnabled = true;
-                RsvpVisibility = Visibility.Visible;
             }
             ExitLinkCommand = new DelegateCommand<string>(ExitLinkNavigate);
             RsvpLinkCommand = new DelegateCommand<string>(RsvpNavigate);

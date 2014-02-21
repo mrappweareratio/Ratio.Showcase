@@ -124,11 +124,39 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        public bool IsInTheFuture
+        public bool? IsInTheFuture
         {
             get
             {
-                return (Event.DateStart > DateTime.Now);
+                var start = Event.DateStart;                
+                if (start.HasValue)
+                {
+                    return DateTime.Today <= start.GetValueOrDefault().Date;
+                }
+                var end = Event.DateEnd;         
+                if (end.HasValue)
+                {
+                    return DateTime.Today <= end.GetValueOrDefault().Date;
+                }
+                return null;
+            }
+        }
+
+        public bool? IsInThePast
+        {
+            get
+            {                
+                var end = Event.DateEnd;
+                if (end.HasValue)
+                {
+                    return end.GetValueOrDefault().Date < DateTime.Today;
+                }
+                var start = Event.DateStart;   
+                if (start.HasValue)
+                {
+                    return start.GetValueOrDefault().Date < DateTime.Today;
+                }
+                return null;
             }
         }
 

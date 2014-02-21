@@ -137,6 +137,7 @@
     <Compile Include="Services\InternetConnectionService.cs" />
     <Compile Include="Utils\ColorUtils.cs" />
     <Compile Include="Utils\ComingSoonUtils.cs" />
+    <Compile Include="Utils\ExhibitItemUtils.cs" />
     <Compile Include="Utils\MediaContentSourceUtils.cs" />
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="ViewModels\AboutPageViewModel.cs" />
