@@ -14,6 +14,7 @@ using OneMSQFT.UILogic.DataLayer;
 using OneMSQFT.UILogic.Navigation;
 using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.Tests.Mocks;
+using OneMSQFT.UILogic.Utils;
 
 namespace OneMSQFT.UILogic.Tests
 {
@@ -228,6 +229,7 @@ namespace OneMSQFT.UILogic.Tests
             Assert.IsNull(pageParam, "null param");
         }
 
+        #region Analytics
         [TestMethod]
         public void Init_Configures_Analytics()
         {
@@ -316,7 +318,7 @@ namespace OneMSQFT.UILogic.Tests
                 StartSessionDelegate = () => { called = true; }
             };
             var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
-            var args = new MockLaunchActivatedEventArgs(){PreviousExecutionState = ApplicationExecutionState.Running};
+            var args = new MockLaunchActivatedEventArgs() { PreviousExecutionState = ApplicationExecutionState.Running };
             await app.OnLaunchApplication(args);
             Assert.IsFalse(called, "StartSessionDelegate");
         }
@@ -388,5 +390,41 @@ namespace OneMSQFT.UILogic.Tests
             Assert.IsTrue(calledStop, "StopSessionDelegate");
             Assert.AreEqual(calledStart, 2, "Called Start Twice after Resume");
         }
+        #endregion
+
+        #region Pinning
+
+        [TestMethod]
+        public async Task DeepLink_Pin_Event()
+        {
+            string page = null;
+            object pageParam = null;
+            var navigationService = new MockNavigationService()
+            {
+                NavigateDelegate = (a, b) =>
+                {
+                    page = a;
+                    pageParam = b;
+                    return true;
+                }
+            };
+            var data = new MockDataService()
+            {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>())
+            };
+            var configuration = new ConfigurationService();
+            var analytics = new MockAnalyticsService();         
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var args = new MockLaunchActivatedEventArgs()
+            {
+                Arguments = PinningUtils.GetSecondaryTileIdByEventId("0")
+            };
+            app.OnInitialize(args);
+            await app.OnLaunchApplication(args);            
+            Assert.AreEqual(page, ViewLocator.Pages.Timeline, "Timeline");
+            Assert.AreEqual(pageParam, "0", "Event Id");            
+        }
+
+        #endregion
     }
 }

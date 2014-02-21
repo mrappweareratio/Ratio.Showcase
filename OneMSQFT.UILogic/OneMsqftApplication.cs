@@ -13,6 +13,7 @@ using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Analytics;
 using OneMSQFT.UILogic.Interfaces;
 using OneMSQFT.UILogic.Navigation;
+using OneMSQFT.UILogic.Utils;
 using Strings = OneMSQFT.Common.Strings;
 
 namespace OneMSQFT.UILogic
@@ -40,6 +41,20 @@ namespace OneMSQFT.UILogic
             {
                 Analytics.StartSession();
                 _events = await DataService.GetEvents();
+            }
+            if (!String.IsNullOrEmpty(args.Arguments))
+            {
+                var pinningContext = PinningUtils.ParseArguments(args.Arguments);
+                switch (pinningContext.StartupItemType)
+                {
+                    case StartupItemType.None:
+                        break;
+                    case StartupItemType.Event:
+                        NavigationService.Navigate(ViewLocator.Pages.Timeline, pinningContext.StartupItemId);
+                        return;
+                    case StartupItemType.Exhibit:                        
+                        return;
+                }
             }
            GoHome();
         }
