@@ -98,6 +98,15 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to guest curated by.
+        /// </summary>
+        public static string GuestCurated {
+            get {
+                return ResourceManager.GetString("GuestCurated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet..
         /// </summary>
         public static string IntroBlurb {
@@ -184,18 +193,6 @@ namespace OneMSQFT.Common {
         public static string SquareFeetAtNameFormat {
             get {
                 return ResourceManager.GetString("SquareFeetAtNameFormat", resourceCulture);
-            }
-        }
-
-
-        /// <summary>
-        ///   Looks up a localized string similar to guest curated by.
-        /// </summary>
-        public static string GuestCurated
-        {
-            get
-            {
-                return ResourceManager.GetString("GuestCurated", resourceCulture);
             }
         }
     }
