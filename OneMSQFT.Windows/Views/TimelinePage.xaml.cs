@@ -173,7 +173,7 @@ namespace OneMSQFT.Windows.Views
             LogoGrid.Visibility = Visibility.Collapsed;
         }
 
-        public override async void TopAppBarEventButtonCommandHandler(String eventId)
+        public override void TopAppBarEventButtonCommandHandler(String eventId)
         {
             if (semanticZoom.IsZoomedInViewActive == false)
             {

@@ -38,8 +38,8 @@ namespace OneMSQFT.Windows.DesignViewModels
                             VideoUrlHd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4"
                         }
 
-                    } ,
-                    SquareFootage = Convert.ToInt32(i.ToString() + i.ToString() + i.ToString() + i.ToString()),                    
+                    },
+                    SquareFootage = Convert.ToInt32(i.ToString() + i.ToString() + i.ToString() + i.ToString()),
                 });
                 SquareFootEvents.Add(eivm);
             }
@@ -55,10 +55,7 @@ namespace OneMSQFT.Windows.DesignViewModels
             }
             set
             {
-                if (value != null)
-                {
-                    SetProperty(ref _fullScreenWidth, value);
-                }
+                SetProperty(ref _fullScreenWidth, value);
             }
         }
         public double FullScreenHeight
@@ -69,10 +66,7 @@ namespace OneMSQFT.Windows.DesignViewModels
             }
             set
             {
-                if (value != null)
-                {
-                    SetProperty(ref _fullScreenHeight, value);
-                }
+                SetProperty(ref _fullScreenHeight, value);
             }
         }
 
@@ -86,10 +80,7 @@ namespace OneMSQFT.Windows.DesignViewModels
             }
             set
             {
-                if (value != null)
-                {
-                    SetProperty(ref _exhibitItemWidth, value);
-                }
+                SetProperty(ref _exhibitItemWidth, value);
             }
         }
         public double ExhibitItemHeight
@@ -100,10 +91,7 @@ namespace OneMSQFT.Windows.DesignViewModels
             }
             set
             {
-                if (value != null)
-                {
                     SetProperty(ref _exhibitItemHeight, value);
-                }
             }
         }
 

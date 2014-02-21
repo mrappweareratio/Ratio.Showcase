@@ -154,7 +154,7 @@ namespace OneMSQFT.Windows.DesignViewModels
             MediaContentCollection = new ObservableCollection<MediaContentSourceItemViewModel>(MediaContentSourceUtils.GetMediaContentSourceItemViewModels(mediaContentSources));
         }
 
-        async public void LaunchVideoCommandHandler(MediaContentSourceItemViewModel item)
+        public void LaunchVideoCommandHandler(MediaContentSourceItemViewModel item)
         {
             if (item == null) return;
             SelectedMediaContentSource = item;

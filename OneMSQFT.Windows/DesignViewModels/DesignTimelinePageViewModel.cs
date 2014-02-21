@@ -183,7 +183,7 @@ namespace OneMSQFT.Windows.DesignViewModels
 
         #endregion
 
-        async public void EventHeroItemClickCommandHandler(EventItemViewModel item)
+        public void EventHeroItemClickCommandHandler(EventItemViewModel item)
         {
             if (item == null) return;
             SelectedEvent = item;
