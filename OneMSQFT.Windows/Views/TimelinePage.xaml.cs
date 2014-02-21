@@ -19,6 +19,7 @@ using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.UILogic.Interfaces;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
+using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
 using Windows.UI.Popups;
@@ -308,8 +309,8 @@ namespace OneMSQFT.Windows.Views
 
                 secondaryTile.ForegroundText = ForegroundText.Dark;                
                 secondaryTile.SmallLogo = images.SmallLogo;
-                secondaryTile.WideLogo = images.WideLogo;                
-                
+                secondaryTile.WideLogo = images.WideLogo;
+
                 bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
 
                 ToggleAppBarButton(!isPinned);

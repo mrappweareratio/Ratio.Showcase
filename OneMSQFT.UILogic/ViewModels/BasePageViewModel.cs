@@ -10,7 +10,7 @@ using OneMSQFT.UILogic.Interfaces.ViewModels;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
-    public abstract class BasePageViewModel : ViewModel , IBasePageViewModel
+    public abstract class BasePageViewModel : ViewModel, IBasePageViewModel
     {
         private ObservableCollection<EventItemViewModel> _squareFootEvents;
         public ObservableCollection<EventItemViewModel> SquareFootEvents
@@ -22,6 +22,13 @@ namespace OneMSQFT.UILogic.ViewModels
         public abstract void WindowSizeChanged(double width, double height);
         public DelegateCommand PinToStartCommand { get; set; }
         public event EventHandler<EventArgs> PinContextChanged;
+
+        protected void RaisePinContextChanged()
+        {
+            var handler = PinContextChanged;
+            if (handler != null)
+                handler(null, null);
+        }
 
         public virtual SecondaryTileArgs GetSecondaryTileArguments()
         {

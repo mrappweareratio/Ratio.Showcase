@@ -109,10 +109,12 @@ namespace OneMSQFT.UILogic.ViewModels
                 if (value != null)
                 {
                     SetProperty(ref _selectedEvent, value);
+                    RaisePinContextChanged();
                     SetStartupCommand.RaiseCanExecuteChanged();
                     SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
                     ClearStartupCommand.RaiseCanExecuteChanged();
                     ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
+
                 }
             }
         }
@@ -292,8 +294,8 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             return new SecondaryTileArgs()
             {
-                Id = SelectedEvent.Id,
-                ArgumentsName = String.Format("Event,{0}", SelectedEvent.Id),
+                Id = PinningUtils.GetSecondaryTileIdByEventId(SelectedEvent.Id),
+                ArgumentsName = PinningUtils.GetSecondaryTileIdByEventId(SelectedEvent.Id),
                 DisplayName = SelectedEvent.Name,
                 ShortName = SelectedEvent.Name
             };

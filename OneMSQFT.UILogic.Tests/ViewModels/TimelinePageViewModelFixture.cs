@@ -8,9 +8,11 @@ using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Practices.Prism.StoreApps.Interfaces;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
+using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.DataLayer;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Services;
@@ -197,6 +199,45 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                 Assert.AreEqual(sortedEvents[i].Id, timeLine.SquareFootEvents[i].Id, "Matching Sorted Id");
             }
         }
+
+        #region Pinning
+
+        [TestMethod]
+        public void Pinning_PinContextChanged()
+        {
+            bool changed = false;
+            var data = new MockDataService();
+            INavigationService navigation = new MockNavigationService();
+            IConfigurationService configuration = new MockConfigurationService();
+            var vm = new TimelinePageViewModel(data, new MockAlertMessageService(), navigation, configuration);
+            vm.PinContextChanged += (sender, args) =>
+            {
+                changed = true;
+            };
+            vm.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("0", "Name"));
+            Assert.IsTrue(changed, "PinContextChanged");
+        }
+
+        [TestMethod]
+        public void Pinning_PinContextChanged_TileId()
+        {
+            bool changed = false;
+            var data = new MockDataService();
+            INavigationService navigation = new MockNavigationService();
+            IConfigurationService configuration = new MockConfigurationService();
+            var vm = new TimelinePageViewModel(data, new MockAlertMessageService(), navigation, configuration);
+            vm.PinContextChanged += (sender, args) =>
+            {
+                changed = true;
+            };
+            vm.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("0", "Name"));
+            Assert.IsTrue(changed, "PinContextChanged");
+            var secondaryTileArgs = vm.GetSecondaryTileArguments();
+            Assert.AreEqual(secondaryTileArgs.Id, "Event,0");
+            Assert.AreEqual(secondaryTileArgs.ArgumentsName, "Event,0");
+            //todo insert tests against color
+        }
+        #endregion
 
     }
 }
