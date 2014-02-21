@@ -9,6 +9,10 @@
         /// Deep Link
         /// </summary>
         public string ArgumentsName { get; set; }
+        /// <summary>
+        /// ARGB Color String ex. #FF123456
+        /// Use Windows.UI.Color.ToString()
+        /// </summary>
         public string BackgroundColor { get; set; }
     }
 }

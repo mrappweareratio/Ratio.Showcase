@@ -60,7 +60,7 @@ namespace OneMSQFT.Windows.Views
             var args = GetDataContextAsViewModel<IBasePageViewModel>().GetSecondaryTileArguments();
             if (args == null)
                 return;
-            ToggleAppBarButton(SecondaryTile.Exists(args.Id));
+            ToggleAppBarButton(!SecondaryTile.Exists(args.Id));
         }
 
         void scrollerTimer_Tick(object sender, object e)

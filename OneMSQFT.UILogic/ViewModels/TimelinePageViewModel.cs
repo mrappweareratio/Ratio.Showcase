@@ -42,17 +42,6 @@ namespace OneMSQFT.UILogic.ViewModels
             this.ClearStartupCommand = new DelegateCommand(ClearStartupCommandExecuteMethod, ClearStartupCommandCanExecuteMethod);
             SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
             ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
-            this.PinToStartCommand = new DelegateCommand(PinToStartCommandExecuteMethod, PinEventToStartCommandCanExecuteMethod);
-        }
-
-        private bool PinEventToStartCommandCanExecuteMethod()
-        {
-            return SelectedEvent != null;
-        }
-
-        private void PinToStartCommandExecuteMethod()
-        {
-            
         }
 
         public override async void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
@@ -109,10 +98,12 @@ namespace OneMSQFT.UILogic.ViewModels
                 if (value != null)
                 {
                     SetProperty(ref _selectedEvent, value);
+                    RaisePinContextChanged();
                     SetStartupCommand.RaiseCanExecuteChanged();
                     SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
                     ClearStartupCommand.RaiseCanExecuteChanged();
                     ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
+
                 }
             }
         }
@@ -292,8 +283,8 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             return new SecondaryTileArgs()
             {
-                Id = SelectedEvent.Id,
-                ArgumentsName = String.Format("Event,{0}", SelectedEvent.Id),
+                Id = PinningUtils.GetSecondaryTileIdByEventId(SelectedEvent.Id),
+                ArgumentsName = PinningUtils.GetSecondaryTileIdByEventId(SelectedEvent.Id),
                 DisplayName = SelectedEvent.Name,
                 ShortName = SelectedEvent.Name,
                 BackgroundColor = SelectedEvent.EventColor.ToString(),

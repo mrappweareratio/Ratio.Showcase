@@ -40,9 +40,9 @@ namespace OneMSQFT.UILogic.ViewModels
             NextExhibitCommand = new DelegateCommand<string>(NextExhibitCommandExecuteMethod, NextExhibitCommandCanExecuteMethod);
             SetStartupCommand = new DelegateCommand(SetStartupCommandExecuteMethod, SetStartupCommandCanExecuteMethod);
             ClearStartupCommand = new DelegateCommand(ClearStartupCommandExecuteMethod, ClearStartupCommandCanExecuteMethod);
-            SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;            
+            SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
             ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
-        }       
+        }
 
         private bool NextExhibitCommandCanExecuteMethod(string s)
         {
@@ -74,11 +74,11 @@ namespace OneMSQFT.UILogic.ViewModels
                 return;
             }
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
-            
+
             var ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as String);
             Exhibit = new ExhibitItemViewModel(ed.Exhibit);
             NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit);
-                        
+
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
 
@@ -123,6 +123,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 {
                     SetProperty(ref _exhibit, value);
                     ExhibitDetailTitle = String.Format(Strings.SquareFeetAtNameFormat, StringUtils.ToSquareFeet(Exhibit.SquareFootage), value.Name);
+                    RaisePinContextChanged();
                     SetStartupCommand.RaiseCanExecuteChanged();
                     SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
                     ClearStartupCommand.RaiseCanExecuteChanged();
@@ -216,5 +217,22 @@ namespace OneMSQFT.UILogic.ViewModels
             ClearStartupCommand.RaiseCanExecuteChanged();
             ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
         }
+
+        #region Pinning
+
+        public override SecondaryTileArgs GetSecondaryTileArguments()
+        {
+            if (Exhibit == null)
+                return null;
+            return new SecondaryTileArgs()
+            {
+                Id = PinningUtils.GetSecondaryTileIdByExhibitId(Exhibit.Id),
+                ArgumentsName = PinningUtils.GetSecondaryTileIdByExhibitId(Exhibit.Id),
+                ShortName = Exhibit.Name,
+                DisplayName = ExhibitDetailTitle
+            };
+        }
+
+        #endregion
     }
 }

@@ -4,12 +4,15 @@ using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Practices.Prism.StoreApps.Interfaces;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneMSQFT.Common.Models;
+using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.DataLayer;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.Tests.Mocks;
+using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -185,5 +188,75 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             Assert.AreEqual(configuration.StartupItemId, "1", "StartupItemType Id");
 
         }
+
+        #region Pinning       
+
+        [TestMethod]
+        public void Pinning_PinContextChanged_TileId()
+        {
+            var autoResetEvent = new AutoResetEvent(false);
+            bool changed = false;
+            var data = new MockDataService()
+            {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>()),
+                GetExhibitDetailByExhibitIdDelegate = s =>
+                {
+                    return Task<ExhibitDetail>.FromResult(new ExhibitDetail()
+                    {
+                        Exhibit = MockModelGenerator.NewExhibit("0", "Exhibit"),
+                        NextExhibit = MockModelGenerator.NewExhibit("1", "Exhibit")
+                    });
+                }
+            };
+            INavigationService navigation = new MockNavigationService();
+            IConfigurationService configuration = new MockConfigurationService();
+            var vm = new ExhibitDetailsPageViewModel(data, new MockAlertMessageService(), navigation, configuration);
+            vm.PinContextChanged += (sender, args) =>
+            {
+                changed = true;
+            };
+            ExecuteOnUIThread(() => vm.OnNavigatedTo("0", NavigationMode.New, null));
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(changed, "PinContextChanged");
+            var secondaryTileArgs = vm.GetSecondaryTileArguments();
+            Assert.AreEqual(secondaryTileArgs.Id, PinningUtils.GetSecondaryTileIdByExhibitId("0"));
+            Assert.AreEqual(secondaryTileArgs.ArgumentsName, PinningUtils.GetSecondaryTileIdByExhibitId("0"));
+            //todo insert tests against color
+        }
+
+        [TestMethod]
+        public void Pinning_PinContextChanged_TileId_Names()
+        {
+            var autoResetEvent = new AutoResetEvent(false);
+            bool changed = false;
+            var data = new MockDataService()
+            {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>()),
+                GetExhibitDetailByExhibitIdDelegate = s =>
+                {
+                    return Task<ExhibitDetail>.FromResult(new ExhibitDetail()
+                    {
+                        Exhibit = MockModelGenerator.NewExhibit("0", "Exhibit"),
+                        NextExhibit = MockModelGenerator.NewExhibit("1", "Exhibit")
+                    });
+                }
+            };
+            INavigationService navigation = new MockNavigationService();
+            IConfigurationService configuration = new MockConfigurationService();
+            var vm = new ExhibitDetailsPageViewModel(data, new MockAlertMessageService(), navigation, configuration);
+            vm.PinContextChanged += (sender, args) =>
+            {
+                changed = true;
+            };
+            ExecuteOnUIThread(() => vm.OnNavigatedTo("0", NavigationMode.New, null));
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(changed, "PinContextChanged");
+            var secondaryTileArgs = vm.GetSecondaryTileArguments();
+            Assert.AreEqual(secondaryTileArgs.Id, PinningUtils.GetSecondaryTileIdByExhibitId("0"));
+            Assert.AreEqual(secondaryTileArgs.ArgumentsName, PinningUtils.GetSecondaryTileIdByExhibitId("0"));
+            Assert.AreEqual(secondaryTileArgs.ShortName, "Intentionally Don't Know Short Name Yet");
+            Assert.AreEqual(secondaryTileArgs.DisplayName, "Intentionally  Don't Know Short Name Yet");
+        }
+        #endregion
     }
 }
