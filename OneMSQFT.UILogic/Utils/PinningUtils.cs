@@ -11,12 +11,12 @@ namespace OneMSQFT.UILogic.Utils
     {
         public static string GetSecondaryTileIdByEventId(string eventId)
         {
-            return String.Format("Event,{0}", eventId);
+            return String.Format("Event_{0}", eventId);
         }
 
         public static string GetSecondaryTileIdByExhibitId(string exhibitId)
         {
-            return String.Format("Exhibit,{0}", exhibitId);
+            return String.Format("Exhibit_{0}", exhibitId);
         }
 
         public static PinningContext ParseArguments(string arguments)
@@ -25,7 +25,7 @@ namespace OneMSQFT.UILogic.Utils
             {
                 return new PinningContext();
             }
-            var args = arguments.Split(new string[] { @"," }, StringSplitOptions.RemoveEmptyEntries);
+            var args = arguments.Split(new string[] { @"_" }, StringSplitOptions.RemoveEmptyEntries);
             if (args.Length != 2)
                 return new PinningContext();
             if (args[0].Equals("Event"))
