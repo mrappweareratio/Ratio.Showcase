@@ -40,7 +40,7 @@ namespace OneMSQFT.UILogic.ViewModels
         public override void WindowSizeChanged(double width, double height)
         {
             //no-op
-        }
+        }       
     }
 
 }

@@ -54,5 +54,10 @@ namespace OneMSQFT.Windows.Views
             this.AboutButton.Command = this.AboutButtonClickCommand;
         }
 
+        private void Pin_OnClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

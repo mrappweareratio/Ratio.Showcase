@@ -99,6 +99,6 @@ namespace OneMSQFT.Windows.DesignViewModels
         {
             FullScreenHeight = height;
             FullScreenWidth = width;
-        }
+        }            
     }
 }

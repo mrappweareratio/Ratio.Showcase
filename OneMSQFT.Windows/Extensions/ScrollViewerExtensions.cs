@@ -540,6 +540,7 @@ namespace OneMSQFT.Windows.Extensions
                 _scrollViewer.ZoomToFactor((float)e.NewValue);
             }
         }
+
         #endregion
 
         #region ScrollToHorizontalOffsetWithAnimation()

@@ -289,7 +289,7 @@ namespace OneMSQFT.Windows.DesignViewModels
             OnPropertyChanged("ExhibitItemWidth");
         }
 
-        #endregion
+        #endregion       
 
         public Visibility ClearStartupVisibility { get; set; }
         public Visibility SetStartupVisibility { get; set; }
