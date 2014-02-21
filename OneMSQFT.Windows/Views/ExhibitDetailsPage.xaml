@@ -139,17 +139,17 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <Border x:Name="Border"
-    						Background="{TemplateBinding Background}"
-    						BorderBrush="{TemplateBinding BorderBrush}"
-    						BorderThickness="0"
-    						Margin="0">
+    						    Background="{TemplateBinding Background}"
+    						    BorderBrush="{TemplateBinding BorderBrush}"
+    						    BorderThickness="0"
+    						    Margin="0">
                                 <ContentPresenter x:Name="ContentPresenter"
-    							Content="{TemplateBinding Content}"
-    							ContentTransitions="{TemplateBinding ContentTransitions}"
-    							ContentTemplate="{TemplateBinding ContentTemplate}"
-    							Margin="{TemplateBinding Padding}"
-    							HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-    							VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+    							    Content="{TemplateBinding Content}"
+    							    ContentTransitions="{TemplateBinding ContentTransitions}"
+    							    ContentTemplate="{TemplateBinding ContentTemplate}"
+    							    Margin="{TemplateBinding Padding}"
+    							    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+    							    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                             </Border>
                         </Grid>
                     </ControlTemplate>

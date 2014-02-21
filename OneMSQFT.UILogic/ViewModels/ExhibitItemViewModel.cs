@@ -61,26 +61,14 @@ namespace OneMSQFT.UILogic.ViewModels
                 RsvpEnabled = true;
                 RsvpVisibility = Visibility.Visible;
             }
-            ExitLinkCommand = new DelegateCommand<string>(ExitLinkNavigate, CanExitLinkNavigate);
-            RsvpLinkCommand = new DelegateCommand<string>(RsvpNavigate, CanRsvpNavigate);
-        }
-
-        private bool CanRsvpNavigate(string s)
-        {
-            //TODO: Confirm Rsvp can navigate
-            return true;
+            ExitLinkCommand = new DelegateCommand<string>(ExitLinkNavigate);
+            RsvpLinkCommand = new DelegateCommand<string>(RsvpNavigate);
         }
 
         async private void RsvpNavigate(string s)
         {
             var la = new LauncherOptions { DesiredRemainingView = ViewSizePreference.UseHalf };
             if (s != null) await Launcher.LaunchUriAsync(new Uri(s), la);
-        }
-
-        private bool CanExitLinkNavigate(string s)
-        {
-            //TODO: Confirm ExitLink can navigate
-            return true;
         }
 
         async private void ExitLinkNavigate(string s)
