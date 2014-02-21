@@ -26,9 +26,19 @@ namespace OneMSQFT.Windows.Views
             }
         }
 
+        protected override void GoBack(object sender, RoutedEventArgs eventArgs)
+        {
+            if (this.Frame != null && !this.Frame.CanGoBack)
+            {
+                Frame.Navigate(typeof (TimelinePage), null);
+                return;
+            }
+            base.GoBack(sender, eventArgs);
+        }
+
         void ExhibitDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {            
-            GetDataContextAsViewModel<IExhibitDetailsPageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
+            GetDataContextAsViewModel<IExhibitDetailsPageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);            
         }
 
         void ExhibitDetailsPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
