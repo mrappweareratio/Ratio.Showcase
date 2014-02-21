@@ -147,7 +147,7 @@
     							    Content="{TemplateBinding Content}"
     							    ContentTransitions="{TemplateBinding ContentTransitions}"
     							    ContentTemplate="{TemplateBinding ContentTemplate}"
-    							    Margin="{TemplateBinding Padding}"
+    							    Margin="0"
     							    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
     							    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                             </Border>
@@ -255,7 +255,7 @@
             <!--<Grid.Background>
                 <ImageBrush ImageSource="ms-appx:///Assets/ExhibitDetailsComp.png"></ImageBrush>
             </Grid.Background>-->
-            <ScrollViewer x:Name="ExhibitDetailsPanels" Style="{StaticResource HorizontalScrollViewerStyle}" >
+            <ScrollViewer x:Name="ExhibitDetailsPanels" Style="{StaticResource HorizontalScrollViewerStyle}">
                 <StackPanel Orientation="Horizontal">
                     <Grid x:Name="Panel0" >
                         <Grid.ChildrenTransitions>
@@ -304,7 +304,7 @@
                     		    	Margin="38,0,20,0" 
                                     Grid.Row="2"/>
                                 <Border HorizontalAlignment="Left" Grid.Row="3" Height="34" Grid.RowSpan="2" VerticalAlignment="Top" Width="124" Margin="38,0,0,0" >
-                                    <Image Source="{Binding Exhibit.Curator.LogoImage}" Stretch="Uniform" MaxWidth="124"/>
+                                    <Image Source="{Binding Exhibit.Curator.LogoImage}" Stretch="Uniform" MaxWidth="124" HorizontalAlignment="Left"/>
                                 </Border>
 									
                                 <TextBlock Text="{Binding Exhibit.DisplayDate}"
@@ -413,43 +413,43 @@
                         </ListView>
                     </Grid>
 
-                    <Grid x:Name="Panel4" Height="{Binding FullScreenHeight}" 
-        				Width="{Binding FullScreenWidth}" Margin="0,0,-500,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Button HorizontalAlignment="Left" 
+                    <Grid x:Name="Panel4"
+                          Height="{Binding FullScreenHeight}" 
+        				  Width="{Binding OneThirdPanelWidth}" 
+                          Margin="0,0,0,0">
+                        <Button HorizontalAlignment="Stretch" 
                             Command="{Binding NextExhibitCommand}"
                             CommandParameter="{Binding NextExhibit.Id}"
         				    VerticalAlignment="Stretch" 
-                            Width="{Binding OneThirdPanelWidth}"
         				    Padding="0" Margin="0"
         				    BorderThickness="0" Style="{StaticResource NextButtonStyle}">
-                            <Button.Background>
+                             <Button.Background>
                                 <SolidColorBrush Color="{Binding NextExhibit.ExhibitColor, Mode=OneWay}"/>
                             </Button.Background>
+                           <!-- <Button.Background>
+                                <ImageBrush ImageSource="ms-appx:///Assets/NextComp.png"></ImageBrush>
+                            </Button.Background>-->
                             <Button.ContentTemplate>
                                 <DataTemplate>
-                                    <Grid>
+                                    <Grid Width="{Binding OneThirdPanelWidth}" 
+									Height="{Binding FullScreenHeight}" 
+									VerticalAlignment="Top" HorizontalAlignment="Left">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="1*"/>
-                                            <RowDefinition Height="1*"/>
-                                            <RowDefinition Height="1*"/>
-                                            <RowDefinition Height="1*"/>
-                                            <RowDefinition Height="1*"/>
-                                            <RowDefinition Height="3*"/>
+                                            <RowDefinition Height="76*"/>
+                                            <RowDefinition Height="35*"/>
+                                            <RowDefinition Height="21*"/>
+                                            <RowDefinition Height="24*"/>
+                                            <RowDefinition Height="227*"/>
                                         </Grid.RowDefinitions>
                                         <TextBlock Text="{Binding Strings.NextString, Source={StaticResource PortableStrings}}"
                     			           Foreground="{StaticResource OneMSQFTWhiteBrush}"
                     			           FontSize="60" 
                                            HorizontalAlignment="Left"
                                            TextTrimming="CharacterEllipsis"
-                    			           Margin="50,0,10,0" 
+                    			           Margin="50,0,0,0" 
                                            Grid.Row="1" 
                                            FontFamily="Segoe UI Light" 
-                                           FontWeight="Light"/>
+                                           FontWeight="Light" VerticalAlignment="Top" Height="72" Grid.RowSpan="2"/>
                                         <TextBlock Text="{Binding NextExhibit.SquareFootageString, Mode=OneWay}" 
                     			            Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
                     			            FontSize="32" 
@@ -458,8 +458,8 @@
                     		    	        TextWrapping="NoWrap" 
                                             FontFamily="Segoe UI Light" 
                                             FontWeight="Light"
-                    		    	        Margin="50,0,10,0" 
-                                            Grid.Row="2"/>
+                    		    	        Margin="50,0,0,0" 
+                                            Grid.Row="2" VerticalAlignment="Top"/>
                                         <TextBlock Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" 
                     			            Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
                     			            FontSize="32" 
@@ -468,8 +468,8 @@
                     		    	        TextWrapping="NoWrap" 
                                             FontFamily="Segoe UI Light" 
                                             FontWeight="Light"
-                    		    	        Margin="50,0,10,0" 
-                                            Grid.Row="3"/>
+                    		    	        Margin="50,0,0,0" 
+                                            Grid.Row="3" VerticalAlignment="Top"/>
                                         <TextBlock Text="{Binding NextExhibit.Curator.Name, Mode=OneWay}" 
                     			            Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
                     			            FontSize="32" 
@@ -478,8 +478,8 @@
                     		    	        TextWrapping="NoWrap" 
                                             FontFamily="Segoe UI Light" 
                                             FontWeight="Light"
-                    		    	        Margin="50,0,10,0" 
-                                            Grid.Row="4"/>
+                    		    	        Margin="50,0,0,0" 
+                                            Grid.Row="4" VerticalAlignment="Top"/>
                                     </Grid>
                                 </DataTemplate>
                             </Button.ContentTemplate>
