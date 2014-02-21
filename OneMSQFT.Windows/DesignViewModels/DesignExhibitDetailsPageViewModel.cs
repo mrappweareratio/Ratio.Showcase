@@ -89,6 +89,8 @@ namespace OneMSQFT.Windows.DesignViewModels
             LaunchVideoCommand = new DelegateCommand<MediaContentSourceItemViewModel>(LaunchVideoCommandHandler);
             SetStartupCommand = new DelegateCommand(() => { });
             ClearStartupCommand = new DelegateCommand(() => { });
+            ClearStartupVisibility = Visibility.Collapsed;
+            SetStartupVisibility = Visibility.Collapsed;
         }
 
         private void PopulateExhibitMediaCollection()
@@ -152,7 +154,7 @@ namespace OneMSQFT.Windows.DesignViewModels
             MediaContentCollection = new ObservableCollection<MediaContentSourceItemViewModel>(MediaContentSourceUtils.GetMediaContentSourceItemViewModels(mediaContentSources));
         }
 
-        async public void LaunchVideoCommandHandler(MediaContentSourceItemViewModel item)
+        public void LaunchVideoCommandHandler(MediaContentSourceItemViewModel item)
         {
             if (item == null) return;
             SelectedMediaContentSource = item;
@@ -288,5 +290,8 @@ namespace OneMSQFT.Windows.DesignViewModels
         }
 
         #endregion
+
+        public Visibility ClearStartupVisibility { get; set; }
+        public Visibility SetStartupVisibility { get; set; }
     }
 }

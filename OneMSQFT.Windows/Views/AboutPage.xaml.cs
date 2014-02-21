@@ -17,6 +17,11 @@ namespace OneMSQFT.Windows.Views
             Loaded += AboutPage_Loaded;
             var vm = GetDataContextAsViewModel<IBasePageViewModel>();
             vm.PropertyChanged += AboutPage_PropertyChanged;
+            var app = AppLocator.Current;
+            if (app != null)
+            {
+                HomeButton.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
 
         void AboutPage_Loaded(object sender, RoutedEventArgs e)

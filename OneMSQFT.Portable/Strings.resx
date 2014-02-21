@@ -156,4 +156,10 @@
   <data name="RSVP" xml:space="preserve">
     <value>RSVP for this event</value>
   </data>
+  <data name="ExitLink_Fallback_Uri" xml:space="preserve">
+    <value>http://www.1msqft.com</value>
+  </data>
+  <data name="RSVP_Fallback_Uri" xml:space="preserve">
+    <value>http://www.1msqft.com</value>
+  </data>
 </root>

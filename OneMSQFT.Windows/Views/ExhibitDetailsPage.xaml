@@ -157,26 +157,26 @@
             </Setter>
         </Style>
         <Style x:Key="ExitLinkButtonStyle" TargetType="HyperlinkButton">
-        	<Setter Property="Background" Value="{StaticResource ButtonBackgroundThemeBrush}" />
-        	<Setter Property="Foreground" Value="{StaticResource ButtonForegroundThemeBrush}"/>
-        	<Setter Property="BorderBrush" Value="{StaticResource ButtonBorderThemeBrush}" />
-        	<Setter Property="BorderThickness" Value="{StaticResource ButtonBorderThemeThickness}" />
-        	<Setter Property="Padding" Value="12,4,12,4" />
-        	<Setter Property="HorizontalAlignment" Value="Left" />
-        	<Setter Property="VerticalAlignment" Value="Center" />
-        	<Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
-        	<Setter Property="FontWeight" Value="SemiBold" />
-        	<Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
-        	<Setter Property="Template">
-        		<Setter.Value>
+            <Setter Property="Background" Value="{StaticResource ButtonBackgroundThemeBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource ButtonForegroundThemeBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderThemeBrush}" />
+            <Setter Property="BorderThickness" Value="{StaticResource ButtonBorderThemeThickness}" />
+            <Setter Property="Padding" Value="12,4,12,4" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+            <Setter Property="Template">
+                <Setter.Value>
                     <ControlTemplate TargetType="HyperlinkButton">
                         <Grid x:Name="ContentContainer" RenderTransformOrigin="0.5,0.5">
                             <Grid.RenderTransform>
                                 <CompositeTransform/>
                             </Grid.RenderTransform>
                             <VisualStateManager.VisualStateGroups>
-        						<VisualStateGroup x:Name="CommonStates">
-        							<VisualState x:Name="Normal" />
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
                                     <VisualState x:Name="PointerOver">
                                         <Storyboard>
                                             <PointerDownThemeAnimation TargetName="ContentContainer" />
@@ -188,16 +188,16 @@
                                         </Storyboard>
                                     </VisualState>
                                     <VisualState x:Name="Disabled"/>
-        						</VisualStateGroup>
-        						<VisualStateGroup x:Name="FocusStates">
-        							<VisualState x:Name="Focused"/>
-        							<VisualState x:Name="Unfocused" />
-        							<VisualState x:Name="PointerFocused" />
-        						</VisualStateGroup>
-        					</VisualStateManager.VisualStateGroups>
-        					<Grid Background="Transparent" Margin="0" HorizontalAlignment="Left"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused"/>
+                                    <VisualState x:Name="Unfocused" />
+                                    <VisualState x:Name="PointerFocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid Background="Transparent" Margin="0" HorizontalAlignment="Left"/>
                             <StackPanel x:Name="StackPanel" Margin="0" Orientation="Horizontal">
-        						<Path Data="M0,0 L0.034885,2.80084 L12.5188,15.6502 L0,27.7812 L0,31.1127 L15.5564,15.5564 z" 
+                                <Path Data="M0,0 L0.034885,2.80084 L12.5188,15.6502 L0,27.7812 L0,31.1127 L15.5564,15.5564 z" 
         							Fill="White" HorizontalAlignment="Left" 
         							Height="32" 
         							Stretch="Fill" 
@@ -205,26 +205,26 @@
         							VerticalAlignment="Top" 
         							Width="16" RenderTransformOrigin="0.5,0.5" 
                                     Margin="-3,-3,0,0" Stroke="White">
-        							<Path.RenderTransform>
-        								<CompositeTransform ScaleX="0.4" ScaleY="0.4"/>
-        							</Path.RenderTransform>
-        						</Path>
-        						<Border HorizontalAlignment="Left" 
+                                    <Path.RenderTransform>
+                                        <CompositeTransform ScaleX="0.4" ScaleY="0.4"/>
+                                    </Path.RenderTransform>
+                                </Path>
+                                <Border HorizontalAlignment="Left" 
                                         VerticalAlignment="Top" 
                                         Margin="0" 
                                         BorderBrush="White" 
                                         BorderThickness="0,0,0,1" 
                                         Padding="0,0,0,3">
-        							<TextBlock TextWrapping="NoWrap" 
+                                    <TextBlock TextWrapping="NoWrap" 
         								Text="{TemplateBinding Content}" 
                                         Foreground="White" 
                                         FontSize="18.667" />
-        						</Border>
-        					</StackPanel>
-        				</Grid>
-        			</ControlTemplate>
-        		</Setter.Value>
-        	</Setter>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </omsqft:BasePageView.Resources>
 
@@ -234,15 +234,15 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
-                        <ColumnDefinition/>                        
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal"  Margin="20,0,0,0">
-                        <Button x:Name="HomeButton" HorizontalAlignment="Stretch" Content="HOME" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}" />
                         <StackPanel x:Name="StartupButtonStackPanel" Orientation="Horizontal" Visibility="Collapsed">
-                            <Button HorizontalAlignment="Stretch" Content="Set as Startup" Command="{Binding SetStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
-                            <Button HorizontalAlignment="Stretch" Content="Clear Startup" Command="{Binding ClearStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+                            <Button x:Name="HomeButton" HorizontalAlignment="Stretch" Content="HOME" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}" />
+                            <Button HorizontalAlignment="Stretch" Content="Set as Startup" Visibility="{Binding SetStartupVisibility}" Command="{Binding SetStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+                            <Button HorizontalAlignment="Stretch" Content="Clear Startup" Visibility="{Binding ClearStartupVisibility}" Command="{Binding ClearStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
                         </StackPanel>
-                    </StackPanel>                  
+                    </StackPanel>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
                         <Button x:Name="AboutButton" HorizontalAlignment="Stretch" Content="ABOUT 1MSQFT" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
                     </StackPanel>
@@ -306,7 +306,7 @@
                                 <Border HorizontalAlignment="Left" Grid.Row="3" Height="34" Grid.RowSpan="2" VerticalAlignment="Top" Width="124" Margin="38,0,0,0" >
                                     <Image Source="{Binding Exhibit.Curator.LogoImage}" Stretch="Uniform" MaxWidth="124" HorizontalAlignment="Left"/>
                                 </Border>
-									
+
                                 <TextBlock Text="{Binding Exhibit.DisplayDate}"
                     			    Foreground="{StaticResource OneMSQFTWhiteBrush}"
                     			    FontSize="18"
@@ -316,7 +316,7 @@
                     			    Margin="38,0,0,0" 
 									Grid.Row="4" 
                                     HorizontalAlignment="Left"/>
-									
+
                                 <TextBlock Text="{Binding Exhibit.Location}"
                     			    Foreground="{StaticResource OneMSQFTWhiteBrush}"
                     			    FontSize="18"
@@ -361,7 +361,7 @@
                                     </StackPanel>
                                 </ScrollViewer>
                             </Grid>
-                        </Border>                        
+                        </Border>
                     </Grid>
 
                     <Grid x:Name="Panel2" 

@@ -10,14 +10,7 @@ namespace OneMSQFT.Common
         private static Strings _strings;
         public static Strings Strings
         {
-            get
-            {
-                if (_strings == null)
-                {
-                    _strings = new Strings();
-                }
-                return _strings;
-            }
+            get { return _strings ?? (_strings = new Strings()); }
         }
     }
 }
