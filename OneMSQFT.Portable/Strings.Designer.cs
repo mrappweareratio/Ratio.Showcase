@@ -186,5 +186,17 @@ namespace OneMSQFT.Common {
                 return ResourceManager.GetString("SquareFeetAtNameFormat", resourceCulture);
             }
         }
+
+
+        /// <summary>
+        ///   Looks up a localized string similar to guest curated by.
+        /// </summary>
+        public static string GuestCurated
+        {
+            get
+            {
+                return ResourceManager.GetString("GuestCurated", resourceCulture);
+            }
+        }
     }
 }
