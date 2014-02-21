@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Windows.UI.Xaml;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
@@ -17,6 +18,9 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         DelegateCommand<MediaContentSourceItemViewModel> LaunchVideoCommand { get; }
         DelegateCommand<String> NextExhibitCommand { get; }
         DelegateCommand SetStartupCommand { get; }
-        DelegateCommand ClearStartupCommand { get; }     
+        DelegateCommand ClearStartupCommand { get; }
+        Visibility ClearStartupVisibility { get; set; }
+        Visibility SetStartupVisibility { get; set; }
+
     }
 }

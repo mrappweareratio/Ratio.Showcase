@@ -97,7 +97,9 @@ namespace OneMSQFT.Windows.Views
 
         public void HomeButtonClickCommandHandler()
         {
-            Frame.Navigate(typeof(TimelinePage));
+            var app = AppLocator.Current;
+            if (app != null)
+                app.GoHome();
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
         }

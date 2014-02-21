@@ -30,6 +30,8 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
         void EventHeroItemClickCommandHandler(EventItemViewModel item);
         DelegateCommand SetStartupCommand { get; }
-        DelegateCommand ClearStartupCommand { get; }        
+        DelegateCommand ClearStartupCommand { get; }
+        Visibility ClearStartupVisibility { get; set; }
+        Visibility SetStartupVisibility { get; set; }
     }
 }

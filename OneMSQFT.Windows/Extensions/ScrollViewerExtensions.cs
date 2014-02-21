@@ -544,7 +544,7 @@ namespace OneMSQFT.Windows.Extensions
         #endregion
 
         #region ScrollToHorizontalOffsetWithAnimation()
-        internal async Task ScrollToHorizontalOffsetWithAnimation(
+        internal Task ScrollToHorizontalOffsetWithAnimation(
             double offset,
             TimeSpan duration,
             EasingFunctionBase easingFunction)
@@ -560,11 +560,12 @@ namespace OneMSQFT.Windows.Extensions
             Storyboard.SetTarget(sb, _sliderHorizontal);
             Storyboard.SetTargetProperty(da, "Value");
             sb.Begin();
+            return Task.FromResult<object>(null);
         }
         #endregion
 
         #region ScrollToVerticalOffsetWithAnimation()
-        internal async Task ScrollToVerticalOffsetWithAnimation(
+        internal Task ScrollToVerticalOffsetWithAnimation(
             double offset,
             TimeSpan duration,
             EasingFunctionBase easingFunction)
@@ -580,11 +581,12 @@ namespace OneMSQFT.Windows.Extensions
             Storyboard.SetTarget(sb, _sliderVertical);
             Storyboard.SetTargetProperty(da, "Value");
             sb.Begin();
+            return Task.FromResult<object>(null);
         }
         #endregion
 
         #region ZoomToFactorWithAnimation()
-        internal async Task ZoomToFactorWithAnimation(
+        internal Task ZoomToFactorWithAnimation(
             double factor,
             TimeSpan duration,
             EasingFunctionBase easingFunction)
@@ -600,6 +602,7 @@ namespace OneMSQFT.Windows.Extensions
             Storyboard.SetTarget(sb, _sliderZoom);
             Storyboard.SetTargetProperty(da, "Value");
             sb.Begin();
+            return Task.FromResult<object>(null);
         }
  
         #endregion

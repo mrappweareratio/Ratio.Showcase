@@ -40,6 +40,8 @@ namespace OneMSQFT.UILogic.ViewModels
             this.ExhibitItemClickCommand = new DelegateCommand<String>(ExhibitItemClickCommandHandler);
             this.SetStartupCommand = new DelegateCommand(SetStartupCommandExecuteMethod, SetStartupCommandCanExecuteMethod);
             this.ClearStartupCommand = new DelegateCommand(ClearStartupCommandExecuteMethod, ClearStartupCommandCanExecuteMethod);
+            SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
+            ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
             this.PinToStartCommand = new DelegateCommand(PinToStartCommandExecuteMethod, PinEventToStartCommandCanExecuteMethod);
         }
 
@@ -64,12 +66,12 @@ namespace OneMSQFT.UILogic.ViewModels
             var eventsList = events as IList<Event> ?? events.ToList();
 
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
-            
+
             var timelineEvents = eventsList.Select(x => new EventItemViewModel(x)).ToList();
             timelineEvents.Insert(0, new BufferItemFakeEventItemViewModel()); // first buffer item
             timelineEvents.Add(new BufferItemFakeEventItemViewModel()); // last buffer item
             TimeLineItems = new ObservableCollection<EventItemViewModel>(timelineEvents);
-            
+
             var timelineMenuEvents = eventsList.Select(x => new EventItemViewModel(x)).ToList();
             timelineMenuEvents = ComingSoonUtils.InsertComingSoonItems(12, timelineMenuEvents);
             TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(timelineMenuEvents);
@@ -77,8 +79,8 @@ namespace OneMSQFT.UILogic.ViewModels
             foreach (var eivm in eventsList)
             {
                 _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
-            }            
-        }        
+            }
+        }
 
         public ObservableCollection<EventItemViewModel> TimeLineItems
         {
@@ -108,6 +110,9 @@ namespace OneMSQFT.UILogic.ViewModels
                 {
                     SetProperty(ref _selectedEvent, value);
                     SetStartupCommand.RaiseCanExecuteChanged();
+                    SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
+                    ClearStartupCommand.RaiseCanExecuteChanged();
+                    ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
                 }
             }
         }
@@ -115,6 +120,8 @@ namespace OneMSQFT.UILogic.ViewModels
         private int _totalSquareFeet;
         private ObservableCollection<EventItemViewModel> _timeLineItems;
         private ObservableCollection<EventItemViewModel> _timeLineMenuItems;
+        private Visibility _clearStartupVisibility;
+        private Visibility _setStartupVisibility;
 
         public String TotalSquareFeet
         {
@@ -231,32 +238,49 @@ namespace OneMSQFT.UILogic.ViewModels
             _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, itemId);
         }
 
+
+        public Visibility ClearStartupVisibility
+        {
+            get { return _clearStartupVisibility; }
+            set { SetProperty(ref _clearStartupVisibility, value); }
+        }
+
+        public Visibility SetStartupVisibility
+        {
+            get { return _setStartupVisibility; }
+            set { SetProperty(ref _setStartupVisibility, value); }
+        }
+
         public DelegateCommand SetStartupCommand { get; set; }
 
         private void SetStartupCommandExecuteMethod()
         {
             _configuration.SetStartupEvent(SelectedEvent.Id);
             SetStartupCommand.RaiseCanExecuteChanged();
+            SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
             ClearStartupCommand.RaiseCanExecuteChanged();
+            ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
         }
 
         protected bool SetStartupCommandCanExecuteMethod()
         {
-            return SelectedEvent != null && !SelectedEvent.Id.Equals(_configuration.StartupItemId);
+            return SelectedEvent != null && !(_configuration.StartupItemType == StartupItemType.Event && SelectedEvent.Id.Equals(_configuration.StartupItemId));
         }
 
         public DelegateCommand ClearStartupCommand { get; private set; }
 
         private bool ClearStartupCommandCanExecuteMethod()
         {
-            return _configuration.StartupItemType != StartupItemType.None;
+            return SelectedEvent != null && _configuration.StartupItemType == StartupItemType.Event && SelectedEvent.Id.Equals(_configuration.StartupItemId);
         }
 
         public void ClearStartupCommandExecuteMethod()
         {
             _configuration.ClearStartupItem();
             SetStartupCommand.RaiseCanExecuteChanged();
+            SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
             ClearStartupCommand.RaiseCanExecuteChanged();
+            ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public override Task<SecondaryTileImages> GetSecondaryTileImages()

@@ -41,6 +41,11 @@ namespace OneMSQFT.UILogic
                 Analytics.StartSession();
                 _events = await DataService.GetEvents();
             }
+           GoHome();
+        }
+
+        public void GoHome()
+        {
             switch (Configuration.StartupItemType)
             {
                 case StartupItemType.None:

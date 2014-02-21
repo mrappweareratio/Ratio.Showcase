@@ -159,4 +159,10 @@
   <data name="PIN" xml:space="preserve">
     <value>PIN TO START</value>
   </data>
+  <data name="ExitLink_Fallback_Uri" xml:space="preserve">
+    <value>http://www.1msqft.com</value>
+  </data>
+  <data name="RSVP_Fallback_Uri" xml:space="preserve">
+    <value>http://www.1msqft.com</value>
+  </data>
 </root>
