@@ -134,6 +134,15 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PIN TO START.
+        /// </summary>
+        public static string PIN {
+            get {
+                return ResourceManager.GetString("PIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RSVP for this event.
         /// </summary>
         public static string RSVP {
@@ -193,39 +202,6 @@ namespace OneMSQFT.Common {
         public static string SquareFeetAtNameFormat {
             get {
                 return ResourceManager.GetString("SquareFeetAtNameFormat", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to RSVP for this event.
-        /// </summary>
-        public static string RSVP
-        {
-            get
-            {
-                return ResourceManager.GetString("RSVP", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to PIN TO START.
-        /// </summary>
-        public static string PIN
-        {
-            get
-            {
-                return ResourceManager.GetString("PIN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to guest curated by.
-        /// </summary>
-        public static string GuestCurated
-        {
-            get
-            {
-                return ResourceManager.GetString("GuestCurated", resourceCulture);
             }
         }
     }
