@@ -344,7 +344,6 @@
                                 			Command="{Binding Exhibit.RsvpLinkCommand}" 
                                 			Style="{StaticResource ExitLinkButtonStyle}" 
                                 			CommandParameter="{Binding Exhibit.RsvpUrl}" 
-                                            Visibility="{Binding Exhibit.RsvpVisibility}"
                                             Content="{Binding Strings.RSVP, Source={StaticResource PortableStrings}}" 
                                             Visibility="{Binding Exhibit.RsvpVisibility}"
                                             Margin="0,0,0,20" />
