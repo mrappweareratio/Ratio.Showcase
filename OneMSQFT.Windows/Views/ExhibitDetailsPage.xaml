@@ -332,7 +332,7 @@
                                 	Grid.Row="6" Grid.RowSpan="2" Style="{StaticResource VerticalScrollViewerStyle}">
 
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding Exhibit.Description}" Margin="16,0,20,10"
+                                        <TextBlock Text="{Binding Exhibit.Description}" Margin="16,0,20,20"
                                 		Foreground="{StaticResource OneMSQFTWhiteBrush}"
                                 		FontSize="18"
                                         LineStackingStrategy="BlockLineHeight"
@@ -345,7 +345,7 @@
                                 			Style="{StaticResource ExitLinkButtonStyle}" 
                                 			CommandParameter="{Binding Exhibit.RsvpUrl}" 
                                             Content="{Binding Strings.RSVP, Source={StaticResource PortableStrings}}" 
-                                            Margin="0,0,0,10" />
+                                            Margin="0,0,0,20" />
                                         <ItemsControl ItemsSource="{Binding Exhibit.Links}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
@@ -353,7 +353,7 @@
                                 			            Command="{Binding ElementName=HyperlinkButton, Path=DataContext.Exhibit.ExitLinkCommand}" 
                                 			            Style="{StaticResource ExitLinkButtonStyle}" 
                                 			            CommandParameter="{Binding Url}" 
-                                                        Content="{Binding Title}" Margin="0,0,0,10" />
+                                                        Content="{Binding Title}" Margin="0,0,0,20" />
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
@@ -437,6 +437,8 @@
                                             <RowDefinition Height="1*"/>
                                             <RowDefinition Height="1*"/>
                                             <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="1*"/>
                                             <RowDefinition Height="3*"/>
                                         </Grid.RowDefinitions>
                                         <TextBlock Text="{Binding Strings.NextString, Source={StaticResource PortableStrings}}"
@@ -444,11 +446,11 @@
                     			           FontSize="60" 
                                            HorizontalAlignment="Left"
                                            TextTrimming="CharacterEllipsis"
-                    			           Margin="40,0,10,0" 
+                    			           Margin="50,0,10,0" 
                                            Grid.Row="1" 
                                            FontFamily="Segoe UI Light" 
                                            FontWeight="Light"/>
-                                        <TextBlock Text="{Binding NextExhibit.Name, Mode=OneWay}" 
+                                        <TextBlock Text="{Binding NextExhibit.SquareFootageString, Mode=OneWay}" 
                     			            Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
                     			            FontSize="32" 
                                             TextTrimming="CharacterEllipsis"
@@ -456,18 +458,28 @@
                     		    	        TextWrapping="NoWrap" 
                                             FontFamily="Segoe UI Light" 
                                             FontWeight="Light"
-                    		    	        Margin="40,0,10,0" 
+                    		    	        Margin="50,0,10,0" 
                                             Grid.Row="2"/>
-                                        <ScrollViewer Margin="38,0,20,0" Grid.Row="3">
-                                            <TextBlock Text="{Binding NextExhibit.Description}" Margin="0,0,10,0"
-                                		        Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                                		        FontSize="18"
-                                                LineStackingStrategy="BlockLineHeight"
-                                                LineHeight="20"
-                                		        TextWrapping="Wrap" 
-                                		        FontFamily="Segoe UI Light" 
-                                		        FontWeight="Light"/>
-                                        </ScrollViewer>
+                                        <TextBlock Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" 
+                    			            Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+                    			            FontSize="32" 
+                                            TextTrimming="CharacterEllipsis"
+                                            HorizontalAlignment="Left"
+                    		    	        TextWrapping="NoWrap" 
+                                            FontFamily="Segoe UI Light" 
+                                            FontWeight="Light"
+                    		    	        Margin="50,0,10,0" 
+                                            Grid.Row="3"/>
+                                        <TextBlock Text="{Binding NextExhibit.Curator.Name, Mode=OneWay}" 
+                    			            Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+                    			            FontSize="32" 
+                                            TextTrimming="CharacterEllipsis"
+                                            HorizontalAlignment="Left"
+                    		    	        TextWrapping="NoWrap" 
+                                            FontFamily="Segoe UI Light" 
+                                            FontWeight="Light"
+                    		    	        Margin="50,0,10,0" 
+                                            Grid.Row="4"/>
                                     </Grid>
                                 </DataTemplate>
                             </Button.ContentTemplate>
