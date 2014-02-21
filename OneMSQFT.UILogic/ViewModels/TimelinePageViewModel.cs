@@ -295,7 +295,8 @@ namespace OneMSQFT.UILogic.ViewModels
                 Id = SelectedEvent.Id,
                 ArgumentsName = String.Format("Event,{0}", SelectedEvent.Id),
                 DisplayName = SelectedEvent.Name,
-                ShortName = SelectedEvent.Name
+                ShortName = SelectedEvent.Name,
+                BackgroundColor = SelectedEvent.EventColor.ToString(),
             };
         }
     }

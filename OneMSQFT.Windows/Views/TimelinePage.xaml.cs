@@ -19,6 +19,7 @@ using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.UILogic.Interfaces;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
+using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
 using Windows.UI.Popups;
@@ -295,7 +296,6 @@ namespace OneMSQFT.Windows.Views
             }
             else
             {
-                //Uri logo = new Uri("ms-appx:///Assets/squareTile-sdk.png");
                 var images = await vm.GetSecondaryTileImages();
 
 
@@ -303,12 +303,13 @@ namespace OneMSQFT.Windows.Views
                                                                 args.ShortName,
                                                                 args.DisplayName,
                                                                 args.ArgumentsName,
-                                                                TileOptions.ShowNameOnLogo,
-                                                                images.Logo);
+                                                                TileOptions.ShowNameOnWideLogo,
+                                                                images.Logo, images.WideLogo);
 
                 secondaryTile.ForegroundText = ForegroundText.Dark;                
                 secondaryTile.SmallLogo = images.SmallLogo;
-                secondaryTile.WideLogo = images.WideLogo;                
+                secondaryTile.WideLogo = images.WideLogo;
+                secondaryTile.BackgroundColor = ColorUtils.GetColorFromARGBString(args.BackgroundColor, Colors.White);
                 
                 bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
 
