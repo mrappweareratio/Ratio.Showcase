@@ -8,6 +8,7 @@ using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.DataLayer;
 using OneMSQFT.UILogic.Tests.Mocks;
+using OneMSQFT.UILogic.Utils;
 
 namespace OneMSQFT.UILogic.Tests.DataLayer
 {
@@ -112,10 +113,38 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             //Assert.IsNotNull(e.DisplayDate, "DisplayDate");
             Assert.IsNotNull(e.Description, "Description");
             Assert.IsNotNull(e.ThumbImage, "ThumbImage");
+            Assert.IsNotNull(e.MediaContent, "MediaContent");
+            Assert.IsTrue(ValidateMediaContent(e.MediaContent));
+            Assert.IsNotNull(e.Curator, "Curator");
+            Assert.IsTrue(ValidateCurator(e.Curator));
             //Assert.IsNotNull(e.DateStart, "DateStart");
             //Assert.IsNotNull(e.DateEnd, "DateEnd");
             //Assert.IsNotNull(e.CreatedAt, "CreatedAt");
             //Assert.IsNotNull(e.UpdatedAt, "UpdatedAt"); 
+
+            return true;
+        }
+
+        public static bool ValidateMediaContent(IEnumerable<MediaContentSource> mediaContent)
+        {
+            foreach (var media in mediaContent)
+            {
+                Assert.IsNotNull(media.Img);
+                Assert.IsNotNull(media.ContentSourceType);
+                if (media.ContentSourceType == ContentSourceType.Video)
+                {
+                    Assert.IsTrue(MediaContentSourceUtils.HasVideoUrl(media));
+                }
+            }
+
+            return true;
+        }
+
+        public static bool ValidateCurator(ICurator curator)
+        {
+            Assert.IsNotNull(curator.Name);
+            Assert.IsNotNull(curator.WhiteLogoImage);
+            Assert.IsNotNull(curator.Id);
 
             return true;
         }
@@ -139,7 +168,6 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             //Assert.IsNotNull(e.Lattitude, "Lattitude");
             //Assert.IsNotNull(e.SocialMediaTitle, "SocialMediaTitle");
             //Assert.IsNotNull(e.SocialMediaDescription, "SocialMediaDescription");
-            //Assert.IsNotNull(e.SocialMediaImagePath, "SocialMediaImagePath");                        
             Assert.IsNotNull(e.Exhibits, "Exhibits");
 
             return true;

@@ -275,7 +275,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2345,
                                 MediaContent = GetMediaCollection(2),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "5",
+                                    Name ="Lucky Peach",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/5_white.png"
+                                }
                             },
                             new Exhibit()
                             {
@@ -287,7 +293,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2345,
                                 MediaContent = GetMediaCollection(2),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "5",
+                                    Name ="Lucky Peach",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/5_white.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -299,7 +311,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1279,
                                 MediaContent = GetMediaCollection(3),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="La Blogotheque",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2_white.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -311,11 +329,17 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(3),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="La Blogotheque",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2_white.png"
+                                }
                             }
                         }
                     },
-                     new Event
+                    new Event
                     {
                         Id = Convert.ToString(eventId++),
                         Name = "Dallas",
@@ -337,7 +361,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2345,
                                 MediaContent = GetMediaCollection(2),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="La Blogotheque",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2_white.png"
+                                }
                             },
                             new Exhibit()
                             {
@@ -349,7 +379,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2345,
                                 MediaContent = GetMediaCollection(2),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "6",
+                                    Name ="IFP",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/6_white.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -361,7 +397,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1279,
                                 MediaContent = GetMediaCollection(3),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "6",
+                                    Name ="IFP",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/6_white.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -373,7 +415,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(1),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="Lucky Peach",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/5_white.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -385,7 +433,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(3),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="Lucky Peach",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/5_white.png"
+                                }
                             }
                         }
                     },
@@ -405,13 +459,19 @@ namespace OneMSQFT.UILogic.DataLayer
                             {
                                Id = Convert.ToString(exhibitId++),
                                 Name = "Portland Exhibit Zero",
-                                  DisplayDate = "MMM D-D",
+                                DisplayDate = "MMM D-D",
                                 Color = "6357E4",
                                 Exhibitor = "Exhibitor",
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2345,
                                 MediaContent = GetMediaCollection(2),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "6",
+                                    Name ="IFP",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/6_white.png"
+                                }
                             },
                             new Exhibit()
                             {
@@ -423,7 +483,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2345,
                                 MediaContent = GetMediaCollection(2),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "6",
+                                    Name ="IFP",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/6_white.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -435,7 +501,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1279,
                                 MediaContent = GetMediaCollection(3),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "6",
+                                    Name ="IFP",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/6_white.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -447,7 +519,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(1),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="La Blogotheque",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2_white.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -459,7 +537,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(3),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="La Blogotheque",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2_white.png"
+                                }
                             }
                         }
                     },
@@ -485,7 +569,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 215,
                                 MediaContent = GetMediaCollection(2),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="La Blogotheque",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2_white.png"
+                                }
                             },
                             new Exhibit()
                             {
@@ -497,7 +587,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 2945,
                                 MediaContent = GetMediaCollection(2),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="La Blogotheque",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2_white.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -509,7 +605,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 1279,
                                 MediaContent = GetMediaCollection(3),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="La Blogotheque",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2_white.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -521,7 +623,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(1),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="La Blogotheque",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2_white.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -533,7 +641,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(3),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="La Blogotheque",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2_white.png"
+                                }
                             },
                              new Exhibit()
                             {
@@ -545,7 +659,13 @@ namespace OneMSQFT.UILogic.DataLayer
                                 Description = DemoExhibitDescription,
                                 SquareFootage = 4578,
                                 MediaContent = GetMediaCollection(3),
-                                ThumbImage = GetRandomThumbnailImage()
+                                ThumbImage = GetRandomThumbnailImage(),
+                                Curator = new Curator()
+                                {
+                                    Id = "2",
+                                    Name ="La Blogotheque",
+                                    WhiteLogoImage = "http://1msqft-stage.azurewebsites.net/images/curators/2_white.png"
+                                }
                             }
                         }
                     }
