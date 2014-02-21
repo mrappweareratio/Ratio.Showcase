@@ -3,6 +3,7 @@ using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Media;
 using Microsoft.Practices.Prism.StoreApps;
+using Microsoft.VisualBasic;
 using OneMSQFT.Common.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using OneMSQFT.UILogic.Utils;
+using Strings = OneMSQFT.Common.Strings;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
@@ -65,7 +67,11 @@ namespace OneMSQFT.UILogic.ViewModels
             Id = exhibitModel.Id;
             Description = exhibitModel.Description;
             SquareFootage = exhibitModel.SquareFootage;
-            HeroPhotoFilePath = new Uri(exhibitModel.ThumbImage, UriKind.RelativeOrAbsolute);
+            Uri heroPhotoFilePath;
+            if(Uri.TryCreate(exhibitModel.ThumbImage, UriKind.RelativeOrAbsolute, out heroPhotoFilePath))
+            {
+                HeroPhotoFilePath = heroPhotoFilePath;
+            }            
             LoadMediaContent(exhibitModel.MediaContent);
             LoadLinks(exhibitModel.Links);
             ExhibitColor = ColorUtils.GetExhibitColor(exhibitModel);
