@@ -31,7 +31,7 @@ namespace OneMSQFT.UILogic.Utils
             if (args[0].Equals("Event"))
                 return new PinningContext(StartupItemType.Event, args[1]);
             if (args[0].Equals("Exhibit"))
-                return new PinningContext(StartupItemType.Event, args[1]);
+                return new PinningContext(StartupItemType.Exhibit, args[1]);
             return new PinningContext();
         }
     }

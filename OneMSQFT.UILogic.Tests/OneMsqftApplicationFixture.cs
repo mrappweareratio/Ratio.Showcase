@@ -416,16 +416,88 @@ namespace OneMSQFT.UILogic.Tests
                 })
             };
             var configuration = new ConfigurationService();
-            var analytics = new MockAnalyticsService();         
+            var analytics = new MockAnalyticsService();
             var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
             var args = new MockLaunchActivatedEventArgs()
             {
                 Arguments = PinningUtils.GetSecondaryTileIdByEventId("0")
             };
             app.OnInitialize(args);
-            await app.OnLaunchApplication(args);            
+            await app.OnLaunchApplication(args);
             Assert.AreEqual(page, ViewLocator.Pages.Timeline, "Timeline");
-            Assert.AreEqual(pageParam, "0", "Event Id");            
+            Assert.AreEqual(pageParam, "0", "Event Id");
+        }
+
+        [TestMethod]
+        public async Task DeepLink_Pin_Exhibit()
+        {
+            string page = null;
+            object pageParam = null;
+            var navigationService = new MockNavigationService()
+            {
+                NavigateDelegate = (a, b) =>
+                {
+                    page = a;
+                    pageParam = b;
+                    return true;
+                }
+            };
+            var evt = MockModelGenerator.NewEvent("0", "Event");
+            evt.Exhibits = new List<Exhibit> { MockModelGenerator.NewExhibit("1", "Exhibit") };
+            var data = new MockDataService()
+            {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>()
+                {
+                    evt
+                })
+            };
+            var configuration = new ConfigurationService();
+            var analytics = new MockAnalyticsService();
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var args = new MockLaunchActivatedEventArgs()
+            {
+                Arguments = PinningUtils.GetSecondaryTileIdByExhibitId("1")
+            };
+            app.OnInitialize(args);
+            await app.OnLaunchApplication(args);
+            Assert.AreEqual(page, ViewLocator.Pages.ExhibitDetails, "Exhibit Page");
+            Assert.AreEqual(pageParam, "1", "Exhibit Id");
+        }
+
+        [TestMethod]
+        public async Task DeepLink_Pin_Bad_Exhibit()
+        {
+            string page = null;
+            object pageParam = null;
+            var navigationService = new MockNavigationService()
+            {
+                NavigateDelegate = (a, b) =>
+                {
+                    page = a;
+                    pageParam = b;
+                    return true;
+                }
+            };
+            var evt = MockModelGenerator.NewEvent("0", "Event");
+            evt.Exhibits = new List<Exhibit> { MockModelGenerator.NewExhibit("1", "Exhibit") };
+            var data = new MockDataService()
+            {
+                GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>()
+                {
+                    evt
+                })
+            };
+            var configuration = new ConfigurationService();
+            var analytics = new MockAnalyticsService();
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var args = new MockLaunchActivatedEventArgs()
+            {
+                Arguments = PinningUtils.GetSecondaryTileIdByExhibitId("2")
+            };
+            app.OnInitialize(args);
+            await app.OnLaunchApplication(args);
+            Assert.AreEqual(page, ViewLocator.Pages.Timeline, "Timeline Page");
+            Assert.IsNull(pageParam);
         }
 
         [TestMethod]

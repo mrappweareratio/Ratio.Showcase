@@ -52,7 +52,7 @@ namespace OneMSQFT.UILogic
                         break;
                     case StartupItemType.Event:
                         if (_events == null || !_events.Any(x => x.Id.Equals(pinningContext.StartupItemId)))
-                        {                           
+                        {
                             NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
                         }
                         else
@@ -61,6 +61,14 @@ namespace OneMSQFT.UILogic
                         }
                         return;
                     case StartupItemType.Exhibit:
+                        if (_events == null || !_events.SelectMany(x => x.Exhibits).Any(x => x.Id.Equals(pinningContext.StartupItemId)))
+                        {
+                            NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
+                        }
+                        else
+                        {
+                            NavigationService.Navigate(ViewLocator.Pages.ExhibitDetails, pinningContext.StartupItemId);
+                        }
                         return;
                 }
             }
