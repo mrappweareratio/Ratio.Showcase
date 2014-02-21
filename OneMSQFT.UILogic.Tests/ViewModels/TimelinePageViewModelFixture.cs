@@ -17,6 +17,7 @@ using OneMSQFT.UILogic.DataLayer;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.Tests.Mocks;
+using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
 
 namespace OneMSQFT.UILogic.Tests.ViewModels
@@ -156,20 +157,20 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
 
             var timeLine = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService(),
                 new MockNavigationService(), configuration);
-            
+
             timeLine.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("0", "Event"));
             Assert.IsTrue(timeLine.SetStartupCommand.CanExecute(), "SetStartupCommand IsTrue");
             Assert.IsFalse(timeLine.ClearStartupCommand.CanExecute(), "ClearStartupCommand IsFalse");
             Assert.AreEqual(timeLine.SetStartupVisibility, Visibility.Visible, "SetStartupVisibility");
             Assert.AreEqual(timeLine.ClearStartupVisibility, Visibility.Collapsed, "ClearStartupVisibility");
-            
+
             //set event, can clear afterwards
             await timeLine.SetStartupCommand.Execute();
             Assert.IsTrue(timeLine.ClearStartupCommand.CanExecute(), "ClearStartupCommand IsTrue");
             Assert.IsFalse(timeLine.SetStartupCommand.CanExecute(), "SetStartupCommand IsFalse");
             Assert.AreEqual(timeLine.ClearStartupVisibility, Visibility.Visible, "ClearStartupVisibility");
             Assert.AreEqual(timeLine.SetStartupVisibility, Visibility.Collapsed, "SetStartupVisibility");
-            
+
             //select new event, back to being able to set
             timeLine.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("1", "Event"));
             Assert.IsTrue(timeLine.SetStartupCommand.CanExecute(), "SetStartupCommand IsTrue");
@@ -233,8 +234,8 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             vm.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("0", "Name"));
             Assert.IsTrue(changed, "PinContextChanged");
             var secondaryTileArgs = vm.GetSecondaryTileArguments();
-            Assert.AreEqual(secondaryTileArgs.Id, "Event,0");
-            Assert.AreEqual(secondaryTileArgs.ArgumentsName, "Event,0");
+            Assert.AreEqual(secondaryTileArgs.Id, PinningUtils.GetSecondaryTileIdByEventId("0"));
+            Assert.AreEqual(secondaryTileArgs.ArgumentsName, PinningUtils.GetSecondaryTileIdByEventId("0"));
             //todo insert tests against color
         }
         #endregion

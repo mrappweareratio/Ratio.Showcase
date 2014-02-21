@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Popups;
+using Windows.UI.StartScreen;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
@@ -36,7 +37,7 @@ namespace OneMSQFT.UILogic
         }
 
         async public Task OnLaunchApplication(ILaunchActivatedEventArgs args)
-        {            
+        {
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                 Analytics.StartSession();
@@ -50,13 +51,20 @@ namespace OneMSQFT.UILogic
                     case StartupItemType.None:
                         break;
                     case StartupItemType.Event:
-                        NavigationService.Navigate(ViewLocator.Pages.Timeline, pinningContext.StartupItemId);
+                        if (_events == null || !_events.Any(x => x.Id.Equals(pinningContext.StartupItemId)))
+                        {                           
+                            NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
+                        }
+                        else
+                        {
+                            NavigationService.Navigate(ViewLocator.Pages.Timeline, pinningContext.StartupItemId);
+                        }
                         return;
-                    case StartupItemType.Exhibit:                        
+                    case StartupItemType.Exhibit:
                         return;
                 }
             }
-           GoHome();
+            GoHome();
         }
 
         public void GoHome()
