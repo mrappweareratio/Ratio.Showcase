@@ -691,12 +691,14 @@ namespace OneMSQFT.UILogic.DataLayer
                 {
                     ContentSourceType = ContentSourceType.Video,
                     VideoUrlHd = VideoUrl,
-                    Img = Images[img]
+                    Img = Images[img],
+                    SortOrder = 1
                 };
                 var mcsI = new MediaContentSource()
                 {
                     ContentSourceType = ContentSourceType.Image,
-                    Img = Images[img]
+                    Img = Images[img],
+                    SortOrder = 2
                 };
                 mc.Add(mcsV);
                 mc.Add(mcsI);
