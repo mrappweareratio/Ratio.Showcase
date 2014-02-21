@@ -150,4 +150,7 @@
   <data name="SquareFeet" xml:space="preserve">
     <value>square feet at</value>
   </data>
+  <data name="RSVP" xml:space="preserve">
+    <value>RSVP for this event</value>
+  </data>
 </root>

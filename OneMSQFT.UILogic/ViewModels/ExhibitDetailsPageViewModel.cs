@@ -156,25 +156,9 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        public double ExhibitItemWidth
-        {
-            get
-            {
-                return Window.Current.Bounds.Width * .9;
-            }
-        }
-
-        public double ExhibitItemHeight
-        {
-            get
-            {
-                return FullScreenHeight;
-            }
-        }
-
         public double OneThirdPanelWidth
         {
-            get { return ExhibitItemWidth / 3; }
+            get { return FullScreenWidth / 3.25; } // approx one third (per comp)
         }
 
         public Visibility ClearStartupVisibility
