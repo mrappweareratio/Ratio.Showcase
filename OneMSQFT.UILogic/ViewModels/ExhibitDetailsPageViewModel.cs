@@ -152,7 +152,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public double OneThirdPanelWidth
         {
-            get { return FullScreenWidth / 3.25; } // approx one third (per comp)
+            get { return FullScreenWidth * .325; } // approx one third (per comp)
         }
 
         public override void WindowSizeChanged(double width, double height)
