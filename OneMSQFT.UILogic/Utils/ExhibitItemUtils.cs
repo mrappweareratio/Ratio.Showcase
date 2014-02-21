@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Devices.Geolocation;
+using OneMSQFT.Common;
 
 namespace OneMSQFT.UILogic.Utils
 {
@@ -18,6 +20,16 @@ namespace OneMSQFT.UILogic.Utils
         {
             var today = DateTime.Today;
             return today <= expireDate;
+        }
+
+        public static Uri GetRsvpFallbackUri()
+        {
+            return new Uri(Strings.RSVP_Fallback_Uri);
+        }
+
+        public static Uri GetExitLinkFallbackUri()
+        {
+            return new Uri(Strings.RSVP_Fallback_Uri);
         }
     }
 }

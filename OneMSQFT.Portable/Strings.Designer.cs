@@ -71,11 +71,29 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coming Soon.
+        /// </summary>
+        public static string ComingSoon {
+            get {
+                return ResourceManager.GetString("ComingSoon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Config.
         /// </summary>
         public static string Config {
             get {
                 return ResourceManager.GetString("Config", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.1msqft.com.
+        /// </summary>
+        public static string ExitLink_Fallback_Uri {
+            get {
+                return ResourceManager.GetString("ExitLink_Fallback_Uri", resourceCulture);
             }
         }
         
@@ -107,6 +125,24 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RSVP for this event.
+        /// </summary>
+        public static string RSVP {
+            get {
+                return ResourceManager.GetString("RSVP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.1msqft.com.
+        /// </summary>
+        public static string RSVP_Fallback_Uri {
+            get {
+                return ResourceManager.GetString("RSVP_Fallback_Uri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to show.
         /// </summary>
         public static string show {
@@ -134,44 +170,20 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to square feet at.
+        /// </summary>
+        public static string SquareFeet {
+            get {
+                return ResourceManager.GetString("SquareFeet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} square feet at {1}.
         /// </summary>
         public static string SquareFeetAtNameFormat {
             get {
                 return ResourceManager.GetString("SquareFeetAtNameFormat", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to square feet at.
-        /// </summary>
-        public static string SquareFeet
-        {
-            get
-            {
-                return ResourceManager.GetString("SquareFeet", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Coming Soon.
-        /// </summary>
-        public static string ComingSoon
-        {
-            get
-            {
-                return ResourceManager.GetString("ComingSoon", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to RSVP for this event.
-        /// </summary>
-        public static string RSVP
-        {
-            get
-            {
-                return ResourceManager.GetString("RSVP", resourceCulture);
             }
         }
     }
