@@ -296,7 +296,6 @@ namespace OneMSQFT.Windows.Views
             }
             else
             {
-                //Uri logo = new Uri("ms-appx:///Assets/squareTile-sdk.png");
                 var images = await vm.GetSecondaryTileImages();
 
 
@@ -304,13 +303,14 @@ namespace OneMSQFT.Windows.Views
                                                                 args.ShortName,
                                                                 args.DisplayName,
                                                                 args.ArgumentsName,
-                                                                TileOptions.ShowNameOnLogo,
-                                                                images.Logo);
+                                                                TileOptions.ShowNameOnWideLogo,
+                                                                images.Logo, images.WideLogo);
 
                 secondaryTile.ForegroundText = ForegroundText.Dark;                
                 secondaryTile.SmallLogo = images.SmallLogo;
                 secondaryTile.WideLogo = images.WideLogo;
-
+                secondaryTile.BackgroundColor = ColorUtils.GetColorFromARGBString(args.BackgroundColor, Colors.White);
+                
                 bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
 
                 ToggleAppBarButton(!isPinned);

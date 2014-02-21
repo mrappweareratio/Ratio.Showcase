@@ -297,7 +297,8 @@ namespace OneMSQFT.UILogic.ViewModels
                 Id = PinningUtils.GetSecondaryTileIdByEventId(SelectedEvent.Id),
                 ArgumentsName = PinningUtils.GetSecondaryTileIdByEventId(SelectedEvent.Id),
                 DisplayName = SelectedEvent.Name,
-                ShortName = SelectedEvent.Name
+                ShortName = SelectedEvent.Name,
+                BackgroundColor = SelectedEvent.EventColor.ToString(),
             };
         }
     }

@@ -9,7 +9,6 @@
         /// Deep Link
         /// </summary>
         public string ArgumentsName { get; set; }
-
         public string BackgroundColor { get; set; }
     }
 }
