@@ -29,12 +29,12 @@ namespace OneMSQFT.Windows.Controls
         {
             var luc = d as LogoUserControl;
             if (luc == null) return;
-            luc.Path0.Fill = new SolidColorBrush(ColorUtils.GetColor(e.NewValue.ToString(), Colors.White));
-            luc.Path1.Fill = new SolidColorBrush(ColorUtils.GetColor(e.NewValue.ToString(), Colors.White));
-            luc.Path2.Fill = new SolidColorBrush(ColorUtils.GetColor(e.NewValue.ToString(), Colors.White));
-            luc.Path3.Fill = new SolidColorBrush(ColorUtils.GetColor(e.NewValue.ToString(), Colors.White));
-            luc.Path4.Fill = new SolidColorBrush(ColorUtils.GetColor(e.NewValue.ToString(), Colors.White));
-            luc.Path5.Fill = new SolidColorBrush(ColorUtils.GetColor(e.NewValue.ToString(), Colors.White));
+            luc.Path0.Fill = new SolidColorBrush(ColorUtils.GetColorFromHexString(e.NewValue.ToString(), Colors.White));
+            luc.Path1.Fill = new SolidColorBrush(ColorUtils.GetColorFromHexString(e.NewValue.ToString(), Colors.White));
+            luc.Path2.Fill = new SolidColorBrush(ColorUtils.GetColorFromHexString(e.NewValue.ToString(), Colors.White));
+            luc.Path3.Fill = new SolidColorBrush(ColorUtils.GetColorFromHexString(e.NewValue.ToString(), Colors.White));
+            luc.Path4.Fill = new SolidColorBrush(ColorUtils.GetColorFromHexString(e.NewValue.ToString(), Colors.White));
+            luc.Path5.Fill = new SolidColorBrush(ColorUtils.GetColorFromHexString(e.NewValue.ToString(), Colors.White));
         }
 
         

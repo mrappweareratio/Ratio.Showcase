@@ -14,16 +14,16 @@ namespace OneMSQFT.UILogic.Utils
         public static Color GetEventColor(IEvent<IExhibit<ICurator>> e)
         {
             var defaultColor = Colors.Blue;
-            return GetColor(e.Color, defaultColor);
+            return GetColorFromHexString(e.Color, defaultColor);
         }
 
         public static Color GetExhibitColor(IExhibit<ICurator> e)
         {
             var defaultColor = Colors.Orange;
-            return GetColor(e.Color, defaultColor);
+            return GetColorFromHexString(e.Color, defaultColor);
         }        
 
-        public static Color GetColor(string colorHex, Color defaultColor)
+        public static Color GetColorFromHexString(string colorHex, Color defaultColor)
         {
             if (String.IsNullOrEmpty(colorHex) || colorHex.Length != 6)
             {
@@ -36,6 +36,20 @@ namespace OneMSQFT.UILogic.Utils
             Convert.ToByte(color.Substring(4, 2), 16),
             Convert.ToByte(color.Substring(6, 2), 16));
             return c;
-        }        
+        }
+
+        public static Color GetColorFromARGBString(string colorARGB, Color defaultColor)
+        {
+            if (String.IsNullOrEmpty(colorARGB) || colorARGB.Length != 9)
+            {
+                return defaultColor;
+            }
+            var c = Color.FromArgb(
+            Convert.ToByte(colorARGB.Substring(1, 2), 16),
+            Convert.ToByte(colorARGB.Substring(3, 2), 16),
+            Convert.ToByte(colorARGB.Substring(5, 2), 16),
+            Convert.ToByte(colorARGB.Substring(7, 2), 16));
+            return c;
+        }     
     }
 }
