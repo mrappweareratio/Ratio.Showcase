@@ -287,6 +287,6 @@ namespace OneMSQFT.Windows.DesignViewModels
             OnPropertyChanged("ExhibitItemWidth");
         }
 
-        #endregion
+        #endregion       
     }
 }

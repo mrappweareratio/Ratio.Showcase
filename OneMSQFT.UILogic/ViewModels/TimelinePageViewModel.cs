@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Media;
+using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
@@ -38,6 +40,17 @@ namespace OneMSQFT.UILogic.ViewModels
             this.ExhibitItemClickCommand = new DelegateCommand<String>(ExhibitItemClickCommandHandler);
             this.SetStartupCommand = new DelegateCommand(SetStartupCommandExecuteMethod, SetStartupCommandCanExecuteMethod);
             this.ClearStartupCommand = new DelegateCommand(ClearStartupCommandExecuteMethod, ClearStartupCommandCanExecuteMethod);
+            this.PinToStartCommand = new DelegateCommand(PinToStartCommandExecuteMethod, PinEventToStartCommandCanExecuteMethod);
+        }
+
+        private bool PinEventToStartCommandCanExecuteMethod()
+        {
+            return SelectedEvent != null;
+        }
+
+        private void PinToStartCommandExecuteMethod()
+        {
+            
         }
 
         public override async void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
@@ -244,6 +257,22 @@ namespace OneMSQFT.UILogic.ViewModels
             _configuration.ClearStartupItem();
             SetStartupCommand.RaiseCanExecuteChanged();
             ClearStartupCommand.RaiseCanExecuteChanged();
+        }
+
+        public override Task<SecondaryTileImages> GetSecondaryTileImages()
+        {
+            return Task.FromResult<SecondaryTileImages>(new SecondaryTileImages());
+        }
+
+        public override SecondaryTileArgs GetSecondaryTileArguments()
+        {
+            return new SecondaryTileArgs()
+            {
+                Id = SelectedEvent.Id,
+                ArgumentsName = String.Format("Event,{0}", SelectedEvent.Id),
+                DisplayName = SelectedEvent.Name,
+                ShortName = SelectedEvent.Name
+            };
         }
     }
 }

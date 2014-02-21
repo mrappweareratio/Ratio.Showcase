@@ -175,7 +175,17 @@ namespace OneMSQFT.Common {
             }
         }
 
-
+        /// <summary>
+        ///   Looks up a localized string similar to PIN TO START.
+        /// </summary>
+        public static string PIN
+        {
+            get
+            {
+                return ResourceManager.GetString("PIN", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to guest curated by.
         /// </summary>

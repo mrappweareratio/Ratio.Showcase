@@ -77,5 +77,10 @@ namespace OneMSQFT.Windows.Views
         {
             ExhibitDetailsPanels.Opacity = 1;
         }
+
+        private void Pin_OnClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

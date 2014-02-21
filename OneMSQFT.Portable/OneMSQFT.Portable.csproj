@@ -71,6 +71,8 @@
   <ItemGroup>
     <Compile Include="DataLayer\IApiConfiguration.cs" />
     <Compile Include="Models\Link.cs" />
+    <Compile Include="Models\SecondaryTileArgs.cs" />
+    <Compile Include="Models\SecondaryTileImages.cs" />
     <Compile Include="Models\SiteData.cs" />
     <Compile Include="Models\StartupItemType.cs" />
     <Compile Include="Models\Theme.cs" />

@@ -156,4 +156,7 @@
   <data name="RSVP" xml:space="preserve">
     <value>RSVP for this event</value>
   </data>
+  <data name="PIN" xml:space="preserve">
+    <value>PIN TO START</value>
+  </data>
 </root>

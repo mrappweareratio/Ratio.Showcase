@@ -198,6 +198,6 @@ namespace OneMSQFT.Windows.DesignViewModels
         }
 
         public DelegateCommand SetStartupCommand { get; private set; }
-        public DelegateCommand ClearStartupCommand { get; private set; }
+        public DelegateCommand ClearStartupCommand { get; private set; }     
     }
 }

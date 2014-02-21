@@ -7,6 +7,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.ApplicationSettings;
+using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,13 +15,13 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.UILogic.Interfaces;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
-using OneMSQFT.Windows.DesignViewModels;
-using OneMSQFT.Windows.Extensions;
+using Windows.UI.Popups;
 
 namespace OneMSQFT.Windows.Views
 {
@@ -42,14 +43,23 @@ namespace OneMSQFT.Windows.Views
             vm.FullScreenWidth = Window.Current.Bounds.Width;
             vm.PropertyChanged += TimelinePage_PropertyChanged;
             scrollerTimer = new DispatcherTimer();
-            scrollerTimer.Interval = new TimeSpan(0, 0, 0, 1);
+            scrollerTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             scrollerTimer.Tick += scrollerTimer_Tick;
+            vm.PinContextChanged += VmOnPinContextChanged;
 
             var app = AppLocator.Current;
             if (app != null)
             {
                 StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;                
             }
+        }
+
+        private void VmOnPinContextChanged(object sender, EventArgs eventArgs)
+        {
+            var args = GetDataContextAsViewModel<IBasePageViewModel>().GetSecondaryTileArguments();
+            if (args == null)
+                return;
+            ToggleAppBarButton(SecondaryTile.Exists(args.Id));
         }
 
         void scrollerTimer_Tick(object sender, object e)
@@ -194,7 +204,7 @@ namespace OneMSQFT.Windows.Views
             if (String.IsNullOrEmpty(eventId))
             {
                 // SCROLL HOME
-                await _timelineGridViewScrollViewer.ScrollToHorizontalOffsetWithAnimation(0);
+                _timelineGridViewScrollViewer.ChangeView(0, 0, 1);
             }
 
             var e = vm.SquareFootEvents.FirstOrDefault(x => x.Id == eventId);
@@ -205,7 +215,7 @@ namespace OneMSQFT.Windows.Views
 
             AppBarIsAutoScrolling = true;
             ShowTimelineMasks(false);
-            await _timelineGridViewScrollViewer.ScrollToHorizontalOffsetWithAnimation((itemIndex * vm.EventItemWidth) - vm.MaskItemWidth - vm.BufferItemWidth, new TimeSpan(0, 0, 0, 1));
+           _timelineGridViewScrollViewer.ChangeView(((itemIndex*vm.EventItemWidth) - vm.MaskItemWidth - vm.BufferItemWidth), 0, 1);
             scrollerTimer.Start();
         }
 
@@ -268,5 +278,59 @@ namespace OneMSQFT.Windows.Views
         {
             SettingsPane.Show();
         }
+
+        async private void Pin_OnClick(object sender, RoutedEventArgs e)
+        {            
+            this.BottomAppBar.IsSticky = true;
+
+            var vm = GetDataContextAsViewModel<IBasePageViewModel>();
+            var args = vm.GetSecondaryTileArguments();
+
+            if (SecondaryTile.Exists(args.Id))
+            {
+                SecondaryTile secondaryTile = new SecondaryTile(args.Id);
+                bool isUnpinned = await secondaryTile.RequestDeleteForSelectionAsync(GetElementRect((FrameworkElement)sender));
+
+                ToggleAppBarButton(isUnpinned);
+            }
+            else
+            {
+                //Uri logo = new Uri("ms-appx:///Assets/squareTile-sdk.png");
+                var images = await vm.GetSecondaryTileImages();
+
+
+                SecondaryTile secondaryTile = new SecondaryTile(args.Id,
+                                                                args.ShortName,
+                                                                args.DisplayName,
+                                                                args.ArgumentsName,
+                                                                TileOptions.ShowNameOnLogo,
+                                                                images.Logo);
+
+                secondaryTile.ForegroundText = ForegroundText.Dark;                
+                secondaryTile.SmallLogo = images.SmallLogo;
+                secondaryTile.WideLogo = images.WideLogo;                
+                
+                bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
+
+                ToggleAppBarButton(!isPinned);
+            }
+            this.BottomAppBar.IsSticky = false;
+
+        }        
+
+        public static Rect GetElementRect(FrameworkElement element)
+        {
+            GeneralTransform buttonTransform = element.TransformToVisual(null);
+            Point point = buttonTransform.TransformPoint(new Point());
+            return new Rect(point, new Size(element.ActualWidth, element.ActualHeight));
+        }
+
+        private void ToggleAppBarButton(bool showPinButton)
+        {
+            if (this.PinButton != null)
+            {
+                PinButton.Style = (showPinButton) ? ((Style)App.Current.Resources["OMSQFTTraditionalPinAppBarButtonStyle"]) : ((Style)App.Current.Resources["OMSQFTTraditionalUnPinAppBarButtonStyle"]);
+            }
+        }        
     }
 }

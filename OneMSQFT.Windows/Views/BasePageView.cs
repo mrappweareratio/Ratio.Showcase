@@ -162,5 +162,7 @@ namespace OneMSQFT.Windows.Views
         {
             return (T)DataContext;
         }
+
+
     }
 }
