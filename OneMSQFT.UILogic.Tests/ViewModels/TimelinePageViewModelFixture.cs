@@ -178,7 +178,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
 
 
         [TestMethod]
-        public void SquareFootEventsSorted()
+        public void Api_SquareFootEventsSorted()
         {
             var autoREsetEvents = new AutoResetEvent(false);
             var timeLine = new TimelinePageViewModel(new DataService(new ApiDataRepository(new ApiConfiguration()), new DataCacheService(), new InternetConnectionService()), new MockAlertMessageService(),
@@ -188,7 +188,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                 timeLine.OnNavigatedTo(null, NavigationMode.New, null);
                 Assert.IsTrue(timeLine.SetStartupCommand.CanExecute(), "CanExecute True");
             });
-            autoREsetEvents.WaitOne(2000);
+            autoREsetEvents.WaitOne(3000);
             Assert.IsNotNull(timeLine.SquareFootEvents);
             Assert.IsTrue(timeLine.SquareFootEvents.Any(), "SquareFootEvents Any");
             var sortedEvents = timeLine.SquareFootEvents.OrderByDescending(x => x.DateStart).ToList();
