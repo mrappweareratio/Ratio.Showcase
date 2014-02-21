@@ -41,7 +41,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             Assert.IsNotNull(vm.TimeLineItems, "TimeLineItems");
             Assert.IsNotNull(vm.TimeLineMenuItems, "TimeLineMenuItems");
             Assert.IsNotNull(vm.EventHeroItemClickCommand, "EventHeroItemClickCommand");
-        }       
+        }
 
         [TestMethod]
         public void TimelinePageViewModel_NavigatededTo_Calls_DataService()
@@ -122,7 +122,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                     called = true;
                     passedEventId = s;
                 }
-            });            
+            });
             await ExecuteOnUIThread(async () =>
             {
                 timeLine.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("0", "Event"));
@@ -139,9 +139,9 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                 new MockNavigationService(), new MockConfigurationService()
                 {
                     SetStartupEventDelegate = s =>
-                    {                        
+                    {
                     }
-                });                        
+                });
             Assert.IsFalse(timeLine.SetStartupCommand.CanExecute());
         }
 
@@ -159,7 +159,28 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             {
                 timeLine.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("0", "Event"));
                 Assert.IsTrue(timeLine.SetStartupCommand.CanExecute(), "CanExecute True");
-            });            
+            });
+        }
+
+        [TestMethod]
+        public void SquareFootEventsSorted()
+        {
+            var autoREsetEvents = new AutoResetEvent(false);
+            var timeLine = new TimelinePageViewModel(new DataService(new ApiDataRepository(new ApiConfiguration()), new DataCacheService(), new InternetConnectionService()), new MockAlertMessageService(),
+               new MockNavigationService(), new MockConfigurationService());
+            ExecuteOnUIThread(() =>
+            {
+                timeLine.OnNavigatedTo(null, NavigationMode.New, null);
+                Assert.IsTrue(timeLine.SetStartupCommand.CanExecute(), "CanExecute True");
+            });
+            autoREsetEvents.WaitOne(2000);
+            Assert.IsNotNull(timeLine.SquareFootEvents);
+            Assert.IsTrue(timeLine.SquareFootEvents.Any(), "SquareFootEvents Any");
+            var sortedEvents = timeLine.SquareFootEvents.OrderByDescending(x => x.DateStart).ToList();
+            for (int i = 0; i < sortedEvents.Count; i++)
+            {
+                Assert.AreEqual(sortedEvents[i].Id, timeLine.SquareFootEvents[i].Id, "Matching Sorted Id");
+            }
         }
 
     }

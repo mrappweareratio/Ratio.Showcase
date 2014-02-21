@@ -163,5 +163,16 @@ namespace OneMSQFT.Common {
                 return ResourceManager.GetString("ComingSoon", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to RSVP for this event.
+        /// </summary>
+        public static string RSVP
+        {
+            get
+            {
+                return ResourceManager.GetString("RSVP", resourceCulture);
+            }
+        }
     }
 }

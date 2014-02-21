@@ -1,5 +1,8 @@
-﻿using Windows.UI;
+﻿using Windows.System;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Media;
+using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common.Models;
 using System;
 using System.Collections.Generic;
@@ -27,6 +30,8 @@ namespace OneMSQFT.UILogic.ViewModels
         public Uri RsvpUrl { get; set; }
         public DateTime? DateStart;
         public DateTime? DateEnd;
+        public DelegateCommand<string> ExitLinkCommand { get; private set; }
+        public DelegateCommand<string> RsvpLinkCommand { get; private set; }
 
         public Visibility RsvpVisibility
         {
@@ -73,6 +78,20 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 RsvpUrl = new Uri(exhibitModel.RsvpUrl, UriKind.RelativeOrAbsolute);
             }
+            ExitLinkCommand = new DelegateCommand<string>(ExitLinkNavigate);
+            RsvpLinkCommand = new DelegateCommand<string>(RsvpNavigate);
+        }
+
+        async private void RsvpNavigate(string s)
+        {
+            var la = new LauncherOptions { DesiredRemainingView = ViewSizePreference.UseHalf };
+            if (s != null) await Launcher.LaunchUriAsync(new Uri(s), la);
+        }
+
+        async private void ExitLinkNavigate(string s)
+        {
+            var la = new LauncherOptions { DesiredRemainingView = ViewSizePreference.UseHalf };
+            if (s != null) await Launcher.LaunchUriAsync(new Uri(s), la);
         }
 
         private void LoadMediaContent(IEnumerable<MediaContentSource> mediaContent)

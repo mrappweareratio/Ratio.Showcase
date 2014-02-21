@@ -152,5 +152,40 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             Assert.IsTrue(vm.DisplayedExhibits.Count == 4, "Displays 1st 3 with Show More");
             Assert.IsTrue(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel, "Last is Show More Item");
         }
+
+        [TestMethod]
+        public void StartDate_Comparison()
+        {
+            var evt = MockModelGenerator.NewEvent("0", "Event");
+            evt.DateStart = DateTime.Now.AddDays(-1);
+            evt.DateEnd = null;
+            var vm = new EventItemViewModel(evt);
+            Assert.IsNotNull(vm.IsInTheFuture);
+            Assert.IsNotNull(vm.IsInThePast);
+            Assert.IsTrue(vm.IsInThePast.GetValueOrDefault(), "IsInThePast");
+        }
+
+        [TestMethod]
+        public void EndDate_Comparison()
+        {
+            var evt = MockModelGenerator.NewEvent("0", "Event");
+            evt.DateStart = null;
+            evt.DateEnd = DateTime.Now.AddDays(1);
+            var vm = new EventItemViewModel(evt);
+            Assert.IsNotNull(vm.IsInTheFuture);
+            Assert.IsNotNull(vm.IsInThePast);
+            Assert.IsTrue(vm.IsInTheFuture.GetValueOrDefault(), "IsInTheFuture");
+        }
+
+        [TestMethod]
+        public void NullDate_Comparison()
+        {
+            var evt = MockModelGenerator.NewEvent("0", "Event");
+            evt.DateStart = null;
+            evt.DateEnd = null;
+            var vm = new EventItemViewModel(evt);
+            Assert.IsNull(vm.IsInTheFuture);
+            Assert.IsNull(vm.IsInThePast);         
+        }
     }
 }

@@ -35,7 +35,7 @@ namespace OneMSQFT.Windows.Views
             }
         }
 
-        public override async void TopAppBarEventButtonCommandHandler(string eventId)
+        public override void TopAppBarEventButtonCommandHandler(string eventId)
         {
             this.Frame.Navigate(typeof(TimelinePage), eventId);
             TopAppBar.IsOpen = false;

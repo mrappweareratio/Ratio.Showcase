@@ -19,7 +19,7 @@ using OneMSQFT.Windows.DesignViewModels;
 
 namespace OneMSQFT.Windows.Views
 {
-    public class BasePageView : VisualStateAwarePage
+    public abstract class BasePageView : VisualStateAwarePage
     {
         public DelegateCommand<String> TopAppBarEventButtonCommand { get; set; }
         public DelegateCommand HomeButtonClickCommand { get; set; }
@@ -93,28 +93,28 @@ namespace OneMSQFT.Windows.Views
             BottomAppBar.Visibility = Visibility.Visible;
         }
 
-        public virtual void TopAppBarEventButtonCommandHandler(String eventId)
-        {
-        }
+        public abstract void TopAppBarEventButtonCommandHandler(String eventId);      
 
-        async public void HomeButtonClickCommandHandler()
+        public void HomeButtonClickCommandHandler()
         {
             Frame.Navigate(typeof(TimelinePage));
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
         }
 
-        async public void AboutButtonClickCommandHandler()
+        public void AboutButtonClickCommandHandler()
         {
             Frame.Navigate(typeof(AboutPage));
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
         }
-        async public virtual void FilterButtonClickCommandHandler()
+
+        public virtual void FilterButtonClickCommandHandler()
         {
             // overridden in local page
         }
-        async public virtual void AdminButtonClickCommandHandler(Button sender)
+
+        public virtual void AdminButtonClickCommandHandler(Button sender)
         {
             BottomAppBar.IsOpen = false;
             TopAppBar.IsOpen = false;
@@ -127,8 +127,7 @@ namespace OneMSQFT.Windows.Views
             homeButton.Command = null;
             homeButton.IsHitTestVisible=false;
             homeButton.CommandParameter = null;
-            TopAppBarContentStackPanel.Children.Clear();
-            TopAppBarContentStackPanel.Children.Add(homeButton);
+            TopAppBarContentStackPanel.Children.Clear();            
             foreach (var e in vm.SquareFootEvents)
             {
                 var b = new Button();
@@ -140,6 +139,23 @@ namespace OneMSQFT.Windows.Views
                 b.DataContext = e;
                 TopAppBarContentStackPanel.Children.Add(b);
             }
+            var homeIndex = 0;
+            var ev = vm.SquareFootEvents.FirstOrDefault(x => x.IsInThePast.HasValue && x.IsInThePast.Value);
+            if (ev != null)
+                homeIndex = vm.SquareFootEvents.IndexOf(ev);
+            else
+            {
+                ev = vm.SquareFootEvents.LastOrDefault(x => x.IsInTheFuture.HasValue && x.IsInTheFuture.Value);
+                if (ev != null)
+                {
+                    homeIndex = vm.SquareFootEvents.IndexOf(ev) + 1;
+                    if (homeIndex == vm.SquareFootEvents.Count)
+                    {
+                        homeIndex = 0;
+                    }
+                }
+            }            
+            TopAppBarContentStackPanel.Children.Insert(homeIndex, homeButton);
         }
 
         public T GetDataContextAsViewModel<T>() where T : INotifyPropertyChanged
