@@ -8,6 +8,7 @@ using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.DataLayer;
 using OneMSQFT.UILogic.Tests.Mocks;
+using OneMSQFT.UILogic.Utils;
 
 namespace OneMSQFT.UILogic.Tests.DataLayer
 {
@@ -112,10 +113,39 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             //Assert.IsNotNull(e.DisplayDate, "DisplayDate");
             Assert.IsNotNull(e.Description, "Description");
             Assert.IsNotNull(e.ThumbImage, "ThumbImage");
+            Assert.IsNotNull(e.MediaContent, "MediaContent");
+            Assert.IsTrue(ValidateMediaContent(e.MediaContent), "ValidateMediaContent");
+            Assert.IsNotNull(e.Curator, "Curator");
+            Assert.IsTrue(ValidateCurator(e.Curator), "ValidateCurator");
             //Assert.IsNotNull(e.DateStart, "DateStart");
             //Assert.IsNotNull(e.DateEnd, "DateEnd");
             //Assert.IsNotNull(e.CreatedAt, "CreatedAt");
             //Assert.IsNotNull(e.UpdatedAt, "UpdatedAt"); 
+
+            return true;
+        }
+
+        public static bool ValidateMediaContent(IEnumerable<MediaContentSource> mediaContent)
+        {
+            foreach (var media in mediaContent)
+            {
+                Assert.IsNotNull(media.Img, "Media.Img");
+                Assert.IsTrue(media.SortOrder > 0, "Media.SortOrder");
+                Assert.IsNotNull(media.ContentSourceType, "Media.ContentSourceType");
+                if (media.ContentSourceType == ContentSourceType.Video)
+                {
+                    Assert.IsTrue(MediaContentSourceUtils.HasVideoUrl(media), "Media HasVideoUrl");
+                }
+            }
+
+            return true;
+        }
+
+        public static bool ValidateCurator(ICurator curator)
+        {
+            Assert.IsNotNull(curator.Name,"Curator.Name");
+            Assert.IsNotNull(curator.WhiteLogoImage,"Curator.WhiteLogoImage");
+            Assert.IsNotNull(curator.Id,"Curator.Id");
 
             return true;
         }
@@ -130,7 +160,9 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             Assert.IsNotNull(e.Color, "Color");
             Assert.IsTrue(e.Color.Length == 6, "Color is Hex");
             Assert.IsNotNull(e.SquareFootage, "SquareFootage");
-            Assert.IsNotNull(e.DisplayDate, "DisplayDate");            
+            Assert.IsNotNull(e.DisplayDate, "DisplayDate");
+            Assert.IsNotNull(e.MediaContent, "MediaContent");
+            Assert.IsTrue(ValidateMediaContent(e.MediaContent), "ValidateMediaContent");
             //Assert.IsNotNull(e.DateStart, "DateStart");
             //Assert.IsNotNull(e.DateEnd, "DateEnd");
             //Assert.IsNotNull(e.CreatedAt, "CreatedAt");
@@ -139,7 +171,6 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             //Assert.IsNotNull(e.Lattitude, "Lattitude");
             //Assert.IsNotNull(e.SocialMediaTitle, "SocialMediaTitle");
             //Assert.IsNotNull(e.SocialMediaDescription, "SocialMediaDescription");
-            //Assert.IsNotNull(e.SocialMediaImagePath, "SocialMediaImagePath");                        
             Assert.IsNotNull(e.Exhibits, "Exhibits");
 
             return true;
