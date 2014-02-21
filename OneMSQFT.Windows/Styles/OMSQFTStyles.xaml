@@ -47,26 +47,26 @@
                                 <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
                             </Border.Background>
                             <Grid Height="192" Width="330" Margin="0">
-                                    <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                    <TextBlock Text="{Binding SquareFootageString}"
-    				                    TextTrimming="WordEllipsis"
-    				                    FontSize="40"
-                                        FontWeight="Light"
-    				                    Margin="0" 
-                                        HorizontalAlignment="Center" 
-                                        VerticalAlignment="Bottom" 
-                                        FontFamily="Segoe UI"/>
-                                <TextBlock Text="{Binding Name, Mode=OneWay}"
-                                            VerticalAlignment="Top"
-                                            FontSize="20" 
-                                            Grid.Row="1" 
-                                            HorizontalAlignment="Center"/>
-                                <Rectangle Fill="{StaticResource OneMSQFTBlackBrush}" 
-                                           Grid.Row="2" Opacity=".5" 
+                                <StackPanel Margin="0" Orientation="Vertical" VerticalAlignment="Center">
+                                    <TextBlock
+    			                        FontSize="40"
+    			                        Text="{Binding SquareFootageString}"
+    			                        TextWrapping="NoWrap"
+    			                        TextAlignment="Center"
+    			                        Foreground="white" 
+    			                        FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
+				                        Margin="0,0,0,0" LineHeight="36"/>
+                                    <TextBlock
+    			                        FontSize="20"
+    			                        Text="{Binding Name, Mode=OneWay}"
+    			                        TextWrapping="NoWrap"
+    			                        TextAlignment="Center"
+    			                        Foreground="white" 
+    			                        FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
+				                        Margin="0,0,0,0" LineHeight="36"/>
+                                </StackPanel>
+                                <Rectangle Fill="{StaticResource OneMSQFTBlackBrush}"
+                                           Opacity=".5" 
                                            Height="20" Width="Auto" 
                                            VerticalAlignment="Bottom"></Rectangle>
                             </Grid>
@@ -421,5 +421,58 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+    <Style x:Key="CustomBackButtonStyle" TargetType="Button">
+    	<Setter Property="Background" Value="Transparent"/>
+    	<Setter Property="BorderBrush" Value="Transparent"/>
+    	<Setter Property="Foreground" Value="Transparent"/>
+    	<Setter Property="BorderThickness" Value="0"/>
+    	<Setter Property="Padding" Value="0"/>
+    	<Setter Property="Template">
+    		<Setter.Value>
+    			<ControlTemplate TargetType="Button">
+    				<Grid x:Name="Container" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+    					<Grid.RenderTransform>
+    						<CompositeTransform/>
+    					</Grid.RenderTransform>
+    					<VisualStateManager.VisualStateGroups>
+    						<VisualStateGroup x:Name="CommonStates">
+    							<VisualState x:Name="Pressed">
+    								<Storyboard>
+    									<DoubleAnimation Duration="0" To="0.95" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="Container" d:IsOptimized="True"/>
+    									<DoubleAnimation Duration="0" To="0.95" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="Container" d:IsOptimized="True"/>
+    								</Storyboard>
+    							</VisualState>
+    						</VisualStateGroup>
+    						<VisualStateGroup x:Name="SelectionStates">
+    							<VisualState x:Name="Selected"/>
+    						</VisualStateGroup>
+    						<VisualStateGroup x:Name="FocusStates"/>
+    					</VisualStateManager.VisualStateGroups>
+    					<ContentPresenter>
+    						<Border>
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
+                                </Border.Background>
+                                <Grid>
+                                	<Path Data="M30.5,14.631 L30.5444,18.1957 L46.433,34.5494 L30.5,49.9889 L30.5,54.229 L50.299,34.43 z M0,0 L70,0 L70,70 L0,70 z" 
+									Fill="White" HorizontalAlignment="Left" 
+									Height="55" 
+									Stretch="Fill" 
+									StrokeThickness="0" 
+									UseLayoutRounding="True" 
+									VerticalAlignment="Top" 
+									Width="55" RenderTransformOrigin="0.5,0.5">
+                                		<Path.RenderTransform>
+                                			<CompositeTransform Rotation="180"/>
+                                		</Path.RenderTransform>
+                                	</Path>
+    							</Grid>
+                            </Border>
+    					</ContentPresenter>
+    				</Grid>
+    			</ControlTemplate>
+    		</Setter.Value>
+    	</Setter>
     </Style>
 </ResourceDictionary>
