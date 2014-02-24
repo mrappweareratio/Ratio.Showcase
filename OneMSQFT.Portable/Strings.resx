@@ -165,4 +165,7 @@
   <data name="RSVP_Fallback_Uri" xml:space="preserve">
     <value>http://www.1msqft.com</value>
   </data>
+  <data name="In" xml:space="preserve">
+    <value>in</value>
+  </data>
 </root>

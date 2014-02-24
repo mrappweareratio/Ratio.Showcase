@@ -1,7 +1,7 @@
-﻿<UserControl x:Class="OneMSQFT.Windows.Controls.LogoUserControl"
+﻿<UserControl x:Class="OneMSQFT.WindowsStore.Controls.LogoUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="using:OneMSQFT.Windows.Controls"
+             xmlns:local="using:OneMSQFT.WindowsStore.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
@@ -9,7 +9,7 @@
     <!-- Page content -->
     <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
         <Grid.RenderTransform>
-            <CompositeTransform ScaleX="0.35" ScaleY="0.35"/>
+            <CompositeTransform x:Name="CompositeTransform" ScaleX="0.35" ScaleY="0.35"/>
         </Grid.RenderTransform>
         <Canvas HorizontalAlignment="Left" Height="266" UseLayoutRounding="False" VerticalAlignment="Top" Width="123" Margin="0,0,0,0">
             <Canvas Height="266" Canvas.Left="0" Canvas.Top="0" Width="123">

@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using OneMSQFT.UILogic.Utils;
 
-namespace OneMSQFT.Windows.Controls
+namespace OneMSQFT.WindowsStore.Controls
 {
     public sealed partial class LogoUserControl : UserControl
     {
@@ -37,6 +37,24 @@ namespace OneMSQFT.Windows.Controls
             luc.Path5.Fill = new SolidColorBrush(ColorUtils.GetColorFromHexString(e.NewValue.ToString(), Colors.White));
         }
 
-        
+
+
+        public double ScaleRatio
+        {
+            get { return (double)GetValue(ScaleRatioProperty); }
+            set { SetValue(ScaleRatioProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ScaleRatio.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ScaleRatioProperty =
+            DependencyProperty.Register("ScaleRatio", typeof(double), typeof(LogoUserControl), new PropertyMetadata(null, SelectedScaleRatioPropertyChanged));
+
+        private static void SelectedScaleRatioPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var luc = d as LogoUserControl;
+            if (luc == null) return;
+            luc.CompositeTransform.ScaleX = Convert.ToDouble(e.NewValue);
+            luc.CompositeTransform.ScaleY = Convert.ToDouble(e.NewValue);
+        }
     }
 }

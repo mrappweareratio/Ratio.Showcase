@@ -2,6 +2,7 @@
 using System.Linq;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
+using Microsoft.VisualBasic;
 using OneMSQFT.Common.Models;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
@@ -11,6 +12,7 @@ using Windows.UI.Xaml;
 using System.Globalization;
 using System.Collections.ObjectModel;
 using OneMSQFT.UILogic.Utils;
+using Strings = OneMSQFT.Common.Strings;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
@@ -190,6 +192,14 @@ namespace OneMSQFT.UILogic.ViewModels
                 DisplayedExhibits.Add(ex);
             }
             DisplayedExhibits.Add(new ShowMoreFakeExhibitItemViewModel());
+        }
+
+        public String TileBlurb
+        {
+            get
+            {
+                return SquareFootageStringPlain + " " + Strings.SquareFeet + " " + Name + " " + Strings.In + " " + Location;
+            }
         }
     }
 }

@@ -1,7 +1,6 @@
-using Microsoft.Practices.Unity;
 using OneMSQFT.UILogic.Interfaces;
 
-namespace OneMSQFT.Windows
+namespace OneMSQFT.WindowsStore
 {
     public static class AppLocator
     {

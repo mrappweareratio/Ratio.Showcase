@@ -15,9 +15,9 @@ using Windows.UI;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
-using OneMSQFT.Windows.DesignViewModels;
+using OneMSQFT.WindowsStore.DesignViewModels;
 
-namespace OneMSQFT.Windows.Views
+namespace OneMSQFT.WindowsStore.Views
 {
     public abstract class BasePageView : VisualStateAwarePage
     {

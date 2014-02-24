@@ -1,14 +1,14 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:OneMSQFT.Windows.Styles"
+    xmlns:local="using:OneMSQFT.WindowsStore.Styles"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity" 
     xmlns:core="using:Microsoft.Xaml.Interactions.Core" 
-    xmlns:omsqftbehaviors="using:OneMSQFT.Windows.Behaviors"
+    xmlns:omsqftbehaviors="using:OneMSQFT.WindowsStore.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:ViewModels="using:OneMSQFT.UILogic.ViewModels"
-    xmlns:omsqftcontrols="using:OneMSQFT.Windows.Controls"
+    xmlns:omsqftcontrols="using:OneMSQFT.WindowsStore.Controls"
     mc:Ignorable="d">
 
 

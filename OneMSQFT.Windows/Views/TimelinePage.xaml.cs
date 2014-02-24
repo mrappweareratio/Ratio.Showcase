@@ -1,30 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Microsoft.Practices.ObjectBuilder2;
-using Microsoft.Practices.Prism.StoreApps;
-using OneMSQFT.UILogic.Interfaces;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
-using Windows.UI.Popups;
 
-namespace OneMSQFT.Windows.Views
+namespace OneMSQFT.WindowsStore.Views
 {
     public sealed partial class TimelinePage
     {
@@ -51,7 +48,7 @@ namespace OneMSQFT.Windows.Views
             var app = AppLocator.Current;
             if (app != null)
             {
-                StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;                
+                StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
@@ -216,7 +213,7 @@ namespace OneMSQFT.Windows.Views
 
             AppBarIsAutoScrolling = true;
             ShowTimelineMasks(false);
-           _timelineGridViewScrollViewer.ChangeView(((itemIndex*vm.EventItemWidth) - vm.MaskItemWidth - vm.BufferItemWidth), 0, 1);
+            _timelineGridViewScrollViewer.ChangeView(((itemIndex * vm.EventItemWidth) - vm.MaskItemWidth - vm.BufferItemWidth), 0, 1);
             scrollerTimer.Start();
         }
 
@@ -235,7 +232,7 @@ namespace OneMSQFT.Windows.Views
             if (!VideoPopup.IsOpen)
             {
                 VideoPopup.IsOpen = true;
-                VideoPlayerUserControl.SelectedMediaContentSource = ((MediaContentSourceItemViewModel) FlipViewer.SelectedItem);
+                VideoPlayerUserControl.SelectedMediaContentSource = ((MediaContentSourceItemViewModel)FlipViewer.SelectedItem);
             }
         }
 
@@ -281,7 +278,7 @@ namespace OneMSQFT.Windows.Views
         }
 
         async private void Pin_OnClick(object sender, RoutedEventArgs e)
-        {            
+        {
             this.BottomAppBar.IsSticky = true;
 
             var vm = GetDataContextAsViewModel<IBasePageViewModel>();
@@ -296,28 +293,26 @@ namespace OneMSQFT.Windows.Views
             }
             else
             {
-                var images = await vm.GetSecondaryTileImages();
-
+                var secondaryTileImages = await vm.GetSecondaryTileImages();
 
                 SecondaryTile secondaryTile = new SecondaryTile(args.Id,
-                                                                args.ShortName,
                                                                 args.DisplayName,
                                                                 args.ArgumentsName,
-                                                                TileOptions.ShowNameOnWideLogo,
-                                                                images.Logo, images.WideLogo);
+                                                                await RenderBitmaps(150, 150),
+                                                                TileSize.Square150x150);
 
-                secondaryTile.ForegroundText = ForegroundText.Dark;                
-                secondaryTile.SmallLogo = images.SmallLogo;
-                secondaryTile.WideLogo = images.WideLogo;
+                secondaryTile.ForegroundText = ForegroundText.Dark;
+                secondaryTile.SmallLogo = await RenderBitmaps(70, 70);
+                secondaryTile.WideLogo = await RenderBitmaps(310, 150);
                 secondaryTile.BackgroundColor = ColorUtils.GetColorFromARGBString(args.BackgroundColor, Colors.White);
-                
+
                 bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
 
                 ToggleAppBarButton(!isPinned);
             }
             this.BottomAppBar.IsSticky = false;
 
-        }        
+        }
 
         public static Rect GetElementRect(FrameworkElement element)
         {
@@ -332,6 +327,109 @@ namespace OneMSQFT.Windows.Views
             {
                 PinButton.Style = (showPinButton) ? ((Style)App.Current.Resources["OMSQFTTraditionalPinAppBarButtonStyle"]) : ((Style)App.Current.Resources["OMSQFTTraditionalUnPinAppBarButtonStyle"]);
             }
-        }        
+        }
+
+        private async Task<Uri> RenderBitmaps(uint width, uint height)
+        {
+            var vm = this.GetDataContextAsViewModel<TimelinePageViewModel>();
+            RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap();
+
+            if (width == 70)
+            {
+                RenderedGridSmall.Background = new SolidColorBrush(vm.SelectedEvent.EventColor);
+                await renderTargetBitmap.RenderAsync(RenderedGridSmall, 70, 70);
+            }
+            else if (width == 150)
+            {
+                RenderedGridSquare.Background = new SolidColorBrush(vm.SelectedEvent.EventColor);
+                await renderTargetBitmap.RenderAsync(RenderedGridSquare, 150, 150);
+            }
+            else if (width == 310)
+            {
+                RenderedGridWide.Background = new SolidColorBrush(vm.SelectedEvent.EventColor);
+                await renderTargetBitmap.RenderAsync(RenderedGridWide, 310, 150);
+            }
+
+            // create or get the named folder under LocalFolder
+            var folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("SecondaryTiles", CreationCollisionOption.OpenIfExists);
+            try
+            {
+                // create the file from the Uri                                                                                                
+                var fileName = String.Format("event_{0}_{1}x{2}.jpg", vm.SelectedEvent.Id, width, height);
+                var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.GenerateUniqueName);
+                if ((await file.GetBasicPropertiesAsync()).Size > 0 || await RenderTargetBitmapToStorageFile(file, renderTargetBitmap, width, height))
+                {
+                    // use the storage file name and the path to the local folder 
+                    // to set the image art must be ms-appdata:/// or ms-appx:///
+                    var uri = new Uri("ms-appdata:///local/SecondaryTiles/" + file.Name, UriKind.Absolute);
+                    return uri;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return new Uri("ms-appx:///Assets/Logo.scale-100.png", UriKind.Absolute);
+        }
+
+        public static async Task<bool> RenderTargetBitmapToStorageFile(StorageFile storageFile, RenderTargetBitmap bitmap, uint width, uint height)
+        {
+            try
+            {
+                Guid encoderId = Windows.Graphics.Imaging.BitmapEncoder.JpegEncoderId;                
+
+                using (var stream = await storageFile.OpenAsync(FileAccessMode.ReadWrite))
+                {
+                    stream.Size = 0;
+
+                    var encoder = await Windows.Graphics.Imaging.BitmapEncoder.CreateAsync(
+                        encoderId,
+                        stream
+                        );
+
+                    var pixels = await bitmap.GetPixelsAsync();
+                    encoder.SetPixelData(
+                        Windows.Graphics.Imaging.BitmapPixelFormat.Bgra8,
+                        Windows.Graphics.Imaging.BitmapAlphaMode.Premultiplied,
+                        width, // pixel width
+                        height, // pixel height
+                        72, // horizontal DPI
+                        72, // vertical DPI
+                        pixels.ToArray()
+                    );
+
+                    try
+                    {
+                        await encoder.FlushAsync();
+                        return true;
+                    }
+                    catch (Exception err)
+                    {
+                        // There was an error encoding.
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                Debug.WriteLine("RenderTargetBitmapToStorageFile Exception: " + ex.ToString());
+#endif
+            }
+            return false;
+        }
+
+
+
+
+        public static string GetStorageFileNameFromUri(Uri uri)
+        {
+            var segments = uri.AbsoluteUri.Split('?');
+            var shortUri = segments[0];
+            shortUri = WebUtility.UrlDecode(shortUri);
+            shortUri = String.Join("", shortUri.Split(new string[] { "http://", "https://" }, StringSplitOptions.RemoveEmptyEntries));
+            shortUri = String.Join("-", shortUri.Split(new string[] { ":", "/" }, StringSplitOptions.RemoveEmptyEntries));
+            return shortUri;
+        }
+
     }
 }
