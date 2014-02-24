@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analytics\AnalyticsService.cs" />
+    <Compile Include="Analytics\TrackingContextData.cs" />
     <Compile Include="Analytics\TrackingHelper.cs" />
     <Compile Include="DataLayer\ApiConfiguration.cs" />
     <Compile Include="DataLayer\ApiDataRepository.cs" />
