@@ -116,7 +116,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analytics\AnalyticsEventTypes.cs" />
     <Compile Include="Analytics\AnalyticsService.cs" />
+    <Compile Include="Analytics\AnalyticsEventsContext.cs" />
     <Compile Include="Analytics\TrackingContextData.cs" />
     <Compile Include="Analytics\TrackingHelper.cs" />
     <Compile Include="DataLayer\ApiConfiguration.cs" />
