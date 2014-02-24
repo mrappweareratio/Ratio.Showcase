@@ -77,7 +77,6 @@
     <Compile Include="Models\SiteData.cs" />
     <Compile Include="Models\StartupItemType.cs" />
     <Compile Include="Models\Theme.cs" />
-    <Compile Include="Models\TrackingContextData.cs" />
     <Compile Include="Services\IAnalyticsService.cs" />
     <Compile Include="Services\IConfigurationService.cs" />
     <Compile Include="Services\IDataCacheService.cs" />
