@@ -189,16 +189,20 @@ namespace OneMSQFT.WindowsStore.DesignViewModels
             SelectedEvent = item;
         }
 
+        public double BufferItemWidth
+        {
+            get
+            {
+                return EventItemWidth / 2;
+            }
+        }
 
         public double MaskItemWidth
         {
-            get { throw new NotImplementedException(); }
-        }
-
-
-        public double BufferItemWidth
-        {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return ((FullScreenWidth - EventItemWidth) / 2) + 1;
+            }
         }
 
         public DelegateCommand SetStartupCommand { get; private set; }

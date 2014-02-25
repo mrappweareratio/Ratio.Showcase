@@ -204,6 +204,8 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             FullScreenHeight = height;
             FullScreenWidth = width;
+            OnPropertyChanged("FullScreenHeight");
+            OnPropertyChanged("FullScreenWidth");
             OnPropertyChanged("ZoomedOutItemWidth");
             OnPropertyChanged("ZoomedOutItemHeight");
             OnPropertyChanged("EventItemHeight");

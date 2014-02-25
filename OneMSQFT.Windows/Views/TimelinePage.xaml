@@ -900,7 +900,7 @@
                     <!-- The MultipleSizedGridView is a custom user control that is used to display multiple-sized elements in the grid.
                 It also includes the functionality of the custom AutoRotatingGridView control, that automatically rearranges items,
                 when the app is switched to portrait mode, or to minimal layout mode. -->
-                    <omsqftcontrols:MultipleSizedGridView x:Name="itemsGridView"
+                    <GridView x:Name="itemsGridView"
                     Transitions="{x:Null}"
                     ItemContainerTransitions="{x:Null}"
                     Margin="0"
@@ -914,24 +914,17 @@
                     Loaded="itemsGridView_Loaded" 
                                                           
                     ItemContainerStyle="{StaticResource TimelineItemContainerStyle}" d:IsHidden="True">
-                        <omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
+                        <GridView.ItemTemplateSelector>
                             <templateSelectors:TimelineDataTemplateSelector
                             EventTimelineItemTemplate="{StaticResource OMSQFTTimelineEventItemTemplate}"
                             BufferItemFakeEventItemTemplate="{StaticResource BufferItemFakeEventItemTemplate}"/>
-                        </omsqftcontrols:MultipleSizedGridView.ItemTemplateSelector>
-                        <omsqftcontrols:MultipleSizedGridView.ItemsPanel>
+                        </GridView.ItemTemplateSelector>
+                        <GridView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal" />
                             </ItemsPanelTemplate>
-                        </omsqftcontrols:MultipleSizedGridView.ItemsPanel>
-                        <omsqftcontrols:MultipleSizedGridView.PortraitItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Vertical" />
-                            </ItemsPanelTemplate>
-                        </omsqftcontrols:MultipleSizedGridView.PortraitItemsPanel>
-
-
-                    </omsqftcontrols:MultipleSizedGridView>
+                        </GridView.ItemsPanel>
+                    </GridView>
                 </SemanticZoom.ZoomedInView>
             </SemanticZoom>
 
@@ -950,7 +943,7 @@
                        Fill="#AAffffff" 
                        Grid.RowSpan="2"
                        HorizontalAlignment="Right" />
-            <Popup x:Name="FlipViewPopup" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}">
+            <Popup x:Name="FlipViewPopup" IsLightDismissEnabled="False" Style="{StaticResource VideoPopupStyle}">
                 <Grid>
                     <FlipView Background="White" x:Name="FlipViewer"
                               Style="{StaticResource FlipViewStyle}"
@@ -958,6 +951,8 @@
                               Margin="0"
                               Padding="0"
                               UseTouchAnimationsForAllNavigation="True"
+                              Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}"
+                              Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                               ItemsSource="{Binding DataSource.SelectedEvent.MediaContent, Mode=OneWay, Source={StaticResource DataContextProxy}}">
                         <FlipView.ItemTemplate>
                             <DataTemplate>
@@ -990,7 +985,7 @@
                     <AppBarButton Icon="Cancel" Click="FlipViewPopUpCloseButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
                 </Grid>
             </Popup>
-            <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
+            <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="False" Style="{StaticResource VideoPopupStyle}" >
                 <Grid>
                     <omsqftcontrols:VideoPlayerUserControl x:Name="VideoPlayerUserControl"
                     Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
