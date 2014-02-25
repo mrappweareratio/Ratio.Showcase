@@ -116,7 +116,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analytics\AnalyticsEventTypes.cs" />
     <Compile Include="Analytics\AnalyticsService.cs" />
+    <Compile Include="Analytics\AnalyticsEventsContext.cs" />
+    <Compile Include="Analytics\TrackingContextData.cs" />
     <Compile Include="Analytics\TrackingHelper.cs" />
     <Compile Include="DataLayer\ApiConfiguration.cs" />
     <Compile Include="DataLayer\ApiDataRepository.cs" />
@@ -139,6 +142,7 @@
     <Compile Include="Utils\ComingSoonUtils.cs" />
     <Compile Include="Utils\ExhibitItemUtils.cs" />
     <Compile Include="Utils\MediaContentSourceUtils.cs" />
+    <Compile Include="Utils\PinningUtils.cs" />
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="ViewModels\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\BasePageViewModel.cs" />

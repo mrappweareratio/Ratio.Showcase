@@ -4,6 +4,6 @@
     {
         void Configure();
         void StartSession();
-        void StopSession();
+        void StopSession();        
     }
 }

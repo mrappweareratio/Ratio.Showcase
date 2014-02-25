@@ -17,11 +17,6 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         ObservableCollection<EventItemViewModel> SquareFootEvents { get; }
         void WindowSizeChanged(double width, double height);
         /// <summary>
-        /// CanExecute Determine ability for the user to pin an item
-        /// False hides pin button
-        /// </summary>
-        DelegateCommand PinToStartCommand { get; set; }
-        /// <summary>
         /// Fires when the pin item changes and need to be check for pin vs unpin
         /// </summary>
         event EventHandler<EventArgs> PinContextChanged;              

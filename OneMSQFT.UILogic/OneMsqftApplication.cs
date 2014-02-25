@@ -7,12 +7,14 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Popups;
+using Windows.UI.StartScreen;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Analytics;
 using OneMSQFT.UILogic.Interfaces;
 using OneMSQFT.UILogic.Navigation;
+using OneMSQFT.UILogic.Utils;
 using Strings = OneMSQFT.Common.Strings;
 
 namespace OneMSQFT.UILogic
@@ -35,13 +37,42 @@ namespace OneMSQFT.UILogic
         }
 
         async public Task OnLaunchApplication(ILaunchActivatedEventArgs args)
-        {            
+        {
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                 Analytics.StartSession();
                 _events = await DataService.GetEvents();
             }
-           GoHome();
+            if (!String.IsNullOrEmpty(args.Arguments))
+            {
+                var pinningContext = PinningUtils.ParseArguments(args.Arguments);
+                switch (pinningContext.StartupItemType)
+                {
+                    case StartupItemType.None:
+                        break;
+                    case StartupItemType.Event:
+                        if (_events == null || !_events.Any(x => x.Id.Equals(pinningContext.StartupItemId)))
+                        {
+                            NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
+                        }
+                        else
+                        {
+                            NavigationService.Navigate(ViewLocator.Pages.Timeline, pinningContext.StartupItemId);
+                        }
+                        return;
+                    case StartupItemType.Exhibit:
+                        if (_events == null || !_events.SelectMany(x => x.Exhibits).Any(x => x.Id.Equals(pinningContext.StartupItemId)))
+                        {
+                            NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
+                        }
+                        else
+                        {
+                            NavigationService.Navigate(ViewLocator.Pages.ExhibitDetails, pinningContext.StartupItemId);
+                        }
+                        return;
+                }
+            }
+            GoHome();
         }
 
         public void GoHome()
