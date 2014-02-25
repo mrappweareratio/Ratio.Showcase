@@ -105,6 +105,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         //HELPER METHODS
         public static bool ValidateExhibit(IExhibit<ICurator> e)
         {
+            //TODO: Uncomment all required properties
             //Basic properties
             Assert.IsNotNull(e.Id, "Id");
             Assert.IsNotNull(e.Name, "Name");
@@ -117,10 +118,10 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             Assert.IsTrue(ValidateMediaContent(e.MediaContent), "ValidateMediaContent");
             Assert.IsNotNull(e.Curator, "Curator");
             Assert.IsTrue(ValidateCurator(e.Curator), "ValidateCurator");
+            //Assert.IsNotNull(e.Links);
+            //Assert.IsNotNull(e.RsvpUrl);
             //Assert.IsNotNull(e.DateStart, "DateStart");
             //Assert.IsNotNull(e.DateEnd, "DateEnd");
-            //Assert.IsNotNull(e.CreatedAt, "CreatedAt");
-            //Assert.IsNotNull(e.UpdatedAt, "UpdatedAt"); 
 
             return true;
         }
