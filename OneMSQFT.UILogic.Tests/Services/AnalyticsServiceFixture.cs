@@ -36,7 +36,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>())
             };
             var configuration = new ConfigurationService();
-            var app = new OneMsqftApplication(navigationService, data, configuration, new AnalyticsService());            
+            var app = new OneMsqftApplication(navigationService, data, configuration, new AnalyticsService(), new MockAlertMessageService());            
             app.OnInitialize(new MockLaunchActivatedEventArgs());            
         }
 
@@ -61,7 +61,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>())
             };
             var configuration = new ConfigurationService();
-            var app = new OneMsqftApplication(navigationService, data, configuration, new AnalyticsService());
+            var app = new OneMsqftApplication(navigationService, data, configuration, new AnalyticsService(), new MockAlertMessageService());
             var args = new MockLaunchActivatedEventArgs();
             app.OnInitialize(args);            
             await app.OnLaunchApplication(args);
@@ -87,7 +87,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             };
             var configuration = new ConfigurationService();
             var analytics = new AnalyticsService();
-            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics, new MockAlertMessageService());
             var args = new MockLaunchActivatedEventArgs();
             app.OnInitialize(args);
             await app.OnLaunchApplication(args);
@@ -114,7 +114,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             };
             var configuration = new ConfigurationService();
             var analytics =new AnalyticsService();
-            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics, new MockAlertMessageService());
             var args = new MockLaunchActivatedEventArgs();
             app.OnInitialize(args);
             await app.OnLaunchApplication(args);

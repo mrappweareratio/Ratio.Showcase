@@ -57,12 +57,12 @@ namespace OneMSQFT.WindowsStore
             _application.OnSuspending(e);
         }
 
-        void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            if (Debugger.IsAttached)
-            {
-                Debugger.Break();
-            }
+            e.Handled = _application.CanHandleException(e.Exception);
+            
+            if (e.Handled)
+                await _application.HandleException(e.Exception, e.Message);
         }
         // Create the singleton container that will be used for type resolution in the app
         private readonly IUnityContainer _container = new UnityContainer();
@@ -92,7 +92,7 @@ namespace OneMSQFT.WindowsStore
             _container.RegisterType<IAnalyticsService, AnalyticsService>(new ContainerControlledLifetimeManager());
 
             //create the application
-            _application = new OneMsqftApplication(_container.Resolve<INavigationService>(), _container.Resolve<IDataService>(), _container.Resolve<IConfigurationService>(), _container.Resolve<IAnalyticsService>());            
+            _application = new OneMsqftApplication(_container.Resolve<INavigationService>(), _container.Resolve<IDataService>(), _container.Resolve<IConfigurationService>(), _container.Resolve<IAnalyticsService>(), _container.Resolve<IAlertMessageService>());
             //register the application
             AppLocator.Register(_application);
 
@@ -118,6 +118,6 @@ namespace OneMSQFT.WindowsStore
         protected override IList<SettingsCommand> GetSettingsCommands()
         {
             return _application.GetSettingsCommands();
-        }        
+        }
     }
 }
