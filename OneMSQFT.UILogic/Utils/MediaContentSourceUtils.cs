@@ -30,11 +30,15 @@ namespace OneMSQFT.UILogic.Utils
 
         public static bool ValidateMediaContent(MediaContentSource mediaContent)
         {
-            if (mediaContent.ContentSourceType == ContentSourceType.Image)
+            if (mediaContent != null)
             {
-                return !String.IsNullOrEmpty(mediaContent.Img);
+                if (mediaContent.ContentSourceType == ContentSourceType.Image)
+                {
+                    return !String.IsNullOrEmpty(mediaContent.Img);
+                }
+                return HasVideoUrl(mediaContent);
             }
-            return HasVideoUrl(mediaContent);
+            return false;
         }
     }
 }
