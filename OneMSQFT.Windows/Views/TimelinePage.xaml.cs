@@ -17,6 +17,8 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using OneMSQFT.Common.Analytics;
+using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
@@ -197,8 +199,17 @@ namespace OneMSQFT.WindowsStore.Views
             LogoGrid.Visibility = Visibility.Collapsed;
         }
 
-        public override void TopAppBarEventButtonCommandHandler(String eventId)
+        public override async void TopAppBarEventButtonCommandHandler(String eventId)
         {
+            var theApp = AppLocator.Current;
+            var events = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.AppBarTaps, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData();
+            context.AppElement = TrackingContextData.AppElements.GenerateClickEventInTimelineAppBarData();
+            Event ev = await theApp.DataService.GetEventById(eventId);
+            context.EventName = ev.Name;
+            context.EventSqFt = ev.SquareFootage;
+            theApp.Analytics.TrackEvents(events, context);
+
             if (semanticZoom.IsZoomedInViewActive == false)
             {
                 _semanticZoomClosedFromTopAppBarEvent = true;
