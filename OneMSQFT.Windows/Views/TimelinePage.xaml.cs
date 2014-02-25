@@ -28,6 +28,7 @@ namespace OneMSQFT.WindowsStore.Views
         private ScrollViewer _timelineGridViewScrollViewer;
         private DispatcherTimer scrollerTimer;
         private Boolean AppBarIsAutoScrolling;
+        private NavigationEventArgs _navigationEventArgs;
 
         public TimelinePage()
         {
@@ -40,10 +41,11 @@ namespace OneMSQFT.WindowsStore.Views
             vm.FullScreenHeight = Window.Current.Bounds.Height;
             vm.FullScreenWidth = Window.Current.Bounds.Width;
             vm.PropertyChanged += TimelinePage_PropertyChanged;
+            vm.PinContextChanged += VmOnPinContextChanged;
+
             scrollerTimer = new DispatcherTimer();
             scrollerTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             scrollerTimer.Tick += scrollerTimer_Tick;
-            vm.PinContextChanged += VmOnPinContextChanged;
 
             var app = AppLocator.Current;
             if (app != null)
@@ -59,13 +61,6 @@ namespace OneMSQFT.WindowsStore.Views
             if (args == null)
                 return;
             ToggleAppBarButton(this.PinButton, !SecondaryTile.Exists(args.Id));
-        }
-
-        void scrollerTimer_Tick(object sender, object e)
-        {
-            ShowTimelineMasks(true);
-            scrollerTimer.Stop();
-            AppBarIsAutoScrolling = false;
         }
 
         void TimelinePage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -111,6 +106,21 @@ namespace OneMSQFT.WindowsStore.Views
             }
         }
 
+        public override void PopulateTopAppbar(IBasePageViewModel vm)
+        {
+            base.PopulateTopAppbar(vm);
+            AboutButton.Command = AboutButtonClickCommand;
+        }
+
+        #region Timeline UI
+
+        void scrollerTimer_Tick(object sender, object e)
+        {
+            ShowTimelineMasks(true);
+            scrollerTimer.Stop();
+            AppBarIsAutoScrolling = false;
+        }
+
         private void ShowTimelineMasks(bool show)
         {
             if (show)
@@ -149,7 +159,6 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         private bool _semanticZoomClosedFromTopAppBarEvent;
-        private NavigationEventArgs _navigationEventArgs;
 
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
@@ -220,6 +229,8 @@ namespace OneMSQFT.WindowsStore.Views
             scrollerTimer.Start();
         }
 
+        #endregion
+
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
             var vm = DataContext as ITimelinePageViewModel;
@@ -229,6 +240,9 @@ namespace OneMSQFT.WindowsStore.Views
             }
             base.WindowSizeChanged(sender, e);
         }
+
+
+        #region MediaViewer
 
         private void VideoButton_Clicked(object sender, RoutedEventArgs e)
         {
@@ -269,16 +283,9 @@ namespace OneMSQFT.WindowsStore.Views
             }
         }
 
-        public override void PopulateTopAppbar(IBasePageViewModel vm)
-        {
-            base.PopulateTopAppbar(vm);
-            AboutButton.Command = AboutButtonClickCommand;
-        }
+        #endregion
 
-        private void AdminButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            SettingsPane.Show();
-        }
+        #region Pinning
 
         async private void Pin_OnClick(object sender, RoutedEventArgs e)
         {
@@ -312,7 +319,6 @@ namespace OneMSQFT.WindowsStore.Views
             }
             BottomAppBar.IsSticky = false;
         }
-
 
         private async Task<Uri> RenderBitmaps(uint width, uint height)
         {
@@ -355,6 +361,8 @@ namespace OneMSQFT.WindowsStore.Views
             }
             return new Uri("ms-appx:///Assets/Logo.scale-100.png", UriKind.Absolute);
         }
+
+        #endregion
 
 
     }
