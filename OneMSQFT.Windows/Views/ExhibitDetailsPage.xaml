@@ -490,7 +490,7 @@
                 </StackPanel>
             </ScrollViewer>
 
-            <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="True" Style="{StaticResource VideoPopupStyle}" >
+            <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="False" Style="{StaticResource VideoPopupStyle}" >
                 <Grid >
                     <controls:VideoPlayerUserControl 
                     SelectedMediaContentSource="{Binding DataSource.SelectedMediaContentSource, Source={StaticResource DataContextProxy}}"

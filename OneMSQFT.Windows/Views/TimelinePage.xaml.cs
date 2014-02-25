@@ -10,6 +10,7 @@ using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.StartScreen;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -141,7 +142,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         void _timelineGridViewScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-            // this keep the selected Event item from changing the data context if the MediaViewerPopUp is Open and the user resizes or rotates.
+            // this keeps the selected Event item from changing the data context if the MediaViewerPopUp is Open and the user resizes or rotates.
             if (FlipViewPopup.IsOpen) return;
 
             if (e.IsIntermediate == false)
