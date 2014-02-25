@@ -524,7 +524,7 @@
 				    BorderBrush="White"
 				    BorderThickness="0"
 				    Margin="0">
-                        <Image Source="{Binding HeroPhotoFilePath}"
+                        <Image Source="{Binding ThumbnailImageUri}"
 					    Stretch="UniformToFill"/>
                     </Border>
                     <Rectangle Fill="{StaticResource OneMSQFTOverlayBgBrush}"/>

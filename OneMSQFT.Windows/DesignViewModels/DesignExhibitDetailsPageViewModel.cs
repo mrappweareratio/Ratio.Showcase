@@ -223,19 +223,11 @@ namespace OneMSQFT.WindowsStore.DesignViewModels
             }
         }
 
-        public Uri HeroPhotoFilePath
+        public Uri ThumbnailImageUri
         {
             get
             {
-                return Exhibit.HeroPhotoFilePath;
-            }
-        }
-
-        public String Panel1LongDescription
-        {
-            get
-            {
-                return Exhibit.Description;
+                return Exhibit.ThumbnailImageUri;
             }
         }
 
