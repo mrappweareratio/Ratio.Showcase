@@ -10,7 +10,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace OneMSQFT.Windows
+namespace OneMSQFT.WindowsStore
 {
     /// <summary>
     /// A very simple Extended Splash Screen page.

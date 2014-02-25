@@ -4,7 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using OneMSQFT.UILogic.ViewModels;
 
-namespace OneMSQFT.Windows.DataTemplateSelectors
+namespace OneMSQFT.WindowsStore.DataTemplateSelectors
 {
     public class ZoomedOutTimelineDataTemplateSelector : DataTemplateSelector
     {

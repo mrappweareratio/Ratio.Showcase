@@ -7,7 +7,7 @@
     <ProjectGuid>{D9B3A0F5-915D-4094-BFEE-54949DCDBC55}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OneMSQFT.Windows</RootNamespace>
+    <RootNamespace>OneMSQFT.WindowsStore</RootNamespace>
     <AssemblyName>OneMSQFT.Windows</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>

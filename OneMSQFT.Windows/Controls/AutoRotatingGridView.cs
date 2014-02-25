@@ -4,7 +4,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 
-namespace OneMSQFT.Windows.Controls
+namespace OneMSQFT.WindowsStore.Controls
 {
     public class AutoRotatingGridView : GridView
     {

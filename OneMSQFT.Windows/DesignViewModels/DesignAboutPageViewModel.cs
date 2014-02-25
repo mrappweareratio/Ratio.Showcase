@@ -8,7 +8,7 @@ using Microsoft.Practices.Prism.StoreApps;
 using System.Threading.Tasks;
 using System.Globalization;
 
-namespace OneMSQFT.Windows.DesignViewModels
+namespace OneMSQFT.WindowsStore.DesignViewModels
 {
     public class DesignAboutPageViewModel : BasePageViewModel, IAboutPageViewModel
     {

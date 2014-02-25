@@ -4,7 +4,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using OneMSQFT.Common.DataLayer;
 
-namespace OneMSQFT.Windows.DataLayer
+namespace OneMSQFT.WindowsStore.DataLayer
 {
     class WindowsLocalStorageProvider : ILocalStorageProvider
     {

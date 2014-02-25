@@ -5,7 +5,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
-namespace OneMSQFT.Windows.Behaviors
+namespace OneMSQFT.WindowsStore.Behaviors
 {
     public class NavigateWithEventArgsToPageAction : DependencyObject, IAction
     {

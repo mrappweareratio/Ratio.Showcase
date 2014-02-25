@@ -30,9 +30,9 @@ using OneMSQFT.UILogic.Interfaces;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.ViewModels;
-using OneMSQFT.Windows.DataLayer;
+using OneMSQFT.WindowsStore.DataLayer;
 
-namespace OneMSQFT.Windows
+namespace OneMSQFT.WindowsStore
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
@@ -101,7 +101,7 @@ namespace OneMSQFT.Windows
             ViewModelLocator.SetDefaultViewTypeToViewModelTypeResolver((viewType) =>
             {
 #if DESIGN
-                var viewModelTypeName = string.Format(CultureInfo.InvariantCulture, "OneMSQFT.Windows.DesignViewModels.Design{0}ViewModel, OneMSQFT.Windows", viewType.Name);
+                var viewModelTypeName = string.Format(CultureInfo.InvariantCulture, "OneMSQFT.WindowsStore.DesignViewModels.Design{0}ViewModel, OneMSQFT.Windows", viewType.Name);
 #else
                 var viewModelTypeName = string.Format(CultureInfo.InvariantCulture, "OneMSQFT.UILogic.ViewModels.{0}ViewModel, OneMSQFT.UILogic", viewType.Name);
 #endif

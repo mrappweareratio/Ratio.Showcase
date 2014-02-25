@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace OneMSQFT.Windows.Views
+namespace OneMSQFT.WindowsStore.Views
 {
     public partial class ExhibitDetailsPage : BasePageView
     {
