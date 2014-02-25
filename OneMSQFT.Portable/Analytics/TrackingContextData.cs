@@ -15,6 +15,97 @@ namespace OneMSQFT.Common.Analytics
             public const string PlatformName = "platformName";
         }
 
+        public class PageNames
+        {
+            public const string EventLanding = "event landing";
+            public const string Home = "home";
+            public const string ExhibitLanding = "exhibit landing";
+            public const string About = "about";
+        }
+
+        public class AppElements
+        {
+            public static string GenerateEventSemanticZoomData(int position = -1)
+            {
+                var entry = "event";
+                if (position >= 0)
+                {
+                    entry += ('|' + position.ToString());
+                }
+                entry += ": semantic zoom";
+                return entry;
+            }
+
+            public static string GeneratePlayVideoInEventData(int eventPos = -1)
+            {
+                var entry = "event";
+                if (eventPos >= 0)
+                {
+                    entry += ('|' + eventPos.ToString());
+                }
+                entry += ": video play";
+                return entry;
+            }
+
+            public static string GeneratePlayVideoInExhibitData(int exhibitPos = -1)
+            {
+                var entry = "exhibit";
+                if (exhibitPos >= 0)
+                {
+                    entry += ('|' + exhibitPos.ToString());
+                }
+                entry += ": video play";
+                return entry;
+            }
+
+            public static string GenerateClickExhibitInEventData(int eventPos = -1, int exhibitPos = -1)
+            {
+                var entry = "event";
+                if (eventPos >= 0)
+                {
+                    entry += ('|' + eventPos.ToString());
+                }
+                entry += ": exhibit";
+                if (exhibitPos >= 0)
+                {
+                    entry += ('|' + exhibitPos.ToString());
+                }
+
+                return entry;
+            }
+
+            public static string GenerateClickEventInTimelineAppBarData()
+            {
+                return "event: timeline app bar";
+            }
+
+            public static string GenerateClickEventInExhibitAppBarData()
+            {
+                return "event: exhibit app bar";
+            }
+
+            public static string GenerateClickLinkInAppBarData( string title)
+            {
+                return "app bar:" + title;
+            }
+
+            public static string GenerateClickLinkInExhibitData(string title, int exhibitPos)
+            {
+                var entry = "exhibit";
+                if (exhibitPos >= 0)
+                {
+                    entry += ('|' + exhibitPos.ToString());
+                }
+                entry += ':' + title;
+                return entry;                
+            }
+
+            public static string GenerateOnAppIdleData()
+            {
+                return "app idle";
+            }
+        }
+        
         public string PageName
         {
             get
@@ -25,14 +116,6 @@ namespace OneMSQFT.Common.Analytics
             {
                 this.Add("pageName", value);
             }
-        }
-
-        public class PageNames
-        {
-            public const string EventLanding = "event landing";
-            public const string Home = "home";
-            public const string ExhibitLanding = "exhibit landing";
-            public const string About = "about";
         }
 
         public object AppElement
