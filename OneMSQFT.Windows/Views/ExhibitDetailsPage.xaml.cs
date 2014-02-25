@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml.Media.Imaging;
 using Microsoft.Practices.Prism.StoreApps;
@@ -25,21 +26,13 @@ namespace OneMSQFT.WindowsStore.Views
             Loaded += ExhibitDetailsPage_Loaded;
             var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();
             vm.PropertyChanged += ExhibitDetailsPage_PropertyChanged;
+            vm.PinContextChanged += vm_PinContextChanged;
             var app = AppLocator.Current;
             if (app != null)
             {
                 StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
                 PinButton.Visibility = app.KioskModeEnabled ? Visibility.Collapsed : Visibility.Visible;
             }
-            vm.PinContextChanged += vm_PinContextChanged;
-        }
-
-        void vm_PinContextChanged(object sender, EventArgs e)
-        {
-            var args = GetDataContextAsViewModel<IBasePageViewModel>().GetSecondaryTileArguments();
-            if (args == null)
-                return;
-            ToggleAppBarButton(this.PinButton, !SecondaryTile.Exists(args.Id));
         }
 
         protected override void GoBack(object sender, RoutedEventArgs eventArgs)
@@ -69,6 +62,14 @@ namespace OneMSQFT.WindowsStore.Views
 
         }
 
+        void vm_PinContextChanged(object sender, EventArgs e)
+        {
+            var args = GetDataContextAsViewModel<IBasePageViewModel>().GetSecondaryTileArguments();
+            if (args == null)
+                return;
+            ToggleAppBarButton(this.PinButton, !SecondaryTile.Exists(args.Id));
+        }
+
         public override void TopAppBarEventButtonCommandHandler(String eventId)
         {
             this.Frame.Navigate(typeof(TimelinePage), eventId);
@@ -82,6 +83,22 @@ namespace OneMSQFT.WindowsStore.Views
             this.HomeButton.Command = this.HomeButtonClickCommand;
             this.AboutButton.Command = this.AboutButtonClickCommand;
         }
+
+        #region Resizing
+
+        protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
+        {
+            var vm = DataContext as IExhibitDetailsPageViewModel;
+            if (vm != null)
+            {
+                vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
+            }
+            base.WindowSizeChanged(sender, e);
+        }
+
+        #endregion
+
+        #region MediaViewer
 
         private void LaunchVideoCommand_OnClick(object sender, RoutedEventArgs e)
         {
@@ -105,6 +122,9 @@ namespace OneMSQFT.WindowsStore.Views
             ExhibitDetailsPanels.Opacity = 1;
         }
 
+        #endregion
+
+        #region Pinning
         private async void Pin_OnClick(object sender, RoutedEventArgs e)
         {
             BottomAppBar.IsSticky = true;
@@ -179,5 +199,7 @@ namespace OneMSQFT.WindowsStore.Views
             }
             return new Uri("ms-appx:///Assets/Logo.scale-100.png", UriKind.Absolute);
         }
+
+        #endregion
     }
 }
