@@ -1,7 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
-namespace OneMSQFT.Windows
+namespace OneMSQFT.WindowsStore
 {
     public static class VisualTreeUtilities
     {

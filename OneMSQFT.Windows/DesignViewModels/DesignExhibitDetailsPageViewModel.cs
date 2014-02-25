@@ -12,7 +12,7 @@ using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
 using OneMSQFT.Common.Services;
 
-namespace OneMSQFT.Windows.DesignViewModels
+namespace OneMSQFT.WindowsStore.DesignViewModels
 {
     public class DesignExhibitDetailsPageViewModel : BasePageViewModel, IExhibitDetailsPageViewModel
     {

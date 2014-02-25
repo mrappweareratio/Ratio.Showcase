@@ -6,7 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
-namespace OneMSQFT.Windows.Views
+namespace OneMSQFT.WindowsStore.Views
 {
     public partial class AboutPage : BasePageView
     {
