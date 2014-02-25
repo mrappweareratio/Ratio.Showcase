@@ -385,6 +385,11 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Margin="0,0,0,0">
+                                        <ProgressRing IsEnabled="True" IsActive="True" Height="150" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <ProgressRing.Foreground>
+                                                <SolidColorBrush Color="{Binding DataSource.Exhibit.ExhibitColor, Source={StaticResource DataContextProxy}}"/>
+                                            </ProgressRing.Foreground>
+                                        </ProgressRing>
                                         <Image 
         								Stretch="UniformToFill"
         								Width="{Binding DataSource.FullScreenWidth, Source={StaticResource DataContextProxy}}" 
@@ -508,15 +513,7 @@
                 <VisualStateGroup x:Name="ApplicationViewStates">
                     <VisualState x:Name="FullScreenLandscape" />
                     <VisualState x:Name="Filled" />
-
-                    <VisualState x:Name="FullScreenPortrait">
-                        <Storyboard>
-                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}" />
-                            </ObjectAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </VisualState>
-
+                    <VisualState x:Name="FullScreenPortrait"/>
                     <VisualState x:Name="Snapped"/>
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
