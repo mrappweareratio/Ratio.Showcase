@@ -115,5 +115,13 @@ namespace OneMSQFT.UILogic.ViewModels
                 Links.Add(new LinkItemViewModel(link));
             }
         }
+
+        public String TileBlurb
+        {
+            get
+            {
+                return SquareFootageStringPlain + " " + Strings.SquareFeet + " " + Name;
+            }
+        }
     }
 }

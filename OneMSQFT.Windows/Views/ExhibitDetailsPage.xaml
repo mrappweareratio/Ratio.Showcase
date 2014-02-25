@@ -244,8 +244,7 @@
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
-                        <AppBarButton x:Name="PinButton"
-							Label="{Binding Strings.PIN, Source={StaticResource PortableStrings}}" Click="Pin_OnClick"
+                        <AppBarButton x:Name="PinButton" Click="Pin_OnClick"
 							Foreground="{StaticResource OneMSQFTAppBarButtonForegroundBrush}" 
 							Style="{StaticResource OMSQFTTraditionalPinAppBarButtonStyle}" 
 							Margin="0,-4,0,0"/>
@@ -257,9 +256,6 @@
     </omsqft:BasePageView.BottomAppBar>
     <Grid Background="White">
         <Grid>
-            <!--<Grid.Background>
-                <ImageBrush ImageSource="ms-appx:///Assets/ExhibitDetailsComp.png"></ImageBrush>
-            </Grid.Background>-->
             <ScrollViewer x:Name="ExhibitDetailsPanels" Style="{StaticResource HorizontalScrollViewerStyle}">
                 <StackPanel Orientation="Horizontal">
                     <Grid x:Name="Panel0" >
@@ -526,6 +522,37 @@
             </VisualStateManager.VisualStateGroups>
         </Grid>
 
+        <StackPanel x:Name="TileStackForRender" Margin="0,-1000,0,0">
+            <Grid x:Name="RenderedGridWide" Height="150" Width="310">
+                <Image Height="150" Width="310" 
+                       Source="{Binding DataSource.Exhibit.MediaContent[0].ImageSource, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+	 		           Stretch="UniformToFill"/>
+                <Rectangle 
+                    Width="310" Height="50" Fill="White" VerticalAlignment="Bottom"/>
+                <TextBlock Text="{Binding DataSource.Exhibit.TileBlurb, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+	 				TextWrapping="Wrap" Foreground="Black" FontWeight="Light" TextTrimming="CharacterEllipsis" 
+                    FontSize="18" Margin="55,0,0,0" HorizontalAlignment="Left" 
+                    LineStackingStrategy="BlockLineHeight"
+                    LineHeight="20"
+                    VerticalAlignment="Bottom" Height="50" FontFamily="Segoe UI" MaxHeight="45" MaxLines="2" MaxWidth="250" />
+                <controls:LogoUserControl ScaleRatio=".12" Margin="20,110,0,0"/>
+            </Grid>
+            <Grid x:Name="RenderedGridSquare" Height="150" Width="150">
+                <TextBlock Text="{Binding DataSource.Exhibit.TileBlurb, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                           TextWrapping="Wrap" Foreground="White" FontWeight="Light" 
+                           FontFamily="{StaticResource ContentControlThemeFontFamily}" 
+                           FontSize="24" Margin="10"
+                           LineStackingStrategy="BlockLineHeight"
+                           LineHeight="26" TextTrimming="CharacterEllipsis" />
+            </Grid>
+            <Grid x:Name="RenderedGridSmall" Height="70" Width="70">
+                <TextBlock Text="{Binding DataSource.Exhibit.TileBlurb, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                           TextWrapping="Wrap" Foreground="White" FontWeight="Light" 
+                           FontFamily="{StaticResource ContentControlThemeFontFamily}" 
+                           FontSize="18" LineStackingStrategy="BlockLineHeight"
+                           LineHeight="20" Margin="10" TextTrimming="CharacterEllipsis" />
+            </Grid>
+        </StackPanel>
         <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Black" Opacity=".7" Visibility="{Binding Visibility, ElementName=appBar, Mode=TwoWay}" IsHitTestVisible="False"></Rectangle>
     </Grid>
 </omsqft:BasePageView>

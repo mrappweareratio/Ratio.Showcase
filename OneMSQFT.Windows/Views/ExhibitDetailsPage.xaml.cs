@@ -1,7 +1,13 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.UI;
+using Windows.UI.StartScreen;
+using Windows.UI.Xaml.Media.Imaging;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
+using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -24,6 +30,15 @@ namespace OneMSQFT.WindowsStore.Views
             {
                 StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
             }
+            vm.PinContextChanged += vm_PinContextChanged;
+        }
+
+        void vm_PinContextChanged(object sender, EventArgs e)
+        {
+            var args = GetDataContextAsViewModel<IBasePageViewModel>().GetSecondaryTileArguments();
+            if (args == null)
+                return;
+            ToggleAppBarButton(this.PinButton, !SecondaryTile.Exists(args.Id));
         }
 
         protected override void GoBack(object sender, RoutedEventArgs eventArgs)
@@ -50,6 +65,7 @@ namespace OneMSQFT.WindowsStore.Views
                     this.PopulateTopAppbar(GetDataContextAsViewModel<IBasePageViewModel>());
                 }
             }
+
         }
 
         public override void TopAppBarEventButtonCommandHandler(String eventId)
@@ -88,9 +104,79 @@ namespace OneMSQFT.WindowsStore.Views
             ExhibitDetailsPanels.Opacity = 1;
         }
 
-        private void Pin_OnClick(object sender, RoutedEventArgs e)
+        private async void Pin_OnClick(object sender, RoutedEventArgs e)
         {
+            BottomAppBar.IsSticky = true;
 
+            var vm = GetDataContextAsViewModel<IBasePageViewModel>();
+            var args = vm.GetSecondaryTileArguments();
+
+            if (SecondaryTile.Exists(args.Id))
+            {
+                var secondaryTile = new SecondaryTile(args.Id);
+                bool isUnpinned = await secondaryTile.RequestDeleteForSelectionAsync(GetElementRect((FrameworkElement)sender));
+                ToggleAppBarButton(PinButton, isUnpinned);
+            }
+            else
+            {
+                var secondaryTile = new SecondaryTile(args.Id,
+                                                      args.DisplayName,
+                                                      args.ArgumentsName,
+                                                      await RenderBitmaps(150, 150),
+                                                      TileSize.Square150x150)
+                {
+                    ForegroundText = ForegroundText.Dark,
+                    SmallLogo = await RenderBitmaps(70, 70),
+                    WideLogo = await RenderBitmaps(310, 150),
+                    BackgroundColor = ColorUtils.GetColorFromARGBString(args.BackgroundColor, Colors.White)
+                };
+
+                bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
+                ToggleAppBarButton(PinButton, !isPinned);
+            }
+            BottomAppBar.IsSticky = false;
+        }
+
+        private async Task<Uri> RenderBitmaps(uint width, uint height)
+        {
+            var vm = GetDataContextAsViewModel<ExhibitDetailsPageViewModel>();
+            RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap();
+
+            if (width == 70)
+            {
+                RenderedGridSmall.Background = new SolidColorBrush(vm.Exhibit.ExhibitColor);
+                await renderTargetBitmap.RenderAsync(RenderedGridSmall, 70, 70);
+            }
+            else if (width == 150)
+            {
+                RenderedGridSquare.Background = new SolidColorBrush(vm.Exhibit.ExhibitColor);
+                await renderTargetBitmap.RenderAsync(RenderedGridSquare, 150, 150);
+            }
+            else if (width == 310)
+            {
+                RenderedGridWide.Background = new SolidColorBrush(vm.Exhibit.ExhibitColor);
+                await renderTargetBitmap.RenderAsync(RenderedGridWide, 310, 150);
+            }
+
+            // create or get the named folder under LocalFolder
+            var folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("SecondaryTiles", CreationCollisionOption.OpenIfExists);
+            try
+            {
+                // create the file from the Uri                                                                                                
+                var fileName = String.Format("exhibit_{0}_{1}x{2}.jpg", vm.Exhibit.Id, width, height);
+                var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
+                if ((await file.GetBasicPropertiesAsync()).Size > 0 || await RenderTargetBitmapToStorageFile(file, renderTargetBitmap, width, height))
+                {
+                    // use the storage file name and the path to the local folder 
+                    // to set the image art must be ms-appdata:/// or ms-appx:///
+                    var uri = new Uri("ms-appdata:///local/SecondaryTiles/" + file.Name, UriKind.Absolute);
+                    return uri;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return new Uri("ms-appx:///Assets/Logo.scale-100.png", UriKind.Absolute);
         }
     }
 }
