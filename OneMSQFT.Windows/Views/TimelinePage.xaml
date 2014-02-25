@@ -830,8 +830,7 @@
                         <Button HorizontalAlignment="Stretch" Visibility="{Binding ClearStartupVisibility}" Content="Clear Startup" Command="{Binding ClearStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
                     </StackPanel>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
-                        <AppBarButton x:Name="PinButton"
-							Label="{Binding Strings.PIN, Source={StaticResource PortableStrings}}" Click="Pin_OnClick"
+                        <AppBarButton x:Name="PinButton" Click="Pin_OnClick"
 							Foreground="{StaticResource OneMSQFTAppBarButtonForegroundBrush}" 
 							Style="{StaticResource OMSQFTTraditionalPinAppBarButtonStyle}" 
 							Margin="0,-4,0,0"/>

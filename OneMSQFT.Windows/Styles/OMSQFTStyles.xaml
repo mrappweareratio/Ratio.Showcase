@@ -19,6 +19,7 @@
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
         <Setter Property="FontWeight" Value="Normal"/>
         <Setter Property="Icon" Value="Pin"/>
+        <Setter Property="Label" Value="PIN TO START"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="AppBarButton">
@@ -89,10 +90,11 @@
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
         <Setter Property="FontWeight" Value="Normal"/>
         <Setter Property="Icon" Value="UnPin"/>
+        <Setter Property="Label" Value="UNPIN FROM START"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="AppBarButton">
-                    <Grid x:Name="RootGrid" Background="Transparent" Width="100">
+                    <Grid x:Name="RootGrid" Background="Transparent" Width="Auto">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="ApplicationViewStates">
                                 <VisualState x:Name="FullSize"/>
@@ -145,7 +147,7 @@
                             </Grid>
                             <TextBlock x:Name="TextLabel" Foreground="{StaticResource OneMSQFTAppBarButtonForegroundBrush}" 
 							FontSize="14" FontFamily="{TemplateBinding FontFamily}" 
-							TextAlignment="Center" TextWrapping="Wrap" Text="{TemplateBinding Label}" Width="100" FontWeight="SemiBold"/>
+							TextAlignment="Center" TextWrapping="NoWrap" Text="{TemplateBinding Label}" Width="Auto" FontWeight="SemiBold"/>
                         </StackPanel>
                     </Grid>
                 </ControlTemplate>

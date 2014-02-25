@@ -92,6 +92,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
         {
+            var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
             _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(itemsGridView);
             _timelineGridViewScrollViewer.HorizontalSnapPointsAlignment = SnapPointsAlignment.Center;
             _timelineGridViewScrollViewer.HorizontalSnapPointsType = SnapPointsType.Mandatory;
@@ -104,7 +105,8 @@ namespace OneMSQFT.WindowsStore.Views
             else
             {
                 // scroll to first event item, first item is buffer item
-                ScrollToEventById(this.GetDataContextAsViewModel<TimelinePageViewModel>().TimeLineItems[1].Id);
+                if (vm.TimeLineItems.Count>0)
+                    ScrollToEventById(vm.TimeLineItems[1].Id);
             }
         }
 
