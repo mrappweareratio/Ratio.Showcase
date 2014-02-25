@@ -58,7 +58,7 @@ namespace OneMSQFT.WindowsStore.Views
             var args = GetDataContextAsViewModel<IBasePageViewModel>().GetSecondaryTileArguments();
             if (args == null)
                 return;
-            ToggleAppBarButton(!SecondaryTile.Exists(args.Id));
+            ToggleAppBarButton(this.PinButton, !SecondaryTile.Exists(args.Id));
         }
 
         void scrollerTimer_Tick(object sender, object e)
@@ -282,55 +282,37 @@ namespace OneMSQFT.WindowsStore.Views
 
         async private void Pin_OnClick(object sender, RoutedEventArgs e)
         {
-            this.BottomAppBar.IsSticky = true;
+            BottomAppBar.IsSticky = true;
 
             var vm = GetDataContextAsViewModel<IBasePageViewModel>();
             var args = vm.GetSecondaryTileArguments();
 
             if (SecondaryTile.Exists(args.Id))
             {
-                SecondaryTile secondaryTile = new SecondaryTile(args.Id);
+                var secondaryTile = new SecondaryTile(args.Id);
                 bool isUnpinned = await secondaryTile.RequestDeleteForSelectionAsync(GetElementRect((FrameworkElement)sender));
-
-                ToggleAppBarButton(isUnpinned);
+                ToggleAppBarButton(PinButton, isUnpinned);
             }
             else
             {
-                var secondaryTileImages = await vm.GetSecondaryTileImages();
-
-                SecondaryTile secondaryTile = new SecondaryTile(args.Id,
-                                                                args.DisplayName,
-                                                                args.ArgumentsName,
-                                                                await RenderBitmaps(150, 150),
-                                                                TileSize.Square150x150);
-
-                secondaryTile.ForegroundText = ForegroundText.Dark;
-                secondaryTile.SmallLogo = await RenderBitmaps(70, 70);
-                secondaryTile.WideLogo = await RenderBitmaps(310, 150);
-                secondaryTile.BackgroundColor = ColorUtils.GetColorFromARGBString(args.BackgroundColor, Colors.White);
+                var secondaryTile = new SecondaryTile(args.Id,
+                                                      args.DisplayName,
+                                                      args.ArgumentsName,
+                                                      await RenderBitmaps(150, 150),
+                                                      TileSize.Square150x150)
+                                                      {
+                                                          ForegroundText = ForegroundText.Dark,
+                                                          SmallLogo = await RenderBitmaps(70, 70),
+                                                          WideLogo = await RenderBitmaps(310, 150),
+                                                          BackgroundColor = ColorUtils.GetColorFromARGBString(args.BackgroundColor, Colors.White)
+                                                      };
 
                 bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
-
-                ToggleAppBarButton(!isPinned);
+                ToggleAppBarButton(PinButton, !isPinned);
             }
-            this.BottomAppBar.IsSticky = false;
-
+            BottomAppBar.IsSticky = false;
         }
 
-        public static Rect GetElementRect(FrameworkElement element)
-        {
-            GeneralTransform buttonTransform = element.TransformToVisual(null);
-            Point point = buttonTransform.TransformPoint(new Point());
-            return new Rect(point, new Size(element.ActualWidth, element.ActualHeight));
-        }
-
-        private void ToggleAppBarButton(bool showPinButton)
-        {
-            if (this.PinButton != null)
-            {
-                PinButton.Style = (showPinButton) ? ((Style)App.Current.Resources["OMSQFTTraditionalPinAppBarButtonStyle"]) : ((Style)App.Current.Resources["OMSQFTTraditionalUnPinAppBarButtonStyle"]);
-            }
-        }
 
         private async Task<Uri> RenderBitmaps(uint width, uint height)
         {
@@ -359,7 +341,7 @@ namespace OneMSQFT.WindowsStore.Views
             {
                 // create the file from the Uri                                                                                                
                 var fileName = String.Format("event_{0}_{1}x{2}.jpg", vm.SelectedEvent.Id, width, height);
-                var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.GenerateUniqueName);
+                var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
                 if ((await file.GetBasicPropertiesAsync()).Size > 0 || await RenderTargetBitmapToStorageFile(file, renderTargetBitmap, width, height))
                 {
                     // use the storage file name and the path to the local folder 
@@ -374,65 +356,6 @@ namespace OneMSQFT.WindowsStore.Views
             return new Uri("ms-appx:///Assets/Logo.scale-100.png", UriKind.Absolute);
         }
 
-        public static async Task<bool> RenderTargetBitmapToStorageFile(StorageFile storageFile, RenderTargetBitmap bitmap, uint width, uint height)
-        {
-            try
-            {
-                Guid encoderId = Windows.Graphics.Imaging.BitmapEncoder.JpegEncoderId;                
-
-                using (var stream = await storageFile.OpenAsync(FileAccessMode.ReadWrite))
-                {
-                    stream.Size = 0;
-
-                    var encoder = await Windows.Graphics.Imaging.BitmapEncoder.CreateAsync(
-                        encoderId,
-                        stream
-                        );
-
-                    var pixels = await bitmap.GetPixelsAsync();
-                    encoder.SetPixelData(
-                        Windows.Graphics.Imaging.BitmapPixelFormat.Bgra8,
-                        Windows.Graphics.Imaging.BitmapAlphaMode.Premultiplied,
-                        width, // pixel width
-                        height, // pixel height
-                        72, // horizontal DPI
-                        72, // vertical DPI
-                        pixels.ToArray()
-                    );
-
-                    try
-                    {
-                        await encoder.FlushAsync();
-                        return true;
-                    }
-                    catch (Exception err)
-                    {
-                        // There was an error encoding.
-                        return false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-#if DEBUG
-                Debug.WriteLine("RenderTargetBitmapToStorageFile Exception: " + ex.ToString());
-#endif
-            }
-            return false;
-        }
-
-
-
-
-        public static string GetStorageFileNameFromUri(Uri uri)
-        {
-            var segments = uri.AbsoluteUri.Split('?');
-            var shortUri = segments[0];
-            shortUri = WebUtility.UrlDecode(shortUri);
-            shortUri = String.Join("", shortUri.Split(new string[] { "http://", "https://" }, StringSplitOptions.RemoveEmptyEntries));
-            shortUri = String.Join("-", shortUri.Split(new string[] { ":", "/" }, StringSplitOptions.RemoveEmptyEntries));
-            return shortUri;
-        }
 
     }
 }

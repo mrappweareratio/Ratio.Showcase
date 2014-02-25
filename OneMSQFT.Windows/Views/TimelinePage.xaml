@@ -1022,7 +1022,6 @@
                            LineStackingStrategy="BlockLineHeight"
                            LineHeight="26" TextTrimming="CharacterEllipsis" />
             </Grid>
-
             <Grid x:Name="RenderedGridSmall" Height="70" Width="70">
                 <TextBlock Text="{Binding DataSource.SelectedEvent.TileBlurb, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                            TextWrapping="Wrap" Foreground="White" FontWeight="Light" 

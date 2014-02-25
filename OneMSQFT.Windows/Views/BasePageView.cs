@@ -1,4 +1,9 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Storage;
+using Windows.UI.Xaml.Media.Imaging;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Microsoft.Practices.Prism.StoreApps;
 using System;
@@ -165,6 +170,66 @@ namespace OneMSQFT.WindowsStore.Views
             return (T)DataContext;
         }
 
+        #region Pinning
+
+        public static Rect GetElementRect(FrameworkElement element)
+        {
+            GeneralTransform buttonTransform = element.TransformToVisual(null);
+            Point point = buttonTransform.TransformPoint(new Point());
+            return new Rect(point, new Size(element.ActualWidth, element.ActualHeight));
+        }
+
+        protected void ToggleAppBarButton(AppBarButton pinButton, bool showPinButton)
+        {
+            if (pinButton != null)
+            {
+                pinButton.Style = (showPinButton) ? ((Style)App.Current.Resources["OMSQFTTraditionalPinAppBarButtonStyle"]) : ((Style)App.Current.Resources["OMSQFTTraditionalUnPinAppBarButtonStyle"]);
+            }
+        }
+
+        public static async Task<bool> RenderTargetBitmapToStorageFile(StorageFile storageFile, RenderTargetBitmap bitmap, uint width, uint height)
+        {
+            try
+            {
+                Guid encoderId = Windows.Graphics.Imaging.BitmapEncoder.JpegEncoderId;
+
+                using (var stream = await storageFile.OpenAsync(FileAccessMode.ReadWrite))
+                {
+                    stream.Size = 0;
+                    var encoder = await Windows.Graphics.Imaging.BitmapEncoder.CreateAsync(encoderId, stream);
+                    var pixels = await bitmap.GetPixelsAsync();
+
+                    encoder.SetPixelData(
+                        Windows.Graphics.Imaging.BitmapPixelFormat.Bgra8,
+                        Windows.Graphics.Imaging.BitmapAlphaMode.Premultiplied,
+                        width, // pixel width
+                        height, // pixel height
+                        72, // horizontal DPI
+                        72, // vertical DPI
+                        pixels.ToArray()
+                    );
+
+                    try
+                    {
+                        await encoder.FlushAsync();
+                        return true;
+                    }
+                    catch (Exception err)
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                Debug.WriteLine("RenderTargetBitmapToStorageFile Exception: " + ex.ToString());
+#endif
+            }
+            return false;
+        }
+
+        #endregion
 
     }
 }
