@@ -8,6 +8,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.UI.Core;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Analytics;
 using OneMSQFT.UILogic.DataLayer;
@@ -458,8 +459,9 @@ namespace OneMSQFT.UILogic.Tests
                 TrackEventsDelegate = (events, context) =>
                 {
                     tracked = true;
-                    Assert.IsTrue(events.Contains(AnalyticsEventTypes.PageView), "PageView Event");
-                    Assert.IsTrue(context.ContainsKey("exhibitName"), "exhibitName");
+                    Assert.IsTrue(events.Contains(TrackingEventsData.Events.PageView), "PageView Event");
+                    Assert.IsNotNull(context.ExhibitName, "ExhibitName");
+                    Assert.AreEqual(context.PageName, TrackingContextData.PageNames.ExhibitLanding, "ExhibitLanding");
                 }
             };
             var app = new OneMsqftApplication(navigationService, data, configuration, analytics);

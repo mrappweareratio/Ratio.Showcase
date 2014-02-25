@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using OneMSQFT.Common.Analytics;
 
 namespace OneMSQFT.Common.Services
 {
@@ -7,7 +8,7 @@ namespace OneMSQFT.Common.Services
         void Configure();
         void StartSession();
         void StopSession();
-        void TrackEvents(IEnumerable<string> events, IDictionary<string, object> context = null);
+        void TrackEvents(TrackingEventsData eventsData, TrackingContextData context = null);        
         bool KioskModeEnabled { get; set; }
     }
 }
