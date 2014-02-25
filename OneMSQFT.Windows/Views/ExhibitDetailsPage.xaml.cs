@@ -6,6 +6,7 @@ using Windows.UI.Core;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml.Media.Imaging;
 using Microsoft.Practices.Prism.StoreApps;
+using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Utils;
@@ -70,8 +71,17 @@ namespace OneMSQFT.WindowsStore.Views
             ToggleAppBarButton(this.PinButton, !SecondaryTile.Exists(args.Id));
         }
 
-        public override void TopAppBarEventButtonCommandHandler(String eventId)
+        async public override void TopAppBarEventButtonCommandHandler(String eventId)
         {
+            var theApp = AppLocator.Current;
+            var events = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.AppBarTaps, TrackingEventsData.Events.TotalInteraction};
+            var context = new TrackingContextData();
+            context.AppElement = TrackingContextData.AppElements.GenerateClickEventInExhibitAppBarData();
+            Event ev = await theApp.DataService.GetEventById(eventId);
+            context.EventName = ev.Name;
+            context.EventSqFt = ev.SquareFootage;
+            theApp.Analytics.TrackEvents(events, context);
+
             this.Frame.Navigate(typeof(TimelinePage), eventId);
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
