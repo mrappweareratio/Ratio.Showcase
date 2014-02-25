@@ -141,6 +141,9 @@ namespace OneMSQFT.WindowsStore.Views
 
         void _timelineGridViewScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
+            // this keep the selected Event item from changing the data context if the MediaViewerPopUp is Open and the user resizes or rotates.
+            if (FlipViewPopup.IsOpen) return;
+
             if (e.IsIntermediate == false)
             {
                 if (AppBarIsAutoScrolling == false)
@@ -280,6 +283,8 @@ namespace OneMSQFT.WindowsStore.Views
             if (FlipViewPopup.IsOpen)
             {
                 FlipViewPopup.IsOpen = false;
+                // reposition if item has drifted while user rotated/resized while MediaViewer Popup was open
+                ScrollToEventById(GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent.Id);
             }
         }
 
