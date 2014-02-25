@@ -30,6 +30,7 @@ namespace OneMSQFT.UILogic
         public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics)
         {
             Analytics = analytics;
+            Analytics.KioskModeEnabled = this.KioskModeEnabled;
             Configuration = configuration;
             DataService = dataService;
             NavigationService = navigationService;
@@ -43,66 +44,98 @@ namespace OneMSQFT.UILogic
                 Analytics.StartSession();
                 _events = await DataService.GetEvents();
             }
+
             if (!String.IsNullOrEmpty(args.Arguments))
             {
+                var events = new AnalyticsEventsContext();
+                events.Add(AnalyticsEventTypes.PageView);
+                var context = new TrackingContextData();
+
                 var pinningContext = PinningUtils.ParseArguments(args.Arguments);
                 switch (pinningContext.StartupItemType)
                 {
                     case StartupItemType.None:
                         break;
                     case StartupItemType.Event:
-                        if (_events == null || !_events.Any(x => x.Id.Equals(pinningContext.StartupItemId)))
+                        Event evt;
+                        if (_events == null || (evt = _events.FirstOrDefault(x => x.Id.Equals(pinningContext.StartupItemId))) == null)
                         {
+                            context.PageName = TrackingContextData.PageNames.Home;
                             NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
                         }
                         else
                         {
+                            context.PageName = TrackingContextData.PageNames.EventLanding;
+                            context.EventName = evt.Name;
                             NavigationService.Navigate(ViewLocator.Pages.Timeline, pinningContext.StartupItemId);
                         }
+                        Analytics.TrackEvents(events, context);
                         return;
                     case StartupItemType.Exhibit:
-                        if (_events == null || !_events.SelectMany(x => x.Exhibits).Any(x => x.Id.Equals(pinningContext.StartupItemId)))
+                        Exhibit exhibit;
+                        if (_events == null ||
+                            (exhibit = _events.SelectMany(x => x.Exhibits).FirstOrDefault(x => x.Id.Equals(pinningContext.StartupItemId))) == null)
                         {
+                            context.PageName = TrackingContextData.PageNames.Home;
                             NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
                         }
                         else
                         {
+                            context.PageName = TrackingContextData.PageNames.ExhibitLanding;
+                            context.ExhibitName = exhibit.Name;
                             NavigationService.Navigate(ViewLocator.Pages.ExhibitDetails, pinningContext.StartupItemId);
                         }
+                        Analytics.TrackEvents(events, context);
                         return;
                 }
             }
             GoHome();
         }
 
-        public void GoHome()
+        public void GoHome(ILaunchActivatedEventArgs args = null)
         {
+            var events = new AnalyticsEventsContext();
+            events.Add(AnalyticsEventTypes.PageView);
+            var context = new TrackingContextData();
+
             switch (Configuration.StartupItemType)
             {
                 case StartupItemType.None:
                     NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
                     break;
                 case StartupItemType.Event:
-                    if (_events == null || !_events.Any(x => x.Id.Equals(Configuration.StartupItemId)))
+                    Event evt;
+                    if (_events == null || (evt = _events.FirstOrDefault(x => x.Id.Equals(Configuration.StartupItemId))) == null)
                     {
+                        context.PageName = TrackingContextData.PageNames.Home;
                         NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
                     }
                     else
                     {
+                        context.PageName = TrackingContextData.PageNames.EventLanding;
+                        context.EventName = evt.Name;
                         NavigationService.Navigate(ViewLocator.Pages.Timeline, Configuration.StartupItemId);
                     }
                     break;
                 case StartupItemType.Exhibit:
+                    Exhibit exhibit;
                     if (_events == null ||
-                        !_events.SelectMany(x => x.Exhibits).Any(x => x.Id.Equals(Configuration.StartupItemId)))
+                        (exhibit = _events.SelectMany(x => x.Exhibits).FirstOrDefault(x => x.Id.Equals(Configuration.StartupItemId))) == null)
                     {
+                        context.PageName = TrackingContextData.PageNames.Home;
                         NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
                     }
                     else
                     {
+                        context.PageName = TrackingContextData.PageNames.ExhibitLanding;
+                        context.ExhibitName = exhibit.Name;
                         NavigationService.Navigate(ViewLocator.Pages.ExhibitDetails, Configuration.StartupItemId);
                     }
                     break;
+            }
+            if (args != null)
+            {
+                Analytics.TrackEvents(events, context);
             }
         }
 

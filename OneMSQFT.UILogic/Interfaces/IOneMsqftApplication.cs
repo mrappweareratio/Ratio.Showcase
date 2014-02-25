@@ -14,9 +14,11 @@ namespace OneMSQFT.UILogic.Interfaces
         IList<SettingsCommand> GetSettingsCommands();
         void OnSuspending(ISuspendingEventArgs suspendingEventArgs);
         void OnResuming();
+
         /// <summary>
         /// Navigate to home or the startup item in configuration
         /// </summary>
-        void GoHome();
+        /// <param name="args"></param>
+        void GoHome(ILaunchActivatedEventArgs args = null);
     }
 }
