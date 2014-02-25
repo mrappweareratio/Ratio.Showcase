@@ -134,6 +134,7 @@
     <Compile Include="Mocks\MockDataCacheService.cs" />
     <Compile Include="Utils\ComingSoonUtilsFixture.cs" />
     <Compile Include="Utils\MediaContentSourceUtilsFixture.cs" />
+    <Compile Include="ViewModels\AboutPageViewModelFixture.cs" />
     <Compile Include="ViewModels\EventItemViewModelFixture.cs" />
     <Compile Include="ViewModels\ExhibitDetailsPageViewModelFixture.cs" />
     <Compile Include="Mocks\MockConfigurationService.cs" />
