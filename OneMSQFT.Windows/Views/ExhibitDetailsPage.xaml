@@ -525,7 +525,7 @@
         <StackPanel x:Name="TileStackForRender" Margin="0,-1000,0,0">
             <Grid x:Name="RenderedGridWide" Height="150" Width="310">
                 <Image Height="150" Width="310" 
-                       Source="{Binding DataSource.Exhibit.HeroPhotoFilePath, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                       Source="{Binding DataSource.Exhibit.ThumbnailImageUri, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
 	 		           Stretch="UniformToFill"/>
                 <Rectangle 
                     Width="310" Height="50" Fill="White" VerticalAlignment="Bottom"/>

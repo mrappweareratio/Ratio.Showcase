@@ -8,20 +8,30 @@ using Windows.UI.Xaml.Controls.Primitives;
 
 namespace OneMSQFT.UILogic.Analytics
 {
-    class TrackingContextData : Dictionary<string, object>
+    public class TrackingContextData : Dictionary<string, object>
     {
+
         //TODO: Replace string keys with enums
-        public string PageName 
+        public string PageName
         {
             get
             {
-                return (this.ContainsKey("pageName") ? this["pageName"] as string: null);
+                return (this.ContainsKey("pageName") ? this["pageName"] as string : null);
             }
             set
             {
                 this.Add("pageName", value);
             }
         }
+
+        public class PageNames
+        {
+            public const string EventLanding = "event landing";
+            public const string Home = "home";
+            public const string ExhibitLanding = "exhibit landing";
+            public const string About = "about";
+        }
+
         public object AppElement
         {
             get
@@ -33,18 +43,18 @@ namespace OneMSQFT.UILogic.Analytics
                 this.Add("appElement", value);
             }
         }
-        public object VideoName
+        public string VideoName
         {
             get
             {
-                return (this.ContainsKey("videoName") ? this["videoName"] as string: null);
+                return (this.ContainsKey("videoName") ? this["videoName"] as string : null);
             }
             set
             {
                 this.Add("videoName", value);
             }
         }
-        public object EventName
+        public string EventName
         {
             get
             {
@@ -55,7 +65,7 @@ namespace OneMSQFT.UILogic.Analytics
                 this.Add("eventName", value);
             }
         }
-        public object ExhibitName
+        public string ExhibitName
         {
             get
             {
@@ -66,18 +76,18 @@ namespace OneMSQFT.UILogic.Analytics
                 this.Add("exhibitName", value);
             }
         }
-        public object EventSqFt
+        public int? EventSqFt
         {
             get
             {
-                return (this.ContainsKey("eventSqFt") ? this["eventSqFt"] as string: null);
+                return (this.ContainsKey("eventSqFt") ? (int?)this["eventSqFt"] : null);
             }
             set
             {
                 this.Add("eventSqFt", value);
             }
         }
-        public object PlatformName
+        public string PlatformName
         {
             get
             {
@@ -87,6 +97,12 @@ namespace OneMSQFT.UILogic.Analytics
             {
                 this.Add("platformName", value);
             }
+        }
+
+        public class PlatformNames
+        {
+            public const string Kiosk = "kiosk";
+            public const string Store = "store";
         }
     }
 }

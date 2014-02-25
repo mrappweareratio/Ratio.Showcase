@@ -431,6 +431,7 @@ namespace OneMSQFT.UILogic.Tests
         [TestMethod]
         public async Task DeepLink_Pin_Exhibit()
         {
+            bool tracked = false;
             string page = null;
             object pageParam = null;
             var navigationService = new MockNavigationService()
@@ -452,7 +453,15 @@ namespace OneMSQFT.UILogic.Tests
                 })
             };
             var configuration = new ConfigurationService();
-            var analytics = new MockAnalyticsService();
+            var analytics = new MockAnalyticsService()
+            {
+                TrackEventsDelegate = (events, context) =>
+                {
+                    tracked = true;
+                    Assert.IsTrue(events.Contains(AnalyticsEventTypes.PageView), "PageView Event");
+                    Assert.IsTrue(context.ContainsKey("exhibitName"), "exhibitName");
+                }
+            };
             var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
             var args = new MockLaunchActivatedEventArgs()
             {
@@ -462,6 +471,7 @@ namespace OneMSQFT.UILogic.Tests
             await app.OnLaunchApplication(args);
             Assert.AreEqual(page, ViewLocator.Pages.ExhibitDetails, "Exhibit Page");
             Assert.AreEqual(pageParam, "1", "Exhibit Id");
+            Assert.IsTrue(tracked, "tracked");
         }
 
         [TestMethod]

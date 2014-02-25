@@ -32,7 +32,7 @@ namespace OneMSQFT.UILogic.DataLayer
                 if (String.IsNullOrEmpty(evt.Color)) continue;
                 foreach (var ex in evt.Exhibits)
                 {
-                    if (ex != null) ex.Color = evt.Color;
+                    ex.Color = evt.Color;
                 }
             }
             return response.Result.Data;

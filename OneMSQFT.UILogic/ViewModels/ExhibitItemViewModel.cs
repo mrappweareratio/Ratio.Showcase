@@ -22,7 +22,7 @@ namespace OneMSQFT.UILogic.ViewModels
     {
         private IExhibit<ICurator> Exhibit { get; set; }
 
-        public Uri HeroPhotoFilePath { get; set; }
+        public Uri ThumbnailImageUri { get; set; }
         public Color ExhibitColor { get; set; }
         public ObservableCollection<MediaContentSourceItemViewModel> MediaContent { get; set; }
         public Visibility MediaContentVisibility { get; set; }
@@ -58,10 +58,10 @@ namespace OneMSQFT.UILogic.ViewModels
             Id = exhibitModel.Id;
             Description = exhibitModel.Description;
             SquareFootage = exhibitModel.SquareFootage;
-            Uri heroPhotoFilePath;
-            if (Uri.TryCreate(exhibitModel.ThumbImage, UriKind.RelativeOrAbsolute, out heroPhotoFilePath))
+            Uri thumbnailImageUri;
+            if (Uri.TryCreate(exhibitModel.ThumbImage, UriKind.RelativeOrAbsolute, out thumbnailImageUri))
             {
-                HeroPhotoFilePath = heroPhotoFilePath;
+                ThumbnailImageUri = thumbnailImageUri;
             }
             LoadMediaContent(exhibitModel.MediaContent);
             LoadLinks(exhibitModel.Links);

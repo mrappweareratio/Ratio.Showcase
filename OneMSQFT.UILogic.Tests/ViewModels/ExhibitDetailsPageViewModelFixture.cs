@@ -254,8 +254,6 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             var secondaryTileArgs = vm.GetSecondaryTileArguments();
             Assert.AreEqual(secondaryTileArgs.Id, PinningUtils.GetSecondaryTileIdByExhibitId("0"));
             Assert.AreEqual(secondaryTileArgs.ArgumentsName, PinningUtils.GetSecondaryTileIdByExhibitId("0"));
-            Assert.AreEqual(secondaryTileArgs.ShortName, "Intentionally Don't Know Short Name Yet");
-            Assert.AreEqual(secondaryTileArgs.DisplayName, "Intentionally  Don't Know Short Name Yet");
         }
         #endregion
     }

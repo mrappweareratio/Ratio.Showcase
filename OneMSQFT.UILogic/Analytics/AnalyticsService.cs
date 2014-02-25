@@ -11,8 +11,10 @@ namespace OneMSQFT.UILogic.Analytics
     public class AnalyticsService : IAnalyticsService
     {
         private static readonly ADMS_Measurement _measure = ADMS_Measurement.Instance;
-        
-        private const bool Disabled = true;
+
+        public bool KioskModeEnabled { get; set; }
+
+        private const bool Disabled = false;
 
         public void Configure()
         {
@@ -30,6 +32,26 @@ namespace OneMSQFT.UILogic.Analytics
         {
             if (Disabled) return;
             _measure.StopSession();
+        }
+
+        public void TrackEvents(IEnumerable<string> events, IDictionary<string, object> context = null)
+        {
+            if (Disabled)
+                return;
+            if (context == null)
+            {
+                _measure.TrackEvents(String.Join(",", events), new TrackingContextData()
+                {
+                    PlatformName = KioskModeEnabled
+                        ? TrackingContextData.PlatformNames.Kiosk
+                        : TrackingContextData.PlatformNames.Store
+                });
+                return;
+            }
+            context["platformName"] = KioskModeEnabled
+                ? TrackingContextData.PlatformNames.Kiosk
+                : TrackingContextData.PlatformNames.Store;
+            _measure.TrackEvents(String.Join(",", events), context);
         }
     }
 }
