@@ -105,6 +105,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         //HELPER METHODS
         public static bool ValidateExhibit(IExhibit<ICurator> e)
         {
+            //TODO: Uncomment all required properties
             //Basic properties
             Assert.IsNotNull(e.Id, "Id");
             Assert.IsNotNull(e.Name, "Name");
@@ -117,10 +118,25 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             Assert.IsTrue(ValidateMediaContent(e.MediaContent), "ValidateMediaContent");
             Assert.IsNotNull(e.Curator, "Curator");
             Assert.IsTrue(ValidateCurator(e.Curator), "ValidateCurator");
+            if (e.Links != null)
+                Assert.IsTrue(ValidateLinks(e.Links), "ValidateLinks");
+            //Assert.IsNotNull(e.Links);
+            if (e.RsvpUrl != null)
+                Assert.IsTrue(Uri.IsWellFormedUriString(e.RsvpUrl, UriKind.RelativeOrAbsolute), "RsvpUrl");
             //Assert.IsNotNull(e.DateStart, "DateStart");
             //Assert.IsNotNull(e.DateEnd, "DateEnd");
-            //Assert.IsNotNull(e.CreatedAt, "CreatedAt");
-            //Assert.IsNotNull(e.UpdatedAt, "UpdatedAt"); 
+
+            return true;
+        }
+
+        public static bool ValidateLinks(IEnumerable<Link> links)
+        {
+            foreach (var link in links)
+            {
+                Assert.IsNotNull(link.Title);
+                Assert.IsNotNull(link.Url);
+                Assert.IsTrue(Uri.IsWellFormedUriString(link.Url, UriKind.RelativeOrAbsolute));
+            }
 
             return true;
         }
