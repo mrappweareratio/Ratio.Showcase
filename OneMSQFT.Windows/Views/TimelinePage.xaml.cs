@@ -138,12 +138,16 @@ namespace OneMSQFT.WindowsStore.Views
         {
             if (show)
             {
+                MaskLeft.Visibility = Visibility.Visible;
+                MaskRight.Visibility = Visibility.Visible;
                 MaskStoryboard.Begin();
             }
             else
             {
                 MaskLeft.Opacity = 0;
                 MaskRight.Opacity = 0;
+                MaskLeft.Visibility = Visibility.Collapsed;
+                MaskRight.Visibility = Visibility.Collapsed;
             }
         }
 
