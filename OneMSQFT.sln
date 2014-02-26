@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6D0D66
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneMSQFT.Windows", "OneMSQFT.Windows\OneMSQFT.Windows.csproj", "{D9B3A0F5-915D-4094-BFEE-54949DCDBC55}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneMSQFT.WindowsStore", "OneMSQFT.Windows\OneMSQFT.WindowsStore.csproj", "{D9B3A0F5-915D-4094-BFEE-54949DCDBC55}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneMSQFT.Portable", "OneMSQFT.Portable\OneMSQFT.Portable.csproj", "{968DA72E-61D0-4F0D-A6F1-4160AE8AC5FA}"
 EndProject

@@ -168,4 +168,7 @@
   <data name="In" xml:space="preserve">
     <value>in</value>
   </data>
+  <data name="UnhandledExceptionTitle" xml:space="preserve">
+    <value>Sorry, there was an error.</value>
+  </data>
 </root>
