@@ -56,14 +56,14 @@ namespace OneMSQFT.UILogic.ViewModels
             }
             var eventsList = events as IList<Event> ?? events.ToList();
 
-            SquareFootEvents = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
+            SquareFootEvents = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x, _analyticsService)));
 
-            var timelineEvents = eventsList.Select(x => new EventItemViewModel(x)).ToList();
+            var timelineEvents = eventsList.Select(x => new EventItemViewModel(x, _analyticsService)).ToList();
             timelineEvents.Insert(0, new BufferItemFakeEventItemViewModel()); // first buffer item
             timelineEvents.Add(new BufferItemFakeEventItemViewModel()); // last buffer item
             TimeLineItems = new ObservableCollection<EventItemViewModel>(timelineEvents);
 
-            var timelineMenuEvents = eventsList.Select(x => new EventItemViewModel(x)).ToList();
+            var timelineMenuEvents = eventsList.Select(x => new EventItemViewModel(x, _analyticsService)).ToList();
             timelineMenuEvents = ComingSoonUtils.InsertComingSoonItems(12, timelineMenuEvents);
             TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(timelineMenuEvents);
 
@@ -238,7 +238,8 @@ namespace OneMSQFT.UILogic.ViewModels
             //Track Exhibit user interaction
             var ev = this.SelectedEvent;
             ExhibitDetail ex = await _dataService.GetExhibitDetailByExhibitId(itemId);
-            _analyticsService.TrackExhibitInteractionInTimeline(ev.Name, ex.Exhibit.Name,ev.Id, itemId);
+            if (_analyticsService != null)
+                _analyticsService.TrackExhibitInteractionInTimeline(ev.Name, ex.Exhibit.Name,ev.Id, itemId);
 
             _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, itemId);
         }

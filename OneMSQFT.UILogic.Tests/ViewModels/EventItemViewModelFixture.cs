@@ -37,7 +37,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             EventItemViewModel vm = null;
             await ExecuteOnUIThread(() =>
             {
-                vm = new EventItemViewModel(ev);
+                vm = new EventItemViewModel(ev, new MockAnalyticsService());
             });
             Assert.IsFalse(vm.ShowMoreCommand.CanExecute(), "CanExecute");
             Assert.IsFalse(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel);
@@ -59,7 +59,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             EventItemViewModel vm = null;
             await ExecuteOnUIThread(() =>
             {
-                vm = new EventItemViewModel(ev);
+                vm = new EventItemViewModel(ev, new MockAnalyticsService());
             });
             Assert.IsTrue(vm.DisplayedExhibits.Count == 4);
             Assert.IsFalse(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel, "No Show More Item");
@@ -80,7 +80,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             EventItemViewModel vm = null;
             await ExecuteOnUIThread(() =>
             {
-                vm = new EventItemViewModel(ev);
+                vm = new EventItemViewModel(ev, new MockAnalyticsService());
             });
             Assert.IsTrue(vm.DisplayedExhibits.Count == 4, "Displays 4 Total");
             Assert.IsTrue(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel, "Last is Show More Item");
@@ -103,7 +103,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             EventItemViewModel vm = null;
             await ExecuteOnUIThread(() =>
             {
-                vm = new EventItemViewModel(ev);
+                vm = new EventItemViewModel(ev, new MockAnalyticsService());
             });
             Assert.IsTrue(vm.DisplayedExhibits.Count == 4, "Displays 4 Total");
             Assert.IsTrue(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel, "Last is Show More Item");
@@ -130,7 +130,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             EventItemViewModel vm = null;
             await ExecuteOnUIThread(() =>
             {
-                vm = new EventItemViewModel(ev);
+                vm = new EventItemViewModel(ev, new MockAnalyticsService());
             });
             Assert.IsTrue(vm.DisplayedExhibits.Count == 4, "Displays 1st 3 with Show More");
             Assert.IsTrue(vm.DisplayedExhibits.Last() is ShowMoreFakeExhibitItemViewModel, "Last is Show More Item");

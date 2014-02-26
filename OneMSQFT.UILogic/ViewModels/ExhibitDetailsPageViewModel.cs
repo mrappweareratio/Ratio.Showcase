@@ -28,13 +28,15 @@ namespace OneMSQFT.UILogic.ViewModels
         private readonly IAlertMessageService _messageService;
         private readonly INavigationService _navigationService;
         private readonly IConfigurationService _configuration;
+        private readonly IAnalyticsService _analyticsService;
 
-        public ExhibitDetailsPageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration)
+        public ExhibitDetailsPageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration, IAnalyticsService analyticsService)
         {
             _dataService = dataService;
             _messageService = messageService;
             _navigationService = navigationService;
             _configuration = configuration;
+            _analyticsService = analyticsService;
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             LaunchVideoCommand = new DelegateCommand<MediaContentSourceItemViewModel>(LaunchVideoCommandHandler);
             NextExhibitCommand = new DelegateCommand<string>(NextExhibitCommandExecuteMethod, NextExhibitCommandCanExecuteMethod);
@@ -73,7 +75,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 await _messageService.ShowAsync("Error", "There was a problem loading events");
                 return;
             }
-            SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
+            SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x, _analyticsService)));
 
             var ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as String);
             Exhibit = new ExhibitItemViewModel(ed.Exhibit);

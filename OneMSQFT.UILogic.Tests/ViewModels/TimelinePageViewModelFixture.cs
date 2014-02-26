@@ -129,7 +129,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             }, new MockAnalyticsService());
             await ExecuteOnUIThread(async () =>
             {
-                timeLine.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("0", "Event"));
+                timeLine.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("0", "Event"), new MockAnalyticsService());
                 await timeLine.SetStartupCommand.Execute();
             });
             Assert.IsTrue(called);

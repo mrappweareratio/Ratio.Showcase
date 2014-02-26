@@ -11,6 +11,7 @@ using System.Collections;
 using Windows.UI.Xaml;
 using System.Globalization;
 using System.Collections.ObjectModel;
+using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Utils;
 using Strings = OneMSQFT.Common.Strings;
 
@@ -21,11 +22,13 @@ namespace OneMSQFT.UILogic.ViewModels
         private int _exhibitsIndex;
         private Visibility _showMoreVisibility;
         public override string Id { get; set; }
+        private readonly IAnalyticsService _analyticsService;
 
-        public EventItemViewModel(Event eventModel)
+        public EventItemViewModel(Event eventModel, IAnalyticsService analyticsService = null)
         {
             if (eventModel == null)
                 return;
+            _analyticsService = analyticsService;
             Event = eventModel;
             Name = eventModel.Name;
             Description = eventModel.Description;
@@ -180,6 +183,10 @@ namespace OneMSQFT.UILogic.ViewModels
 
         private void ShowMoreCommandExecuteMethod()
         {
+            //Track Show More interaction
+            if (_analyticsService != null) 
+                _analyticsService.TrackShowMoreExhibitsInEvent(this.Name);
+
             //load next three
             _exhibitsIndex += 3;
             if (_exhibitsIndex > Exhibits.Count - 1)
