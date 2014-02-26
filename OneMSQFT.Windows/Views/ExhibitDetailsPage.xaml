@@ -373,62 +373,45 @@
                             CommandParameter="{Binding DataSource.NextExhibit.Id, Source={StaticResource DataContextProxy}}"
         				    VerticalAlignment="Stretch" 
         				    Padding="0" Margin="0"
-        				    BorderThickness="0" Style="{StaticResource NextButtonStyle}">
+        				    BorderThickness="0" Style="{StaticResource NextButtonStyle}"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch">
                     <Button.Background>
                         <SolidColorBrush Color="{Binding DataSource.NextExhibit.ExhibitColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"/>
                     </Button.Background>
                     <Button.ContentTemplate>
                         <DataTemplate>
-                            <Grid 
-        						                    Height="{Binding DataSource.FullScreenHeight, Source={StaticResource DataContextProxy}}" 
-        					    	                Width="{Binding DataSource.OneThirdPanelWidth, Source={StaticResource DataContextProxy}}" 
-									                VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="76*"/>
-                                    <RowDefinition Height="35*"/>
-                                    <RowDefinition Height="21*"/>
-                                    <RowDefinition Height="24*"/>
-                                    <RowDefinition Height="227*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="5*"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="{Binding Strings.NextString, Source={StaticResource PortableStrings}}"
-                    			               Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                    			               FontSize="60" 
-                                               HorizontalAlignment="Left"
-                                               TextTrimming="CharacterEllipsis"
-                    			               Margin="50,0,0,0" 
-                                               Grid.Row="1" 
-                                               FontFamily="Segoe UI Light" 
-                                               FontWeight="Light" VerticalAlignment="Top" Height="72" Grid.RowSpan="2"/>
-                                <TextBlock Text="{Binding DataSource.NextExhibit.SquareFootageString, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                    			                Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-                    			                FontSize="32" 
-                                                TextTrimming="CharacterEllipsis"
-                                                HorizontalAlignment="Left"
-                    		    	            TextWrapping="NoWrap" 
-                                                FontFamily="Segoe UI Light" 
-                                                FontWeight="Light"
-                    		    	            Margin="50,0,0,0" 
-                                                Grid.Row="2" VerticalAlignment="Top"/>
-                                <TextBlock Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" 
-                    			                Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-                    			                FontSize="32" 
-                                                TextTrimming="CharacterEllipsis"
-                                                HorizontalAlignment="Left"
-                    		    	            TextWrapping="NoWrap" 
-                                                FontFamily="Segoe UI Light" 
-                                                FontWeight="Light"
-                    		    	            Margin="50,0,0,0" 
-                                                Grid.Row="3" VerticalAlignment="Top"/>
-                                <TextBlock Text="{Binding DataSource.NextExhibit.Curator.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                    			                Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-                    			                FontSize="32" 
-                                                TextTrimming="CharacterEllipsis"
-                                                HorizontalAlignment="Left"
-                    		    	            TextWrapping="NoWrap" 
-                                                FontFamily="Segoe UI Light" 
-                                                FontWeight="Light"
-                    		    	            Margin="50,0,0,0" 
-                                                Grid.Row="4" VerticalAlignment="Top"/>
+                                <RichTextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,0,0,0" Grid.Row="1" >
+                                    <Paragraph  >
+                                        <Run Text="Next" FontSize="60" Foreground="White"
+                        				    FontFamily="Segoe UI Light" 
+                        				    FontWeight="Light"/>
+                                        <LineBreak/>
+                                        <Run Text="{Binding DataSource.NextExhibit.SquareFootageString, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                        				    Foreground="White"
+                        				    FontSize="32" 
+                        				    FontFamily="Segoe UI Light" 
+                        				    FontWeight="Light"
+                                            />
+                                        <LineBreak/>
+                                        <Run Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" 
+                        				    Foreground="White"
+                        				    FontSize="32" 
+                        				    FontFamily="Segoe UI Light" 
+                        				    FontWeight="Light"/>
+                                        <LineBreak/>
+                                        <Run Text="{Binding DataSource.NextExhibit.Curator.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                        				    Foreground="White"
+                        				    FontSize="32" 
+                        				    FontFamily="Segoe UI Light" 
+                        				    FontWeight="Light" />
+                                    </Paragraph>
+                                </RichTextBlock>
                             </Grid>
                         </DataTemplate>
                     </Button.ContentTemplate>
@@ -536,66 +519,48 @@
         						Width="{Binding DataSource.FullScreenWidth, Source={StaticResource DataContextProxy}}" 
                           Margin="0,0,0,0">
                 <Button HorizontalAlignment="Stretch" 
-                            Command="{Binding NextExhibitCommand}"
-                            CommandParameter="{Binding NextExhibit.Id}"
+                            Command="{Binding DataSource.NextExhibitCommand, Source={StaticResource DataContextProxy}}"
+                            CommandParameter="{Binding DataSource.NextExhibit.Id, Source={StaticResource DataContextProxy}}"
         				    VerticalAlignment="Stretch" 
         				    Padding="0" Margin="0"
+                        HorizontalContentAlignment="Left"
         				    BorderThickness="0" Style="{StaticResource NextButtonStyle}">
                     <Button.Background>
                         <SolidColorBrush Color="{Binding DataSource.NextExhibit.ExhibitColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"/>
                     </Button.Background>
                     <Button.ContentTemplate>
                         <DataTemplate>
-                            <Grid 
-        						                    Height="{Binding DataSource.PortraitHeaderFooterHeight, Source={StaticResource DataContextProxy}}" 
-        					    	                Width="{Binding DataSource.FullScreenWidth, Source={StaticResource DataContextProxy}}" 
-									                VerticalAlignment="Top" HorizontalAlignment="Left">
+                            <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="76*"/>
-                                    <RowDefinition Height="35*"/>
-                                    <RowDefinition Height="21*"/>
-                                    <RowDefinition Height="24*"/>
-                                    <RowDefinition Height="227*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="3*"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="{Binding Strings.NextString, Source={StaticResource PortableStrings}}"
-                    			               Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                    			               FontSize="60" 
-                                               HorizontalAlignment="Left"
-                                               TextTrimming="CharacterEllipsis"
-                    			               Margin="50,0,0,0" 
-                                               Grid.Row="1" 
-                                               FontFamily="Segoe UI Light" 
-                                               FontWeight="Light" VerticalAlignment="Top" Height="72" Grid.RowSpan="2"/>
-                                <TextBlock Text="{Binding DataSource.NextExhibit.SquareFootageString, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                    			                Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-                    			                FontSize="32" 
-                                                TextTrimming="CharacterEllipsis"
-                                                HorizontalAlignment="Left"
-                    		    	            TextWrapping="NoWrap" 
-                                                FontFamily="Segoe UI Light" 
-                                                FontWeight="Light"
-                    		    	            Margin="50,0,0,0" 
-                                                Grid.Row="2" VerticalAlignment="Top"/>
-                                <TextBlock Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" 
-                    			                Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-                    			                FontSize="32" 
-                                                TextTrimming="CharacterEllipsis"
-                                                HorizontalAlignment="Left"
-                    		    	            TextWrapping="NoWrap" 
-                                                FontFamily="Segoe UI Light" 
-                                                FontWeight="Light"
-                    		    	            Margin="50,0,0,0" 
-                                                Grid.Row="3" VerticalAlignment="Top"/>
-                                <TextBlock Text="{Binding DataSource.NextExhibit.Curator.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                    			                Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-                    			                FontSize="32" 
-                                                TextTrimming="CharacterEllipsis"
-                                                HorizontalAlignment="Left"
-                    		    	            TextWrapping="NoWrap" 
-                                                FontFamily="Segoe UI Light" 
-                                                FontWeight="Light"
-                    		    	            Margin="50,0,0,0" 
-                                                Grid.Row="4" VerticalAlignment="Top"/>
+                                <RichTextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,0,0,0" Grid.Row="1" >
+                                    <Paragraph  >
+                                        <Run Text="Next" FontSize="60" Foreground="White"
+                        				    FontFamily="Segoe UI Light" 
+                        				    FontWeight="Light"/>
+                                        <LineBreak/>
+                                        <Run Text="{Binding DataSource.NextExhibit.SquareFootageString, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                        				    Foreground="White"
+                        				    FontSize="32" 
+                        				    FontFamily="Segoe UI Light" 
+                        				    FontWeight="Light"
+                                            />
+                                        <LineBreak/>
+                                        <Run Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" 
+                        				    Foreground="White"
+                        				    FontSize="32" 
+                        				    FontFamily="Segoe UI Light" 
+                        				    FontWeight="Light"/>
+                                        <LineBreak/>
+                                        <Run Text="{Binding DataSource.NextExhibit.Curator.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                        				    Foreground="White"
+                        				    FontSize="32" 
+                        				    FontFamily="Segoe UI Light" 
+                        				    FontWeight="Light" />
+                                    </Paragraph>
+                                </RichTextBlock>
                             </Grid>
                         </DataTemplate>
                     </Button.ContentTemplate>
@@ -742,6 +707,7 @@
             <Button HorizontalAlignment="Left"
             	Click="GoBack" 
             	Style="{StaticResource CustomBackButtonStyle}" Margin="47,26,0,0" VerticalAlignment="Top" />
+            <controls:LogoUserControl x:Name="PortraitLogo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,26,0,0" LogoColor="FFFFFF" Visibility="Collapsed"/>
 
         </Grid>
 
@@ -776,6 +742,7 @@
                            LineHeight="20" Margin="10" TextTrimming="CharacterEllipsis" />
             </Grid>
         </StackPanel>
+
         <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Black" Opacity=".7" Visibility="{Binding Visibility, ElementName=appBar, Mode=TwoWay}" IsHitTestVisible="False"></Rectangle>
 
         <VisualStateManager.VisualStateGroups>
@@ -793,6 +760,14 @@
                 <VisualState x:Name="FullScreenPortrait">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MediaListViewVertical">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Visible</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="PortraitLogo">
                             <DiscreteObjectKeyFrame KeyTime="0">
                                 <DiscreteObjectKeyFrame.Value>
                                     <Visibility>Visible</Visibility>

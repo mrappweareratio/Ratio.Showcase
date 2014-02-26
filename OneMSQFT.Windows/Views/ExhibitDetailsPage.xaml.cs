@@ -48,8 +48,8 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         void ExhibitDetailsPage_Loaded(object sender, RoutedEventArgs e)
-        {            
-            GetDataContextAsViewModel<IExhibitDetailsPageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);            
+        {
+            ProcessWindowSizeChangedEvent();          
         }
 
         void ExhibitDetailsPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -102,12 +102,13 @@ namespace OneMSQFT.WindowsStore.Views
 
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
-            var vm = DataContext as IExhibitDetailsPageViewModel;
-            if (vm != null)
-            {
-                vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-            }
+            ProcessWindowSizeChangedEvent();
             base.WindowSizeChanged(sender, e);
+        }
+
+        private void ProcessWindowSizeChangedEvent()
+        {
+            GetDataContextAsViewModel<ExhibitDetailsPageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
         }
 
         #endregion
@@ -224,7 +225,7 @@ namespace OneMSQFT.WindowsStore.Views
         void MediaListViewScrollViewerVertical_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
             var vsv = ((ScrollViewer)sender);
-            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset * 2 > vsv.ScrollableHeight ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
+            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset * 2 > vsv.ScrollableHeight+1 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
         }
     }
 }

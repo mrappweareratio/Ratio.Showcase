@@ -798,8 +798,8 @@
                               IsTapEnabled="False">
                             <GridView.ItemTemplateSelector>
                                 <templateSelectors:ExhibitShowMoreDataTemplateSelector
-                            TimelineExhibitTemplate="{StaticResource TimelineExhibitTemplate}"
-                            TimelineShowMoreExhibitTemplate="{StaticResource TimelineShowMoreExhibitTemplate}"/>
+                                    TimelineExhibitTemplate="{StaticResource TimelineExhibitTemplate}"
+                                    TimelineShowMoreExhibitTemplate="{StaticResource TimelineShowMoreExhibitTemplate}"/>
                             </GridView.ItemTemplateSelector>
                             <GridView.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -1032,5 +1032,32 @@
             </Grid>
         </StackPanel>
         <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Black" Opacity=".7" Visibility="{Binding Visibility, ElementName=appBar, Mode=TwoWay}" IsHitTestVisible="False"></Rectangle>
+
+
+        <VisualStateManager.VisualStateGroups>
+
+            <VisualStateGroup x:Name="ApplicationViewStates">
+                <VisualStateGroup.Transitions>
+                    <VisualTransition GeneratedDuration="0">
+                        <VisualTransition.GeneratedEasingFunction>
+                            <ExponentialEase EasingMode="EaseIn"/>
+                        </VisualTransition.GeneratedEasingFunction>
+                    </VisualTransition>
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="FullScreenLandscape" />
+
+                <VisualState x:Name="FullScreenPortrait">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="semanticZoom">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </omsqft:BasePageView>
