@@ -20,6 +20,8 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using OneMSQFT.Common;
 using OneMSQFT.Common.Services;
+using OneMSQFT.Common.Analytics;
+using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
@@ -124,6 +126,17 @@ namespace OneMSQFT.WindowsStore.Views
                     this.PopulateTopAppbar(GetDataContextAsViewModel<TimelinePageViewModel>());
                 }
             }
+            if (e.PropertyName == "IsHorizontal")
+            {
+                if (GetDataContextAsViewModel<ITimelinePageViewModel>().IsHorizontal)
+                {
+                    VisualStateManager.GoToState(this, "FullScreenLandscape", true);
+                }
+                else
+                {
+                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);
+                }
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -134,8 +147,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         void TimelinePage_Loaded(object sender, RoutedEventArgs e)
         {
-            var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
-            vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
+            ProcessWindowSizeChangedEvent();
         }
 
         private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
@@ -215,8 +227,10 @@ namespace OneMSQFT.WindowsStore.Views
 
         private bool _semanticZoomClosedFromTopAppBarEvent;
 
-        private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
+        private async void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
+            var theApp = AppLocator.Current;
+            var context = new TrackingContextData();
             if (e.SourceItem.Item != null && e.IsSourceZoomedInView == false)
             {
                 if (_semanticZoomClosedFromTopAppBarEvent)
@@ -225,6 +239,10 @@ namespace OneMSQFT.WindowsStore.Views
                 }
                 else
                 {
+                    //Track event selection
+                    var ev = this.GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent;
+                    theApp.Analytics.TrackTimelineSemanticZoomEventInteraction(ev.Name, ev.SquareFootage, ev.Id);
+
                     ScrollToEventById(((EventItemViewModel)e.SourceItem.Item).Id);
                 }
                 itemsGridView.Opacity = 1;
@@ -232,6 +250,9 @@ namespace OneMSQFT.WindowsStore.Views
 
             if (e.IsSourceZoomedInView)
             {
+                //Track going into ZoomedOut view
+                theApp.Analytics.TrackTimelineSemanticZoom();
+
                 ShowTimelineMasks(false);
                 this.semanticZoom.Background = new SolidColorBrush(Colors.Transparent);
                 LogoGrid.Visibility = Visibility.Visible;
@@ -248,8 +269,11 @@ namespace OneMSQFT.WindowsStore.Views
             LogoGrid.Visibility = Visibility.Collapsed;
         }
 
-        public override void TopAppBarEventButtonCommandHandler(String eventId)
+        public override async void TopAppBarEventButtonCommandHandler(String eventId)
         {
+            Event ev = await AppLocator.Current.DataService.GetEventById(eventId);
+            AppLocator.Current.Analytics.TrackAppBarInteractionInTimeline(ev.Name, ev.SquareFootage);
+
             if (semanticZoom.IsZoomedInViewActive == false)
             {
                 _semanticZoomClosedFromTopAppBarEvent = true;
@@ -288,14 +312,14 @@ namespace OneMSQFT.WindowsStore.Views
 
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
-            var vm = DataContext as ITimelinePageViewModel;
-            if (vm != null)
-            {
-                vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-            }
+            ProcessWindowSizeChangedEvent();
             base.WindowSizeChanged(sender, e);
         }
 
+        private void ProcessWindowSizeChangedEvent()
+        {
+            GetDataContextAsViewModel<ITimelinePageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
+        }
 
         #region MediaViewer
 
@@ -303,6 +327,12 @@ namespace OneMSQFT.WindowsStore.Views
         {
             if (!VideoPopup.IsOpen)
             {
+                //track video plays
+                var ev = this.GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent;
+                var mediaItem = (MediaContentSourceItemViewModel) FlipViewer.SelectedItem;
+                if (mediaItem != null)
+                    AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Name, ev.SquareFootage, ev.Id);
+
                 VideoPopup.IsOpen = true;
                 VideoPlayerUserControl.SelectedMediaContentSource = ((MediaContentSourceItemViewModel)FlipViewer.SelectedItem);
             }

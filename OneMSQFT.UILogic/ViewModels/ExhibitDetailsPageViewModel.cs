@@ -196,6 +196,8 @@ namespace OneMSQFT.UILogic.ViewModels
         public override void WindowSizeChanged(double width, double height)
         {
             IsHorizontal = width > height;
+            OnPropertyChanged("IsHorizontal");
+
             OnPropertyChanged("FullScreenHeight");
             OnPropertyChanged("FullScreenWidth");
             OnPropertyChanged("ExhibitItemHeight");
@@ -205,13 +207,6 @@ namespace OneMSQFT.UILogic.ViewModels
             OnPropertyChanged("PortraitHeaderFooterHeight");
         }
 
-        private Boolean _isHorizontal;
-
-        public Boolean IsHorizontal
-        {
-            get { return _isHorizontal; }
-            set { SetProperty(ref _isHorizontal, value); }
-        }
 
         #endregion
 

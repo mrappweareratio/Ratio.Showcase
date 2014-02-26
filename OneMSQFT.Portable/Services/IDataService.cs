@@ -9,5 +9,6 @@ namespace OneMSQFT.Common.Services
     {
         Task<IEnumerable<Event>> GetEvents();      
         Task<ExhibitDetail> GetExhibitDetailByExhibitId(string exhibitId);
+        Task<Event> GetEventById(string eventId);
     }
 }

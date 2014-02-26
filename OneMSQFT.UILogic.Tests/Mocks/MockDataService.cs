@@ -15,6 +15,8 @@ namespace OneMSQFT.UILogic.Tests.Mocks
 
         public Func<String, Task<ExhibitDetail>> GetExhibitDetailByExhibitIdDelegate { get; set; }
 
+        public Func<String, Task<Event>> GetEventByIdDelegate { get; set; }
+
         public MockDataService()
         {
         }
@@ -28,9 +30,16 @@ namespace OneMSQFT.UILogic.Tests.Mocks
 
         public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string exhibitId)
         {
-            if (GetEventsDelegate != null)
+            if (GetExhibitDetailByExhibitIdDelegate != null)
                 return GetExhibitDetailByExhibitIdDelegate(exhibitId);
             return Task.FromResult<ExhibitDetail>(null);
+        }
+
+        public Task<Event> GetEventById(string eventId)
+        {
+            if (GetEventByIdDelegate != null)
+                return GetEventByIdDelegate(eventId);
+            return Task.FromResult<Event>(null);
         }
     }
 }

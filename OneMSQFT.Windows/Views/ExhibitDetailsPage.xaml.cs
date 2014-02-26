@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media.Imaging;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common;
+using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
@@ -90,8 +91,8 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         void ExhibitDetailsPage_Loaded(object sender, RoutedEventArgs e)
-        {            
-            GetDataContextAsViewModel<IExhibitDetailsPageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);            
+        {
+            ProcessWindowSizeChangedEvent();          
         }
 
         void ExhibitDetailsPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -125,8 +126,12 @@ namespace OneMSQFT.WindowsStore.Views
             ToggleAppBarButton(this.PinButton, !SecondaryTile.Exists(args.Id));
         }
 
-        public override void TopAppBarEventButtonCommandHandler(String eventId)
+        async public override void TopAppBarEventButtonCommandHandler(String eventId)
         {
+            //track appbar interaction
+            Event ev = await AppLocator.Current.DataService.GetEventById(eventId);
+            AppLocator.Current.Analytics.TrackAppBarInteractionInExhibitView(ev.Name, ev.SquareFootage);
+
             this.Frame.Navigate(typeof(TimelinePage), eventId);
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
@@ -144,12 +149,13 @@ namespace OneMSQFT.WindowsStore.Views
 
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
-            var vm = DataContext as IExhibitDetailsPageViewModel;
-            if (vm != null)
-            {
-                vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-            }
+            ProcessWindowSizeChangedEvent();
             base.WindowSizeChanged(sender, e);
+        }
+
+        private void ProcessWindowSizeChangedEvent()
+        {
+            GetDataContextAsViewModel<ExhibitDetailsPageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
         }
 
         #endregion
@@ -266,7 +272,7 @@ namespace OneMSQFT.WindowsStore.Views
         void MediaListViewScrollViewerVertical_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
             var vsv = ((ScrollViewer)sender);
-            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset * 2 > vsv.ScrollableHeight ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
+            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset * 2 > vsv.ScrollableHeight+1 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
         }
     }
 }

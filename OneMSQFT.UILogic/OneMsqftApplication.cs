@@ -23,10 +23,10 @@ namespace OneMSQFT.UILogic
     public class OneMsqftApplication : IOneMsqftApplication
     {
         public IAlertMessageService MessageService { get; private set; }
-        public IAnalyticsService Analytics { get; private set; }
+        public IAnalyticsService Analytics { get; set; }
         private IEnumerable<Event> _events;
         public IConfigurationService Configuration { get; private set; }
-        public IDataService DataService { get; private set; }
+        public IDataService DataService { get; set; }
         public INavigationService NavigationService { get; private set; }
         public ISharingService SharingService { get; private set; }
 
