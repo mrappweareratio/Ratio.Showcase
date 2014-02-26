@@ -79,6 +79,10 @@ namespace OneMSQFT.UILogic.ViewModels
             Exhibit = new ExhibitItemViewModel(ed.Exhibit);
             NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit);
 
+            LocalMediaCollection = Exhibit.MediaContent;
+            LocalMediaCollection.Add(new FooterFakeMediaItemViewModel());
+            LocalMediaCollection.Insert(0, new HeaderFakeMediaItemViewModel());
+
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
 
@@ -111,6 +115,22 @@ namespace OneMSQFT.UILogic.ViewModels
         private Visibility _setStartupVisibility;
         private Visibility _clearStartupVisibility;
 
+        private ObservableCollection<MediaContentSourceItemViewModel> _localMediaCollection;
+        public ObservableCollection<MediaContentSourceItemViewModel> LocalMediaCollection
+        {
+            get
+            {
+                return _localMediaCollection;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    SetProperty(ref _localMediaCollection, value);
+                }
+            }
+        }
+
         public ExhibitItemViewModel Exhibit
         {
             get
@@ -128,6 +148,7 @@ namespace OneMSQFT.UILogic.ViewModels
                     SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
                     ClearStartupCommand.RaiseCanExecuteChanged();
                     ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
+                    
                 }
             }
         }
@@ -162,6 +183,11 @@ namespace OneMSQFT.UILogic.ViewModels
             get { return FullScreenWidth * .325; } // approx one third (per comp)
         }
 
+        public double PortraitHeaderFooterHeight
+        {
+            get { return FullScreenHeight * .275; } // approx one third (per comp)
+        }
+
         public Visibility ClearStartupVisibility
         {
             get { return _clearStartupVisibility; }
@@ -176,10 +202,22 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public override void WindowSizeChanged(double width, double height)
         {
+            IsHorizontal = width > height;
             OnPropertyChanged("FullScreenHeight");
             OnPropertyChanged("FullScreenWidth");
             OnPropertyChanged("ExhibitItemHeight");
             OnPropertyChanged("ExhibitItemWidth");
+            OnPropertyChanged("OneThirdPanelWidth");
+
+            OnPropertyChanged("PortraitHeaderFooterHeight");
+        }
+
+        private Boolean _isHorizontal;
+
+        public Boolean IsHorizontal
+        {
+            get { return _isHorizontal; }
+            set { SetProperty(ref _isHorizontal, value); }
         }
 
         #endregion

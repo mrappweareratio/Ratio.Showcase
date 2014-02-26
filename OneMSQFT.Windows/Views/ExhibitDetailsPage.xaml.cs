@@ -4,6 +4,7 @@ using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.StartScreen;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media.Imaging;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common.Models;
@@ -60,6 +61,17 @@ namespace OneMSQFT.WindowsStore.Views
                 }
             }
 
+            if (e.PropertyName == "IsHorizontal")
+            {
+                if (GetDataContextAsViewModel<ExhibitDetailsPageViewModel>().IsHorizontal)
+                {
+                    VisualStateManager.GoToState(this, "FullScreenLandscape", true);
+                }
+                else
+                {
+                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);
+                }
+            }
         }
 
         void vm_PinContextChanged(object sender, EventArgs e)
@@ -86,6 +98,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         #region Resizing
 
+
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
             var vm = DataContext as IExhibitDetailsPageViewModel;
@@ -104,7 +117,6 @@ namespace OneMSQFT.WindowsStore.Views
         {
             if (!VideoPopup.IsOpen)
             {
-                ExhibitDetailsPanels.Opacity = 0;
                 VideoPopup.IsOpen = true;
             }
         }
@@ -119,7 +131,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         private void VideoPopup_Closed(object sender, object e)
         {
-            ExhibitDetailsPanels.Opacity = 1;
+
         }
 
         #endregion
@@ -201,5 +213,17 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         #endregion
+
+        void MediaListViewScrollViewerHorizontal_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        {
+            var hsv = ((ScrollViewer)sender);
+            hsv.HorizontalSnapPointsAlignment = hsv.HorizontalOffset > hsv.ScrollableWidth / 2 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
+        }
+
+        void MediaListViewScrollViewerVertical_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        {
+            var vsv = ((ScrollViewer)sender);
+            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset > vsv.ScrollableHeight / 2 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
+        }
     }
 }

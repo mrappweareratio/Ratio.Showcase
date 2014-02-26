@@ -123,5 +123,13 @@ namespace OneMSQFT.UILogic.ViewModels
                 return SquareFootageStringPlain + " " + Strings.SquareFeet + " " + Name;
             }
         }
+
+        public String SnapBlurb
+        {
+            get
+            {
+                return "  " + Strings.SquareFeet + " at " + Name;
+            }
+        }
     }
 }
