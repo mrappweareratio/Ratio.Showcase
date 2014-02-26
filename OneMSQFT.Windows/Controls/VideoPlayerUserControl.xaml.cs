@@ -37,7 +37,7 @@ namespace OneMSQFT.WindowsStore.Controls
             var app = AppLocator.Current;
             if (app != null && !app.KioskModeEnabled)
             {
-                player.MediaEnded += (o, args) => DataTransferManager.ShowShareUI();
+                //player.MediaEnded += (o, args) => DataTransferManager.ShowShareUI();
             }
         }               
 
