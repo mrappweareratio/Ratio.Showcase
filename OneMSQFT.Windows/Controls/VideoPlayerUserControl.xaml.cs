@@ -1,4 +1,5 @@
-﻿using Microsoft.PlayerFramework;
+﻿using Windows.ApplicationModel.DataTransfer;
+using Microsoft.PlayerFramework;
 using OneMSQFT.UILogic.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -27,28 +28,18 @@ namespace OneMSQFT.WindowsStore.Controls
         }
 
         private void player_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (_selectedEvent != null)
-            {
-                player.Source = _selectedEvent.EventHeroVideoUri;
-                player.Play();
-            }
+        {            
             if (_selectedMediaContentSource != null)
             {
                 player.Source = _selectedMediaContentSource.VideoSource;
                 player.Play();
             }
-        }
-
-        private EventItemViewModel _selectedEvent;
-        public EventItemViewModel SelectedEvent
-        {
-            get { return (EventItemViewModel)GetValue(SelectedEventProperty); }
-            set { SetValue(SelectedEventProperty, value); }
-        }
-
-        public static readonly DependencyProperty SelectedEventProperty =
-            DependencyProperty.Register("SelectedEvent", typeof(EventItemViewModel), typeof(VideoPlayerUserControl), new PropertyMetadata(null, SelectedEventPropertyChanged));
+            var app = AppLocator.Current;
+            if (app != null && !app.KioskModeEnabled)
+            {
+                player.MediaEnded += (o, args) => DataTransferManager.ShowShareUI();
+            }
+        }               
 
         private MediaContentSourceItemViewModel _selectedMediaContentSource;
         public MediaContentSourceItemViewModel SelectedMediaContentSource
@@ -58,19 +49,7 @@ namespace OneMSQFT.WindowsStore.Controls
         }
 
         public static readonly DependencyProperty SelectedMediaContentSourceProperty =
-            DependencyProperty.Register("SelectedMediaContentSource", typeof(MediaContentSourceItemViewModel), typeof(VideoPlayerUserControl), new PropertyMetadata(null, SelectedMediaContentSourcePropertyChanged));
-
-        // SelectedEvent changed from Timeline Page
-        private static void SelectedEventPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var vpuc = d as VideoPlayerUserControl;
-            if (vpuc == null) return;
-            vpuc._selectedEvent = e.NewValue as EventItemViewModel;
-            if (vpuc._selectedEvent != null)
-            {
-                vpuc.player.Source = vpuc._selectedEvent.EventHeroVideoUri;
-            }
-        }
+            DependencyProperty.Register("SelectedMediaContentSource", typeof(MediaContentSourceItemViewModel), typeof(VideoPlayerUserControl), new PropertyMetadata(null, SelectedMediaContentSourcePropertyChanged));    
 
         // MediaContentSourceItemViewModel changed from Exhibits Page
         private static void SelectedMediaContentSourcePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -83,6 +62,6 @@ namespace OneMSQFT.WindowsStore.Controls
                 vpuc.player.Source = vpuc._selectedMediaContentSource.VideoSource;
             }
         }
-        
+
     }
 }
