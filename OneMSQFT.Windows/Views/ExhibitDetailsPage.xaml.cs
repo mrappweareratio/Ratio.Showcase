@@ -4,6 +4,7 @@ using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.StartScreen;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media.Imaging;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common.Models;
@@ -19,6 +20,7 @@ namespace OneMSQFT.WindowsStore.Views
 {
     public partial class ExhibitDetailsPage : BasePageView
     {
+        private ScrollViewer _mediaListViewScrollViewer;
         public ExhibitDetailsPage()
         {
             this.InitializeComponent();
@@ -104,7 +106,7 @@ namespace OneMSQFT.WindowsStore.Views
         {
             if (!VideoPopup.IsOpen)
             {
-                ExhibitDetailsPanels.Opacity = 0;
+                MediaListView.Opacity = 0;
                 VideoPopup.IsOpen = true;
             }
         }
@@ -119,7 +121,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         private void VideoPopup_Closed(object sender, object e)
         {
-            ExhibitDetailsPanels.Opacity = 1;
+            MediaListView.Opacity = 1;
         }
 
         #endregion
@@ -201,5 +203,25 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         #endregion
+
+        private void ListViewLoaded(object sender, RoutedEventArgs e)
+        {
+            _mediaListViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(MediaListView);
+            _mediaListViewScrollViewer.HorizontalSnapPointsAlignment = SnapPointsAlignment.Near;
+            _mediaListViewScrollViewer.HorizontalSnapPointsType = SnapPointsType.Mandatory;
+            _mediaListViewScrollViewer.ViewChanging += _mediaListViewScrollViewer_ViewChanging;
+        }
+
+        void _mediaListViewScrollViewer_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        {
+            if (_mediaListViewScrollViewer.HorizontalOffset > _mediaListViewScrollViewer.ScrollableWidth / 2)
+            {
+                _mediaListViewScrollViewer.HorizontalSnapPointsAlignment = SnapPointsAlignment.Far;
+            }
+            else
+            {
+                _mediaListViewScrollViewer.HorizontalSnapPointsAlignment = SnapPointsAlignment.Near;
+            }
+        }
     }
 }

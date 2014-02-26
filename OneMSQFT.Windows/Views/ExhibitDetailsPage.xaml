@@ -13,6 +13,7 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:behaviors="using:OneMSQFT.WindowsStore.Behaviors"
     xmlns:controls="using:OneMSQFT.WindowsStore.Controls"
+    xmlns:dataTemplateSelectors="using:OneMSQFT.WindowsStore.DataTemplateSelectors"
     mc:Ignorable="d"
     prism:ViewModelLocator.AutoWireViewModel="True"
 	d:DataContext="{d:DesignInstance designViewModels:DesignExhibitDetailsPageViewModel, IsDesignTimeCreatable=True}">
@@ -20,7 +21,7 @@
     <omsqft:BasePageView.Resources>
         <viewModels:DataContextProxy x:Key="DataContextProxy" />
 
-        <Style x:Key="EmptyListViewItemContainerStyle" TargetType="ListViewItem">
+        <Style x:Key="EmptyGridViewItemContainerStyle" TargetType="GridViewItem">
             <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
             <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
             <Setter Property="Background" Value="White"/>
@@ -32,21 +33,16 @@
             <Setter Property="VerticalContentAlignment" Value="Top"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="ListViewItem">
-                        <Border x:Name="ContentContainer">
+                    <ControlTemplate TargetType="GridViewItem">
+                        <Border x:Name="ContentBorder" Margin="0">
                             <Grid>
-                                <Border x:Name="ContentBorder" Margin="0">
-                                    <Grid>
-                                        <ContentPresenter x:Name="contentPresenter"
+                                <ContentPresenter x:Name="contentPresenter"
         												ContentTransitions="{TemplateBinding ContentTransitions}"
         												ContentTemplate="{TemplateBinding ContentTemplate}"
         												Content="{TemplateBinding Content}"
         												HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
         												VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
         												Margin="0" />
-                                    </Grid>
-                                </Border>
-                                <Rectangle x:Name="HoverRectangle" Opacity=".2"/>
                             </Grid>
                         </Border>
                     </ControlTemplate>
@@ -226,6 +222,230 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <DataTemplate x:Key="ExhibitMediaItemTemplate">
+            <Grid Margin="0,0,0,0">
+                <ProgressRing IsEnabled="True" IsActive="True" Height="150" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ProgressRing.Foreground>
+                        <SolidColorBrush Color="{Binding DataSource.Exhibit.ExhibitColor, Source={StaticResource DataContextProxy}}"/>
+                    </ProgressRing.Foreground>
+                </ProgressRing>
+                <Image 
+        								Stretch="UniformToFill"
+        								Width="{Binding DataSource.FullScreenWidth, Source={StaticResource DataContextProxy}}" 
+        								Height="{Binding DataSource.FullScreenHeight, Source={StaticResource DataContextProxy}}" 
+										Source="{Binding ImageSource}"/>
+                <AppBarButton
+												Command="{Binding DataSource.LaunchVideoCommand, Source={StaticResource DataContextProxy}}" 
+                                                CommandParameter="{Binding}"
+                                                Click="LaunchVideoCommand_OnClick"
+                                                HorizontalAlignment="Center" 
+                                                VerticalAlignment="Center" 
+                                                Margin="0"
+                                                Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" 
+                                                Style="{StaticResource AppBarPlayButtonStyle}">
+                    <AppBarButton.Background>
+                        <SolidColorBrush Color="{Binding DataSource.Exhibit.ExhibitColor, Source={StaticResource DataContextProxy}}"/>
+                    </AppBarButton.Background>
+                </AppBarButton>
+
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ExhibitHeaderItemTemplate">
+            <Grid
+        						Height="{Binding DataSource.FullScreenHeight, Source={StaticResource DataContextProxy}}" 
+        						Width="{Binding DataSource.OneThirdPanelWidth, Source={StaticResource DataContextProxy}}" >
+                <Grid.ChildrenTransitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition IsStaggeringEnabled="True"/>
+                    </TransitionCollection>
+                </Grid.ChildrenTransitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Border BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
+        						Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
+        						Width="{Binding DataSource.OneThirdPanelWidth, Source={StaticResource DataContextProxy}}" 
+							BorderThickness="0" Padding="10">
+                    <Border.Background>
+                        <SolidColorBrush Color="{Binding DataSource.Exhibit.ExhibitColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"/>
+                    </Border.Background>
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="143*"/>
+                            <RowDefinition Height="72*"/>
+                            <RowDefinition Height="54*"/>
+                            <RowDefinition Height="108*"/>
+                            <RowDefinition Height="25*"/>
+                            <RowDefinition Height="42*"/>
+                            <RowDefinition Height="202*"/>
+                            <RowDefinition Height="102*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding DataSource.Exhibit.SquareFootageString, Source={StaticResource DataContextProxy}}"
+                    			   Foreground="{StaticResource OneMSQFTWhiteBrush}"
+                    			   FontSize="60" 
+                                   HorizontalAlignment="Left"
+                    			   Margin="36,0,0,0" 
+                                   Grid.Row="1" 
+                                   FontFamily="Segoe UI Light" 
+                                   FontWeight="Light"/>
+                        <TextBlock Text="{Binding DataSource.Exhibit.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                    			    Foreground="{StaticResource OneMSQFTWhiteBrush}"
+                    			    FontSize="32" 
+                                    HorizontalAlignment="Left"
+                    		    	TextWrapping="NoWrap" 
+                                    TextTrimming="CharacterEllipsis"
+                                    FontFamily="Segoe UI Light" 
+                                    FontWeight="Light"
+                    		    	Margin="38,0,20,0" 
+                                    Grid.Row="2"/>
+                        <Border HorizontalAlignment="Left" Grid.Row="3" Height="34" Grid.RowSpan="2" VerticalAlignment="Top" Width="124" Margin="38,0,0,0" >
+                            <Image Source="{Binding DataSource.Exhibit.Curator.LogoImage, Source={StaticResource DataContextProxy}}" Stretch="Uniform" MaxWidth="124" HorizontalAlignment="Left"/>
+                        </Border>
+
+                        <TextBlock Text="{Binding DataSource.Exhibit.DisplayDate, Source={StaticResource DataContextProxy}}"
+                    			    Foreground="{StaticResource OneMSQFTWhiteBrush}"
+                    			    FontSize="18"
+                    			    TextWrapping="NoWrap" 
+                                    FontFamily="Segoe UI" 
+                                    FontWeight="SemiBold"
+                    			    Margin="38,0,0,0" 
+									Grid.Row="4" 
+                                    HorizontalAlignment="Left"/>
+
+                        <TextBlock Text="{Binding DataSource.Exhibit.Location, Source={StaticResource DataContextProxy}}"
+                    			    Foreground="{StaticResource OneMSQFTWhiteBrush}"
+                    			    FontSize="18"
+                    			    TextWrapping="NoWrap" 
+                                    FontFamily="Segoe UI Light" 
+                                    FontWeight="Light"
+                    			    Margin="38,0,0,0" 
+									Grid.Row="5" 
+                                    HorizontalAlignment="Left" 
+									VerticalAlignment="Top"/>
+                        <ScrollViewer
+                                	Margin="22,0,10,30" 
+                                	Grid.Row="6" Grid.RowSpan="2" Style="{StaticResource VerticalScrollViewerStyle}">
+
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding DataSource.Exhibit.Description, Source={StaticResource DataContextProxy}}" Margin="16,0,20,20"
+                                		Foreground="{StaticResource OneMSQFTWhiteBrush}"
+                                		FontSize="18"
+                                        LineStackingStrategy="BlockLineHeight"
+                                        LineHeight="20"
+                                		TextWrapping="Wrap" 
+                                		FontFamily="Segoe UI Light" 
+                                		FontWeight="Light"/>
+                                <HyperlinkButton x:Name="HyperlinkButton"
+                                			Command="{Binding DataSource.Exhibit.RsvpLinkCommand, Source={StaticResource DataContextProxy}}" 
+                                			Style="{StaticResource ExitLinkButtonStyle}" 
+                                			CommandParameter="{Binding DataSource.Exhibit.RsvpUrl, Source={StaticResource DataContextProxy}}" 
+                                            Content="{Binding Strings.RSVP, Source={StaticResource PortableStrings}}" 
+                                            Visibility="{Binding DataSource.Exhibit.RsvpVisibility, Source={StaticResource DataContextProxy}}"
+                                            Margin="0,0,0,20" />
+                                <ItemsControl ItemsSource="{Binding DataSource.Exhibit.Links, Source={StaticResource DataContextProxy}}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <HyperlinkButton 
+                                			            Command="{Binding ElementName=HyperlinkButton, Path=DataContext.Exhibit.ExitLinkCommand}" 
+                                			            Style="{StaticResource ExitLinkButtonStyle}" 
+                                			            CommandParameter="{Binding Url}" 
+                                                        Content="{Binding Title}" Margin="0,0,0,20" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </Border>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ExhibitFooterItemTemplate">
+            <Grid x:Name="Footer"
+        						Height="{Binding DataSource.FullScreenHeight, Source={StaticResource DataContextProxy}}" 
+        						Width="{Binding DataSource.OneThirdPanelWidth, Source={StaticResource DataContextProxy}}" 
+                          Margin="0,0,0,0">
+                <Button HorizontalAlignment="Stretch" 
+                            Command="{Binding NextExhibitCommand}"
+                            CommandParameter="{Binding NextExhibit.Id}"
+        				    VerticalAlignment="Stretch" 
+        				    Padding="0" Margin="0"
+        				    BorderThickness="0" Style="{StaticResource NextButtonStyle}">
+                    <Button.Background>
+                        <SolidColorBrush Color="{Binding DataSource.NextExhibit.ExhibitColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"/>
+                    </Button.Background>
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <Grid 
+        						                    Height="{Binding DataSource.FullScreenHeight, Source={StaticResource DataContextProxy}}" 
+        					    	                Width="{Binding DataSource.OneThirdPanelWidth, Source={StaticResource DataContextProxy}}" 
+									                VerticalAlignment="Top" HorizontalAlignment="Left">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="76*"/>
+                                    <RowDefinition Height="35*"/>
+                                    <RowDefinition Height="21*"/>
+                                    <RowDefinition Height="24*"/>
+                                    <RowDefinition Height="227*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding Strings.NextString, Source={StaticResource PortableStrings}}"
+                    			               Foreground="{StaticResource OneMSQFTWhiteBrush}"
+                    			               FontSize="60" 
+                                               HorizontalAlignment="Left"
+                                               TextTrimming="CharacterEllipsis"
+                    			               Margin="50,0,0,0" 
+                                               Grid.Row="1" 
+                                               FontFamily="Segoe UI Light" 
+                                               FontWeight="Light" VerticalAlignment="Top" Height="72" Grid.RowSpan="2"/>
+                                <TextBlock Text="{Binding DataSource.NextExhibit.SquareFootageString, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                    			                Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+                    			                FontSize="32" 
+                                                TextTrimming="CharacterEllipsis"
+                                                HorizontalAlignment="Left"
+                    		    	            TextWrapping="NoWrap" 
+                                                FontFamily="Segoe UI Light" 
+                                                FontWeight="Light"
+                    		    	            Margin="50,0,0,0" 
+                                                Grid.Row="2" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" 
+                    			                Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+                    			                FontSize="32" 
+                                                TextTrimming="CharacterEllipsis"
+                                                HorizontalAlignment="Left"
+                    		    	            TextWrapping="NoWrap" 
+                                                FontFamily="Segoe UI Light" 
+                                                FontWeight="Light"
+                    		    	            Margin="50,0,0,0" 
+                                                Grid.Row="3" VerticalAlignment="Top"/>
+                                <TextBlock Text="{Binding DataSource.NextExhibit.Curator.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                    			                Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
+                    			                FontSize="32" 
+                                                TextTrimming="CharacterEllipsis"
+                                                HorizontalAlignment="Left"
+                    		    	            TextWrapping="NoWrap" 
+                                                FontFamily="Segoe UI Light" 
+                                                FontWeight="Light"
+                    		    	            Margin="50,0,0,0" 
+                                                Grid.Row="4" VerticalAlignment="Top"/>
+                            </Grid>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <ContentControl/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="BufferFooterItemTemplate">
+            <Border BorderThickness="0" Margin="0" Background="Transparent">
+                <Grid Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
+                      Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                      Background="Transparent">
+                </Grid>
+            </Border>
+        </DataTemplate>
+
     </omsqft:BasePageView.Resources>
 
     <omsqft:BasePageView.BottomAppBar>
@@ -256,244 +476,41 @@
     </omsqft:BasePageView.BottomAppBar>
     <Grid Background="White">
         <Grid>
-            <ScrollViewer x:Name="ExhibitDetailsPanels" Style="{StaticResource HorizontalScrollViewerStyle}">
-                <StackPanel Orientation="Horizontal">
-                    <Grid x:Name="Panel0" >
-                        <Grid.ChildrenTransitions>
-                            <TransitionCollection>
-                                <EntranceThemeTransition IsStaggeringEnabled="True"/>
-                            </TransitionCollection>
-                        </Grid.ChildrenTransitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Border BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
-        					Height="{Binding ExhibitItemHeight}"
-        					Width="{Binding OneThirdPanelWidth}"
-							BorderThickness="0" Padding="10">
-                            <Border.Background>
-                                <SolidColorBrush Color="{Binding Exhibit.ExhibitColor, Mode=OneWay}"/>
-                            </Border.Background>
-                            <Grid >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="143*"/>
-                                    <RowDefinition Height="72*"/>
-                                    <RowDefinition Height="54*"/>
-                                    <RowDefinition Height="108*"/>
-                                    <RowDefinition Height="25*"/>
-                                    <RowDefinition Height="42*"/>
-                                    <RowDefinition Height="202*"/>
-                                    <RowDefinition Height="102*"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="{Binding Exhibit.SquareFootageString}"
-                    			   Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                    			   FontSize="60" 
-                                   HorizontalAlignment="Left"
-                    			   Margin="36,0,0,0" 
-                                   Grid.Row="1" 
-                                   FontFamily="Segoe UI Light" 
-                                   FontWeight="Light"/>
-                                <TextBlock Text="{Binding Exhibit.Name, Mode=OneWay}" 
-                    			    Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                    			    FontSize="32" 
-                                    HorizontalAlignment="Left"
-                    		    	TextWrapping="NoWrap" 
-                                    TextTrimming="CharacterEllipsis"
-                                    FontFamily="Segoe UI Light" 
-                                    FontWeight="Light"
-                    		    	Margin="38,0,20,0" 
-                                    Grid.Row="2"/>
-                                <Border HorizontalAlignment="Left" Grid.Row="3" Height="34" Grid.RowSpan="2" VerticalAlignment="Top" Width="124" Margin="38,0,0,0" >
-                                    <Image Source="{Binding Exhibit.Curator.LogoImage}" Stretch="Uniform" MaxWidth="124" HorizontalAlignment="Left"/>
-                                </Border>
-
-                                <TextBlock Text="{Binding Exhibit.DisplayDate}"
-                    			    Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                    			    FontSize="18"
-                    			    TextWrapping="NoWrap" 
-                                    FontFamily="Segoe UI" 
-                                    FontWeight="SemiBold"
-                    			    Margin="38,0,0,0" 
-									Grid.Row="4" 
-                                    HorizontalAlignment="Left"/>
-
-                                <TextBlock Text="{Binding Exhibit.Location}"
-                    			    Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                    			    FontSize="18"
-                    			    TextWrapping="NoWrap" 
-                                    FontFamily="Segoe UI Light" 
-                                    FontWeight="Light"
-                    			    Margin="38,0,0,0" 
-									Grid.Row="5" 
-                                    HorizontalAlignment="Left" 
-									VerticalAlignment="Top"/>
-                                <ScrollViewer
-                                	Margin="22,0,10,30" 
-                                	Grid.Row="6" Grid.RowSpan="2" Style="{StaticResource VerticalScrollViewerStyle}">
-
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding Exhibit.Description}" Margin="16,0,20,20"
-                                		Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                                		FontSize="18"
-                                        LineStackingStrategy="BlockLineHeight"
-                                        LineHeight="20"
-                                		TextWrapping="Wrap" 
-                                		FontFamily="Segoe UI Light" 
-                                		FontWeight="Light"/>
-                                        <HyperlinkButton x:Name="HyperlinkButton"
-                                			Command="{Binding Exhibit.RsvpLinkCommand}" 
-                                			Style="{StaticResource ExitLinkButtonStyle}" 
-                                			CommandParameter="{Binding Exhibit.RsvpUrl}" 
-                                            Content="{Binding Strings.RSVP, Source={StaticResource PortableStrings}}" 
-                                            Visibility="{Binding Exhibit.RsvpVisibility}"
-                                            Margin="0,0,0,20" />
-                                        <ItemsControl ItemsSource="{Binding Exhibit.Links}">
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <HyperlinkButton 
-                                			            Command="{Binding ElementName=HyperlinkButton, Path=DataContext.Exhibit.ExitLinkCommand}" 
-                                			            Style="{StaticResource ExitLinkButtonStyle}" 
-                                			            CommandParameter="{Binding Url}" 
-                                                        Content="{Binding Title}" Margin="0,0,0,20" />
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </StackPanel>
-                                </ScrollViewer>
-                            </Grid>
-                        </Border>
-                    </Grid>
-
-                    <Grid x:Name="Panel2" 
-        			        Width="Auto" 
-        			        Height="{Binding ExhibitItemHeight}" 
+                    <Grid
+        			      Width="Auto" 
+        			      Height="{Binding ExhibitItemHeight}" 
                           Background="{StaticResource OneMSQFTWhiteBrush}" >
-                        <ListView HorizontalAlignment="Left" 
+                        <GridView x:Name="MediaListView"
+                            Margin="0,0,0,0" 
+                            Padding="0,0,0,0"
+                            Loaded="ListViewLoaded"
+                            HorizontalAlignment="Left" 
         				    VerticalAlignment="Top" 
-        				    ItemsSource="{Binding Exhibit.MediaContent}"
+                            ItemContainerStyle="{StaticResource EmptyGridViewItemContainerStyle}"
+        				    ItemsSource="{Binding LocalMediaCollection}"
                             Visibility="{Binding Exhibit.MediaContentVisibility}"
-        				    ItemContainerStyle="{StaticResource EmptyListViewItemContainerStyle}"
-                            ScrollViewer.IsHorizontalScrollChainingEnabled="False"
-                            ScrollViewer.HorizontalScrollMode="Disabled"
-                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                            ScrollViewer.IsHorizontalRailEnabled="False"
+                            ScrollViewer.IsHorizontalScrollChainingEnabled="True"
+                            ScrollViewer.HorizontalScrollMode="Enabled"
+                            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                            ScrollViewer.IsHorizontalRailEnabled="True"
                             ScrollViewer.IsVerticalScrollChainingEnabled="False"
                             ScrollViewer.VerticalScrollMode="Disabled"
                             ScrollViewer.VerticalScrollBarVisibility="Disabled"
                             ScrollViewer.IsVerticalRailEnabled="False">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="0,0,0,0">
-                                        <ProgressRing IsEnabled="True" IsActive="True" Height="150" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <ProgressRing.Foreground>
-                                                <SolidColorBrush Color="{Binding DataSource.Exhibit.ExhibitColor, Source={StaticResource DataContextProxy}}"/>
-                                            </ProgressRing.Foreground>
-                                        </ProgressRing>
-                                        <Image 
-        								Stretch="UniformToFill"
-        								Width="{Binding DataSource.FullScreenWidth, Source={StaticResource DataContextProxy}}" 
-        								Height="{Binding DataSource.FullScreenHeight, Source={StaticResource DataContextProxy}}" 
-										Source="{Binding ImageSource}"/>
-                                        <AppBarButton
-												Command="{Binding DataSource.LaunchVideoCommand, Source={StaticResource DataContextProxy}}" 
-                                                CommandParameter="{Binding}"
-                                                Click="LaunchVideoCommand_OnClick"
-                                                HorizontalAlignment="Center" 
-                                                VerticalAlignment="Center" 
-                                                Margin="0"
-                                                Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" 
-                                                Style="{StaticResource AppBarPlayButtonStyle}">
-                                            <AppBarButton.Background>
-                                                <SolidColorBrush Color="{Binding DataSource.Exhibit.ExhibitColor, Source={StaticResource DataContextProxy}}"/>
-                                            </AppBarButton.Background>
-                                        </AppBarButton>
-
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                            <ListView.ItemsPanel>
+                    <GridView.ItemTemplateSelector>
+                        <dataTemplateSelectors:ExhibitDetailsPageDataTemplateSelector
+                                    ExhibitMediaItemTemplate="{StaticResource ExhibitMediaItemTemplate}"
+                                    ExhibitHeaderItemTemplate="{StaticResource ExhibitHeaderItemTemplate}"
+                                    ExhibitFooterItemTemplate="{StaticResource ExhibitFooterItemTemplate}"/>
+                    </GridView.ItemTemplateSelector>
+                            <GridView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <VirtualizingStackPanel Orientation="Horizontal"></VirtualizingStackPanel>
                                 </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
-                        </ListView>
+                            </GridView.ItemsPanel>
+                </GridView>
                     </Grid>
 
-                    <Grid x:Name="Panel4"
-                          Height="{Binding FullScreenHeight}" 
-        				  Width="{Binding OneThirdPanelWidth}" 
-                          Margin="0,0,0,0">
-                        <Button HorizontalAlignment="Stretch" 
-                            Command="{Binding NextExhibitCommand}"
-                            CommandParameter="{Binding NextExhibit.Id}"
-        				    VerticalAlignment="Stretch" 
-        				    Padding="0" Margin="0"
-        				    BorderThickness="0" Style="{StaticResource NextButtonStyle}">
-                             <Button.Background>
-                                <SolidColorBrush Color="{Binding NextExhibit.ExhibitColor, Mode=OneWay}"/>
-                            </Button.Background>
-                           <!-- <Button.Background>
-                                <ImageBrush ImageSource="ms-appx:///Assets/NextComp.png"></ImageBrush>
-                            </Button.Background>-->
-                            <Button.ContentTemplate>
-                                <DataTemplate>
-                                    <Grid Width="{Binding OneThirdPanelWidth}" 
-									Height="{Binding FullScreenHeight}" 
-									VerticalAlignment="Top" HorizontalAlignment="Left">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="76*"/>
-                                            <RowDefinition Height="35*"/>
-                                            <RowDefinition Height="21*"/>
-                                            <RowDefinition Height="24*"/>
-                                            <RowDefinition Height="227*"/>
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Text="{Binding Strings.NextString, Source={StaticResource PortableStrings}}"
-                    			           Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                    			           FontSize="60" 
-                                           HorizontalAlignment="Left"
-                                           TextTrimming="CharacterEllipsis"
-                    			           Margin="50,0,0,0" 
-                                           Grid.Row="1" 
-                                           FontFamily="Segoe UI Light" 
-                                           FontWeight="Light" VerticalAlignment="Top" Height="72" Grid.RowSpan="2"/>
-                                        <TextBlock Text="{Binding NextExhibit.SquareFootageString, Mode=OneWay}" 
-                    			            Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-                    			            FontSize="32" 
-                                            TextTrimming="CharacterEllipsis"
-                                            HorizontalAlignment="Left"
-                    		    	        TextWrapping="NoWrap" 
-                                            FontFamily="Segoe UI Light" 
-                                            FontWeight="Light"
-                    		    	        Margin="50,0,0,0" 
-                                            Grid.Row="2" VerticalAlignment="Top"/>
-                                        <TextBlock Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" 
-                    			            Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-                    			            FontSize="32" 
-                                            TextTrimming="CharacterEllipsis"
-                                            HorizontalAlignment="Left"
-                    		    	        TextWrapping="NoWrap" 
-                                            FontFamily="Segoe UI Light" 
-                                            FontWeight="Light"
-                    		    	        Margin="50,0,0,0" 
-                                            Grid.Row="3" VerticalAlignment="Top"/>
-                                        <TextBlock Text="{Binding NextExhibit.Curator.Name, Mode=OneWay}" 
-                    			            Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}"
-                    			            FontSize="32" 
-                                            TextTrimming="CharacterEllipsis"
-                                            HorizontalAlignment="Left"
-                    		    	        TextWrapping="NoWrap" 
-                                            FontFamily="Segoe UI Light" 
-                                            FontWeight="Light"
-                    		    	        Margin="50,0,0,0" 
-                                            Grid.Row="4" VerticalAlignment="Top"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </Button.ContentTemplate>
-                        </Button>
-                    </Grid>
-                </StackPanel>
-            </ScrollViewer>
 
             <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="False" Style="{StaticResource VideoPopupStyle}" >
                 <Grid >

@@ -79,6 +79,10 @@ namespace OneMSQFT.UILogic.ViewModels
             Exhibit = new ExhibitItemViewModel(ed.Exhibit);
             NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit);
 
+            LocalMediaCollection = Exhibit.MediaContent;
+            LocalMediaCollection.Add(new FooterFakeMediaItemViewModel());
+            LocalMediaCollection.Insert(0, new HeaderFakeMediaItemViewModel());
+
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
 
@@ -111,6 +115,22 @@ namespace OneMSQFT.UILogic.ViewModels
         private Visibility _setStartupVisibility;
         private Visibility _clearStartupVisibility;
 
+        private ObservableCollection<MediaContentSourceItemViewModel> _localMediaCollection;
+        public ObservableCollection<MediaContentSourceItemViewModel> LocalMediaCollection
+        {
+            get
+            {
+                return _localMediaCollection;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    SetProperty(ref _localMediaCollection, value);
+                }
+            }
+        }
+
         public ExhibitItemViewModel Exhibit
         {
             get
@@ -128,6 +148,7 @@ namespace OneMSQFT.UILogic.ViewModels
                     SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
                     ClearStartupCommand.RaiseCanExecuteChanged();
                     ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
+                    
                 }
             }
         }
