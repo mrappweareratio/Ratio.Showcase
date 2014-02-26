@@ -183,9 +183,9 @@ namespace OneMSQFT.UILogic.ViewModels
             get { return FullScreenWidth * .325; } // approx one third (per comp)
         }
 
-        public double OneThirdPanelHeight
+        public double PortraitHeaderFooterHeight
         {
-            get { return FullScreenHeight * .325; } // approx one third (per comp)
+            get { return FullScreenHeight * .275; } // approx one third (per comp)
         }
 
         public Visibility ClearStartupVisibility
@@ -207,6 +207,9 @@ namespace OneMSQFT.UILogic.ViewModels
             OnPropertyChanged("FullScreenWidth");
             OnPropertyChanged("ExhibitItemHeight");
             OnPropertyChanged("ExhibitItemWidth");
+            OnPropertyChanged("OneThirdPanelWidth");
+
+            OnPropertyChanged("PortraitHeaderFooterHeight");
         }
 
         private Boolean _isHorizontal;
