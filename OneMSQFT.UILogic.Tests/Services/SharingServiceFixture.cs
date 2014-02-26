@@ -41,7 +41,8 @@ namespace OneMSQFT.UILogic.Tests.Services
         {
             var sharingService = new SharingService(new MockApiConfiguration(null, "http://1msqft.com", "http://vimeo.com"));
             Uri uri = null;
-            Assert.IsFalse(sharingService.TryGetVideoShareUri(null, out uri));            
+            Assert.IsFalse(sharingService.TryGetVideoShareUri(null, out uri));
+            Assert.IsFalse(sharingService.TryGetVideoShareUri(new MediaContentSource(), out uri));     
         }
     }
 }
