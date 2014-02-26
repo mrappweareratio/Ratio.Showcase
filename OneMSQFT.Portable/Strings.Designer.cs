@@ -62,7 +62,16 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet..
+        ///   Looks up a localized string similar to Yet somehow bigger..
+        /// </summary>
+        public static string AboutBlurbFour {
+            get {
+                return ResourceManager.GetString("AboutBlurbFour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One Million Square Feet of Culture is a series of guest curated physical spaces that live on through technology..
         /// </summary>
         public static string AboutBlurbOne {
             get {
@@ -71,7 +80,16 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet.Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet..
+        ///   Looks up a localized string similar to There’s no telling what will exist one million square feet from now. Only the size is certain. One million square feet..
+        /// </summary>
+        public static string AboutBlurbThree {
+            get {
+                return ResourceManager.GetString("AboutBlurbThree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is a series of spaces, guest curated by a range of cultural experts. A survey of culture one square foot at a time. It’s square feet for food at an art event. It’s square feet for art at a film event. It’s square feet for film at a fashion event. It’s square feet of culture across all creative disciplines, brought to unexpected places. Physical spaces collected digitally. A gallery of diverse creations, surveyed, shared and held together by digital walls. It’s measurable space, with a touch of the immeas [rest of string was truncated]&quot;;.
         /// </summary>
         public static string AboutBlurbTwo {
             get {

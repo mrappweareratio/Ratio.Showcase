@@ -13,7 +13,7 @@
     mc:Ignorable="d"
     Background="White"
     prism:ViewModelLocator.AutoWireViewModel="True"
-	d:DataContext="{d:DesignInstance designViewModels:DesignExhibitDetailsPageViewModel, IsDesignTimeCreatable=True}">
+	d:DataContext="{d:DesignInstance designViewModels:DesignExhibitDetailsPageViewModel, IsDesignTimeCreatable=True}" FontFamily="Global User Interface">
 
     <omsqft:BasePageView.Resources>
 
@@ -38,6 +38,11 @@
     </omsqft:BasePageView.BottomAppBar>
     <Grid Background="White">
         <Grid>
+            <Grid.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition IsStaggeringEnabled="True"/>
+                </TransitionCollection>
+            </Grid.ChildrenTransitions>
             <ScrollViewer x:Name="scrollViewer" Width="{Binding FullScreenWidth, ElementName=scrollViewer}" Style="{StaticResource HorizontalScrollViewerStyle}">
                 <Grid Width="{Binding AboutPageTotalWidth}">
                     <Grid.ColumnDefinitions>
@@ -51,18 +56,59 @@
                                    FontWeight="Light"
                                    TextWrapping="Wrap"
                                    FontSize="60"
+                                   Width="{Binding Panel1TextWidth}"
                                    Foreground="{StaticResource OneMSQFTLogoDarkBlueBrush}" 
-                                   HorizontalAlignment="Center" 
-                                   VerticalAlignment="Center" 
-                                   Margin="20,0"/>
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top" 
+                                   Margin="{Binding Panel1Margin}"/>
                     </Border>
                     <Border Background="{StaticResource OneMSQFTLogoDarkBlueBrush}" Width="{Binding FullScreenWidth}" Grid.Column="2">
-                        <TextBlock Text="{Binding Strings.AboutBlurbTwo, Source={StaticResource PortableStrings}}"
-                                   FontFamily="Segoe UI Light"
-                                   FontWeight="Light"
-                                   FontSize="60"
-                                   TextWrapping="Wrap"
-                                   Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0"/>
+                        <Grid Margin="0">
+                            <RichTextBlock TextWrapping="Wrap" 
+                    			FontSize="30" 
+                    			LineHeight="38" 
+                    			LineStackingStrategy="BlockLineHeight" 
+                    			FontWeight="Light" 
+                    			FontFamily="Segoe UI Light" 
+                    			Foreground="White"
+                    			Margin="{Binding Panel2Margin}"
+                    			VerticalAlignment="Top" 
+                    			HorizontalAlignment="Center" 
+                    			Width="{Binding Panel2TextWidth}">
+                                <Paragraph>
+                                    <Run Text="{Binding Strings.AboutBlurbTwo, Source={StaticResource PortableStrings}}"/>
+                                    <LineBreak/>
+                                    <LineBreak/>
+                                    <Run Text="{Binding Strings.AboutBlurbThree, Source={StaticResource PortableStrings}}"/>
+                                    <LineBreak/>
+                                    <LineBreak/>
+                                    <Run Text="{Binding Strings.AboutBlurbFour, Source={StaticResource PortableStrings}}"/>
+                                </Paragraph>
+                            </RichTextBlock>
+
+                            <Canvas x:Name="windows8_logo" HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom" Margin="0,0,90,40" 
+                                    UseLayoutRounding="True" Width="172" Height="50">
+                                <Canvas Margin="0">
+                                    <Path Data="F1M26.551,0L21.156,19.992 17.463,19.992 13.715,6.009C13.559,5.414,13.463,4.763,13.427,4.057L13.372,4.057C13.326,4.717,13.216,5.358,13.042,5.981L9.281,19.992 5.505,19.992 0,0 3.584,0 7.153,14.639C7.299,15.252,7.391,15.893,7.427,16.562L7.496,16.562C7.532,16.088,7.661,15.447,7.88,14.639L11.917,0 15.28,0 19.014,14.75C19.142,15.252,19.238,15.847,19.302,16.535L19.357,16.535C19.385,16.07,19.49,15.456,19.673,14.694L23.174,0z" Fill="White" Height="19.992" Canvas.Left="42.71" Stretch="None" Canvas.Top="6.81" Width="26.551"/>
+                                    <Path Data="F1M3.234,14.276L0,14.276 0,0 3.234,0z" Fill="White" Height="14.276" Canvas.Left="70.303" Stretch="None" Canvas.Top="12.526" Width="3.234"/>
+                                    <Path Data="F1M12.374,14.611L9.672,14.611 9.672,6.567C9.728,3.092 8.29,2.337 6.454,2.337 5.495,2.337 4.722,2.935 4.097,3.674 3.473,4.413 3.161,5.345 3.161,6.469L3.161,14.611 0,14.611 0,0.335 3.161,0.335 3.161,2.705 3.215,2.705C4.255,0.902 5.757,0 7.72,0 9.231,0 10.384,0.505 11.18,1.513 11.976,2.522 12.374,3.979 12.374,5.884z" Fill="White" Height="14.611" Canvas.Left="76.333" Stretch="None" Canvas.Top="12.191" Width="12.374"/>
+                                    <Path Data="F1M10.705,14.634L10.705,12.694C10.705,11.643 10.363,10.75 9.677,10.017 8.992,9.284 8.119,8.917 7.058,8.917 5.804,8.917 4.818,9.385 4.099,10.321 3.38,11.257 3.021,12.555 3.021,14.214 3.021,15.719 3.366,16.909 4.056,17.782 4.745,18.655 5.674,19.092 6.841,19.092 7.989,19.092 8.92,18.67 9.634,17.825 10.348,16.981 10.705,15.917 10.705,14.634 M13.897,21.135L10.663,21.135 10.663,19.071 10.607,19.071C9.567,20.912 7.964,21.47 5.798,21.47 4.042,21.47 2.637,20.831 1.582,19.553 0.527,18.275 0,16.535 0,14.332 0,11.971 0.583,10.08 1.749,8.658 2.915,7.236 4.469,6.525 6.412,6.525 8.336,6.525 9.734,6.737 10.607,8.28L10.663,8.28 10.663,0 13.897,0z" Fill="White" Height="21.47" Canvas.Left="90.946" Stretch="None" Canvas.Top="5.667" Width="13.897"/>
+                                    <Path Data="F1M7.401,2.579C6.137,2.579 5.138,3.021 4.405,3.903 3.67,4.787 3.303,6.004 3.303,7.556 3.303,9.053 3.674,10.231 4.418,11.09 5.162,11.95 6.156,12.38 7.401,12.38 8.674,12.38 9.652,11.957 10.335,11.111 11.019,10.266 11.36,9.062 11.36,7.5 11.36,5.93 11.019,4.717 10.335,3.862 9.652,3.007 8.674,2.579 7.401,2.579 M7.248,14.945C5.045,14.945 3.287,14.278 1.972,12.945 0.657,11.611 0,9.843 0,7.64 0,5.242 0.685,3.369 2.056,2.021 3.426,0.674 5.273,0 7.596,0 9.827,0 11.564,0.655 12.809,1.966 14.054,3.276 14.678,5.093 14.678,7.417 14.678,9.694 14.006,11.518 12.663,12.889 11.32,14.26 9.515,14.945 7.248,14.945" Fill="White" Height="14.945" Canvas.Left="106.655" Stretch="None" Canvas.Top="12.192" Width="14.678"/>
+                                    <Path Data="F1M20.867,0L16.688,14.276 13.325,14.276 10.751,4.601C10.65,4.229,10.585,3.811,10.558,3.346L10.502,3.346C10.484,3.662,10.4,4.071,10.253,4.573L7.458,14.276 4.164,14.276 0,0 3.321,0 5.894,10.289C5.977,10.596,6.032,11.005,6.061,11.516L6.157,11.516C6.185,11.125,6.259,10.707,6.379,10.261L9.243,0 12.259,0 14.806,10.331C14.889,10.656,14.949,11.065,14.986,11.557L15.083,11.557C15.101,11.214,15.17,10.805,15.29,10.331L17.809,0z" Fill="White" Height="14.276" Canvas.Left="121.333" Stretch="None" Canvas.Top="12.526" Width="20.867"/>
+                                    <Path Data="F1M0,14.164L0,11.167C1.113,12.087 2.341,12.547 3.686,12.547 5.484,12.547 6.383,11.971 6.383,10.818 6.383,10.493 6.305,10.217 6.151,9.989 5.997,9.761 5.79,9.559 5.528,9.382 5.267,9.206 4.959,9.048 4.604,8.908 4.249,8.769 3.852,8.611 3.416,8.434 2.876,8.202 2.39,7.956 1.959,7.695 1.526,7.435 1.166,7.14 0.88,6.81 0.593,6.48 0.377,6.106 0.232,5.688 0.085,5.269 0.013,4.782 0.013,4.224 0.013,3.536 0.162,2.93 0.462,2.404 0.762,1.88 1.164,1.438 1.669,1.08 2.174,0.722 2.748,0.453 3.39,0.272 4.033,0.09 4.696,0 5.381,0 6.596,0 7.683,0.2 8.643,0.599L8.643,3.429C7.718,2.741 6.656,2.398 5.458,2.398 5.081,2.398 4.741,2.439 4.437,2.523 4.133,2.607 3.874,2.723 3.66,2.872 3.446,3.02 3.279,3.199 3.159,3.408 3.039,3.617 2.979,3.847 2.979,4.098 2.979,4.405 3.039,4.665 3.159,4.879 3.279,5.093 3.457,5.281 3.692,5.444 3.927,5.607 4.21,5.755 4.539,5.89 4.869,6.025 5.248,6.171 5.676,6.329 6.241,6.58 6.749,6.836 7.198,7.096 7.647,7.356 8.03,7.651 8.347,7.981 8.664,8.311 8.908,8.692 9.079,9.124 9.25,9.557 9.336,10.07 9.336,10.665 9.336,11.39 9.182,12.022 8.874,12.561 8.566,13.1 8.155,13.546 7.641,13.899 7.127,14.253 6.534,14.515 5.862,14.687 5.19,14.859 4.482,14.945 3.737,14.945 2.298,14.945 1.053,14.685 0,14.164" Fill="White" Height="14.945" Canvas.Left="142.565" Stretch="None" Canvas.Top="12.192" Width="9.336"/>
+                                    <Path Data="F1M6.392,18.285C4.3,18.285 2.604,16.588 2.604,14.496 2.604,12.403 4.3,10.707 6.392,10.707 8.483,10.707 10.18,12.403 10.18,14.496 10.18,16.588 8.483,18.285 6.392,18.285 M6.413,2.33C8.134,2.33 9.529,3.726 9.529,5.448 9.529,7.169 8.134,8.565 6.413,8.565 4.69,8.565 3.296,7.169 3.296,5.448 3.296,3.726 4.69,2.33 6.413,2.33 M9.769,9.454C11.26,8.511 12.238,6.962 12.238,5.206 12.238,2.331 9.625,0 6.402,0 3.18,0 0.567,2.331 0.567,5.206 0.567,7.031 1.62,8.634 3.214,9.564 1.291,10.609 0,12.513 0,14.695 0,18 2.951,20.679 6.591,20.679 10.23,20.679 13.182,18 13.182,14.695 13.182,12.437 11.802,10.473 9.769,9.454" Fill="White" Height="20.679" Canvas.Left="160.818" Stretch="None" Canvas.Top="6.41" Width="13.182"/>
+                                    <Path Data="F1M3.89,1.792C3.89,2.782 3.019,3.584 1.944,3.584 0.871,3.584 0,2.782 0,1.792 0,0.802 0.871,0 1.944,0 3.019,0 3.89,0.802 3.89,1.792" Fill="White" Height="3.584" Canvas.Left="70.068" Stretch="None" Canvas.Top="6.045" Width="3.89"/>
+                                    <Path Data="F1M1.389,0.928L1.389,1.568 1.674,1.568C1.935,1.568 2.065,1.461 2.065,1.247 2.065,1.131 2.03,1.049 1.96,1 1.89,0.952 1.779,0.928 1.626,0.928z M2.59,2.734L2.115,2.734 1.907,2.242C1.801,1.997,1.687,1.874,1.565,1.874L1.389,1.874 1.389,2.734 1.009,2.734 1.009,0.607 1.647,0.607C1.912,0.607 2.117,0.659 2.261,0.763 2.405,0.867 2.477,1.008 2.477,1.186 2.477,1.332 2.433,1.457 2.345,1.559 2.256,1.662 2.126,1.731 1.954,1.765L1.954,1.774C2.073,1.8,2.192,1.931,2.31,2.168z M1.712,0.225C1.307,0.225 0.961,0.367 0.674,0.653 0.388,0.939 0.244,1.284 0.244,1.688 0.244,2.092 0.388,2.437 0.674,2.723 0.961,3.009 1.307,3.152 1.712,3.152 2.118,3.152 2.464,3.009 2.749,2.723 3.035,2.437 3.178,2.092 3.178,1.688 3.178,1.284 3.035,0.939 2.749,0.653 2.464,0.367 2.118,0.225 1.712,0.225 M1.712,3.376C1.239,3.376 0.835,3.211 0.501,2.882 0.167,2.552 0,2.154 0,1.688 0,1.222 0.167,0.824 0.501,0.495 0.835,0.165 1.239,0 1.712,0 2.184,0 2.587,0.165 2.921,0.495 3.256,0.824 3.422,1.222 3.422,1.688 3.422,2.154 3.256,2.552 2.921,2.882 2.587,3.211 2.184,3.376 1.712,3.376" Fill="White" Height="3.376" Canvas.Left="152.142" Stretch="None" Canvas.Top="12.191" Width="3.422"/>
+                                    <Path Data="F1M1.358,0.207L0.793,0.207 0.793,1.957 0.563,1.957 0.563,0.207 0,0.207 0,0 1.358,0z" Fill="White" Height="1.957" Canvas.Left="34.417" Stretch="None" Canvas.Top="31.598" Width="1.358"/>
+                                    <Path Data="F1M1.996,1.958L1.768,1.958 1.768,0.645C1.768,0.541,1.775,0.414,1.787,0.264L1.782,0.264C1.76,0.352,1.74,0.415,1.723,0.454L1.054,1.958 0.942,1.958 0.274,0.464C0.255,0.421,0.236,0.354,0.216,0.264L0.21,0.264C0.218,0.342,0.221,0.47,0.221,0.647L0.221,1.958 0,1.958 0,0 0.303,0 0.904,1.366C0.95,1.471,0.98,1.549,0.994,1.6L1.002,1.6C1.041,1.493,1.073,1.413,1.096,1.36L1.709,0 1.996,0z" Fill="White" Height="1.958" Canvas.Left="35.942" Stretch="None" Canvas.Top="31.597" Width="1.996"/>
+                                    <Path Data="F1M18.475,16.087L18.475,0 0,2.695 0,16.087z" Fill="White" Height="16.087" Canvas.Left="14.718" Stretch="None" Canvas.Top="0" Width="18.475"/>
+                                    <Path Data="F1M13.416,0L0,1.957 0,13.202 13.416,13.202z" Fill="White" Height="13.202" Canvas.Left="0" Stretch="None" Canvas.Top="2.885" Width="13.416"/>
+                                    <Path Data="F1M0,0L0,11.387 13.416,13.367 13.416,0z" Fill="White" Height="13.367" Canvas.Left="0" Stretch="None" Canvas.Top="17.389" Width="13.416"/>
+                                    <Path Data="F1M0,13.559L18.475,16.285 18.475,0 0,0z" Fill="White" Height="16.285" Canvas.Left="14.718" Stretch="None" Canvas.Top="17.389" Width="18.475"/>
+                                </Canvas>
+                            </Canvas>
+                        </Grid>
                     </Border>
                 </Grid>
             </ScrollViewer>

@@ -171,10 +171,16 @@
   <data name="UnhandledExceptionTitle" xml:space="preserve">
     <value>Sorry, there was an error.</value>
   </data>
+  <data name="AboutBlurbFour" xml:space="preserve">
+    <value>Yet somehow bigger.</value>
+  </data>
   <data name="AboutBlurbOne" xml:space="preserve">
-    <value>Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet.</value>
+    <value>One Million Square Feet of Culture is a series of guest curated physical spaces that live on through technology.</value>
+  </data>
+  <data name="AboutBlurbThree" xml:space="preserve">
+    <value>There’s no telling what will exist one million square feet from now. Only the size is certain. One million square feet.</value>
   </data>
   <data name="AboutBlurbTwo" xml:space="preserve">
-    <value>Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet.Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet.</value>
+    <value>It is a series of spaces, guest curated by a range of cultural experts. A survey of culture one square foot at a time. It’s square feet for food at an art event. It’s square feet for art at a film event. It’s square feet for film at a fashion event. It’s square feet of culture across all creative disciplines, brought to unexpected places. Physical spaces collected digitally. A gallery of diverse creations, surveyed, shared and held together by digital walls. It’s measurable space, with a touch of the immeasurable.</value>
   </data>
 </root>
