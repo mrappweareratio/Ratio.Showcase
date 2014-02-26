@@ -20,7 +20,7 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class ExhibitItemViewModel : ItemBaseViewModel, IHasMediaContentViewModel
     {
-        public IExhibit<ICurator> ExhibitModel { get; private set; }
+        public Exhibit ExhibitModel { get; private set; }
 
         public Uri ThumbnailImageUri { get; set; }
         public Color ExhibitColor { get; set; }
@@ -49,7 +49,7 @@ namespace OneMSQFT.UILogic.ViewModels
         }
 
 
-        public ExhibitItemViewModel(IExhibit<ICurator> exhibitModelModel)
+        public ExhibitItemViewModel(Exhibit exhibitModelModel)
         {
             if (exhibitModelModel == null)
                 return;

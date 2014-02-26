@@ -24,7 +24,7 @@ using Windows.UI.Xaml.Navigation;
 namespace OneMSQFT.WindowsStore.Views
 {
     public partial class ExhibitDetailsPage : BasePageView
-    {        
+    {
         public ExhibitDetailsPage()
         {
             this.InitializeComponent();
@@ -48,9 +48,9 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         #region Sharing
-        
+
         private ISharingService _sharing;
-        private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        async private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();
             if (vm.Exhibit == null)
@@ -74,9 +74,32 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.SetUri(uri);
             }
             else
-            {                               
+            { 
+                if(String.IsNullOrEmpty(vm.Exhibit.ExhibitModel.EventId))
+                {
+                    args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                    return;
+                }
+                var deferral = args.Request.GetDeferral();                
+                var evt = await AppLocator.Current.DataService.GetEventById(vm.Exhibit.ExhibitModel.EventId);
+                if (evt == null)
+                {
+                    args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                    deferral.Complete();
+                    return;
+                }
+                if (!_sharing.TryGetExhibitShareUri(evt, vm.Exhibit.ExhibitModel, out uri))
+                {
+                    args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                    return;
+                }
+                args.Request.Data.Properties.Title = vm.Exhibit.Name;
+                args.Request.Data.Properties.Description = vm.Exhibit.Description;
+                args.Request.Data.Properties.ContentSourceWebLink = uri;
+                args.Request.Data.SetUri(uri);                
+                deferral.Complete();
             }
-        } 
+        }
 
         #endregion
 
@@ -84,7 +107,7 @@ namespace OneMSQFT.WindowsStore.Views
         {
             if (this.Frame != null && !this.Frame.CanGoBack)
             {
-                Frame.Navigate(typeof (TimelinePage), null);
+                Frame.Navigate(typeof(TimelinePage), null);
                 return;
             }
             base.GoBack(sender, eventArgs);
@@ -92,7 +115,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         void ExhibitDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            ProcessWindowSizeChangedEvent();          
+            ProcessWindowSizeChangedEvent();
         }
 
         void ExhibitDetailsPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -272,7 +295,7 @@ namespace OneMSQFT.WindowsStore.Views
         void MediaListViewScrollViewerVertical_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
             var vsv = ((ScrollViewer)sender);
-            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset * 2 > vsv.ScrollableHeight+1 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
+            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset * 2 > vsv.ScrollableHeight + 1 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
         }
     }
 }
