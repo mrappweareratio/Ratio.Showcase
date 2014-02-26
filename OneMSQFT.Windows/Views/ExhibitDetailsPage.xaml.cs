@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI;
@@ -217,13 +218,13 @@ namespace OneMSQFT.WindowsStore.Views
         void MediaListViewScrollViewerHorizontal_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
             var hsv = ((ScrollViewer)sender);
-            hsv.HorizontalSnapPointsAlignment = hsv.HorizontalOffset > hsv.ScrollableWidth / 2 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
+            hsv.HorizontalSnapPointsAlignment = hsv.HorizontalOffset * 2 > hsv.ScrollableWidth ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
         }
 
         void MediaListViewScrollViewerVertical_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
             var vsv = ((ScrollViewer)sender);
-            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset > vsv.ScrollableHeight / 2 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
+            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset * 2 > vsv.ScrollableHeight ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
         }
     }
 }
