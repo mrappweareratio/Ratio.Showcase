@@ -65,9 +65,13 @@ namespace OneMSQFT.WindowsStore.Views
             }            
         }
 
+        #region Sharing
+
+        private readonly ISharingService _sharing;
+
         private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
-            var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();            
+            var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
             if (vm.SelectedEvent == null)
             {
                 args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
@@ -76,7 +80,7 @@ namespace OneMSQFT.WindowsStore.Views
             Uri uri = null;
             if (VideoPopup.IsOpen)
             {
-                var selectedMediaContentSource = ((MediaContentSourceItemViewModel) FlipViewer.SelectedItem);
+                var selectedMediaContentSource = ((MediaContentSourceItemViewModel)FlipViewer.SelectedItem);
                 if (selectedMediaContentSource == null || !_sharing.TryGetVideoShareUri(selectedMediaContentSource.Media, out uri))
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
@@ -98,8 +102,10 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Description = vm.SelectedEvent.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
                 args.Request.Data.SetUri(uri);
-            }                                    
-        }
+            }
+        } 
+
+        #endregion
 
         private void VmOnPinContextChanged(object sender, EventArgs eventArgs)
         {
@@ -208,7 +214,6 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         private bool _semanticZoomClosedFromTopAppBarEvent;
-        private ISharingService _sharing;
 
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
@@ -414,10 +419,6 @@ namespace OneMSQFT.WindowsStore.Views
             return new Uri("ms-appx:///Assets/Logo.scale-100.png", UriKind.Absolute);
         }
 
-        #endregion
-
-        #region Sharing
-
-        #endregion
+        #endregion        
     }
 }

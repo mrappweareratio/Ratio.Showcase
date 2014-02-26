@@ -141,8 +141,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 if (value != null)
                 {
-                    SetProperty(ref _exhibit, value);
-                    ExhibitDetailTitle = String.Format(Strings.SquareFeetAtNameFormat, StringUtils.ToSquareFeet(Exhibit.SquareFootage), value.Name);
+                    SetProperty(ref _exhibit, value);                    
                     RaisePinContextChanged();
                     SetStartupCommand.RaiseCanExecuteChanged();
                     SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
@@ -151,13 +150,7 @@ namespace OneMSQFT.UILogic.ViewModels
                     
                 }
             }
-        }
-
-        public String ExhibitDetailTitle
-        {
-            get { return _exhibitDetailTitle; }
-            set { SetProperty(ref _exhibitDetailTitle, value); }
-        }
+        }      
 
         #endregion
 
@@ -267,7 +260,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 Id = PinningUtils.GetSecondaryTileIdByExhibitId(Exhibit.Id),
                 ArgumentsName = PinningUtils.GetSecondaryTileIdByExhibitId(Exhibit.Id),
                 ShortName = Exhibit.Name,
-                DisplayName = ExhibitDetailTitle
+                DisplayName = Exhibit.Name
             };
         }
 

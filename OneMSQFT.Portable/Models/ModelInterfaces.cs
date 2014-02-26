@@ -64,6 +64,7 @@ namespace OneMSQFT.Common.Models
         string CuratorId { get; }
         string ThumbImage { get; }
         TCurator Curator { get; }
+        string EventId { get; }
     }
 
     public interface IHasMediaContent
