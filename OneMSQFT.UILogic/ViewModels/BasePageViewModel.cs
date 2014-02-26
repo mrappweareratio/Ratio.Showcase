@@ -19,6 +19,13 @@ namespace OneMSQFT.UILogic.ViewModels
             set { SetProperty(ref _squareFootEvents, value); }
         }
 
+        private Boolean _isHorizontal;
+        public Boolean IsHorizontal
+        {
+            get { return _isHorizontal; }
+            set { SetProperty(ref _isHorizontal, value); }
+        }
+
         public abstract void WindowSizeChanged(double width, double height);
 
         public event EventHandler<EventArgs> PinContextChanged;

@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.UI.Core;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
@@ -38,6 +39,18 @@ namespace OneMSQFT.WindowsStore.Views
                     this.PopulateTopAppbar(GetDataContextAsViewModel<IBasePageViewModel>());
                 }
             }
+
+            if (e.PropertyName == "IsHorizontal")
+            {
+                if (GetDataContextAsViewModel<IBasePageViewModel>().IsHorizontal)
+                {
+                    VisualStateManager.GoToState(this, "FullScreenLandscape", true);
+                }
+                else
+                {
+                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);
+                }
+            }
         }
 
         public override void TopAppBarEventButtonCommandHandler(string eventId)
@@ -54,10 +67,21 @@ namespace OneMSQFT.WindowsStore.Views
             this.AboutButton.Command = this.AboutButtonClickCommand;
         }
 
-        private void Pin_OnClick(object sender, RoutedEventArgs e)
-        {
+        #region Resizing
 
+
+        protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
+        {
+            ProcessWindowSizeChangedEvent();
+            base.WindowSizeChanged(sender, e);
         }
+
+        private void ProcessWindowSizeChangedEvent()
+        {
+            GetDataContextAsViewModel<AboutPageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
+        }
+
+        #endregion
 
     }
 }
