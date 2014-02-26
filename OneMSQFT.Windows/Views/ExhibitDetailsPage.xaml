@@ -652,6 +652,58 @@
             </Grid>
         </DataTemplate>
 
+        <Style x:Key="GridViewHorizontalSnappingStyle" TargetType="GridView">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridView">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <ScrollViewer ViewChanging="MediaListViewScrollViewerHorizontal_ViewChanging" 
+                                          HorizontalSnapPointsAlignment="Near" 
+                                          HorizontalSnapPointsType="Mandatory" 
+                                          HorizontalScrollMode="Enabled" 
+                                          HorizontalScrollBarVisibility="Auto" 
+                                          IsHorizontalRailEnabled="True" 
+                                          IsHorizontalScrollChainingEnabled="True" 
+                                          IsVerticalScrollChainingEnabled="False" 
+                                          IsVerticalRailEnabled="False" 
+                                          VerticalScrollBarVisibility="Disabled" 
+                                          VerticalScrollMode="Disabled" 
+                                          ZoomMode="Disabled"
+                                          TabNavigation="{TemplateBinding TabNavigation}">
+                                <ItemsPresenter HeaderTemplate="{TemplateBinding HeaderTemplate}" Header="{TemplateBinding Header}" HeaderTransitions="{TemplateBinding HeaderTransitions}" Padding="{TemplateBinding Padding}"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="GridViewVerticalSnappingStyle" TargetType="GridView">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridView">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <ScrollViewer ViewChanging="MediaListViewScrollViewerVertical_ViewChanging" 
+                                          VerticalSnapPointsAlignment="Near" 
+                                          VerticalSnapPointsType="Mandatory" 
+                                          VerticalScrollMode="Enabled" 
+                                          VerticalScrollBarVisibility="Auto" 
+                                          IsVerticalRailEnabled="True" 
+                                          IsVerticalScrollChainingEnabled="True" 
+                                          IsHorizontalScrollChainingEnabled="False" 
+                                          IsHorizontalRailEnabled="False" 
+                                          HorizontalScrollBarVisibility="Disabled" 
+                                          HorizontalScrollMode="Disabled" 
+                                          ZoomMode="Disabled"
+                                          TabNavigation="{TemplateBinding TabNavigation}">
+                                <ItemsPresenter HeaderTemplate="{TemplateBinding HeaderTemplate}" Header="{TemplateBinding Header}" HeaderTransitions="{TemplateBinding HeaderTransitions}" Padding="{TemplateBinding Padding}"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </omsqft:BasePageView.Resources>
 
     <omsqft:BasePageView.BottomAppBar>
@@ -687,21 +739,11 @@
         			      Height="{Binding ExhibitItemHeight}" 
                           Background="{StaticResource OneMSQFTWhiteBrush}" >
                 <GridView x:Name="MediaListViewHorizontal"
-                            Margin="0,0,0,0" 
-                            Padding="0,0,0,0"
-                            Loaded="HorizontalGridViewLoaded"
-                            HorizontalAlignment="Left" 
-        				    VerticalAlignment="Top" 
+                            Margin="0" 
+                            Padding="0"
+                            Style="{StaticResource GridViewHorizontalSnappingStyle}"
                             ItemContainerStyle="{StaticResource EmptyGridViewItemContainerStyle}"
-        				    ItemsSource="{Binding LocalMediaCollection}"
-                            ScrollViewer.IsHorizontalScrollChainingEnabled="True"
-                            ScrollViewer.HorizontalScrollMode="Enabled"
-                            ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                            ScrollViewer.IsHorizontalRailEnabled="True"
-                            ScrollViewer.IsVerticalScrollChainingEnabled="False"
-                            ScrollViewer.VerticalScrollMode="Disabled"
-                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                            ScrollViewer.IsVerticalRailEnabled="False">
+        				    ItemsSource="{Binding LocalMediaCollection}">
                     <GridView.ItemTemplateSelector>
                         <dataTemplateSelectors:ExhibitDetailsPageDataTemplateSelector
                                     ExhibitMediaItemTemplate="{StaticResource ExhibitMediaItemTemplate}"
@@ -715,24 +757,12 @@
                     </GridView.ItemsPanel>
                 </GridView>
                 <GridView x:Name="MediaListViewVertical"
-                        	Margin="0,0,0,0" 
-                        	Padding="0,0,0,0"
-                        	HorizontalAlignment="Left" 
-                          Opacity="0"
-                          IsHitTestVisible="False"
-                        	VerticalAlignment="Top" 
-                            Loaded="VerticalGridViewLoaded"
+                        	Margin="0" 
+                        	Padding="0" 
+                            Style="{StaticResource GridViewVerticalSnappingStyle}"
                         	ItemContainerStyle="{StaticResource EmptyGridViewItemContainerStyle}"
                         	ItemsSource="{Binding LocalMediaCollection}"
-                        	ScrollViewer.IsHorizontalScrollChainingEnabled="False"
-                        	ScrollViewer.HorizontalScrollMode="Disabled"
-                        	ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        	ScrollViewer.IsHorizontalRailEnabled="False"
-                        	ScrollViewer.IsVerticalScrollChainingEnabled="True"
-                        	ScrollViewer.VerticalScrollMode="Enabled"
-                        	ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        	ScrollViewer.IsVerticalRailEnabled="True" 
-                            Visibility="Visible">
+                            Visibility="Collapsed">
                         	<GridView.ItemTemplateSelector>
                         		<dataTemplateSelectors:ExhibitDetailsPageDataTemplateSelector
                         			ExhibitMediaItemTemplate="{StaticResource VerticalExhibitMediaItemTemplate}"
@@ -816,13 +846,6 @@
                                     <Visibility>Visible</Visibility>
                                 </DiscreteObjectKeyFrame.Value>
                             </DiscreteObjectKeyFrame>
-                        </ObjectAnimationUsingKeyFrames>
-
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MediaListViewVertical">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="1" />
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="IsHitTestVisible" Storyboard.TargetName="MediaListViewVertical">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
                         </ObjectAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MediaListViewHorizontal">
                             <DiscreteObjectKeyFrame KeyTime="0">

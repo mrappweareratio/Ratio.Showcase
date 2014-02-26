@@ -20,8 +20,6 @@ namespace OneMSQFT.WindowsStore.Views
 {
     public partial class ExhibitDetailsPage : BasePageView
     {
-        private ScrollViewer _mediaListViewScrollViewerHorizontal;
-        private ScrollViewer _mediaListViewScrollViewerVertical;
         public ExhibitDetailsPage()
         {
             this.InitializeComponent();
@@ -216,36 +214,16 @@ namespace OneMSQFT.WindowsStore.Views
 
         #endregion
 
-        private void HorizontalGridViewLoaded(object sender, RoutedEventArgs e)
-        {
-            _mediaListViewScrollViewerHorizontal = VisualTreeUtilities.GetVisualChild<ScrollViewer>(MediaListViewHorizontal);
-            if (_mediaListViewScrollViewerHorizontal != null)
-            {
-                _mediaListViewScrollViewerHorizontal.HorizontalSnapPointsAlignment = SnapPointsAlignment.Near;
-                _mediaListViewScrollViewerHorizontal.HorizontalSnapPointsType = SnapPointsType.Mandatory;
-                _mediaListViewScrollViewerHorizontal.ViewChanging += MediaListViewScrollViewerHorizontal_ViewChanging;
-            }
-        }
-
-        private void VerticalGridViewLoaded(object sender, RoutedEventArgs e)
-        {
-            _mediaListViewScrollViewerVertical = VisualTreeUtilities.GetVisualChild<ScrollViewer>(MediaListViewVertical);
-            if (_mediaListViewScrollViewerVertical != null)
-            {
-                _mediaListViewScrollViewerVertical.VerticalSnapPointsAlignment = SnapPointsAlignment.Near;
-                _mediaListViewScrollViewerVertical.VerticalSnapPointsType = SnapPointsType.Mandatory;
-                _mediaListViewScrollViewerVertical.ViewChanging += MediaListViewScrollViewerVertical_ViewChanging;
-            }
-        }
-
         void MediaListViewScrollViewerHorizontal_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
-            _mediaListViewScrollViewerHorizontal.HorizontalSnapPointsAlignment = _mediaListViewScrollViewerHorizontal.HorizontalOffset > _mediaListViewScrollViewerHorizontal.ScrollableWidth / 2 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
+            var hsv = ((ScrollViewer)sender);
+            hsv.HorizontalSnapPointsAlignment = hsv.HorizontalOffset > hsv.ScrollableWidth / 2 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
         }
 
         void MediaListViewScrollViewerVertical_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
-            _mediaListViewScrollViewerVertical.VerticalSnapPointsAlignment = _mediaListViewScrollViewerVertical.VerticalOffset > _mediaListViewScrollViewerVertical.ScrollableHeight / 2 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
+            var vsv = ((ScrollViewer)sender);
+            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset > vsv.ScrollableHeight / 2 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
         }
     }
 }
