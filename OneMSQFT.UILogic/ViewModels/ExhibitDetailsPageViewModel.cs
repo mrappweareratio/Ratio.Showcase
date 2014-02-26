@@ -183,6 +183,11 @@ namespace OneMSQFT.UILogic.ViewModels
             get { return FullScreenWidth * .325; } // approx one third (per comp)
         }
 
+        public double OneThirdPanelHeight
+        {
+            get { return FullScreenHeight * .325; } // approx one third (per comp)
+        }
+
         public Visibility ClearStartupVisibility
         {
             get { return _clearStartupVisibility; }
