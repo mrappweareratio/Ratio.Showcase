@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -17,6 +18,8 @@ namespace OneMSQFT.UILogic.Interfaces
         /// <summary>
         /// Navigate to home based on startup configuration or from a launch
         /// </summary>        
-        void GoHome(bool isLaunch = false);
+        void GoHome(bool isLaunch = false);                
+        Task HandleException(Exception exception, string message);
+        bool CanHandleException(Exception exception);
     }
 }

@@ -22,14 +22,16 @@ namespace OneMSQFT.UILogic
 {
     public class OneMsqftApplication : IOneMsqftApplication
     {
+        public IAlertMessageService MessageService { get; private set; }
         public IAnalyticsService Analytics { get; private set; }
         private IEnumerable<Event> _events;
         public IConfigurationService Configuration { get; private set; }
         public IDataService DataService { get; private set; }
         public INavigationService NavigationService { get; private set; }
 
-        public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics)
+        public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics, IAlertMessageService alertMessageService)
         {
+            MessageService = alertMessageService;
             Analytics = analytics;
             Analytics.KioskModeEnabled = this.KioskModeEnabled;
             Configuration = configuration;
@@ -38,8 +40,21 @@ namespace OneMSQFT.UILogic
             _events = new List<Event>();
         }
 
-        async public Task OnLaunchApplication(ILaunchActivatedEventArgs args)
+        public async Task HandleException(Exception exception, string message)
         {
+            await MessageService.ShowAsync(message, Strings.UnhandledExceptionTitle);
+        }
+
+        public bool CanHandleException(Exception exception)
+        {
+#if DEBUG
+            return true;
+#endif
+            return false;
+        }        
+
+        async public Task OnLaunchApplication(ILaunchActivatedEventArgs args)
+        {            
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                 Analytics.StartSession();
