@@ -9,6 +9,7 @@
     xmlns:omsqft="using:OneMSQFT.WindowsStore.Views"
     xmlns:viewModels="using:OneMSQFT.UILogic.ViewModels"
     xmlns:designViewModels="using:OneMSQFT.WindowsStore.DesignViewModels"
+    xmlns:controls="using:OneMSQFT.WindowsStore.Controls"
     mc:Ignorable="d"
     Background="White"
     prism:ViewModelLocator.AutoWireViewModel="True"
@@ -44,8 +45,25 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Border Width="{Binding AboutPageTwoThirdsWidth}" Grid.Column="1"/>
-                    <Border Background="{StaticResource OneMSQFTLogoDarkBlueBrush}" Width="{Binding FullScreenWidth}" Grid.Column="2"/>
+                    <Border Width="{Binding AboutPageTwoThirdsWidth}" Grid.Column="1">
+                        <TextBlock Text="{Binding Strings.AboutBlurbOne, Source={StaticResource PortableStrings}}" 
+                                   FontFamily="Segoe UI Light"
+                                   FontWeight="Light"
+                                   TextWrapping="Wrap"
+                                   FontSize="60"
+                                   Foreground="{StaticResource OneMSQFTLogoDarkBlueBrush}" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" 
+                                   Margin="20,0"/>
+                    </Border>
+                    <Border Background="{StaticResource OneMSQFTLogoDarkBlueBrush}" Width="{Binding FullScreenWidth}" Grid.Column="2">
+                        <TextBlock Text="{Binding Strings.AboutBlurbTwo, Source={StaticResource PortableStrings}}"
+                                   FontFamily="Segoe UI Light"
+                                   FontWeight="Light"
+                                   FontSize="60"
+                                   TextWrapping="Wrap"
+                                   Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0"/>
+                    </Border>
                 </Grid>
             </ScrollViewer>
             <Border HorizontalAlignment="Left"
@@ -57,6 +75,8 @@
         			Style="{StaticResource CustomBackButtonStyle}"
         			Background="{StaticResource OneMSQFTLogoDarkBlueBrush}" Height="55" Width="55"/>
             </Border>
+
+            <controls:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="90,0,0,50" Width="Auto" Height="95"/>
             <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Black" Opacity=".7" Visibility="{Binding Visibility, ElementName=appBar, Mode=TwoWay}" IsHitTestVisible="False"/>
         </Grid>
 

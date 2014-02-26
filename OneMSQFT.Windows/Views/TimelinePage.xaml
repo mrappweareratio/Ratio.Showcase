@@ -917,6 +917,7 @@
                     IsRightTapEnabled="False"
                     IsTapEnabled="False"
                     IsItemClickEnabled="False"
+                    IsSwipeEnabled="False"
                     Loaded="itemsGridView_Loaded" 
                                                           
                     ItemContainerStyle="{StaticResource TimelineItemContainerStyle}" d:IsHidden="True">
