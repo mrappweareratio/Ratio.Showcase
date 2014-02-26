@@ -56,15 +56,13 @@ namespace OneMSQFT.WindowsStore.Views
             {
                 StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
                 PinButton.Visibility = app.KioskModeEnabled ? Visibility.Collapsed : Visibility.Visible;
-            }
-
-            var dataTransferManager = DataTransferManager.GetForCurrentView();
-            dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
-
-            if (AppLocator.Current != null)
-            {
-                _sharing = AppLocator.Current.SharingService;
-            }
+                if (!app.KioskModeEnabled)
+                {
+                    _sharing = AppLocator.Current.SharingService;                    
+                    var dataTransferManager = DataTransferManager.GetForCurrentView();
+                    dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;                       
+                }
+            }            
         }
 
         private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
