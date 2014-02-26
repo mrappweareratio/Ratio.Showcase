@@ -33,6 +33,5 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         DelegateCommand ClearStartupCommand { get; }
         Visibility ClearStartupVisibility { get; set; }
         Visibility SetStartupVisibility { get; set; }
-        bool IsHorizontal { get; set; }
     }
 }
