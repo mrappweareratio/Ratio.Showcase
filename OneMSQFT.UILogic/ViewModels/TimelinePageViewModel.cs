@@ -139,20 +139,12 @@ namespace OneMSQFT.UILogic.ViewModels
                 return (FullScreenWidth - 44) / 4; // 42 is GridView padding
             }
         }
+
         public double ZoomedOutItemHeight
         {
             get
             {
                 return ((ZoomedOutGridHeight - 165) / 3) - 18;
-            }
-        }
-
-
-        public double EventItemWidth
-        {
-            get
-            {
-                return FullScreenWidth * .9;
             }
         }
 
@@ -169,6 +161,14 @@ namespace OneMSQFT.UILogic.ViewModels
             get
             {
                 return ((FullScreenWidth - EventItemWidth) / 2) + 1;
+            }
+        }
+
+        public double EventItemWidth
+        {
+            get
+            {
+                return FullScreenWidth * .9;
             }
         }
 
@@ -191,6 +191,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 return (EventItemWidth / 3) - 9;
             }
         }
+
         public double ExhibitItemHeight
         {
             get
@@ -204,17 +205,21 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             FullScreenHeight = height;
             FullScreenWidth = width;
-            OnPropertyChanged("FullScreenHeight");
-            OnPropertyChanged("FullScreenWidth");
+            IsHorizontal = width > height;
+            OnPropertyChanged("IsHorizontal");
+
+            OnPropertyChanged("ZoomedOutGridHeight");
             OnPropertyChanged("ZoomedOutItemWidth");
             OnPropertyChanged("ZoomedOutItemHeight");
-            OnPropertyChanged("EventItemHeight");
+            OnPropertyChanged("BufferItemWidth");
+            OnPropertyChanged("MaskItemWidth");
             OnPropertyChanged("EventItemWidth");
+            OnPropertyChanged("EventItemHeight");
+            OnPropertyChanged("FullScreenHeight");
+            OnPropertyChanged("FullScreenWidth");
             OnPropertyChanged("ExhibitItemWidth");
             OnPropertyChanged("ExhibitItemHeight");
-            OnPropertyChanged("ZoomedOutGridHeight");
-            OnPropertyChanged("MaskItemWidth");
-            OnPropertyChanged("BufferItemWidth");
+
         }
 
         #endregion

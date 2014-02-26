@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -27,6 +28,35 @@ namespace OneMSQFT.UILogic.Tests
             return Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, action);
         }
 
+        #region UnhandledException
+
+        [TestMethod]
+        async public Task UnhandledException_Debug_Alerts()
+        {
+            bool alerted = true;
+            var app = new OneMsqftApplication(new MockNavigationService(), new MockDataService(),
+                new MockConfigurationService(), new MockAnalyticsService(), new MockAlertMessageService()
+                {
+                    ShowAsyncDelegate = async (s, s1) =>
+                    {
+                        alerted = true;
+                    }
+                });
+            var canHandleException = app.CanHandleException(new ArgumentOutOfRangeException());
+#if DEBUG
+            Assert.IsTrue(canHandleException, "CanHandleException");
+#endif
+            if (canHandleException)
+                await app.HandleException(new ArgumentOutOfRangeException(), "ArgumentOutOfRangeException");
+
+#if DEBUG
+            Assert.IsTrue(alerted, "alerted");
+#endif
+        }
+
+        #endregion
+
+        #region Launch and Configuration
         [TestMethod]
         public void Application_Launches_To_Timeline_Page_In_Time()
         {
@@ -41,7 +71,7 @@ namespace OneMSQFT.UILogic.Tests
                     }
                 };
             var analytics = new MockAnalyticsService();
-            var app = new OneMsqftApplication(navigationService, new MockDataService(), new MockConfigurationService(), analytics);
+            var app = new OneMsqftApplication(navigationService, new MockDataService(), new MockConfigurationService(), analytics, new MockAlertMessageService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
             autoResetEvent.WaitOne(2000);
             Assert.AreEqual(page, ViewLocator.Pages.Timeline, "On Timeline");
@@ -69,7 +99,7 @@ namespace OneMSQFT.UILogic.Tests
                     called = true;
                     return new List<Event>();
                 }
-            }, new MockConfigurationService(), analytics);
+            }, new MockConfigurationService(), analytics, new MockAlertMessageService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
             autoResetEvent.WaitOne(200);
             Assert.IsTrue(called, "Called Data Service");
@@ -93,7 +123,7 @@ namespace OneMSQFT.UILogic.Tests
             var analytics = new MockAnalyticsService();
             var dataService = new DataService(new DemoDataRepository(), new MockDataCacheService(),
                 new MockInternetConnectionService() { IsConnectedDelegate = () => true });
-            var app = new OneMsqftApplication(navigationService, dataService, new MockConfigurationService(), analytics);
+            var app = new OneMsqftApplication(navigationService, dataService, new MockConfigurationService(), analytics, new MockAlertMessageService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
             autoResetEvent.WaitOne(1500);
             Assert.AreEqual(page, ViewLocator.Pages.Timeline, "On Timeline");
@@ -121,7 +151,7 @@ namespace OneMSQFT.UILogic.Tests
                     called = true;
                     return new List<Event>();
                 }
-            }, new MockConfigurationService(), analytics);
+            }, new MockConfigurationService(), analytics, new MockAlertMessageService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs() { PreviousExecutionState = ApplicationExecutionState.Running }));
             autoResetEvent.WaitOne(200);
             Assert.IsFalse(called, "Skipped Data Service");
@@ -154,7 +184,7 @@ namespace OneMSQFT.UILogic.Tests
             {
                 StartupItemId = eventId,
                 StartupItemType = StartupItemType.Event
-            }, analytics);
+            }, analytics, new MockAlertMessageService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
             autoResetEvent.WaitOne(2000);
             Assert.AreEqual(page, ViewLocator.Pages.Timeline, "On Timeline");
@@ -191,7 +221,7 @@ namespace OneMSQFT.UILogic.Tests
             {
                 StartupItemId = exhibitId,
                 StartupItemType = StartupItemType.Exhibit
-            }, analytics);
+            }, analytics, new MockAlertMessageService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
             autoResetEvent.WaitOne(2000);
             Assert.AreEqual(page, ViewLocator.Pages.ExhibitDetails, "On Exhibits");
@@ -223,12 +253,13 @@ namespace OneMSQFT.UILogic.Tests
             {
                 StartupItemId = eventId,
                 StartupItemType = StartupItemType.Exhibit
-            }, analytics);
+            }, analytics, new MockAlertMessageService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
             autoResetEvent.WaitOne(2000);
             Assert.AreEqual(page, ViewLocator.Pages.Timeline, "Revert to Timeline");
             Assert.IsNull(pageParam, "null param");
         }
+        #endregion
 
         #region Analytics
         [TestMethod]
@@ -256,7 +287,7 @@ namespace OneMSQFT.UILogic.Tests
             {
                 ConfigureDelegate = () => { called = true; }
             };
-            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics, new MockAlertMessageService());
             app.OnInitialize(new MockLaunchActivatedEventArgs());
             Assert.IsTrue(called, "ConfigureDelegate");
         }
@@ -286,7 +317,7 @@ namespace OneMSQFT.UILogic.Tests
             {
                 StartSessionDelegate = () => { called = true; }
             };
-            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics, new MockAlertMessageService());
             var args = new MockLaunchActivatedEventArgs();
             app.OnInitialize(args);
             await app.OnLaunchApplication(args);
@@ -318,7 +349,7 @@ namespace OneMSQFT.UILogic.Tests
             {
                 StartSessionDelegate = () => { called = true; }
             };
-            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics, new MockAlertMessageService());
             var args = new MockLaunchActivatedEventArgs() { PreviousExecutionState = ApplicationExecutionState.Running };
             await app.OnLaunchApplication(args);
             Assert.IsFalse(called, "StartSessionDelegate");
@@ -348,7 +379,7 @@ namespace OneMSQFT.UILogic.Tests
             {
                 StopSessionDelegate = () => { called = true; }
             };
-            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics, new MockAlertMessageService());
             var args = new MockLaunchActivatedEventArgs();
             app.OnInitialize(args);
             await app.OnLaunchApplication(args);
@@ -382,7 +413,7 @@ namespace OneMSQFT.UILogic.Tests
                 StartSessionDelegate = () => { calledStart++; },
                 StopSessionDelegate = () => { calledStop = true; }
             };
-            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics, new MockAlertMessageService());
             var args = new MockLaunchActivatedEventArgs();
             app.OnInitialize(args);
             await app.OnLaunchApplication(args);
@@ -418,7 +449,7 @@ namespace OneMSQFT.UILogic.Tests
             };
             var configuration = new ConfigurationService();
             var analytics = new MockAnalyticsService();
-            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics, new MockAlertMessageService());
             var args = new MockLaunchActivatedEventArgs()
             {
                 Arguments = PinningUtils.GetSecondaryTileIdByEventId("0")
@@ -464,7 +495,7 @@ namespace OneMSQFT.UILogic.Tests
                     Assert.AreEqual(context.PageName, TrackingContextData.PageNames.ExhibitLanding, "ExhibitLanding");
                 }
             };
-            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics, new MockAlertMessageService());
             var args = new MockLaunchActivatedEventArgs()
             {
                 Arguments = PinningUtils.GetSecondaryTileIdByExhibitId("1")
@@ -501,7 +532,7 @@ namespace OneMSQFT.UILogic.Tests
             };
             var configuration = new ConfigurationService();
             var analytics = new MockAnalyticsService();
-            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics, new MockAlertMessageService());
             var args = new MockLaunchActivatedEventArgs()
             {
                 Arguments = PinningUtils.GetSecondaryTileIdByExhibitId("2")
@@ -532,7 +563,7 @@ namespace OneMSQFT.UILogic.Tests
             };
             var configuration = new ConfigurationService();
             var analytics = new MockAnalyticsService();
-            var app = new OneMsqftApplication(navigationService, data, configuration, analytics);
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics, new MockAlertMessageService());
             var args = new MockLaunchActivatedEventArgs()
             {
                 Arguments = PinningUtils.GetSecondaryTileIdByEventId("0")

@@ -213,5 +213,14 @@ namespace OneMSQFT.Common {
                 return ResourceManager.GetString("SquareFeetAtNameFormat", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, there was an error..
+        /// </summary>
+        public static string UnhandledExceptionTitle {
+            get {
+                return ResourceManager.GetString("UnhandledExceptionTitle", resourceCulture);
+            }
+        }
     }
 }

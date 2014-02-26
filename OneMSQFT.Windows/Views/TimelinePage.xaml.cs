@@ -75,6 +75,17 @@ namespace OneMSQFT.WindowsStore.Views
                     this.PopulateTopAppbar(GetDataContextAsViewModel<TimelinePageViewModel>());
                 }
             }
+            if (e.PropertyName == "IsHorizontal")
+            {
+                if (GetDataContextAsViewModel<ITimelinePageViewModel>().IsHorizontal)
+                {
+                    VisualStateManager.GoToState(this, "FullScreenLandscape", true);
+                }
+                else
+                {
+                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);
+                }
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -85,8 +96,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         void TimelinePage_Loaded(object sender, RoutedEventArgs e)
         {
-            var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
-            vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
+            ProcessWindowSizeChangedEvent();
         }
 
         private void itemsGridView_Loaded(object sender, RoutedEventArgs e)
@@ -251,14 +261,14 @@ namespace OneMSQFT.WindowsStore.Views
 
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
-            var vm = DataContext as ITimelinePageViewModel;
-            if (vm != null)
-            {
-                vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-            }
+            ProcessWindowSizeChangedEvent();
             base.WindowSizeChanged(sender, e);
         }
 
+        private void ProcessWindowSizeChangedEvent()
+        {
+            GetDataContextAsViewModel<ITimelinePageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
+        }
 
         #region MediaViewer
 

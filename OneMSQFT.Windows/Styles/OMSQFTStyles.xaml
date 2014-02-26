@@ -567,7 +567,6 @@
         </Setter>
     </Style>
     <Style x:Key="CustomBackButtonStyle" TargetType="Button">
-    	<Setter Property="Background" Value="Transparent"/>
     	<Setter Property="BorderBrush" Value="Transparent"/>
     	<Setter Property="Foreground" Value="Transparent"/>
     	<Setter Property="BorderThickness" Value="0"/>
@@ -600,7 +599,7 @@
                                 </Border.Background>
                                 <Grid>
                                 	<Path Data="M30.5,14.631 L30.5444,18.1957 L46.433,34.5494 L30.5,49.9889 L30.5,54.229 L50.299,34.43 z M0,0 L70,0 L70,70 L0,70 z" 
-									Fill="White" HorizontalAlignment="Left" 
+									Fill="{TemplateBinding Background}" HorizontalAlignment="Left" 
 									Height="55" 
 									Stretch="Fill" 
 									StrokeThickness="0" 

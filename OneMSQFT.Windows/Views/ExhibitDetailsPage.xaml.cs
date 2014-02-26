@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.StartScreen;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media.Imaging;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common.Analytics;
@@ -47,8 +49,8 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         void ExhibitDetailsPage_Loaded(object sender, RoutedEventArgs e)
-        {            
-            GetDataContextAsViewModel<IExhibitDetailsPageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);            
+        {
+            ProcessWindowSizeChangedEvent();          
         }
 
         void ExhibitDetailsPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -61,6 +63,17 @@ namespace OneMSQFT.WindowsStore.Views
                 }
             }
 
+            if (e.PropertyName == "IsHorizontal")
+            {
+                if (GetDataContextAsViewModel<ExhibitDetailsPageViewModel>().IsHorizontal)
+                {
+                    VisualStateManager.GoToState(this, "FullScreenLandscape", true);
+                }
+                else
+                {
+                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);
+                }
+            }
         }
 
         void vm_PinContextChanged(object sender, EventArgs e)
@@ -91,14 +104,16 @@ namespace OneMSQFT.WindowsStore.Views
 
         #region Resizing
 
+
         protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
-            var vm = DataContext as IExhibitDetailsPageViewModel;
-            if (vm != null)
-            {
-                vm.WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-            }
+            ProcessWindowSizeChangedEvent();
             base.WindowSizeChanged(sender, e);
+        }
+
+        private void ProcessWindowSizeChangedEvent()
+        {
+            GetDataContextAsViewModel<ExhibitDetailsPageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
         }
 
         #endregion
@@ -109,7 +124,6 @@ namespace OneMSQFT.WindowsStore.Views
         {
             if (!VideoPopup.IsOpen)
             {
-                ExhibitDetailsPanels.Opacity = 0;
                 VideoPopup.IsOpen = true;
             }
         }
@@ -124,7 +138,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         private void VideoPopup_Closed(object sender, object e)
         {
-            ExhibitDetailsPanels.Opacity = 1;
+
         }
 
         #endregion
@@ -206,5 +220,17 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         #endregion
+
+        void MediaListViewScrollViewerHorizontal_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        {
+            var hsv = ((ScrollViewer)sender);
+            hsv.HorizontalSnapPointsAlignment = hsv.HorizontalOffset * 2 > hsv.ScrollableWidth ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
+        }
+
+        void MediaListViewScrollViewerVertical_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        {
+            var vsv = ((ScrollViewer)sender);
+            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset * 2 > vsv.ScrollableHeight+1 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
+        }
     }
 }

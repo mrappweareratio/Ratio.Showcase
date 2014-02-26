@@ -201,5 +201,6 @@ namespace OneMSQFT.UILogic.ViewModels
                 return SquareFootageStringPlain + " " + Strings.SquareFeet + " " + Name + " " + Strings.In + " " + Location;
             }
         }
+
     }
 }
