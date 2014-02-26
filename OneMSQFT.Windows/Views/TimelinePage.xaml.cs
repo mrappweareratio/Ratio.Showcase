@@ -166,8 +166,10 @@ namespace OneMSQFT.WindowsStore.Views
 
         private bool _semanticZoomClosedFromTopAppBarEvent;
 
-        private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
+        private async void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
+            var theApp = AppLocator.Current;
+            var context = new TrackingContextData();
             if (e.SourceItem.Item != null && e.IsSourceZoomedInView == false)
             {
                 if (_semanticZoomClosedFromTopAppBarEvent)
@@ -176,6 +178,14 @@ namespace OneMSQFT.WindowsStore.Views
                 }
                 else
                 {
+                    //Track event selection
+                    var events = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
+                    var eventId = Convert.ToInt32(((EventItemViewModel) e.SourceItem.Item).Id);
+                    var ev = await theApp.DataService.GetEventById(((EventItemViewModel) e.SourceItem.Item).Id);
+                    context.EventName = ev.Name;
+                    context.EventSqFt = ev.SquareFootage;
+                    context.AppElement = TrackingContextData.AppElements.GenerateEventSemanticZoomData(eventId);
+                    theApp.Analytics.TrackEvents(events, context);
                     ScrollToEventById(((EventItemViewModel)e.SourceItem.Item).Id);
                 }
                 itemsGridView.Opacity = 1;
@@ -183,6 +193,11 @@ namespace OneMSQFT.WindowsStore.Views
 
             if (e.IsSourceZoomedInView)
             {
+                //Track going into ZoomedOut view
+                var events = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.SemanticZooms, TrackingEventsData.Events.TotalInteraction };
+                context.AppElement = TrackingContextData.AppElements.GenerateEventSemanticZoomData();
+                theApp.Analytics.TrackEvents(events, context);
+
                 ShowTimelineMasks(false);
                 this.semanticZoom.Background = new SolidColorBrush(Colors.Transparent);
                 LogoGrid.Visibility = Visibility.Visible;
@@ -263,6 +278,18 @@ namespace OneMSQFT.WindowsStore.Views
         {
             if (!VideoPopup.IsOpen)
             {
+                //track video plays
+                var theApp = AppLocator.Current;
+                var events = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.VideoStart,TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
+                var context = new TrackingContextData();
+                context.AppElement = TrackingContextData.AppElements.GeneratePlayVideoInEventData();
+                var ev = this.GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent;
+                context.EventName = ev.Name;
+                context.EventSqFt = ev.SquareFootage;
+                var mediaItem = (MediaContentSourceItemViewModel) FlipViewer.SelectedItem;
+                context.VideoName = mediaItem.Name;
+                theApp.Analytics.TrackEvents(events, context);
+
                 VideoPopup.IsOpen = true;
                 VideoPlayerUserControl.SelectedMediaContentSource = ((MediaContentSourceItemViewModel)FlipViewer.SelectedItem);
             }
