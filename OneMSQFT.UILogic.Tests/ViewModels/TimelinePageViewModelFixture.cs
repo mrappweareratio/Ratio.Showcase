@@ -33,14 +33,14 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         [TestMethod]
         public void TimelinePageViewModel_Implements_Interface()
         {
-            var vm = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService()) as ITimelinePageViewModel;
+            var vm = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService()) as ITimelinePageViewModel;
             Assert.IsNotNull(vm);
         }
 
         [TestMethod]
         public void TimelinePageViewModel_Constructs()
         {
-            var vm = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService()) as ITimelinePageViewModel;
+            var vm = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService()) as ITimelinePageViewModel;
             Assert.IsNotNull(vm.SquareFootEvents, "SquareFootEvents");
             Assert.IsNotNull(vm.TimeLineItems, "TimeLineItems");
             Assert.IsNotNull(vm.TimeLineMenuItems, "TimeLineMenuItems");
@@ -61,7 +61,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                     return await Task.FromResult<IEnumerable<Event>>(new List<Event>());
                 }
             };
-            var timeLine = new TimelinePageViewModel(mockDataService, new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService());
+            var timeLine = new TimelinePageViewModel(mockDataService, new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService());
             ExecuteOnUIThread(() => timeLine.OnNavigatedTo(null, NavigationMode.New, null));
             autoResetEvent.WaitOne(500);
             Assert.IsTrue(called);
@@ -90,7 +90,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                     return Task.FromResult(0);
                 }
             };
-            var timeLine = new TimelinePageViewModel(mockDataService, mockAlerts, new MockNavigationService(), new MockConfigurationService());
+            var timeLine = new TimelinePageViewModel(mockDataService, mockAlerts, new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService());
             ExecuteOnUIThread(() => timeLine.OnNavigatedTo(null, NavigationMode.New, null));
             autoResetEvent.WaitOne(500);
             Assert.IsTrue(called);
@@ -105,7 +105,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             {
                 IsConnectedDelegate = () => true
             };
-            var timeLine = new TimelinePageViewModel(new DataService(new DemoDataRepository(), new MockDataCacheService() { ContainsDataDelegate = s => Task.FromResult(false) }, internetConnection), new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService());
+            var timeLine = new TimelinePageViewModel(new DataService(new DemoDataRepository(), new MockDataCacheService() { ContainsDataDelegate = s => Task.FromResult(false) }, internetConnection), new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService());
             var autoResetEvent = new AutoResetEvent(false);
             ExecuteOnUIThread(() => timeLine.OnNavigatedTo(null, NavigationMode.New, null));
             autoResetEvent.WaitOne(2000);
@@ -126,7 +126,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                     called = true;
                     passedEventId = s;
                 }
-            });
+            }, new MockAnalyticsService());
             await ExecuteOnUIThread(async () =>
             {
                 timeLine.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("0", "Event"));
@@ -145,7 +145,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                     SetStartupEventDelegate = s =>
                     {
                     }
-                });
+                }, new MockAnalyticsService());
             Assert.IsFalse(timeLine.SetStartupCommand.CanExecute());
         }
 
@@ -156,7 +156,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             configuration.ClearStartupItem();
 
             var timeLine = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService(),
-                new MockNavigationService(), configuration);
+                new MockNavigationService(), configuration, new MockAnalyticsService());
 
             timeLine.SelectedEvent = new EventItemViewModel(MockModelGenerator.NewEvent("0", "Event"));
             Assert.IsTrue(timeLine.SetStartupCommand.CanExecute(), "SetStartupCommand IsTrue");
@@ -185,7 +185,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         {
             var autoREsetEvents = new AutoResetEvent(false);
             var timeLine = new TimelinePageViewModel(new DataService(new ApiDataRepository(new ApiConfiguration()), new DataCacheService(), new InternetConnectionService()), new MockAlertMessageService(),
-               new MockNavigationService(), new MockConfigurationService());
+               new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService());
             ExecuteOnUIThread(() =>
             {
                 timeLine.OnNavigatedTo(null, NavigationMode.New, null);
@@ -210,7 +210,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             var data = new MockDataService();
             INavigationService navigation = new MockNavigationService();
             IConfigurationService configuration = new MockConfigurationService();
-            var vm = new TimelinePageViewModel(data, new MockAlertMessageService(), navigation, configuration);
+            var vm = new TimelinePageViewModel(data, new MockAlertMessageService(), navigation, configuration, new MockAnalyticsService());
             vm.PinContextChanged += (sender, args) =>
             {
                 changed = true;
@@ -226,7 +226,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             var data = new MockDataService();
             INavigationService navigation = new MockNavigationService();
             IConfigurationService configuration = new MockConfigurationService();
-            var vm = new TimelinePageViewModel(data, new MockAlertMessageService(), navigation, configuration);
+            var vm = new TimelinePageViewModel(data, new MockAlertMessageService(), navigation, configuration, new MockAnalyticsService());
             vm.PinContextChanged += (sender, args) =>
             {
                 changed = true;

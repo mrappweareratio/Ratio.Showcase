@@ -21,18 +21,20 @@ namespace OneMSQFT.UILogic.ViewModels
     public class TimelinePageViewModel : BasePageViewModel, ITimelinePageViewModel
     {
         private readonly IDataService _dataService;
+        private readonly IAnalyticsService _analyticsService;
         private readonly IAlertMessageService _messageService;
         private readonly INavigationService _navigationService;
         private readonly IConfigurationService _configuration;
         public DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
         public DelegateCommand<String> ExhibitItemClickCommand { get; set; }
 
-        public TimelinePageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration)
+        public TimelinePageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration, IAnalyticsService analyticsService)
         {
             _dataService = dataService;
             _messageService = messageService;
             _navigationService = navigationService;
             _configuration = configuration;
+            _analyticsService = analyticsService;
             this.SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             this.TimeLineItems = new ObservableCollection<EventItemViewModel>();
             this.TimeLineMenuItems = new ObservableCollection<EventItemViewModel>();
@@ -231,11 +233,12 @@ namespace OneMSQFT.UILogic.ViewModels
             SelectedEvent = item;
         }
 
-        public void ExhibitItemClickCommandHandler(String itemId)
+        public async void ExhibitItemClickCommandHandler(String itemId)
         {
             //Track Exhibit user interaction
-            //var ev = this.SelectedEvent;
-            //AppLocator.Current.Analytics.TrackExhibitInteractionInTimeline(ev.Name,);
+            var ev = this.SelectedEvent;
+            ExhibitDetail ex = await _dataService.GetExhibitDetailByExhibitId(itemId);
+            _analyticsService.TrackExhibitInteractionInTimeline(ev.Name, ex.Exhibit.Name,ev.Id, itemId);
 
             _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, itemId);
         }
