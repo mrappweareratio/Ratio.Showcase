@@ -331,7 +331,7 @@ namespace OneMSQFT.WindowsStore.Views
                 var ev = this.GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent;
                 var mediaItem = (MediaContentSourceItemViewModel) FlipViewer.SelectedItem;
                 if (mediaItem != null)
-                    AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Name, ev.SquareFootage, ev.Id);
+                    AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Media.VideoId, ev.SquareFootage, ev.Id);
 
                 VideoPopup.IsOpen = true;
                 VideoPlayerUserControl.SelectedMediaContentSource = ((MediaContentSourceItemViewModel)FlipViewer.SelectedItem);

@@ -15,11 +15,14 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
     [TestClass]
     public class DataRepositoryFixture
     {
+        private SiteData _result;
+
         [TestInitialize]
-        public void Init()
+        async public Task Init()
         {
-            this.DataRepository = new DemoDataRepository();
-            //this.DataRepository = new ApiDataRepository(new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api"));
+            //this.DataRepository = new DemoDataRepository();
+            this.DataRepository = new ApiDataRepository(new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api"));
+            _result = await this.DataRepository.GetSiteData();
         }
 
         public IDataRepository DataRepository { get; set; }
@@ -27,76 +30,67 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         //TIMELINE AND EVENT TESTS
 
         [TestMethod]
-        async public Task DataRepository_TimlineResult_Not_Null()
+        public void DataRepository_TimlineResult_Not_Null()
         {
-            var result = await DataRepository.GetSiteData();
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(_result);
         }
 
         [TestMethod]
-        async public Task DataRepository_TimlineResult_Events_Not_Null()
+        public void DataRepository_TimlineResult_Events_Not_Null()
         {
-            var result = await DataRepository.GetSiteData();
-            Assert.IsNotNull(result.Events);
+            Assert.IsNotNull(_result.Events);
         }
 
         [TestMethod]
-        async public Task DataRepository_TimlineResult_Events_Has_One()
+        public void DataRepository_TimlineResult_Events_Has_One()
         {
-            var result = await DataRepository.GetSiteData();
-            var e = result.Events.FirstOrDefault();
+            var e = _result.Events.FirstOrDefault();
             Assert.IsNotNull(e);
         }
 
         [TestMethod]
-        async public Task DataRepository_TimlineResult_Events_Are_Valid()
+        public void DataRepository_TimlineResult_Events_Are_Valid()
         {
-            var result = await DataRepository.GetSiteData();
-            var validEvents = result.Events.ToList().TrueForAll(ValidateEvent);            
+            var validEvents = _result.Events.ToList().TrueForAll(ValidateEvent);            
             Assert.IsTrue(validEvents, "ValidEvents");
         }        
 
         //EXHIBIT TESTS
 
         [TestMethod]
-        async public Task DataRepository_TimlineResult_Exhibits_Not_Null()
+        public void DataRepository_TimlineResult_Exhibits_Not_Null()
         {
-            var result = await DataRepository.GetSiteData();
-            var e = result.Events.FirstOrDefault();
+            var e = _result.Events.FirstOrDefault();
             Assert.IsNotNull(e.Exhibits);
         }
 
         [TestMethod]
-        async public Task DataRepository_TimlineResult_Exhibits_HasOne()
+        public void DataRepository_TimlineResult_Exhibits_HasOne()
         {
-            var result = await DataRepository.GetSiteData();
-            var e = result.Events.FirstOrDefault();
+            var e = _result.Events.FirstOrDefault();
             var exhibit = e.Exhibits.FirstOrDefault();
             Assert.IsNotNull(exhibit);
         }
 
         [TestMethod]
-        async public Task DataRepository_TimlineResult_Exhibits_Are_Valid()
+        public void DataRepository_TimlineResult_Exhibits_Are_Valid()
         {
-            var result = await DataRepository.GetSiteData();
-            var exhibits = result.Events.SelectMany(x => x.Exhibits).ToList();
+            var exhibits = _result.Events.SelectMany(x => x.Exhibits).ToList();
             Assert.IsTrue(exhibits.TrueForAll(ValidateExhibit), "ValidateExhibit");
         }
 
         [TestMethod]
-        async public Task DataRepository_Events_Unique()
+        public void DataRepository_Events_Unique()
         {
-            var result = await DataRepository.GetSiteData();
-            var events = result.Events.ToList();
-            var uniqueEvents = result.Events.Select(x => x.Id).Distinct().Count();            
+            var events = _result.Events.ToList();
+            var uniqueEvents = _result.Events.Select(x => x.Id).Distinct().Count();            
             Assert.AreEqual(events.Count, uniqueEvents,  "All Events Unique");
         }
 
         [TestMethod]
-        async public Task DataRepository_Exhibits_Unique()
+        public void DataRepository_Exhibits_Unique()
         {
-            var result = await DataRepository.GetSiteData();
-            var exhibits = result.Events.SelectMany(x => x.Exhibits).ToList();
+            var exhibits = _result.Events.SelectMany(x => x.Exhibits).ToList();
             var uniqueEvents = exhibits.Select(x => x.Id).Distinct().Count();
             Assert.AreEqual(exhibits.Count, uniqueEvents, "All Exhibits Unique");
         }
@@ -125,6 +119,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
                 Assert.IsTrue(Uri.IsWellFormedUriString(e.RsvpUrl, UriKind.RelativeOrAbsolute), "RsvpUrl");
             //Assert.IsNotNull(e.DateStart, "DateStart");
             //Assert.IsNotNull(e.DateEnd, "DateEnd");
+            Assert.IsNotNull(e.EventId, "EventId");
 
             return true;
         }
