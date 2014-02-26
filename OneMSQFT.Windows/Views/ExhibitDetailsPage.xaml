@@ -706,7 +706,9 @@
             </Popup>
             <Button HorizontalAlignment="Left"
             	Click="GoBack" 
-            	Style="{StaticResource CustomBackButtonStyle}" Margin="47,26,0,0" VerticalAlignment="Top" />
+            	Style="{StaticResource CustomBackButtonStyle}" 
+                Margin="47,26,0,0" VerticalAlignment="Top"
+                Background="White"/>
             <controls:LogoUserControl x:Name="PortraitLogo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,26,0,0" LogoColor="FFFFFF" Visibility="Collapsed"/>
 
         </Grid>

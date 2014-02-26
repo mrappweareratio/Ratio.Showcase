@@ -37,19 +37,27 @@
     </omsqft:BasePageView.BottomAppBar>
     <Grid Background="White">
         <Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="700" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Button x:Name="backButton" HorizontalAlignment="Left"
-                    Click="GoBack"  Grid.Column="1" VerticalAlignment="Top" Margin="0,100,0,0"
-                    IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}"
-                    Style="{StaticResource BlackBackButtonStyle}" />
-                <Rectangle Fill="{StaticResource OneMSQFTLogoDarkBlueBrush}" Grid.Column="2" Width="2000"></Rectangle>
-            </Grid>
-            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Black" Opacity=".7" Visibility="{Binding Visibility, ElementName=appBar, Mode=TwoWay}" IsHitTestVisible="False"></Rectangle>
+            <ScrollViewer x:Name="scrollViewer" Width="{Binding FullScreenWidth, ElementName=scrollViewer}" Style="{StaticResource HorizontalScrollViewerStyle}">
+                <Grid Width="{Binding AboutPageTotalWidth}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border Width="{Binding AboutPageTwoThirdsWidth}" Grid.Column="1"/>
+                    <Border Background="{StaticResource OneMSQFTLogoDarkBlueBrush}" Width="{Binding FullScreenWidth}" Grid.Column="2"/>
+                </Grid>
+            </ScrollViewer>
+            <Border HorizontalAlignment="Left"
+        		VerticalAlignment="Top" Margin="90,26,0,0" Background="White"
+        		Height="55" Width="55">
+                <Button x:Name="backButton"
+        			Click="GoBack"
+        			IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}"
+        			Style="{StaticResource CustomBackButtonStyle}"
+        			Background="{StaticResource OneMSQFTLogoDarkBlueBrush}" Height="55" Width="55"/>
+            </Border>
+            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Black" Opacity=".7" Visibility="{Binding Visibility, ElementName=appBar, Mode=TwoWay}" IsHitTestVisible="False"/>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>
@@ -59,11 +67,6 @@
                 <VisualState x:Name="Filled" />
 
                 <VisualState x:Name="FullScreenPortrait">
-                    <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}" />
-                        </ObjectAnimationUsingKeyFrames>
-                    </Storyboard>
                 </VisualState>
 
                 <VisualState x:Name="Snapped"/>

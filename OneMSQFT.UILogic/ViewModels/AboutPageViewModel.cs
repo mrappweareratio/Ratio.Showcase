@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
@@ -43,10 +44,45 @@ namespace OneMSQFT.UILogic.ViewModels
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
 
+
+        #region resizing
+
+
+        public double FullScreenWidth
+        {
+            get
+            {
+                return Window.Current.Bounds.Width;
+            }
+        }
+
+        public double AboutPageTotalWidth
+        {
+            get
+            {
+                return Window.Current.Bounds.Width + AboutPageTwoThirdsWidth;
+            }
+        }
+
+        public double AboutPageTwoThirdsWidth
+        {
+            get
+            {
+                return Window.Current.Bounds.Width * .666;
+            }
+        }
+
         public override void WindowSizeChanged(double width, double height)
         {
-            //no-op
+            IsHorizontal = width > height;
+            OnPropertyChanged("IsHorizontal");
+
+            OnPropertyChanged("FullScreenWidth");
+            OnPropertyChanged("AboutPageTotalWidth");
+            OnPropertyChanged("AboutPageTwoThirdsWidth");
         }
+
+        #endregion
     }
 
 }
