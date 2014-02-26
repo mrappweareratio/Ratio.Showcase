@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls.Primitives;
+﻿using System.Collections.Generic;
 
-namespace OneMSQFT.UILogic.Analytics
+namespace OneMSQFT.Common.Analytics
 {
     public class TrackingContextData : Dictionary<string, object>
     {
+        public class Variables
+        {
+            public const string PageName = "pageName";
+            public const string AppElement = "appElement";
+            public const string VideoName = "videoName";
+            public const string EventName = "eventName";
+            public const string ExhibitName = "exhibitName";
+            public const string EventSqFt = "eventSqFt";
+            public const string PlatformName = "platformName";
+        }
 
-        //TODO: Replace string keys with enums
         public string PageName
         {
             get

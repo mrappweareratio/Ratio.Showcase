@@ -9,6 +9,7 @@ using Windows.UI.ApplicationSettings;
 using Windows.UI.Popups;
 using Windows.UI.StartScreen;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
+using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Analytics;
@@ -47,8 +48,7 @@ namespace OneMSQFT.UILogic
 
             if (!String.IsNullOrEmpty(args.Arguments))
             {
-                var events = new AnalyticsEventsContext();
-                events.Add(AnalyticsEventTypes.PageView);
+                var events = new TrackingEventsData {TrackingEventsData.Events.PageView};
                 var context = new TrackingContextData();
 
                 var pinningContext = PinningUtils.ParseArguments(args.Arguments);
@@ -89,14 +89,13 @@ namespace OneMSQFT.UILogic
                         return;
                 }
             }
-            GoHome();
+            GoHome(true);
         }
 
-        public void GoHome(ILaunchActivatedEventArgs args = null)
+        public void GoHome(bool isLaunch = false)
         {
-            var events = new AnalyticsEventsContext();
-            events.Add(AnalyticsEventTypes.PageView);
-            var context = new TrackingContextData();
+            var trackingEventsData = new TrackingEventsData { TrackingEventsData.Events.PageView };
+            var trackingContextData = new TrackingContextData();
 
             switch (Configuration.StartupItemType)
             {
@@ -107,13 +106,13 @@ namespace OneMSQFT.UILogic
                     Event evt;
                     if (_events == null || (evt = _events.FirstOrDefault(x => x.Id.Equals(Configuration.StartupItemId))) == null)
                     {
-                        context.PageName = TrackingContextData.PageNames.Home;
+                        trackingContextData.PageName = TrackingContextData.PageNames.Home;
                         NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
                     }
                     else
                     {
-                        context.PageName = TrackingContextData.PageNames.EventLanding;
-                        context.EventName = evt.Name;
+                        trackingContextData.PageName = TrackingContextData.PageNames.EventLanding;
+                        trackingContextData.EventName = evt.Name;
                         NavigationService.Navigate(ViewLocator.Pages.Timeline, Configuration.StartupItemId);
                     }
                     break;
@@ -122,20 +121,20 @@ namespace OneMSQFT.UILogic
                     if (_events == null ||
                         (exhibit = _events.SelectMany(x => x.Exhibits).FirstOrDefault(x => x.Id.Equals(Configuration.StartupItemId))) == null)
                     {
-                        context.PageName = TrackingContextData.PageNames.Home;
+                        trackingContextData.PageName = TrackingContextData.PageNames.Home;
                         NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
                     }
                     else
                     {
-                        context.PageName = TrackingContextData.PageNames.ExhibitLanding;
-                        context.ExhibitName = exhibit.Name;
+                        trackingContextData.PageName = TrackingContextData.PageNames.ExhibitLanding;
+                        trackingContextData.ExhibitName = exhibit.Name;
                         NavigationService.Navigate(ViewLocator.Pages.ExhibitDetails, Configuration.StartupItemId);
                     }
                     break;
             }
-            if (args != null)
+            if (isLaunch)
             {
-                Analytics.TrackEvents(events, context);
+                Analytics.TrackEvents(trackingEventsData, trackingContextData);
             }
         }
 

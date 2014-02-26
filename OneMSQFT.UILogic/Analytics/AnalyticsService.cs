@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ADMS.Measurement;
+using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Services;
 
 namespace OneMSQFT.UILogic.Analytics
@@ -14,7 +15,7 @@ namespace OneMSQFT.UILogic.Analytics
 
         public bool KioskModeEnabled { get; set; }
 
-        private const bool Disabled = false;
+        private const bool Disabled = true;
 
         public void Configure()
         {
@@ -34,24 +35,15 @@ namespace OneMSQFT.UILogic.Analytics
             _measure.StopSession();
         }
 
-        public void TrackEvents(IEnumerable<string> events, IDictionary<string, object> context = null)
+        public void TrackEvents(TrackingEventsData eventsData, TrackingContextData context = null)
         {
             if (Disabled)
                 return;
-            if (context == null)
-            {
-                _measure.TrackEvents(String.Join(",", events), new TrackingContextData()
-                {
-                    PlatformName = KioskModeEnabled
-                        ? TrackingContextData.PlatformNames.Kiosk
-                        : TrackingContextData.PlatformNames.Store
-                });
-                return;
-            }
-            context["platformName"] = KioskModeEnabled
+            context = context ?? new TrackingContextData();
+            context.PlatformName = KioskModeEnabled
                 ? TrackingContextData.PlatformNames.Kiosk
                 : TrackingContextData.PlatformNames.Store;
-            _measure.TrackEvents(String.Join(",", events), context);
+            _measure.TrackEvents(eventsData.ToString(), context);
         }
     }
 }
