@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.ApplicationSettings;
+using OneMSQFT.Common.Services;
 
 namespace OneMSQFT.UILogic.Interfaces
 {
@@ -18,8 +19,10 @@ namespace OneMSQFT.UILogic.Interfaces
         /// <summary>
         /// Navigate to home based on startup configuration or from a launch
         /// </summary>        
-        void GoHome(bool isLaunch = false);                
+        void GoHome(bool isLaunch = false);
         Task HandleException(Exception exception, string message);
         bool CanHandleException(Exception exception);
+        IDataService DataService { get; set; }
+        IAnalyticsService Analytics { get; set; }
     }
 }

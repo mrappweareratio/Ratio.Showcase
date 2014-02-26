@@ -111,6 +111,15 @@ namespace OneMSQFT.UILogic.Services
                 NextExhibit = nextExhibit
             };
             return detail;
-        }        
+        }
+
+        async public Task<Event> GetEventById(string eventId)
+        {
+            if (eventId == null)
+                throw new ArgumentOutOfRangeException("eventId");
+            var events = await GetEvents();
+            var ev = events.FirstOrDefault(x => x.Id.Equals(eventId));
+            return ev;
+        }
     }
 }

@@ -23,10 +23,10 @@ namespace OneMSQFT.UILogic
     public class OneMsqftApplication : IOneMsqftApplication
     {
         public IAlertMessageService MessageService { get; private set; }
-        public IAnalyticsService Analytics { get; private set; }
+        public IAnalyticsService Analytics { get; set; }
         private IEnumerable<Event> _events;
         public IConfigurationService Configuration { get; private set; }
-        public IDataService DataService { get; private set; }
+        public IDataService DataService { get; set; }
         public INavigationService NavigationService { get; private set; }
 
         public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics, IAlertMessageService alertMessageService)
@@ -54,7 +54,7 @@ namespace OneMSQFT.UILogic
         }        
 
         async public Task OnLaunchApplication(ILaunchActivatedEventArgs args)
-        {            
+        {
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                 Analytics.StartSession();

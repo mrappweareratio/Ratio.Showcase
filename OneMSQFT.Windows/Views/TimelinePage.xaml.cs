@@ -17,6 +17,8 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using OneMSQFT.Common.Analytics;
+using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
@@ -174,8 +176,10 @@ namespace OneMSQFT.WindowsStore.Views
 
         private bool _semanticZoomClosedFromTopAppBarEvent;
 
-        private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
+        private async void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
+            var theApp = AppLocator.Current;
+            var context = new TrackingContextData();
             if (e.SourceItem.Item != null && e.IsSourceZoomedInView == false)
             {
                 if (_semanticZoomClosedFromTopAppBarEvent)
@@ -184,6 +188,10 @@ namespace OneMSQFT.WindowsStore.Views
                 }
                 else
                 {
+                    //Track event selection
+                    var ev = this.GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent;
+                    theApp.Analytics.TrackTimelineSemanticZoomEventInteraction(ev.Name, ev.SquareFootage, ev.Id);
+
                     ScrollToEventById(((EventItemViewModel)e.SourceItem.Item).Id);
                 }
                 itemsGridView.Opacity = 1;
@@ -191,6 +199,9 @@ namespace OneMSQFT.WindowsStore.Views
 
             if (e.IsSourceZoomedInView)
             {
+                //Track going into ZoomedOut view
+                theApp.Analytics.TrackTimelineSemanticZoom();
+
                 ShowTimelineMasks(false);
                 this.semanticZoom.Background = new SolidColorBrush(Colors.Transparent);
                 LogoGrid.Visibility = Visibility.Visible;
@@ -207,8 +218,11 @@ namespace OneMSQFT.WindowsStore.Views
             LogoGrid.Visibility = Visibility.Collapsed;
         }
 
-        public override void TopAppBarEventButtonCommandHandler(String eventId)
+        public override async void TopAppBarEventButtonCommandHandler(String eventId)
         {
+            Event ev = await AppLocator.Current.DataService.GetEventById(eventId);
+            AppLocator.Current.Analytics.TrackAppBarInteractionInTimeline(ev.Name, ev.SquareFootage);
+
             if (semanticZoom.IsZoomedInViewActive == false)
             {
                 _semanticZoomClosedFromTopAppBarEvent = true;
@@ -262,6 +276,12 @@ namespace OneMSQFT.WindowsStore.Views
         {
             if (!VideoPopup.IsOpen)
             {
+                //track video plays
+                var ev = this.GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent;
+                var mediaItem = (MediaContentSourceItemViewModel) FlipViewer.SelectedItem;
+                if (mediaItem != null)
+                    AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Name, ev.SquareFootage, ev.Id);
+
                 VideoPopup.IsOpen = true;
                 VideoPlayerUserControl.SelectedMediaContentSource = ((MediaContentSourceItemViewModel)FlipViewer.SelectedItem);
             }

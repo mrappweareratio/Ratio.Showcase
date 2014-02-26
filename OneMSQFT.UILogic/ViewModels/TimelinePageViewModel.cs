@@ -233,6 +233,10 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public void ExhibitItemClickCommandHandler(String itemId)
         {
+            //Track Exhibit user interaction
+            //var ev = this.SelectedEvent;
+            //AppLocator.Current.Analytics.TrackExhibitInteractionInTimeline(ev.Name,);
+
             _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, itemId);
         }
 
