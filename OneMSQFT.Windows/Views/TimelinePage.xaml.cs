@@ -179,13 +179,9 @@ namespace OneMSQFT.WindowsStore.Views
                 else
                 {
                     //Track event selection
-                    var events = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
-                    var eventId = Convert.ToInt32(((EventItemViewModel) e.SourceItem.Item).Id);
-                    var ev = await theApp.DataService.GetEventById(((EventItemViewModel) e.SourceItem.Item).Id);
-                    context.EventName = ev.Name;
-                    context.EventSqFt = ev.SquareFootage;
-                    context.AppElement = TrackingContextData.AppElements.GenerateEventSemanticZoomData(eventId);
-                    theApp.Analytics.TrackEvents(events, context);
+                    var ev = this.GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent;
+                    theApp.Analytics.TrackTimelineSemanticZoomEventInteraction(ev.Name, ev.SquareFootage, ev.Id);
+
                     ScrollToEventById(((EventItemViewModel)e.SourceItem.Item).Id);
                 }
                 itemsGridView.Opacity = 1;
@@ -194,9 +190,7 @@ namespace OneMSQFT.WindowsStore.Views
             if (e.IsSourceZoomedInView)
             {
                 //Track going into ZoomedOut view
-                var events = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.SemanticZooms, TrackingEventsData.Events.TotalInteraction };
-                context.AppElement = TrackingContextData.AppElements.GenerateEventSemanticZoomData();
-                theApp.Analytics.TrackEvents(events, context);
+                theApp.Analytics.TrackTimelineSemanticZoom();
 
                 ShowTimelineMasks(false);
                 this.semanticZoom.Background = new SolidColorBrush(Colors.Transparent);
@@ -216,14 +210,8 @@ namespace OneMSQFT.WindowsStore.Views
 
         public override async void TopAppBarEventButtonCommandHandler(String eventId)
         {
-            var theApp = AppLocator.Current;
-            var events = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.AppBarTaps, TrackingEventsData.Events.TotalInteraction };
-            var context = new TrackingContextData();
-            context.AppElement = TrackingContextData.AppElements.GenerateClickEventInTimelineAppBarData();
-            Event ev = await theApp.DataService.GetEventById(eventId);
-            context.EventName = ev.Name;
-            context.EventSqFt = ev.SquareFootage;
-            theApp.Analytics.TrackEvents(events, context);
+            Event ev = await AppLocator.Current.DataService.GetEventById(eventId);
+            AppLocator.Current.Analytics.TrackAppBarInteractionInTimeline(ev.Name, ev.SquareFootage);
 
             if (semanticZoom.IsZoomedInViewActive == false)
             {
@@ -279,16 +267,10 @@ namespace OneMSQFT.WindowsStore.Views
             if (!VideoPopup.IsOpen)
             {
                 //track video plays
-                var theApp = AppLocator.Current;
-                var events = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.VideoStart,TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
-                var context = new TrackingContextData();
-                context.AppElement = TrackingContextData.AppElements.GeneratePlayVideoInEventData();
                 var ev = this.GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent;
-                context.EventName = ev.Name;
-                context.EventSqFt = ev.SquareFootage;
                 var mediaItem = (MediaContentSourceItemViewModel) FlipViewer.SelectedItem;
-                context.VideoName = mediaItem.Name;
-                theApp.Analytics.TrackEvents(events, context);
+                if (mediaItem != null)
+                    AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Name, ev.SquareFootage, ev.Id);
 
                 VideoPopup.IsOpen = true;
                 VideoPlayerUserControl.SelectedMediaContentSource = ((MediaContentSourceItemViewModel)FlipViewer.SelectedItem);

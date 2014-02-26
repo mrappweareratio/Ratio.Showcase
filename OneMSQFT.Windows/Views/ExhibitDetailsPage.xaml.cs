@@ -73,14 +73,9 @@ namespace OneMSQFT.WindowsStore.Views
 
         async public override void TopAppBarEventButtonCommandHandler(String eventId)
         {
-            var theApp = AppLocator.Current;
-            var events = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.AppBarTaps, TrackingEventsData.Events.TotalInteraction};
-            var context = new TrackingContextData();
-            context.AppElement = TrackingContextData.AppElements.GenerateClickEventInExhibitAppBarData();
-            Event ev = await theApp.DataService.GetEventById(eventId);
-            context.EventName = ev.Name;
-            context.EventSqFt = ev.SquareFootage;
-            theApp.Analytics.TrackEvents(events, context);
+            //track appbar interaction
+            Event ev = await AppLocator.Current.DataService.GetEventById(eventId);
+            AppLocator.Current.Analytics.TrackAppBarInteractionInExhibitView(ev.Name, ev.SquareFootage);
 
             this.Frame.Navigate(typeof(TimelinePage), eventId);
             TopAppBar.IsOpen = false;

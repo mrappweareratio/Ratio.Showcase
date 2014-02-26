@@ -15,7 +15,7 @@ namespace OneMSQFT.UILogic.Analytics
 
         public bool KioskModeEnabled { get; set; }
 
-        private const bool Disabled = true;
+        private const bool Disabled = false;
 
         public void Configure()
         {
@@ -44,6 +44,101 @@ namespace OneMSQFT.UILogic.Analytics
                 ? TrackingContextData.PlatformNames.Kiosk
                 : TrackingContextData.PlatformNames.Store;
             _measure.TrackEvents(eventsData.ToString(), context);
+        }
+
+        public void TrackTimelineSemanticZoom()
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.SemanticZooms, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                AppElement = TrackingContextData.AppElements.GenerateEventSemanticZoomData()
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackTimelineSemanticZoomEventInteraction(string evName, int? sqFootage, string id )
+        {
+            if (Disabled)
+                return;
+            
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                EventName = evName,
+                EventSqFt = sqFootage,
+                AppElement = TrackingContextData.AppElements.GenerateEventSemanticZoomData(Convert.ToInt32(id))
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackVideoPlayInEventView(string evName, string vidName, int? sqFootage, string id)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.VideoStart, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                EventName = evName,
+                EventSqFt = sqFootage,
+                VideoName = vidName,
+                AppElement = TrackingContextData.AppElements.GeneratePlayVideoInEventData()
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackExhibitInteractionInTimeline(string evName, string exName, string evPos, string exPos)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                EventName = evName,
+                ExhibitName = exName,
+                AppElement = TrackingContextData.AppElements.GenerateClickExhibitInEventData(Convert.ToInt32(evPos), Convert.ToInt32(exPos))
+            };
+
+            this.TrackEvents(evData, context);            
+        }
+
+        public void TrackAppBarInteractionInTimeline(string evName, int? sqFootage)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.AppBarTaps, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                EventName = evName,
+                EventSqFt = sqFootage,
+                AppElement = TrackingContextData.AppElements.GenerateClickEventInTimelineAppBarData()
+            };
+
+            this.TrackEvents(evData, context);              
+        }
+
+        public void TrackAppBarInteractionInExhibitView(string evName, int? sqFootage)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.AppBarTaps, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                EventName = evName,
+                EventSqFt = sqFootage,
+                AppElement = TrackingContextData.AppElements.GenerateClickEventInExhibitAppBarData()
+            };
+
+            this.TrackEvents(evData, context);
         }
     }
 }
