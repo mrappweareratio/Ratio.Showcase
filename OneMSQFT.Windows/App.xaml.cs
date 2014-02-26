@@ -90,9 +90,17 @@ namespace OneMSQFT.WindowsStore
             _container.RegisterType<IAlertMessageService, AlertMessageService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IConfigurationService, ConfigurationService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IAnalyticsService, AnalyticsService>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<ISharingService, SharingService>(new ContainerControlledLifetimeManager());
 
             //create the application
-            _application = new OneMsqftApplication(_container.Resolve<INavigationService>(), _container.Resolve<IDataService>(), _container.Resolve<IConfigurationService>(), _container.Resolve<IAnalyticsService>(), _container.Resolve<IAlertMessageService>());
+            _application = new OneMsqftApplication(
+                _container.Resolve<INavigationService>(), 
+                _container.Resolve<IDataService>(), 
+                _container.Resolve<IConfigurationService>(), 
+                _container.Resolve<IAnalyticsService>(), 
+                _container.Resolve<IAlertMessageService>(), 
+                _container.Resolve<ISharingService>());
+
             //register the application
             AppLocator.Register(_application);
 

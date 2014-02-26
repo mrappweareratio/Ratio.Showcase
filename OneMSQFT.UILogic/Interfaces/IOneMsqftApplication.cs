@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.ApplicationSettings;
+using OneMSQFT.Common.Services;
 
 namespace OneMSQFT.UILogic.Interfaces
 {
@@ -12,6 +13,7 @@ namespace OneMSQFT.UILogic.Interfaces
         Task OnLaunchApplication(ILaunchActivatedEventArgs args);
         void OnInitialize(IActivatedEventArgs args);
         bool KioskModeEnabled { get; }
+        ISharingService SharingService { get; }
         IList<SettingsCommand> GetSettingsCommands();
         void OnSuspending(ISuspendingEventArgs suspendingEventArgs);
         void OnResuming();

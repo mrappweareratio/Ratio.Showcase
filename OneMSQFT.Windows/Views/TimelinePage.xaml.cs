@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -17,6 +18,8 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using OneMSQFT.Common;
+using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
@@ -54,6 +57,50 @@ namespace OneMSQFT.WindowsStore.Views
                 StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
                 PinButton.Visibility = app.KioskModeEnabled ? Visibility.Collapsed : Visibility.Visible;
             }
+
+            var dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
+
+            if (AppLocator.Current != null)
+            {
+                _sharing = AppLocator.Current.SharingService;
+            }
+        }
+
+        private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();            
+            if (vm.SelectedEvent == null)
+            {
+                args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                return;
+            }
+            Uri uri = null;
+            if (VideoPopup.IsOpen)
+            {
+                var selectedMediaContentSource = ((MediaContentSourceItemViewModel) FlipViewer.SelectedItem);
+                if (selectedMediaContentSource == null || !_sharing.TryGetVideoShareUri(selectedMediaContentSource.Media, out uri))
+                {
+                    args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                    return;
+                }
+                args.Request.Data.Properties.Title = String.Format(Strings.SharingTitleVideoFromEventFormat, vm.SelectedEvent.Name);
+                args.Request.Data.Properties.Description = vm.SelectedEvent.Description;
+                args.Request.Data.Properties.ContentSourceWebLink = uri;
+                args.Request.Data.SetUri(uri);
+            }
+            else
+            {
+                if (!_sharing.TryGetEventShareUri(vm.SelectedEvent.Event, out uri))
+                {
+                    args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                    return;
+                }
+                args.Request.Data.Properties.Title = vm.SelectedEvent.Name;
+                args.Request.Data.Properties.Description = vm.SelectedEvent.Description;
+                args.Request.Data.Properties.ContentSourceWebLink = uri;
+                args.Request.Data.SetUri(uri);
+            }                                    
         }
 
         private void VmOnPinContextChanged(object sender, EventArgs eventArgs)
@@ -102,7 +149,7 @@ namespace OneMSQFT.WindowsStore.Views
             else
             {
                 // scroll to first event item, first item is buffer item
-                if (vm.TimeLineItems.Count>0)
+                if (vm.TimeLineItems.Count > 0)
                     ScrollToEventById(vm.TimeLineItems[1].Id);
             }
         }
@@ -163,6 +210,7 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         private bool _semanticZoomClosedFromTopAppBarEvent;
+        private ISharingService _sharing;
 
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
@@ -370,6 +418,8 @@ namespace OneMSQFT.WindowsStore.Views
 
         #endregion
 
+        #region Sharing
 
+        #endregion
     }
 }

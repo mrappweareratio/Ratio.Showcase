@@ -21,6 +21,6 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         /// </summary>
         event EventHandler<EventArgs> PinContextChanged;              
         SecondaryTileArgs GetSecondaryTileArguments();
-        Task<SecondaryTileImages> GetSecondaryTileImages();
+        Task<SecondaryTileImages> GetSecondaryTileImages();        
     }
 }

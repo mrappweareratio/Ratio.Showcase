@@ -170,6 +170,24 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is nothing to share from 1 Million Square Feet right now..
+        /// </summary>
+        public static string SharingFailedDisplayText {
+            get {
+                return ResourceManager.GetString("SharingFailedDisplayText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share this video from {0}.
+        /// </summary>
+        public static string SharingTitleVideoFromEventFormat {
+            get {
+                return ResourceManager.GetString("SharingTitleVideoFromEventFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to show.
         /// </summary>
         public static string show {

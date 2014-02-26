@@ -28,6 +28,7 @@ namespace OneMSQFT.UILogic
         public IConfigurationService Configuration { get; private set; }
         public IDataService DataService { get; private set; }
         public INavigationService NavigationService { get; private set; }
+        public ISharingService SharingService { get; private set; }
 
         public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics, IAlertMessageService alertMessageService)
         {
@@ -38,6 +39,12 @@ namespace OneMSQFT.UILogic
             DataService = dataService;
             NavigationService = navigationService;
             _events = new List<Event>();
+        }
+
+        public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics, IAlertMessageService alertMessageService, ISharingService sharingService)
+            : this(navigationService, dataService, configuration, analytics, alertMessageService)
+        {
+            SharingService = sharingService;
         }
 
         public async Task HandleException(Exception exception, string message)
@@ -51,10 +58,10 @@ namespace OneMSQFT.UILogic
             return true;
 #endif
             return false;
-        }        
+        }
 
         async public Task OnLaunchApplication(ILaunchActivatedEventArgs args)
-        {            
+        {
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                 Analytics.StartSession();
@@ -63,7 +70,7 @@ namespace OneMSQFT.UILogic
 
             if (!String.IsNullOrEmpty(args.Arguments))
             {
-                var events = new TrackingEventsData {TrackingEventsData.Events.PageView};
+                var events = new TrackingEventsData { TrackingEventsData.Events.PageView };
                 var context = new TrackingContextData();
 
                 var pinningContext = PinningUtils.ParseArguments(args.Arguments);
