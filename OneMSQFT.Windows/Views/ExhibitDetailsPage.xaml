@@ -292,8 +292,7 @@
                                 		FontWeight="Light"/>
                                 <HyperlinkButton x:Name="HyperlinkButton"
                                 			Command="{Binding DataSource.Exhibit.RsvpLinkCommand, Source={StaticResource DataContextProxy}}" 
-                                			Style="{StaticResource ExitLinkButtonStyle}" 
-                                			CommandParameter="{Binding DataSource.Exhibit.RsvpUrl, Source={StaticResource DataContextProxy}}" 
+                                			Style="{StaticResource ExitLinkButtonStyle}"                                 			
                                             Content="{Binding Strings.RSVP, Source={StaticResource PortableStrings}}" 
                                             Visibility="{Binding DataSource.Exhibit.RsvpVisibility, Source={StaticResource DataContextProxy}}"
                                             Margin="0,0,0,20" />
@@ -301,9 +300,9 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <HyperlinkButton 
-                                			            Command="{Binding ElementName=HyperlinkButton, Path=DataContext.Exhibit.ExitLinkCommand}" 
-                                			            Style="{StaticResource ExitLinkButtonStyle}" 
-                                			            CommandParameter="{Binding Url}" 
+                                			            Command="{Binding DataSource.Exhibit.ExitLinkCommand, Source={StaticResource DataContextProxy}}"  
+                                                        CommandParameter="{Binding}" 
+                                			            Style="{StaticResource ExitLinkButtonStyle}"                                 			            
                                                         Content="{Binding Title}" Margin="0,0,0,20" />
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>

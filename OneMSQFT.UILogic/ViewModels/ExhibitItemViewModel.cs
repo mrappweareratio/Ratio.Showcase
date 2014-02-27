@@ -34,8 +34,8 @@ namespace OneMSQFT.UILogic.ViewModels
         public Uri RsvpUrl { get; set; }
         public DateTime? DateStart;
         public DateTime? DateEnd;
-        public DelegateCommand<string> ExitLinkCommand { get; private set; }
-        public DelegateCommand<Uri> RsvpLinkCommand { get; private set; }
+        public DelegateCommand<LinkItemViewModel> ExitLinkCommand { get; private set; }
+        public DelegateCommand RsvpLinkCommand { get; private set; }
 
         public Visibility RsvpVisibility
         {
@@ -77,36 +77,39 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 RsvpUrl = rsvpUri;
             }
-            ExitLinkCommand = new DelegateCommand<string>(ExitLinkNavigate);
-            RsvpLinkCommand = new DelegateCommand<Uri>(RsvpNavigate, RsvpLinkCommandCanExecuteMethod);
+            ExitLinkCommand = new DelegateCommand<LinkItemViewModel>(ExitLinkNavigate);
+            RsvpLinkCommand = new DelegateCommand(RsvpNavigate, RsvpLinkCommandCanExecuteMethod);
         }
 
-        private bool RsvpLinkCommandCanExecuteMethod(Uri uri)
+        private bool RsvpLinkCommandCanExecuteMethod()
         {
             return RsvpEnabled;
         }
 
-        async private void RsvpNavigate(Uri uri)
+        async private void RsvpNavigate()
         {
+            if (RsvpUrl == null)
+                return;
+
             //Track link interaction
             if (_analyticsService != null)
             {
-                _analyticsService.TrackLinkInteractionInExhibitView(this.Name, this.Id, uri.ToString());
+                _analyticsService.TrackLinkInteractionInExhibitView(this.Name, this.Id, RsvpUrl.ToString());
             }
 
-            await Launcher.LaunchUriAsync(uri, new LauncherOptions { DesiredRemainingView = ViewSizePreference.UseHalf });
+            await Launcher.LaunchUriAsync(RsvpUrl, new LauncherOptions { DesiredRemainingView = ViewSizePreference.UseHalf });
         }
 
-        async private void ExitLinkNavigate(string s)
+        async private void ExitLinkNavigate(LinkItemViewModel linkItemViewModel)
         {
             //Track link interaction
             if (_analyticsService != null)
             {
-                _analyticsService.TrackLinkInteractionInExhibitView(this.Name, this.Id, s);
+                _analyticsService.TrackLinkInteractionInExhibitView(this.Name, this.Id, linkItemViewModel.Title);
             }
 
             Uri uri;
-            if (!Uri.TryCreate(s, UriKind.Absolute, out uri))
+            if (!Uri.TryCreate(linkItemViewModel.Url, UriKind.Absolute, out uri))
             {
                 uri = ExhibitItemUtils.GetExitLinkFallbackUri();
             }
