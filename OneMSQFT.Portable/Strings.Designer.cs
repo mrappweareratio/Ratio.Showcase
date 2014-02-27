@@ -62,6 +62,15 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ABOUT 1MSQFT.
+        /// </summary>
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yet somehow bigger..
         /// </summary>
         public static string AboutBlurbFour {
@@ -107,6 +116,15 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CLEAR STARTUP.
+        /// </summary>
+        public static string ClearStartUp {
+            get {
+                return ResourceManager.GetString("ClearStartUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coming Soon.
         /// </summary>
         public static string ComingSoon {
@@ -139,6 +157,15 @@ namespace OneMSQFT.Common {
         public static string GuestCurated {
             get {
                 return ResourceManager.GetString("GuestCurated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HOME.
+        /// </summary>
+        public static string Home {
+            get {
+                return ResourceManager.GetString("Home", resourceCulture);
             }
         }
         
@@ -202,6 +229,15 @@ namespace OneMSQFT.Common {
         public static string RSVP_Fallback_Uri {
             get {
                 return ResourceManager.GetString("RSVP_Fallback_Uri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SET AS STARTUP.
+        /// </summary>
+        public static string SetAsStartUp {
+            get {
+                return ResourceManager.GetString("SetAsStartUp", resourceCulture);
             }
         }
         
@@ -274,6 +310,15 @@ namespace OneMSQFT.Common {
         public static string UnhandledExceptionTitle {
             get {
                 return ResourceManager.GetString("UnhandledExceptionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UNPIN FROM START.
+        /// </summary>
+        public static string UNPIN {
+            get {
+                return ResourceManager.GetString("UNPIN", resourceCulture);
             }
         }
     }

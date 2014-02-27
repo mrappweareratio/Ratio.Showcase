@@ -189,4 +189,19 @@
   <data name="AboutBlurbTwo" xml:space="preserve">
     <value>It is a series of spaces, guest curated by a range of cultural experts. A survey of culture one square foot at a time. It’s square feet for food at an art event. It’s square feet for art at a film event. It’s square feet for film at a fashion event. It’s square feet of culture across all creative disciplines, brought to unexpected places. Physical spaces collected digitally. A gallery of diverse creations, surveyed, shared and held together by digital walls. It’s measurable space, with a touch of the immeasurable.</value>
   </data>
+  <data name="About" xml:space="preserve">
+    <value>ABOUT 1MSQFT</value>
+  </data>
+  <data name="ClearStartUp" xml:space="preserve">
+    <value>CLEAR STARTUP</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>HOME</value>
+  </data>
+  <data name="SetAsStartUp" xml:space="preserve">
+    <value>SET AS STARTUP</value>
+  </data>
+  <data name="UNPIN" xml:space="preserve">
+    <value>UNPIN FROM START</value>
+  </data>
 </root>
