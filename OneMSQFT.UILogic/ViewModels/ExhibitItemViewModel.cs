@@ -35,7 +35,7 @@ namespace OneMSQFT.UILogic.ViewModels
         public DateTime? DateStart;
         public DateTime? DateEnd;
         public DelegateCommand<string> ExitLinkCommand { get; private set; }
-        public DelegateCommand<string> RsvpLinkCommand { get; private set; }
+        public DelegateCommand<Uri> RsvpLinkCommand { get; private set; }
 
         public Visibility RsvpVisibility
         {
@@ -78,22 +78,22 @@ namespace OneMSQFT.UILogic.ViewModels
                 RsvpUrl = rsvpUri;
             }
             ExitLinkCommand = new DelegateCommand<string>(ExitLinkNavigate);
-            RsvpLinkCommand = new DelegateCommand<string>(RsvpNavigate);
+            RsvpLinkCommand = new DelegateCommand<Uri>(RsvpNavigate, RsvpLinkCommandCanExecuteMethod);
         }
 
-        async private void RsvpNavigate(string s)
+        private bool RsvpLinkCommandCanExecuteMethod(Uri uri)
         {
             //Track link interaction
             if (_analyticsService != null)
             {
-                _analyticsService.TrackLinkInteractionInExhibitView(this.Name, this.Id, s);
+                _analyticsService.TrackLinkInteractionInExhibitView(this.Name, this.Id, uri.ToString());
             }
 
-            Uri uri;
-            if (!Uri.TryCreate(s, UriKind.Absolute, out uri))
-            {
-                uri = ExhibitItemUtils.GetRsvpFallbackUri();
-            }
+            return RsvpEnabled;
+        }
+
+        async private void RsvpNavigate(Uri uri)
+        {           
             await Launcher.LaunchUriAsync(uri, new LauncherOptions { DesiredRemainingView = ViewSizePreference.UseHalf });
         }
 
