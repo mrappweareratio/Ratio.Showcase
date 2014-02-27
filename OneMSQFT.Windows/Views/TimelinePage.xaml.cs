@@ -91,7 +91,7 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Title = String.Format(Strings.SharingTitleVideoFromEventFormat, vm.SelectedEvent.Name);
                 args.Request.Data.Properties.Description = vm.SelectedEvent.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
-                args.Request.Data.SetUri(uri);
+                args.Request.Data.SetWebLink(uri);
             }
             else
             {
@@ -103,7 +103,7 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Title = vm.SelectedEvent.Name;
                 args.Request.Data.Properties.Description = vm.SelectedEvent.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
-                args.Request.Data.SetUri(uri);
+                args.Request.Data.SetWebLink(uri);
             }
         } 
 
@@ -231,7 +231,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         private bool _semanticZoomClosedFromTopAppBarEvent;
 
-        private async void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
+        private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
             var theApp = AppLocator.Current;
             var context = new TrackingContextData();
@@ -288,7 +288,7 @@ namespace OneMSQFT.WindowsStore.Views
             BottomAppBar.IsOpen = false;
         }
 
-        async private void ScrollToEventById(String eventId)
+        private void ScrollToEventById(String eventId)
         {
             VideoPopup.IsOpen = false;
             var vm = GetDataContextAsViewModel<TimelinePageViewModel>();

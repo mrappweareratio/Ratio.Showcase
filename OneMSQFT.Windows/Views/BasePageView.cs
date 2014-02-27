@@ -214,7 +214,7 @@ namespace OneMSQFT.WindowsStore.Views
                         await encoder.FlushAsync();
                         return true;
                     }
-                    catch (Exception err)
+                    catch (Exception)
                     {
                         return false;
                     }

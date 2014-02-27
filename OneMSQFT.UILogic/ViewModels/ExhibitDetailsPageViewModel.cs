@@ -113,7 +113,6 @@ namespace OneMSQFT.UILogic.ViewModels
         }
 
         private ExhibitItemViewModel _exhibit;
-        private string _exhibitDetailTitle;
         private Visibility _setStartupVisibility;
         private Visibility _clearStartupVisibility;
 
