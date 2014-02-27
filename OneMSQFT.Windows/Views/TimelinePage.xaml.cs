@@ -389,9 +389,8 @@ namespace OneMSQFT.WindowsStore.Views
             
             //track Event pinning interaction
             var analytics = AppLocator.Current.Analytics;
-            var ev = await AppLocator.Current.DataService.GetEventById(args.Id);
             if (analytics != null) 
-                analytics.TrackPinEventInteraction(ev.Name, ev.SquareFootage );
+                analytics.TrackPinEventInteraction(args.DisplayName);
 
             if (SecondaryTile.Exists(args.Id))
             {

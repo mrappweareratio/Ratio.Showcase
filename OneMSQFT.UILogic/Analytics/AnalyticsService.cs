@@ -238,7 +238,7 @@ namespace OneMSQFT.UILogic.Analytics
             this.TrackEvents(evData, context);
         }
 
-        public void TrackPinEventInteraction(string evName, int? sqFootage)
+        public void TrackPinEventInteraction(string evName)
         {
             if (Disabled)
                 return;
@@ -247,7 +247,6 @@ namespace OneMSQFT.UILogic.Analytics
             var context = new TrackingContextData
             {
                 EventName = evName,
-                EventSqFt = sqFootage,
                 AppElement = TrackingContextData.AppElements.GeneratePinEventData(evName)
             };
 
