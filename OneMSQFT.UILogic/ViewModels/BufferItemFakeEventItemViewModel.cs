@@ -8,7 +8,7 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class BufferItemFakeEventItemViewModel : EventItemViewModel
     {
-        public BufferItemFakeEventItemViewModel() : base(null)
+        public BufferItemFakeEventItemViewModel() : base(null, null)
         {            
         }
     }

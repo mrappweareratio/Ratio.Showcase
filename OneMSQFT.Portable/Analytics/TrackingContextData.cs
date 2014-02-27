@@ -74,6 +74,11 @@ namespace OneMSQFT.Common.Analytics
                 return entry;
             }
 
+            public static string GenerateShowMoreExhibitsData()
+            {
+                return "event: show more exhibits";
+            }
+
             public static string GenerateClickEventInTimelineAppBarData()
             {
                 return "event: timeline app bar";

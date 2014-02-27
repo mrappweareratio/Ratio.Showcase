@@ -160,6 +160,21 @@ namespace OneMSQFT.UILogic.Analytics
             this.TrackEvents(evData, context);            
         }
 
+        public void TrackShowMoreExhibitsInEvent(string evName)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                EventName = evName,
+                AppElement = TrackingContextData.AppElements.GenerateShowMoreExhibitsData()
+            };
+
+            this.TrackEvents(evData, context);                  
+        }
+
         public void TrackAppBarInteractionInTimeline(string evName, int? sqFootage)
         {
             if (Disabled)

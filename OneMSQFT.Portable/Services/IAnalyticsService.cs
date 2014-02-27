@@ -14,6 +14,7 @@ namespace OneMSQFT.Common.Services
         void TrackTimelineSemanticZoomEventInteraction(string evName, int? sqFootage, string id);
         void TrackVideoPlayInEventView(string evName, string vidName, int? sqFootage, string id);
         void TrackExhibitInteractionInTimeline(string evName, string exName, string evPos, string exPos);
+        void TrackShowMoreExhibitsInEvent(string evName);
         void TrackAppBarInteractionInTimeline(string evName, int? sqFootage);
         void TrackAppBarInteractionInExhibitView(string evName, int? sqFootage);
         bool KioskModeEnabled { get; set; }

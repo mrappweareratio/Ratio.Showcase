@@ -36,9 +36,8 @@ namespace OneMSQFT.UILogic.ViewModels
                 await _messageService.ShowAsync("Error", "There was a problem loading events");
                 return;
             }
-            
-            SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
 
+            SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x, _analyticsService)));
             _analyticsService.TrackPageViewAbout();
 
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
