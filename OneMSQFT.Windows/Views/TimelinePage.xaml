@@ -969,6 +969,11 @@
                         <FlipView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
+                                    <ProgressRing IsEnabled="True" IsActive="True" Height="150" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <ProgressRing.Foreground>
+                                            <SolidColorBrush Color="{Binding DataSource.SelectedEvent.EventColor, Source={StaticResource DataContextProxy}}"/>
+                                        </ProgressRing.Foreground>
+                                    </ProgressRing>
                                     <Image Source="{Binding ImageSource}" Stretch="UniformToFill"/>
                                     <Button Click="VideoButton_Clicked" 
                                             Style="{StaticResource EmptyButtonStyle}"
