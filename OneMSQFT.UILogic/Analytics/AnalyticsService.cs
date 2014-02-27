@@ -173,7 +173,18 @@ namespace OneMSQFT.UILogic.Analytics
 
         public void TrackVideoPlayInExhibitView(string exName, string exPos, string vidName)
         {
-            throw new NotImplementedException();
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.VideoStart, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                ExhibitName = exName,
+                VideoName = vidName,
+                AppElement = TrackingContextData.AppElements.GeneratePlayVideoInEventData()
+            };
+
+            this.TrackEvents(evData, context);
         }
     }
 }
