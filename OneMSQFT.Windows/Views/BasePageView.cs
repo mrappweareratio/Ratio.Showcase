@@ -190,7 +190,7 @@ namespace OneMSQFT.WindowsStore.Views
             }
         }
 
-        public static async Task<bool> RenderTargetBitmapToStorageFile(StorageFile storageFile, RenderTargetBitmap bitmap, uint width, uint height)
+        public static async Task<bool> RenderTargetBitmapToStorageFile(StorageFile storageFile, RenderTargetBitmap bitmap)
         {
             try
             {
@@ -201,8 +201,8 @@ namespace OneMSQFT.WindowsStore.Views
                     var jpg = Windows.Graphics.Imaging.BitmapEncoder.JpegEncoderId;
                     var encoder = await Windows.Graphics.Imaging.BitmapEncoder.CreateAsync(jpg, stream);
                     const BitmapPixelFormat format = Windows.Graphics.Imaging.BitmapPixelFormat.Bgra8;
-                    const BitmapAlphaMode alpha = Windows.Graphics.Imaging.BitmapAlphaMode.Ignore;
-                    encoder.SetPixelData(format, alpha, width, height, dpi, dpi, pixel.ToArray());
+                    const BitmapAlphaMode alpha = Windows.Graphics.Imaging.BitmapAlphaMode.Straight;
+                    encoder.SetPixelData(format, alpha, Convert.ToUInt16(bitmap.PixelWidth), Convert.ToUInt16(bitmap.PixelHeight), dpi, dpi, pixel.ToArray());
 
                     try
                     {

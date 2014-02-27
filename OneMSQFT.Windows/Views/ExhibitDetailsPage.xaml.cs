@@ -284,7 +284,7 @@ namespace OneMSQFT.WindowsStore.Views
                 // create the file from the Uri                                                                                                
                 var fileName = String.Format("exhibit_{0}_{1}x{2}.jpg", vm.Exhibit.Id, width, height);
                 var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-                if ((await file.GetBasicPropertiesAsync()).Size > 0 || await RenderTargetBitmapToStorageFile(file, renderTargetBitmap, width, height))
+                if ((await file.GetBasicPropertiesAsync()).Size > 0 || await RenderTargetBitmapToStorageFile(file, renderTargetBitmap))
                 {
                     // use the storage file name and the path to the local folder 
                     // to set the image art must be ms-appdata:/// or ms-appx:///
