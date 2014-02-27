@@ -23,6 +23,7 @@ using OneMSQFT.Common.Services;
 using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
+using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
@@ -382,8 +383,14 @@ namespace OneMSQFT.WindowsStore.Views
         {
             BottomAppBar.IsSticky = true;
 
+
             var vm = GetDataContextAsViewModel<IBasePageViewModel>();
             var args = vm.GetSecondaryTileArguments();
+            
+            //track Event pinning interaction
+            var analytics = AppLocator.Current.Analytics;
+            if (analytics != null) 
+                analytics.TrackPinEventInteraction(args.DisplayName);
 
             if (SecondaryTile.Exists(args.Id))
             {
