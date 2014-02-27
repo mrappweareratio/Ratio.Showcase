@@ -267,5 +267,50 @@ namespace OneMSQFT.UILogic.Analytics
 
             this.TrackEvents(evData, context);
         }
+
+        public void TrackUnPinEventInteraction(string evName)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                EventName = evName,
+                AppElement = TrackingContextData.AppElements.GenerateUnPinEventData(evName)
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackUnPinExhibitInteraction(string exName)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                ExhibitName = exName,
+                AppElement = TrackingContextData.AppElements.GenerateUnPinExhibitData(exName)
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackNextExhibitInteraction(string exFrom, string exTo)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                ExhibitName = exFrom,
+                AppElement = TrackingContextData.AppElements.GenerateClickNextExhibitData(exFrom, exTo)
+            };
+
+            this.TrackEvents(evData, context);
+        }
     }
 }

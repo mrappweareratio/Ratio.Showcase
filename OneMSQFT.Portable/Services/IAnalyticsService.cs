@@ -21,6 +21,9 @@ namespace OneMSQFT.Common.Services
         void TrackVideoPlayInExhibitView(string exName, string exPos, string vidName);
         void TrackPinEventInteraction(string evName);
         void TrackPinExhibitInteraction(string exName);
+        void TrackUnPinEventInteraction(string evName);
+        void TrackUnPinExhibitInteraction(string exName);
+        void TrackNextExhibitInteraction(string exFrom, string exTo);
 
         bool KioskModeEnabled { get; set; }
         void TrackEventLanding(string evName);

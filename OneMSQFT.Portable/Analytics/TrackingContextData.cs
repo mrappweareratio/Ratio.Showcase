@@ -99,9 +99,19 @@ namespace OneMSQFT.Common.Analytics
                 return "Event Pinned:" + evName;
             }
 
+            public static string GenerateUnPinEventData(string evName)
+            {
+                return "Event Unpinned:" + evName;
+            }
+
             public static string GeneratePinExhibitData(string exName)
             {
                 return "Exhibit Pinned:" + exName;
+            }
+
+            public static string GenerateUnPinExhibitData(string exName)
+            {
+                return "Exhibit Unpinned:" + exName;
             }
 
             public static string GenerateClickLinkInExhibitData(string title, int exhibitPos)
@@ -113,6 +123,20 @@ namespace OneMSQFT.Common.Analytics
                 }
                 entry += ':' + title;
                 return entry;                
+            }
+
+            public static string GenerateClickNextExhibitData(string fromName, string toName)
+            {
+                var entry = "next exhibit";
+                if (!string.IsNullOrEmpty(fromName))
+                {
+                    entry += ("| from: " + fromName);
+                }
+                if (!string.IsNullOrEmpty(toName))
+                {
+                    entry += ("| to: " + toName);
+                }
+                return entry;
             }
 
             public static string GenerateOnAppIdleData()
