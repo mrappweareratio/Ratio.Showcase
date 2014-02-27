@@ -276,36 +276,17 @@
                             <Image Source="{Binding DataSource.Exhibit.Curator.LogoImage, Source={StaticResource DataContextProxy}}" Stretch="Uniform" MaxWidth="124" HorizontalAlignment="Left"/>
                         </Border>
 
-                        <TextBlock Text="{Binding DataSource.Exhibit.DisplayDate, Source={StaticResource DataContextProxy}}"
-                    			    Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                    			    FontSize="18"
-                    			    TextWrapping="NoWrap" 
-                                    FontFamily="Segoe UI" 
-                                    FontWeight="SemiBold"
-                    			    Margin="38,0,0,0" 
-									Grid.Row="4" 
-                                    HorizontalAlignment="Left"/>
-
-                        <TextBlock Text="{Binding DataSource.Exhibit.Location, Source={StaticResource DataContextProxy}}"
-                    			    Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                    			    FontSize="18"
-                    			    TextWrapping="NoWrap" 
-                                    FontFamily="Segoe UI Light" 
-                                    FontWeight="Light"
-                    			    Margin="38,0,0,0" 
-									Grid.Row="5" 
-                                    HorizontalAlignment="Left" 
-									VerticalAlignment="Top"/>
+                      
                         <ScrollViewer
                                 	Margin="22,0,10,30" 
-                                	Grid.Row="6" Grid.RowSpan="2" Style="{StaticResource VerticalScrollViewerStyle}">
+                                	Grid.Row="4" Grid.RowSpan="4" Style="{StaticResource VerticalScrollViewerStyle}">
 
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="{Binding DataSource.Exhibit.Description, Source={StaticResource DataContextProxy}}" Margin="16,0,20,20"
                                 		Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                                		FontSize="18"
+                                		FontSize="20"
                                         LineStackingStrategy="BlockLineHeight"
-                                        LineHeight="20"
+                                        LineHeight="24"
                                 		TextWrapping="Wrap" 
                                 		FontFamily="Segoe UI Light" 
                                 		FontWeight="Light"/>
@@ -633,17 +614,23 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal"  Margin="20,0,0,0">
                         <StackPanel x:Name="StartupButtonStackPanel" Orientation="Horizontal" Visibility="Collapsed">
-                            <Button x:Name="HomeButton" HorizontalAlignment="Stretch" Content="HOME" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}" />
-                            <Button HorizontalAlignment="Stretch" Content="Set as Startup" Visibility="{Binding SetStartupVisibility}" Command="{Binding SetStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
-                            <Button HorizontalAlignment="Stretch" Content="Clear Startup" Visibility="{Binding ClearStartupVisibility}" Command="{Binding ClearStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+                            <Button x:Name="HomeButton" 
+                                    Content="{Binding Strings.Home, Source={StaticResource PortableStrings}}"  
+                                    Style="{StaticResource OMSQFT_CustomAppbarButton}" />
+                            <Button Content="{Binding Strings.SetAsStartUp, Source={StaticResource PortableStrings}}" 
+                                    Visibility="{Binding SetStartupVisibility}" 
+                                    Command="{Binding SetStartupCommand}" 
+                                    Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+                            <Button Content="{Binding Strings.ClearStartUp, Source={StaticResource PortableStrings}}" 
+                                    Visibility="{Binding ClearStartupVisibility}" 
+                                    Command="{Binding ClearStartupCommand}" 
+                                    Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
                         </StackPanel>
-                        <AppBarButton x:Name="PinButton" Click="Pin_OnClick"
-							Foreground="{StaticResource OneMSQFTAppBarButtonForegroundBrush}" 
-							Style="{StaticResource OMSQFTTraditionalPinAppBarButtonStyle}" 
-							Margin="0,-4,0,0" FontFamily="Global User Interface"/>
+                        <Button x:Name="PinButton" Click="Pin_OnClick"
+							Style="{StaticResource OMSQFT_CustomAppbarButton}" />
                     </StackPanel>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
-                        <Button x:Name="AboutButton" HorizontalAlignment="Stretch" Content="ABOUT 1MSQFT" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+                        <Button x:Name="AboutButton" Content="{Binding Strings.About, Source={StaticResource PortableStrings}}" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
                     </StackPanel>
                 </Grid>
             </Border>
