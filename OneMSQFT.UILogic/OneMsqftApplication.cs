@@ -191,12 +191,7 @@ namespace OneMSQFT.UILogic
         {
             var commands = new List<SettingsCommand>();
             if (KioskModeEnabled)
-            {
-                commands.Add(
-                    new SettingsCommand("Config", Strings.Config, async command =>
-                    {
-                        await new MessageDialog("Config or Admin section TBD").ShowAsync();
-                    }));
+            {                
             }
             return commands;
         }
