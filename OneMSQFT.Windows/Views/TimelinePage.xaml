@@ -520,6 +520,11 @@
                     Width="{Binding DataSource.ExhibitItemWidth, Source={StaticResource DataContextProxy}}" 
                     Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
                     VerticalAlignment="Top">
+                    <ProgressRing IsEnabled="True" IsActive="True" Height="50" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ProgressRing.Foreground>
+                            <SolidColorBrush Color="{Binding ExhibitColor, Mode=OneWay}"/>
+                        </ProgressRing.Foreground>
+                    </ProgressRing>
                     <Border Background="Transparent"
 				    BorderBrush="White"
 				    BorderThickness="0"
@@ -645,6 +650,8 @@
             </Border>
         </DataTemplate>
 
+        <!-- Main -->
+
         <DataTemplate x:Key="OMSQFTTimelineEventItemTemplate">
             <Border BorderThickness="0" Margin="0" Background="Transparent">
                 <Grid Width="{Binding DataSource.EventItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
@@ -664,19 +671,22 @@
 
                     <Button Click="FlipViewButton_Clicked" 
                             HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
                             CommandParameter="{Binding}" 
                             Command="{Binding DataSource.EventHeroItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                             Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" 
-                            Style="{StaticResource EventGalleryButtonStyle}" Margin="0,0,1,0" BorderBrush="{StaticResource OneMSQFTWhiteBrush}" BorderThickness="5">
-                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                            Style="{StaticResource EventGalleryButtonStyle}" Margin="0,-10,2,0" 
+                            BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
+                            BorderThickness="5">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <ProgressRing IsEnabled="True" IsActive="True" Height="150" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <ProgressRing.Foreground>
                                     <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
                                 </ProgressRing.Foreground>
                             </ProgressRing>
                             <Image Source="{Binding PhotoFilePath, Mode=OneWay}"
-                        		VerticalAlignment="Center"
-                        		HorizontalAlignment="Center"
+                        		VerticalAlignment="Stretch"
+                        		HorizontalAlignment="Stretch"
                         		AutomationProperties.Name="{Binding Name}" 
                         		Stretch="Fill"/>
                             <Border IsHitTestVisible="False"
@@ -696,7 +706,7 @@
                         </Grid>
                     </Button>
 
-                    <Grid Grid.RowSpan="4">
+                    <Grid Grid.RowSpan="4" Margin="0,0,0,7">
                         <Grid.Background>
                             <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
                         </Grid.Background>
@@ -706,9 +716,9 @@
                             <RowDefinition Height="108*"/>
                             <RowDefinition Height="319*"/>
                         </Grid.RowDefinitions>
-                        <RichTextBlock HorizontalAlignment="Left" Margin="40,0,-447,0" 
+                        <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
 						TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
-						Grid.Row="1" Width="937">
+						Grid.Row="1">
                             <Paragraph>
                                 <Run Text="{Binding SquareFootageStringPlain}" FontSize="60" />
                                 <LineBreak />
@@ -741,6 +751,8 @@
                             HorizontalAlignment="Left"/>
 
                     </Grid>
+                    
+                    <!--Show More Exhibit Items -->
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <GridView ItemsSource="{Binding DisplayedExhibits}" x:Name="GridView"
                               ItemContainerStyle="{StaticResource TimelineExhibitItemContainerStyle}"
