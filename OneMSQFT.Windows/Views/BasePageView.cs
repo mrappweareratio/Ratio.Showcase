@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
+using Microsoft.VisualBasic;
 using OneMSQFT.Common.Models;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
@@ -21,6 +22,7 @@ using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Core;
 using OneMSQFT.WindowsStore.DesignViewModels;
+using Strings = OneMSQFT.Common.Strings;
 
 namespace OneMSQFT.WindowsStore.Views
 {
@@ -179,11 +181,11 @@ namespace OneMSQFT.WindowsStore.Views
             return new Rect(point, new Size(element.ActualWidth, element.ActualHeight));
         }
 
-        protected void ToggleAppBarButton(AppBarButton pinButton, bool showPinButton)
+        protected void ToggleAppBarButton(Button pinButton, bool showPinButton)
         {
             if (pinButton != null)
             {
-                pinButton.Style = (showPinButton) ? ((Style)App.Current.Resources["OMSQFTTraditionalPinAppBarButtonStyle"]) : ((Style)App.Current.Resources["OMSQFTTraditionalUnPinAppBarButtonStyle"]);
+                pinButton.Content = (showPinButton) ? (Strings.PIN) : (Strings.UNPIN);
             }
         }
 
