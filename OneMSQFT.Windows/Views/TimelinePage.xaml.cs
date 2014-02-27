@@ -451,7 +451,7 @@ namespace OneMSQFT.WindowsStore.Views
             {
                 // create the file from the Uri                                                                                                
                 var fileName = String.Format("event_{0}_{1}x{2}.jpg", vm.SelectedEvent.Id, width, height);
-                var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
+                var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
                 if ((await file.GetBasicPropertiesAsync()).Size > 0 || await RenderTargetBitmapToStorageFile(file, renderTargetBitmap, width, height))
                 {
                     // use the storage file name and the path to the local folder 
