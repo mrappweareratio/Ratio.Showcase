@@ -300,9 +300,9 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <HyperlinkButton 
-                                			            Command="{Binding ElementName=HyperlinkButton, Path=DataContext.Exhibit.ExitLinkCommand}" 
-                                			            Style="{StaticResource ExitLinkButtonStyle}" 
-                                			            CommandParameter="{Binding Url}" 
+                                			            Command="{Binding DataSource.Exhibit.ExitLinkCommand, Source={StaticResource DataContextProxy}}"  
+                                                        CommandParameter="{Binding}" 
+                                			            Style="{StaticResource ExitLinkButtonStyle}"                                 			            
                                                         Content="{Binding Title}" Margin="0,0,0,20" />
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
