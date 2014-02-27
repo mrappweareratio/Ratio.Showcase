@@ -94,6 +94,16 @@ namespace OneMSQFT.Common.Analytics
                 return "app bar:" + title;
             }
 
+            public static string GeneratePinEventData(string evName)
+            {
+                return "Event Pinned:" + evName;
+            }
+
+            public static string GeneratePinExhibitData(string exName)
+            {
+                return "Exhibit Pinned:" + exName;
+            }
+
             public static string GenerateClickLinkInExhibitData(string title, int exhibitPos)
             {
                 var entry = "exhibit";

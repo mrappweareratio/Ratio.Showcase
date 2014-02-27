@@ -124,5 +124,15 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         {
             throw new NotImplementedException();
         }
+
+        public void TrackPinEventInteraction(string evName, int? sqFootage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TrackPinExhibitInteraction(string exName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
