@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using OneMSQFT.Common.Analytics;
+using OneMSQFT.Common.Models;
 
 namespace OneMSQFT.Common.Services
 {
@@ -16,5 +17,8 @@ namespace OneMSQFT.Common.Services
         void TrackAppBarInteractionInTimeline(string evName, int? sqFootage);
         void TrackAppBarInteractionInExhibitView(string evName, int? sqFootage);
         bool KioskModeEnabled { get; set; }
+        void TrackEventLanding(string evName);
+        void TrackPageViewHome();
+        void TrackExhibitLanding(string exName);
     }
 }
