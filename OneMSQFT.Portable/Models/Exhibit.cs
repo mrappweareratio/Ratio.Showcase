@@ -47,5 +47,7 @@ namespace OneMSQFT.Common.Models
         public string SocialMediaImagePath { get; set; } //Currently not being used but for future support we might need it.
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+        [JsonProperty("event_id")]
+        public string EventId { get; set; }
     }
 }

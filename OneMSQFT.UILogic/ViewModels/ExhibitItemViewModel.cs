@@ -21,7 +21,7 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class ExhibitItemViewModel : ItemBaseViewModel, IHasMediaContentViewModel
     {
-        private IExhibit<ICurator> Exhibit { get; set; }
+        public Exhibit ExhibitModel { get; private set; }
         private readonly IAnalyticsService _analyticsService;
 
         public Uri ThumbnailImageUri { get; set; }
@@ -51,29 +51,29 @@ namespace OneMSQFT.UILogic.ViewModels
         }
 
 
-        public ExhibitItemViewModel(IExhibit<ICurator> exhibitModel, IAnalyticsService analyticsService)
+        public ExhibitItemViewModel(Exhibit exhibitModelModel, IAnalyticsService analyticsService)
         {
-            if (exhibitModel == null)
+            if (exhibitModelModel == null)
                 return;
             _analyticsService = analyticsService;
-            Exhibit = exhibitModel;
-            Name = exhibitModel.Name;
-            Id = exhibitModel.Id;
-            Description = exhibitModel.Description;
-            SquareFootage = exhibitModel.SquareFootage;
+            ExhibitModel = exhibitModelModel;
+            Name = exhibitModelModel.Name;
+            Id = exhibitModelModel.Id;
+            Description = exhibitModelModel.Description;
+            SquareFootage = exhibitModelModel.SquareFootage;
             Uri thumbnailImageUri;
-            if (Uri.TryCreate(exhibitModel.ThumbImage, UriKind.RelativeOrAbsolute, out thumbnailImageUri))
+            if (Uri.TryCreate(exhibitModelModel.ThumbImage, UriKind.RelativeOrAbsolute, out thumbnailImageUri))
             {
                 ThumbnailImageUri = thumbnailImageUri;
             }
-            LoadMediaContent(exhibitModel.MediaContent);
-            LoadLinks(exhibitModel.Links);
-            ExhibitColor = ColorUtils.GetExhibitColor(exhibitModel);
-            Curator = new CuratorItemViewModel(exhibitModel.Curator);
-            DateStart = exhibitModel.DateStart;
-            DateEnd = exhibitModel.DateEnd;
+            LoadMediaContent(exhibitModelModel.MediaContent);
+            LoadLinks(exhibitModelModel.Links);
+            ExhibitColor = ColorUtils.GetExhibitColor(exhibitModelModel);
+            Curator = new CuratorItemViewModel(exhibitModelModel.Curator);
+            DateStart = exhibitModelModel.DateStart;
+            DateEnd = exhibitModelModel.DateEnd;
             Uri rsvpUri;
-            if (Uri.TryCreate(exhibitModel.RsvpUrl, UriKind.Absolute, out rsvpUri))
+            if (Uri.TryCreate(exhibitModelModel.RsvpUrl, UriKind.Absolute, out rsvpUri))
             {
                 RsvpUrl = rsvpUri;
             }

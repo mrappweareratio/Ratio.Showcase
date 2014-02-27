@@ -15,5 +15,12 @@ namespace OneMSQFT.UILogic.DataLayer
 #endif
             }
         }
+
+        public string WebSiteUrl
+        {
+            get { return "http://1msqft.com"; }
+        }
+
+        public string VideoSiteUrl { get { return "http://vimeo.com"; } }
     }
 }

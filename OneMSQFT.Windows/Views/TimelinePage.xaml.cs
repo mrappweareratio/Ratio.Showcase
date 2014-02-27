@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Storage;
 using Windows.Storage.Streams;
@@ -17,6 +18,8 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using OneMSQFT.Common;
+using OneMSQFT.Common.Services;
 using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
@@ -55,8 +58,56 @@ namespace OneMSQFT.WindowsStore.Views
             {
                 StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
                 PinButton.Visibility = app.KioskModeEnabled ? Visibility.Collapsed : Visibility.Visible;
-            }
+                if (!app.KioskModeEnabled)
+                {
+                    _sharing = AppLocator.Current.SharingService;                    
+                    var dataTransferManager = DataTransferManager.GetForCurrentView();
+                    dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;                       
+                }
+            }            
         }
+
+        #region Sharing
+
+        private readonly ISharingService _sharing;
+
+        private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
+            if (vm.SelectedEvent == null)
+            {
+                args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                return;
+            }
+            Uri uri = null;
+            if (VideoPopup.IsOpen)
+            {
+                var selectedMediaContentSource = ((MediaContentSourceItemViewModel)FlipViewer.SelectedItem);
+                if (selectedMediaContentSource == null || !_sharing.TryGetVideoShareUri(selectedMediaContentSource.Media, out uri))
+                {
+                    args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                    return;
+                }
+                args.Request.Data.Properties.Title = String.Format(Strings.SharingTitleVideoFromEventFormat, vm.SelectedEvent.Name);
+                args.Request.Data.Properties.Description = vm.SelectedEvent.Description;
+                args.Request.Data.Properties.ContentSourceWebLink = uri;
+                args.Request.Data.SetUri(uri);
+            }
+            else
+            {
+                if (!_sharing.TryGetEventShareUri(vm.SelectedEvent.Event, out uri))
+                {
+                    args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                    return;
+                }
+                args.Request.Data.Properties.Title = vm.SelectedEvent.Name;
+                args.Request.Data.Properties.Description = vm.SelectedEvent.Description;
+                args.Request.Data.Properties.ContentSourceWebLink = uri;
+                args.Request.Data.SetUri(uri);
+            }
+        } 
+
+        #endregion
 
         private void VmOnPinContextChanged(object sender, EventArgs eventArgs)
         {
@@ -114,7 +165,7 @@ namespace OneMSQFT.WindowsStore.Views
             else
             {
                 // scroll to first event item, first item is buffer item
-                if (vm.TimeLineItems.Count>0)
+                if (vm.TimeLineItems.Count > 0)
                     ScrollToEventById(vm.TimeLineItems[1].Id);
             }
         }
@@ -138,12 +189,16 @@ namespace OneMSQFT.WindowsStore.Views
         {
             if (show)
             {
+                MaskLeft.Visibility = Visibility.Visible;
+                MaskRight.Visibility = Visibility.Visible;
                 MaskStoryboard.Begin();
             }
             else
             {
                 MaskLeft.Opacity = 0;
                 MaskRight.Opacity = 0;
+                MaskLeft.Visibility = Visibility.Collapsed;
+                MaskRight.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -280,7 +335,7 @@ namespace OneMSQFT.WindowsStore.Views
                 var ev = this.GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent;
                 var mediaItem = (MediaContentSourceItemViewModel) FlipViewer.SelectedItem;
                 if (mediaItem != null)
-                    AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Name, ev.SquareFootage, ev.Id);
+                    AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Media.VideoId, ev.SquareFootage, ev.Id);
 
                 VideoPopup.IsOpen = true;
                 VideoPlayerUserControl.SelectedMediaContentSource = ((MediaContentSourceItemViewModel)FlipViewer.SelectedItem);
@@ -398,8 +453,6 @@ namespace OneMSQFT.WindowsStore.Views
             return new Uri("ms-appx:///Assets/Logo.scale-100.png", UriKind.Absolute);
         }
 
-        #endregion
-
-
+        #endregion        
     }
 }

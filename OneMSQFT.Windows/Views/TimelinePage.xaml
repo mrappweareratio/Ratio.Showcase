@@ -23,7 +23,7 @@
     <omsqft:BasePageView.Resources>
         <viewModels:DataContextProxy x:Key="DataContextProxy" />
 
-        
+
         <Storyboard x:Name="MaskStoryboard">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MaskLeft">
                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
@@ -778,7 +778,7 @@
                             Margin="40,20,0,50" 
                             VerticalAlignment="Bottom" 
                             HorizontalAlignment="Left"/>
-                       
+
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <GridView ItemsSource="{Binding DisplayedExhibits}" x:Name="GridView"
@@ -820,7 +820,7 @@
                 </Grid>
             </Border>
         </DataTemplate>
-        
+
 
     </omsqft:BasePageView.Resources>
     <omsqft:BasePageView.BottomAppBar>
@@ -831,15 +831,18 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel x:Name="StartupButtonStackPanel" Orientation="Horizontal" Visibility="Collapsed"  Margin="20,0,0,0">                        
-                        <Button HorizontalAlignment="Stretch" Visibility="{Binding SetStartupVisibility}" Content="Set as Startup" Command="{Binding SetStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
-                        <Button HorizontalAlignment="Stretch" Visibility="{Binding ClearStartupVisibility}" Content="Clear Startup" Command="{Binding ClearStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
+                    <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                        <StackPanel x:Name="StartupButtonStackPanel" Orientation="Horizontal" Visibility="Collapsed">
+                            <Button HorizontalAlignment="Stretch" Visibility="{Binding SetStartupVisibility}" Content="Set as Startup" Command="{Binding SetStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+                            <Button HorizontalAlignment="Stretch" Visibility="{Binding ClearStartupVisibility}" Content="Clear Startup" Command="{Binding ClearStartupCommand}" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+
+                        </StackPanel>
                         <AppBarButton x:Name="PinButton" Click="Pin_OnClick"
 							Foreground="{StaticResource OneMSQFTAppBarButtonForegroundBrush}" 
 							Style="{StaticResource OMSQFTTraditionalPinAppBarButtonStyle}" 
 							Margin="0,-4,0,0"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
                         <Button x:Name="AboutButton" HorizontalAlignment="Stretch" Content="ABOUT 1MSQFT" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
                     </StackPanel>
                 </Grid>
@@ -917,6 +920,7 @@
                     IsRightTapEnabled="False"
                     IsTapEnabled="False"
                     IsItemClickEnabled="False"
+                    IsSwipeEnabled="False"
                     Loaded="itemsGridView_Loaded" 
                                                           
                     ItemContainerStyle="{StaticResource TimelineItemContainerStyle}" d:IsHidden="True">
@@ -935,15 +939,17 @@
             </SemanticZoom>
 
             <omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,38,0,0" LogoColor="FFFFFF"/>
-                    <Rectangle x:Name="MaskLeft"
+            <Rectangle x:Name="MaskLeft"
+                       Visibility="Collapsed"
                        IsHitTestVisible="False"
                        Width="{Binding DataSource.MaskItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                        Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                        Fill="#AAFFFFFF" 
                        Grid.RowSpan="2"
                        HorizontalAlignment="Left" />
-                    <Rectangle x:Name="MaskRight"
+            <Rectangle x:Name="MaskRight"
                        IsHitTestVisible="False"
+                       Visibility="Collapsed"
                        Width="{Binding DataSource.MaskItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                        Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                        Fill="#AAffffff" 
@@ -963,6 +969,11 @@
                         <FlipView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
+                                    <ProgressRing IsEnabled="True" IsActive="True" Height="150" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <ProgressRing.Foreground>
+                                            <SolidColorBrush Color="{Binding DataSource.SelectedEvent.EventColor, Source={StaticResource DataContextProxy}}"/>
+                                        </ProgressRing.Foreground>
+                                    </ProgressRing>
                                     <Image Source="{Binding ImageSource}" Stretch="UniformToFill"/>
                                     <Button Click="VideoButton_Clicked" 
                                             Style="{StaticResource EmptyButtonStyle}"
