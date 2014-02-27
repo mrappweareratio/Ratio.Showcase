@@ -671,6 +671,11 @@ namespace OneMSQFT.UILogic.DataLayer
                     }
                 }
             };
+            foreach (var ev in result.Events)
+            {
+                foreach (var ex in ev.Exhibits)
+                    ex.EventId = ev.Id;
+            }
             return result;
         }
 

@@ -13,6 +13,7 @@ namespace OneMSQFT.UILogic.Interfaces
         Task OnLaunchApplication(ILaunchActivatedEventArgs args);
         void OnInitialize(IActivatedEventArgs args);
         bool KioskModeEnabled { get; }
+        ISharingService SharingService { get; }
         IList<SettingsCommand> GetSettingsCommands();
         void OnSuspending(ISuspendingEventArgs suspendingEventArgs);
         void OnResuming();

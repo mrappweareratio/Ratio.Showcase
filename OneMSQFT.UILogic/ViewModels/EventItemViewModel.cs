@@ -96,7 +96,7 @@ namespace OneMSQFT.UILogic.ViewModels
             EventHeroVideoUri = MediaContent.First().VideoSource;
         }
 
-        private Event Event { get; set; }
+        public Event Event { get; set; }
 
         public List<ExhibitItemViewModel> Exhibits { get; private set; }
 

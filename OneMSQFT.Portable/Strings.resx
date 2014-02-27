@@ -171,6 +171,12 @@
   <data name="UnhandledExceptionTitle" xml:space="preserve">
     <value>Sorry, there was an error.</value>
   </data>
+  <data name="SharingFailedDisplayText" xml:space="preserve">
+    <value>There is nothing to share from 1 Million Square Feet right now.</value>
+  </data>
+  <data name="SharingTitleVideoFromEventFormat" xml:space="preserve">
+    <value>Share this video from {0}</value>
+  </data>
   <data name="AboutBlurbFour" xml:space="preserve">
     <value>Yet somehow bigger.</value>
   </data>
