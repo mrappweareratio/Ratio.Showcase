@@ -155,5 +155,25 @@ namespace OneMSQFT.UILogic.Analytics
 
             this.TrackEvents(evData, context);
         }
+
+        public void TrackLinkInteractionInExhibitView(string exName, string exPos, string linkTitle)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                ExhibitName = exName,
+                AppElement = TrackingContextData.AppElements.GenerateClickLinkInExhibitData(linkTitle, Convert.ToInt32(exPos))
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackVideoPlayInExhibitView(string exName, string exPos, string vidName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

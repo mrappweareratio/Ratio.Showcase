@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Utils;
 using Strings = OneMSQFT.Common.Strings;
 
@@ -21,6 +22,7 @@ namespace OneMSQFT.UILogic.ViewModels
     public class ExhibitItemViewModel : ItemBaseViewModel, IHasMediaContentViewModel
     {
         private IExhibit<ICurator> Exhibit { get; set; }
+        private readonly IAnalyticsService _analyticsService;
 
         public Uri ThumbnailImageUri { get; set; }
         public Color ExhibitColor { get; set; }
@@ -49,10 +51,11 @@ namespace OneMSQFT.UILogic.ViewModels
         }
 
 
-        public ExhibitItemViewModel(IExhibit<ICurator> exhibitModel)
+        public ExhibitItemViewModel(IExhibit<ICurator> exhibitModel, IAnalyticsService analyticsService)
         {
             if (exhibitModel == null)
                 return;
+            _analyticsService = analyticsService;
             Exhibit = exhibitModel;
             Name = exhibitModel.Name;
             Id = exhibitModel.Id;
@@ -80,6 +83,12 @@ namespace OneMSQFT.UILogic.ViewModels
 
         async private void RsvpNavigate(string s)
         {
+            //Track link interaction
+            if (_analyticsService != null)
+            {
+                _analyticsService.TrackLinkInteractionInExhibitView(this.Name, this.Id, s);
+            }
+
             Uri uri;
             if (!Uri.TryCreate(s, UriKind.Absolute, out uri))
             {
@@ -90,6 +99,12 @@ namespace OneMSQFT.UILogic.ViewModels
 
         async private void ExitLinkNavigate(string s)
         {
+            //Track link interaction
+            if (_analyticsService != null)
+            {
+                _analyticsService.TrackLinkInteractionInExhibitView(this.Name, this.Id, s);
+            }
+
             Uri uri;
             if (!Uri.TryCreate(s, UriKind.Absolute, out uri))
             {

@@ -43,7 +43,7 @@ namespace OneMSQFT.WindowsStore.DesignViewModels
                         Name = "Exhibit Name " + j,
                         Description = "Exhibit Description Name " + j,
                         SquareFootage = j * 123 + 123
-                    });
+                    }, null);
                     eivm.Exhibits.Add(exhibit);
                 }         
                 SquareFootEvents.Add(eivm);

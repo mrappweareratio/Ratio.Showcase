@@ -36,7 +36,7 @@ namespace OneMSQFT.UILogic.ViewModels
             Id = eventModel.Id;
             SquareFootage = eventModel.SquareFootage;
             EventColor = ColorUtils.GetEventColor(eventModel);
-            Exhibits = new List<ExhibitItemViewModel>(eventModel.Exhibits.Select(x => new ExhibitItemViewModel(x)));
+            Exhibits = new List<ExhibitItemViewModel>(eventModel.Exhibits.Select(x => new ExhibitItemViewModel(x, _analyticsService)));
             LoadMediaContent(eventModel.MediaContent);
             LoadDisplayedExhibits();
             LoadCuratorLogos();

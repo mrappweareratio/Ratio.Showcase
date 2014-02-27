@@ -10,7 +10,7 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class ShowMoreFakeExhibitItemViewModel : ExhibitItemViewModel
     {        
-        public ShowMoreFakeExhibitItemViewModel() : base(null)
+        public ShowMoreFakeExhibitItemViewModel() : base(null, null)
         {            
         }
     }

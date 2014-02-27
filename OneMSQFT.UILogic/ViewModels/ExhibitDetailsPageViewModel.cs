@@ -78,8 +78,8 @@ namespace OneMSQFT.UILogic.ViewModels
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x, _analyticsService)));
 
             var ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as String);
-            Exhibit = new ExhibitItemViewModel(ed.Exhibit);
-            NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit);
+            Exhibit = new ExhibitItemViewModel(ed.Exhibit, _analyticsService);
+            NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit, _analyticsService);
 
             LocalMediaCollection = Exhibit.MediaContent;
             LocalMediaCollection.Add(new FooterFakeMediaItemViewModel());
@@ -91,6 +91,13 @@ namespace OneMSQFT.UILogic.ViewModels
         public void LaunchVideoCommandHandler(MediaContentSourceItemViewModel item)
         {
             if (item == null) return;
+            
+            //track video plays
+            var ex = this.Exhibit;
+            var mediaItem = SelectedMediaContentSource;
+            if (mediaItem != null && _analyticsService != null)
+                _analyticsService.TrackVideoPlayInExhibitView(ex.Name, ex.Id, mediaItem.Name);
+
             SelectedMediaContentSource = item;
         }
 

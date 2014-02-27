@@ -72,5 +72,15 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         {
             throw new NotImplementedException();
         }
+
+        public void TrackLinkInteractionInExhibitView(string exName, string exPos, string linkTitle)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TrackVideoPlayInExhibitView(string exName, string exPos, string vidName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
