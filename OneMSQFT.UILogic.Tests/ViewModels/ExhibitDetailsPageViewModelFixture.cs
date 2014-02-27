@@ -8,6 +8,7 @@ using Microsoft.Practices.Prism.StoreApps.Interfaces;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
+using OneMSQFT.UILogic.Analytics;
 using OneMSQFT.UILogic.DataLayer;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Services;
@@ -33,7 +34,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         [TestMethod]
         public void ViewModel_Implements_Interface()
         {
-            var vm = new ExhibitDetailsPageViewModel(new MockDataService(), new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService()) as IExhibitDetailsPageViewModel;
+            var vm = new ExhibitDetailsPageViewModel(new MockDataService(), new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService(), new AnalyticsService()) as IExhibitDetailsPageViewModel;
             Assert.IsNotNull(vm);
         }
 
@@ -54,7 +55,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                     });
                 }
             };
-            var vm = new ExhibitDetailsPageViewModel(mockDataService, new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService());
+            var vm = new ExhibitDetailsPageViewModel(mockDataService, new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService(), new AnalyticsService());
             ExecuteOnUIThread(() => vm.OnNavigatedTo("0", NavigationMode.New, null));
             autoResetEvent.WaitOne(200);
             Assert.IsTrue(called);
@@ -80,7 +81,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                     });
                 }
             };
-            var vm = new ExhibitDetailsPageViewModel(mockDataService, new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService());
+            var vm = new ExhibitDetailsPageViewModel(mockDataService, new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService(), new AnalyticsService());
             ExecuteOnUIThread(() => vm.OnNavigatedTo("0", NavigationMode.New, null));
             autoResetEvent.WaitOne(200);
             Assert.IsTrue(called);
@@ -103,7 +104,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                     });
                 }
             };
-            var vm = new ExhibitDetailsPageViewModel(mockDataService, new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService());
+            var vm = new ExhibitDetailsPageViewModel(mockDataService, new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService(), new AnalyticsService());
             ExecuteOnUIThread(() => vm.OnNavigatedTo("0", NavigationMode.New, null));
             autoResetEvent.WaitOne(200);
             Assert.IsNotNull(vm.Exhibit);
@@ -129,7 +130,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                     });
                 }
             };
-            var vm = new ExhibitDetailsPageViewModel(mockDataService, new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService());
+            var vm = new ExhibitDetailsPageViewModel(mockDataService, new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService(), new AnalyticsService());
             ExecuteOnUIThread(() => vm.OnNavigatedTo("0", NavigationMode.New, null));
             autoResetEvent.WaitOne(200);
             Assert.IsTrue(called);
@@ -156,7 +157,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             var configuration = new ConfigurationService();
             configuration.ClearStartupItem();
             var vm = new ExhibitDetailsPageViewModel(data, new MockAlertMessageService(),
-                new MockNavigationService(), configuration);
+                new MockNavigationService(), configuration, new AnalyticsService());
             await ExecuteOnUIThread(async () =>
             {
                 vm.OnNavigatedTo("0", NavigationMode.New, null);                
@@ -210,7 +211,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             };
             INavigationService navigation = new MockNavigationService();
             IConfigurationService configuration = new MockConfigurationService();
-            var vm = new ExhibitDetailsPageViewModel(data, new MockAlertMessageService(), navigation, configuration);
+            var vm = new ExhibitDetailsPageViewModel(data, new MockAlertMessageService(), navigation, configuration, new AnalyticsService());
             vm.PinContextChanged += (sender, args) =>
             {
                 changed = true;
@@ -243,7 +244,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             };
             INavigationService navigation = new MockNavigationService();
             IConfigurationService configuration = new MockConfigurationService();
-            var vm = new ExhibitDetailsPageViewModel(data, new MockAlertMessageService(), navigation, configuration);
+            var vm = new ExhibitDetailsPageViewModel(data, new MockAlertMessageService(), navigation, configuration, new AnalyticsService());
             vm.PinContextChanged += (sender, args) =>
             {
                 changed = true;

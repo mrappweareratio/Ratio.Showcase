@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using OneMSQFT.UILogic.Tests.Mocks;
 using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
 
@@ -15,7 +16,7 @@ namespace OneMSQFT.UILogic.Tests.Utils
         [TestMethod]
         public void InsertComingSoonItemsFillingPage_Slots_Few_No_Coming_Soon()
         {
-            var events = new List<EventItemViewModel> { new EventItemViewModel(null), new EventItemViewModel(null) };
+            var events = new List<EventItemViewModel> { new EventItemViewModel(null, new MockAnalyticsService()), new EventItemViewModel(null, new MockAnalyticsService()) };
             events = ComingSoonUtils.InsertComingSoonItemsFillingPage(12, events);
             Assert.AreEqual(events.Count, 12, "Fills Page");
             Assert.AreEqual(events.Count(x => x is ComingSoonFakeEventItemViewModel), 10, "Coming Soon");
@@ -27,14 +28,14 @@ namespace OneMSQFT.UILogic.Tests.Utils
             var events = new List<EventItemViewModel>
             {
                 //8
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null)
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService())
             };
             events = ComingSoonUtils.InsertComingSoonItemsFillingPage(12, events);
             Assert.AreEqual(events.Count, 12, "Fills Page");
@@ -51,22 +52,22 @@ namespace OneMSQFT.UILogic.Tests.Utils
             var events = new List<EventItemViewModel>
             {
                 //16
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null),
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null)
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()),
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService())
             };
             events = ComingSoonUtils.InsertComingSoonItemsFillingPage(12, events);
             Assert.AreEqual(events.Count, 24, "Two Pages");
@@ -87,20 +88,20 @@ namespace OneMSQFT.UILogic.Tests.Utils
             var events = new List<EventItemViewModel>
             {
                 //14
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null),
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null)                 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()),
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService())                 
             };
             events = ComingSoonUtils.InsertComingSoonItemsFillingPage(12, events);
             Assert.AreEqual(events.Count, 24, "Two Pages");
@@ -121,8 +122,8 @@ namespace OneMSQFT.UILogic.Tests.Utils
             var events = new List<EventItemViewModel>
             {
                 //2
-                new EventItemViewModel(null), 
-               new EventItemViewModel(null)
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+               new EventItemViewModel(null, new MockAnalyticsService())
             };
             events = ComingSoonUtils.InsertComingSoonItems(12, events);
             Assert.AreEqual(events.Count, 2, "Two Events");
@@ -134,9 +135,9 @@ namespace OneMSQFT.UILogic.Tests.Utils
             var events = new List<EventItemViewModel>
             {
                 //3
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-               new EventItemViewModel(null)
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+               new EventItemViewModel(null, new MockAnalyticsService())
             };
             events = ComingSoonUtils.InsertComingSoonItems(12, events);
             Assert.AreEqual(events.Count, 5, "Two Events");
@@ -153,14 +154,14 @@ namespace OneMSQFT.UILogic.Tests.Utils
             var events = new List<EventItemViewModel>
             {
                 //8
-                new EventItemViewModel(null), 
-                new EventItemViewModel(null), 
-               new EventItemViewModel(null),
-               new EventItemViewModel(null),
-               new EventItemViewModel(null),
-               new EventItemViewModel(null),
-               new EventItemViewModel(null),
-               new EventItemViewModel(null)
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+                new EventItemViewModel(null, new MockAnalyticsService()), 
+               new EventItemViewModel(null, new MockAnalyticsService()),
+               new EventItemViewModel(null, new MockAnalyticsService()),
+               new EventItemViewModel(null, new MockAnalyticsService()),
+               new EventItemViewModel(null, new MockAnalyticsService()),
+               new EventItemViewModel(null, new MockAnalyticsService()),
+               new EventItemViewModel(null, new MockAnalyticsService())
             };
             events = ComingSoonUtils.InsertComingSoonItems(12, events);
             Assert.AreEqual(events.Count, 12, "Total Count");            

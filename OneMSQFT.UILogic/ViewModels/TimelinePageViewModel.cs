@@ -21,18 +21,20 @@ namespace OneMSQFT.UILogic.ViewModels
     public class TimelinePageViewModel : BasePageViewModel, ITimelinePageViewModel
     {
         private readonly IDataService _dataService;
+        private readonly IAnalyticsService _analyticsService;
         private readonly IAlertMessageService _messageService;
         private readonly INavigationService _navigationService;
         private readonly IConfigurationService _configuration;
         public DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
         public DelegateCommand<String> ExhibitItemClickCommand { get; set; }
 
-        public TimelinePageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration)
+        public TimelinePageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration, IAnalyticsService analyticsService)
         {
             _dataService = dataService;
             _messageService = messageService;
             _navigationService = navigationService;
             _configuration = configuration;
+            _analyticsService = analyticsService;
             this.SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             this.TimeLineItems = new ObservableCollection<EventItemViewModel>();
             this.TimeLineMenuItems = new ObservableCollection<EventItemViewModel>();
@@ -54,14 +56,14 @@ namespace OneMSQFT.UILogic.ViewModels
             }
             var eventsList = events as IList<Event> ?? events.ToList();
 
-            SquareFootEvents = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x)));
+            SquareFootEvents = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x, _analyticsService)));
 
-            var timelineEvents = eventsList.Select(x => new EventItemViewModel(x)).ToList();
+            var timelineEvents = eventsList.Select(x => new EventItemViewModel(x, _analyticsService)).ToList();
             timelineEvents.Insert(0, new BufferItemFakeEventItemViewModel()); // first buffer item
             timelineEvents.Add(new BufferItemFakeEventItemViewModel()); // last buffer item
             TimeLineItems = new ObservableCollection<EventItemViewModel>(timelineEvents);
 
-            var timelineMenuEvents = eventsList.Select(x => new EventItemViewModel(x)).ToList();
+            var timelineMenuEvents = eventsList.Select(x => new EventItemViewModel(x, _analyticsService)).ToList();
             timelineMenuEvents = ComingSoonUtils.InsertComingSoonItems(12, timelineMenuEvents);
             TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(timelineMenuEvents);
 
@@ -231,11 +233,13 @@ namespace OneMSQFT.UILogic.ViewModels
             SelectedEvent = item;
         }
 
-        public void ExhibitItemClickCommandHandler(String itemId)
+        public async void ExhibitItemClickCommandHandler(String itemId)
         {
             //Track Exhibit user interaction
-            //var ev = this.SelectedEvent;
-            //AppLocator.Current.Analytics.TrackExhibitInteractionInTimeline(ev.Name,);
+            var ev = this.SelectedEvent;
+            ExhibitDetail ex = await _dataService.GetExhibitDetailByExhibitId(itemId);
+            if (_analyticsService != null)
+                _analyticsService.TrackExhibitInteractionInTimeline(ev.Name, ex.Exhibit.Name,ev.Id, itemId);
 
             _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, itemId);
         }

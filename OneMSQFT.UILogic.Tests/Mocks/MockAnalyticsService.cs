@@ -58,6 +58,11 @@ namespace OneMSQFT.UILogic.Tests.Mocks
             throw new NotImplementedException();
         }
 
+        public void TrackShowMoreExhibitsInEvent(string evName)
+        {
+            throw new NotImplementedException();
+        }
+
         public void TrackAppBarInteractionInTimeline(string evName, int? sqFootage)
         {
             throw new NotImplementedException();
