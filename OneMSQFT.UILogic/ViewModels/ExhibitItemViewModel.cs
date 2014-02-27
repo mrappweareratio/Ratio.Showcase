@@ -93,7 +93,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 _analyticsService.TrackLinkInteractionInExhibitView(this.Name, this.Id, uri.ToString());
             }
-        
+
             await Launcher.LaunchUriAsync(uri, new LauncherOptions { DesiredRemainingView = ViewSizePreference.UseHalf });
         }
 
