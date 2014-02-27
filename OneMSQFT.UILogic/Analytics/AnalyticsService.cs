@@ -16,7 +16,7 @@ namespace OneMSQFT.UILogic.Analytics
 
         public bool KioskModeEnabled { get; set; }
 
-        private const bool Disabled = false;
+        private const bool Disabled = true;
 
         public void Configure()
         {
@@ -202,6 +202,37 @@ namespace OneMSQFT.UILogic.Analytics
                 EventName = evName,
                 EventSqFt = sqFootage,
                 AppElement = TrackingContextData.AppElements.GenerateClickEventInExhibitAppBarData()
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackLinkInteractionInExhibitView(string exName, string exPos, string linkTitle)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                ExhibitName = exName,
+                AppElement = TrackingContextData.AppElements.GenerateClickLinkInExhibitData(linkTitle, Convert.ToInt32(exPos))
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackVideoPlayInExhibitView(string exName, string exPos, string vidName)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.VideoStart, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                ExhibitName = exName,
+                VideoName = vidName,
+                AppElement = TrackingContextData.AppElements.GeneratePlayVideoInEventData()
             };
 
             this.TrackEvents(evData, context);
