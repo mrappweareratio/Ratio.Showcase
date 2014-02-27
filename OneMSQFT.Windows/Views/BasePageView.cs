@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
+using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
 using Microsoft.Practices.Prism.PubSubEvents;
@@ -100,7 +101,7 @@ namespace OneMSQFT.WindowsStore.Views
             BottomAppBar.Visibility = Visibility.Visible;
         }
 
-        public abstract void TopAppBarEventButtonCommandHandler(String eventId);      
+        public abstract void TopAppBarEventButtonCommandHandler(String eventId);
 
         public void HomeButtonClickCommandHandler()
         {
@@ -134,9 +135,9 @@ namespace OneMSQFT.WindowsStore.Views
             var homeButton = new Button();
             homeButton.Style = (Style)App.Current.Resources["OMSQFTAppBarHomeButtonStyle"];
             homeButton.Command = null;
-            homeButton.IsHitTestVisible=false;
+            homeButton.IsHitTestVisible = false;
             homeButton.CommandParameter = null;
-            TopAppBarContentStackPanel.Children.Clear();            
+            TopAppBarContentStackPanel.Children.Clear();
             foreach (var e in vm.SquareFootEvents)
             {
                 var b = new Button();
@@ -163,7 +164,7 @@ namespace OneMSQFT.WindowsStore.Views
                         homeIndex = 0;
                     }
                 }
-            }            
+            }
             TopAppBarContentStackPanel.Children.Insert(homeIndex, homeButton);
         }
 
@@ -189,27 +190,19 @@ namespace OneMSQFT.WindowsStore.Views
             }
         }
 
-        public static async Task<bool> RenderTargetBitmapToStorageFile(StorageFile storageFile, RenderTargetBitmap bitmap, uint width, uint height)
+        public static async Task<bool> RenderTargetBitmapToStorageFile(StorageFile storageFile, RenderTargetBitmap bitmap)
         {
             try
             {
-                Guid encoderId = Windows.Graphics.Imaging.BitmapEncoder.JpegEncoderId;
-
                 using (var stream = await storageFile.OpenAsync(FileAccessMode.ReadWrite))
                 {
-                    stream.Size = 0;
-                    var encoder = await Windows.Graphics.Imaging.BitmapEncoder.CreateAsync(encoderId, stream);
-                    var pixels = await bitmap.GetPixelsAsync();
-
-                    encoder.SetPixelData(
-                        Windows.Graphics.Imaging.BitmapPixelFormat.Bgra8,
-                        Windows.Graphics.Imaging.BitmapAlphaMode.Premultiplied,
-                        width, // pixel width
-                        height, // pixel height
-                        72, // horizontal DPI
-                        72, // vertical DPI
-                        pixels.ToArray()
-                    );
+                    var pixel = await bitmap.GetPixelsAsync();
+                    var dpi = Windows.Graphics.Display.DisplayInformation.GetForCurrentView().LogicalDpi;
+                    var jpg = Windows.Graphics.Imaging.BitmapEncoder.JpegEncoderId;
+                    var encoder = await Windows.Graphics.Imaging.BitmapEncoder.CreateAsync(jpg, stream);
+                    const BitmapPixelFormat format = Windows.Graphics.Imaging.BitmapPixelFormat.Bgra8;
+                    const BitmapAlphaMode alpha = Windows.Graphics.Imaging.BitmapAlphaMode.Straight;
+                    encoder.SetPixelData(format, alpha, Convert.ToUInt16(bitmap.PixelWidth), Convert.ToUInt16(bitmap.PixelHeight), dpi, dpi, pixel.ToArray());
 
                     try
                     {
