@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using OneMSQFT.Common.Analytics;
+using OneMSQFT.Common.Models;
 
 namespace OneMSQFT.Common.Services
 {
@@ -20,5 +21,9 @@ namespace OneMSQFT.Common.Services
         void TrackVideoPlayInExhibitView(string exName, string exPos, string vidName);
 
         bool KioskModeEnabled { get; set; }
+        void TrackEventLanding(string evName);
+        void TrackPageViewHome();
+        void TrackExhibitLanding(string exName);
+        void TrackPageViewAbout();
     }
 }

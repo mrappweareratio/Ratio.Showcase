@@ -70,44 +70,36 @@ namespace OneMSQFT.UILogic
 
             if (!String.IsNullOrEmpty(args.Arguments))
             {
-                var events = new TrackingEventsData { TrackingEventsData.Events.PageView };
-                var context = new TrackingContextData();
-
                 var pinningContext = PinningUtils.ParseArguments(args.Arguments);
                 switch (pinningContext.StartupItemType)
-                {
-                    case StartupItemType.None:
-                        break;
+                {                    
                     case StartupItemType.Event:
                         Event evt;
                         if (_events == null || (evt = _events.FirstOrDefault(x => x.Id.Equals(pinningContext.StartupItemId))) == null)
                         {
-                            context.PageName = TrackingContextData.PageNames.Home;
+                            Analytics.TrackPageViewHome();
                             NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
                         }
                         else
                         {
-                            context.PageName = TrackingContextData.PageNames.EventLanding;
-                            context.EventName = evt.Name;
+
+                            Analytics.TrackEventLanding(evt.Name);
                             NavigationService.Navigate(ViewLocator.Pages.Timeline, pinningContext.StartupItemId);
                         }
-                        Analytics.TrackEvents(events, context);
                         return;
                     case StartupItemType.Exhibit:
                         Exhibit exhibit;
                         if (_events == null ||
                             (exhibit = _events.SelectMany(x => x.Exhibits).FirstOrDefault(x => x.Id.Equals(pinningContext.StartupItemId))) == null)
                         {
-                            context.PageName = TrackingContextData.PageNames.Home;
+                            Analytics.TrackPageViewHome();
                             NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
                         }
                         else
                         {
-                            context.PageName = TrackingContextData.PageNames.ExhibitLanding;
-                            context.ExhibitName = exhibit.Name;
+                            Analytics.TrackExhibitLanding(exhibit.Name);
                             NavigationService.Navigate(ViewLocator.Pages.ExhibitDetails, pinningContext.StartupItemId);
                         }
-                        Analytics.TrackEvents(events, context);
                         return;
                 }
             }
@@ -116,25 +108,22 @@ namespace OneMSQFT.UILogic
 
         public void GoHome(bool isLaunch = false)
         {
-            var trackingEventsData = new TrackingEventsData { TrackingEventsData.Events.PageView };
-            var trackingContextData = new TrackingContextData();
-
             switch (Configuration.StartupItemType)
             {
                 case StartupItemType.None:
+                    if (isLaunch) Analytics.TrackPageViewHome();
                     NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
                     break;
                 case StartupItemType.Event:
                     Event evt;
                     if (_events == null || (evt = _events.FirstOrDefault(x => x.Id.Equals(Configuration.StartupItemId))) == null)
                     {
-                        trackingContextData.PageName = TrackingContextData.PageNames.Home;
+                        if (isLaunch) Analytics.TrackPageViewHome();
                         NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
                     }
                     else
                     {
-                        trackingContextData.PageName = TrackingContextData.PageNames.EventLanding;
-                        trackingContextData.EventName = evt.Name;
+                        if (isLaunch) Analytics.TrackEventLanding(evt.Name);
                         NavigationService.Navigate(ViewLocator.Pages.Timeline, Configuration.StartupItemId);
                     }
                     break;
@@ -143,20 +132,15 @@ namespace OneMSQFT.UILogic
                     if (_events == null ||
                         (exhibit = _events.SelectMany(x => x.Exhibits).FirstOrDefault(x => x.Id.Equals(Configuration.StartupItemId))) == null)
                     {
-                        trackingContextData.PageName = TrackingContextData.PageNames.Home;
+                        if (isLaunch) Analytics.TrackPageViewHome();
                         NavigationService.Navigate(ViewLocator.Pages.Timeline, null);
                     }
                     else
                     {
-                        trackingContextData.PageName = TrackingContextData.PageNames.ExhibitLanding;
-                        trackingContextData.ExhibitName = exhibit.Name;
+                        if (isLaunch) Analytics.TrackExhibitLanding(exhibit.Name);
                         NavigationService.Navigate(ViewLocator.Pages.ExhibitDetails, Configuration.StartupItemId);
                     }
                     break;
-            }
-            if (isLaunch)
-            {
-                Analytics.TrackEvents(trackingEventsData, trackingContextData);
             }
         }
 
@@ -191,7 +175,7 @@ namespace OneMSQFT.UILogic
         {
             var commands = new List<SettingsCommand>();
             if (KioskModeEnabled)
-            {                
+            {
             }
             return commands;
         }
