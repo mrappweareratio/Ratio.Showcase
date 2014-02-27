@@ -83,17 +83,17 @@ namespace OneMSQFT.UILogic.ViewModels
 
         private bool RsvpLinkCommandCanExecuteMethod(Uri uri)
         {
+            return RsvpEnabled;
+        }
+
+        async private void RsvpNavigate(Uri uri)
+        {
             //Track link interaction
             if (_analyticsService != null)
             {
                 _analyticsService.TrackLinkInteractionInExhibitView(this.Name, this.Id, uri.ToString());
             }
 
-            return RsvpEnabled;
-        }
-
-        async private void RsvpNavigate(Uri uri)
-        {           
             await Launcher.LaunchUriAsync(uri, new LauncherOptions { DesiredRemainingView = ViewSizePreference.UseHalf });
         }
 
