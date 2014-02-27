@@ -38,6 +38,48 @@ namespace OneMSQFT.UILogic.Tests.Mocks
                 TrackEventsDelegate(eventsData, context);
         }
 
+        public void TrackEventLanding(string evName)
+        {
+            var events = new TrackingEventsData { TrackingEventsData.Events.PageView };
+            var context = new TrackingContextData
+            {
+                EventName = evName,
+                PageName = TrackingContextData.PageNames.EventLanding
+            };
+            TrackEvents(events, context);
+        }
+
+        public void TrackPageViewHome()
+        {
+            var events = new TrackingEventsData { TrackingEventsData.Events.PageView };
+            var context = new TrackingContextData
+            {
+                PageName = TrackingContextData.PageNames.Home
+            };
+            TrackEvents(events, context);
+        }
+
+        public void TrackPageViewAbout()
+        {          
+            var events = new TrackingEventsData { TrackingEventsData.Events.PageView };
+            var context = new TrackingContextData
+            {
+                PageName = TrackingContextData.PageNames.About
+            };
+            TrackEvents(events, context);
+        }
+
+        public void TrackExhibitLanding(string exName)
+        {
+            var events = new TrackingEventsData { TrackingEventsData.Events.PageView };
+            var context = new TrackingContextData
+            {
+                ExhibitName = exName,
+                PageName = TrackingContextData.PageNames.ExhibitLanding
+            };
+            TrackEvents(events, context);
+        }
+
         public void TrackTimelineSemanticZoom()
         {
             throw new NotImplementedException();

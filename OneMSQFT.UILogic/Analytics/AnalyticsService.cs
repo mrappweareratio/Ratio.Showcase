@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ADMS.Measurement;
 using OneMSQFT.Common.Analytics;
+using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
 
 namespace OneMSQFT.UILogic.Analytics
@@ -44,6 +45,56 @@ namespace OneMSQFT.UILogic.Analytics
                 ? TrackingContextData.PlatformNames.Kiosk
                 : TrackingContextData.PlatformNames.Store;
             _measure.TrackEvents(eventsData.ToString(), context);
+        }
+
+        public void TrackEventLanding(string evName)
+        {
+            if (Disabled)
+                return;
+            var events = new TrackingEventsData { TrackingEventsData.Events.PageView, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                EventName = evName,
+                PageName = TrackingContextData.PageNames.EventLanding
+            };
+            TrackEvents(events, context);
+        }
+
+        public void TrackPageViewHome()
+        {
+            if (Disabled)
+                return;
+            var events = new TrackingEventsData { TrackingEventsData.Events.PageView, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {                
+                PageName = TrackingContextData.PageNames.Home
+            };
+            TrackEvents(events, context);
+        }
+
+        public void TrackPageViewAbout()
+        {
+            if (Disabled)
+                return;
+            var events = new TrackingEventsData { TrackingEventsData.Events.PageView, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                PageName = TrackingContextData.PageNames.About
+            };
+            TrackEvents(events, context);
+        }
+
+        public void TrackExhibitLanding(string exName)
+        {
+            if (Disabled)
+                return;
+            var events = new TrackingEventsData { TrackingEventsData.Events.PageView, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                ExhibitName = exName,
+                PageName = TrackingContextData.PageNames.ExhibitLanding
+            };            
+            TrackEvents(events, context);
         }
 
         public void TrackTimelineSemanticZoom()
