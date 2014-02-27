@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Core;
@@ -8,7 +9,10 @@ using Windows.UI.StartScreen;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media.Imaging;
 using Microsoft.Practices.Prism.StoreApps;
+using OneMSQFT.Common;
+using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
+using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
@@ -34,14 +38,76 @@ namespace OneMSQFT.WindowsStore.Views
             {
                 StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
                 PinButton.Visibility = app.KioskModeEnabled ? Visibility.Collapsed : Visibility.Visible;
+                if (!app.KioskModeEnabled)
+                {
+                    _sharing = AppLocator.Current.SharingService;
+                    var dataTransferManager = DataTransferManager.GetForCurrentView();
+                    dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
+                }
             }
         }
+
+        #region Sharing
+
+        private ISharingService _sharing;
+        async private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();
+            if (vm.Exhibit == null)
+            {
+                args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                return;
+            }
+
+            Uri uri = null;
+            if (VideoPopup.IsOpen)
+            {
+                var selectedMediaContentSource = vm.SelectedMediaContentSource;
+                if (selectedMediaContentSource == null || !_sharing.TryGetVideoShareUri(selectedMediaContentSource.Media, out uri))
+                {
+                    args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                    return;
+                }
+                args.Request.Data.Properties.Title = String.Format(Strings.SharingTitleVideoFromEventFormat, vm.Exhibit.Name);
+                args.Request.Data.Properties.Description = vm.Exhibit.Description;
+                args.Request.Data.Properties.ContentSourceWebLink = uri;
+                args.Request.Data.SetWebLink(uri);
+            }
+            else
+            { 
+                if(String.IsNullOrEmpty(vm.Exhibit.ExhibitModel.EventId))
+                {
+                    args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                    return;
+                }
+                var deferral = args.Request.GetDeferral();                
+                var evt = await AppLocator.Current.DataService.GetEventById(vm.Exhibit.ExhibitModel.EventId);
+                if (evt == null)
+                {
+                    args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                    deferral.Complete();
+                    return;
+                }
+                if (!_sharing.TryGetExhibitShareUri(evt, vm.Exhibit.ExhibitModel, out uri))
+                {
+                    args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                    return;
+                }
+                args.Request.Data.Properties.Title = vm.Exhibit.Name;
+                args.Request.Data.Properties.Description = vm.Exhibit.Description;
+                args.Request.Data.Properties.ContentSourceWebLink = uri;
+                args.Request.Data.SetWebLink(uri);                
+                deferral.Complete();
+            }
+        }
+
+        #endregion
 
         protected override void GoBack(object sender, RoutedEventArgs eventArgs)
         {
             if (this.Frame != null && !this.Frame.CanGoBack)
             {
-                Frame.Navigate(typeof (TimelinePage), null);
+                Frame.Navigate(typeof(TimelinePage), null);
                 return;
             }
             base.GoBack(sender, eventArgs);
@@ -49,7 +115,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         void ExhibitDetailsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            ProcessWindowSizeChangedEvent();          
+            ProcessWindowSizeChangedEvent();
         }
 
         void ExhibitDetailsPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -83,8 +149,12 @@ namespace OneMSQFT.WindowsStore.Views
             ToggleAppBarButton(this.PinButton, !SecondaryTile.Exists(args.Id));
         }
 
-        public override void TopAppBarEventButtonCommandHandler(String eventId)
+        async public override void TopAppBarEventButtonCommandHandler(String eventId)
         {
+            //track appbar interaction
+            Event ev = await AppLocator.Current.DataService.GetEventById(eventId);
+            AppLocator.Current.Analytics.TrackAppBarInteractionInExhibitView(ev.Name, ev.SquareFootage);
+
             this.Frame.Navigate(typeof(TimelinePage), eventId);
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
@@ -225,7 +295,7 @@ namespace OneMSQFT.WindowsStore.Views
         void MediaListViewScrollViewerVertical_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
             var vsv = ((ScrollViewer)sender);
-            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset * 2 > vsv.ScrollableHeight+1 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
+            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset * 2 > vsv.ScrollableHeight + 1 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
         }
     }
 }

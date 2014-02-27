@@ -10,14 +10,15 @@ using OneMSQFT.UILogic.Utils;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
-    public class MediaContentSourceItemViewModel : ItemBaseViewModel
+    public class MediaContentSourceItemViewModel : BindableBase
     {
-        public override string Id { get; set; }
+        public string Id { get; set; }
 
         public MediaContentSourceItemViewModel(MediaContentSource media)
         {
             if (media == null)
                 return;
+            Media = media;
             Id = media.Id;
             if (media.ContentSourceType == ContentSourceType.Image)
             {
@@ -34,12 +35,14 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
+        public MediaContentSource Media { get; private set; }
+
         public ContentSourceType ContentSourceType { get; set; }
 
-        public Visibility IsVideoButtonVisible { get; set; }        
+        public Visibility IsVideoButtonVisible { get; set; }
 
-        public Uri ImageSource { get; set; }        
+        public Uri ImageSource { get; set; }
 
-        public Uri VideoSource { get; set; }        
+        public Uri VideoSource { get; set; }
     }
 }

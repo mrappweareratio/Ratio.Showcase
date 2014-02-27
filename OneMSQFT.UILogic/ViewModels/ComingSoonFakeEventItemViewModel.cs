@@ -8,7 +8,7 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class ComingSoonFakeEventItemViewModel : EventItemViewModel
     {
-        public ComingSoonFakeEventItemViewModel(): base(null)
+        public ComingSoonFakeEventItemViewModel(): base(null,null)
         {            
         }
     }

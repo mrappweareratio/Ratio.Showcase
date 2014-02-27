@@ -28,13 +28,15 @@ namespace OneMSQFT.UILogic.ViewModels
         private readonly IAlertMessageService _messageService;
         private readonly INavigationService _navigationService;
         private readonly IConfigurationService _configuration;
+        private readonly IAnalyticsService _analyticsService;
 
-        public ExhibitDetailsPageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration)
+        public ExhibitDetailsPageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration, IAnalyticsService analyticsService)
         {
             _dataService = dataService;
             _messageService = messageService;
             _navigationService = navigationService;
             _configuration = configuration;
+            _analyticsService = analyticsService;
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             LaunchVideoCommand = new DelegateCommand<MediaContentSourceItemViewModel>(LaunchVideoCommandHandler);
             NextExhibitCommand = new DelegateCommand<string>(NextExhibitCommandExecuteMethod, NextExhibitCommandCanExecuteMethod);
@@ -73,11 +75,11 @@ namespace OneMSQFT.UILogic.ViewModels
                 await _messageService.ShowAsync("Error", "There was a problem loading events");
                 return;
             }
-            SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
+            SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x, _analyticsService)));
 
             var ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as String);
-            Exhibit = new ExhibitItemViewModel(ed.Exhibit);
-            NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit);
+            Exhibit = new ExhibitItemViewModel(ed.Exhibit, _analyticsService);
+            NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit, _analyticsService);
 
             LocalMediaCollection = Exhibit.MediaContent;
             LocalMediaCollection.Add(new FooterFakeMediaItemViewModel());
@@ -89,6 +91,13 @@ namespace OneMSQFT.UILogic.ViewModels
         public void LaunchVideoCommandHandler(MediaContentSourceItemViewModel item)
         {
             if (item == null) return;
+            
+            //track video plays
+            var ex = this.Exhibit;
+            var mediaItem = SelectedMediaContentSource;
+            if (mediaItem != null && _analyticsService != null)
+                _analyticsService.TrackVideoPlayInExhibitView(ex.Name, ex.Id, mediaItem.Media.VideoId);
+
             SelectedMediaContentSource = item;
         }
 
@@ -111,7 +120,6 @@ namespace OneMSQFT.UILogic.ViewModels
         }
 
         private ExhibitItemViewModel _exhibit;
-        private string _exhibitDetailTitle;
         private Visibility _setStartupVisibility;
         private Visibility _clearStartupVisibility;
 
@@ -141,8 +149,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 if (value != null)
                 {
-                    SetProperty(ref _exhibit, value);
-                    ExhibitDetailTitle = String.Format(Strings.SquareFeetAtNameFormat, StringUtils.ToSquareFeet(Exhibit.SquareFootage), value.Name);
+                    SetProperty(ref _exhibit, value);                    
                     RaisePinContextChanged();
                     SetStartupCommand.RaiseCanExecuteChanged();
                     SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
@@ -151,13 +158,7 @@ namespace OneMSQFT.UILogic.ViewModels
                     
                 }
             }
-        }
-
-        public String ExhibitDetailTitle
-        {
-            get { return _exhibitDetailTitle; }
-            set { SetProperty(ref _exhibitDetailTitle, value); }
-        }
+        }      
 
         #endregion
 
@@ -262,7 +263,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 Id = PinningUtils.GetSecondaryTileIdByExhibitId(Exhibit.Id),
                 ArgumentsName = PinningUtils.GetSecondaryTileIdByExhibitId(Exhibit.Id),
                 ShortName = Exhibit.Name,
-                DisplayName = ExhibitDetailTitle
+                DisplayName = Exhibit.Name
             };
         }
 

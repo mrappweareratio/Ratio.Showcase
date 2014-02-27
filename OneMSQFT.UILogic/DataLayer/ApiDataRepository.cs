@@ -32,7 +32,13 @@ namespace OneMSQFT.UILogic.DataLayer
                 if (String.IsNullOrEmpty(evt.Color)) continue;
                 foreach (var ex in evt.Exhibits)
                 {
+                    //persist event color to exhibits
                     ex.Color = evt.Color;
+                    //persist event id to exhibits
+                    ex.EventId = ex.EventId ?? evt.Id;
+                    ex.DateEnd = ex.DateEnd ?? evt.DateEnd;
+                    //persist event dates to exhibits
+                    ex.DateStart = ex.DateStart ?? evt.DateStart;
                 }
             }
             return response.Result.Data;

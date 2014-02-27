@@ -19,7 +19,7 @@ namespace OneMSQFT.Common.Analytics
             /// <summary>
             /// On interaction of application elements which lead users to modals/popups within the site which don't fire a subsequent page view
             /// </summary>
-            public const string ApplicationElementInteraction = "event2";
+            public const string ApplicationElementInteraction = "event4";
             /// <summary>
             /// On initiation of a video
             /// </summary>
