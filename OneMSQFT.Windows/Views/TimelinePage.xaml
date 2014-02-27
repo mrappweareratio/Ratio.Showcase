@@ -696,74 +696,40 @@
                         </Grid>
                     </Button>
 
-                    <Grid Grid.RowSpan="4">
+                    <Grid Grid.RowSpan="4" HorizontalAlignment="Left">
                         <Grid.Background>
                             <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
                         </Grid.Background>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="52*"/>
-                            <RowDefinition Height="23*"/>
-                            <RowDefinition Height="12*"/>
-                            <RowDefinition Height="26*"/>
-                            <RowDefinition Height="8*"/>
-                            <RowDefinition Height="16*"/>
-                            <RowDefinition Height="70*"/>
-                            <RowDefinition Height="50*"/>
+                            <RowDefinition Height="155*"/>
+                            <RowDefinition Height="186*"/>
+                            <RowDefinition Height="108*"/>
+                            <RowDefinition Height="319*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding SquareFootageStringPlain}"
-    			            Grid.Row="1" 
-    			            Foreground="White"
-    			            FontSize="60" 
-    			            HorizontalAlignment="Left"
-    			            Margin="40,0,0,0" 
-    			            FontFamily="Segoe UI Light" 
-    			            FontWeight="Light" 
-				            VerticalAlignment="Top"/>
-                        <TextBlock Text="{Binding Strings.SquareFeet, Source={StaticResource PortableStrings}}" 
-    			            Grid.Row="2"
-    			            Foreground="White"
-    			            FontSize="32" 
-    			            HorizontalAlignment="Left"
-    			            TextWrapping="NoWrap" 
-    			            FontFamily="Segoe UI Light" 
-    			            FontWeight="Light"
-    			            Margin="40,0,0,0"  
-                           VerticalAlignment="Top" />
-                        <TextBlock Text="{Binding Name, Mode=OneWay}" 
-    			            Grid.Row="3"
-    			            Foreground="White"
-    			            FontSize="32" 
-    			            HorizontalAlignment="Left"
-    			            TextWrapping="NoWrap" 
-    			            FontFamily="Segoe UI Light" 
-    			            FontWeight="Light"
-    			            Margin="40,0,0,0"  
-				            VerticalAlignment="Top"/>
-                        <TextBlock Text="{Binding DisplayDate, Mode=OneWay}" 
-    			            Grid.Row="4"
-    			            Foreground="White"
-    			            FontSize="18" 
-    			            HorizontalAlignment="Left"
-    			            TextWrapping="NoWrap" 
-    			            FontFamily="Segoe UI" 
-    			            FontWeight="SemiBold"
-    			            Margin="40,0,0,0"  
-				            VerticalAlignment="Top"/>
-
-                        <TextBlock Text="{Binding Location, Mode=OneWay}" 
-    			            Grid.Row="5"
-    			            Foreground="White"
-    			            FontSize="18" 
-    			            HorizontalAlignment="Left"
-    			            TextWrapping="NoWrap" 
-    			            FontFamily="Segoe UI Light" 
-    			            FontWeight="Light"
-    			            Margin="40,0,0,0" 
-				            VerticalAlignment="Top"/>
+                        <RichTextBlock HorizontalAlignment="Left" Margin="40,0,-447,0" 
+						TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
+						Grid.Row="1" Width="937">
+                            <Paragraph>
+                                <Run Text="{Binding SquareFootageStringPlain}" FontSize="60" />
+                                <LineBreak />
+                                <Run Text="{Binding Strings.SquareFeet, Source={StaticResource PortableStrings}}" FontSize="32" />
+                                <LineBreak />
+                                <Run Text="{Binding Name, Mode=OneWay}" FontSize="32" />
+                            </Paragraph>
+                        </RichTextBlock>
+                        <RichTextBlock HorizontalAlignment="Left" Margin="40,0,0,0" 
+						TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
+						Grid.Row="2" Width="325">
+                            <Paragraph>
+                                <Run Text="{Binding DisplayDate, Mode=OneWay}" FontSize="18" FontWeight="SemiBold" />
+                                <LineBreak />
+                                <Run Text="{Binding Location, Mode=OneWay}" FontSize="18" />
+                            </Paragraph>
+                        </RichTextBlock>
 
                         <ScrollViewer Style="{StaticResource VerticalScrollViewerStyle}"
-					        Grid.Row="6"
-					        Margin="40,0,40,0" 
+					        Grid.Row="3"
+					        Margin="40,0,40,100" 
 					        VerticalAlignment="Top">
                             <TextBlock Text="{Binding Description}"
 						        Foreground="White"
@@ -773,7 +739,7 @@
 						        FontWeight="Light"/>
                         </ScrollViewer>
                         <omsqftcontrols:CuratorLogoStackerUserControl 
-                            Grid.Row="7"
+                            Grid.Row="3"
                             CuratorLogoCollection="{Binding CuratorLogos}"
                             Margin="40,20,0,50" 
                             VerticalAlignment="Bottom" 
