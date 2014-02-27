@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.Foundation;
 using Windows.Storage;
-using Windows.Storage.Streams;
 using Windows.UI;
-using Windows.UI.ApplicationSettings;
 using Windows.UI.StartScreen;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -393,7 +386,7 @@ namespace OneMSQFT.WindowsStore.Views
             }
             else
             {
-                var square150x150Logo = await RenderBitmaps(150, 150);
+                var square150x150Logo = await RenderPinningLogo(150, 150);
 
                 var secondaryTile = new SecondaryTile(args.Id,
                     args.DisplayName,
@@ -407,11 +400,11 @@ namespace OneMSQFT.WindowsStore.Views
                 // If the asset for the small tile size is not provided, it will be created by scaling down the medium tile size asset.
                 // Thus, providing the asset for the small tile size is not mandatory, though is recommended to avoid scaling artifacts and can be overridden as shown below. 
                 // Note that the asset for the small tile size must be explicitly provided if alternates for the small tile size are also explicitly provided.
-                secondaryTile.VisualElements.Square70x70Logo = await RenderBitmaps(70, 70);
+                secondaryTile.VisualElements.Square70x70Logo = await RenderPinningLogo(70, 70);
 
                 // Only support of the small and medium tile sizes is mandatory.
                 // To have the larger tile sizes available the assets must be provided.                
-                secondaryTile.VisualElements.Wide310x150Logo = await RenderBitmaps(310, 150);
+                secondaryTile.VisualElements.Wide310x150Logo = await RenderPinningLogo(310, 150);
 
                 // The display of the secondary tile name can be controlled for each tile size.
                 // The default is false.                
@@ -424,7 +417,7 @@ namespace OneMSQFT.WindowsStore.Views
             BottomAppBar.IsSticky = false;
         }
 
-        private async Task<Uri> RenderBitmaps(uint width, uint height)
+        private async Task<Uri> RenderPinningLogo(uint width, uint height)
         {
             var vm = this.GetDataContextAsViewModel<TimelinePageViewModel>();
             RenderTargetBitmap renderTargetBitmap = new RenderTargetBitmap();
