@@ -60,11 +60,11 @@ namespace OneMSQFT.WindowsStore.Views
                 PinButton.Visibility = app.KioskModeEnabled ? Visibility.Collapsed : Visibility.Visible;
                 if (!app.KioskModeEnabled)
                 {
-                    _sharing = AppLocator.Current.SharingService;                    
+                    _sharing = AppLocator.Current.SharingService;
                     var dataTransferManager = DataTransferManager.GetForCurrentView();
-                    dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;                       
+                    dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
                 }
-            }            
+            }
         }
 
         #region Sharing
@@ -105,7 +105,7 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
                 args.Request.Data.SetWebLink(uri);
             }
-        } 
+        }
 
         #endregion
 
@@ -333,7 +333,7 @@ namespace OneMSQFT.WindowsStore.Views
             {
                 //track video plays
                 var ev = this.GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent;
-                var mediaItem = (MediaContentSourceItemViewModel) FlipViewer.SelectedItem;
+                var mediaItem = (MediaContentSourceItemViewModel)FlipViewer.SelectedItem;
                 if (mediaItem != null)
                     AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Media.VideoId, ev.SquareFootage, ev.Id);
 
@@ -393,17 +393,30 @@ namespace OneMSQFT.WindowsStore.Views
             }
             else
             {
+                var square150x150Logo = await RenderBitmaps(150, 150);
+
                 var secondaryTile = new SecondaryTile(args.Id,
-                                                      args.DisplayName,
-                                                      args.ArgumentsName,
-                                                      await RenderBitmaps(150, 150),
-                                                      TileSize.Square150x150)
-                                                      {
-                                                          ForegroundText = ForegroundText.Dark,
-                                                          SmallLogo = await RenderBitmaps(70, 70),
-                                                          WideLogo = await RenderBitmaps(310, 150),
-                                                          BackgroundColor = ColorUtils.GetColorFromARGBString(args.BackgroundColor, Colors.White)
-                                                      };
+                    args.DisplayName,
+                    args.ArgumentsName,
+                    square150x150Logo,
+                    TileSize.Square150x150);
+
+                secondaryTile.VisualElements.BackgroundColor = ColorUtils.GetColorFromARGBString(args.BackgroundColor, Colors.White);
+                secondaryTile.VisualElements.ForegroundText = ForegroundText.Dark;
+
+                // If the asset for the small tile size is not provided, it will be created by scaling down the medium tile size asset.
+                // Thus, providing the asset for the small tile size is not mandatory, though is recommended to avoid scaling artifacts and can be overridden as shown below. 
+                // Note that the asset for the small tile size must be explicitly provided if alternates for the small tile size are also explicitly provided.
+                secondaryTile.VisualElements.Square70x70Logo = await RenderBitmaps(70, 70);
+
+                // Only support of the small and medium tile sizes is mandatory.
+                // To have the larger tile sizes available the assets must be provided.                
+                secondaryTile.VisualElements.Wide310x150Logo = await RenderBitmaps(310, 150);
+
+                // The display of the secondary tile name can be controlled for each tile size.
+                // The default is false.                
+                secondaryTile.VisualElements.ShowNameOnSquare150x150Logo = false;
+                secondaryTile.VisualElements.ShowNameOnWide310x150Logo = false;                
 
                 bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
                 ToggleAppBarButton(PinButton, !isPinned);
@@ -453,6 +466,6 @@ namespace OneMSQFT.WindowsStore.Views
             return new Uri("ms-appx:///Assets/Logo.scale-100.png", UriKind.Absolute);
         }
 
-        #endregion        
+        #endregion
     }
 }
