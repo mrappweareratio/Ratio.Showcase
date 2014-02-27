@@ -71,7 +71,7 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Title = String.Format(Strings.SharingTitleVideoFromEventFormat, vm.Exhibit.Name);
                 args.Request.Data.Properties.Description = vm.Exhibit.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
-                args.Request.Data.SetUri(uri);
+                args.Request.Data.SetWebLink(uri);
             }
             else
             { 
@@ -96,7 +96,7 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Title = vm.Exhibit.Name;
                 args.Request.Data.Properties.Description = vm.Exhibit.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
-                args.Request.Data.SetUri(uri);                
+                args.Request.Data.SetWebLink(uri);                
                 deferral.Complete();
             }
         }
@@ -136,7 +136,7 @@ namespace OneMSQFT.WindowsStore.Views
                 }
                 else
                 {
-                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);
+                  //  VisualStateManager.GoToState(this, "FullScreenPortrait", true);
                 }
             }
         }
