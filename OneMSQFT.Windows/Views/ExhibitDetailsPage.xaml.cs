@@ -212,6 +212,11 @@ namespace OneMSQFT.WindowsStore.Views
             var vm = GetDataContextAsViewModel<IBasePageViewModel>();
             var args = vm.GetSecondaryTileArguments();
 
+            //track Exhibit pinning interaction
+            var analytics = AppLocator.Current.Analytics;
+            if (analytics != null)
+                analytics.TrackPinExhibitInteraction(args.DisplayName);
+
             if (SecondaryTile.Exists(args.Id))
             {
                 var secondaryTile = new SecondaryTile(args.Id);

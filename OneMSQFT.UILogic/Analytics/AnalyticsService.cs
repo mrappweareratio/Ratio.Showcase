@@ -237,5 +237,35 @@ namespace OneMSQFT.UILogic.Analytics
 
             this.TrackEvents(evData, context);
         }
+
+        public void TrackPinEventInteraction(string evName)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                EventName = evName,
+                AppElement = TrackingContextData.AppElements.GeneratePinEventData(evName)
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackPinExhibitInteraction(string exName)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                ExhibitName = exName,
+                AppElement = TrackingContextData.AppElements.GeneratePinExhibitData(exName)
+            };
+
+            this.TrackEvents(evData, context);
+        }
     }
 }
