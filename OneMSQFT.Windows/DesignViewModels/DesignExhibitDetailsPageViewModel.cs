@@ -48,7 +48,7 @@ namespace OneMSQFT.WindowsStore.DesignViewModels
                 Exhibitor = "Artist Name",
                 SquareFootage = Convert.ToInt32(id) * 1234 + 123,
                 Color = "0" + id + "C" + id + "F" + id
-            });
+            }, null);
             Exhibit = exhibit;
 
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);

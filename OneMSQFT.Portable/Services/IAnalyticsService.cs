@@ -17,6 +17,9 @@ namespace OneMSQFT.Common.Services
         void TrackShowMoreExhibitsInEvent(string evName);
         void TrackAppBarInteractionInTimeline(string evName, int? sqFootage);
         void TrackAppBarInteractionInExhibitView(string evName, int? sqFootage);
+        void TrackLinkInteractionInExhibitView(string exName, string exPos, string linkTitle);
+        void TrackVideoPlayInExhibitView(string exName, string exPos, string vidName);
+
         bool KioskModeEnabled { get; set; }
         void TrackEventLanding(string evName);
         void TrackPageViewHome();
