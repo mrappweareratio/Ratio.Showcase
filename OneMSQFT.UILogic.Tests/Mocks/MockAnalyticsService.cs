@@ -59,6 +59,16 @@ namespace OneMSQFT.UILogic.Tests.Mocks
             TrackEvents(events, context);
         }
 
+        public void TrackPageViewAbout()
+        {          
+            var events = new TrackingEventsData { TrackingEventsData.Events.PageView };
+            var context = new TrackingContextData
+            {
+                PageName = TrackingContextData.PageNames.About
+            };
+            TrackEvents(events, context);
+        }
+
         public void TrackExhibitLanding(string exName)
         {
             var events = new TrackingEventsData { TrackingEventsData.Events.PageView };

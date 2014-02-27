@@ -51,7 +51,7 @@ namespace OneMSQFT.UILogic.Analytics
         {
             if (Disabled)
                 return;
-            var events = new TrackingEventsData { TrackingEventsData.Events.PageView };
+            var events = new TrackingEventsData { TrackingEventsData.Events.PageView, TrackingEventsData.Events.TotalInteraction };
             var context = new TrackingContextData
             {
                 EventName = evName,
@@ -64,10 +64,22 @@ namespace OneMSQFT.UILogic.Analytics
         {
             if (Disabled)
                 return;
-            var events = new TrackingEventsData { TrackingEventsData.Events.PageView };
+            var events = new TrackingEventsData { TrackingEventsData.Events.PageView, TrackingEventsData.Events.TotalInteraction };
             var context = new TrackingContextData
             {                
                 PageName = TrackingContextData.PageNames.Home
+            };
+            TrackEvents(events, context);
+        }
+
+        public void TrackPageViewAbout()
+        {
+            if (Disabled)
+                return;
+            var events = new TrackingEventsData { TrackingEventsData.Events.PageView, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                PageName = TrackingContextData.PageNames.About
             };
             TrackEvents(events, context);
         }
@@ -76,7 +88,7 @@ namespace OneMSQFT.UILogic.Analytics
         {
             if (Disabled)
                 return;
-            var events = new TrackingEventsData { TrackingEventsData.Events.PageView };
+            var events = new TrackingEventsData { TrackingEventsData.Events.PageView, TrackingEventsData.Events.TotalInteraction };
             var context = new TrackingContextData
             {
                 ExhibitName = exName,

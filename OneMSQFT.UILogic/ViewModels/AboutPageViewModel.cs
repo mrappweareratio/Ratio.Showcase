@@ -39,7 +39,7 @@ namespace OneMSQFT.UILogic.ViewModels
             
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x)));
 
-            _analyticsService.TrackEvents(new TrackingEventsData() { TrackingEventsData.Events.PageView }, new TrackingContextData() { PageName = TrackingContextData.PageNames.About });
+            _analyticsService.TrackPageViewAbout();
 
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }

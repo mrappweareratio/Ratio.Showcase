@@ -20,5 +20,6 @@ namespace OneMSQFT.Common.Services
         void TrackEventLanding(string evName);
         void TrackPageViewHome();
         void TrackExhibitLanding(string exName);
+        void TrackPageViewAbout();
     }
 }
