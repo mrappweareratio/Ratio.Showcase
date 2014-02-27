@@ -81,7 +81,7 @@ namespace OneMSQFT.WindowsStore.Views
                 }
                 else
                 {
-                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);
+                  //  VisualStateManager.GoToState(this, "FullScreenPortrait", true);
                 }
             }
         }
