@@ -19,7 +19,7 @@ namespace OneMSQFT.UILogic.DataLayer
             return results;
         }
 
-        public async Task SaveFile(string fileName, byte[] data)
+        public Task SaveFile(string fileName, byte[] data)
         {
             throw new NotImplementedException();
         }
