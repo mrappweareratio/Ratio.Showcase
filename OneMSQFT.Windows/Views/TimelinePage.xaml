@@ -679,7 +679,7 @@
                         		HorizontalAlignment="Center"
                         		AutomationProperties.Name="{Binding Name}" 
                         		Stretch="Fill"/>
-                            <Border 
+                            <Border IsHitTestVisible="False"
                         		HorizontalAlignment="Center" Height="70"  
                         		VerticalAlignment="Center" Width="70">
                                 <Border.Background>
@@ -696,7 +696,7 @@
                         </Grid>
                     </Button>
 
-                    <Grid Grid.RowSpan="4" HorizontalAlignment="Left">
+                    <Grid Grid.RowSpan="4">
                         <Grid.Background>
                             <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
                         </Grid.Background>
