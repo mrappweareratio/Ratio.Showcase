@@ -56,6 +56,14 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
+        public double FullScreenHeight
+        {
+            get
+            {
+                return Window.Current.Bounds.Height;
+            }
+        }
+
         public double AboutPageTotalWidth
         {
             get
@@ -72,14 +80,50 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
+        public double Panel1TextWidth
+        {
+            get
+            {
+                return AboutPageTwoThirdsWidth / 8 * 7;
+            }
+        }
+        public double Panel2TextWidth
+        {
+            get
+            {
+                return FullScreenWidth / 10 * 7;
+            }
+        }
+
+        public Thickness Panel1Margin
+        {
+            get
+            {
+                return new Thickness(90, FullScreenHeight / 4, 0, 0);
+            }
+        }
+        public Thickness Panel2Margin
+        {
+            get
+            {
+                return new Thickness(0, (FullScreenHeight / 4)+5, 0, 0);
+            }
+        }
+
+
         public override void WindowSizeChanged(double width, double height)
         {
             IsHorizontal = width > height;
             OnPropertyChanged("IsHorizontal");
 
             OnPropertyChanged("FullScreenWidth");
+            OnPropertyChanged("FullScreenHeight");
             OnPropertyChanged("AboutPageTotalWidth");
             OnPropertyChanged("AboutPageTwoThirdsWidth");
+            OnPropertyChanged("Panel1TextWidth");
+            OnPropertyChanged("Panel2TextWidth");
+            OnPropertyChanged("Panel1Margin");
+            OnPropertyChanged("Panel2Margin");
         }
 
         #endregion

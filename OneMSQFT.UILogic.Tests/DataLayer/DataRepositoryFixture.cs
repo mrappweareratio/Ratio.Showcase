@@ -20,8 +20,8 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         [TestInitialize]
         async public Task Init()
         {
-            //this.DataRepository = new DemoDataRepository();
-            this.DataRepository = new ApiDataRepository(new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api"));
+            this.DataRepository = new DemoDataRepository();
+            //this.DataRepository = new ApiDataRepository(new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api"));
             _result = await this.DataRepository.GetSiteData();
         }
 
@@ -118,7 +118,8 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             if (e.RsvpUrl != null)
                 Assert.IsTrue(Uri.IsWellFormedUriString(e.RsvpUrl, UriKind.RelativeOrAbsolute), "RsvpUrl");
             //Assert.IsNotNull(e.DateStart, "DateStart");
-            //Assert.IsNotNull(e.DateEnd, "DateEnd");
+            //Assert.IsNotNull(e.DateEnd, "DateEnd");            
+            Assert.IsFalse(e.DisplayDate == null && e.DateStart == null && e.DateEnd == null, string.Format("At Least One Date Property is Set for Exhibit {0}", e.Name));
             Assert.IsNotNull(e.EventId, "EventId");
 
             return true;
@@ -183,7 +184,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             //Assert.IsNotNull(e.SocialMediaTitle, "SocialMediaTitle");
             //Assert.IsNotNull(e.SocialMediaDescription, "SocialMediaDescription");
             Assert.IsNotNull(e.Exhibits, "Exhibits");
-
+            Assert.IsFalse(e.DisplayDate == null && e.DateStart == null && e.DateEnd == null, string.Format("One Date Property is Set for Event {0}", e.Name));
             return true;
         }
     }
