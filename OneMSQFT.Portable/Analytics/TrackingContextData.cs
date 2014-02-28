@@ -125,16 +125,13 @@ namespace OneMSQFT.Common.Analytics
                 return entry;                
             }
 
-            public static string GenerateClickNextExhibitData(string fromName, string toName)
+            public static string GenerateClickNextExhibitData(string toName)
             {
-                var entry = "next exhibit";
-                if (!string.IsNullOrEmpty(fromName))
-                {
-                    entry += ("| from: " + fromName);
-                }
+                var entry = "next exhibit : ";
+
                 if (!string.IsNullOrEmpty(toName))
                 {
-                    entry += ("| to: " + toName);
+                    entry += (toName);
                 }
                 return entry;
             }

@@ -298,7 +298,7 @@ namespace OneMSQFT.UILogic.Analytics
             this.TrackEvents(evData, context);
         }
 
-        public void TrackNextExhibitInteraction(string exFrom, string exTo)
+        public void TrackNextExhibitInteraction( string exTo)
         {
             if (Disabled)
                 return;
@@ -306,8 +306,8 @@ namespace OneMSQFT.UILogic.Analytics
             var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.TotalInteraction };
             var context = new TrackingContextData
             {
-                ExhibitName = exFrom,
-                AppElement = TrackingContextData.AppElements.GenerateClickNextExhibitData(exFrom, exTo)
+                ExhibitName = exTo,
+                AppElement = TrackingContextData.AppElements.GenerateClickNextExhibitData(exTo)
             };
 
             this.TrackEvents(evData, context);

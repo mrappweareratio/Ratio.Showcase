@@ -54,10 +54,9 @@ namespace OneMSQFT.UILogic.ViewModels
         private async void NextExhibitCommandExecuteMethod(string exhibitId)
         {
             //track goto next exhibit interaction
-            var ex = this.Exhibit;
             var exTo = await _dataService.GetExhibitDetailByExhibitId(exhibitId);
             if (_analyticsService != null && exTo != null) 
-                _analyticsService.TrackNextExhibitInteraction(ex.Name, exTo.Exhibit.Name);
+                _analyticsService.TrackNextExhibitInteraction(exTo.Exhibit.Name);
             
             _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, exhibitId);
         }

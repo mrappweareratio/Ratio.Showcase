@@ -145,7 +145,7 @@ namespace OneMSQFT.UILogic.Tests.Mocks
             throw new NotImplementedException();
         }
 
-        public void TrackNextExhibitInteraction(string exFrom, string exTo)
+        public void TrackNextExhibitInteraction(string exTo)
         {
             throw new NotImplementedException();
         }
