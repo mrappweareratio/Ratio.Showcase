@@ -51,8 +51,13 @@ namespace OneMSQFT.UILogic.ViewModels
             return NextExhibit != null;
         }
 
-        private void NextExhibitCommandExecuteMethod(string exhibitId)
+        private async void NextExhibitCommandExecuteMethod(string exhibitId)
         {
+            //track goto next exhibit interaction
+            var exTo = await _dataService.GetExhibitDetailByExhibitId(exhibitId);
+            if (_analyticsService != null && exTo != null) 
+                _analyticsService.TrackNextExhibitInteraction(exTo.Exhibit.Name);
+            
             _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, exhibitId);
         }
 

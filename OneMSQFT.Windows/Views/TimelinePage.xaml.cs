@@ -379,14 +379,15 @@ namespace OneMSQFT.WindowsStore.Views
 
             var vm = GetDataContextAsViewModel<IBasePageViewModel>();
             var args = vm.GetSecondaryTileArguments();
-            
-            //track Event pinning interaction
             var analytics = AppLocator.Current.Analytics;
-            if (analytics != null) 
-                analytics.TrackPinEventInteraction(args.DisplayName);
+
 
             if (SecondaryTile.Exists(args.Id))
             {
+                //track Event unpinning interaction
+                if (analytics != null)
+                    analytics.TrackUnPinEventInteraction(args.DisplayName);
+
                 var secondaryTile = new SecondaryTile(args.Id);
                 bool isUnpinned = await secondaryTile.RequestDeleteForSelectionAsync(GetElementRect((FrameworkElement)sender));
                 ToggleAppBarButton(PinButton, isUnpinned);
@@ -394,6 +395,9 @@ namespace OneMSQFT.WindowsStore.Views
             else
             {
                 var square150x150Logo = await RenderPinningLogo(150, 150);
+                //track Event pinning interaction
+                if (analytics != null)
+                    analytics.TrackPinEventInteraction(args.DisplayName);
 
                 var secondaryTile = new SecondaryTile(args.Id,
                     args.DisplayName,

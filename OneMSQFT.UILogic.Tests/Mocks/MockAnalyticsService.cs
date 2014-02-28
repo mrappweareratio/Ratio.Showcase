@@ -134,5 +134,20 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         {
             throw new NotImplementedException();
         }
+
+        public void TrackUnPinEventInteraction(string evName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TrackUnPinExhibitInteraction(string exName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TrackNextExhibitInteraction(string exTo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
