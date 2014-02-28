@@ -82,72 +82,58 @@ namespace OneMSQFT.UILogic.Tests.Mocks
 
         public void TrackTimelineSemanticZoom()
         {
-            throw new NotImplementedException();
         }
 
-        public void TrackTimelineSemanticZoomEventInteraction(string evName, int? sqFootage, string id)
+        public void TrackTimelineSemanticZoomEventInteraction(string evName, int? sqFootage, int evPos)
         {
-            throw new NotImplementedException();
         }
 
-        public void TrackVideoPlayInEventView(string evName, string vidName, int? sqFootage, string id)
+        public void TrackVideoPlayInEventView(string evName, string vidName, int? sqFootage, int evPos)
         {
-            throw new NotImplementedException();
         }
 
-        public void TrackExhibitInteractionInTimeline(string evName, string exName, string evPos, string exPos)
+        public void TrackExhibitInteractionInTimeline(string evName, string exName, int evPos, int exPos)
         {
-            throw new NotImplementedException();
         }
 
         public void TrackShowMoreExhibitsInEvent(string evName)
         {
-            throw new NotImplementedException();
         }
 
         public void TrackAppBarInteractionInTimeline(string evName, int? sqFootage)
         {
-            throw new NotImplementedException();
         }
 
         public void TrackAppBarInteractionInExhibitView(string evName, int? sqFootage)
         {
-            throw new NotImplementedException();
         }
 
-        public void TrackLinkInteractionInExhibitView(string exName, string exPos, string linkTitle)
+        public void TrackLinkInteractionInExhibitView(string exName, string exId, string linkTitle)
         {
-            throw new NotImplementedException();
         }
 
-        public void TrackVideoPlayInExhibitView(string exName, string exPos, string vidName)
+        public void TrackVideoPlayInExhibitView(string exName, string exId, string vidName)
         {
-            throw new NotImplementedException();
         }
 
         public void TrackPinEventInteraction(string evName)
         {
-            throw new NotImplementedException();
         }
 
         public void TrackPinExhibitInteraction(string exName)
         {
-            throw new NotImplementedException();
         }
 
         public void TrackUnPinEventInteraction(string evName)
         {
-            throw new NotImplementedException();
         }
 
         public void TrackUnPinExhibitInteraction(string exName)
         {
-            throw new NotImplementedException();
         }
 
         public void TrackNextExhibitInteraction(string exTo)
         {
-            throw new NotImplementedException();
         }
     }
 }

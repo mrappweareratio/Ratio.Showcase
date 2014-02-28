@@ -228,7 +228,6 @@ namespace OneMSQFT.WindowsStore.Views
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
             var theApp = AppLocator.Current;
-            var context = new TrackingContextData();
             if (e.SourceItem.Item != null && e.IsSourceZoomedInView == false)
             {
                 if (_semanticZoomClosedFromTopAppBarEvent)
@@ -238,8 +237,9 @@ namespace OneMSQFT.WindowsStore.Views
                 else
                 {
                     //Track event selection
-                    var ev = this.GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent;
-                    theApp.Analytics.TrackTimelineSemanticZoomEventInteraction(ev.Name, ev.SquareFootage, ev.Id);
+                    var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
+                    var ev = vm.SelectedEvent;
+                    theApp.Analytics.TrackTimelineSemanticZoomEventInteraction(ev.Name, ev.SquareFootage, vm.TimeLineItems.IndexOf(ev));
 
                     ScrollToEventById(((EventItemViewModel)e.SourceItem.Item).Id);
                 }
@@ -326,10 +326,11 @@ namespace OneMSQFT.WindowsStore.Views
             if (!VideoPopup.IsOpen)
             {
                 //track video plays
-                var ev = this.GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent;
+                var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
+                var ev = vm.SelectedEvent;
                 var mediaItem = (MediaContentSourceItemViewModel)FlipViewer.SelectedItem;
                 if (mediaItem != null)
-                    AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Media.VideoId, ev.SquareFootage, ev.Id);
+                    AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Media.VideoId, ev.SquareFootage, vm.TimeLineItems.IndexOf(ev));
 
                 VideoPopup.IsOpen = true;
                 VideoPlayerUserControl.SelectedMediaContentSource = ((MediaContentSourceItemViewModel)FlipViewer.SelectedItem);

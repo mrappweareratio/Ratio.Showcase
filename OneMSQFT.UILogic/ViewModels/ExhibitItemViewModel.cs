@@ -93,7 +93,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
             //Track link interaction
             if (_analyticsService != null)
-            {
+            {                
                 _analyticsService.TrackLinkInteractionInExhibitView(this.Name, this.Id, RsvpUrl.ToString());
             }
 

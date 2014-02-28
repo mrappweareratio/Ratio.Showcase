@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace OneMSQFT.Common.Analytics
 {
@@ -25,32 +26,32 @@ namespace OneMSQFT.Common.Analytics
 
         public class AppElements
         {
-            public static string GenerateEventSemanticZoomData(int position = -1)
+            public static string GenerateEventSemanticZoomData(int? eventPosition = null)
             {
                 var entry = "event";
-                if (position >= 0)
+                if (eventPosition != null)
                 {
-                    entry += ('|' + position.ToString());
+                    entry += ('|' + eventPosition.ToString());
                 }
                 entry += ": semantic zoom";
                 return entry;
             }
 
-            public static string GeneratePlayVideoInEventData(int eventPos = -1)
+            public static string GeneratePlayVideoInEventData(int? eventPosition = null)
             {
                 var entry = "event";
-                if (eventPos >= 0)
+                if (eventPosition != null)
                 {
-                    entry += ('|' + eventPos.ToString());
+                    entry += ('|' + eventPosition.ToString());
                 }
                 entry += ": video play";
                 return entry;
             }
 
-            public static string GeneratePlayVideoInExhibitData(int exhibitPos = -1)
+            public static string GeneratePlayVideoInExhibitData(int? exhibitPos = null)
             {
                 var entry = "exhibit";
-                if (exhibitPos >= 0)
+                if (exhibitPos.HasValue)
                 {
                     entry += ('|' + exhibitPos.ToString());
                 }
@@ -58,15 +59,15 @@ namespace OneMSQFT.Common.Analytics
                 return entry;
             }
 
-            public static string GenerateClickExhibitInEventData(int eventPos = -1, int exhibitPos = -1)
+            public static string GenerateClickExhibitInEventData(int? eventPosition = null, int? exhibitPos = null)
             {
                 var entry = "event";
-                if (eventPos >= 0)
+                if (eventPosition.HasValue)
                 {
-                    entry += ('|' + eventPos.ToString());
+                    entry += ('|' + eventPosition.ToString());
                 }
                 entry += ": exhibit";
-                if (exhibitPos >= 0)
+                if (exhibitPos.HasValue)
                 {
                     entry += ('|' + exhibitPos.ToString());
                 }
@@ -89,7 +90,7 @@ namespace OneMSQFT.Common.Analytics
                 return "event: exhibit app bar";
             }
 
-            public static string GenerateClickLinkInAppBarData( string title)
+            public static string GenerateClickLinkInAppBarData(string title)
             {
                 return "app bar:" + title;
             }
@@ -114,15 +115,14 @@ namespace OneMSQFT.Common.Analytics
                 return "Exhibit Unpinned:" + exName;
             }
 
-            public static string GenerateClickLinkInExhibitData(string title, int exhibitPos)
+            public static string GenerateClickLinkInExhibitData(string title, string exhibitName)
             {
                 var entry = "exhibit";
-                if (exhibitPos >= 0)
-                {
-                    entry += ('|' + exhibitPos.ToString());
-                }
-                entry += ':' + title;
-                return entry;                
+                if (!String.IsNullOrEmpty(exhibitName))
+                    entry += ('|' + exhibitName.ToString());
+                if (!String.IsNullOrEmpty(title))
+                    entry += ':' + title;
+                return entry;
             }
 
             public static string GenerateClickNextExhibitData(string toName)
@@ -141,7 +141,7 @@ namespace OneMSQFT.Common.Analytics
                 return "app idle";
             }
         }
-        
+
         public string PageName
         {
             get
