@@ -12,7 +12,7 @@ namespace OneMSQFT.Common.Services
         void TrackEvents(TrackingEventsData eventsData, TrackingContextData context = null);
         void TrackTimelineSemanticZoom();
         void TrackTimelineSemanticZoomEventInteraction(string evName, int? sqFootage, int evPos);
-        void TrackVideoPlayInEventView(string evName, string vidName, int? sqFootage, int evPos);
+        void TrackVideoPlayInEventView(string evName, string vidName, int? sqFootage, int? evPos);
         void TrackExhibitInteractionInTimeline(string evName, string exName, int evPos, int exPos);
         void TrackShowMoreExhibitsInEvent(string evName);
         void TrackAppBarInteractionInTimeline(string evName, int? sqFootage);

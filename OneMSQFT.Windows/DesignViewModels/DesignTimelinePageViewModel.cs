@@ -209,5 +209,9 @@ namespace OneMSQFT.WindowsStore.DesignViewModels
         public DelegateCommand ClearStartupCommand { get; private set; }     
         public Visibility ClearStartupVisibility { get; set; }
         public Visibility SetStartupVisibility { get; set; }
+        public int? GetEventIndexById(string id)
+        {
+            return null;
+        }
     }
 }

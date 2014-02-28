@@ -127,7 +127,7 @@ namespace OneMSQFT.UILogic.Analytics
             this.TrackEvents(evData, context);
         }
 
-        public void TrackVideoPlayInEventView(string evName, string vidName, int? sqFootage, int evPos)
+        public void TrackVideoPlayInEventView(string evName, string vidName, int? sqFootage, int? evPos)
         {
             if (Disabled)
                 return;

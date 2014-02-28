@@ -238,21 +238,36 @@ namespace OneMSQFT.UILogic.ViewModels
             SelectedEvent = item;
         }
 
-        public async void ExhibitItemClickCommandHandler(ExhibitItemViewModel exhibitItemViewModel)
+        public void ExhibitItemClickCommandHandler(ExhibitItemViewModel exhibitItemViewModel)
         {
             //Track Exhibit user interaction            
             var ev = this.SelectedEvent;
             if (ev != null && _analyticsService != null)
             {
-                var evPos = _eventsList.Select(x => x.Id).ToList().IndexOf(ev.Id);
+                var evPos = GetEventIndexById(ev.Id);
                 _analyticsService.TrackExhibitInteractionInTimeline(
                     ev.Name, 
                     exhibitItemViewModel.Name,
-                    evPos,                    
+                    evPos.GetValueOrDefault(-1),                    
                     ev.Exhibits.IndexOf(exhibitItemViewModel));
             }
 
             _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, exhibitItemViewModel.Id);
+        }
+
+        public int? GetEventIndexById(string id)
+        {
+            if (_eventsList == null)
+                return null;
+            try
+            {
+                var index = _eventsList.Select(x => x.Id).ToList().IndexOf(id);
+                return index;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
 

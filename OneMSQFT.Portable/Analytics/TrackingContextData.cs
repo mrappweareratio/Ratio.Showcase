@@ -37,10 +37,10 @@ namespace OneMSQFT.Common.Analytics
                 return entry;
             }
 
-            public static string GeneratePlayVideoInEventData(int? eventPosition = null)
+            public static string GeneratePlayVideoInEventData(int? eventPosition)
             {
                 var entry = "event";
-                if (eventPosition != null)
+                if (eventPosition.HasValue)
                 {
                     entry += ('|' + eventPosition.ToString());
                 }

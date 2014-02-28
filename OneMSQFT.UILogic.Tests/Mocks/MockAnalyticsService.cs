@@ -88,7 +88,7 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         {
         }
 
-        public void TrackVideoPlayInEventView(string evName, string vidName, int? sqFootage, int evPos)
+        public void TrackVideoPlayInEventView(string evName, string vidName, int? sqFootage, int? evPos)
         {
         }
 
