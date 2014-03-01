@@ -11,14 +11,14 @@ namespace OneMSQFT.Common.Services
         void StopSession();
         void TrackEvents(TrackingEventsData eventsData, TrackingContextData context = null);
         void TrackTimelineSemanticZoom();
-        void TrackTimelineSemanticZoomEventInteraction(string evName, int? sqFootage, string id);
-        void TrackVideoPlayInEventView(string evName, string vidName, int? sqFootage, string id);
-        void TrackExhibitInteractionInTimeline(string evName, string exName, string evPos, string exPos);
+        void TrackTimelineSemanticZoomEventInteraction(string evName, int? sqFootage, int evPos);
+        void TrackVideoPlayInEventView(string evName, string vidName, int? sqFootage, int? evPos);
+        void TrackExhibitInteractionInTimeline(string evName, string exName, int evPos, int exPos);
         void TrackShowMoreExhibitsInEvent(string evName);
         void TrackAppBarInteractionInTimeline(string evName, int? sqFootage);
         void TrackAppBarInteractionInExhibitView(string evName, int? sqFootage);
-        void TrackLinkInteractionInExhibitView(string exName, string exPos, string linkTitle);
-        void TrackVideoPlayInExhibitView(string exName, string exPos, string vidName);
+        void TrackLinkInteractionInExhibitView(string exName, string exId, string linkTitle);
+        void TrackVideoPlayInExhibitView(string exName, string exId, string vidName);
         void TrackPinEventInteraction(string evName);
         void TrackPinExhibitInteraction(string exName);
         void TrackUnPinEventInteraction(string evName);
@@ -30,5 +30,11 @@ namespace OneMSQFT.Common.Services
         void TrackPageViewHome();
         void TrackExhibitLanding(string exName);
         void TrackPageViewAbout();
+
+        void TrackShareEventInteraction(string evName, int? sqFootage, int? evPos, string shareUrl, string appName);
+        //void TrackVideoShareInEventView(string evName, int? sqFootage, int evPos, string vidName);
+        //void TrackShareExhibitInteraction(string exName);        
+        //void TrackVideoShareInExhibitView(string exName, string vidName);
+
     }
 }
