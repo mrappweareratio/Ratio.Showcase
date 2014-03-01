@@ -312,5 +312,21 @@ namespace OneMSQFT.UILogic.Analytics
 
             this.TrackEvents(evData, context);
         }
+
+        public void TrackShareEventInteraction(string evName, int? sqFootage, int? evPos, string shareUrl, string appName)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                EventName = evName,
+                EventSqFt = sqFootage,                
+                AppElement = TrackingContextData.AppElements.GenerateShareEventElement(evPos, appName, shareUrl)
+            };
+
+            this.TrackEvents(evData, context);
+        }
     }
 }

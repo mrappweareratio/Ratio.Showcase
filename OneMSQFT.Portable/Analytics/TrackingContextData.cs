@@ -140,6 +140,22 @@ namespace OneMSQFT.Common.Analytics
             {
                 return "app idle";
             }
+
+            public static string GenerateShareEventElement(int? eventPosition, string appName, string shareUrl)
+            {
+                var entry = "event";
+                if (eventPosition.HasValue)
+                {
+                    entry += ('|' + eventPosition.ToString());
+                }
+                entry += ":share";
+                if (!String.IsNullOrEmpty(shareUrl))
+                    entry += ('|' + shareUrl);
+                entry += ":appName";
+                if (!String.IsNullOrEmpty(appName))
+                    entry += ('|' + appName);
+                return entry;
+            }
         }
 
         public string PageName

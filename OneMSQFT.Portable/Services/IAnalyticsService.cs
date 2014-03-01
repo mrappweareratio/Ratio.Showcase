@@ -31,7 +31,7 @@ namespace OneMSQFT.Common.Services
         void TrackExhibitLanding(string exName);
         void TrackPageViewAbout();
 
-        //void TrackShareEventInteraction(string evName, int? sqFootage, int evPos);
+        void TrackShareEventInteraction(string evName, int? sqFootage, int? evPos, string shareUrl, string appName);
         //void TrackVideoShareInEventView(string evName, int? sqFootage, int evPos, string vidName);
         //void TrackShareExhibitInteraction(string exName);        
         //void TrackVideoShareInExhibitView(string exName, string vidName);

@@ -135,5 +135,9 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         public void TrackNextExhibitInteraction(string exTo)
         {
         }
+
+        public void TrackShareEventInteraction(string evName, int? sqFootage, int? evPos, string shareUrl, string appName)
+        {            
+        }
     }
 }
