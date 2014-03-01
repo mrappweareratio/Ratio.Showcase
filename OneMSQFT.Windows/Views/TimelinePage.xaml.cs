@@ -110,8 +110,8 @@ namespace OneMSQFT.WindowsStore.Views
         void DataTransferManagerTargetApplicationChosen(DataTransferManager sender, TargetApplicationChosenEventArgs args)
         {
             if (_targetApplicationChosenDelegate == null)
-                return;            
-                _targetApplicationChosenDelegate(args.ApplicationName);
+                return;
+            _targetApplicationChosenDelegate(args.ApplicationName);
             //unwire and reset the delegate
             _targetApplicationChosenDelegate = null;
         }
