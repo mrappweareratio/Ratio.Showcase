@@ -241,20 +241,27 @@ namespace OneMSQFT.UILogic.ViewModels
         public void ExhibitItemClickCommandHandler(ExhibitItemViewModel exhibitItemViewModel)
         {
             //Track Exhibit user interaction            
-            var ev = this.SelectedEvent;
+            var ev = SelectedEvent;
             if (ev != null && _analyticsService != null)
             {
                 var evPos = GetEventIndexById(ev.Id);
                 _analyticsService.TrackExhibitInteractionInTimeline(
-                    ev.Name, 
+                    ev.Name,
                     exhibitItemViewModel.Name,
-                    evPos.GetValueOrDefault(-1),                    
-                    ev.Exhibits.IndexOf(exhibitItemViewModel));
+                    evPos.GetValueOrDefault(-1),
+                    ev.Exhibits.Contains(exhibitItemViewModel) ? ev.Exhibits.IndexOf(exhibitItemViewModel) : -1);
             }
 
             _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, exhibitItemViewModel.Id);
         }
 
+        /// <summary>
+        /// Returns the position of an event on the Timeline Page
+        /// Inspects from the data service return of models
+        /// Method added once buffer items became insterted into TimelineEvents for visual effects
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>null if not found</returns>
         public int? GetEventIndexById(string id)
         {
             if (_eventsList == null)
