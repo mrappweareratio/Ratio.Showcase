@@ -54,7 +54,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="AppBarButton">
-                        <Grid x:Name="RootGrid" Background="Transparent" Width="100">
+                        <Grid x:Name="RootGrid" Background="Transparent">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="ApplicationViewStates">
                                     <VisualState x:Name="FullSize"/>
@@ -80,8 +80,8 @@
                             </VisualStateManager.VisualStateGroups>
                             <StackPanel Margin="0,14,0,13" VerticalAlignment="Top">
                                 <Border x:Name="Background" Background="{TemplateBinding Background}" 
-                        		HorizontalAlignment="Center" Height="90"  
-                        		VerticalAlignment="Center" Width="90">
+                        		HorizontalAlignment="Center" Height="80"  
+                        		VerticalAlignment="Center" Width="80">
                                     <Path Data="M1,1 L49,1 L49,49" 
                         			HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
                         			StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
@@ -434,7 +434,7 @@
         
         <DataTemplate x:Key="VerticalExhibitMediaItemTemplate">
             <Grid Margin="0,0,0,0">
-                <ProgressRing IsEnabled="True" IsActive="True" Height="150" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressRing IsEnabled="True" IsActive="True" Height="154" Width="154" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <ProgressRing.Foreground>
                         <SolidColorBrush Color="{Binding DataSource.Exhibit.ExhibitColor, Source={StaticResource DataContextProxy}}"/>
                     </ProgressRing.Foreground>
@@ -442,6 +442,7 @@
                 <Image 
         			Stretch="UniformToFill"
         			Width="{Binding DataSource.FullScreenWidth, Source={StaticResource DataContextProxy}}" 
+                    Height="{Binding DataSource.NineSixteenthsOfWidth, Source={StaticResource DataContextProxy}}"
 					Source="{Binding ImageSource}"/>
                     <AppBarButton
 						Command="{Binding DataSource.LaunchVideoCommand, Source={StaticResource DataContextProxy}}" 

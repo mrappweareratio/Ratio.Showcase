@@ -169,13 +169,6 @@ namespace OneMSQFT.UILogic.ViewModels
 
         #region ResizingProperties
 
-        public double FullScreenWidth
-        {
-            get
-            {
-                return Window.Current.Bounds.Width;
-            }
-        }
         public double FullScreenHeight
         {
             get
@@ -183,7 +176,20 @@ namespace OneMSQFT.UILogic.ViewModels
                 return Window.Current.Bounds.Height;
             }
         }
-
+        public double FullScreenWidth
+        {
+            get
+            {
+                return Window.Current.Bounds.Width;
+            }
+        }
+        public double NineSixteenthsOfWidth
+        {
+            get
+            {
+                return (FullScreenWidth/16)*9;
+            }
+        }
         public double OneThirdPanelWidth
         {
             get { return FullScreenWidth * .325; } // approx one third (per comp)
@@ -201,6 +207,8 @@ namespace OneMSQFT.UILogic.ViewModels
 
             OnPropertyChanged("FullScreenHeight");
             OnPropertyChanged("FullScreenWidth");
+            OnPropertyChanged("NineSixteenthsOfWidth");
+
             OnPropertyChanged("ExhibitItemHeight");
             OnPropertyChanged("ExhibitItemWidth");
             OnPropertyChanged("OneThirdPanelWidth");
