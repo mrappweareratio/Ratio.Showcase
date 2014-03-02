@@ -26,7 +26,7 @@ namespace OneMSQFT.UILogic.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IConfigurationService _configuration;
         public DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
-        public DelegateCommand<String> ExhibitItemClickCommand { get; set; }
+        public DelegateCommand<ExhibitItemViewModel> ExhibitItemClickCommand { get; set; }
 
         public TimelinePageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration, IAnalyticsService analyticsService)
         {
@@ -39,7 +39,7 @@ namespace OneMSQFT.UILogic.ViewModels
             this.TimeLineItems = new ObservableCollection<EventItemViewModel>();
             this.TimeLineMenuItems = new ObservableCollection<EventItemViewModel>();
             this.EventHeroItemClickCommand = new DelegateCommand<EventItemViewModel>(EventHeroItemClickCommandHandler);
-            this.ExhibitItemClickCommand = new DelegateCommand<String>(ExhibitItemClickCommandHandler);
+            this.ExhibitItemClickCommand = new DelegateCommand<ExhibitItemViewModel>(ExhibitItemClickCommandHandler);
             this.SetStartupCommand = new DelegateCommand(SetStartupCommandExecuteMethod, SetStartupCommandCanExecuteMethod);
             this.ClearStartupCommand = new DelegateCommand(ClearStartupCommandExecuteMethod, ClearStartupCommandCanExecuteMethod);
             SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
@@ -54,25 +54,29 @@ namespace OneMSQFT.UILogic.ViewModels
                 await _messageService.ShowAsync("Error", "There was a problem loading events");
                 return;
             }
-            var eventsList = events as IList<Event> ?? events.ToList();
+            _eventsList = events as IList<Event> ?? events.ToList();
 
-            SquareFootEvents = new ObservableCollection<EventItemViewModel>(eventsList.Select(x => new EventItemViewModel(x, _analyticsService)));
+            SquareFootEvents = new ObservableCollection<EventItemViewModel>(_eventsList.Select(x => new EventItemViewModel(x, _analyticsService)));
 
-            var timelineEvents = eventsList.Select(x => new EventItemViewModel(x, _analyticsService)).ToList();
+            var timelineEvents = _eventsList.Select(x => new EventItemViewModel(x, _analyticsService)).ToList();
             timelineEvents.Insert(0, new BufferItemFakeEventItemViewModel()); // first buffer item
             timelineEvents.Add(new BufferItemFakeEventItemViewModel()); // last buffer item
             TimeLineItems = new ObservableCollection<EventItemViewModel>(timelineEvents);
 
-            var timelineMenuEvents = eventsList.Select(x => new EventItemViewModel(x, _analyticsService)).ToList();
+            var timelineMenuEvents = _eventsList.Select(x => new EventItemViewModel(x, _analyticsService)).ToList();
             timelineMenuEvents = ComingSoonUtils.InsertComingSoonItems(12, timelineMenuEvents);
             TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(timelineMenuEvents);
 
-            foreach (var eivm in eventsList)
+            foreach (var eivm in _eventsList)
             {
                 _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
             }
         }
 
+        /// <summary>
+        /// TimeLineItems Bound To Events List
+        /// Contains EventItemViewModel and BufferItemFakeEventItemViewModel
+        /// </summary>
         public ObservableCollection<EventItemViewModel> TimeLineItems
         {
             get
@@ -115,6 +119,7 @@ namespace OneMSQFT.UILogic.ViewModels
         private ObservableCollection<EventItemViewModel> _timeLineMenuItems;
         private Visibility _clearStartupVisibility;
         private Visibility _setStartupVisibility;
+        private IList<Event> _eventsList;
 
         public String TotalSquareFeet
         {
@@ -233,15 +238,43 @@ namespace OneMSQFT.UILogic.ViewModels
             SelectedEvent = item;
         }
 
-        public async void ExhibitItemClickCommandHandler(String itemId)
+        public void ExhibitItemClickCommandHandler(ExhibitItemViewModel exhibitItemViewModel)
         {
-            //Track Exhibit user interaction
-            var ev = this.SelectedEvent;
-            ExhibitDetail ex = await _dataService.GetExhibitDetailByExhibitId(itemId);
-            if (_analyticsService != null)
-                _analyticsService.TrackExhibitInteractionInTimeline(ev.Name, ex.Exhibit.Name,ev.Id, itemId);
+            //Track Exhibit user interaction            
+            var ev = SelectedEvent;
+            if (ev != null && _analyticsService != null)
+            {
+                var evPos = GetEventIndexById(ev.Id);
+                _analyticsService.TrackExhibitInteractionInTimeline(
+                    ev.Name,
+                    exhibitItemViewModel.Name,
+                    evPos.GetValueOrDefault(-1),
+                    ev.Exhibits.Contains(exhibitItemViewModel) ? ev.Exhibits.IndexOf(exhibitItemViewModel) : -1);
+            }
 
-            _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, itemId);
+            _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, exhibitItemViewModel.Id);
+        }
+
+        /// <summary>
+        /// Returns the position of an event on the Timeline Page
+        /// Inspects from the data service return of models
+        /// Method added once buffer items became insterted into TimelineEvents for visual effects
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>null if not found</returns>
+        public int? GetEventIndexById(string id)
+        {
+            if (_eventsList == null)
+                return null;
+            try
+            {
+                var index = _eventsList.Select(x => x.Id).ToList().IndexOf(id);
+                return index;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
 

@@ -111,7 +111,7 @@ namespace OneMSQFT.UILogic.Analytics
             this.TrackEvents(evData, context);
         }
 
-        public void TrackTimelineSemanticZoomEventInteraction(string evName, int? sqFootage, string id )
+        public void TrackTimelineSemanticZoomEventInteraction(string evName, int? sqFootage, int evPos)
         {
             if (Disabled)
                 return;
@@ -121,13 +121,13 @@ namespace OneMSQFT.UILogic.Analytics
             {
                 EventName = evName,
                 EventSqFt = sqFootage,
-                AppElement = TrackingContextData.AppElements.GenerateEventSemanticZoomData(Convert.ToInt32(id))
+                AppElement = TrackingContextData.AppElements.GenerateEventSemanticZoomData(evPos)
             };
 
             this.TrackEvents(evData, context);
         }
 
-        public void TrackVideoPlayInEventView(string evName, string vidName, int? sqFootage, string id)
+        public void TrackVideoPlayInEventView(string evName, string vidName, int? sqFootage, int? evPos)
         {
             if (Disabled)
                 return;
@@ -138,13 +138,13 @@ namespace OneMSQFT.UILogic.Analytics
                 EventName = evName,
                 EventSqFt = sqFootage,
                 VideoName = vidName,
-                AppElement = TrackingContextData.AppElements.GeneratePlayVideoInEventData()
+                AppElement = TrackingContextData.AppElements.GeneratePlayVideoInEventData(evPos)
             };
 
             this.TrackEvents(evData, context);
         }
 
-        public void TrackExhibitInteractionInTimeline(string evName, string exName, string evPos, string exPos)
+        public void TrackExhibitInteractionInTimeline(string evName, string exName, int evPos, int exPos)
         {
             if (Disabled)
                 return;
@@ -154,7 +154,7 @@ namespace OneMSQFT.UILogic.Analytics
             {
                 EventName = evName,
                 ExhibitName = exName,
-                AppElement = TrackingContextData.AppElements.GenerateClickExhibitInEventData(Convert.ToInt32(evPos), Convert.ToInt32(exPos))
+                AppElement = TrackingContextData.AppElements.GenerateClickExhibitInEventData(evPos, exPos)
             };
 
             this.TrackEvents(evData, context);            
@@ -207,7 +207,7 @@ namespace OneMSQFT.UILogic.Analytics
             this.TrackEvents(evData, context);
         }
 
-        public void TrackLinkInteractionInExhibitView(string exName, string exPos, string linkTitle)
+        public void TrackLinkInteractionInExhibitView(string exName, string exId, string linkTitle)
         {
             if (Disabled)
                 return;
@@ -216,13 +216,13 @@ namespace OneMSQFT.UILogic.Analytics
             var context = new TrackingContextData
             {
                 ExhibitName = exName,
-                AppElement = TrackingContextData.AppElements.GenerateClickLinkInExhibitData(linkTitle, Convert.ToInt32(exPos))
+                AppElement = TrackingContextData.AppElements.GenerateClickLinkInExhibitData(linkTitle, exId)
             };
 
             this.TrackEvents(evData, context);
         }
 
-        public void TrackVideoPlayInExhibitView(string exName, string exPos, string vidName)
+        public void TrackVideoPlayInExhibitView(string exName, string exId, string vidName)
         {
             if (Disabled)
                 return;
@@ -232,7 +232,7 @@ namespace OneMSQFT.UILogic.Analytics
             {
                 ExhibitName = exName,
                 VideoName = vidName,
-                AppElement = TrackingContextData.AppElements.GeneratePlayVideoInEventData()
+                AppElement = TrackingContextData.AppElements.GeneratePlayVideoInExhibitData()
             };
 
             this.TrackEvents(evData, context);
@@ -263,6 +263,67 @@ namespace OneMSQFT.UILogic.Analytics
             {
                 ExhibitName = exName,
                 AppElement = TrackingContextData.AppElements.GeneratePinExhibitData(exName)
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackUnPinEventInteraction(string evName)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                EventName = evName,
+                AppElement = TrackingContextData.AppElements.GenerateUnPinEventData(evName)
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackUnPinExhibitInteraction(string exName)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                ExhibitName = exName,
+                AppElement = TrackingContextData.AppElements.GenerateUnPinExhibitData(exName)
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackNextExhibitInteraction( string exTo)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                ExhibitName = exTo,
+                AppElement = TrackingContextData.AppElements.GenerateClickNextExhibitData(exTo)
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackShareEventInteraction(string evName, int? sqFootage, int? evPos, string shareUrl, string appName)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                EventName = evName,
+                EventSqFt = sqFootage,                
+                AppElement = TrackingContextData.AppElements.GenerateShareEventElement(evPos, appName, shareUrl)
             };
 
             this.TrackEvents(evData, context);

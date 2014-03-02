@@ -58,6 +58,7 @@ namespace OneMSQFT.WindowsStore.Views
                     _sharing = AppLocator.Current.SharingService;
                     var dataTransferManager = DataTransferManager.GetForCurrentView();
                     dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
+                    dataTransferManager.TargetApplicationChosen += DataTransferManagerTargetApplicationChosen;
                 }
             }
         }
@@ -74,32 +75,46 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
                 return;
             }
+            var ev = vm.SelectedEvent;
+            var evPos = vm.GetEventIndexById(ev.Id);
             Uri uri = null;
             if (VideoPopup.IsOpen)
             {
-                var selectedMediaContentSource = ((MediaContentSourceItemViewModel)FlipViewer.SelectedItem);
+                var selectedMediaContentSource = FlipViewer.SelectedItem as MediaContentSourceItemViewModel;
                 if (selectedMediaContentSource == null || !_sharing.TryGetVideoShareUri(selectedMediaContentSource.Media, out uri))
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
                     return;
                 }
-                args.Request.Data.Properties.Title = String.Format(Strings.SharingTitleVideoFromEventFormat, vm.SelectedEvent.Name);
-                args.Request.Data.Properties.Description = vm.SelectedEvent.Description;
+                args.Request.Data.Properties.Title = String.Format(Strings.SharingTitleVideoFromEventFormat, ev.Name);
+                args.Request.Data.Properties.Description = ev.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
                 args.Request.Data.SetWebLink(uri);
             }
             else
             {
-                if (!_sharing.TryGetEventShareUri(vm.SelectedEvent.Event, out uri))
+                if (!_sharing.TryGetEventShareUri(ev.Event, out uri))
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
                     return;
                 }
-                args.Request.Data.Properties.Title = vm.SelectedEvent.Name;
-                args.Request.Data.Properties.Description = vm.SelectedEvent.Description;
+                args.Request.Data.Properties.Title = ev.Name;
+                args.Request.Data.Properties.Description = ev.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
                 args.Request.Data.SetWebLink(uri);
+                _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackShareEventInteraction(ev.Name,
+                    ev.SquareFootage, evPos, uri.AbsoluteUri, appName);
             }
+        }
+
+        private Action<String> _targetApplicationChosenDelegate;
+        void DataTransferManagerTargetApplicationChosen(DataTransferManager sender, TargetApplicationChosenEventArgs args)
+        {
+            if (_targetApplicationChosenDelegate == null)
+                return;
+            _targetApplicationChosenDelegate(args.ApplicationName);
+            //unwire and reset the delegate
+            _targetApplicationChosenDelegate = null;
         }
 
         #endregion
@@ -129,7 +144,7 @@ namespace OneMSQFT.WindowsStore.Views
                 }
                 else
                 {
-                  //  VisualStateManager.GoToState(this, "FullScreenPortrait", true);
+                    //  VisualStateManager.GoToState(this, "FullScreenPortrait", true);
                 }
             }
         }
@@ -229,7 +244,6 @@ namespace OneMSQFT.WindowsStore.Views
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
             var theApp = AppLocator.Current;
-            var context = new TrackingContextData();
             if (e.SourceItem.Item != null && e.IsSourceZoomedInView == false)
             {
                 if (_semanticZoomClosedFromTopAppBarEvent)
@@ -239,8 +253,9 @@ namespace OneMSQFT.WindowsStore.Views
                 else
                 {
                     //Track event selection
-                    var ev = this.GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent;
-                    theApp.Analytics.TrackTimelineSemanticZoomEventInteraction(ev.Name, ev.SquareFootage, ev.Id);
+                    var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
+                    var ev = vm.SelectedEvent;
+                    theApp.Analytics.TrackTimelineSemanticZoomEventInteraction(ev.Name, ev.SquareFootage, vm.TimeLineItems.IndexOf(ev));
 
                     ScrollToEventById(((EventItemViewModel)e.SourceItem.Item).Id);
                 }
@@ -321,10 +336,11 @@ namespace OneMSQFT.WindowsStore.Views
             if (!VideoPopup.IsOpen)
             {
                 //track video plays
-                var ev = this.GetDataContextAsViewModel<TimelinePageViewModel>().SelectedEvent;
-                var mediaItem = (MediaContentSourceItemViewModel)FlipViewer.SelectedItem;
-                if (mediaItem != null)
-                    AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Media.VideoId, ev.SquareFootage, ev.Id);
+                var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
+                var ev = vm.SelectedEvent;
+                var mediaItem = FlipViewer.SelectedItem as MediaContentSourceItemViewModel;
+                if (ev != null && mediaItem != null)
+                    AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Media.VideoId, ev.SquareFootage, vm.GetEventIndexById(ev.Id));
 
                 VideoPopup.IsOpen = true;
                 VideoPlayerUserControl.SelectedMediaContentSource = ((MediaContentSourceItemViewModel)FlipViewer.SelectedItem);
@@ -374,14 +390,15 @@ namespace OneMSQFT.WindowsStore.Views
 
             var vm = GetDataContextAsViewModel<IBasePageViewModel>();
             var args = vm.GetSecondaryTileArguments();
-            
-            //track Event pinning interaction
             var analytics = AppLocator.Current.Analytics;
-            if (analytics != null) 
-                analytics.TrackPinEventInteraction(args.DisplayName);
+
 
             if (SecondaryTile.Exists(args.Id))
             {
+                //track Event unpinning interaction
+                if (analytics != null)
+                    analytics.TrackUnPinEventInteraction(args.DisplayName);
+
                 var secondaryTile = new SecondaryTile(args.Id);
                 bool isUnpinned = await secondaryTile.RequestDeleteForSelectionAsync(GetElementRect((FrameworkElement)sender));
                 ToggleAppBarButton(PinButton, isUnpinned);
@@ -389,6 +406,9 @@ namespace OneMSQFT.WindowsStore.Views
             else
             {
                 var square150x150Logo = await RenderPinningLogo(150, 150);
+                //track Event pinning interaction
+                if (analytics != null)
+                    analytics.TrackPinEventInteraction(args.DisplayName);
 
                 var secondaryTile = new SecondaryTile(args.Id,
                     args.DisplayName,
@@ -411,7 +431,7 @@ namespace OneMSQFT.WindowsStore.Views
                 // The display of the secondary tile name can be controlled for each tile size.
                 // The default is false.                
                 secondaryTile.VisualElements.ShowNameOnSquare150x150Logo = false;
-                secondaryTile.VisualElements.ShowNameOnWide310x150Logo = false;                
+                secondaryTile.VisualElements.ShowNameOnWide310x150Logo = false;
 
                 bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
                 ToggleAppBarButton(PinButton, !isPinned);

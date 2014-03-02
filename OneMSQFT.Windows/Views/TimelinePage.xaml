@@ -512,7 +512,7 @@
 
         <DataTemplate x:Key="TimelineExhibitTemplate">
             <Button Style="{StaticResource EventGalleryButtonStyle}"
-                    CommandParameter="{Binding Id}" 
+                    CommandParameter="{Binding}" 
                     Command="{Binding DataSource.ExhibitItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                     BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
 					BorderThickness="5,0,0,5">
