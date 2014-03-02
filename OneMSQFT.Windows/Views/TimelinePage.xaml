@@ -533,26 +533,22 @@
 					    Stretch="UniformToFill"/>
                     </Border>
                     <Rectangle Fill="{StaticResource OneMSQFTOverlayBgBrush}"/>
-                    <TextBlock Margin="0,40,0,0"
-					    FontSize="42"
-					    Height="Auto"
-					    Text="{Binding SquareFootageString}"
-					    TextWrapping="NoWrap"
-                        TextAlignment="Center"
-					    TextTrimming="WordEllipsis" VerticalAlignment="Top"
-					    Foreground="{StaticResource OneMSQFTWhiteBrush}" 
-                        FontFamily="Segoe UI Light" FontWeight="Light">
-                    </TextBlock>
-                    <TextBlock Text="{Binding Name}"
-                        VerticalAlignment="Bottom"
-					    Margin="0,0,0,65"
-					    FontSize="20"
-					    TextTrimming="CharacterEllipsis"
-					    TextWrapping="NoWrap"
-                        TextAlignment="Center"
-					    Foreground="{StaticResource OneMSQFTWhiteBrush}" 
-                        FontFamily="Segoe UI Light" FontWeight="Light">
-                    </TextBlock>
+                    <RichTextBlock TextWrapping="NoWrap" 
+                                   TextAlignment="Center"
+                                   TextTrimming="CharacterEllipsis" 
+                                   Foreground="White" Margin="40"
+                                   FontFamily="Segoe UI Light"
+                                   FontWeight="Light"
+                                   VerticalAlignment="Center"
+                                   IsTextSelectionEnabled="False">
+                        <Paragraph>
+                            <Run Text="{Binding SquareFootageString}" 
+                                 FontSize="{Binding DataSource.MediumLargeFlexyFontSize, Source={StaticResource DataContextProxy}}"/>
+                            <LineBreak/>
+                            <Run Text="{Binding Name}"
+					             FontSize="{Binding DataSource.SmallFlexyFontSize, Source={StaticResource DataContextProxy}}"/>
+                        </Paragraph>
+                    </RichTextBlock>
                 </Grid>
             </Button>
         </DataTemplate>
@@ -574,26 +570,20 @@
                             <SolidColorBrush Color="{Binding ElementName=GridView, Path=DataContext.EventColor}"/>
                         </Border.Background>
                     </Border>
-                    <StackPanel Margin="0" Orientation="Vertical" VerticalAlignment="Center">
-                        <TextBlock
-    			            FontSize="40"
-    			            Text="show"
-    			            TextWrapping="NoWrap"
-    			            TextAlignment="Center"
-    			            Foreground="white" 
-    			            FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
-				            Margin="0,0,0,0" 
-                            LineHeight="36"/>
-                        <TextBlock
-    			            FontSize="40"
-    			            Text="more"
-    			            TextWrapping="NoWrap"
-    			            TextAlignment="Center"
-    			            Foreground="white" 
-    			            FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
-				            Margin="0,0,0,0" 
-                            LineHeight="36"/>
-                    </StackPanel>
+                    <RichTextBlock FontSize="{Binding DataSource.MediumLargeFlexyFontSize, Source={StaticResource DataContextProxy}}"
+                                   TextWrapping="NoWrap" 
+                                   Foreground="White" 
+                                   TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontWeight="Light"
+                                   FontFamily="Segoe UI Light"
+                                   IsTextSelectionEnabled="False">
+                        <Paragraph LineStackingStrategy="BlockLineHeight" LineHeight="{Binding DataSource.MediumLargeFlexyTightLeading, Source={StaticResource DataContextProxy}}">
+                            <Run Text="{Binding Strings.show, Source={StaticResource PortableStrings}}" />
+                            <LineBreak/>
+                            <Run Text="{Binding Strings.more, Source={StaticResource PortableStrings}}" />
+                        </Paragraph>
+                    </RichTextBlock>
                 </Grid>
             </Button>
         </DataTemplate>
@@ -717,15 +707,18 @@
                             <RowDefinition Height="319*"/>
                         </Grid.RowDefinitions>
                         <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
-						TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
-						Grid.Row="1">
-                            <Paragraph>
-                                <Run Text="{Binding SquareFootageStringPlain}" FontSize="60" />
-                                <LineBreak />
-                                <Run Text="{Binding Strings.SquareFeet, Source={StaticResource PortableStrings}}" FontSize="32" />
-                                <LineBreak />
-                                <Run Text="{Binding Name, Mode=OneWay}" FontSize="32" />
-                            </Paragraph>
+						    TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
+						    Grid.Row="1">
+                                <Paragraph>
+                                    <Run Text="{Binding SquareFootageStringPlain}" 
+                                         FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
+                                    <LineBreak />
+                                    <Run Text="{Binding Strings.SquareFeet, Source={StaticResource PortableStrings}}" 
+                                         FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
+                                    <LineBreak />
+                                    <Run Text="{Binding Name, Mode=OneWay}" 
+                                         FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
+                                </Paragraph>
                         </RichTextBlock>
 
 
@@ -736,9 +729,8 @@
 					        VerticalAlignment="Top">
                             <TextBlock Text="{Binding Description}"
 						        Foreground="White"
-						        FontSize="20"
+						        FontSize="{Binding DataSource.SmallFlexyFontSize, Source={StaticResource DataContextProxy}}"
                                 LineStackingStrategy="BlockLineHeight"
-                                LineHeight="24"
 						        TextWrapping="Wrap" 
 						        FontFamily="Segoe UI Light" 
 						        FontWeight="Light"/>

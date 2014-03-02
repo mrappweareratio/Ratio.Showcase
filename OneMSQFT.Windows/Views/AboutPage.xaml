@@ -56,7 +56,7 @@
                                             FontFamily="Segoe UI Light"
                                             FontWeight="Light"
                                             TextWrapping="Wrap"
-                                            FontSize="{Binding Panel1FontSize}"
+                                            FontSize="{Binding LargeFlexyFontSize}" 
                                             Width="{Binding Panel1TextWidth}"
                                             Foreground="{StaticResource OneMSQFTLogoDarkBlueBrush}" 
                                             HorizontalAlignment="Left" 
@@ -67,8 +67,8 @@
                     </Grid>
                         <Border Background="{StaticResource OneMSQFTLogoDarkBlueBrush}" Width="{Binding FullScreenWidth}" Grid.Column="2">
                         <Grid Margin="0">
-                            <RichTextBlock TextWrapping="Wrap" 
-                                FontSize="{Binding Panel2FontSize}"
+                            <RichTextBlock TextWrapping="Wrap"   
+                                FontSize="{Binding MediumFlexyFontSize}"   
                     			LineStackingStrategy="BlockLineHeight" 
                     			FontWeight="Light" 
                     			FontFamily="Segoe UI Light" 

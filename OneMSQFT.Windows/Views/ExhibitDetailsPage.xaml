@@ -256,7 +256,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Text="{Binding DataSource.Exhibit.SquareFootageString, Source={StaticResource DataContextProxy}}"
                     			   Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                    			   FontSize="60" 
+                    			   FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" 
                                    HorizontalAlignment="Left"
                     			   Margin="36,0,0,0" 
                                    Grid.Row="1" 
@@ -264,7 +264,7 @@
                                    FontWeight="Light"/>
                         <TextBlock Text="{Binding DataSource.Exhibit.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                     			    Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                    			    FontSize="32" 
+                    			    FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" 
                                     HorizontalAlignment="Left"
                     		    	TextWrapping="NoWrap" 
                                     TextTrimming="CharacterEllipsis"
@@ -284,9 +284,8 @@
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="{Binding DataSource.Exhibit.Description, Source={StaticResource DataContextProxy}}" Margin="16,0,20,20"
                                 		Foreground="{StaticResource OneMSQFTWhiteBrush}"
-                                		FontSize="20"
+                    			        FontSize="{Binding DataSource.SmallFlexyFontSize, Source={StaticResource DataContextProxy}}" 
                                         LineStackingStrategy="BlockLineHeight"
-                                        LineHeight="24"
                                 		TextWrapping="Wrap" 
                                 		FontFamily="Segoe UI Light" 
                                 		FontWeight="Light"/>
@@ -367,29 +366,18 @@
                                     <RowDefinition Height="5*"/>
                                 </Grid.RowDefinitions>
                                 <RichTextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,0,0,0" Grid.Row="1" >
-                                    <Paragraph  >
-                                        <Run Text="Next" FontSize="60" Foreground="White"
-                        				    FontFamily="Segoe UI Light" 
-                        				    FontWeight="Light"/>
+                                    <Paragraph Foreground="White" FontFamily="Segoe UI Light" FontWeight="Light" >
+                                        <Run Text="{Binding Strings.Next, Source={StaticResource PortableStrings}}" 
+                    			            FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
                                         <LineBreak/>
                                         <Run Text="{Binding DataSource.NextExhibit.SquareFootageString, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                        				    Foreground="White"
-                        				    FontSize="32" 
-                        				    FontFamily="Segoe UI Light" 
-                        				    FontWeight="Light"
-                                            />
+                    			            FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
                                         <LineBreak/>
                                         <Run Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" 
-                        				    Foreground="White"
-                        				    FontSize="32" 
-                        				    FontFamily="Segoe UI Light" 
-                        				    FontWeight="Light"/>
+                    			            FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}"/>
                                         <LineBreak/>
                                         <Run Text="{Binding DataSource.NextExhibit.Curator.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                        				    Foreground="White"
-                        				    FontSize="32" 
-                        				    FontFamily="Segoe UI Light" 
-                        				    FontWeight="Light" />
+                    			            FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
                                     </Paragraph>
                                 </RichTextBlock>
                             </Grid>

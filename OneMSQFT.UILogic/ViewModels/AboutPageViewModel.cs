@@ -129,6 +129,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public override void WindowSizeChanged(double width, double height)
         {
+            base.WindowSizeChanged(width, height);
             IsHorizontal = width > height;
             OnPropertyChanged("IsHorizontal");
 
@@ -140,9 +141,6 @@ namespace OneMSQFT.UILogic.ViewModels
             OnPropertyChanged("Panel2TextWidth");
             OnPropertyChanged("Panel1Margin");
             OnPropertyChanged("Panel2Margin");
-
-            OnPropertyChanged("Panel1FontSize");
-            OnPropertyChanged("Panel2FontSize");
         }
 
         #endregion

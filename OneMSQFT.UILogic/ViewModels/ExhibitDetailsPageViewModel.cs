@@ -189,20 +189,9 @@ namespace OneMSQFT.UILogic.ViewModels
             get { return FullScreenHeight * .275; } // approx one third (per comp)
         }
 
-        public Visibility ClearStartupVisibility
-        {
-            get { return _clearStartupVisibility; }
-            set { SetProperty(ref _clearStartupVisibility, value); }
-        }
-
-        public Visibility SetStartupVisibility
-        {
-            get { return _setStartupVisibility; }
-            set { SetProperty(ref _setStartupVisibility, value); }
-        }
-
         public override void WindowSizeChanged(double width, double height)
         {
+            base.WindowSizeChanged(width, height);
             IsHorizontal = width > height;
             OnPropertyChanged("IsHorizontal");
 
@@ -217,6 +206,8 @@ namespace OneMSQFT.UILogic.ViewModels
 
 
         #endregion
+
+        #region Pinning + Set Start Up
 
         private bool ClearStartupCommandCanExecuteMethod()
         {
@@ -252,7 +243,18 @@ namespace OneMSQFT.UILogic.ViewModels
             ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        #region Pinning
+
+        public Visibility ClearStartupVisibility
+        {
+            get { return _clearStartupVisibility; }
+            set { SetProperty(ref _clearStartupVisibility, value); }
+        }
+
+        public Visibility SetStartupVisibility
+        {
+            get { return _setStartupVisibility; }
+            set { SetProperty(ref _setStartupVisibility, value); }
+        }
 
         public override SecondaryTileArgs GetSecondaryTileArguments()
         {
