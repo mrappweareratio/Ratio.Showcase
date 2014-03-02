@@ -56,7 +56,7 @@
                                             FontFamily="Segoe UI Light"
                                             FontWeight="Light"
                                             TextWrapping="Wrap"
-                                            FontSize="60"
+                                            FontSize="{Binding Panel1FontSize}"
                                             Width="{Binding Panel1TextWidth}"
                                             Foreground="{StaticResource OneMSQFTLogoDarkBlueBrush}" 
                                             HorizontalAlignment="Left" 
@@ -68,8 +68,7 @@
                         <Border Background="{StaticResource OneMSQFTLogoDarkBlueBrush}" Width="{Binding FullScreenWidth}" Grid.Column="2">
                         <Grid Margin="0">
                             <RichTextBlock TextWrapping="Wrap" 
-                    			FontSize="30" 
-                    			LineHeight="38" 
+                                FontSize="{Binding Panel2FontSize}"
                     			LineStackingStrategy="BlockLineHeight" 
                     			FontWeight="Light" 
                     			FontFamily="Segoe UI Light" 
@@ -90,7 +89,7 @@
                             </RichTextBlock>
 
                             <Canvas x:Name="windows8_logo" HorizontalAlignment="Right"
-                                    VerticalAlignment="Bottom" Margin="0,0,90,40" 
+                                    VerticalAlignment="Bottom" Margin="0,0,120,40" 
                                     UseLayoutRounding="True" Width="172" Height="50">
                                 <Canvas Margin="0">
                                     <Path Data="F1M26.551,0L21.156,19.992 17.463,19.992 13.715,6.009C13.559,5.414,13.463,4.763,13.427,4.057L13.372,4.057C13.326,4.717,13.216,5.358,13.042,5.981L9.281,19.992 5.505,19.992 0,0 3.584,0 7.153,14.639C7.299,15.252,7.391,15.893,7.427,16.562L7.496,16.562C7.532,16.088,7.661,15.447,7.88,14.639L11.917,0 15.28,0 19.014,14.75C19.142,15.252,19.238,15.847,19.302,16.535L19.357,16.535C19.385,16.07,19.49,15.456,19.673,14.694L23.174,0z" Fill="White" Height="19.992" Canvas.Left="42.71" Stretch="None" Canvas.Top="6.81" Width="26.551"/>

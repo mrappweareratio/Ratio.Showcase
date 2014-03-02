@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.Graphics.Display;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.StartScreen;
@@ -308,16 +309,10 @@ namespace OneMSQFT.WindowsStore.Views
 
         #endregion
 
-        protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
-        {
-            ProcessWindowSizeChangedEvent();
-            base.WindowSizeChanged(sender, e);
-        }
+        #region resizing
 
-        private void ProcessWindowSizeChangedEvent()
-        {
-            GetDataContextAsViewModel<ITimelinePageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-        }
+
+        #endregion
 
         #region MediaViewer
 

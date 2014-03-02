@@ -46,5 +46,18 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             return Task.FromResult<SecondaryTileImages>(null);
         }
+
+        #region resizing
+
+        private const int BaseDesignWidth = 1366;
+        protected double GetWidthDelta()
+        {
+            var width = Window.Current.Bounds.Width;
+            var widthDelta = BaseDesignWidth/width;
+            return widthDelta;
+        }
+
+
+        #endregion
     }
 }
