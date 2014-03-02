@@ -69,6 +69,11 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get { return Convert.ToInt16(MediumBaseFontSize / GetWidthDelta()); }
         }
+        private const double MediumSmallBaseFontSize = 24;
+        public double MediumSmallFlexyFontSize
+        {
+            get { return Convert.ToInt16(MediumSmallBaseFontSize / GetWidthDelta()); }
+        }
         private const double SmallBaseFontSize = 20;
         public double SmallFlexyFontSize
         {
@@ -87,6 +92,7 @@ namespace OneMSQFT.UILogic.ViewModels
             OnPropertyChanged("MediumLargeFlexyFontSize");
             OnPropertyChanged("MediumLargeFlexyTightLeading");
             OnPropertyChanged("MediumFlexyFontSize");
+            OnPropertyChanged("MediumSmallFlexyFontSize");
             OnPropertyChanged("SmallFlexyFontSize");
         }
 

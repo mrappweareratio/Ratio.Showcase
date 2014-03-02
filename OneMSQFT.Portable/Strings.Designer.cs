@@ -269,7 +269,7 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to since December 2013.
+        ///   Looks up a localized string similar to  since December 2013.
         /// </summary>
         public static string Since {
             get {

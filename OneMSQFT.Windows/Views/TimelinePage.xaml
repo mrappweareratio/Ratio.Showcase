@@ -597,26 +597,23 @@
                 <Border.Background>
                     <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
                 </Border.Background>
-                <Grid>
-                    <StackPanel Margin="0" Orientation="Vertical" VerticalAlignment="Center">
-                        <TextBlock
-    			            FontSize="40"
-    			            Text="{Binding SquareFootageString}"
-    			            TextWrapping="NoWrap"
-    			            TextAlignment="Center"
-    			            Foreground="white" 
-    			            FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
-				            Margin="0,0,0,0" LineHeight="36"/>
-                        <TextBlock
-    			            FontSize="20"
-    			            Text="{Binding Name, Mode=OneWay}"
-    			            TextWrapping="NoWrap"
-    			            TextAlignment="Center"
-    			            Foreground="white" 
-    			            FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
-				            Margin="0,0,0,0" LineHeight="36"/>
-                    </StackPanel>
-                </Grid>
+                <RichTextBlock Foreground="White" 
+                               FontWeight="Light" 
+                               FontFamily="Segoe UI Light" 
+                               TextAlignment="Center"
+                               Margin="40"
+                               VerticalAlignment="Center"
+                               IsTextSelectionEnabled="False"
+                               TextTrimming="CharacterEllipsis" 
+                               TextWrapping="NoWrap">
+                    <Paragraph>
+                        <Run Text="{Binding SquareFootageString, Mode=OneWay}"
+                             FontSize="{Binding DataSource.MediumLargeFlexyFontSize, Source={StaticResource DataContextProxy}}"/>
+                        <LineBreak/>
+                        <Run Text="{Binding Name, Mode=OneWay}"
+                             FontSize="{Binding DataSource.SmallFlexyFontSize, Source={StaticResource DataContextProxy}}"/>
+                    </Paragraph>
+                </RichTextBlock>
             </Border>
         </DataTemplate>
 
@@ -629,13 +626,13 @@
                 Padding="5">
                 <Grid>
                     <TextBlock Text="{Binding Strings.ComingSoon, Source={StaticResource PortableStrings}}"
-    				    FontSize="24"
+    				    FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}"
                         Foreground="{StaticResource OneMSQFTAppBarAccentGrayBrush}"
                         FontWeight="Light"
     				    Margin="0" 
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-                        FontFamily="Segoe UI"/>
+                        FontFamily="Segoe UI Light"/>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -833,10 +830,16 @@
                 </TransitionCollection>
             </Grid.ChildrenTransitions>
             <Grid x:Name="LogoGrid" Margin="0" Visibility="Collapsed">
-                <StackPanel Margin="0,0,36,4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding TotalSquareFeet, Mode=OneWay}" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTLogoDarkBlueBrush}" FontSize="40" Margin="0,0,13,6" FontFamily="Segoe UI Light" FontWeight="Light"/>
-                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Strings.Since, Source={StaticResource PortableStrings}}" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTSinceTextGray}" FontSize="24" Margin="0,0,0,10" FontFamily="Segoe UI Light" FontWeight="Light"/>
-                </StackPanel>
+                <RichTextBlock Margin="0,0,40,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" TextWrapping="NoWrap" IsColorFontEnabled="True" IsTextSelectionEnabled="False" FontWeight="Light" FontFamily="Segoe UI Light">
+                    <Paragraph>
+                        <Run Text="{Binding TotalSquareFeet, Mode=OneWay}" 
+                             Foreground="{StaticResource OneMSQFTLogoDarkBlueBrush}"
+                             FontSize="{Binding MediumLargeFlexyFontSize}"/>
+                        <Run Text="{Binding Strings.Since, Source={StaticResource PortableStrings}}" 
+                             Foreground="{StaticResource OneMSQFTSinceTextGray}"
+                             FontSize="{Binding MediumSmallFlexyFontSize}" />
+                    </Paragraph>
+                </RichTextBlock>
                 <omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,38,0,0"/>
             </Grid>
             <SemanticZoom x:Name="semanticZoom" Background="{x:Null}"

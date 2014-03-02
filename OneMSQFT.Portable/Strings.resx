@@ -136,7 +136,7 @@
     <value>show</value>
   </data>
   <data name="Since" xml:space="preserve">
-    <value>since December 2013</value>
+    <value> since December 2013</value>
   </data>
   <data name="SqftFormat" xml:space="preserve">
     <value>{0} sqft</value>
