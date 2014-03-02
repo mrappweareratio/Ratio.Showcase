@@ -42,13 +42,18 @@ namespace OneMSQFT.UILogic.ViewModels
 
         #region resizing
 
-        private const int BaseDesignWidth = 1366;
+        private const int BaseDesignLandscapeWidth = 1366;
+        private const int BaseDesignPortraitWidth = 768;
         protected double GetWidthDelta()
         {
-            if (!IsHorizontal) return 1; // don't change fonts if screen is in Portrait Mode
-            var width = Window.Current.Bounds.Width;
-            var widthDelta = BaseDesignWidth/width;
-            return widthDelta;
+            if (IsHorizontal)
+            {
+                return BaseDesignLandscapeWidth / Window.Current.Bounds.Width;
+            }
+            else
+            {
+                return BaseDesignPortraitWidth / Window.Current.Bounds.Width;
+            }
         }
 
         private const double LargeBaseFontSize = 60;

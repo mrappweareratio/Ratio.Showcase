@@ -361,19 +361,24 @@
                                     <RowDefinition Height="1*"/>
                                     <RowDefinition Height="5*"/>
                                 </Grid.RowDefinitions>
-                                <RichTextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38,0,0,0" Grid.Row="1" >
-                                    <Paragraph Foreground="White" FontFamily="Segoe UI Light" FontWeight="Light" >
+                                <RichTextBlock HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                               Margin="38,0,0,0" 
+                                               Grid.Row="1" Foreground="White" 
+                                               FontFamily="Segoe UI Light" FontWeight="Light" 
+                    			               FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" >
+                                    <Paragraph>
                                         <Run Text="{Binding Strings.Next, Source={StaticResource PortableStrings}}" 
                     			            FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
                                         <LineBreak/>
-                                        <Run Text="{Binding DataSource.NextExhibit.SquareFootageString, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                    			            FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
+                                        <Run Text="{Binding DataSource.NextExhibit.SquareFootageString, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
                                         <LineBreak/>
-                                        <Run Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" 
-                    			            FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}"/>
+                                        <Run Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" />
                                         <LineBreak/>
-                                        <Run Text="{Binding DataSource.NextExhibit.Curator.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                    			            FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
+                                        <InlineUIContainer>
+                                            <Grid Margin="0,6,0,0">
+                                                <TextBlock Text="{Binding DataSource.NextExhibit.Curator.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}"  />
+                                            </Grid>
+                                        </InlineUIContainer>
                                     </Paragraph>
                                 </RichTextBlock>
                             </Grid>
@@ -499,7 +504,12 @@
                                         <LineBreak/>
                                         <Run Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" />
                                         <LineBreak/>
-                                        <Run Text="{Binding DataSource.NextExhibit.Curator.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}"  />
+                                        <InlineUIContainer>
+                                            <Grid Margin="0,6,0,0">
+                                                <TextBlock Text="{Binding DataSource.NextExhibit.Curator.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}"  />
+
+                                            </Grid>
+                                        </InlineUIContainer>
                                     </Paragraph>
                                 </RichTextBlock>
                             </Grid>
