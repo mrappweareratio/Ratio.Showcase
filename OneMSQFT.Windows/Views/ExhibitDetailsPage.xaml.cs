@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
@@ -205,6 +206,7 @@ namespace OneMSQFT.WindowsStore.Views
         #endregion
 
         #region Pinning
+
         private async void Pin_OnClick(object sender, RoutedEventArgs e)
         {
             BottomAppBar.IsSticky = true;
@@ -303,16 +305,13 @@ namespace OneMSQFT.WindowsStore.Views
 
         #endregion
 
-        void MediaListViewScrollViewerHorizontal_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        private void MediaListViewScrollViewerHorizontal_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
-            var hsv = ((ScrollViewer)sender);
-            hsv.HorizontalSnapPointsAlignment = hsv.HorizontalOffset * 2 > hsv.ScrollableWidth ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
-        }
-
-        void MediaListViewScrollViewerVertical_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
-        {
-            var vsv = ((ScrollViewer)sender);
-            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset * 2 > vsv.ScrollableHeight + 1 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
+            var hsv = ((ScrollViewer) sender);
+            hsv.HorizontalSnapPointsAlignment = hsv.HorizontalOffset*2 > hsv.ScrollableWidth
+                ? SnapPointsAlignment.Far
+                : SnapPointsAlignment.Near;
         }
     }
 }
+

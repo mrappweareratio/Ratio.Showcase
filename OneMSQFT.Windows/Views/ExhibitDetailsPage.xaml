@@ -561,10 +561,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="GridView">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                            <ScrollViewer ViewChanging="MediaListViewScrollViewerVertical_ViewChanging" 
-                                          VerticalSnapPointsAlignment="Near" 
-                                          VerticalSnapPointsType="Mandatory" 
-                                          VerticalScrollMode="Enabled" 
+                            <ScrollViewer VerticalScrollMode="Enabled" 
                                           VerticalScrollBarVisibility="Auto" 
                                           IsVerticalRailEnabled="True" 
                                           IsVerticalScrollChainingEnabled="True" 
@@ -573,6 +570,7 @@
                                           HorizontalScrollBarVisibility="Disabled" 
                                           HorizontalScrollMode="Disabled" 
                                           ZoomMode="Disabled"
+                                          
                                           TabNavigation="{TemplateBinding TabNavigation}">
                                 <ItemsPresenter HeaderTemplate="{TemplateBinding HeaderTemplate}" Header="{TemplateBinding Header}" HeaderTransitions="{TemplateBinding HeaderTransitions}" Padding="{TemplateBinding Padding}"/>
                             </ScrollViewer>
