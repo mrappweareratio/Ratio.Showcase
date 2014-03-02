@@ -130,7 +130,6 @@ namespace OneMSQFT.UILogic.ViewModels
         public override void WindowSizeChanged(double width, double height)
         {
             base.WindowSizeChanged(width, height);
-            IsHorizontal = width > height;
             OnPropertyChanged("IsHorizontal");
 
             OnPropertyChanged("FullScreenWidth");

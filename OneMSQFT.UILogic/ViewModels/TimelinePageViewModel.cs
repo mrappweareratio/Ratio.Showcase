@@ -187,9 +187,9 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        public double FullScreenWidth { get; set; }
+        public double FullScreenWidth { get { return Window.Current.Bounds.Width; } }
 
-        public double FullScreenHeight { get; set; }
+        public double FullScreenHeight { get { return Window.Current.Bounds.Height; } }
 
         public double ExhibitItemWidth
         {
@@ -211,9 +211,6 @@ namespace OneMSQFT.UILogic.ViewModels
         public override void WindowSizeChanged(double width, double height)
         {
             base.WindowSizeChanged(width, height);
-            FullScreenHeight = height;
-            FullScreenWidth = width;
-            IsHorizontal = width > height;
             OnPropertyChanged("IsHorizontal");
 
             OnPropertyChanged("ZoomedOutGridHeight");

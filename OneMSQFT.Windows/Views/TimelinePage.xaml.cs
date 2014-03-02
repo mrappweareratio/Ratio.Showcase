@@ -39,8 +39,6 @@ namespace OneMSQFT.WindowsStore.Views
             Loaded += TimelinePage_Loaded;
 
             var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
-            vm.FullScreenHeight = Window.Current.Bounds.Height;
-            vm.FullScreenWidth = Window.Current.Bounds.Width;
             vm.PropertyChanged += TimelinePage_PropertyChanged;
             vm.PinContextChanged += VmOnPinContextChanged;
 

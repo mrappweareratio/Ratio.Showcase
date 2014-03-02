@@ -45,6 +45,7 @@ namespace OneMSQFT.UILogic.ViewModels
         private const int BaseDesignWidth = 1366;
         protected double GetWidthDelta()
         {
+            if (!IsHorizontal) return 1; // don't change fonts if screen is in Portrait Mode
             var width = Window.Current.Bounds.Width;
             var widthDelta = BaseDesignWidth/width;
             return widthDelta;
@@ -79,11 +80,9 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get { return Convert.ToInt16(SmallBaseFontSize / GetWidthDelta()); }
         }
-        private Boolean _isHorizontal;
         public Boolean IsHorizontal
         {
-            get { return _isHorizontal; }
-            set { SetProperty(ref _isHorizontal, value); }
+            get { return Window.Current.Bounds.Width > Window.Current.Bounds.Height; }
         }
 
         public virtual void WindowSizeChanged(double width, double height)
