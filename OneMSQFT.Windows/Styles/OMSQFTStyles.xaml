@@ -45,25 +45,25 @@
                             <Border.Background>
                                 <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
                             </Border.Background>
+                            
                             <Grid Height="192" Width="330" Margin="0">
-                                <StackPanel Margin="0" Orientation="Vertical" VerticalAlignment="Center">
-                                    <TextBlock
-    			                        FontSize="40"
-    			                        Text="{Binding SquareFootageString}"
-    			                        TextWrapping="NoWrap"
-    			                        TextAlignment="Center"
-    			                        Foreground="white" 
-    			                        FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
-				                        Margin="0,0,0,0" LineHeight="36"/>
-                                    <TextBlock
-    			                        FontSize="20"
-    			                        Text="{Binding Name, Mode=OneWay}"
-    			                        TextWrapping="NoWrap"
-    			                        TextAlignment="Center"
-    			                        Foreground="white" 
-    			                        FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
-				                        Margin="0,0,0,0" LineHeight="36"/>
-                                </StackPanel>
+                                <RichTextBlock Foreground="White" 
+                               FontWeight="Light" 
+                               FontFamily="Segoe UI Light" 
+                               TextAlignment="Center"
+                               Margin="40,40,40,60"
+                               VerticalAlignment="Center"
+                               IsTextSelectionEnabled="False"
+                               TextTrimming="CharacterEllipsis" 
+                               TextWrapping="NoWrap">
+                                    <Paragraph>
+                                        <Run Text="{Binding SquareFootageString, Mode=OneWay}"
+                                             FontSize="42"/>
+                                        <LineBreak/>
+                                        <Run Text="{Binding Name, Mode=OneWay}"
+                                             FontSize="20"/>
+                                    </Paragraph>
+                                </RichTextBlock>
                                 <Rectangle Fill="{StaticResource OneMSQFTBlackBrush}"
                                            Opacity=".5" 
                                            Height="20" Width="Auto" 
