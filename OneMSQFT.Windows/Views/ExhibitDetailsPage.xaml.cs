@@ -245,7 +245,9 @@ namespace OneMSQFT.WindowsStore.Views
                 // The display of the secondary tile name can be controlled for each tile size.
                 // The default is false.                
                 secondaryTile.VisualElements.ShowNameOnSquare150x150Logo = false;
-                secondaryTile.VisualElements.ShowNameOnWide310x150Logo = false;         
+                secondaryTile.VisualElements.ShowNameOnWide310x150Logo = false;
+
+                secondaryTile.RoamingEnabled = true;
 
                 bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
                 ToggleAppBarButton(PinButton, !isPinned);

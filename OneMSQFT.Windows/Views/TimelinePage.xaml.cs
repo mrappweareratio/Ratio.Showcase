@@ -476,6 +476,8 @@ namespace OneMSQFT.WindowsStore.Views
                 secondaryTile.VisualElements.ShowNameOnSquare150x150Logo = false;
                 secondaryTile.VisualElements.ShowNameOnWide310x150Logo = false;
 
+                secondaryTile.RoamingEnabled = true;
+
                 bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
                 ToggleAppBarButton(PinButton, !isPinned);
             }
