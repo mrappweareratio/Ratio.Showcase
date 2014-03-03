@@ -157,17 +157,31 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public double BufferItemWidth
         {
-            get
-            {
-                return EventItemWidth / 2;
-            }
+            get { return IsHorizontal ? EventItemWidth / 2 : FullScreenWidth; }
+        }
+
+        public double BufferItemHeight
+        {
+            get { return IsHorizontal ? FullScreenHeight : FullScreenHeight / 4; }
         }
 
         public double MaskItemWidth
         {
             get
             {
-                return ((FullScreenWidth - EventItemWidth) / 2) + 1;
+                return IsHorizontal
+                    ? ((FullScreenWidth - EventItemWidth) / 2) + 1
+                    : FullScreenWidth;
+            }
+        }
+
+        public double MaskItemHeight
+        {
+            get
+            {
+                return IsHorizontal
+                    ? FullScreenHeight
+                    : ((FullScreenHeight - EventItemHeight) / 2) + 1;
             }
         }
 
@@ -175,7 +189,9 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return FullScreenWidth * .9;
+                return IsHorizontal
+                    ? FullScreenWidth*.9
+                    : FullScreenWidth;
             }
         }
 
@@ -183,7 +199,9 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return FullScreenHeight;
+                return IsHorizontal
+                    ? FullScreenHeight
+                    : FullScreenHeight*.9;
             }
         }
 
@@ -218,6 +236,7 @@ namespace OneMSQFT.UILogic.ViewModels
             OnPropertyChanged("ZoomedOutItemHeight");
             OnPropertyChanged("BufferItemWidth");
             OnPropertyChanged("MaskItemWidth");
+            OnPropertyChanged("MaskItemHeight");
             OnPropertyChanged("EventItemWidth");
             OnPropertyChanged("EventItemHeight");
             OnPropertyChanged("FullScreenHeight");
