@@ -3,17 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OneMSQFT.Common.Models;
 
 namespace OneMSQFT.Common.Services
 {
-    public interface IInternetConnection
-    {
-        bool IsConnected();
-        event EventHandler InternetConnectionChanged;
+    public interface IInternetConnectionService : IInternetConnection
+    {        
+        event EventHandler<IInternetConnection> InternetConnectionChanged;
     }
 
-    public class InternetConnectionChangedEventArgs : EventArgs
+    public interface IInternetConnection
+    {
+        bool IsConnected { get; }
+        ICostGuidance CostGuidance { get; }        
+    }
+
+    public class InternetConnectionChangedEventArgs : EventArgs, IInternetConnection
     {
         public bool IsConnected { get; set; }
+        public ICostGuidance CostGuidance { get; set; }
     }
+
+    public enum NetworkCost { Normal, Conservative, OptIn };
+
+    public interface ICostGuidance
+    {
+        NetworkCost Cost { get; }
+        String Reason { get; }
+    }
+
 }

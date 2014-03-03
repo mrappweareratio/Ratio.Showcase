@@ -20,7 +20,7 @@ namespace OneMSQFT.UILogic.Tests.Services
         {
             this.Repository = new ApiDataRepository(new ApiConfiguration());
             this.Cache = new DataCacheService();
-            this.Internet = new MockInternetConnectionService() {IsConnectedDelegate = () => true};
+            this.Internet = new MockInternetConnectionService(true);
             this.DataService = new DataService(Repository, Cache, Internet);                
             await Cache.InvalidateDataAsync("site_data");
         }

@@ -17,10 +17,10 @@ namespace OneMSQFT.UILogic.Services
         private readonly Dictionary<string, object> _memDictionary = new Dictionary<string, object>();
         private readonly IDataRepository _repository;
         private readonly IDataCacheService _cache;
-        private readonly IInternetConnection _internetConnection;
+        private readonly IInternetConnectionService _internetConnection;
         private bool isConnected = false;
 
-        public DataService(IDataRepository repository, IDataCacheService cache, IInternetConnection connection)
+        public DataService(IDataRepository repository, IDataCacheService cache, IInternetConnectionService connection)
         {
             _repository = repository;
             _cache = cache;
@@ -30,16 +30,14 @@ namespace OneMSQFT.UILogic.Services
 
         private void Initialize()
         {
-            if (_internetConnection != null)
-            {
-                isConnected = _internetConnection.IsConnected();
-                _internetConnection.InternetConnectionChanged += OnInternetConnectionChanged;
-            }
+            if (_internetConnection == null) return;
+            isConnected = _internetConnection.IsConnected;
+            _internetConnection.InternetConnectionChanged += OnInternetConnectionChanged;
         }
 
-        private void OnInternetConnectionChanged(object sender, EventArgs eventArgs)
+        private void OnInternetConnectionChanged(object sender, IInternetConnection internetConnection)
         {
-            isConnected = _internetConnection.IsConnected();
+            isConnected = _internetConnection.IsConnected;
         }
 
         public async Task<IEnumerable<Event>> GetEvents()

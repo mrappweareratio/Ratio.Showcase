@@ -121,8 +121,7 @@ namespace OneMSQFT.UILogic.Tests
                 }
             };
             var analytics = new MockAnalyticsService();
-            var dataService = new DataService(new DemoDataRepository(), new MockDataCacheService(),
-                new MockInternetConnectionService() { IsConnectedDelegate = () => true });
+            var dataService = new DataService(new DemoDataRepository(), new MockDataCacheService(), new MockInternetConnectionService(true));
             var app = new OneMsqftApplication(navigationService, dataService, new MockConfigurationService(), analytics, new MockAlertMessageService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
             autoResetEvent.WaitOne(1500);

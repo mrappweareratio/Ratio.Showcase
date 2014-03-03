@@ -126,6 +126,7 @@
     <Compile Include="OneMsqftApplicationFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AnalyticsServiceFixture.cs" />
+    <Compile Include="Services\InternetConnectionServiceFixture.cs" />
     <Compile Include="Services\LiveDataServiceFixture.cs" />
     <Compile Include="Services\ConfigurationServiceFixture.cs" />
     <Compile Include="Services\DataCacheServiceFixture.cs" />

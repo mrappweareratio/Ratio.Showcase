@@ -19,13 +19,10 @@ namespace OneMSQFT.UILogic.Tests.Services
         [TestInitialize]
         public void Init()
         {
-            this.InternetConnection = new MockInternetConnectionService
-            {
-                IsConnectedDelegate = () => true
-            };
+            this.InternetConnection = new MockInternetConnectionService(true);
         }
 
-        public IInternetConnection InternetConnection { get; set; }
+        public IInternetConnectionService InternetConnection { get; set; }
 
         [TestMethod]
         async public Task DataService_GetEvents_Calls_Repository()
