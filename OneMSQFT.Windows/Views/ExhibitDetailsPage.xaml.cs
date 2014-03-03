@@ -70,6 +70,8 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Description = vm.Exhibit.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
                 args.Request.Data.SetWebLink(uri);
+                _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackVideoShareInExhibitView(vm.Exhibit.Name,
+                    selectedMediaContentSource.Media.VideoId, uri.AbsoluteUri, appName);
             }
             else
             { 
