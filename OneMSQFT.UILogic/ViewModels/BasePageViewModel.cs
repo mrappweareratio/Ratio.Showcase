@@ -19,8 +19,6 @@ namespace OneMSQFT.UILogic.ViewModels
             set { SetProperty(ref _squareFootEvents, value); }
         }
 
-
-
         public event EventHandler<EventArgs> PinContextChanged;
 
         protected void RaisePinContextChanged()
@@ -44,27 +42,40 @@ namespace OneMSQFT.UILogic.ViewModels
 
         private const int BaseDesignLandscapeWidth = 1366;
         private const int BaseDesignPortraitWidth = 768;
-        protected double GetWidthDelta()
+
+        public double FullScreenHeight
         {
-            if (IsHorizontal)
-            {
-                return BaseDesignLandscapeWidth / Window.Current.Bounds.Width;
-            }
-            else
-            {
-                return BaseDesignPortraitWidth / Window.Current.Bounds.Width;
-            }
+            get { return _fullScreenHeight; }
+            private set { SetProperty(ref _fullScreenHeight, value); }
         }
+
+        public double FullScreenWidth
+        {
+            get { return _fullScreenWidth; }
+            private set { SetProperty(ref _fullScreenWidth, value); }
+        }
+
+        public bool IsHorizontal
+        {
+            get { return _isHorizontal; }
+            private set { SetProperty(ref _isHorizontal, value); }
+        }
+
+        private double _fullScreenWidth;
+        private double _fullScreenHeight;
+        private bool _isHorizontal;
+
+        protected double WidthDelta { get; private set; }
 
         private const double LargeBaseFontSize = 60;
         public double LargeFlexyFontSize
         {
-            get { return Convert.ToInt16(LargeBaseFontSize / GetWidthDelta()); }
+            get { return Convert.ToInt16(LargeBaseFontSize / WidthDelta); }
         }
         private const double MediumLargeBaseFontSize = 42;
         public double MediumLargeFlexyFontSize
         {
-            get { return Convert.ToInt16(MediumLargeBaseFontSize / GetWidthDelta()); }
+            get { return Convert.ToInt16(MediumLargeBaseFontSize / WidthDelta); }
         }
         public double MediumLargeFlexyTightLeading
         {
@@ -73,25 +84,30 @@ namespace OneMSQFT.UILogic.ViewModels
         private const double MediumBaseFontSize = 32;
         public double MediumFlexyFontSize
         {
-            get { return Convert.ToInt16(MediumBaseFontSize / GetWidthDelta()); }
+            get { return Convert.ToInt16(MediumBaseFontSize / WidthDelta); }
         }
         private const double MediumSmallBaseFontSize = 24;
         public double MediumSmallFlexyFontSize
         {
-            get { return Convert.ToInt16(MediumSmallBaseFontSize / GetWidthDelta()); }
+            get { return Convert.ToInt16(MediumSmallBaseFontSize / WidthDelta); }
         }
         private const double SmallBaseFontSize = 20;
         public double SmallFlexyFontSize
         {
-            get { return Convert.ToInt16(SmallBaseFontSize / GetWidthDelta()); }
-        }
-        public Boolean IsHorizontal
-        {
-            get { return Window.Current.Bounds.Width > Window.Current.Bounds.Height; }
+            get { return Convert.ToInt16(SmallBaseFontSize / WidthDelta); }
         }
 
         public virtual void WindowSizeChanged(double width, double height)
         {
+            FullScreenWidth = width;
+            FullScreenHeight = height;
+            IsHorizontal = FullScreenWidth > FullScreenHeight;
+            WidthDelta = IsHorizontal
+                 ? BaseDesignLandscapeWidth / FullScreenWidth
+                 : BaseDesignPortraitWidth / FullScreenWidth;
+            OnPropertyChanged("FullScreenWidth");
+            OnPropertyChanged("FullScreenHeight");            
+            OnPropertyChanged("IsHorizontal");            
             OnPropertyChanged("LargeFlexyFontSize");
             OnPropertyChanged("MediumLargeFlexyFontSize");
             OnPropertyChanged("MediumLargeFlexyTightLeading");

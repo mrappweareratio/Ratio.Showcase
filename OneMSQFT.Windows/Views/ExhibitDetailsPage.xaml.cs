@@ -26,10 +26,10 @@ namespace OneMSQFT.WindowsStore.Views
         {
             this.InitializeComponent();
             InitAppBars();
-            Loaded += ExhibitDetailsPage_Loaded;
-            var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();
+            var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();            
             vm.PropertyChanged += ExhibitDetailsPage_PropertyChanged;
             vm.PinContextChanged += vm_PinContextChanged;
+            ProcessWindowSizeChangedEvent();
             var app = AppLocator.Current;
             if (app != null)
             {
@@ -112,7 +112,7 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         #endregion
-
+       
         protected override void GoBack(object sender, RoutedEventArgs eventArgs)
         {
             if (this.Frame != null && !this.Frame.CanGoBack)
@@ -121,18 +121,13 @@ namespace OneMSQFT.WindowsStore.Views
                 return;
             }
             base.GoBack(sender, eventArgs);
-        }
-
-        void ExhibitDetailsPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            ProcessWindowSizeChangedEvent();
-        }
+        }       
 
         void ExhibitDetailsPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "SquareFootEvents")
             {
-                if (GetDataContextAsViewModel<ExhibitDetailsPageViewModel>().SquareFootEvents.Count > 0)
+                if (GetDataContextAsViewModel<IBasePageViewModel>().SquareFootEvents.Count > 0)
                 {
                     this.PopulateTopAppbar(GetDataContextAsViewModel<IBasePageViewModel>());
                 }
@@ -140,7 +135,7 @@ namespace OneMSQFT.WindowsStore.Views
 
             if (e.PropertyName == "IsHorizontal")
             {
-                if (GetDataContextAsViewModel<ExhibitDetailsPageViewModel>().IsHorizontal)
+                if (GetDataContextAsViewModel<IBasePageViewModel>().IsHorizontal)
                 {
                     VisualStateManager.GoToState(this, "FullScreenLandscape", true);
                 }
@@ -175,23 +170,7 @@ namespace OneMSQFT.WindowsStore.Views
             base.PopulateTopAppbar(vm);
             this.HomeButton.Command = this.HomeButtonClickCommand;
             this.AboutButton.Command = this.AboutButtonClickCommand;
-        }
-
-        #region Resizing
-
-
-        protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
-        {
-            ProcessWindowSizeChangedEvent();
-            base.WindowSizeChanged(sender, e);
-        }
-
-        private void ProcessWindowSizeChangedEvent()
-        {
-            GetDataContextAsViewModel<ExhibitDetailsPageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-        }
-
-        #endregion
+        }        
 
         #region MediaViewer
 

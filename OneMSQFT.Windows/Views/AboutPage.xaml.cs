@@ -16,20 +16,15 @@ namespace OneMSQFT.WindowsStore.Views
         {
             this.InitializeComponent();
             InitAppBars();
-            Loaded += AboutPage_Loaded;
-            var vm = GetDataContextAsViewModel<IBasePageViewModel>();
+            var vm = GetDataContextAsViewModel<IBasePageViewModel>();            
             vm.PropertyChanged += AboutPage_PropertyChanged;
+            ProcessWindowSizeChangedEvent();
             var app = AppLocator.Current;
             if (app != null)
             {
                 HomeButton.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
             }
-        }
-
-        void AboutPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            GetDataContextAsViewModel<IBasePageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-        }
+        }      
 
         void AboutPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -66,12 +61,6 @@ namespace OneMSQFT.WindowsStore.Views
             base.PopulateTopAppbar(vm);
             this.HomeButton.Command = this.HomeButtonClickCommand;
             this.AboutButton.Command = this.AboutButtonClickCommand;
-        }
-
-        #region Resizing
-
-
-        #endregion
-
+        }        
     }
 }
