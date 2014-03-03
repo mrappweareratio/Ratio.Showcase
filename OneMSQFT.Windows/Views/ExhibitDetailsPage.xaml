@@ -233,7 +233,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Border BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
-        						Height="{Binding DataSource.ExhibitItemHeight, Source={StaticResource DataContextProxy}}" 
+        						Height="{Binding DataSource.FullScreenHeight, Source={StaticResource DataContextProxy}}" 
         						Width="{Binding DataSource.OneThirdPanelWidth, Source={StaticResource DataContextProxy}}" 
 							BorderThickness="0" Padding="10">
                     <Border.Background>
@@ -645,7 +645,7 @@
         <Grid>
             <Grid
         	    Width="Auto" 
-        	    Height="{Binding ExhibitItemHeight}" 
+        	    Height="{Binding FullScreenHeight}" 
                 Background="{StaticResource OneMSQFTWhiteBrush}" >
                 <GridView x:Name="MediaListView"
                             Style="{StaticResource GridViewHorizontalSnappingStyle}"

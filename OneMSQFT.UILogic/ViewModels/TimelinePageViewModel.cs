@@ -129,7 +129,7 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        #region ResizingProperties
+        #region Resizing Properties
 
         public double ZoomedOutGridHeight
         {
@@ -205,10 +205,6 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        public double FullScreenWidth { get { return Window.Current.Bounds.Width; } }
-
-        public double FullScreenHeight { get { return Window.Current.Bounds.Height; } }
-
         public double ExhibitItemWidth
         {
             get
@@ -229,8 +225,6 @@ namespace OneMSQFT.UILogic.ViewModels
         public override void WindowSizeChanged(double width, double height)
         {
             base.WindowSizeChanged(width, height);
-            OnPropertyChanged("IsHorizontal");
-
             OnPropertyChanged("ZoomedOutGridHeight");
             OnPropertyChanged("ZoomedOutItemWidth");
             OnPropertyChanged("ZoomedOutItemHeight");
@@ -238,9 +232,7 @@ namespace OneMSQFT.UILogic.ViewModels
             OnPropertyChanged("MaskItemWidth");
             OnPropertyChanged("MaskItemHeight");
             OnPropertyChanged("EventItemWidth");
-            OnPropertyChanged("EventItemHeight");
-            OnPropertyChanged("FullScreenHeight");
-            OnPropertyChanged("FullScreenWidth");
+            OnPropertyChanged("EventItemHeight");            
             OnPropertyChanged("ExhibitItemWidth");
             OnPropertyChanged("ExhibitItemHeight");
         }

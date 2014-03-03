@@ -237,48 +237,29 @@ namespace OneMSQFT.WindowsStore.DesignViewModels
 
         #region ResizingProperties
 
-        public double FullScreenWidth
+        public double NineSixteenthsOfWidth
         {
             get
             {
-                return Window.Current.Bounds.Width;
+                return (FullScreenWidth / 16) * 9;
             }
         }
-        public double FullScreenHeight
-        {
-            get
-            {
-                return Window.Current.Bounds.Height;
-            }
-        }
-
-        public double ExhibitItemWidth
-        {
-            get
-            {
-                return Window.Current.Bounds.Width * .9;
-            }
-        }
-
-        public double ExhibitItemHeight
-        {
-            get
-            {
-                return FullScreenHeight;
-            }
-        }
-
         public double OneThirdPanelWidth
         {
-            get { return ExhibitItemWidth / 3; }
+            get { return FullScreenWidth * .325; } // approx one third (per comp)
+        }
+
+        public double PortraitHeaderFooterHeight
+        {
+            get { return FullScreenHeight * .275; } // approx one third (per comp)
         }
 
         public override void WindowSizeChanged(double width, double height)
         {
-            OnPropertyChanged("FullScreenHeight");
-            OnPropertyChanged("FullScreenWidth");
-            OnPropertyChanged("ExhibitItemHeight");
-            OnPropertyChanged("ExhibitItemWidth");
+            base.WindowSizeChanged(width, height);
+            OnPropertyChanged("NineSixteenthsOfWidth");
+            OnPropertyChanged("OneThirdPanelWidth");
+            OnPropertyChanged("PortraitHeaderFooterHeight");
         }
 
         #endregion       

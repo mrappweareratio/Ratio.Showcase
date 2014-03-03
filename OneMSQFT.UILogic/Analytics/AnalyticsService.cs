@@ -66,7 +66,7 @@ namespace OneMSQFT.UILogic.Analytics
                 return;
             var events = new TrackingEventsData { TrackingEventsData.Events.PageView, TrackingEventsData.Events.TotalInteraction };
             var context = new TrackingContextData
-            {                
+            {
                 PageName = TrackingContextData.PageNames.Home
             };
             TrackEvents(events, context);
@@ -93,7 +93,7 @@ namespace OneMSQFT.UILogic.Analytics
             {
                 ExhibitName = exName,
                 PageName = TrackingContextData.PageNames.ExhibitLanding
-            };            
+            };
             TrackEvents(events, context);
         }
 
@@ -115,7 +115,7 @@ namespace OneMSQFT.UILogic.Analytics
         {
             if (Disabled)
                 return;
-            
+
             var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
             var context = new TrackingContextData
             {
@@ -157,7 +157,7 @@ namespace OneMSQFT.UILogic.Analytics
                 AppElement = TrackingContextData.AppElements.GenerateClickExhibitInEventData(evPos, exPos)
             };
 
-            this.TrackEvents(evData, context);            
+            this.TrackEvents(evData, context);
         }
 
         public void TrackShowMoreExhibitsInEvent(string evName)
@@ -172,7 +172,7 @@ namespace OneMSQFT.UILogic.Analytics
                 AppElement = TrackingContextData.AppElements.GenerateShowMoreExhibitsData()
             };
 
-            this.TrackEvents(evData, context);                  
+            this.TrackEvents(evData, context);
         }
 
         public void TrackAppBarInteractionInTimeline(string evName, int? sqFootage)
@@ -188,7 +188,7 @@ namespace OneMSQFT.UILogic.Analytics
                 AppElement = TrackingContextData.AppElements.GenerateClickEventInTimelineAppBarData()
             };
 
-            this.TrackEvents(evData, context);              
+            this.TrackEvents(evData, context);
         }
 
         public void TrackAppBarInteractionInExhibitView(string evName, int? sqFootage)
@@ -298,7 +298,7 @@ namespace OneMSQFT.UILogic.Analytics
             this.TrackEvents(evData, context);
         }
 
-        public void TrackNextExhibitInteraction( string exTo)
+        public void TrackNextExhibitInteraction(string exTo)
         {
             if (Disabled)
                 return;
@@ -322,8 +322,23 @@ namespace OneMSQFT.UILogic.Analytics
             var context = new TrackingContextData
             {
                 EventName = evName,
-                EventSqFt = sqFootage,                
+                EventSqFt = sqFootage,
                 AppElement = TrackingContextData.AppElements.GenerateShareEventElement(evPos, appName, shareUrl)
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackShareExhibitInteraction(string exName, string shareUrl, string appName)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                ExhibitName = exName,
+                AppElement = TrackingContextData.AppElements.GenerateShareExhibitElement(appName, shareUrl)
             };
 
             this.TrackEvents(evData, context);

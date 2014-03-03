@@ -22,7 +22,7 @@ using Strings = OneMSQFT.Common.Strings;
 namespace OneMSQFT.WindowsStore.Views
 {
     public abstract class BasePageView : VisualStateAwarePage
-    {
+    {        
         public DelegateCommand<String> TopAppBarEventButtonCommand { get; set; }
         public DelegateCommand HomeButtonClickCommand { get; set; }
         public DelegateCommand AboutButtonClickCommand { get; set; }
@@ -37,13 +37,13 @@ namespace OneMSQFT.WindowsStore.Views
             base.OnNavigatedTo(e);
             // listens for resolution change
             Windows.Graphics.Display.DisplayInformation.DisplayContentsInvalidated += DisplayInformation_DisplayContentsInvalidated;
-        }
+        }        
 
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            base.OnNavigatingFrom(e);
+            base.OnNavigatedFrom(e);
             // unwire listener
-            Windows.Graphics.Display.DisplayInformation.DisplayContentsInvalidated -= DisplayInformation_DisplayContentsInvalidated;
+            Windows.Graphics.Display.DisplayInformation.DisplayContentsInvalidated -= DisplayInformation_DisplayContentsInvalidated;            
         }
 
 
@@ -181,9 +181,9 @@ namespace OneMSQFT.WindowsStore.Views
 
         #endregion
 
-         # region resizing
+         #region resizing
 
-        protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
+        sealed protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
             // Screen Size Changed
             ProcessWindowSizeChangedEvent();

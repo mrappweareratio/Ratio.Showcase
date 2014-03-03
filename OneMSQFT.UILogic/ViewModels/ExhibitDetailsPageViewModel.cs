@@ -168,21 +168,7 @@ namespace OneMSQFT.UILogic.ViewModels
         #endregion
 
         #region ResizingProperties
-
-        public double FullScreenHeight
-        {
-            get
-            {
-                return Window.Current.Bounds.Height;
-            }
-        }
-        public double FullScreenWidth
-        {
-            get
-            {
-                return Window.Current.Bounds.Width;
-            }
-        }
+        
         public double NineSixteenthsOfWidth
         {
             get
@@ -198,21 +184,13 @@ namespace OneMSQFT.UILogic.ViewModels
         public double PortraitHeaderFooterHeight
         {
             get { return FullScreenHeight * .275; } // approx one third (per comp)
-        }
+        }              
 
         public override void WindowSizeChanged(double width, double height)
         {
-            base.WindowSizeChanged(width, height);
-            OnPropertyChanged("IsHorizontal");
-
-            OnPropertyChanged("FullScreenHeight");
-            OnPropertyChanged("FullScreenWidth");
+            base.WindowSizeChanged(width, height);            
             OnPropertyChanged("NineSixteenthsOfWidth");
-
-            OnPropertyChanged("ExhibitItemHeight");
-            OnPropertyChanged("ExhibitItemWidth");
             OnPropertyChanged("OneThirdPanelWidth");
-
             OnPropertyChanged("PortraitHeaderFooterHeight");
         }
 

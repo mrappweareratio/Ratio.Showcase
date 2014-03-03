@@ -44,30 +44,13 @@ namespace OneMSQFT.UILogic.ViewModels
         }
 
 
-        #region resizing
-
-
-        public double FullScreenWidth
-        {
-            get
-            {
-                return Window.Current.Bounds.Width;
-            }
-        }
-
-        public double FullScreenHeight
-        {
-            get
-            {
-                return Window.Current.Bounds.Height;
-            }
-        }
+        #region resizing       
 
         public double AboutPageTotalWidth
         {
             get
             {
-                return Window.Current.Bounds.Width + AboutPageTwoThirdsWidth;
+                return FullScreenWidth + AboutPageTwoThirdsWidth;
             }
         }
 
@@ -75,7 +58,7 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return Window.Current.Bounds.Width * .666;
+                return FullScreenWidth * .666;
             }
         }
 
@@ -107,39 +90,17 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 return new Thickness(0, (FullScreenHeight / 4)+5, 0, 0);
             }
-        }
-
-        private const double BasePanel1FontSize = 60;
-        public double Panel1FontSize
-        {
-            get
-            {
-                return Convert.ToInt16(BasePanel1FontSize / GetWidthDelta());
-            }
-        }
-        private const double BasePanel2FontSize = 30;
-        public double Panel2FontSize
-        {
-            get
-            {
-                return Convert.ToInt16(BasePanel2FontSize / GetWidthDelta());
-            }
-        }
-
+        }        
 
         public override void WindowSizeChanged(double width, double height)
         {
             base.WindowSizeChanged(width, height);
-            OnPropertyChanged("IsHorizontal");
-
-            OnPropertyChanged("FullScreenWidth");
-            OnPropertyChanged("FullScreenHeight");
             OnPropertyChanged("AboutPageTotalWidth");
             OnPropertyChanged("AboutPageTwoThirdsWidth");
             OnPropertyChanged("Panel1TextWidth");
             OnPropertyChanged("Panel2TextWidth");
             OnPropertyChanged("Panel1Margin");
-            OnPropertyChanged("Panel2Margin");
+            OnPropertyChanged("Panel2Margin");            
         }
 
         #endregion

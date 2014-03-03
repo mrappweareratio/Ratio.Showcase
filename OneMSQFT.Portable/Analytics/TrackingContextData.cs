@@ -156,6 +156,18 @@ namespace OneMSQFT.Common.Analytics
                     entry += ('|' + appName);
                 return entry;
             }
+
+            public static string GenerateShareExhibitElement(string appName, string shareUrl)
+            {
+                var entry = "exhibit";
+                entry += ":share";
+                if (!String.IsNullOrEmpty(shareUrl))
+                    entry += ('|' + shareUrl);
+                entry += ":appName";
+                if (!String.IsNullOrEmpty(appName))
+                    entry += ('|' + appName);
+                return entry;
+            }
         }
 
         public string PageName

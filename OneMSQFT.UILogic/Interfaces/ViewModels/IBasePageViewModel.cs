@@ -22,6 +22,8 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         event EventHandler<EventArgs> PinContextChanged;              
         SecondaryTileArgs GetSecondaryTileArguments();
         Task<SecondaryTileImages> GetSecondaryTileImages();
-        bool IsHorizontal { get; }
+        bool IsHorizontal { get; }        
+        double FullScreenHeight { get; }
+        double FullScreenWidth { get; }
     }
 }
