@@ -86,9 +86,8 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         {
             var autoResetEvent = new AutoResetEvent(false);
             bool changed = false;
-            var mockDataService = new MockDataService();
 
-            var vm = new AboutPageViewModel(mockDataService, new MockAlertMessageService(), new MockAnalyticsService());
+            var vm = new AboutPageViewModel(new MockDataService(), new MockAlertMessageService(), new MockAnalyticsService());
             vm.PropertyChanged += (sender, args) =>
             {
                 changed = true;
@@ -101,6 +100,56 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             autoResetEvent.WaitOne(500);
             Assert.IsTrue(changed, "PropertyChanged");
             Assert.IsFalse(vm.IsHorizontal);
+        }
+
+        [TestMethod]
+        public void Reszing_Local_Properties_Update_On_Window_Size_Changed()
+        {
+            var autoResetEvent = new AutoResetEvent(false);
+            bool changed = false;
+            var changedProperties = new List<string>();
+
+            var vm = new AboutPageViewModel(new MockDataService(), new MockAlertMessageService(), new MockAnalyticsService());
+            vm.PropertyChanged += (sender, args) =>
+            {
+                changed = true;
+                changedProperties.Add(args.PropertyName);
+            };
+            ExecuteOnUIThread(() => vm.WindowSizeChanged(1000, 500));
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(changed, "PropertyChanged");
+            Assert.IsTrue(changedProperties.Contains("AboutPageTotalWidth"));
+            Assert.IsTrue(changedProperties.Contains("AboutPageTwoThirdsWidth"));
+            Assert.IsTrue(changedProperties.Contains("Panel1TextWidth"));
+            Assert.IsTrue(changedProperties.Contains("Panel2TextWidth"));
+            Assert.IsTrue(changedProperties.Contains("Panel1Margin"));
+            Assert.IsTrue(changedProperties.Contains("Panel2Margin"));           
+        }
+        [TestMethod]
+        public void Reszing_Base_Properties_Update_On_Window_Size_Changed()
+        {
+            var autoResetEvent = new AutoResetEvent(false);
+            bool changed = false;
+            var changedProperties = new List<string>();
+
+            var vm = new AboutPageViewModel(new MockDataService(), new MockAlertMessageService(), new MockAnalyticsService());
+            vm.PropertyChanged += (sender, args) =>
+            {
+                changed = true;
+                changedProperties.Add(args.PropertyName);
+            };
+            ExecuteOnUIThread(() => vm.WindowSizeChanged(1000, 500));
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(changed, "PropertyChanged");
+            Assert.IsTrue(changedProperties.Contains("FullScreenWidth"));
+            Assert.IsTrue(changedProperties.Contains("FullScreenHeight"));
+            Assert.IsTrue(changedProperties.Contains("IsHorizontal"));
+            Assert.IsTrue(changedProperties.Contains("LargeFlexyFontSize"));
+            Assert.IsTrue(changedProperties.Contains("MediumLargeFlexyFontSize"));
+            Assert.IsTrue(changedProperties.Contains("MediumLargeFlexyTightLeading"));
+            Assert.IsTrue(changedProperties.Contains("MediumFlexyFontSize"));
+            Assert.IsTrue(changedProperties.Contains("MediumSmallFlexyFontSize"));
+            Assert.IsTrue(changedProperties.Contains("SmallFlexyFontSize"));
         }
 
 
