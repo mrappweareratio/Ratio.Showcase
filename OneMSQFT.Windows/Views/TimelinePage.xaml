@@ -1,19 +1,13 @@
 ﻿<omsqft:BasePageView
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:OneMSQFT.WindowsStore.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:omsqftbehaviors="using:OneMSQFT.WindowsStore.Behaviors"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:templateSelectors="using:OneMSQFT.WindowsStore.DataTemplateSelectors"
-    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:prism="using:Microsoft.Practices.Prism.StoreApps"   
     xmlns:omsqft="using:OneMSQFT.WindowsStore.Views"
     xmlns:omsqftcontrols="using:OneMSQFT.WindowsStore.Controls"
-    xmlns:mmppf="using:Microsoft.PlayerFramework"
     xmlns:viewModels="using:OneMSQFT.UILogic.ViewModels"
-    xmlns:designViewModels="using:OneMSQFT.WindowsStore.DesignViewModels"
     x:Class="OneMSQFT.WindowsStore.Views.TimelinePage"
     NavigationCacheMode="Required"
     mc:Ignorable="d"
@@ -533,26 +527,22 @@
 					    Stretch="UniformToFill"/>
                     </Border>
                     <Rectangle Fill="{StaticResource OneMSQFTOverlayBgBrush}"/>
-                    <TextBlock Margin="0,40,0,0"
-					    FontSize="42"
-					    Height="Auto"
-					    Text="{Binding SquareFootageString}"
-					    TextWrapping="NoWrap"
-                        TextAlignment="Center"
-					    TextTrimming="WordEllipsis" VerticalAlignment="Top"
-					    Foreground="{StaticResource OneMSQFTWhiteBrush}" 
-                        FontFamily="Segoe UI Light" FontWeight="Light">
-                    </TextBlock>
-                    <TextBlock Text="{Binding Name}"
-                        VerticalAlignment="Bottom"
-					    Margin="0,0,0,65"
-					    FontSize="20"
-					    TextTrimming="CharacterEllipsis"
-					    TextWrapping="NoWrap"
-                        TextAlignment="Center"
-					    Foreground="{StaticResource OneMSQFTWhiteBrush}" 
-                        FontFamily="Segoe UI Light" FontWeight="Light">
-                    </TextBlock>
+                    <RichTextBlock TextWrapping="NoWrap" 
+                                   TextAlignment="Center"
+                                   TextTrimming="CharacterEllipsis" 
+                                   Foreground="White" Margin="40"
+                                   FontFamily="Segoe UI Light"
+                                   FontWeight="Light"
+                                   VerticalAlignment="Center"
+                                   IsTextSelectionEnabled="False">
+                        <Paragraph>
+                            <Run Text="{Binding SquareFootageString}" 
+                                 FontSize="{Binding DataSource.MediumLargeFlexyFontSize, Source={StaticResource DataContextProxy}}"/>
+                            <LineBreak/>
+                            <Run Text="{Binding Name}"
+					             FontSize="{Binding DataSource.SmallFlexyFontSize, Source={StaticResource DataContextProxy}}"/>
+                        </Paragraph>
+                    </RichTextBlock>
                 </Grid>
             </Button>
         </DataTemplate>
@@ -574,26 +564,20 @@
                             <SolidColorBrush Color="{Binding ElementName=GridView, Path=DataContext.EventColor}"/>
                         </Border.Background>
                     </Border>
-                    <StackPanel Margin="0" Orientation="Vertical" VerticalAlignment="Center">
-                        <TextBlock
-    			            FontSize="40"
-    			            Text="show"
-    			            TextWrapping="NoWrap"
-    			            TextAlignment="Center"
-    			            Foreground="white" 
-    			            FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
-				            Margin="0,0,0,0" 
-                            LineHeight="36"/>
-                        <TextBlock
-    			            FontSize="40"
-    			            Text="more"
-    			            TextWrapping="NoWrap"
-    			            TextAlignment="Center"
-    			            Foreground="white" 
-    			            FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
-				            Margin="0,0,0,0" 
-                            LineHeight="36"/>
-                    </StackPanel>
+                    <RichTextBlock FontSize="{Binding DataSource.MediumLargeFlexyFontSize, Source={StaticResource DataContextProxy}}"
+                                   TextWrapping="NoWrap" 
+                                   Foreground="White" 
+                                   TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontWeight="Light"
+                                   FontFamily="Segoe UI Light"
+                                   IsTextSelectionEnabled="False">
+                        <Paragraph LineStackingStrategy="BlockLineHeight" LineHeight="{Binding DataSource.MediumLargeFlexyTightLeading, Source={StaticResource DataContextProxy}}">
+                            <Run Text="{Binding Strings.show, Source={StaticResource PortableStrings}}" />
+                            <LineBreak/>
+                            <Run Text="{Binding Strings.more, Source={StaticResource PortableStrings}}" />
+                        </Paragraph>
+                    </RichTextBlock>
                 </Grid>
             </Button>
         </DataTemplate>
@@ -607,26 +591,23 @@
                 <Border.Background>
                     <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
                 </Border.Background>
-                <Grid>
-                    <StackPanel Margin="0" Orientation="Vertical" VerticalAlignment="Center">
-                        <TextBlock
-    			            FontSize="40"
-    			            Text="{Binding SquareFootageString}"
-    			            TextWrapping="NoWrap"
-    			            TextAlignment="Center"
-    			            Foreground="white" 
-    			            FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
-				            Margin="0,0,0,0" LineHeight="36"/>
-                        <TextBlock
-    			            FontSize="20"
-    			            Text="{Binding Name, Mode=OneWay}"
-    			            TextWrapping="NoWrap"
-    			            TextAlignment="Center"
-    			            Foreground="white" 
-    			            FontFamily="Segoe UI Light" FontWeight="Light" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" 
-				            Margin="0,0,0,0" LineHeight="36"/>
-                    </StackPanel>
-                </Grid>
+                <RichTextBlock Foreground="White" 
+                               FontWeight="Light" 
+                               FontFamily="Segoe UI Light" 
+                               TextAlignment="Center"
+                               Margin="40"
+                               VerticalAlignment="Center"
+                               IsTextSelectionEnabled="False"
+                               TextTrimming="CharacterEllipsis" 
+                               TextWrapping="NoWrap">
+                    <Paragraph>
+                        <Run Text="{Binding SquareFootageString, Mode=OneWay}"
+                             FontSize="{Binding DataSource.MediumLargeFlexyFontSize, Source={StaticResource DataContextProxy}}"/>
+                        <LineBreak/>
+                        <Run Text="{Binding Name, Mode=OneWay}"
+                             FontSize="{Binding DataSource.SmallFlexyFontSize, Source={StaticResource DataContextProxy}}"/>
+                    </Paragraph>
+                </RichTextBlock>
             </Border>
         </DataTemplate>
 
@@ -639,20 +620,20 @@
                 Padding="5">
                 <Grid>
                     <TextBlock Text="{Binding Strings.ComingSoon, Source={StaticResource PortableStrings}}"
-    				    FontSize="24"
+    				    FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}"
                         Foreground="{StaticResource OneMSQFTAppBarAccentGrayBrush}"
                         FontWeight="Light"
     				    Margin="0" 
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-                        FontFamily="Segoe UI"/>
+                        FontFamily="Segoe UI Light"/>
                 </Grid>
             </Border>
         </DataTemplate>
 
         <!-- Main -->
 
-        <DataTemplate x:Key="OMSQFTTimelineEventItemTemplate">
+        <DataTemplate x:Key="HorizontalTimelineEventItemTemplate">
             <Border BorderThickness="0" Margin="0" Background="Transparent">
                 <Grid Width="{Binding DataSource.EventItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                       Height="{Binding DataSource.EventItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
@@ -717,15 +698,18 @@
                             <RowDefinition Height="319*"/>
                         </Grid.RowDefinitions>
                         <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
-						TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
-						Grid.Row="1">
-                            <Paragraph>
-                                <Run Text="{Binding SquareFootageStringPlain}" FontSize="60" />
-                                <LineBreak />
-                                <Run Text="{Binding Strings.SquareFeet, Source={StaticResource PortableStrings}}" FontSize="32" />
-                                <LineBreak />
-                                <Run Text="{Binding Name, Mode=OneWay}" FontSize="32" />
-                            </Paragraph>
+						    TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
+						    Grid.Row="1">
+                                <Paragraph>
+                                    <Run Text="{Binding SquareFootageStringPlain}" 
+                                         FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
+                                    <LineBreak />
+                                    <Run Text="{Binding Strings.SquareFeet, Source={StaticResource PortableStrings}}" 
+                                         FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
+                                    <LineBreak />
+                                    <Run Text="{Binding Name, Mode=OneWay}" 
+                                         FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
+                                </Paragraph>
                         </RichTextBlock>
 
 
@@ -736,9 +720,8 @@
 					        VerticalAlignment="Top">
                             <TextBlock Text="{Binding Description}"
 						        Foreground="White"
-						        FontSize="20"
+						        FontSize="{Binding DataSource.SmallFlexyFontSize, Source={StaticResource DataContextProxy}}"
                                 LineStackingStrategy="BlockLineHeight"
-                                LineHeight="24"
 						        TextWrapping="Wrap" 
 						        FontFamily="Segoe UI Light" 
 						        FontWeight="Light"/>
@@ -785,14 +768,210 @@
             </Border>
         </DataTemplate>
 
-        <DataTemplate x:Key="BufferItemFakeEventItemTemplate">
+        <DataTemplate x:Key="VerticalTimelineEventItemTemplate">
             <Border BorderThickness="0" Margin="0" Background="Transparent">
-                <Grid Width="{Binding DataSource.BufferItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
+                <Grid Width="{Binding DataSource.EventItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                       Height="{Binding DataSource.EventItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                       Background="Transparent">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Click="FlipViewButton_Clicked" 
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            CommandParameter="{Binding}" 
+                            Command="{Binding DataSource.EventHeroItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                            Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" 
+                            Style="{StaticResource EventGalleryButtonStyle}" Margin="0,-4,4,0" 
+                            BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
+                            BorderThickness="5">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ProgressRing IsEnabled="True" IsActive="True" Height="150" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <ProgressRing.Foreground>
+                                    <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
+                                </ProgressRing.Foreground>
+                            </ProgressRing>
+                            <Image Source="{Binding PhotoFilePath, Mode=OneWay}"
+                        		VerticalAlignment="Stretch"
+                        		HorizontalAlignment="Stretch"
+                        		AutomationProperties.Name="{Binding Name}" 
+                        		Stretch="Fill"/>
+                            <Border IsHitTestVisible="False"
+                        		HorizontalAlignment="Center" Height="70"  
+                        		VerticalAlignment="Center" Width="70">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
+                                </Border.Background>
+                                <Path Data="M1,1 L49,1 L49,49" 
+                        			HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
+                        			StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
+                                    <Path.RenderTransform>
+                                        <CompositeTransform Rotation="45" TranslateY="5.43"/>
+                                    </Path.RenderTransform>
+                                </Path>
+                            </Border>
+                        </Grid>
+                    </Button>
+
+                    <Grid Grid.RowSpan="4" Margin="0,0,0,6">
+                        <Grid.Background>
+                            <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
+                        </Grid.Background>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="155*"/>
+                            <RowDefinition Height="186*"/>
+                            <RowDefinition Height="108*"/>
+                            <RowDefinition Height="319*"/>
+                        </Grid.RowDefinitions>
+                        <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
+						    TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
+						    Grid.Row="1">
+                            <Paragraph>
+                                <Run Text="{Binding SquareFootageStringPlain}" 
+                                         FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
+                                <LineBreak />
+                                <Run Text="{Binding Strings.SquareFeet, Source={StaticResource PortableStrings}}" 
+                                         FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
+                                <LineBreak />
+                                <Run Text="{Binding Name, Mode=OneWay}" 
+                                         FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
+                            </Paragraph>
+                        </RichTextBlock>
+
+
+                        <ScrollViewer Style="{StaticResource VerticalScrollViewerStyle}"
+					        Grid.Row="2"
+                            Grid.RowSpan="2"
+					        Margin="40,0,40,100" 
+					        VerticalAlignment="Top">
+                            <TextBlock Text="{Binding Description}"
+						        Foreground="White"
+						        FontSize="{Binding DataSource.SmallFlexyFontSize, Source={StaticResource DataContextProxy}}"
+                                LineStackingStrategy="BlockLineHeight"
+						        TextWrapping="Wrap" 
+						        FontFamily="Segoe UI Light" 
+						        FontWeight="Light"/>
+                        </ScrollViewer>
+                        <omsqftcontrols:CuratorLogoStackerUserControl 
+                            Grid.Row="3"
+                            CuratorLogoCollection="{Binding CuratorLogos}"
+                            Margin="40,20,0,50" 
+                            VerticalAlignment="Bottom" 
+                            HorizontalAlignment="Left"/>
+
+                    </Grid>
+
+                    <!--Show More Exhibit Items -->
+                    <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                        <GridView ItemsSource="{Binding DisplayedExhibits}" x:Name="GridView"
+                              ItemContainerStyle="{StaticResource TimelineExhibitItemContainerStyle}"
+                              SelectionMode="None"
+                              IsItemClickEnabled="True"
+                              IsSwipeEnabled="False"
+                              IsHoldingEnabled="False"
+                              ScrollViewer.IsHorizontalScrollChainingEnabled="False"
+                              ScrollViewer.HorizontalScrollMode="Disabled"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              ScrollViewer.IsHorizontalRailEnabled="False"
+                              ScrollViewer.IsVerticalScrollChainingEnabled="False"
+                              ScrollViewer.VerticalScrollMode="Disabled"
+                              ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                              ScrollViewer.IsVerticalRailEnabled="False"
+                              IsTapEnabled="False">
+                            <GridView.ItemTemplateSelector>
+                                <templateSelectors:ExhibitShowMoreDataTemplateSelector
+                                    TimelineExhibitTemplate="{StaticResource TimelineExhibitTemplate}"
+                                    TimelineShowMoreExhibitTemplate="{StaticResource TimelineShowMoreExhibitTemplate}"/>
+                            </GridView.ItemTemplateSelector>
+                            <GridView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"   />
+                                </ItemsPanelTemplate>
+                            </GridView.ItemsPanel>
+                        </GridView>
+                    </Grid>
                 </Grid>
             </Border>
         </DataTemplate>
+
+        <DataTemplate x:Key="HorizontalBufferItemFakeEventItemTemplate">
+            <Border BorderThickness="0" Margin="0">
+                <Grid Width="{Binding DataSource.BufferItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
+                      Height="{Binding DataSource.BufferItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="VerticalBufferItemFakeEventItemTemplate">
+            <Border BorderThickness="0" Margin="0">
+                <Grid Width="{Binding DataSource.BufferItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
+                      Height="{Binding DataSource.BufferItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
+            </Border>
+        </DataTemplate>
+
+        <Style x:Key="TimeLineHorizontalSnappingStyle" TargetType="GridView">
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="SelectionMode" Value="None"/>
+            <Setter Property="IsRightTapEnabled" Value="False"/>
+            <Setter Property="IsTapEnabled" Value="False"/>
+            <Setter Property="IsItemClickEnabled" Value="False"/>
+            <Setter Property="IsSwipeEnabled" Value="False"/>
+            <Setter Property="Transitions" Value="{x:Null}"/>
+            <Setter Property="ItemContainerTransitions" Value="{x:Null}"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource TimelineItemContainerStyle}"/>
+
+            <Setter Property="ItemTemplateSelector">
+                <Setter.Value>
+                    <templateSelectors:TimelineDataTemplateSelector 
+                            EventTimelineItemTemplate="{StaticResource HorizontalTimelineEventItemTemplate}"
+                            BufferItemFakeEventItemTemplate="{StaticResource HorizontalBufferItemFakeEventItemTemplate}"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate >
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="TimeLineVerticalSnappingStyle" TargetType="GridView">
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="SelectionMode" Value="None"/>
+            <Setter Property="IsRightTapEnabled" Value="False"/>
+            <Setter Property="IsTapEnabled" Value="False"/>
+            <Setter Property="IsItemClickEnabled" Value="False"/>
+            <Setter Property="IsSwipeEnabled" Value="False"/>
+            <Setter Property="Transitions" Value="{x:Null}"/>
+            <Setter Property="ItemContainerTransitions" Value="{x:Null}"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource TimelineItemContainerStyle}"/>
+            <Setter Property="ItemTemplateSelector">
+                <Setter.Value>
+                    <templateSelectors:TimelineDataTemplateSelector 
+                            EventTimelineItemTemplate="{StaticResource VerticalTimelineEventItemTemplate}"
+                            BufferItemFakeEventItemTemplate="{StaticResource VerticalBufferItemFakeEventItemTemplate}"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate >
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
 
     </omsqft:BasePageView.Resources>
@@ -841,15 +1020,24 @@
                 </TransitionCollection>
             </Grid.ChildrenTransitions>
             <Grid x:Name="LogoGrid" Margin="0" Visibility="Collapsed">
-                <StackPanel Margin="0,0,36,4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding TotalSquareFeet, Mode=OneWay}" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTLogoDarkBlueBrush}" FontSize="40" Margin="0,0,13,6" FontFamily="Segoe UI Light" FontWeight="Light"/>
-                    <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Strings.Since, Source={StaticResource PortableStrings}}" VerticalAlignment="Bottom" Foreground="{StaticResource OneMSQFTSinceTextGray}" FontSize="24" Margin="0,0,0,10" FontFamily="Segoe UI Light" FontWeight="Light"/>
-                </StackPanel>
-                <omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,38,0,0"/>
+                <RichTextBlock Margin="0,0,40,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" TextWrapping="NoWrap" IsColorFontEnabled="True" IsTextSelectionEnabled="False" FontWeight="Light" FontFamily="Segoe UI Light">
+                    <Paragraph>
+                        <Run Text="{Binding TotalSquareFeet, Mode=OneWay}" 
+                             Foreground="{StaticResource OneMSQFTLogoDarkBlueBrush}"
+                             FontSize="{Binding MediumLargeFlexyFontSize}"/>
+                        <Run Text="{Binding Strings.Since, Source={StaticResource PortableStrings}}" 
+                             Foreground="{StaticResource OneMSQFTSinceTextGray}"
+                             FontSize="{Binding MediumSmallFlexyFontSize}" />
+                    </Paragraph>
+                </RichTextBlock>
+                <omsqftcontrols:LogoUserControl x:Name="logoUserControl" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,38,0,0"/>
             </Grid>
             <SemanticZoom x:Name="semanticZoom" Background="{x:Null}"
                       IsZoomedInViewActive="True" 
                       Transitions="{x:Null}"
+                          ScrollViewer.HorizontalScrollMode="Disabled"
+                          ScrollViewer.VerticalScrollMode="Disabled"
+                          ScrollViewer.ZoomMode="Disabled"
                       ViewChangeCompleted="semanticZoom_ViewChangeCompleted" 
                       ViewChangeStarted="semanticZoom_ViewChangeStarted" Grid.RowSpan="2" VerticalAlignment="Top">
                 <SemanticZoom.ZoomedOutView>
@@ -885,34 +1073,33 @@
                     </GridView>
                 </SemanticZoom.ZoomedOutView>
                 <SemanticZoom.ZoomedInView>
-                    <!-- The MultipleSizedGridView is a custom user control that is used to display multiple-sized elements in the grid.
-                It also includes the functionality of the custom AutoRotatingGridView control, that automatically rearranges items,
-                when the app is switched to portrait mode, or to minimal layout mode. -->
-                    <GridView x:Name="itemsGridView"
-                    Transitions="{x:Null}"
-                    ItemContainerTransitions="{x:Null}"
-                    Margin="0"
-                    Padding="0"                              
-                    Background="White"
-                    SelectionMode="None"
+                    <GridView x:Name="TimelineGridView" 
                     ItemsSource="{Binding TimeLineItems}"
-                    IsRightTapEnabled="False"
-                    IsTapEnabled="False"
-                    IsItemClickEnabled="False"
-                    IsSwipeEnabled="False"
-                    Loaded="itemsGridView_Loaded" 
-                                                          
-                    ItemContainerStyle="{StaticResource TimelineItemContainerStyle}" d:IsHidden="True">
-                        <GridView.ItemTemplateSelector>
-                            <templateSelectors:TimelineDataTemplateSelector
-                            EventTimelineItemTemplate="{StaticResource OMSQFTTimelineEventItemTemplate}"
-                            BufferItemFakeEventItemTemplate="{StaticResource BufferItemFakeEventItemTemplate}"/>
-                        </GridView.ItemTemplateSelector>
-                        <GridView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </GridView.ItemsPanel>
+                    Loaded="TimelineGridView_Loaded" 
+                    Style="{StaticResource TimeLineHorizontalSnappingStyle}" >
+                        <GridView.Template>
+                            <ControlTemplate TargetType="GridView">
+                                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                    <ScrollViewer x:Name="InlineScrollViewer"
+                                          ViewChanging="TimelineGridViewScrollViewer_ViewChanging" 
+                                          ViewChanged="TimelineGridViewScrollViewer_ViewChanged"
+                                          HorizontalSnapPointsAlignment="Center" 
+                                          HorizontalSnapPointsType="Mandatory" 
+                                          HorizontalScrollMode="Enabled" 
+                                          HorizontalScrollBarVisibility="Auto" 
+                                          IsHorizontalRailEnabled="True" 
+                                          IsHorizontalScrollChainingEnabled="True" 
+                                          IsVerticalScrollChainingEnabled="False" 
+                                          IsVerticalRailEnabled="False" 
+                                          VerticalScrollBarVisibility="Disabled" 
+                                          VerticalScrollMode="Disabled" 
+                                          ZoomMode="Disabled"
+                                          TabNavigation="{TemplateBinding TabNavigation}">
+                                        <ItemsPresenter HeaderTemplate="{TemplateBinding HeaderTemplate}" Header="{TemplateBinding Header}" HeaderTransitions="{TemplateBinding HeaderTransitions}" Padding="{TemplateBinding Padding}"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </ControlTemplate>
+                        </GridView.Template>
                     </GridView>
                 </SemanticZoom.ZoomedInView>
             </SemanticZoom>
@@ -922,18 +1109,18 @@
                        Visibility="Collapsed"
                        IsHitTestVisible="False"
                        Width="{Binding DataSource.MaskItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                       Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}"
+                       Height="{Binding DataSource.MaskItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                        Fill="#AAFFFFFF" 
                        Grid.RowSpan="2"
-                       HorizontalAlignment="Left" />
+                       HorizontalAlignment="Left" VerticalAlignment="Top" />
             <Rectangle x:Name="MaskRight"
                        IsHitTestVisible="False"
                        Visibility="Collapsed"
                        Width="{Binding DataSource.MaskItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                       Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}"
+                       Height="{Binding DataSource.MaskItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                        Fill="#AAffffff" 
                        Grid.RowSpan="2"
-                       HorizontalAlignment="Right" />
+                       HorizontalAlignment="Right" VerticalAlignment="Bottom" />
             <Popup x:Name="FlipViewPopup" IsLightDismissEnabled="False" Style="{StaticResource VideoPopupStyle}">
                 <Grid>
                     <FlipView Background="White" x:Name="FlipViewer"
@@ -1034,16 +1221,32 @@
                         </VisualTransition.GeneratedEasingFunction>
                     </VisualTransition>
                 </VisualStateGroup.Transitions>
-                <VisualState x:Name="FullScreenLandscape" />
+                <VisualState x:Name="FullScreenLandscape" >
+                    <Storyboard>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TimelineGridView" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TimeLineHorizontalSnappingStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="logoUserControl">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Thickness>110,38,0,0</Thickness>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
 
                 <VisualState x:Name="FullScreenPortrait">
                     <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="semanticZoom">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <Visibility>Collapsed</Visibility>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TimelineGridView" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TimeLineVerticalSnappingStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="logoUserControl">
+                        	<DiscreteObjectKeyFrame KeyTime="0">
+                        		<DiscreteObjectKeyFrame.Value>
+                                    <Thickness>0</Thickness>
+                        		</DiscreteObjectKeyFrame.Value>
+                        	</DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>

@@ -199,9 +199,9 @@ namespace OneMSQFT.Common {
         /// <summary>
         ///   Looks up a localized string similar to Next.
         /// </summary>
-        public static string NextString {
+        public static string Next {
             get {
-                return ResourceManager.GetString("NextString", resourceCulture);
+                return ResourceManager.GetString("Next", resourceCulture);
             }
         }
         
@@ -269,7 +269,7 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to since December 2013.
+        ///   Looks up a localized string similar to  since December 2013.
         /// </summary>
         public static string Since {
             get {

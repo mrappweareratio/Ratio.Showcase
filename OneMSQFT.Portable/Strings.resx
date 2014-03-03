@@ -129,14 +129,14 @@
   <data name="more" xml:space="preserve">
     <value>more</value>
   </data>
-  <data name="NextString" xml:space="preserve">
+  <data name="Next" xml:space="preserve">
     <value>Next</value>
   </data>
   <data name="show" xml:space="preserve">
     <value>show</value>
   </data>
   <data name="Since" xml:space="preserve">
-    <value>since December 2013</value>
+    <value> since December 2013</value>
   </data>
   <data name="SqftFormat" xml:space="preserve">
     <value>{0} sqft</value>

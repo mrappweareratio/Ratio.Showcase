@@ -83,14 +83,14 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return AboutPageTwoThirdsWidth / 8 * 7;
+                return AboutPageTwoThirdsWidth / 9 * 7;
             }
         }
         public double Panel2TextWidth
         {
             get
             {
-                return FullScreenWidth / 10 * 7;
+                return FullScreenWidth / 10 * 8;
             }
         }
 
@@ -109,10 +109,27 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
+        private const double BasePanel1FontSize = 60;
+        public double Panel1FontSize
+        {
+            get
+            {
+                return Convert.ToInt16(BasePanel1FontSize / GetWidthDelta());
+            }
+        }
+        private const double BasePanel2FontSize = 30;
+        public double Panel2FontSize
+        {
+            get
+            {
+                return Convert.ToInt16(BasePanel2FontSize / GetWidthDelta());
+            }
+        }
+
 
         public override void WindowSizeChanged(double width, double height)
         {
-            IsHorizontal = width > height;
+            base.WindowSizeChanged(width, height);
             OnPropertyChanged("IsHorizontal");
 
             OnPropertyChanged("FullScreenWidth");

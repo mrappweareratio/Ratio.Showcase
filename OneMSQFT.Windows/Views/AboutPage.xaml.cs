@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.Graphics.Display;
 using Windows.UI.Core;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
@@ -69,17 +70,6 @@ namespace OneMSQFT.WindowsStore.Views
 
         #region Resizing
 
-
-        protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
-        {
-            ProcessWindowSizeChangedEvent();
-            base.WindowSizeChanged(sender, e);
-        }
-
-        private void ProcessWindowSizeChangedEvent()
-        {
-            GetDataContextAsViewModel<AboutPageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-        }
 
         #endregion
 

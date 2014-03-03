@@ -4,25 +4,19 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
+using Windows.UI.Core;
 using Windows.UI.Xaml.Media.Imaging;
-using Microsoft.Practices.Prism.PubSubEvents;
+using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
-using Microsoft.VisualBasic;
-using OneMSQFT.Common.Models;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
-using OneMSQFT.UILogic.ViewModels;
-using Windows.UI.Core;
-using OneMSQFT.WindowsStore.DesignViewModels;
 using Strings = OneMSQFT.Common.Strings;
 
 namespace OneMSQFT.WindowsStore.Views
@@ -37,6 +31,23 @@ namespace OneMSQFT.WindowsStore.Views
 
         protected StackPanel TopAppBarContentStackPanel;
         protected Boolean HomeButtonAddedToAppBar = false;
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            // listens for resolution change
+            Windows.Graphics.Display.DisplayInformation.DisplayContentsInvalidated += DisplayInformation_DisplayContentsInvalidated;
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
+            // unwire listener
+            Windows.Graphics.Display.DisplayInformation.DisplayContentsInvalidated -= DisplayInformation_DisplayContentsInvalidated;
+        }
+
+
+        #region AppBars
 
         public void InitAppBars()
         {
@@ -167,6 +178,30 @@ namespace OneMSQFT.WindowsStore.Views
             }
             TopAppBarContentStackPanel.Children.Insert(homeIndex, homeButton);
         }
+
+        #endregion
+
+         # region resizing
+
+        protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
+        {
+            // Screen Size Changed
+            ProcessWindowSizeChangedEvent();
+            base.WindowSizeChanged(sender, e);
+        }
+        protected void DisplayInformation_DisplayContentsInvalidated(Windows.Graphics.Display.DisplayInformation sender, object args)
+        {
+            // Screen Resolution Changed
+            ProcessWindowSizeChangedEvent();
+        }
+
+        protected void ProcessWindowSizeChangedEvent()
+        {
+            // Update ViewModel
+            GetDataContextAsViewModel<IBasePageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
+        }
+
+        #endregion
 
         public T GetDataContextAsViewModel<T>() where T : INotifyPropertyChanged
         {
