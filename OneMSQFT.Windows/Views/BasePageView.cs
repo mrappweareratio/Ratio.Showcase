@@ -37,13 +37,13 @@ namespace OneMSQFT.WindowsStore.Views
             base.OnNavigatedTo(e);
             // listens for resolution change
             Windows.Graphics.Display.DisplayInformation.DisplayContentsInvalidated += DisplayInformation_DisplayContentsInvalidated;
-        }
+        }        
 
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            base.OnNavigatingFrom(e);
+            base.OnNavigatedFrom(e);
             // unwire listener
-            Windows.Graphics.Display.DisplayInformation.DisplayContentsInvalidated -= DisplayInformation_DisplayContentsInvalidated;
+            Windows.Graphics.Display.DisplayInformation.DisplayContentsInvalidated -= DisplayInformation_DisplayContentsInvalidated;            
         }
 
 
