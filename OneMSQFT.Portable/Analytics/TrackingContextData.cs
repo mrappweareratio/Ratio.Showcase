@@ -48,12 +48,12 @@ namespace OneMSQFT.Common.Analytics
                 return entry;
             }
 
-            public static string GeneratePlayVideoInExhibitData(int? exhibitPos = null)
+            public static string GeneratePlayVideoInExhibitData(string exName)
             {
                 var entry = "exhibit";
-                if (exhibitPos.HasValue)
+                if (!String.IsNullOrEmpty(exName))
                 {
-                    entry += ('|' + exhibitPos.ToString());
+                    entry += ('|' + exName);
                 }
                 entry += ": video play";
                 return entry;
@@ -160,6 +160,40 @@ namespace OneMSQFT.Common.Analytics
             public static string GenerateShareExhibitElement(string appName, string shareUrl)
             {
                 var entry = "exhibit";
+                entry += ":share";
+                if (!String.IsNullOrEmpty(shareUrl))
+                    entry += ('|' + shareUrl);
+                entry += ":appName";
+                if (!String.IsNullOrEmpty(appName))
+                    entry += ('|' + appName);
+                return entry;
+            }
+
+            public static string GenerateShareEventVideoElement(int? eventPosition, string videoName, string appName, string shareUrl)
+            {
+                var entry = "event";
+                if (eventPosition.HasValue)
+                    entry += ('|' + eventPosition.ToString());
+                entry += ":video";
+                if (!String.IsNullOrEmpty(videoName))
+                    entry += ('|' + videoName);
+                entry += ":share";
+                if (!String.IsNullOrEmpty(shareUrl))
+                    entry += ('|' + shareUrl);
+                entry += ":appName";
+                if (!String.IsNullOrEmpty(appName))
+                    entry += ('|' + appName);
+                return entry;
+            }
+
+            public static string GenerateShareExhibitVideoElement(string exName, string videoName, string appName, string shareUrl)
+            {
+                var entry = "exhibit";
+                if (!String.IsNullOrEmpty(exName))
+                    entry += ('|' + exName);
+                entry += ":video";
+                if (!String.IsNullOrEmpty(videoName))
+                    entry += ('|' + videoName);
                 entry += ":share";
                 if (!String.IsNullOrEmpty(shareUrl))
                     entry += ('|' + shareUrl);
