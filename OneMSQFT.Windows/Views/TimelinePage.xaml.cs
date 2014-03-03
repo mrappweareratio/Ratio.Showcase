@@ -93,6 +93,8 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Description = ev.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
                 args.Request.Data.SetWebLink(uri);
+                _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackVideoShareInEventView(ev.Name,
+                ev.SquareFootage, evPos, selectedMediaContentSource.Media.VideoId, uri.AbsoluteUri, appName);
             }
             else
             {
@@ -488,6 +490,8 @@ namespace OneMSQFT.WindowsStore.Views
                 // The default is false.                
                 secondaryTile.VisualElements.ShowNameOnSquare150x150Logo = false;
                 secondaryTile.VisualElements.ShowNameOnWide310x150Logo = false;
+
+                secondaryTile.RoamingEnabled = true;
 
                 bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
                 ToggleAppBarButton(PinButton, !isPinned);
