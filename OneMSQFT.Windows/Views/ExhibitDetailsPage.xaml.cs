@@ -39,13 +39,14 @@ namespace OneMSQFT.WindowsStore.Views
                     _sharing = AppLocator.Current.SharingService;
                     var dataTransferManager = DataTransferManager.GetForCurrentView();
                     dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
+                    dataTransferManager.TargetApplicationChosen += DataTransferManagerTargetApplicationChosen;
                 }
             }
         }
 
         #region Sharing
 
-        private ISharingService _sharing;
+        private readonly ISharingService _sharing;
         async private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();
@@ -92,9 +93,21 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Title = vm.Exhibit.Name;
                 args.Request.Data.Properties.Description = vm.Exhibit.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
-                args.Request.Data.SetWebLink(uri);                
+                args.Request.Data.SetWebLink(uri);
+                _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackShareExhibitInteraction(vm.Exhibit.Name,
+                  uri.AbsoluteUri, appName);
                 deferral.Complete();
             }
+        }
+
+        private Action<String> _targetApplicationChosenDelegate;
+        void DataTransferManagerTargetApplicationChosen(DataTransferManager sender, TargetApplicationChosenEventArgs args)
+        {
+            if (_targetApplicationChosenDelegate == null)
+                return;
+            _targetApplicationChosenDelegate(args.ApplicationName);
+            //unwire and reset the delegate
+            _targetApplicationChosenDelegate = null;
         }
 
         #endregion
