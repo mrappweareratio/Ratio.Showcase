@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
@@ -25,10 +26,10 @@ namespace OneMSQFT.WindowsStore.Views
         {
             this.InitializeComponent();
             InitAppBars();
-            Loaded += ExhibitDetailsPage_Loaded;
-            var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();
+            var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();            
             vm.PropertyChanged += ExhibitDetailsPage_PropertyChanged;
             vm.PinContextChanged += vm_PinContextChanged;
+            ProcessWindowSizeChangedEvent();
             var app = AppLocator.Current;
             if (app != null)
             {
@@ -39,13 +40,14 @@ namespace OneMSQFT.WindowsStore.Views
                     _sharing = AppLocator.Current.SharingService;
                     var dataTransferManager = DataTransferManager.GetForCurrentView();
                     dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
+                    dataTransferManager.TargetApplicationChosen += DataTransferManagerTargetApplicationChosen;
                 }
             }
         }
 
         #region Sharing
 
-        private ISharingService _sharing;
+        private readonly ISharingService _sharing;
         async private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();
@@ -92,13 +94,25 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Title = vm.Exhibit.Name;
                 args.Request.Data.Properties.Description = vm.Exhibit.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
-                args.Request.Data.SetWebLink(uri);                
+                args.Request.Data.SetWebLink(uri);
+                _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackShareExhibitInteraction(vm.Exhibit.Name,
+                  uri.AbsoluteUri, appName);
                 deferral.Complete();
             }
         }
 
-        #endregion
+        private Action<String> _targetApplicationChosenDelegate;
+        void DataTransferManagerTargetApplicationChosen(DataTransferManager sender, TargetApplicationChosenEventArgs args)
+        {
+            if (_targetApplicationChosenDelegate == null)
+                return;
+            _targetApplicationChosenDelegate(args.ApplicationName);
+            //unwire and reset the delegate
+            _targetApplicationChosenDelegate = null;
+        }
 
+        #endregion
+       
         protected override void GoBack(object sender, RoutedEventArgs eventArgs)
         {
             if (this.Frame != null && !this.Frame.CanGoBack)
@@ -107,18 +121,13 @@ namespace OneMSQFT.WindowsStore.Views
                 return;
             }
             base.GoBack(sender, eventArgs);
-        }
-
-        void ExhibitDetailsPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            ProcessWindowSizeChangedEvent();
-        }
+        }       
 
         void ExhibitDetailsPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "SquareFootEvents")
             {
-                if (GetDataContextAsViewModel<ExhibitDetailsPageViewModel>().SquareFootEvents.Count > 0)
+                if (GetDataContextAsViewModel<IBasePageViewModel>().SquareFootEvents.Count > 0)
                 {
                     this.PopulateTopAppbar(GetDataContextAsViewModel<IBasePageViewModel>());
                 }
@@ -126,13 +135,13 @@ namespace OneMSQFT.WindowsStore.Views
 
             if (e.PropertyName == "IsHorizontal")
             {
-                if (GetDataContextAsViewModel<ExhibitDetailsPageViewModel>().IsHorizontal)
+                if (GetDataContextAsViewModel<IBasePageViewModel>().IsHorizontal)
                 {
                     VisualStateManager.GoToState(this, "FullScreenLandscape", true);
                 }
                 else
                 {
-                  //  VisualStateManager.GoToState(this, "FullScreenPortrait", true);
+                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);
                 }
             }
         }
@@ -161,23 +170,7 @@ namespace OneMSQFT.WindowsStore.Views
             base.PopulateTopAppbar(vm);
             this.HomeButton.Command = this.HomeButtonClickCommand;
             this.AboutButton.Command = this.AboutButtonClickCommand;
-        }
-
-        #region Resizing
-
-
-        protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
-        {
-            ProcessWindowSizeChangedEvent();
-            base.WindowSizeChanged(sender, e);
-        }
-
-        private void ProcessWindowSizeChangedEvent()
-        {
-            GetDataContextAsViewModel<ExhibitDetailsPageViewModel>().WindowSizeChanged(Window.Current.Bounds.Width, Window.Current.Bounds.Height);
-        }
-
-        #endregion
+        }        
 
         #region MediaViewer
 
@@ -205,6 +198,7 @@ namespace OneMSQFT.WindowsStore.Views
         #endregion
 
         #region Pinning
+
         private async void Pin_OnClick(object sender, RoutedEventArgs e)
         {
             BottomAppBar.IsSticky = true;
@@ -303,16 +297,13 @@ namespace OneMSQFT.WindowsStore.Views
 
         #endregion
 
-        void MediaListViewScrollViewerHorizontal_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        private void MediaListViewScrollViewerHorizontal_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
-            var hsv = ((ScrollViewer)sender);
-            hsv.HorizontalSnapPointsAlignment = hsv.HorizontalOffset * 2 > hsv.ScrollableWidth ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
-        }
-
-        void MediaListViewScrollViewerVertical_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
-        {
-            var vsv = ((ScrollViewer)sender);
-            vsv.VerticalSnapPointsAlignment = vsv.VerticalOffset * 2 > vsv.ScrollableHeight + 1 ? SnapPointsAlignment.Far : SnapPointsAlignment.Near;
+            var hsv = ((ScrollViewer) sender);
+            hsv.HorizontalSnapPointsAlignment = hsv.HorizontalOffset*2 > hsv.ScrollableWidth
+                ? SnapPointsAlignment.Far
+                : SnapPointsAlignment.Near;
         }
     }
 }
+

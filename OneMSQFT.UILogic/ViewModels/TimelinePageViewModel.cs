@@ -129,7 +129,7 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        #region ResizingProperties
+        #region Resizing Properties
 
         public double ZoomedOutGridHeight
         {
@@ -157,17 +157,31 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public double BufferItemWidth
         {
-            get
-            {
-                return EventItemWidth / 2;
-            }
+            get { return IsHorizontal ? EventItemWidth / 2 : FullScreenWidth; }
+        }
+
+        public double BufferItemHeight
+        {
+            get { return IsHorizontal ? FullScreenHeight : FullScreenHeight / 4; }
         }
 
         public double MaskItemWidth
         {
             get
             {
-                return ((FullScreenWidth - EventItemWidth) / 2) + 1;
+                return IsHorizontal
+                    ? ((FullScreenWidth - EventItemWidth) / 2) + 1
+                    : FullScreenWidth;
+            }
+        }
+
+        public double MaskItemHeight
+        {
+            get
+            {
+                return IsHorizontal
+                    ? FullScreenHeight
+                    : ((FullScreenHeight - EventItemHeight) / 2) + 1;
             }
         }
 
@@ -175,7 +189,9 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return FullScreenWidth * .9;
+                return IsHorizontal
+                    ? FullScreenWidth*.9
+                    : FullScreenWidth;
             }
         }
 
@@ -183,13 +199,11 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return FullScreenHeight;
+                return IsHorizontal
+                    ? FullScreenHeight
+                    : FullScreenHeight*.9;
             }
         }
-
-        public double FullScreenWidth { get; set; }
-
-        public double FullScreenHeight { get; set; }
 
         public double ExhibitItemWidth
         {
@@ -210,23 +224,17 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public override void WindowSizeChanged(double width, double height)
         {
-            FullScreenHeight = height;
-            FullScreenWidth = width;
-            IsHorizontal = width > height;
-            OnPropertyChanged("IsHorizontal");
-
+            base.WindowSizeChanged(width, height);
             OnPropertyChanged("ZoomedOutGridHeight");
             OnPropertyChanged("ZoomedOutItemWidth");
             OnPropertyChanged("ZoomedOutItemHeight");
             OnPropertyChanged("BufferItemWidth");
             OnPropertyChanged("MaskItemWidth");
+            OnPropertyChanged("MaskItemHeight");
             OnPropertyChanged("EventItemWidth");
-            OnPropertyChanged("EventItemHeight");
-            OnPropertyChanged("FullScreenHeight");
-            OnPropertyChanged("FullScreenWidth");
+            OnPropertyChanged("EventItemHeight");            
             OnPropertyChanged("ExhibitItemWidth");
             OnPropertyChanged("ExhibitItemHeight");
-
         }
 
         #endregion

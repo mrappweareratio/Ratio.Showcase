@@ -168,22 +168,14 @@ namespace OneMSQFT.UILogic.ViewModels
         #endregion
 
         #region ResizingProperties
-
-        public double FullScreenWidth
+        
+        public double NineSixteenthsOfWidth
         {
             get
             {
-                return Window.Current.Bounds.Width;
+                return (FullScreenWidth/16)*9;
             }
         }
-        public double FullScreenHeight
-        {
-            get
-            {
-                return Window.Current.Bounds.Height;
-            }
-        }
-
         public double OneThirdPanelWidth
         {
             get { return FullScreenWidth * .325; } // approx one third (per comp)
@@ -192,36 +184,20 @@ namespace OneMSQFT.UILogic.ViewModels
         public double PortraitHeaderFooterHeight
         {
             get { return FullScreenHeight * .275; } // approx one third (per comp)
-        }
-
-        public Visibility ClearStartupVisibility
-        {
-            get { return _clearStartupVisibility; }
-            set { SetProperty(ref _clearStartupVisibility, value); }
-        }
-
-        public Visibility SetStartupVisibility
-        {
-            get { return _setStartupVisibility; }
-            set { SetProperty(ref _setStartupVisibility, value); }
-        }
+        }              
 
         public override void WindowSizeChanged(double width, double height)
         {
-            IsHorizontal = width > height;
-            OnPropertyChanged("IsHorizontal");
-
-            OnPropertyChanged("FullScreenHeight");
-            OnPropertyChanged("FullScreenWidth");
-            OnPropertyChanged("ExhibitItemHeight");
-            OnPropertyChanged("ExhibitItemWidth");
+            base.WindowSizeChanged(width, height);            
+            OnPropertyChanged("NineSixteenthsOfWidth");
             OnPropertyChanged("OneThirdPanelWidth");
-
             OnPropertyChanged("PortraitHeaderFooterHeight");
         }
 
 
         #endregion
+
+        #region Pinning + Set Start Up
 
         private bool ClearStartupCommandCanExecuteMethod()
         {
@@ -257,7 +233,18 @@ namespace OneMSQFT.UILogic.ViewModels
             ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        #region Pinning
+
+        public Visibility ClearStartupVisibility
+        {
+            get { return _clearStartupVisibility; }
+            set { SetProperty(ref _clearStartupVisibility, value); }
+        }
+
+        public Visibility SetStartupVisibility
+        {
+            get { return _setStartupVisibility; }
+            set { SetProperty(ref _setStartupVisibility, value); }
+        }
 
         public override SecondaryTileArgs GetSecondaryTileArguments()
         {
