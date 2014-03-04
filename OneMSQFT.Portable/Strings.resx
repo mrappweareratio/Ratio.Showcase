@@ -204,4 +204,16 @@
   <data name="UNPIN" xml:space="preserve">
     <value>UNPIN FROM START</value>
   </data>
+  <data name="Instagram" xml:space="preserve">
+    <value>INSTAGRAM</value>
+  </data>
+  <data name="InstagramUrl" xml:space="preserve">
+    <value>http://instagram.com/1msqft</value>
+  </data>
+  <data name="Twitter" xml:space="preserve">
+    <value>TWITTER</value>
+  </data>
+  <data name="TwitterUrl" xml:space="preserve">
+    <value>https://twitter.com/1MSQFT</value>
+  </data>
 </root>

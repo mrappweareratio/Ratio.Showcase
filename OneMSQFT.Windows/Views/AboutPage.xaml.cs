@@ -59,8 +59,9 @@ namespace OneMSQFT.WindowsStore.Views
         public override void PopulateTopAppbar(IBasePageViewModel vm)
         {
             base.PopulateTopAppbar(vm);
-            this.HomeButton.Command = this.HomeButtonClickCommand;
-            this.AboutButton.Command = this.AboutButtonClickCommand;
+            HomeButton.Command = HomeButtonClickCommand;
+            TwitterButton.Command = TwitterButtonClickCommand;
+            InstagramButton.Command = InstagramButtonClickCommand;
         }        
     }
 }

@@ -162,7 +162,7 @@ namespace OneMSQFT.WindowsStore.Views
             Event ev = await AppLocator.Current.DataService.GetEventById(eventId);
             AppLocator.Current.Analytics.TrackAppBarInteractionInExhibitView(ev.Name, ev.SquareFootage);
 
-            this.Frame.Navigate(typeof(TimelinePage), eventId);
+            Frame.Navigate(typeof(TimelinePage), eventId);
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
         }
@@ -170,8 +170,10 @@ namespace OneMSQFT.WindowsStore.Views
         public override void PopulateTopAppbar(IBasePageViewModel vm)
         {
             base.PopulateTopAppbar(vm);
-            this.HomeButton.Command = this.HomeButtonClickCommand;
-            this.AboutButton.Command = this.AboutButtonClickCommand;
+            HomeButton.Command = HomeButtonClickCommand;
+            AboutButton.Command = AboutButtonClickCommand;
+            TwitterButton.Command = TwitterButtonClickCommand;
+            InstagramButton.Command = InstagramButtonClickCommand;
         }        
 
         #region MediaViewer

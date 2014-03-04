@@ -635,7 +635,15 @@
 							Style="{StaticResource OMSQFT_CustomAppbarButton}" />
                     </StackPanel>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
-                        <Button x:Name="AboutButton" Content="{Binding Strings.About, Source={StaticResource PortableStrings}}" Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+                        <Button x:Name="AboutButton" 
+                                Content="{Binding Strings.About, Source={StaticResource PortableStrings}}" 
+                                Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+                        <Button x:Name="TwitterButton"
+                                Content="{Binding Strings.Twitter, Source={StaticResource PortableStrings}}"
+                                Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
+                        <Button x:Name="InstagramButton"
+                                Content="{Binding Strings.Instagram, Source={StaticResource PortableStrings}}"
+                                Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
                     </StackPanel>
                 </Grid>
             </Border>
