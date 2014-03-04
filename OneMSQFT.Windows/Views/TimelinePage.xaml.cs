@@ -55,7 +55,7 @@ namespace OneMSQFT.WindowsStore.Views
             if (app != null)
             {
                 StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
-                PinButton.Visibility = app.KioskModeEnabled ? Visibility.Collapsed : Visibility.Visible;
+                //PinButton.Visibility = app.KioskModeEnabled ? Visibility.Collapsed : Visibility.Visible;
                 if (!app.KioskModeEnabled)
                 {
                     _sharing = AppLocator.Current.SharingService;
