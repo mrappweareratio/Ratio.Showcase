@@ -204,4 +204,10 @@
   <data name="UNPIN" xml:space="preserve">
     <value>UNPIN FROM START</value>
   </data>
+  <data name="ShareEventExhibitUrlFormatRootSlugId" xml:space="preserve">
+    <value>{0}/event/{1}/{2}/{3}/{4}</value>
+  </data>
+  <data name="ShareEventUrlFormatRootSlugId" xml:space="preserve">
+    <value>{0}/event/{1}/{2}</value>
+  </data>
 </root>

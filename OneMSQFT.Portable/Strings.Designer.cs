@@ -242,6 +242,24 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}/event/{1}/{2}/{3}/{4}.
+        /// </summary>
+        public static string ShareEventExhibitUrlFormatRootSlugId {
+            get {
+                return ResourceManager.GetString("ShareEventExhibitUrlFormatRootSlugId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}/event/{1}/{2}.
+        /// </summary>
+        public static string ShareEventUrlFormatRootSlugId {
+            get {
+                return ResourceManager.GetString("ShareEventUrlFormatRootSlugId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is nothing to share from 1 Million Square Feet right now..
         /// </summary>
         public static string SharingFailedDisplayText {
