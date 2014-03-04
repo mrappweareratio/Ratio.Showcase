@@ -324,6 +324,8 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             Assert.IsTrue(changedProperties.Contains("EventItemHeight"));
             Assert.IsTrue(changedProperties.Contains("ExhibitItemWidth"));
             Assert.IsTrue(changedProperties.Contains("ExhibitItemHeight"));
+            Assert.IsTrue(changedProperties.Contains("LogoTransformX"));
+            Assert.IsTrue(changedProperties.Contains("LogoTransformY"));
         }
 
         #endregion

@@ -225,6 +225,26 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
+        public double LogoTransformX
+        {
+            get
+            {
+                return IsHorizontal
+                    ? 110
+                    : 52;
+            }
+        }
+
+        public double LogoTransformY
+        {
+            get
+            {
+                return IsHorizontal
+                    ? 38
+                    : 100;
+            }
+        }
+
 
         public override void WindowSizeChanged(double width, double height)
         {
@@ -236,9 +256,11 @@ namespace OneMSQFT.UILogic.ViewModels
             OnPropertyChanged("MaskItemWidth");
             OnPropertyChanged("MaskItemHeight");
             OnPropertyChanged("EventItemWidth");
-            OnPropertyChanged("EventItemHeight");            
+            OnPropertyChanged("EventItemHeight");
             OnPropertyChanged("ExhibitItemWidth");
             OnPropertyChanged("ExhibitItemHeight");
+            OnPropertyChanged("LogoTransformX");
+            OnPropertyChanged("LogoTransformY");
         }
 
         #endregion
