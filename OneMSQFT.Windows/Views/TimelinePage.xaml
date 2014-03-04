@@ -527,10 +527,10 @@
 					    Stretch="UniformToFill"/>
                     </Border>
                     <Rectangle Fill="{StaticResource OneMSQFTOverlayBgBrush}"/>
-                    <RichTextBlock TextWrapping="NoWrap" 
+                    <RichTextBlock TextWrapping="Wrap" 
                                    TextAlignment="Center"
                                    TextTrimming="CharacterEllipsis" 
-                                   Foreground="White" Margin="40"
+                                   Foreground="White" Margin="20"
                                    FontFamily="Segoe UI Light"
                                    FontWeight="Light"
                                    VerticalAlignment="Center"
@@ -728,6 +728,7 @@
                         </ScrollViewer>
                         <omsqftcontrols:CuratorLogoStackerUserControl 
                             Grid.Row="3"
+                            IsLayoutHorizontal="True"
                             CuratorLogoCollection="{Binding CuratorLogos}"
                             Margin="40,20,0,50" 
                             VerticalAlignment="Bottom" 
@@ -810,8 +811,9 @@
                         <omsqftcontrols:CuratorLogoStackerUserControl 
                             Grid.Row="2"
                             CuratorLogoCollection="{Binding CuratorLogos}"
-                            Margin="40,20,0,40" 
-                            VerticalAlignment="Bottom" 
+                            IsLayoutHorizontal="False"
+                            Margin="40,20,0,0" 
+                            VerticalAlignment="Center" 
                             HorizontalAlignment="Left"/>
                     </Grid>
 
