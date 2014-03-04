@@ -27,19 +27,19 @@ namespace OneMSQFT.WindowsStore.Controls
             this.InitializeComponent();
         }
 
-        private void player_Loaded(object sender, RoutedEventArgs e)
-        {            
-            if (_selectedMediaContentSource != null)
-            {
-                player.Source = _selectedMediaContentSource.VideoSource;
-                player.Play();
-            }
+        private void PlayerLoaded(object sender, RoutedEventArgs e)
+        {
             var app = AppLocator.Current;
             if (app != null && !app.KioskModeEnabled)
             {
                 //player.MediaEnded += (o, args) => DataTransferManager.ShowShareUI();
             }
-        }               
+            if (_selectedMediaContentSource != null)
+            {
+                player.Source = app == null ? _selectedMediaContentSource.VideoSource : _selectedMediaContentSource.GetVideoSourceByInternetConnection(app.InternetConnection);
+                player.Play();
+            }
+        }
 
         private MediaContentSourceItemViewModel _selectedMediaContentSource;
         public MediaContentSourceItemViewModel SelectedMediaContentSource
@@ -49,7 +49,7 @@ namespace OneMSQFT.WindowsStore.Controls
         }
 
         public static readonly DependencyProperty SelectedMediaContentSourceProperty =
-            DependencyProperty.Register("SelectedMediaContentSource", typeof(MediaContentSourceItemViewModel), typeof(VideoPlayerUserControl), new PropertyMetadata(null, SelectedMediaContentSourcePropertyChanged));    
+            DependencyProperty.Register("SelectedMediaContentSource", typeof(MediaContentSourceItemViewModel), typeof(VideoPlayerUserControl), new PropertyMetadata(null, SelectedMediaContentSourcePropertyChanged));
 
         // MediaContentSourceItemViewModel changed from Exhibits Page
         private static void SelectedMediaContentSourcePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -59,7 +59,8 @@ namespace OneMSQFT.WindowsStore.Controls
             vpuc._selectedMediaContentSource = e.NewValue as MediaContentSourceItemViewModel;
             if (vpuc._selectedMediaContentSource != null)
             {
-                vpuc.player.Source = vpuc._selectedMediaContentSource.VideoSource;
+                var app = AppLocator.Current;
+                vpuc.player.Source = app == null ? vpuc._selectedMediaContentSource.VideoSource : vpuc._selectedMediaContentSource.GetVideoSourceByInternetConnection(app.InternetConnection);
             }
         }
 

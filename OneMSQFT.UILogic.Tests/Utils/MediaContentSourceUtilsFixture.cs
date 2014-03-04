@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Networking.Connectivity;
 using Windows.UI.Xaml;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneMSQFT.Common.Models;
+using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.DataLayer;
+using OneMSQFT.UILogic.Services;
+using OneMSQFT.UILogic.Tests.Mocks;
 using OneMSQFT.UILogic.Utils;
+using OneMSQFT.UILogic.ViewModels;
 
 namespace OneMSQFT.UILogic.Tests.Utils
 {
@@ -99,8 +104,51 @@ namespace OneMSQFT.UILogic.Tests.Utils
             else if (mediaContent.ContentSourceType == ContentSourceType.Video)
             {
                 Assert.IsTrue(MediaContentSourceUtils.HasVideoUrl(mediaContent), "HasVideoUrl");
-                Assert.IsNotNull(MediaContentSourceUtils.SelectVideoUrl(mediaContent), "SelectVideoUrl");
+                Assert.IsNotNull(MediaContentSourceUtils.GetDefaultVideoUrl(mediaContent), "SelectVideoUrl");
             }
+        }
+
+        [TestMethod]
+        public void Media_Url_By_Connection_Conservative()
+        {
+            const string hd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4?hd=1";
+            const string sd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4?sd=1";
+            const string mobile = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4?mobile=1";
+            var media = new MediaContentSource()
+            {
+                ContentSourceType = ContentSourceType.Video,
+                Id = "6",
+                Img = "http://url.com/imagesource",
+                VideoUrlHd = hd,
+                VideoUrlSd = sd,
+                VideoUrlMobile = mobile
+            };
+            var vm = new MediaContentSourceItemViewModel(media);
+            Assert.AreEqual(hd, vm.VideoSource.AbsoluteUri, "Default VideoSource hd");
+            var internet = new MockInternetConnectionService(true, new MockCostGuidance(){Cost = NetworkCost.Conservative});            
+            Assert.AreEqual(sd, vm.GetVideoSourceByInternetConnection(internet).AbsoluteUri, "Conservative VideoSource sd");
+        }
+
+
+        [TestMethod]
+        public void Media_Url_By_Connection_Conservative_Fallback_To_Mobile()
+        {
+            const string hd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4?hd=1";
+            const string sd = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4?sd=1";
+            const string mobile = "http://smf.blob.core.windows.net/samples/videos/bigbuck.mp4?mobile=1";
+            var media = new MediaContentSource()
+            {
+                ContentSourceType = ContentSourceType.Video,
+                Id = "6",
+                Img = "http://url.com/imagesource",
+                VideoUrlHd = "",
+                VideoUrlSd = "",
+                VideoUrlMobile = mobile
+            };
+            var vm = new MediaContentSourceItemViewModel(media);
+            Assert.AreEqual(mobile, vm.VideoSource.AbsoluteUri, "Default VideoSource fallback to mobile");
+            var internet = new MockInternetConnectionService(true, new MockCostGuidance() { Cost = NetworkCost.Conservative });
+            Assert.AreEqual(mobile, vm.GetVideoSourceByInternetConnection(internet).AbsoluteUri, "Conservative VideoSource fallback to mobile");
         }
     }
 }

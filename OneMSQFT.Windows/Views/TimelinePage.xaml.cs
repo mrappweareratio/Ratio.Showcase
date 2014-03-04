@@ -388,7 +388,7 @@ namespace OneMSQFT.WindowsStore.Views
                     AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Media.VideoId, ev.SquareFootage, vm.GetEventIndexById(ev.Id));
 
                 VideoPopup.IsOpen = true;
-                VideoPlayerUserControl.SelectedMediaContentSource = ((MediaContentSourceItemViewModel)FlipViewer.SelectedItem);
+                VideoPlayerUserControl.SelectedMediaContentSource = mediaItem;
             }
         }
 

@@ -60,7 +60,7 @@ namespace OneMSQFT.WindowsStore
         async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             e.Handled = _application.CanHandleException(e.Exception);
-            
+
             if (e.Handled)
                 await _application.HandleException(e.Exception, e.Message);
         }
@@ -94,12 +94,13 @@ namespace OneMSQFT.WindowsStore
 
             //create the application
             _application = new OneMsqftApplication(
-                _container.Resolve<INavigationService>(), 
-                _container.Resolve<IDataService>(), 
-                _container.Resolve<IConfigurationService>(), 
-                _container.Resolve<IAnalyticsService>(), 
-                _container.Resolve<IAlertMessageService>(), 
-                _container.Resolve<ISharingService>());
+                _container.Resolve<INavigationService>(),
+                _container.Resolve<IDataService>(),
+                _container.Resolve<IConfigurationService>(),
+                _container.Resolve<IAnalyticsService>(),
+                _container.Resolve<IAlertMessageService>(),
+                _container.Resolve<ISharingService>(),
+                _container.Resolve<IInternetConnectionService>());
 
             //register the application
             AppLocator.Register(_application);

@@ -17,8 +17,8 @@ namespace OneMSQFT.UILogic.Services
             Cost = NetworkCost.Normal;
         }
 
-        public NetworkCost Cost { get; private set; }
-        public String Reason { get; private set; }
+        public NetworkCost Cost { get; set; }
+        public String Reason { get; set; }
 
         public void Init(ConnectionCost connectionCost)
         {

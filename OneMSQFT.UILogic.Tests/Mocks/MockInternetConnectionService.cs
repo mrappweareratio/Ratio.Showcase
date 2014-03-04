@@ -6,11 +6,11 @@ namespace OneMSQFT.UILogic.Tests.Mocks
 {
     public class MockInternetConnectionService : IInternetConnectionService
     {
-        public bool IsConnected { get; private set; }
-        public ICostGuidance CostGuidance { get; private set; }
+        public bool IsConnected { get; set; }
+        public ICostGuidance CostGuidance { get; set; }
         public event EventHandler<IInternetConnection> InternetConnectionChanged;
 
-        public MockInternetConnectionService(bool isConnected, ICostGuidance costGuidance)
+        public MockInternetConnectionService(bool isConnected, MockCostGuidance costGuidance)
         {
             IsConnected = isConnected;
             CostGuidance = costGuidance;
@@ -19,7 +19,7 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         public MockInternetConnectionService(bool isConnected)
         {
             IsConnected = isConnected;
-            CostGuidance = new CostGuidance();
+            CostGuidance = new MockCostGuidance();
         }
 
         public void RaiseInternetConnectionChanged(IInternetConnection internetConnection)
@@ -28,5 +28,11 @@ namespace OneMSQFT.UILogic.Tests.Mocks
             if (handler != null)
                 handler(null, internetConnection);
         }
+    }
+
+    public class MockCostGuidance : ICostGuidance
+    {
+        public NetworkCost Cost { get; set; }
+        public string Reason { get; set; }
     }
 }

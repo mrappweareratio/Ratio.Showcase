@@ -15,6 +15,7 @@ using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Analytics;
 using OneMSQFT.UILogic.Interfaces;
 using OneMSQFT.UILogic.Navigation;
+using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.Utils;
 using Strings = OneMSQFT.Common.Strings;
 
@@ -29,6 +30,7 @@ namespace OneMSQFT.UILogic
         public IDataService DataService { get; set; }
         public INavigationService NavigationService { get; private set; }
         public ISharingService SharingService { get; private set; }
+        public IInternetConnectionService InternetConnection { get; private set; }
 
         public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics, IAlertMessageService alertMessageService)
         {
@@ -37,14 +39,15 @@ namespace OneMSQFT.UILogic
             Analytics.KioskModeEnabled = this.KioskModeEnabled;
             Configuration = configuration;
             DataService = dataService;
-            NavigationService = navigationService;
+            NavigationService = navigationService;            
             _events = new List<Event>();
         }
 
-        public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics, IAlertMessageService alertMessageService, ISharingService sharingService)
+        public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics, IAlertMessageService alertMessageService, ISharingService sharingService, IInternetConnectionService internetConnectionService)
             : this(navigationService, dataService, configuration, analytics, alertMessageService)
         {
             SharingService = sharingService;
+            InternetConnection = internetConnectionService;
         }
 
         public async Task HandleException(Exception exception, string message)
