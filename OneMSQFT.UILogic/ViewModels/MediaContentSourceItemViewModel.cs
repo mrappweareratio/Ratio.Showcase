@@ -48,7 +48,8 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public Uri GetVideoSourceByInternetConnection(IInternetConnection internetConnection)
         {
-            return MediaContentSourceUtils.GetVideoUrl(Media, internetConnection);            
+            VideoSource = MediaContentSourceUtils.GetVideoUrl(Media, internetConnection);
+            return VideoSource;
         }
     }
 }
