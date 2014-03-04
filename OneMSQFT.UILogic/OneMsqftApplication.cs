@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.System;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Popups;
 using Windows.UI.StartScreen;
@@ -176,11 +177,9 @@ namespace OneMSQFT.UILogic
 
         public IList<SettingsCommand> GetSettingsCommands()
         {
-            var commands = new List<SettingsCommand>();
-            if (KioskModeEnabled)
-            {
-            }
-            return commands;
+            var settingsCommands = new List<SettingsCommand>();
+            settingsCommands.Add(new SettingsCommand(Guid.NewGuid().ToString(), Strings.PrivacyPolicy, async (c) => await Launcher.LaunchUriAsync(new Uri(Strings.PrivacyPolicyUrl))));
+            return settingsCommands;
         }
     }
 }

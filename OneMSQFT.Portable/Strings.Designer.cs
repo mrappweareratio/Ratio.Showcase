@@ -215,6 +215,24 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Privacy Policy.
+        /// </summary>
+        public static string PrivacyPolicy {
+            get {
+                return ResourceManager.GetString("PrivacyPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.microsoft.com/privacystatement/en-us/core/default.aspx.
+        /// </summary>
+        public static string PrivacyPolicyUrl {
+            get {
+                return ResourceManager.GetString("PrivacyPolicyUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RSVP for this event.
         /// </summary>
         public static string RSVP {
