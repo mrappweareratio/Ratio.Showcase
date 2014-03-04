@@ -211,7 +211,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 return IsHorizontal
                     ? (EventItemWidth / 3) - 9
-                    : (EventItemWidth / 2) - 10;
+                    : (EventItemWidth / 2) - 9;
             }
         }
 
@@ -222,6 +222,26 @@ namespace OneMSQFT.UILogic.ViewModels
                 return IsHorizontal
                     ? (EventItemHeight / 4) - 6
                     : (EventItemHeight / 6) - 6;
+            }
+        }
+
+        public double LogoTransformX
+        {
+            get
+            {
+                return IsHorizontal
+                    ? 110
+                    : 52;
+            }
+        }
+
+        public double LogoTransformY
+        {
+            get
+            {
+                return IsHorizontal
+                    ? 38
+                    : 100;
             }
         }
 
@@ -236,9 +256,11 @@ namespace OneMSQFT.UILogic.ViewModels
             OnPropertyChanged("MaskItemWidth");
             OnPropertyChanged("MaskItemHeight");
             OnPropertyChanged("EventItemWidth");
-            OnPropertyChanged("EventItemHeight");            
+            OnPropertyChanged("EventItemHeight");
             OnPropertyChanged("ExhibitItemWidth");
             OnPropertyChanged("ExhibitItemHeight");
+            OnPropertyChanged("LogoTransformX");
+            OnPropertyChanged("LogoTransformY");
         }
 
         #endregion

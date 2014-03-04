@@ -209,5 +209,13 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
+        public String PortraitBlurb
+        {
+            get
+            {
+                return " " + Strings.SquareFeet + " " + Name;
+            }
+        }
+
     }
 }

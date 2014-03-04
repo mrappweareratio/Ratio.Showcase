@@ -240,5 +240,95 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         }
         #endregion
 
+
+        #region Resizing
+
+        [TestMethod]
+        public void IsHorizontal_Updates_On_Window_Size_Changed()
+        {
+            var autoResetEvent = new AutoResetEvent(false);
+            bool changed = false;
+
+            var vm = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService(),
+                new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService());
+            vm.PropertyChanged += (sender, args) =>
+            {
+                changed = true;
+            };
+            ExecuteOnUIThread(() => vm.WindowSizeChanged(1000, 500)); 
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(changed, "PropertyChanged");
+            Assert.IsTrue(vm.IsHorizontal);
+            ExecuteOnUIThread(() => vm.WindowSizeChanged(500, 1000));
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(changed, "PropertyChanged");
+            Assert.IsFalse(vm.IsHorizontal);
+            ExecuteOnUIThread(() => vm.WindowSizeChanged(1000, 500));
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(changed, "PropertyChanged");
+            Assert.IsTrue(vm.IsHorizontal);
+        }
+
+        [TestMethod]
+        public void Base_Properties_Update_On_Window_Size_Changed()
+        {
+            var autoResetEvent = new AutoResetEvent(false);
+            bool changed = false;
+            var changedProperties = new List<string>();
+
+            var vm = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService(),
+                new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService());
+            vm.PropertyChanged += (sender, args) =>
+            {
+                changed = true;
+                changedProperties.Add(args.PropertyName);
+            };
+            ExecuteOnUIThread(() => vm.WindowSizeChanged(1000, 500));
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(changed, "PropertyChanged");
+            Assert.IsTrue(changedProperties.Contains("FullScreenWidth"));
+            Assert.IsTrue(changedProperties.Contains("FullScreenHeight"));
+            Assert.IsTrue(changedProperties.Contains("IsHorizontal"));
+            Assert.IsTrue(changedProperties.Contains("LargeFlexyFontSize"));
+            Assert.IsTrue(changedProperties.Contains("MediumLargeFlexyFontSize"));
+            Assert.IsTrue(changedProperties.Contains("MediumLargeFlexyTightLeading"));
+            Assert.IsTrue(changedProperties.Contains("MediumFlexyFontSize"));
+            Assert.IsTrue(changedProperties.Contains("MediumSmallFlexyFontSize"));
+            Assert.IsTrue(changedProperties.Contains("SmallFlexyFontSize"));
+        }
+
+        [TestMethod]
+        public void Local_Properties_Update_On_Window_Size_Changed()
+        {
+            var autoResetEvent = new AutoResetEvent(false);
+            bool changed = false;
+            var changedProperties = new List<string>();
+
+            var vm = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService(),
+                new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService());
+            vm.PropertyChanged += (sender, args) =>
+            {
+                changed = true;
+                changedProperties.Add(args.PropertyName);
+            };
+            ExecuteOnUIThread(() => vm.WindowSizeChanged(1000, 500));
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(changed, "PropertyChanged");
+            Assert.IsTrue(changedProperties.Contains("ZoomedOutGridHeight"));
+            Assert.IsTrue(changedProperties.Contains("ZoomedOutItemWidth"));
+            Assert.IsTrue(changedProperties.Contains("ZoomedOutItemHeight"));
+            Assert.IsTrue(changedProperties.Contains("BufferItemWidth"));
+            Assert.IsTrue(changedProperties.Contains("MaskItemWidth"));
+            Assert.IsTrue(changedProperties.Contains("MaskItemHeight"));
+            Assert.IsTrue(changedProperties.Contains("EventItemWidth"));
+            Assert.IsTrue(changedProperties.Contains("EventItemHeight"));
+            Assert.IsTrue(changedProperties.Contains("ExhibitItemWidth"));
+            Assert.IsTrue(changedProperties.Contains("ExhibitItemHeight"));
+            Assert.IsTrue(changedProperties.Contains("LogoTransformX"));
+            Assert.IsTrue(changedProperties.Contains("LogoTransformY"));
+        }
+
+        #endregion
+
     }
 }
