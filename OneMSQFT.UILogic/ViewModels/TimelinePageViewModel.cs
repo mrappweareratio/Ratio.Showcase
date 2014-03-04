@@ -211,7 +211,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 return IsHorizontal
                     ? (EventItemWidth / 3) - 9
-                    : (EventItemWidth / 2) - 10;
+                    : (EventItemWidth / 2) - 9;
             }
         }
 
