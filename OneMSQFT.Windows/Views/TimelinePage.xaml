@@ -769,7 +769,6 @@
         </DataTemplate>
 
         <DataTemplate x:Key="VerticalTimelineEventItemTemplate">
-            <Border BorderThickness="0" Margin="0" Background="Transparent">
                 <Grid Width="{Binding DataSource.EventItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                       Height="{Binding DataSource.EventItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                       Background="Transparent">
@@ -778,51 +777,15 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Click="FlipViewButton_Clicked" 
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            CommandParameter="{Binding}" 
-                            Command="{Binding DataSource.EventHeroItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                            Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" 
-                            Style="{StaticResource EventGalleryButtonStyle}" Margin="0,-4,4,0" 
-                            BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
-                            BorderThickness="5">
-                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                            <ProgressRing IsEnabled="True" IsActive="True" Height="150" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing.Foreground>
-                                    <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
-                                </ProgressRing.Foreground>
-                            </ProgressRing>
-                            <Image Source="{Binding PhotoFilePath, Mode=OneWay}"
-                        		VerticalAlignment="Stretch"
-                        		HorizontalAlignment="Stretch"
-                        		AutomationProperties.Name="{Binding Name}" 
-                        		Stretch="Fill"/>
-                            <Border IsHitTestVisible="False"
-                        		HorizontalAlignment="Center" Height="70"  
-                        		VerticalAlignment="Center" Width="70">
-                                <Border.Background>
-                                    <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
-                                </Border.Background>
-                                <Path Data="M1,1 L49,1 L49,49" 
-                        			HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
-                        			StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
-                                    <Path.RenderTransform>
-                                        <CompositeTransform Rotation="45" TranslateY="5.43"/>
-                                    </Path.RenderTransform>
-                                </Path>
-                            </Border>
-                        </Grid>
-                    </Button>
-
-                    <Grid Grid.RowSpan="4" Margin="0,0,0,6">
+                    <Grid Grid.RowSpan="2" Margin="5,0,10,5" Grid.ColumnSpan="2" >
                         <Grid.Background>
                             <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
                         </Grid.Background>
@@ -867,17 +830,54 @@
                             Margin="40,20,0,50" 
                             VerticalAlignment="Bottom" 
                             HorizontalAlignment="Left"/>
-
                     </Grid>
 
+                    <Button Click="FlipViewButton_Clicked"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            CommandParameter="{Binding}" 
+                            Command="{Binding DataSource.EventHeroItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" Grid.RowSpan="2" Grid.ColumnSpan="2" 
+                            Style="{StaticResource EventGalleryButtonStyle}" 
+                            Margin="5,0,10,5" 
+                            BorderBrush="White" Grid.Row="2">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <ProgressRing IsEnabled="True" IsActive="True" Height="150" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <ProgressRing.Foreground>
+                                    <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
+                                </ProgressRing.Foreground>
+                            </ProgressRing>
+                            <Image Source="{Binding PhotoFilePath, Mode=OneWay}"
+                        		VerticalAlignment="Stretch"
+                        		HorizontalAlignment="Stretch"
+                        		AutomationProperties.Name="{Binding Name}" 
+                        		Stretch="Fill"/>
+                            <Border IsHitTestVisible="False"
+                        		HorizontalAlignment="Center" Height="70"  
+                        		VerticalAlignment="Center" Width="70">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
+                                </Border.Background>
+                                <Path Data="M1,1 L49,1 L49,49" 
+                        			HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
+                        			StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
+                                    <Path.RenderTransform>
+                                        <CompositeTransform Rotation="45" TranslateY="5.43"/>
+                                    </Path.RenderTransform>
+                                </Path>
+                            </Border>
+                        </Grid>
+                    </Button>
+
+
                     <!--Show More Exhibit Items -->
-                    <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                    <Grid Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2" >
                         <GridView ItemsSource="{Binding DisplayedExhibits}" x:Name="GridView"
                               ItemContainerStyle="{StaticResource TimelineExhibitItemContainerStyle}"
                               SelectionMode="None"
                               IsItemClickEnabled="True"
                               IsSwipeEnabled="False"
                               IsHoldingEnabled="False"
+                              Margin="0"
                               ScrollViewer.IsHorizontalScrollChainingEnabled="False"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -900,7 +900,7 @@
                         </GridView>
                     </Grid>
                 </Grid>
-            </Border>
+   
         </DataTemplate>
 
         <DataTemplate x:Key="HorizontalBufferItemFakeEventItemTemplate">

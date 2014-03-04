@@ -190,7 +190,7 @@ namespace OneMSQFT.UILogic.ViewModels
             get
             {
                 return IsHorizontal
-                    ? FullScreenWidth*.9
+                    ? FullScreenWidth * .9
                     : FullScreenWidth;
             }
         }
@@ -201,7 +201,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 return IsHorizontal
                     ? FullScreenHeight
-                    : FullScreenHeight*.9;
+                    : FullScreenHeight * .9;
             }
         }
 
@@ -209,7 +209,9 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return (EventItemWidth / 3) - 9;
+                return IsHorizontal
+                    ? (EventItemWidth / 3) - 9
+                    : (EventItemWidth / 2) - 10;
             }
         }
 
@@ -217,7 +219,9 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return (EventItemHeight / 4) - 6;
+                return IsHorizontal
+                    ? (EventItemHeight / 4) - 6
+                    : (EventItemHeight / 6) - 6;
             }
         }
 

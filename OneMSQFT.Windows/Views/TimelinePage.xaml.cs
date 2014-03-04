@@ -163,7 +163,6 @@ namespace OneMSQFT.WindowsStore.Views
                     TimelineGridViewScrollViewer.IsHorizontalScrollChainingEnabled = false;
 
                     TimelineGridViewScrollViewer.ZoomMode = ZoomMode.Disabled;
-                    ScrollToFirstItem();
                 }
                 else
                 {
@@ -184,7 +183,6 @@ namespace OneMSQFT.WindowsStore.Views
                     TimelineGridViewScrollViewer.IsHorizontalScrollChainingEnabled = true;
 
                     TimelineGridViewScrollViewer.ZoomMode = ZoomMode.Disabled;
-                    ScrollToFirstItem();
                 }
 
             }
@@ -264,7 +262,14 @@ namespace OneMSQFT.WindowsStore.Views
                 if (AppBarIsAutoScrolling == false)
                 {
                     ShowTimelineMasks(true);
-                    SelectItemByOffset(((ScrollViewer)sender).HorizontalOffset);
+                    if (GetDataContextAsViewModel<TimelinePageViewModel>().IsHorizontal)
+                    {
+                        SelectItemByOffset(((ScrollViewer) sender).HorizontalOffset);
+                    }
+                    else
+                    {
+                        SelectItemByOffset(((ScrollViewer)sender).VerticalOffset);
+                    }
                 }
             }
         }
@@ -272,7 +277,15 @@ namespace OneMSQFT.WindowsStore.Views
         private void SelectItemByOffset(double offset)
         {
             var vm = GetDataContextAsViewModel<TimelinePageViewModel>();
-            var i = Convert.ToInt32((offset - vm.BufferItemWidth) / vm.EventItemWidth);
+            var i = 0;
+            if (vm.IsHorizontal)
+            {
+                i = Convert.ToInt32((offset - vm.BufferItemWidth)/vm.EventItemWidth);
+            }
+            else
+            {
+                i = Convert.ToInt32((offset - vm.BufferItemHeight) / vm.EventItemHeight);
+            }
             vm.SelectedEvent = vm.TimeLineItems[i + 1]; // + 1 to skip the buffer item
         }
 
