@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
@@ -40,7 +41,7 @@ namespace OneMSQFT.UILogic.Services
             isConnected = _internetConnection.IsConnected;
         }
 
-        public async Task<IEnumerable<Event>> GetEvents()
+        public async Task<IEnumerable<Event>> GetEvents(CancellationToken token)
         {
             SiteData result = null;
 
@@ -66,7 +67,7 @@ namespace OneMSQFT.UILogic.Services
                     var invalidate = Task.Run(async () =>
                     {
                         await _cache.InvalidateDataAsync(key).ConfigureAwait(false);
-                    });
+                    }, token);
                 }
                 else
                 {
@@ -75,7 +76,7 @@ namespace OneMSQFT.UILogic.Services
                 }
             }
 
-            result = await _repository.GetSiteData();
+            result = await _repository.GetSiteData(token);
             _memDictionary.Add(key, result);
             
             if (result != null)
@@ -83,18 +84,18 @@ namespace OneMSQFT.UILogic.Services
                 var storeData = Task.Run(async () =>
                 {
                     await _cache.StoreDataAsync(key, result).ConfigureAwait(false);
-                });
+                }, token);
                 return result.Events;
             }
 
             return null;
         }
 
-        async public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string exhibitId)
+        async public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string exhibitId, CancellationToken token)
         {
             if (exhibitId == null)
                 throw new ArgumentOutOfRangeException("ExhibitId");
-            var events = await GetEvents();
+            var events = await GetEvents(new CancellationToken());
             var exhibits = events.SelectMany(x => x.Exhibits).ToList();
             if (exhibits.Count == 0)
                 throw new ArgumentOutOfRangeException("ExhibitId");
@@ -111,11 +112,11 @@ namespace OneMSQFT.UILogic.Services
             return detail;
         }
 
-        async public Task<Event> GetEventById(string eventId)
+        async public Task<Event> GetEventById(string eventId, CancellationToken token)
         {
             if (eventId == null)
                 throw new ArgumentOutOfRangeException("eventId");
-            var events = await GetEvents();
+            var events = await GetEvents(token);
             var ev = events.FirstOrDefault(x => x.Id.Equals(eventId));
             return ev;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Media;
 using Windows.UI.StartScreen;
@@ -48,7 +49,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public override async void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
-            var events = await _dataService.GetEvents();
+            var events = await _dataService.GetEvents(new CancellationToken());
             if (events == null)
             {
                 await _messageService.ShowAsync("Error", "There was a problem loading events");

@@ -29,5 +29,19 @@ namespace OneMSQFT.UILogic.DataLayer
         }
 
         public string VideoSiteUrl { get { return "http://vimeo.com"; } }
+
+        public double TimeoutSeconds
+        {
+            get
+            {
+#if RELEASE
+                return 10;
+#else
+                return 5;
+#endif
+            }
+        }
+
+        public int MaxRetries { get { return 3; } }
     }
 }

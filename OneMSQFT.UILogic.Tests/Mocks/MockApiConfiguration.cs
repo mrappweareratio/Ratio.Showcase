@@ -16,5 +16,9 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         public string WebSiteUrl { get; private set; }
 
         public string VideoSiteUrl { get; set; }
+
+        public double TimeoutSeconds { get; private set; }
+
+        public int MaxRetries { get; private set; }
     }
 }

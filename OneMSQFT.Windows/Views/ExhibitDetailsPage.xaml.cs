@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
@@ -81,7 +82,7 @@ namespace OneMSQFT.WindowsStore.Views
                     return;
                 }
                 var deferral = args.Request.GetDeferral();                
-                var evt = await AppLocator.Current.DataService.GetEventById(vm.Exhibit.ExhibitModel.EventId);
+                var evt = await AppLocator.Current.DataService.GetEventById(vm.Exhibit.ExhibitModel.EventId, new CancellationToken());
                 if (evt == null)
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
@@ -159,7 +160,7 @@ namespace OneMSQFT.WindowsStore.Views
         async public override void TopAppBarEventButtonCommandHandler(String eventId)
         {
             //track appbar interaction
-            Event ev = await AppLocator.Current.DataService.GetEventById(eventId);
+            Event ev = await AppLocator.Current.DataService.GetEventById(eventId, new CancellationToken());
             AppLocator.Current.Analytics.TrackAppBarInteractionInExhibitView(ev.Name, ev.SquareFootage);
 
             Frame.Navigate(typeof(TimelinePage), eventId);

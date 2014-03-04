@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics.Display;
@@ -339,7 +340,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         public override async void TopAppBarEventButtonCommandHandler(String eventId)
         {
-            Event ev = await AppLocator.Current.DataService.GetEventById(eventId);
+            Event ev = await AppLocator.Current.DataService.GetEventById(eventId, new CancellationToken());
             AppLocator.Current.Analytics.TrackAppBarInteractionInTimeline(ev.Name, ev.SquareFootage);
 
             if (semanticZoom.IsZoomedInViewActive == false)

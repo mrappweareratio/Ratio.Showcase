@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -69,7 +70,7 @@ namespace OneMSQFT.UILogic
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                 Analytics.StartSession();
-                _events = await DataService.GetEvents();
+                _events = await DataService.GetEvents(new CancellationToken());
             }
 
             if (!String.IsNullOrEmpty(args.Arguments))

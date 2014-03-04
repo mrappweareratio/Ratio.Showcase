@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -54,7 +55,7 @@ namespace OneMSQFT.UILogic.ViewModels
         private async void NextExhibitCommandExecuteMethod(string exhibitId)
         {
             //track goto next exhibit interaction
-            var exTo = await _dataService.GetExhibitDetailByExhibitId(exhibitId);
+            var exTo = await _dataService.GetExhibitDetailByExhibitId(exhibitId, new CancellationToken());
             if (_analyticsService != null && exTo != null) 
                 _analyticsService.TrackNextExhibitInteraction(exTo.Exhibit.Name);
             
@@ -74,7 +75,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
         async public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
-            var events = await _dataService.GetEvents();
+            var events = await _dataService.GetEvents(new CancellationToken());
             if (events == null)
             {
                 await _messageService.ShowAsync("Error", "There was a problem loading events");
@@ -82,7 +83,7 @@ namespace OneMSQFT.UILogic.ViewModels
             }
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x, _analyticsService)));
 
-            var ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as String);
+            var ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as String, new CancellationToken());
             Exhibit = new ExhibitItemViewModel(ed.Exhibit, _analyticsService);
             NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit, _analyticsService);
 
