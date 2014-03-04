@@ -221,6 +221,8 @@ namespace OneMSQFT.WindowsStore.Views
         {
             base.PopulateTopAppbar(vm);
             AboutButton.Command = AboutButtonClickCommand;
+            TwitterButton.Command = TwitterButtonClickCommand;
+            InstagramButton.Command = InstagramButtonClickCommand;
         }
 
         #region Timeline UI

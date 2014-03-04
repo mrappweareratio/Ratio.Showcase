@@ -179,6 +179,24 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to INSTAGRAM.
+        /// </summary>
+        public static string Instagram {
+            get {
+                return ResourceManager.GetString("Instagram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://instagram.com/1msqft.
+        /// </summary>
+        public static string InstagramUrl {
+            get {
+                return ResourceManager.GetString("InstagramUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet..
         /// </summary>
         public static string IntroBlurb {
@@ -301,6 +319,24 @@ namespace OneMSQFT.Common {
         public static string SquareFeetAtNameFormat {
             get {
                 return ResourceManager.GetString("SquareFeetAtNameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TWITTER.
+        /// </summary>
+        public static string Twitter {
+            get {
+                return ResourceManager.GetString("Twitter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://twitter.com/1MSQFT.
+        /// </summary>
+        public static string TwitterUrl {
+            get {
+                return ResourceManager.GetString("TwitterUrl", resourceCulture);
             }
         }
         
