@@ -1165,7 +1165,7 @@
                             </DataTemplate>
                         </FlipView.ItemTemplate>
                     </FlipView>
-                    <AppBarButton Icon="Cancel" Click="FlipViewPopUpCloseButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
+                    <AppBarButton Icon="Cancel" Click="FlipViewPopUpCloseButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20" Style="{StaticResource AppBarButtonCloseStyle}"/>
                 </Grid>
             </Popup>
             <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="False" Style="{StaticResource VideoPopupStyle}" >

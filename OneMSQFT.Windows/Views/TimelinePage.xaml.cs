@@ -191,6 +191,8 @@ namespace OneMSQFT.WindowsStore.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            // needed for back stack navigation when user has changed resolution on details page
+            ProcessWindowSizeChangedEvent();
             this._navigationEventArgs = e;
         }
 
