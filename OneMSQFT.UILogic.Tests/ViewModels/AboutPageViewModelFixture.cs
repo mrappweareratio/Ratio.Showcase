@@ -103,7 +103,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         }
 
         [TestMethod]
-        public void Reszing_Local_Properties_Update_On_Window_Size_Changed()
+        public void Local_Properties_Update_On_Window_Size_Changed()
         {
             var autoResetEvent = new AutoResetEvent(false);
             bool changed = false;
@@ -126,7 +126,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             Assert.IsTrue(changedProperties.Contains("Panel2Margin"));           
         }
         [TestMethod]
-        public void Reszing_Base_Properties_Update_On_Window_Size_Changed()
+        public void Base_Properties_Update_On_Window_Size_Changed()
         {
             var autoResetEvent = new AutoResetEvent(false);
             bool changed = false;

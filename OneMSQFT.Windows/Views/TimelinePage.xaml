@@ -790,44 +790,27 @@
                             <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
                         </Grid.Background>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="155*"/>
-                            <RowDefinition Height="186*"/>
-                            <RowDefinition Height="108*"/>
-                            <RowDefinition Height="319*"/>
-                        </Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
                         <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
 						    TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
 						    Grid.Row="1">
                             <Paragraph>
-                                <Run Text="{Binding SquareFootageStringPlain}" 
+                            <Run Text="{Binding SquareFootageStringPlain}" 
                                          FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
-                                <LineBreak />
-                                <Run Text="{Binding Strings.SquareFeet, Source={StaticResource PortableStrings}}" 
-                                         FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
-                                <LineBreak />
-                                <Run Text="{Binding Name, Mode=OneWay}" 
+                            <Run Text="{Binding PortraitBlurb, Mode=OneWay}" 
                                          FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
                             </Paragraph>
                         </RichTextBlock>
 
 
-                        <ScrollViewer Style="{StaticResource VerticalScrollViewerStyle}"
-					        Grid.Row="2"
-                            Grid.RowSpan="2"
-					        Margin="40,0,40,100" 
-					        VerticalAlignment="Top">
-                            <TextBlock Text="{Binding Description}"
-						        Foreground="White"
-						        FontSize="{Binding DataSource.SmallFlexyFontSize, Source={StaticResource DataContextProxy}}"
-                                LineStackingStrategy="BlockLineHeight"
-						        TextWrapping="Wrap" 
-						        FontFamily="Segoe UI Light" 
-						        FontWeight="Light"/>
-                        </ScrollViewer>
+                     
                         <omsqftcontrols:CuratorLogoStackerUserControl 
-                            Grid.Row="3"
+                            Grid.Row="2"
                             CuratorLogoCollection="{Binding CuratorLogos}"
-                            Margin="40,20,0,50" 
+                            Margin="40,20,0,40" 
                             VerticalAlignment="Bottom" 
                             HorizontalAlignment="Left"/>
                     </Grid>
@@ -1104,7 +1087,11 @@
                 </SemanticZoom.ZoomedInView>
             </SemanticZoom>
 
-            <omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,38,0,0" LogoColor="FFFFFF"/>
+            <omsqftcontrols:LogoUserControl x:Name="Logo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" LogoColor="FFFFFF">
+                <omsqftcontrols:LogoUserControl.RenderTransform>
+                    <CompositeTransform TranslateX="110" TranslateY="38"/>
+                </omsqftcontrols:LogoUserControl.RenderTransform>
+            </omsqftcontrols:LogoUserControl>
             <Rectangle x:Name="MaskLeft"
                        Visibility="Collapsed"
                        IsHitTestVisible="False"
@@ -1165,7 +1152,7 @@
                             </DataTemplate>
                         </FlipView.ItemTemplate>
                     </FlipView>
-                    <AppBarButton Icon="Cancel" Click="FlipViewPopUpCloseButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
+                    <AppBarButton Icon="Cancel" Click="FlipViewPopUpCloseButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20" Style="{StaticResource AppBarButtonCloseStyle}"/>
                 </Grid>
             </Popup>
             <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="False" Style="{StaticResource VideoPopupStyle}" >
@@ -1226,13 +1213,9 @@
                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TimelineGridView" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TimeLineHorizontalSnappingStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="logoUserControl">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <Thickness>110,38,0,0</Thickness>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
-                        </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation Duration="0" To="{Binding LogoTransformX}" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Logo" d:IsOptimized="True"/>
+                        <DoubleAnimation Duration="0" To="{Binding LogoTransformY}" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Logo" d:IsOptimized="True"/>
+
                     </Storyboard>
                 </VisualState>
 
@@ -1241,13 +1224,9 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TimelineGridView" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TimeLineVerticalSnappingStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="logoUserControl">
-                        	<DiscreteObjectKeyFrame KeyTime="0">
-                        		<DiscreteObjectKeyFrame.Value>
-                                    <Thickness>0</Thickness>
-                        		</DiscreteObjectKeyFrame.Value>
-                        	</DiscreteObjectKeyFrame>
-                        </ObjectAnimationUsingKeyFrames>
+                        <DoubleAnimation Duration="0" To="{Binding LogoTransformX}" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Logo" d:IsOptimized="True"/>
+                        <DoubleAnimation Duration="0" To="{Binding LogoTransformY}" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Logo" d:IsOptimized="True"/>
+
                     </Storyboard>
                 </VisualState>
             </VisualStateGroup>
