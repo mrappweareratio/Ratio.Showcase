@@ -2,9 +2,12 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
+using Windows.Graphics.Display;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
@@ -26,7 +29,8 @@ namespace OneMSQFT.WindowsStore.Views
         public DelegateCommand<String> TopAppBarEventButtonCommand { get; set; }
         public DelegateCommand HomeButtonClickCommand { get; set; }
         public DelegateCommand AboutButtonClickCommand { get; set; }
-        public DelegateCommand FilterButtonClickCommand { get; set; }
+        public DelegateCommand TwitterButtonClickCommand { get; set; }
+        public DelegateCommand InstagramButtonClickCommand { get; set; }
         public DelegateCommand<Button> AdminButtonClickCommand { get; set; }
 
         protected StackPanel TopAppBarContentStackPanel;
@@ -37,7 +41,7 @@ namespace OneMSQFT.WindowsStore.Views
             base.OnNavigatedTo(e);
             // listens for resolution change
             Windows.Graphics.Display.DisplayInformation.DisplayContentsInvalidated += DisplayInformation_DisplayContentsInvalidated;
-        }        
+        }     
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
@@ -88,7 +92,8 @@ namespace OneMSQFT.WindowsStore.Views
             TopAppBarEventButtonCommand = new DelegateCommand<String>(TopAppBarEventButtonCommandHandler);
             HomeButtonClickCommand = new DelegateCommand(HomeButtonClickCommandHandler);
             AboutButtonClickCommand = new DelegateCommand(AboutButtonClickCommandHandler);
-            FilterButtonClickCommand = new DelegateCommand(FilterButtonClickCommandHandler);
+            TwitterButtonClickCommand = new DelegateCommand(TwitterButtonClickCommandHandler);
+            InstagramButtonClickCommand = new DelegateCommand(InstagramButtonClickCommandHandler);
             AdminButtonClickCommand = new DelegateCommand<Button>(AdminButtonClickCommandHandler);
         }
 
@@ -130,9 +135,18 @@ namespace OneMSQFT.WindowsStore.Views
             BottomAppBar.IsOpen = false;
         }
 
-        public virtual void FilterButtonClickCommandHandler()
+        public async virtual void TwitterButtonClickCommandHandler()
         {
-            // overridden in local page
+            BottomAppBar.IsOpen = false;
+            TopAppBar.IsOpen = false;
+            await Launcher.LaunchUriAsync(new Uri(Strings.TwitterUrl, UriKind.Absolute), new LauncherOptions { DesiredRemainingView = ViewSizePreference.UseHalf });
+        }
+
+        public async virtual void InstagramButtonClickCommandHandler()
+        {
+            BottomAppBar.IsOpen = false;
+            TopAppBar.IsOpen = false;
+            await Launcher.LaunchUriAsync(new Uri(Strings.InstagramUrl, UriKind.Absolute), new LauncherOptions { DesiredRemainingView = ViewSizePreference.UseHalf });
         }
 
         public virtual void AdminButtonClickCommandHandler(Button sender)
@@ -189,7 +203,7 @@ namespace OneMSQFT.WindowsStore.Views
             ProcessWindowSizeChangedEvent();
             base.WindowSizeChanged(sender, e);
         }
-        protected void DisplayInformation_DisplayContentsInvalidated(Windows.Graphics.Display.DisplayInformation sender, object args)
+        protected void DisplayInformation_DisplayContentsInvalidated(DisplayInformation sender, object args)
         {
             // Screen Resolution Changed
             ProcessWindowSizeChangedEvent();

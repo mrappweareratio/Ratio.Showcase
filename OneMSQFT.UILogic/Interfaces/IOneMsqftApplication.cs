@@ -25,5 +25,6 @@ namespace OneMSQFT.UILogic.Interfaces
         bool CanHandleException(Exception exception);
         IDataService DataService { get; set; }
         IAnalyticsService Analytics { get; set; }
+        IInternetConnectionService InternetConnection { get; }
     }
 }

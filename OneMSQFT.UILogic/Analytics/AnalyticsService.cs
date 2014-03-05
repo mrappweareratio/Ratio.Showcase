@@ -232,7 +232,7 @@ namespace OneMSQFT.UILogic.Analytics
             {
                 ExhibitName = exName,
                 VideoName = vidName,
-                AppElement = TrackingContextData.AppElements.GeneratePlayVideoInExhibitData()
+                AppElement = TrackingContextData.AppElements.GeneratePlayVideoInExhibitData(exName)
             };
 
             this.TrackEvents(evData, context);
@@ -339,6 +339,40 @@ namespace OneMSQFT.UILogic.Analytics
             {
                 ExhibitName = exName,
                 AppElement = TrackingContextData.AppElements.GenerateShareExhibitElement(appName, shareUrl)
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackVideoShareInEventView(string evName, int? sqFootage, int? evPos, string vidName, string shareUrl,
+            string appName)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                EventName = evName,
+                EventSqFt = sqFootage,
+                VideoName = vidName,
+                AppElement = TrackingContextData.AppElements.GenerateShareEventVideoElement(evPos, vidName, appName, shareUrl)
+            };
+
+            this.TrackEvents(evData, context);
+        }
+
+        public void TrackVideoShareInExhibitView(string exName, string vidName, string shareUrl, string appName)
+        {
+            if (Disabled)
+                return;
+
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
+            var context = new TrackingContextData
+            {
+                ExhibitName = exName,
+                VideoName = vidName,
+                AppElement = TrackingContextData.AppElements.GenerateShareExhibitVideoElement(exName, vidName, appName, shareUrl)
             };
 
             this.TrackEvents(evData, context);

@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
+using Strings = OneMSQFT.Common.Strings;
 
 namespace OneMSQFT.UILogic.Services
 {
@@ -48,7 +50,7 @@ namespace OneMSQFT.UILogic.Services
                     throw new ArgumentNullException("Event");
                 if(String.IsNullOrWhiteSpace(ev.Name))
                     throw new ArgumentNullException("Event Name");
-                var uriString = String.Format("{0}/{1}/{2}", _webSiteUrl, GetSlug(ev.Name), ev.Id);                
+                var uriString = String.Format(Strings.ShareEventUrlFormatRootSlugId, _webSiteUrl, GetSlug(ev.Name), ev.Id);                
                 return Uri.TryCreate(uriString, UriKind.Absolute, out uri);
             }
             catch
@@ -64,7 +66,7 @@ namespace OneMSQFT.UILogic.Services
             {
                 if (exhibit == null)
                     throw new ArgumentNullException("Exhibit");
-                var uriString = String.Format("{0}/{1}/{2}/{3}/{4}", _webSiteUrl, GetSlug(ev.Name), ev.Id, GetSlug(exhibit.Name), exhibit.Id);
+                var uriString = String.Format(Strings.ShareEventExhibitUrlFormatRootSlugId, _webSiteUrl, GetSlug(ev.Name), ev.Id, GetSlug(exhibit.Name), exhibit.Id);
                 return Uri.TryCreate(uriString, UriKind.Absolute, out uri);
             }
             catch

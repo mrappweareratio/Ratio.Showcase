@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using OneMSQFT.Common;
 using OneMSQFT.Common.DataLayer;
@@ -20,9 +21,9 @@ namespace OneMSQFT.UILogic.DataLayer
             _configuration = configuration;
         }
 
-        async public Task<SiteData> GetSiteData()
+        async public Task<SiteData> GetSiteData(CancellationToken token)
         {
-            var response = await GetSiteDataResponse();
+            var response = await GetSiteDataResponse(token);
             var themes = response.Result.Data.Themes.ToList();
             foreach (var evt in response.Result.Data.Events)
             {
@@ -44,14 +45,15 @@ namespace OneMSQFT.UILogic.DataLayer
             return response.Result.Data;
         }
 
-        async public Task<SiteDataResponse> GetSiteDataResponse()
+        async public Task<SiteDataResponse> GetSiteDataResponse(CancellationToken token)
         {
-            var httpClient = new HttpClient();
-            //httpClient.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+            var httpClient = _configuration.MaxRetries > 0
+                ? new HttpClient(new RetryHandler(new HttpClientHandler(), _configuration.MaxRetries))
+                : new HttpClient();
             httpClient.DefaultRequestHeaders.UserAgent.Add(ProductInfoHeaderValue.Parse("MSAppHost"));
-            httpClient.Timeout = TimeSpan.FromSeconds(15);
+            httpClient.Timeout = TimeSpan.FromSeconds(_configuration.TimeoutSeconds);
             var uri = GetApiUri("get_site_data");
-            var httpResponseMessage = await httpClient.GetAsync(uri);
+            var httpResponseMessage = await httpClient.GetAsync(uri, token);
             var json = await httpResponseMessage.Content.ReadAsStringAsync();
             var result = JsonHelper.DeserializeObject<SiteDataResponse>(json);
             return result;

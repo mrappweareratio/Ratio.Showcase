@@ -1,23 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OneMSQFT.Common.Services;
+using OneMSQFT.UILogic.Services;
 
 namespace OneMSQFT.UILogic.Tests.Mocks
 {
-    public class MockInternetConnectionService : IInternetConnection
+    public class MockInternetConnectionService : IInternetConnectionService
     {
-        public Func<bool> IsConnectedDelegate { get; set; }
+        public bool IsConnected { get; set; }
+        public ICostGuidance CostGuidance { get; set; }
+        public event EventHandler<IInternetConnection> InternetConnectionChanged;
 
-        public bool IsConnected()
+        public MockInternetConnectionService(bool isConnected, MockCostGuidance costGuidance)
         {
-            if (IsConnectedDelegate != null)
-                return IsConnectedDelegate();
-            return false;
+            IsConnected = isConnected;
+            CostGuidance = costGuidance;
         }
 
-        public event EventHandler InternetConnectionChanged;
+        public MockInternetConnectionService(bool isConnected)
+        {
+            IsConnected = isConnected;
+            CostGuidance = new MockCostGuidance();
+        }
+
+        public void RaiseInternetConnectionChanged(IInternetConnection internetConnection)
+        {
+            var handler = InternetConnectionChanged;
+            if (handler != null)
+                handler(null, internetConnection);
+        }
+    }
+
+    public class MockCostGuidance : ICostGuidance
+    {
+        public NetworkCost Cost { get; set; }
+        public string Reason { get; set; }
     }
 }

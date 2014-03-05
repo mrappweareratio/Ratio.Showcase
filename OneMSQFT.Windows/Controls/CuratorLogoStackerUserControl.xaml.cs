@@ -27,6 +27,15 @@ namespace OneMSQFT.WindowsStore.Controls
             this.InitializeComponent();
         }
 
+        public bool IsLayoutHorizontal
+        {
+            get { return (bool)GetValue(IsLayoutHorizontalProperty); }
+            set { SetValue(IsLayoutHorizontalProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsLayoutHorizontal.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsLayoutHorizontalProperty =
+            DependencyProperty.Register("IsLayoutHorizontal", typeof(bool), typeof(CuratorLogoStackerUserControl), new PropertyMetadata(null));
 
 
         public ObservableCollection<Uri> CuratorLogoCollection
@@ -42,24 +51,41 @@ namespace OneMSQFT.WindowsStore.Controls
         private static void CuratorLogoCollectionChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
         {
             var clsuc = dependencyObject as CuratorLogoStackerUserControl;
-            var observableCollection = dependencyPropertyChangedEventArgs.NewValue as ObservableCollection<Uri>;
-            if (observableCollection != null)
+            var localObservableCollection = dependencyPropertyChangedEventArgs.NewValue as ObservableCollection<Uri>;
 
-            for (var i = 0; i < observableCollection.Count; i=i+2)
-            {
-                var sp = new StackPanel() { Orientation = Orientation.Horizontal };
-                var bi = new BitmapImage(new Uri(observableCollection[i].AbsoluteUri, UriKind.Absolute));
-                var image = new Image() { Source = bi, Margin = new Thickness(0, 0, 10, 10) };
-                sp.Children.Add(image);
-                if (!(i+1 >= observableCollection.Count))
+            if (localObservableCollection != null)
+                if (clsuc.IsLayoutHorizontal == true)
                 {
-                    var bi2 = new BitmapImage(new Uri(observableCollection[i + 1].AbsoluteUri, UriKind.Absolute));
-                    var image2 = new Image() {Source = bi2, Margin = new Thickness(0, 0, 10, 10)};
-                    sp.Children.Add(image2);
-                }
+                    clsuc.MainStack.Children.Clear();
+                    clsuc.MainStack.Orientation = Orientation.Vertical;
+                    for (var i = 0; i < localObservableCollection.Count; i = i + 2)
+                    {
+                        var sp = new StackPanel() { Orientation = Orientation.Horizontal };
+                        var bi = new BitmapImage(new Uri(localObservableCollection[i].AbsoluteUri, UriKind.Absolute));
+                        var image = new Image() { Source = bi, Margin = new Thickness(0, 0, 10, 10) };
+                        sp.Children.Add(image);
+                        if (!(i + 1 >= localObservableCollection.Count))
+                        {
+                            var bi2 = new BitmapImage(new Uri(localObservableCollection[i + 1].AbsoluteUri, UriKind.Absolute));
+                            var image2 = new Image() { Source = bi2, Margin = new Thickness(0, 0, 10, 10) };
+                            sp.Children.Add(image2);
+                        }
 
-                if (clsuc != null) clsuc.MainStack.Children.Add(sp);
-            }
+                        if (clsuc != null) clsuc.MainStack.Children.Add(sp);
+                    }
+                }
+                else
+                {
+                    clsuc.MainStack.Children.Clear();
+                    clsuc.MainStack.Orientation = Orientation.Horizontal;
+                    for (var i = 0; i < localObservableCollection.Count; i++)
+                    {
+                        var bi = new BitmapImage(new Uri(localObservableCollection[i].AbsoluteUri, UriKind.Absolute));
+                        var image = new Image() { Source = bi, Margin = new Thickness(0, 0, 10, 10) };
+
+                        if (clsuc != null) clsuc.MainStack.Children.Add(image);
+                    }
+                }
         }
     }
 }

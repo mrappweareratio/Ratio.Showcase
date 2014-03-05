@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
@@ -9,7 +10,7 @@ namespace OneMSQFT.UILogic.Tests.Mocks
     {
         public Func<Task<SiteData>> GetSiteDataDelegate { get; set; }
 
-        public Task<SiteData> GetSiteData()
+        public Task<SiteData> GetSiteData(CancellationToken token)
         {
             return GetSiteDataDelegate();
         }        

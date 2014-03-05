@@ -1,20 +1,8 @@
-﻿using Windows.ApplicationModel.DataTransfer;
-using Microsoft.PlayerFramework;
+﻿using Microsoft.PlayerFramework;
 using OneMSQFT.UILogic.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using Microsoft.Practices.Prism.StoreApps;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -27,19 +15,32 @@ namespace OneMSQFT.WindowsStore.Controls
             this.InitializeComponent();
         }
 
-        private void player_Loaded(object sender, RoutedEventArgs e)
-        {            
-            if (_selectedMediaContentSource != null)
-            {
-                player.Source = _selectedMediaContentSource.VideoSource;
-                player.Play();
-            }
+        private void PlayerLoaded(object sender, RoutedEventArgs e)
+        {
             var app = AppLocator.Current;
             if (app != null && !app.KioskModeEnabled)
             {
-                //player.MediaEnded += (o, args) => DataTransferManager.ShowShareUI();
+                player.MediaEnded += player_MediaEnded;
             }
-        }               
+            if (_selectedMediaContentSource != null)
+            {
+                player.Source = app == null ? _selectedMediaContentSource.VideoSource : _selectedMediaContentSource.GetVideoSourceByInternetConnection(app.InternetConnection);
+                player.Play();
+            }
+        }
+
+        void player_MediaEnded(object sender, MediaPlayerActionEventArgs e)
+        {
+            if (MediaEndedCommand != null)
+            {
+                if (MediaEndedCommand.CanExecute())
+                {
+                    MediaEndedCommand.Execute();
+                }
+            }
+        }
+
+        public Microsoft.Practices.Prism.StoreApps.DelegateCommand MediaEndedCommand;
 
         private MediaContentSourceItemViewModel _selectedMediaContentSource;
         public MediaContentSourceItemViewModel SelectedMediaContentSource
@@ -49,7 +50,7 @@ namespace OneMSQFT.WindowsStore.Controls
         }
 
         public static readonly DependencyProperty SelectedMediaContentSourceProperty =
-            DependencyProperty.Register("SelectedMediaContentSource", typeof(MediaContentSourceItemViewModel), typeof(VideoPlayerUserControl), new PropertyMetadata(null, SelectedMediaContentSourcePropertyChanged));    
+            DependencyProperty.Register("SelectedMediaContentSource", typeof(MediaContentSourceItemViewModel), typeof(VideoPlayerUserControl), new PropertyMetadata(null, SelectedMediaContentSourcePropertyChanged));
 
         // MediaContentSourceItemViewModel changed from Exhibits Page
         private static void SelectedMediaContentSourcePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -59,7 +60,8 @@ namespace OneMSQFT.WindowsStore.Controls
             vpuc._selectedMediaContentSource = e.NewValue as MediaContentSourceItemViewModel;
             if (vpuc._selectedMediaContentSource != null)
             {
-                vpuc.player.Source = vpuc._selectedMediaContentSource.VideoSource;
+                var app = AppLocator.Current;
+                vpuc.player.Source = app == null ? vpuc._selectedMediaContentSource.VideoSource : vpuc._selectedMediaContentSource.GetVideoSourceByInternetConnection(app.InternetConnection);
             }
         }
 

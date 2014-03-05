@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.UI;
-using Windows.UI.Core;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Navigation;
+using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
@@ -34,14 +35,36 @@ namespace OneMSQFT.WindowsStore.Views
             if (app != null)
             {
                 StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
-                PinButton.Visibility = app.KioskModeEnabled ? Visibility.Collapsed : Visibility.Visible;
+                //PinButton.Visibility = app.KioskModeEnabled ? Visibility.Collapsed : Visibility.Visible;
                 if (!app.KioskModeEnabled)
                 {
                     _sharing = AppLocator.Current.SharingService;
-                    var dataTransferManager = DataTransferManager.GetForCurrentView();
-                    dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
-                    dataTransferManager.TargetApplicationChosen += DataTransferManagerTargetApplicationChosen;
+                    _dataTransferManager = DataTransferManager.GetForCurrentView();                    
                 }
+            }
+            VideoPlayerUserControl.MediaEndedCommand = new DelegateCommand(MediaEndedCommandHandler); 
+        }
+        private void MediaEndedCommandHandler()
+        {
+            VideoPopup.IsOpen = false;
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (!AppLocator.Current.KioskModeEnabled)
+            {
+                _dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
+                _dataTransferManager.TargetApplicationChosen += DataTransferManagerTargetApplicationChosen;
+            }
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            if (!AppLocator.Current.KioskModeEnabled)
+            {
+                _dataTransferManager.DataRequested -= DataTransferManagerOnDataRequested;
+                _dataTransferManager.TargetApplicationChosen -= DataTransferManagerTargetApplicationChosen;
             }
         }
 
@@ -70,6 +93,8 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Description = vm.Exhibit.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
                 args.Request.Data.SetWebLink(uri);
+                _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackVideoShareInExhibitView(vm.Exhibit.Name,
+                    selectedMediaContentSource.Media.VideoId, uri.AbsoluteUri, appName);
             }
             else
             { 
@@ -79,7 +104,7 @@ namespace OneMSQFT.WindowsStore.Views
                     return;
                 }
                 var deferral = args.Request.GetDeferral();                
-                var evt = await AppLocator.Current.DataService.GetEventById(vm.Exhibit.ExhibitModel.EventId);
+                var evt = await AppLocator.Current.DataService.GetEventById(vm.Exhibit.ExhibitModel.EventId, new CancellationToken());
                 if (evt == null)
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
@@ -102,6 +127,8 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         private Action<String> _targetApplicationChosenDelegate;
+        private readonly DataTransferManager _dataTransferManager;
+
         void DataTransferManagerTargetApplicationChosen(DataTransferManager sender, TargetApplicationChosenEventArgs args)
         {
             if (_targetApplicationChosenDelegate == null)
@@ -157,10 +184,10 @@ namespace OneMSQFT.WindowsStore.Views
         async public override void TopAppBarEventButtonCommandHandler(String eventId)
         {
             //track appbar interaction
-            Event ev = await AppLocator.Current.DataService.GetEventById(eventId);
+            Event ev = await AppLocator.Current.DataService.GetEventById(eventId, new CancellationToken());
             AppLocator.Current.Analytics.TrackAppBarInteractionInExhibitView(ev.Name, ev.SquareFootage);
 
-            this.Frame.Navigate(typeof(TimelinePage), eventId);
+            Frame.Navigate(typeof(TimelinePage), eventId);
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
         }
@@ -168,8 +195,10 @@ namespace OneMSQFT.WindowsStore.Views
         public override void PopulateTopAppbar(IBasePageViewModel vm)
         {
             base.PopulateTopAppbar(vm);
-            this.HomeButton.Command = this.HomeButtonClickCommand;
-            this.AboutButton.Command = this.AboutButtonClickCommand;
+            HomeButton.Command = HomeButtonClickCommand;
+            AboutButton.Command = AboutButtonClickCommand;
+            TwitterButton.Command = TwitterButtonClickCommand;
+            InstagramButton.Command = InstagramButtonClickCommand;
         }        
 
         #region MediaViewer
@@ -245,7 +274,9 @@ namespace OneMSQFT.WindowsStore.Views
                 // The display of the secondary tile name can be controlled for each tile size.
                 // The default is false.                
                 secondaryTile.VisualElements.ShowNameOnSquare150x150Logo = false;
-                secondaryTile.VisualElements.ShowNameOnWide310x150Logo = false;         
+                secondaryTile.VisualElements.ShowNameOnWide310x150Logo = false;
+
+                secondaryTile.RoamingEnabled = true;
 
                 bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
                 ToggleAppBarButton(PinButton, !isPinned);

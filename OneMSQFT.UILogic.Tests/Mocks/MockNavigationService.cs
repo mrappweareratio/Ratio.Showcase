@@ -20,32 +20,34 @@ namespace OneMSQFT.UILogic.Tests.Mocks
 
         public bool Navigate(string pageToken, object parameter)
         {
-            return this.NavigateDelegate(pageToken, parameter);
+            if (NavigateDelegate == null) return true;
+            return NavigateDelegate(pageToken, parameter);
         }
 
         public void GoBack()
         {
-            this.GoBackDelegate();
+            if (GoBackDelegate == null) return;
+            GoBackDelegate();
         }
 
         public bool CanGoBack()
         {
-            return this.CanGoBackDelegate();
+            if (CanGoBackDelegate == null) return true;
+            return CanGoBackDelegate();
         }
 
         public void ClearHistory()
         {
+            if (ClearHistoryDelegate == null) return;
             ClearHistoryDelegate();
         }
 
         public void RestoreSavedNavigation()
         {
-            throw new NotImplementedException();
         }
 
         public void Suspending()
         {
-            throw new NotImplementedException();
         }
 
         public int BackStackDepth { get; set; }

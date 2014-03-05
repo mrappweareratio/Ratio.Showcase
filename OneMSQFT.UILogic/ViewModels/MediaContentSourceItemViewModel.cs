@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Utils;
 
 namespace OneMSQFT.UILogic.ViewModels
@@ -30,19 +31,25 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 ContentSourceType = ContentSourceType.Video;
                 IsVideoButtonVisible = Visibility.Visible;
-                VideoSource = new Uri(MediaContentSourceUtils.SelectVideoUrl(media), UriKind.RelativeOrAbsolute);
+                VideoSource = new Uri(MediaContentSourceUtils.GetDefaultVideoUrl(media), UriKind.RelativeOrAbsolute);
                 ImageSource = new Uri(media.Img, UriKind.RelativeOrAbsolute);
             }
         }
 
         public MediaContentSource Media { get; private set; }
 
-        public ContentSourceType ContentSourceType { get; set; }
+        public ContentSourceType ContentSourceType { get; private set; }
 
-        public Visibility IsVideoButtonVisible { get; set; }
+        public Visibility IsVideoButtonVisible { get; private set; }
 
-        public Uri ImageSource { get; set; }
+        public Uri ImageSource { get; private set; }
 
-        public Uri VideoSource { get; set; }
+        public Uri VideoSource { get; private set; }
+
+        public Uri GetVideoSourceByInternetConnection(IInternetConnection internetConnection)
+        {
+            VideoSource = MediaContentSourceUtils.GetVideoUrl(Media, internetConnection);
+            return VideoSource;
+        }
     }
 }

@@ -1,12 +1,5 @@
-﻿using System;
-using Windows.Graphics.Display;
-using Windows.UI.Core;
-using Microsoft.Practices.Prism.StoreApps;
-using OneMSQFT.UILogic.Interfaces.ViewModels;
-using OneMSQFT.UILogic.ViewModels;
+﻿using OneMSQFT.UILogic.Interfaces.ViewModels;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 
 namespace OneMSQFT.WindowsStore.Views
 {
@@ -59,8 +52,9 @@ namespace OneMSQFT.WindowsStore.Views
         public override void PopulateTopAppbar(IBasePageViewModel vm)
         {
             base.PopulateTopAppbar(vm);
-            this.HomeButton.Command = this.HomeButtonClickCommand;
-            this.AboutButton.Command = this.AboutButtonClickCommand;
+            HomeButton.Command = HomeButtonClickCommand;
+            TwitterButton.Command = TwitterButtonClickCommand;
+            InstagramButton.Command = InstagramButtonClickCommand;
         }        
     }
 }

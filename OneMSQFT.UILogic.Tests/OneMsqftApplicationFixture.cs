@@ -9,6 +9,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.UI.Core;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using OneMSQFT.Common;
 using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Analytics;
@@ -121,8 +122,7 @@ namespace OneMSQFT.UILogic.Tests
                 }
             };
             var analytics = new MockAnalyticsService();
-            var dataService = new DataService(new DemoDataRepository(), new MockDataCacheService(),
-                new MockInternetConnectionService() { IsConnectedDelegate = () => true });
+            var dataService = new DataService(new DemoDataRepository(), new MockDataCacheService(), new MockInternetConnectionService(true));
             var app = new OneMsqftApplication(navigationService, dataService, new MockConfigurationService(), analytics, new MockAlertMessageService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs()));
             autoResetEvent.WaitOne(1500);
@@ -133,7 +133,7 @@ namespace OneMSQFT.UILogic.Tests
         public void Application_Launch_PreviousExecutionState_Running_Skips_Events()
         {
             string page = null;
-            bool called = false;
+            int called = 0;
             var autoResetEvent = new AutoResetEvent(false);
             var navigationService = new MockNavigationService()
             {
@@ -148,13 +148,14 @@ namespace OneMSQFT.UILogic.Tests
             {
                 GetEventsDelegate = async () =>
                 {
-                    called = true;
+                    called++;
                     return new List<Event>();
                 }
             }, new MockConfigurationService(), analytics, new MockAlertMessageService());
+            ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs() { PreviousExecutionState = ApplicationExecutionState.NotRunning }));
+            autoResetEvent.WaitOne(500);
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs() { PreviousExecutionState = ApplicationExecutionState.Running }));
-            autoResetEvent.WaitOne(200);
-            Assert.IsFalse(called, "Skipped Data Service");
+            Assert.AreEqual(1, called, "Data Service Called Once after Events initially populated");
             Assert.AreEqual(page, ViewLocator.Pages.Timeline, "On Timeline");
         }
 
@@ -572,6 +573,88 @@ namespace OneMSQFT.UILogic.Tests
             await app.OnLaunchApplication(args);
             Assert.AreEqual(page, ViewLocator.Pages.Timeline, "Timeline");
             Assert.IsNull(pageParam, "No Page Param");
+        }
+
+        #endregion
+
+        #region Error Handling
+
+        [TestMethod]
+        public async Task TaskCanceledException_Messages_User_No_Network()
+        {
+            bool alerted = false;
+            string message = null;
+            var navigationService = new MockNavigationService();
+            var internet = new MockInternetConnectionService(false);
+            var data = new DataService(new MockDataRepository()
+            {
+                GetSiteDataDelegate = () =>
+                {
+                    //disable internet connection
+                    internet.IsConnected = false;
+                    //thow timeout or TaskCanceledException
+                    throw new TaskCanceledException();
+                }
+            }, new MockDataCacheService(), internet);
+
+            var configuration = new ConfigurationService();
+            var analytics = new MockAnalyticsService();
+            var sharing = new MockSharingService();
+            var alerts = new MockAlertMessageService()
+            {
+                ShowAsyncDelegate = (s, s1) =>
+                {
+                    alerted = true;
+                    message = s;
+                    return Task.FromResult(0);
+                }
+            };
+            var dispatcher = new MockDispatcherService();
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics, alerts, sharing, internet, dispatcher);
+            var args = new MockLaunchActivatedEventArgs();
+            app.OnInitialize(args);
+            await app.OnLaunchApplication(args);
+            Assert.IsTrue(alerted, "Alerted");
+            Assert.AreEqual(Strings.InternetConnectionFailureMessage, message);
+        }
+
+        [TestMethod]
+        public async Task FaultedHandler_Messages_User_ServerFailureMessage()
+        {
+            bool alerted = false;
+            string message = null;
+            var navigationService = new MockNavigationService();
+            var internet = new MockInternetConnectionService(false);
+            var data = new DataService(new MockDataRepository()
+            {
+                GetSiteDataDelegate = () =>
+                {
+                    //disable internet connection
+                    internet.IsConnected = true;
+                    //thow timeout or TaskCanceledException
+                    throw new ArgumentNullException();
+                }
+            }, new MockDataCacheService(), internet);
+
+            var configuration = new ConfigurationService();
+            var analytics = new MockAnalyticsService();
+            var sharing = new MockSharingService();
+            var alerts = new MockAlertMessageService()
+            {
+                ShowAsyncDelegate = (s, s1) =>
+                {
+                    alerted = true;
+                    message = s;
+                    return Task.FromResult(0);
+                }
+            };
+            var dispatcher = new MockDispatcherService();
+            var app = new OneMsqftApplication(navigationService, data, configuration, analytics, alerts, sharing, internet, dispatcher);
+            var args = new MockLaunchActivatedEventArgs();
+            app.OnInitialize(args);
+            await app.OnLaunchApplication(args);
+            Assert.IsTrue(alerted, "Alerted");
+            Assert.AreEqual(Strings.SiteDataFailureMessage, message);
         }
 
         #endregion

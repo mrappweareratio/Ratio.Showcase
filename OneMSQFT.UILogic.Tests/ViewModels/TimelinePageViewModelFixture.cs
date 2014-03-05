@@ -101,10 +101,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         [TestMethod]
         public void TimelinePageViewModel_Loading_Sample_Populates_Events()
         {
-            var internetConnection = new MockInternetConnectionService
-            {
-                IsConnectedDelegate = () => true
-            };
+            var internetConnection = new MockInternetConnectionService(true);            
             var timeLine = new TimelinePageViewModel(new DataService(new DemoDataRepository(), new MockDataCacheService() { ContainsDataDelegate = s => Task.FromResult(false) }, internetConnection), new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService());
             var autoResetEvent = new AutoResetEvent(false);
             ExecuteOnUIThread(() => timeLine.OnNavigatedTo(null, NavigationMode.New, null));
@@ -189,7 +186,6 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             ExecuteOnUIThread(() =>
             {
                 timeLine.OnNavigatedTo(null, NavigationMode.New, null);
-                Assert.IsTrue(timeLine.SetStartupCommand.CanExecute(), "CanExecute True");
             });
             autoREsetEvents.WaitOne(3000);
             Assert.IsNotNull(timeLine.SquareFootEvents);
@@ -238,6 +234,96 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             Assert.AreEqual(secondaryTileArgs.ArgumentsName, PinningUtils.GetSecondaryTileIdByEventId("0"));
             //todo insert tests against color
         }
+        #endregion
+
+
+        #region Resizing
+
+        [TestMethod]
+        public void IsHorizontal_Updates_On_Window_Size_Changed()
+        {
+            var autoResetEvent = new AutoResetEvent(false);
+            bool changed = false;
+
+            var vm = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService(),
+                new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService());
+            vm.PropertyChanged += (sender, args) =>
+            {
+                changed = true;
+            };
+            ExecuteOnUIThread(() => vm.WindowSizeChanged(1000, 500)); 
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(changed, "PropertyChanged");
+            Assert.IsTrue(vm.IsHorizontal);
+            ExecuteOnUIThread(() => vm.WindowSizeChanged(500, 1000));
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(changed, "PropertyChanged");
+            Assert.IsFalse(vm.IsHorizontal);
+            ExecuteOnUIThread(() => vm.WindowSizeChanged(1000, 500));
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(changed, "PropertyChanged");
+            Assert.IsTrue(vm.IsHorizontal);
+        }
+
+        [TestMethod]
+        public void Base_Properties_Update_On_Window_Size_Changed()
+        {
+            var autoResetEvent = new AutoResetEvent(false);
+            bool changed = false;
+            var changedProperties = new List<string>();
+
+            var vm = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService(),
+                new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService());
+            vm.PropertyChanged += (sender, args) =>
+            {
+                changed = true;
+                changedProperties.Add(args.PropertyName);
+            };
+            ExecuteOnUIThread(() => vm.WindowSizeChanged(1000, 500));
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(changed, "PropertyChanged");
+            Assert.IsTrue(changedProperties.Contains("FullScreenWidth"));
+            Assert.IsTrue(changedProperties.Contains("FullScreenHeight"));
+            Assert.IsTrue(changedProperties.Contains("IsHorizontal"));
+            Assert.IsTrue(changedProperties.Contains("LargeFlexyFontSize"));
+            Assert.IsTrue(changedProperties.Contains("MediumLargeFlexyFontSize"));
+            Assert.IsTrue(changedProperties.Contains("MediumLargeFlexyTightLeading"));
+            Assert.IsTrue(changedProperties.Contains("MediumFlexyFontSize"));
+            Assert.IsTrue(changedProperties.Contains("MediumSmallFlexyFontSize"));
+            Assert.IsTrue(changedProperties.Contains("SmallFlexyFontSize"));
+        }
+
+        [TestMethod]
+        public void Local_Properties_Update_On_Window_Size_Changed()
+        {
+            var autoResetEvent = new AutoResetEvent(false);
+            bool changed = false;
+            var changedProperties = new List<string>();
+
+            var vm = new TimelinePageViewModel(new MockDataService(), new MockAlertMessageService(),
+                new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService());
+            vm.PropertyChanged += (sender, args) =>
+            {
+                changed = true;
+                changedProperties.Add(args.PropertyName);
+            };
+            ExecuteOnUIThread(() => vm.WindowSizeChanged(1000, 500));
+            autoResetEvent.WaitOne(500);
+            Assert.IsTrue(changed, "PropertyChanged");
+            Assert.IsTrue(changedProperties.Contains("ZoomedOutGridHeight"));
+            Assert.IsTrue(changedProperties.Contains("ZoomedOutItemWidth"));
+            Assert.IsTrue(changedProperties.Contains("ZoomedOutItemHeight"));
+            Assert.IsTrue(changedProperties.Contains("BufferItemWidth"));
+            Assert.IsTrue(changedProperties.Contains("MaskItemWidth"));
+            Assert.IsTrue(changedProperties.Contains("MaskItemHeight"));
+            Assert.IsTrue(changedProperties.Contains("EventItemWidth"));
+            Assert.IsTrue(changedProperties.Contains("EventItemHeight"));
+            Assert.IsTrue(changedProperties.Contains("ExhibitItemWidth"));
+            Assert.IsTrue(changedProperties.Contains("ExhibitItemHeight"));
+            Assert.IsTrue(changedProperties.Contains("LogoTransformX"));
+            Assert.IsTrue(changedProperties.Contains("LogoTransformY"));
+        }
+
         #endregion
 
     }

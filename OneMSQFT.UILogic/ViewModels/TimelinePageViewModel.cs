@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Windows.Graphics.Display;
 using Windows.Media;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
+using OneMSQFT.Common;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
@@ -48,10 +51,10 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public override async void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
-            var events = await _dataService.GetEvents();
+            var events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
             if (events == null)
             {
-                await _messageService.ShowAsync("Error", "There was a problem loading events");
+                await _messageService.ShowAsync(Strings.SiteDataFailureMessage, String.Empty);
                 return;
             }
             _eventsList = events as IList<Event> ?? events.ToList();
@@ -190,7 +193,7 @@ namespace OneMSQFT.UILogic.ViewModels
             get
             {
                 return IsHorizontal
-                    ? FullScreenWidth*.9
+                    ? FullScreenWidth * .9
                     : FullScreenWidth;
             }
         }
@@ -201,7 +204,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 return IsHorizontal
                     ? FullScreenHeight
-                    : FullScreenHeight*.9;
+                    : FullScreenHeight * .9;
             }
         }
 
@@ -209,7 +212,9 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return (EventItemWidth / 3) - 9;
+                return IsHorizontal
+                    ? (EventItemWidth / 3) - 9
+                    : (EventItemWidth / 2) - 9;
             }
         }
 
@@ -217,8 +222,348 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return (EventItemHeight / 4) - 6;
+                return IsHorizontal
+                    ? (EventItemHeight / 4) - 6
+                    : (EventItemHeight / 6) - 6;
             }
+        }
+
+        public double LogoTransformX
+        {
+            get
+            {
+                return IsHorizontal
+                    ? GetHLogoX()
+                    : GetVLogoX();
+            }
+        }
+
+        private int GetHLogoX()
+        {
+            var dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
+            var delta = Convert.ToDouble(WidthDelta);
+            if (dpi <= 96.0)
+            {
+                if (delta < 0.54)
+                {
+                    return 180; // 27" @ 100%
+                }
+                if (delta < 0.72)
+                {
+                    return 146; // 23" @ 100%
+                }
+                if (delta == 1.0)
+                {
+                    return 110; // 10.6" 1366x768 @ 100%
+                }
+                if (delta < 1.1)
+                {
+                    return 110; // 12" @ 100%
+                }
+                if (delta < 1.35)
+                {
+                    return 96; // 10.6" 1024x768 @ 100%
+                }
+                return 110;
+            }
+            if (dpi <= 140.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 112; // 10.6" 1920x1080 @ 140%
+                    //    7" 1920x1200 @ 140%
+                }
+                if (delta < 1.35)
+                {
+                    return 96; // 7.5" 1044x1080 @ 140%
+                }
+                return 112;
+            }
+            if (dpi <= 180.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 110; // 10.6" 2560x1440 @ 180%
+                }
+                return 110;
+            }
+            return 110;
+        }
+        private int GetVLogoX()
+        {
+            var dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
+            var delta = Convert.ToDouble(HeightDelta);
+            if (dpi <= 96.0)
+            {
+                //if (delta < 0.54)
+                //{
+                //    return 180; // 27" @ 100%
+                //}
+                //if (delta < 0.72)
+                //{
+                //    return 146; // 23" @ 100%
+                //}
+                //if (delta == 1.0)
+                //{
+                //    return 110; // 10.6" 1366x768 @ 100%
+                //}
+                //if (delta < 1.1)
+                //{
+                //    return 110; // 12" @ 100%
+                //}
+                //if (delta < 1.35)
+                //{
+                //    return 96; // 10.6" 1024x768 @ 100%
+                //}
+                return 50;
+            }
+            if (dpi <= 140.0)
+            {
+                //if (delta < 1.0)
+                //{
+                //    return 112; // 10.6" 1920x1080 @ 140%
+                //    //    7" 1920x1200 @ 140%
+                //}
+                //if (delta < 1.35)
+                //{
+                //    return 96; // 7.5" 1044x1080 @ 140%
+                //}
+                return 50;
+            }
+            if (dpi <= 180.0)
+            {
+                //if (delta < 1.0)
+                //{
+                //    return 110; // 10.6" 2560x1440 @ 180%
+                //}
+                return 50;
+            }
+            return 50;
+        }
+
+        public double LogoTransformY
+        {
+            get
+            {
+                return IsHorizontal
+                    ? GetHLogoY()
+                    : GetVLogoY();
+            }
+        }
+        private int GetHLogoY()
+        {
+            var dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
+            var delta = Convert.ToDouble(WidthDelta);
+            if (dpi <= 96.0)
+            {
+                if (delta < 0.54)
+                {
+                    return 46; // 27" @ 100%
+                }
+                if (delta < 0.72)
+                {
+                    return 40; // 23" @ 100%
+                }
+                if (delta == 1.0)
+                {
+                    return 40; // 10.6" 1366x768 @ 100%
+                }
+                if (delta < 1.1)
+                {
+                    return 40; // 12" @ 100%
+                }
+                if (delta < 1.35)
+                {
+                    return 40; // 10.6" 1024x768 @ 100%
+                }
+                return 40;
+            }
+            if (dpi <= 140.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 40; // 10.6" 1920x1080 @ 140%
+                    //    7" 1920x1200 @ 140%
+                }
+                if (delta < 1.35)
+                {
+                    return 40; // 7.5" 1044x1080 @ 140%
+                }
+                return 40;
+            }
+            if (dpi <= 180.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 40; // 10.6" 2560x1440 @ 180%
+                }
+                return 40;
+            }
+            return 40;
+        }
+        private int GetVLogoY()
+        {
+            var dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
+            var delta = Convert.ToDouble(HeightDelta);
+            if (dpi <= 96.0)
+            {
+                if (delta < 0.54)
+                {
+                    return 190; // 27" @ 100%
+                }
+                if (delta < 0.72)
+                {
+                    return 145; // 23" @ 100%
+                }
+                if (delta == 1.0)
+                {
+                    return 100; // 10.6" 1366x768 @ 100%
+                }
+                if (delta < 1.1)
+                {
+                    return 100; // 12" @ 100%
+                }
+                if (delta < 1.35)
+                {
+                    return 70; // 10.6" 1024x768 @ 100%
+                }
+                return 70;
+            }
+            if (dpi <= 140.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 100; // 10.6" 1920x1080 @ 140%
+                    //    7" 1920x1200 @ 140%
+                }
+                if (delta < 1.35)
+                {
+                    return 70; // 7.5" 1044x1080 @ 140%
+                }
+                return 70;
+            }
+            if (dpi <= 180.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 100; // 10.6" 2560x1440 @ 180%
+                }
+                return 70;
+            }
+            return 100;
+        }
+
+        public double LogoScale
+        {
+            get
+            {
+                return IsHorizontal
+                    ? GetHLogoScale()
+                    : GetVLogoScale();
+            }
+        }
+
+        private double GetHLogoScale()
+        {
+            var dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
+            var delta = Convert.ToDouble(WidthDelta);
+            if (dpi <= 96.0)
+            {
+                if (delta < 0.54)
+                {
+                    return 2.1; // 27" @ 100%
+                }
+                if (delta < 0.72)
+                {
+                    return 1.5; // 23" @ 100%
+                }
+                if (delta == 1.0)
+                {
+                    return 1; // 10.6" 1366x768 @ 100%
+                }
+                if (delta < 1.1)
+                {
+                    return 1; // 12" @ 100%
+                }
+                if (delta < 1.35)
+                {
+                    return 1; // 10.6" 1024x768 @ 100%
+                }
+                return 1;
+            }
+            if (dpi <= 140.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 1.1; // 10.6" 1920x1080 @ 140%
+                    //    7" 1920x1200 @ 140%
+                }
+                if (delta < 1.35)
+                {
+                    return 1.1; // 7.5" 1044x1080 @ 140%
+                }
+                return 1.1;
+            }
+            if (dpi <= 180.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 1.0; // 10.6" 2560x1440 @ 180%
+                }
+                return 1.0;
+            }
+            return 1.0;
+        }
+        private double GetVLogoScale()
+        {
+            var dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
+            var delta = Convert.ToDouble(HeightDelta);
+            if (dpi <= 96.0)
+            {
+                if (delta < 0.54)
+                {
+                    return 2.1; // 27" @ 100%
+                }
+                if (delta < 0.72)
+                {
+                    return 1.5; // 23" @ 100%
+                }
+                if (delta == 1.0)
+                {
+                    return 1; // 10.6" 1366x768 @ 100%
+                }
+                if (delta < 1.1)
+                {
+                    return 1; // 12" @ 100%
+                }
+                if (delta < 1.35)
+                {
+                    return .9; // 10.6" 1024x768 @ 100%
+                }
+                return .5;
+            }
+            if (dpi <= 140.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 1.1; // 10.6" 1920x1080 @ 140%
+                                //    7" 1920x1200 @ 140%
+                }
+                if (delta < 1.35)
+                {
+                    return .9; // 7.5" 1044x1080 @ 140%
+                }
+                return .5;
+            }
+            if (dpi <= 180.0)
+            {
+                if (delta < 1.2)
+                {
+                    return 1.2; // 10.6" 2560x1440 @ 180%
+                }
+                return .5;
+            }
+            return 1;
         }
 
 
@@ -232,9 +577,12 @@ namespace OneMSQFT.UILogic.ViewModels
             OnPropertyChanged("MaskItemWidth");
             OnPropertyChanged("MaskItemHeight");
             OnPropertyChanged("EventItemWidth");
-            OnPropertyChanged("EventItemHeight");            
+            OnPropertyChanged("EventItemHeight");
             OnPropertyChanged("ExhibitItemWidth");
             OnPropertyChanged("ExhibitItemHeight");
+            OnPropertyChanged("LogoTransformX");
+            OnPropertyChanged("LogoTransformY");
+            OnPropertyChanged("LogoScale");
         }
 
         #endregion

@@ -527,10 +527,10 @@
 					    Stretch="UniformToFill"/>
                     </Border>
                     <Rectangle Fill="{StaticResource OneMSQFTOverlayBgBrush}"/>
-                    <RichTextBlock TextWrapping="NoWrap" 
+                    <RichTextBlock TextWrapping="Wrap" 
                                    TextAlignment="Center"
                                    TextTrimming="CharacterEllipsis" 
-                                   Foreground="White" Margin="40"
+                                   Foreground="White" Margin="20"
                                    FontFamily="Segoe UI Light"
                                    FontWeight="Light"
                                    VerticalAlignment="Center"
@@ -728,6 +728,7 @@
                         </ScrollViewer>
                         <omsqftcontrols:CuratorLogoStackerUserControl 
                             Grid.Row="3"
+                            IsLayoutHorizontal="True"
                             CuratorLogoCollection="{Binding CuratorLogos}"
                             Margin="40,20,0,50" 
                             VerticalAlignment="Bottom" 
@@ -769,7 +770,6 @@
         </DataTemplate>
 
         <DataTemplate x:Key="VerticalTimelineEventItemTemplate">
-            <Border BorderThickness="0" Margin="0" Background="Transparent">
                 <Grid Width="{Binding DataSource.EventItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                       Height="{Binding DataSource.EventItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                       Background="Transparent">
@@ -778,22 +778,53 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
-                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Click="FlipViewButton_Clicked" 
+                    <Grid Grid.RowSpan="2" Margin="5,0,10,5" Grid.ColumnSpan="2" >
+                        <Grid.Background>
+                            <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
+                        </Grid.Background>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
+                        <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
+						    TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
+						    Grid.Row="1">
+                            <Paragraph>
+                            <Run Text="{Binding SquareFootageStringPlain}" 
+                                         FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
+                            <Run Text="{Binding PortraitBlurb, Mode=OneWay}" 
+                                         FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
+                            </Paragraph>
+                        </RichTextBlock>
+
+
+                     
+                        <omsqftcontrols:CuratorLogoStackerUserControl 
+                            Grid.Row="2"
+                            CuratorLogoCollection="{Binding CuratorLogos}"
+                            IsLayoutHorizontal="False"
+                            Margin="40,20,0,0" 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Left"/>
+                    </Grid>
+
+                    <Button Click="FlipViewButton_Clicked"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             CommandParameter="{Binding}" 
-                            Command="{Binding DataSource.EventHeroItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                            Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" 
-                            Style="{StaticResource EventGalleryButtonStyle}" Margin="0,-4,4,0" 
-                            BorderBrush="{StaticResource OneMSQFTWhiteBrush}" 
-                            BorderThickness="5">
+                            Command="{Binding DataSource.EventHeroItemClickCommand, Mode=OneWay, Source={StaticResource DataContextProxy}}" Grid.RowSpan="2" Grid.ColumnSpan="2" 
+                            Style="{StaticResource EventGalleryButtonStyle}" 
+                            Margin="5,0,10,5" 
+                            BorderBrush="White" Grid.Row="2">
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <ProgressRing IsEnabled="True" IsActive="True" Height="150" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <ProgressRing.Foreground>
@@ -822,62 +853,16 @@
                         </Grid>
                     </Button>
 
-                    <Grid Grid.RowSpan="4" Margin="0,0,0,6">
-                        <Grid.Background>
-                            <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
-                        </Grid.Background>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="155*"/>
-                            <RowDefinition Height="186*"/>
-                            <RowDefinition Height="108*"/>
-                            <RowDefinition Height="319*"/>
-                        </Grid.RowDefinitions>
-                        <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
-						    TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
-						    Grid.Row="1">
-                            <Paragraph>
-                                <Run Text="{Binding SquareFootageStringPlain}" 
-                                         FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
-                                <LineBreak />
-                                <Run Text="{Binding Strings.SquareFeet, Source={StaticResource PortableStrings}}" 
-                                         FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
-                                <LineBreak />
-                                <Run Text="{Binding Name, Mode=OneWay}" 
-                                         FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
-                            </Paragraph>
-                        </RichTextBlock>
-
-
-                        <ScrollViewer Style="{StaticResource VerticalScrollViewerStyle}"
-					        Grid.Row="2"
-                            Grid.RowSpan="2"
-					        Margin="40,0,40,100" 
-					        VerticalAlignment="Top">
-                            <TextBlock Text="{Binding Description}"
-						        Foreground="White"
-						        FontSize="{Binding DataSource.SmallFlexyFontSize, Source={StaticResource DataContextProxy}}"
-                                LineStackingStrategy="BlockLineHeight"
-						        TextWrapping="Wrap" 
-						        FontFamily="Segoe UI Light" 
-						        FontWeight="Light"/>
-                        </ScrollViewer>
-                        <omsqftcontrols:CuratorLogoStackerUserControl 
-                            Grid.Row="3"
-                            CuratorLogoCollection="{Binding CuratorLogos}"
-                            Margin="40,20,0,50" 
-                            VerticalAlignment="Bottom" 
-                            HorizontalAlignment="Left"/>
-
-                    </Grid>
 
                     <!--Show More Exhibit Items -->
-                    <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                    <Grid Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2" >
                         <GridView ItemsSource="{Binding DisplayedExhibits}" x:Name="GridView"
                               ItemContainerStyle="{StaticResource TimelineExhibitItemContainerStyle}"
                               SelectionMode="None"
                               IsItemClickEnabled="True"
                               IsSwipeEnabled="False"
                               IsHoldingEnabled="False"
+                              Margin="0"
                               ScrollViewer.IsHorizontalScrollChainingEnabled="False"
                               ScrollViewer.HorizontalScrollMode="Disabled"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -900,7 +885,7 @@
                         </GridView>
                     </Grid>
                 </Grid>
-            </Border>
+   
         </DataTemplate>
 
         <DataTemplate x:Key="HorizontalBufferItemFakeEventItemTemplate">
@@ -1000,8 +985,14 @@
                     </StackPanel>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
                         <Button x:Name="AboutButton"
-                                Content="ABOUT 1MSQFT"
-                                Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+                                Content="{Binding Strings.About, Source={StaticResource PortableStrings}}"
+                                Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
+                        <Button x:Name="TwitterButton"
+                                Content="{Binding Strings.Twitter, Source={StaticResource PortableStrings}}"
+                                Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
+                        <Button x:Name="InstagramButton"
+                                Content="{Binding Strings.Instagram, Source={StaticResource PortableStrings}}"
+                                Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -1009,6 +1000,13 @@
     </omsqft:BasePageView.BottomAppBar>
 
     <Grid Background="White" d:IsHidden="True">
+        <Canvas IsHitTestVisible="False" ZIndex="10">
+            <omsqftcontrols:LogoUserControl Canvas.Top="{Binding LogoTransformY}" Canvas.Left="{Binding LogoTransformX}" LogoColor="FFFFFF" RenderTransformOrigin="0,0">
+                <omsqftcontrols:LogoUserControl.RenderTransform>
+                    <CompositeTransform ScaleX="{Binding LogoScale}" ScaleY="{Binding LogoScale}"/>
+                </omsqftcontrols:LogoUserControl.RenderTransform>    
+            </omsqftcontrols:LogoUserControl>
+        </Canvas>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -1104,7 +1102,7 @@
                 </SemanticZoom.ZoomedInView>
             </SemanticZoom>
 
-            <omsqftcontrols:LogoUserControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,38,0,0" LogoColor="FFFFFF"/>
+           
             <Rectangle x:Name="MaskLeft"
                        Visibility="Collapsed"
                        IsHitTestVisible="False"
@@ -1165,7 +1163,7 @@
                             </DataTemplate>
                         </FlipView.ItemTemplate>
                     </FlipView>
-                    <AppBarButton Icon="Cancel" Click="FlipViewPopUpCloseButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
+                    <AppBarButton Icon="Cancel" Click="FlipViewPopUpCloseButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20" Style="{StaticResource AppBarButtonCloseStyle}"/>
                 </Grid>
             </Popup>
             <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="False" Style="{StaticResource VideoPopupStyle}" >
@@ -1214,41 +1212,21 @@
         <VisualStateManager.VisualStateGroups>
 
             <VisualStateGroup x:Name="ApplicationViewStates">
-                <VisualStateGroup.Transitions>
-                    <VisualTransition GeneratedDuration="0">
-                        <VisualTransition.GeneratedEasingFunction>
-                            <ExponentialEase EasingMode="EaseIn"/>
-                        </VisualTransition.GeneratedEasingFunction>
-                    </VisualTransition>
-                </VisualStateGroup.Transitions>
                 <VisualState x:Name="FullScreenLandscape" >
-                    <Storyboard>
+                    <Storyboard Completed="VisualStateTransition_Completed">
                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TimelineGridView" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TimeLineHorizontalSnappingStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="logoUserControl">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <Thickness>110,38,0,0</Thickness>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
-                        </ObjectAnimationUsingKeyFrames>
+                     
                     </Storyboard>
                 </VisualState>
 
                 <VisualState x:Name="FullScreenPortrait">
-                    <Storyboard>
+                    <Storyboard Completed="VisualStateTransition_Completed">
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TimelineGridView" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TimeLineVerticalSnappingStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="logoUserControl">
-                        	<DiscreteObjectKeyFrame KeyTime="0">
-                        		<DiscreteObjectKeyFrame.Value>
-                                    <Thickness>0</Thickness>
-                        		</DiscreteObjectKeyFrame.Value>
-                        	</DiscreteObjectKeyFrame>
-                        </ObjectAnimationUsingKeyFrames>
-                    </Storyboard>
+                         </Storyboard>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>

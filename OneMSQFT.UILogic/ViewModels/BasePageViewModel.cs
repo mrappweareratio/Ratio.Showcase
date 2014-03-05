@@ -42,6 +42,8 @@ namespace OneMSQFT.UILogic.ViewModels
 
         private const int BaseDesignLandscapeWidth = 1366;
         private const int BaseDesignPortraitWidth = 768;
+        private const int BaseDesignPortraitHeight = 1366;
+        private const int BaseDesignLandscapeHeight = 768;
 
         public double FullScreenHeight
         {
@@ -66,6 +68,7 @@ namespace OneMSQFT.UILogic.ViewModels
         private bool _isHorizontal;
 
         protected double WidthDelta { get; private set; }
+        protected double HeightDelta { get; private set; }
 
         private const double LargeBaseFontSize = 60;
         public double LargeFlexyFontSize
@@ -105,9 +108,15 @@ namespace OneMSQFT.UILogic.ViewModels
             WidthDelta = IsHorizontal
                  ? BaseDesignLandscapeWidth / FullScreenWidth
                  : BaseDesignPortraitWidth / FullScreenWidth;
+
+            HeightDelta = IsHorizontal
+                 ? BaseDesignLandscapeHeight / FullScreenHeight
+                 : BaseDesignPortraitHeight / FullScreenHeight;
             OnPropertyChanged("FullScreenWidth");
-            OnPropertyChanged("FullScreenHeight");            
-            OnPropertyChanged("IsHorizontal");            
+            OnPropertyChanged("FullScreenHeight");
+            OnPropertyChanged("IsHorizontal");
+            OnPropertyChanged("WidthDelta");
+            OnPropertyChanged("HeightDelta");   
             OnPropertyChanged("LargeFlexyFontSize");
             OnPropertyChanged("MediumLargeFlexyFontSize");
             OnPropertyChanged("MediumLargeFlexyTightLeading");

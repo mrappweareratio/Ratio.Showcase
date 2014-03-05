@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.Graphics.Display;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.StartScreen;
@@ -12,15 +13,13 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common;
 using OneMSQFT.Common.Services;
-using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
-using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
-using Windows.UI.Core;
 
 namespace OneMSQFT.WindowsStore.Views
 {
@@ -55,15 +54,44 @@ namespace OneMSQFT.WindowsStore.Views
             if (app != null)
             {
                 StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
-                PinButton.Visibility = app.KioskModeEnabled ? Visibility.Collapsed : Visibility.Visible;
+                //PinButton.Visibility = app.KioskModeEnabled ? Visibility.Collapsed : Visibility.Visible;
                 if (!app.KioskModeEnabled)
                 {
                     _sharing = AppLocator.Current.SharingService;
-                    var dataTransferManager = DataTransferManager.GetForCurrentView();
-                    dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
-                    dataTransferManager.TargetApplicationChosen += DataTransferManagerTargetApplicationChosen;
+                    _dataTransferManager = DataTransferManager.GetForCurrentView();
                 }
             }
+
+            VideoPlayerUserControl.MediaEndedCommand = new DelegateCommand(MediaEndedCommandHandler);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            // needed for back stack navigation when user has changed resolution on details page
+            ProcessWindowSizeChangedEvent();
+            _navigationEventArgs = e;
+            if (!AppLocator.Current.KioskModeEnabled)
+            {
+                _dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
+                _dataTransferManager.TargetApplicationChosen += DataTransferManagerTargetApplicationChosen;
+            }
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            if (!AppLocator.Current.KioskModeEnabled)
+            {
+                _dataTransferManager.DataRequested -= DataTransferManagerOnDataRequested;
+                _dataTransferManager.TargetApplicationChosen -= DataTransferManagerTargetApplicationChosen;
+            }
+        }
+
+        private void MediaEndedCommandHandler()
+        {
+            VideoPopup.IsOpen = false;
+            FlipViewPopup.IsOpen = false;
         }
 
         #region Sharing
@@ -81,10 +109,11 @@ namespace OneMSQFT.WindowsStore.Views
             var ev = vm.SelectedEvent;
             var evPos = vm.GetEventIndexById(ev.Id);
             Uri uri = null;
-            if (VideoPopup.IsOpen)
+
+            var selectedMediaContentSource = FlipViewer.SelectedItem as MediaContentSourceItemViewModel;
+            if (FlipViewPopup.IsOpen && selectedMediaContentSource != null && selectedMediaContentSource.ContentSourceType == ContentSourceType.Video)
             {
-                var selectedMediaContentSource = FlipViewer.SelectedItem as MediaContentSourceItemViewModel;
-                if (selectedMediaContentSource == null || !_sharing.TryGetVideoShareUri(selectedMediaContentSource.Media, out uri))
+                if (!_sharing.TryGetVideoShareUri(selectedMediaContentSource.Media, out uri))
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
                     return;
@@ -93,6 +122,9 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Description = ev.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
                 args.Request.Data.SetWebLink(uri);
+                _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackVideoShareInEventView(ev.Name,
+                ev.SquareFootage, evPos, selectedMediaContentSource.Media.VideoId, uri.AbsoluteUri, appName);
+
             }
             else
             {
@@ -161,7 +193,6 @@ namespace OneMSQFT.WindowsStore.Views
                     TimelineGridViewScrollViewer.IsHorizontalScrollChainingEnabled = false;
 
                     TimelineGridViewScrollViewer.ZoomMode = ZoomMode.Disabled;
-                    ScrollToFirstItem();
                 }
                 else
                 {
@@ -182,16 +213,9 @@ namespace OneMSQFT.WindowsStore.Views
                     TimelineGridViewScrollViewer.IsHorizontalScrollChainingEnabled = true;
 
                     TimelineGridViewScrollViewer.ZoomMode = ZoomMode.Disabled;
-                    ScrollToFirstItem();
                 }
 
             }
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            this._navigationEventArgs = e;
         }
 
         private void TimelineGridView_Loaded(object sender, RoutedEventArgs e)
@@ -219,6 +243,8 @@ namespace OneMSQFT.WindowsStore.Views
         {
             base.PopulateTopAppbar(vm);
             AboutButton.Command = AboutButtonClickCommand;
+            TwitterButton.Command = TwitterButtonClickCommand;
+            InstagramButton.Command = InstagramButtonClickCommand;
         }
 
         #region Timeline UI
@@ -262,7 +288,14 @@ namespace OneMSQFT.WindowsStore.Views
                 if (AppBarIsAutoScrolling == false)
                 {
                     ShowTimelineMasks(true);
-                    SelectItemByOffset(((ScrollViewer)sender).HorizontalOffset);
+                    if (GetDataContextAsViewModel<TimelinePageViewModel>().IsHorizontal)
+                    {
+                        SelectItemByOffset(((ScrollViewer)sender).HorizontalOffset);
+                    }
+                    else
+                    {
+                        SelectItemByOffset(((ScrollViewer)sender).VerticalOffset);
+                    }
                 }
             }
         }
@@ -270,11 +303,20 @@ namespace OneMSQFT.WindowsStore.Views
         private void SelectItemByOffset(double offset)
         {
             var vm = GetDataContextAsViewModel<TimelinePageViewModel>();
-            var i = Convert.ToInt32((offset - vm.BufferItemWidth) / vm.EventItemWidth);
+            var i = 0;
+            if (vm.IsHorizontal)
+            {
+                i = Convert.ToInt32((offset - vm.BufferItemWidth) / vm.EventItemWidth);
+            }
+            else
+            {
+                i = Convert.ToInt32((offset - vm.BufferItemHeight) / vm.EventItemHeight);
+            }
             vm.SelectedEvent = vm.TimeLineItems[i + 1]; // + 1 to skip the buffer item
         }
 
         private bool _semanticZoomClosedFromTopAppBarEvent;
+        private DataTransferManager _dataTransferManager;
 
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
@@ -320,7 +362,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         public override async void TopAppBarEventButtonCommandHandler(String eventId)
         {
-            Event ev = await AppLocator.Current.DataService.GetEventById(eventId);
+            Event ev = await AppLocator.Current.DataService.GetEventById(eventId, new CancellationToken());
             AppLocator.Current.Analytics.TrackAppBarInteractionInTimeline(ev.Name, ev.SquareFootage);
 
             if (semanticZoom.IsZoomedInViewActive == false)
@@ -386,7 +428,7 @@ namespace OneMSQFT.WindowsStore.Views
                     AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Media.VideoId, ev.SquareFootage, vm.GetEventIndexById(ev.Id));
 
                 VideoPopup.IsOpen = true;
-                VideoPlayerUserControl.SelectedMediaContentSource = ((MediaContentSourceItemViewModel)FlipViewer.SelectedItem);
+                VideoPlayerUserControl.SelectedMediaContentSource = mediaItem;
             }
         }
 
@@ -476,6 +518,8 @@ namespace OneMSQFT.WindowsStore.Views
                 secondaryTile.VisualElements.ShowNameOnSquare150x150Logo = false;
                 secondaryTile.VisualElements.ShowNameOnWide310x150Logo = false;
 
+                secondaryTile.RoamingEnabled = true;
+
                 bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
                 ToggleAppBarButton(PinButton, !isPinned);
             }
@@ -525,5 +569,10 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         #endregion
+
+        private void VisualStateTransition_Completed(object sender, object e)
+        {
+            ScrollToEventById(GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent.Id);
+        }
     }
 }
