@@ -1000,6 +1000,13 @@
     </omsqft:BasePageView.BottomAppBar>
 
     <Grid Background="White" d:IsHidden="True">
+        <Canvas IsHitTestVisible="False" ZIndex="10">
+            <omsqftcontrols:LogoUserControl Canvas.Top="{Binding LogoTransformY}" Canvas.Left="{Binding LogoTransformX}" LogoColor="FFFFFF" RenderTransformOrigin="0,0">
+                <omsqftcontrols:LogoUserControl.RenderTransform>
+                    <CompositeTransform ScaleX="{Binding LogoScale}" ScaleY="{Binding LogoScale}"/>
+                </omsqftcontrols:LogoUserControl.RenderTransform>    
+            </omsqftcontrols:LogoUserControl>
+        </Canvas>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -1095,11 +1102,7 @@
                 </SemanticZoom.ZoomedInView>
             </SemanticZoom>
 
-            <omsqftcontrols:LogoUserControl x:Name="Logo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" LogoColor="FFFFFF">
-                <omsqftcontrols:LogoUserControl.RenderTransform>
-                    <CompositeTransform TranslateX="110" TranslateY="38"/>
-                </omsqftcontrols:LogoUserControl.RenderTransform>
-            </omsqftcontrols:LogoUserControl>
+           
             <Rectangle x:Name="MaskLeft"
                        Visibility="Collapsed"
                        IsHitTestVisible="False"
@@ -1221,9 +1224,7 @@
                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TimelineGridView" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TimeLineHorizontalSnappingStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
-                        <DoubleAnimation Duration="0" To="{Binding LogoTransformX}" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Logo" d:IsOptimized="True"/>
-                        <DoubleAnimation Duration="0" To="{Binding LogoTransformY}" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Logo" d:IsOptimized="True"/>
-
+                     
                     </Storyboard>
                 </VisualState>
 
@@ -1232,10 +1233,7 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TimelineGridView" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TimeLineVerticalSnappingStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
-                        <DoubleAnimation Duration="0" To="{Binding LogoTransformX}" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Logo" d:IsOptimized="True"/>
-                        <DoubleAnimation Duration="0" To="{Binding LogoTransformY}" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Logo" d:IsOptimized="True"/>
-
-                    </Storyboard>
+                         </Storyboard>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
