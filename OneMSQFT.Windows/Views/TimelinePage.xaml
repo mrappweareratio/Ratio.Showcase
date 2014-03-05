@@ -337,7 +337,9 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="GridViewItem">
-                        <Grid x:Name="ContentContainer" RenderTransformOrigin="0.5,0.5">
+                        <Grid x:Name="ContentContainer" RenderTransformOrigin="0.5,0.5"
+                            Width="{Binding DataSource.ZoomedOutItemWidth, Source={StaticResource DataContextProxy}}" 
+                            Height="{Binding DataSource.ZoomedOutItemHeight, Source={StaticResource DataContextProxy}}" >
                             <Grid.RenderTransform>
                                 <CompositeTransform/>
                             </Grid.RenderTransform>
@@ -433,7 +435,9 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="GridViewItem">
-                        <Grid x:Name="ContentContainer" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False">
+                        <Grid x:Name="ContentContainer" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False"
+                            Width="{Binding DataSource.ZoomedOutItemWidth, Source={StaticResource DataContextProxy}}" 
+                            Height="{Binding DataSource.ZoomedOutItemHeight, Source={StaticResource DataContextProxy}}">
                             <Grid.RenderTransform>
                                 <CompositeTransform/>
                             </Grid.RenderTransform>
@@ -1067,7 +1071,9 @@
                         </GridView.ItemContainerStyleSelector>
                         <GridView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapGrid MaximumRowsOrColumns="3" />
+                                <WrapGrid MaximumRowsOrColumns="3" 
+                                    ItemWidth="{Binding DataSource.ZoomedOutItemWidth, Source={StaticResource DataContextProxy}}" 
+                                    ItemHeight="{Binding DataSource.ZoomedOutItemHeight, Source={StaticResource DataContextProxy}}" />
                             </ItemsPanelTemplate>
                         </GridView.ItemsPanel>
                     </GridView>
