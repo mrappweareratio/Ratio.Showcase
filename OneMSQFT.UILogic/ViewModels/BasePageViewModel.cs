@@ -114,6 +114,7 @@ namespace OneMSQFT.UILogic.ViewModels
             OnPropertyChanged("MediumFlexyFontSize");
             OnPropertyChanged("MediumSmallFlexyFontSize");
             OnPropertyChanged("SmallFlexyFontSize");
+            OnPropertyChanged("WidthDelta");
         }
 
         #endregion
