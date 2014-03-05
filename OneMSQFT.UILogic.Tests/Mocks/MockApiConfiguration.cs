@@ -4,7 +4,7 @@ namespace OneMSQFT.UILogic.Tests.Mocks
 {
     public class MockApiConfiguration : IApiConfiguration
     {
-        public MockApiConfiguration(string apiEndpointUrl, string webSiteUrl = null, string videoSiteUrl = null, double timeout = 10, int maxRetries = 3)
+        public MockApiConfiguration(string apiEndpointUrl, string webSiteUrl = null, string videoSiteUrl = null, double timeout = 15, int maxRetries = 0)
         {
             ApiEndpointUrl = apiEndpointUrl;
             WebSiteUrl = webSiteUrl;

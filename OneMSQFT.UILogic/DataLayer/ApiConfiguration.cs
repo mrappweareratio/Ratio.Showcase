@@ -35,13 +35,23 @@ namespace OneMSQFT.UILogic.DataLayer
             get
             {
 #if RELEASE
-                return 10;
+                return 20;
 #else
                 return 5;
 #endif
             }
         }
 
-        public int MaxRetries { get { return 3; } }
+        public int MaxRetries
+        {
+            get
+            {
+#if RELEASE
+                return 0;
+#else
+                return 3;
+#endif
+            }
+        }
     }
 }
