@@ -662,7 +662,7 @@
 
             <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="False" Style="{StaticResource VideoPopupStyle}" >
                 <Grid >
-                    <controls:VideoPlayerUserControl 
+                    <controls:VideoPlayerUserControl x:Name="VideoPlayerUserControl"
                     SelectedMediaContentSource="{Binding DataSource.SelectedMediaContentSource, Source={StaticResource DataContextProxy}}"
                     Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                     Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" />

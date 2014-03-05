@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Graphics.Display;
@@ -12,6 +13,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common;
 using OneMSQFT.Common.Services;
 using OneMSQFT.Common.Analytics;
@@ -64,6 +66,14 @@ namespace OneMSQFT.WindowsStore.Views
                     dataTransferManager.TargetApplicationChosen += DataTransferManagerTargetApplicationChosen;
                 }
             }
+
+            VideoPlayerUserControl.MediaEndedCommand = new DelegateCommand(MediaEndedCommandHandler); 
+        }
+
+        private void MediaEndedCommandHandler()
+        {
+            VideoPopup.IsOpen = false;
+            FlipViewPopup.IsOpen = false;
         }
 
         #region Sharing
@@ -546,5 +556,10 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         #endregion
+
+        private void VisualStateTransition_Completed(object sender, object e)
+        {
+            ScrollToEventById(GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent.Id);
+        }
     }
 }

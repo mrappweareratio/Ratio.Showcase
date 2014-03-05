@@ -1212,15 +1212,8 @@
         <VisualStateManager.VisualStateGroups>
 
             <VisualStateGroup x:Name="ApplicationViewStates">
-                <VisualStateGroup.Transitions>
-                    <VisualTransition GeneratedDuration="0">
-                        <VisualTransition.GeneratedEasingFunction>
-                            <ExponentialEase EasingMode="EaseIn"/>
-                        </VisualTransition.GeneratedEasingFunction>
-                    </VisualTransition>
-                </VisualStateGroup.Transitions>
                 <VisualState x:Name="FullScreenLandscape" >
-                    <Storyboard>
+                    <Storyboard Completed="VisualStateTransition_Completed">
                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TimelineGridView" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TimeLineHorizontalSnappingStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
@@ -1229,7 +1222,7 @@
                 </VisualState>
 
                 <VisualState x:Name="FullScreenPortrait">
-                    <Storyboard>
+                    <Storyboard Completed="VisualStateTransition_Completed">
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TimelineGridView" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TimeLineVerticalSnappingStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
