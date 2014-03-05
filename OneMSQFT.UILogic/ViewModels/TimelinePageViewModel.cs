@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.Graphics.Display;
 using Windows.Media;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
@@ -231,9 +232,61 @@ namespace OneMSQFT.UILogic.ViewModels
             get
             {
                 return IsHorizontal
-                    ? 110
-                    : 52;
+                    ? GetHLogoX()
+                    : 1 ;
             }
+        }
+
+        private int GetHLogoX()
+        {
+            var dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
+            var delta = Convert.ToDouble(WidthDelta);
+            if (dpi <= 96.0)
+            {
+                if (delta < 0.54)
+                {
+                    return 180; // 27" @ 100%
+                }
+                if (delta < 0.72)
+                {
+                    return 146; // 23" @ 100%
+                }
+                if (delta == 1.0)
+                {
+                    return 110; // 10.6" 1366x768 @ 100%
+                }
+                if (delta < 1.1)
+                {
+                    return 110; // 12" @ 100%
+                }
+                if (delta < 1.35)
+                {
+                    return 96; // 10.6" 1024x768 @ 100%
+                }
+                return 110;
+            }
+            if (dpi <= 140.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 112; // 10.6" 1920x1080 @ 140%
+                              //    7" 1920x1200 @ 140%
+                }
+                if (delta < 1.35)
+                {
+                    return 96; // 7.5" 1044x1080 @ 140%
+                }
+                return 112;
+            }
+            if (dpi <= 180.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 110; // 10.6" 2560x1440 @ 180%
+                }
+                return 110;
+            }
+            return 110;
         }
 
         public double LogoTransformY
@@ -241,9 +294,122 @@ namespace OneMSQFT.UILogic.ViewModels
             get
             {
                 return IsHorizontal
-                    ? 38
-                    : 100;
+                    ? GetHLogoY()
+                    : 1;
             }
+        }
+        private int GetHLogoY()
+        {
+            var dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
+            var delta = Convert.ToDouble(WidthDelta);
+            if (dpi <= 96.0)
+            {
+                if (delta < 0.54)
+                {
+                    return 46; // 27" @ 100%
+                }
+                if (delta < 0.72)
+                {
+                    return 40; // 23" @ 100%
+                }
+                if (delta == 1.0)
+                {
+                    return 40; // 10.6" 1366x768 @ 100%
+                }
+                if (delta < 1.1)
+                {
+                    return 40; // 12" @ 100%
+                }
+                if (delta < 1.35)
+                {
+                    return 40; // 10.6" 1024x768 @ 100%
+                }
+                return 40;
+            }
+            if (dpi <= 140.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 40; // 10.6" 1920x1080 @ 140%
+                    //    7" 1920x1200 @ 140%
+                }
+                if (delta < 1.35)
+                {
+                    return 40; // 7.5" 1044x1080 @ 140%
+                }
+                return 40;
+            }
+            if (dpi <= 180.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 40; // 10.6" 2560x1440 @ 180%
+                }
+                return 40;
+            }
+            return 40;
+        }
+
+        public double LogoScale
+        {
+            get
+            {
+                return IsHorizontal
+                    ? GetHLogoScale()
+                    : 1;
+            }
+        }
+
+        private double GetHLogoScale()
+        {
+            var dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
+            var delta = Convert.ToDouble(WidthDelta);
+            if (dpi <= 96.0)
+            {
+                if (delta < 0.54)
+                {
+                    return 2.1; // 27" @ 100%
+                }
+                if (delta < 0.72)
+                {
+                    return 1.5; // 23" @ 100%
+                }
+                if (delta == 1.0)
+                {
+                    return 1; // 10.6" 1366x768 @ 100%
+                }
+                if (delta < 1.1)
+                {
+                    return 1; // 12" @ 100%
+                }
+                if (delta < 1.35)
+                {
+                    return 1; // 10.6" 1024x768 @ 100%
+                }
+                return 1;
+            }
+            if (dpi <= 140.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 1.1; // 10.6" 1920x1080 @ 140%
+                    //    7" 1920x1200 @ 140%
+                }
+                if (delta < 1.35)
+                {
+                    return 1.1; // 7.5" 1044x1080 @ 140%
+                }
+                return 1.1;
+            }
+            if (dpi <= 180.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 1.0; // 10.6" 2560x1440 @ 180%
+                }
+                return 1.0;
+            }
+            return 1.0;
         }
 
 
@@ -262,6 +428,7 @@ namespace OneMSQFT.UILogic.ViewModels
             OnPropertyChanged("ExhibitItemHeight");
             OnPropertyChanged("LogoTransformX");
             OnPropertyChanged("LogoTransformY");
+            OnPropertyChanged("LogoScale");
         }
 
         #endregion

@@ -414,7 +414,7 @@
                             <RowDefinition Height="92*"/>
                             <RowDefinition Height="81*"/>
                         </Grid.RowDefinitions>
-                        <RichTextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,8,0,0" 
+                        <RichTextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,8,0,0" 
 			                           FontFamily="Segoe UI Light" FontWeight="Light"
 			                           TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Grid.RowSpan="3" >
                                     <Paragraph>
@@ -500,7 +500,6 @@
                                              FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}"/>
                                         <LineBreak/>
                                         <Run Text="{Binding DataSource.NextExhibit.SquareFootageString, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
-                                        <LineBreak/>
                                         <Run Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" />
                                         <LineBreak/>
                                         <InlineUIContainer>
@@ -675,8 +674,6 @@
             	Style="{StaticResource CustomBackButtonStyle}" 
                 Margin="47,26,0,0" VerticalAlignment="Top"
                 Background="White"/>
-            <controls:LogoUserControl x:Name="PortraitLogo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="124,26,0,0" LogoColor="FFFFFF" Visibility="Collapsed"/>
-
         </Grid>
 
         <StackPanel x:Name="TileStackForRender" Margin="0,-1000,0,0">
@@ -724,33 +721,17 @@
             		</VisualTransition>
             	</VisualStateGroup.Transitions>
                 <VisualState x:Name="FullScreenLandscape">
-                    <Storyboard> 
-						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="MediaListView" Storyboard.TargetProperty="Style">
-							 <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource GridViewHorizontalSnappingStyle}"/>
-						</ObjectAnimationUsingKeyFrames>
-
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="PortraitLogo">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <Visibility>Collapsed</Visibility>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MediaListView" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource GridViewHorizontalSnappingStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
             	
                 <VisualState x:Name="FullScreenPortrait">
-                    <Storyboard> 
-						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="MediaListView" Storyboard.TargetProperty="Style">
-							 <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource GridViewVerticalSnappingStyle}"/>
-						</ObjectAnimationUsingKeyFrames>
-
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="PortraitLogo">
-                            <DiscreteObjectKeyFrame KeyTime="0">
-                                <DiscreteObjectKeyFrame.Value>
-                                    <Visibility>Visible</Visibility>
-                                </DiscreteObjectKeyFrame.Value>
-                            </DiscreteObjectKeyFrame>
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MediaListView" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource GridViewVerticalSnappingStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
