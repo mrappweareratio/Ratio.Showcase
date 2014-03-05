@@ -1,4 +1,5 @@
-﻿using Microsoft.PlayerFramework;
+﻿using System.Windows.Input;
+using Microsoft.PlayerFramework;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -17,30 +18,25 @@ namespace OneMSQFT.WindowsStore.Controls
 
         private void PlayerLoaded(object sender, RoutedEventArgs e)
         {
-            var app = AppLocator.Current;
-            if (app != null && !app.KioskModeEnabled)
-            {
-                player.MediaEnded += player_MediaEnded;
-            }
-            if (_selectedMediaContentSource != null)
-            {
-                player.Source = app == null ? _selectedMediaContentSource.VideoSource : _selectedMediaContentSource.GetVideoSourceByInternetConnection(app.InternetConnection);
-                player.Play();
-            }
+            var app = AppLocator.Current;            
+            player.MediaEnded += PlayerMediaEnded;
+            if (_selectedMediaContentSource == null) 
+                return;
+            player.Source = app == null ? _selectedMediaContentSource.VideoSource : _selectedMediaContentSource.GetVideoSourceByInternetConnection(app.InternetConnection);
+            //auto play
+            player.Play();
         }
 
-        void player_MediaEnded(object sender, MediaPlayerActionEventArgs e)
+        void PlayerMediaEnded(object sender, MediaPlayerActionEventArgs e)
         {
-            if (MediaEndedCommand != null)
+            if (MediaEndedCommand == null) return;
+            if (MediaEndedCommand.CanExecute(null))
             {
-                if (MediaEndedCommand.CanExecute())
-                {
-                    MediaEndedCommand.Execute();
-                }
+                MediaEndedCommand.Execute(null);
             }
         }
 
-        public Microsoft.Practices.Prism.StoreApps.DelegateCommand MediaEndedCommand;
+        public ICommand MediaEndedCommand;
 
         private MediaContentSourceItemViewModel _selectedMediaContentSource;
         public MediaContentSourceItemViewModel SelectedMediaContentSource

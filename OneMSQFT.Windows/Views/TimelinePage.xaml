@@ -337,7 +337,9 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="GridViewItem">
-                        <Grid x:Name="ContentContainer" RenderTransformOrigin="0.5,0.5">
+                        <Grid x:Name="ContentContainer" RenderTransformOrigin="0.5,0.5"
+                            Width="{Binding DataSource.ZoomedOutItemWidth, Source={StaticResource DataContextProxy}}" 
+                            Height="{Binding DataSource.ZoomedOutItemHeight, Source={StaticResource DataContextProxy}}" >
                             <Grid.RenderTransform>
                                 <CompositeTransform/>
                             </Grid.RenderTransform>
@@ -433,7 +435,9 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="GridViewItem">
-                        <Grid x:Name="ContentContainer" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False">
+                        <Grid x:Name="ContentContainer" RenderTransformOrigin="0.5,0.5" IsHitTestVisible="False"
+                            Width="{Binding DataSource.ZoomedOutItemWidth, Source={StaticResource DataContextProxy}}" 
+                            Height="{Binding DataSource.ZoomedOutItemHeight, Source={StaticResource DataContextProxy}}">
                             <Grid.RenderTransform>
                                 <CompositeTransform/>
                             </Grid.RenderTransform>
@@ -595,11 +599,11 @@
                                FontWeight="Light" 
                                FontFamily="Segoe UI Light" 
                                TextAlignment="Center"
-                               Margin="40"
+                               Margin="20"
                                VerticalAlignment="Center"
                                IsTextSelectionEnabled="False"
                                TextTrimming="CharacterEllipsis" 
-                               TextWrapping="NoWrap">
+                               TextWrapping="Wrap">
                     <Paragraph>
                         <Run Text="{Binding SquareFootageString, Mode=OneWay}"
                              FontSize="{Binding DataSource.MediumLargeFlexyFontSize, Source={StaticResource DataContextProxy}}"/>
@@ -623,7 +627,9 @@
     				    FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}"
                         Foreground="{StaticResource OneMSQFTAppBarAccentGrayBrush}"
                         FontWeight="Light"
-    				    Margin="0" 
+                        TextWrapping="Wrap"
+                        TextAlignment="Center"
+    				    Margin="20" 
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
                         FontFamily="Segoe UI Light"/>
@@ -970,11 +976,11 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                         <StackPanel x:Name="StartupButtonStackPanel" Orientation="Horizontal" Visibility="Collapsed">
-                            <Button Visibility="{Binding SetStartupVisibility}" 
+                            <Button Visibility="Collapsed" 
                                     Content="{Binding Strings.SetAsStartUp, Source={StaticResource PortableStrings}}" 
                                     Command="{Binding SetStartupCommand}"
                                     Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
-                            <Button Visibility="{Binding ClearStartupVisibility}"  
+                            <Button Visibility="Collapsed"
                                     Content="{Binding Strings.ClearStartUp, Source={StaticResource PortableStrings}}" 
                                     Command="{Binding ClearStartupCommand}"
                                     Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
@@ -1000,7 +1006,7 @@
     </omsqft:BasePageView.BottomAppBar>
 
     <Grid Background="White" d:IsHidden="True">
-        <Canvas IsHitTestVisible="False" ZIndex="10">
+        <Canvas IsHitTestVisible="False" ZIndex="10" x:Name="ZoomedOutLogo">
             <omsqftcontrols:LogoUserControl Canvas.Top="{Binding LogoTransformY}" Canvas.Left="{Binding LogoTransformX}" LogoColor="FFFFFF" RenderTransformOrigin="0,0">
                 <omsqftcontrols:LogoUserControl.RenderTransform>
                     <CompositeTransform ScaleX="{Binding LogoScale}" ScaleY="{Binding LogoScale}"/>
@@ -1017,7 +1023,7 @@
                     <EntranceThemeTransition/>
                 </TransitionCollection>
             </Grid.ChildrenTransitions>
-            <Grid x:Name="LogoGrid" Margin="0" Visibility="Collapsed">
+            <Grid x:Name="ZoomedInLogo" Margin="0" Visibility="Collapsed">
                 <RichTextBlock Margin="0,0,40,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" TextWrapping="NoWrap" IsColorFontEnabled="True" IsTextSelectionEnabled="False" FontWeight="Light" FontFamily="Segoe UI Light">
                     <Paragraph>
                         <Run Text="{Binding TotalSquareFeet, Mode=OneWay}" 
@@ -1065,7 +1071,9 @@
                         </GridView.ItemContainerStyleSelector>
                         <GridView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapGrid MaximumRowsOrColumns="3" />
+                                <WrapGrid MaximumRowsOrColumns="3" 
+                                    ItemWidth="{Binding DataSource.ZoomedOutItemWidth, Source={StaticResource DataContextProxy}}" 
+                                    ItemHeight="{Binding DataSource.ZoomedOutItemHeight, Source={StaticResource DataContextProxy}}" />
                             </ItemsPanelTemplate>
                         </GridView.ItemsPanel>
                     </GridView>
