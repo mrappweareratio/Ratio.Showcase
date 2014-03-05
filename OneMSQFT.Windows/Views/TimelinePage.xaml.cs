@@ -26,9 +26,9 @@ namespace OneMSQFT.WindowsStore.Views
     public sealed partial class TimelinePage
     {
         private bool _loaded;
-        private ScrollViewer TimelineGridViewScrollViewer;
-        private DispatcherTimer scrollerTimer;
-        private Boolean AppBarIsAutoScrolling;
+        private ScrollViewer _timelineGridViewScrollViewer;
+        private readonly DispatcherTimer _scrollerTimer;
+        private Boolean _appBarIsAutoScrolling;
         private NavigationEventArgs _navigationEventArgs;
 
         public TimelinePage()
@@ -46,9 +46,9 @@ namespace OneMSQFT.WindowsStore.Views
             vm.PinContextChanged += VmOnPinContextChanged;
             ProcessWindowSizeChangedEvent();
 
-            scrollerTimer = new DispatcherTimer();
-            scrollerTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
-            scrollerTimer.Tick += scrollerTimer_Tick;
+            _scrollerTimer = new DispatcherTimer();
+            _scrollerTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            _scrollerTimer.Tick += scrollerTimer_Tick;
 
             var app = AppLocator.Current;
             if (app != null)
@@ -178,41 +178,41 @@ namespace OneMSQFT.WindowsStore.Views
                 if (GetDataContextAsViewModel<ITimelinePageViewModel>().IsHorizontal)
                 {
                     VisualStateManager.GoToState(this, "FullScreenLandscape", true);
-                    TimelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(TimelineGridView);
-                    TimelineGridViewScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
-                    TimelineGridViewScrollViewer.HorizontalScrollMode = ScrollMode.Enabled;
-                    TimelineGridViewScrollViewer.HorizontalSnapPointsAlignment = SnapPointsAlignment.Center;
-                    TimelineGridViewScrollViewer.HorizontalSnapPointsType = SnapPointsType.Mandatory;
-                    TimelineGridViewScrollViewer.IsHorizontalRailEnabled = true;
-                    TimelineGridViewScrollViewer.IsHorizontalScrollChainingEnabled = true;
+                    _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(TimelineGridView);
+                    _timelineGridViewScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
+                    _timelineGridViewScrollViewer.HorizontalScrollMode = ScrollMode.Enabled;
+                    _timelineGridViewScrollViewer.HorizontalSnapPointsAlignment = SnapPointsAlignment.Center;
+                    _timelineGridViewScrollViewer.HorizontalSnapPointsType = SnapPointsType.Mandatory;
+                    _timelineGridViewScrollViewer.IsHorizontalRailEnabled = true;
+                    _timelineGridViewScrollViewer.IsHorizontalScrollChainingEnabled = true;
 
-                    TimelineGridViewScrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                    TimelineGridViewScrollViewer.VerticalScrollMode = ScrollMode.Disabled;
-                    TimelineGridViewScrollViewer.VerticalSnapPointsType = SnapPointsType.None;
-                    TimelineGridViewScrollViewer.IsHorizontalRailEnabled = false;
-                    TimelineGridViewScrollViewer.IsHorizontalScrollChainingEnabled = false;
+                    _timelineGridViewScrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                    _timelineGridViewScrollViewer.VerticalScrollMode = ScrollMode.Disabled;
+                    _timelineGridViewScrollViewer.VerticalSnapPointsType = SnapPointsType.None;
+                    _timelineGridViewScrollViewer.IsHorizontalRailEnabled = false;
+                    _timelineGridViewScrollViewer.IsHorizontalScrollChainingEnabled = false;
 
-                    TimelineGridViewScrollViewer.ZoomMode = ZoomMode.Disabled;
+                    _timelineGridViewScrollViewer.ZoomMode = ZoomMode.Disabled;
                 }
                 else
                 {
                     VisualStateManager.GoToState(this, "FullScreenPortrait", true);
-                    TimelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(TimelineGridView);
-                    TimelineGridViewScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                    TimelineGridViewScrollViewer.HorizontalScrollMode = ScrollMode.Disabled;
-                    TimelineGridViewScrollViewer.HorizontalSnapPointsAlignment = SnapPointsAlignment.Center;
-                    TimelineGridViewScrollViewer.HorizontalSnapPointsType = SnapPointsType.None;
-                    TimelineGridViewScrollViewer.IsHorizontalRailEnabled = false;
-                    TimelineGridViewScrollViewer.IsHorizontalScrollChainingEnabled = false;
+                    _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(TimelineGridView);
+                    _timelineGridViewScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                    _timelineGridViewScrollViewer.HorizontalScrollMode = ScrollMode.Disabled;
+                    _timelineGridViewScrollViewer.HorizontalSnapPointsAlignment = SnapPointsAlignment.Center;
+                    _timelineGridViewScrollViewer.HorizontalSnapPointsType = SnapPointsType.None;
+                    _timelineGridViewScrollViewer.IsHorizontalRailEnabled = false;
+                    _timelineGridViewScrollViewer.IsHorizontalScrollChainingEnabled = false;
 
-                    TimelineGridViewScrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
-                    TimelineGridViewScrollViewer.VerticalScrollMode = ScrollMode.Enabled;
-                    TimelineGridViewScrollViewer.VerticalSnapPointsAlignment = SnapPointsAlignment.Center;
-                    TimelineGridViewScrollViewer.VerticalSnapPointsType = SnapPointsType.Mandatory;
-                    TimelineGridViewScrollViewer.IsHorizontalRailEnabled = true;
-                    TimelineGridViewScrollViewer.IsHorizontalScrollChainingEnabled = true;
+                    _timelineGridViewScrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
+                    _timelineGridViewScrollViewer.VerticalScrollMode = ScrollMode.Enabled;
+                    _timelineGridViewScrollViewer.VerticalSnapPointsAlignment = SnapPointsAlignment.Center;
+                    _timelineGridViewScrollViewer.VerticalSnapPointsType = SnapPointsType.Mandatory;
+                    _timelineGridViewScrollViewer.IsHorizontalRailEnabled = true;
+                    _timelineGridViewScrollViewer.IsHorizontalScrollChainingEnabled = true;
 
-                    TimelineGridViewScrollViewer.ZoomMode = ZoomMode.Disabled;
+                    _timelineGridViewScrollViewer.ZoomMode = ZoomMode.Disabled;
                 }
 
             }
@@ -220,7 +220,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         private void TimelineGridView_Loaded(object sender, RoutedEventArgs e)
         {
-            TimelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(TimelineGridView);
+            _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(TimelineGridView);
             if (_navigationEventArgs != null && _navigationEventArgs.Parameter is String)
             {
                 ScrollToEventById(_navigationEventArgs.Parameter as String);
@@ -252,8 +252,8 @@ namespace OneMSQFT.WindowsStore.Views
         void scrollerTimer_Tick(object sender, object e)
         {
             ShowTimelineMasks(true);
-            scrollerTimer.Stop();
-            AppBarIsAutoScrolling = false;
+            _scrollerTimer.Stop();
+            _appBarIsAutoScrolling = false;
         }
 
         private void ShowTimelineMasks(bool show)
@@ -285,7 +285,7 @@ namespace OneMSQFT.WindowsStore.Views
 
             if (e.IsIntermediate == false)
             {
-                if (AppBarIsAutoScrolling == false)
+                if (_appBarIsAutoScrolling == false)
                 {
                     ShowTimelineMasks(true);
                     if (GetDataContextAsViewModel<TimelinePageViewModel>().IsHorizontal)
@@ -392,19 +392,19 @@ namespace OneMSQFT.WindowsStore.Views
             vm.SelectedEvent = e as EventItemViewModel;
             var itemIndex = vm.SquareFootEvents.IndexOf(e) + 1; // +1 for buffer items
 
-            AppBarIsAutoScrolling = true;
+            _appBarIsAutoScrolling = true;
             ShowTimelineMasks(false);
             if (vm.IsHorizontal)
             {
-                TimelineGridViewScrollViewer.ChangeView(
+                _timelineGridViewScrollViewer.ChangeView(
                     ((itemIndex * vm.EventItemWidth) - vm.MaskItemWidth - vm.BufferItemWidth), 0, 1);
             }
             else
             {
-                TimelineGridViewScrollViewer.ChangeView(
+                _timelineGridViewScrollViewer.ChangeView(
                     0, ((itemIndex * vm.EventItemHeight) - vm.MaskItemHeight - vm.BufferItemHeight), 1);
             }
-            scrollerTimer.Start();
+            _scrollerTimer.Start();
         }
 
         #endregion
