@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="497d7ce2-4382-45db-bcb3-6d9ccae38569" Publisher="CN=Ratio LLC" Version="1.0.0.8" />
+  <Identity Name="497d7ce2-4382-45db-bcb3-6d9ccae38569" Publisher="CN=Ratio LLC" Version="1.0.0.9" />
   <Properties>
     <DisplayName>OneMSQFT.Windows</DisplayName>
     <PublisherDisplayName>Ratio LLC</PublisherDisplayName>
