@@ -60,10 +60,31 @@ namespace OneMSQFT.WindowsStore.Views
                 if (!app.KioskModeEnabled)
                 {
                     _sharing = AppLocator.Current.SharingService;
-                    var dataTransferManager = DataTransferManager.GetForCurrentView();
-                    dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
-                    dataTransferManager.TargetApplicationChosen += DataTransferManagerTargetApplicationChosen;
+                    _dataTransferManager = DataTransferManager.GetForCurrentView();
                 }
+            }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            // needed for back stack navigation when user has changed resolution on details page
+            ProcessWindowSizeChangedEvent();
+            _navigationEventArgs = e;
+            if (!AppLocator.Current.KioskModeEnabled)
+            {
+                _dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
+                _dataTransferManager.TargetApplicationChosen += DataTransferManagerTargetApplicationChosen;
+            }
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            if (!AppLocator.Current.KioskModeEnabled)
+            {
+                _dataTransferManager.DataRequested -= DataTransferManagerOnDataRequested;
+                _dataTransferManager.TargetApplicationChosen -= DataTransferManagerTargetApplicationChosen;
             }
         }
 
@@ -189,14 +210,6 @@ namespace OneMSQFT.WindowsStore.Views
             }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            // needed for back stack navigation when user has changed resolution on details page
-            ProcessWindowSizeChangedEvent();
-            this._navigationEventArgs = e;
-        }
-
         private void TimelineGridView_Loaded(object sender, RoutedEventArgs e)
         {
             TimelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(TimelineGridView);
@@ -269,7 +282,7 @@ namespace OneMSQFT.WindowsStore.Views
                     ShowTimelineMasks(true);
                     if (GetDataContextAsViewModel<TimelinePageViewModel>().IsHorizontal)
                     {
-                        SelectItemByOffset(((ScrollViewer) sender).HorizontalOffset);
+                        SelectItemByOffset(((ScrollViewer)sender).HorizontalOffset);
                     }
                     else
                     {
@@ -285,7 +298,7 @@ namespace OneMSQFT.WindowsStore.Views
             var i = 0;
             if (vm.IsHorizontal)
             {
-                i = Convert.ToInt32((offset - vm.BufferItemWidth)/vm.EventItemWidth);
+                i = Convert.ToInt32((offset - vm.BufferItemWidth) / vm.EventItemWidth);
             }
             else
             {
@@ -295,6 +308,7 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         private bool _semanticZoomClosedFromTopAppBarEvent;
+        private DataTransferManager _dataTransferManager;
 
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {

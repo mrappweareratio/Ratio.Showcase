@@ -9,6 +9,7 @@ using Windows.UI.Core;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Navigation;
 using OneMSQFT.Common;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
@@ -39,10 +40,28 @@ namespace OneMSQFT.WindowsStore.Views
                 if (!app.KioskModeEnabled)
                 {
                     _sharing = AppLocator.Current.SharingService;
-                    var dataTransferManager = DataTransferManager.GetForCurrentView();
-                    dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
-                    dataTransferManager.TargetApplicationChosen += DataTransferManagerTargetApplicationChosen;
+                    _dataTransferManager = DataTransferManager.GetForCurrentView();                    
                 }
+            }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (!AppLocator.Current.KioskModeEnabled)
+            {
+                _dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
+                _dataTransferManager.TargetApplicationChosen += DataTransferManagerTargetApplicationChosen;
+            }
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            if (!AppLocator.Current.KioskModeEnabled)
+            {
+                _dataTransferManager.DataRequested -= DataTransferManagerOnDataRequested;
+                _dataTransferManager.TargetApplicationChosen -= DataTransferManagerTargetApplicationChosen;
             }
         }
 
@@ -105,6 +124,8 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         private Action<String> _targetApplicationChosenDelegate;
+        private readonly DataTransferManager _dataTransferManager;
+
         void DataTransferManagerTargetApplicationChosen(DataTransferManager sender, TargetApplicationChosenEventArgs args)
         {
             if (_targetApplicationChosenDelegate == null)
