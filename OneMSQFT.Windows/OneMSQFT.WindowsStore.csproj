@@ -109,6 +109,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AnimationControl.xaml.cs">
+      <DependentUpon>AnimationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,7 @@
     <Compile Include="Controls\VideoPlayerUserControl.xaml.cs">
       <DependentUpon>VideoPlayerUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomFrame.cs" />
     <Compile Include="DataTemplateSelectors\ExhibitDetailsPageDataTemplateSelector.cs" />
     <Compile Include="DataTemplateSelectors\ExhibitShowMoreDataTemplateSelector.cs" />
     <Compile Include="DataTemplateSelectors\ZoomedOutItemContainerStyleSelector.cs" />
@@ -176,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AnimationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\CuratorLogoStackerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
