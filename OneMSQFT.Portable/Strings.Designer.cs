@@ -278,15 +278,6 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was a problem loading One Million Square Feet of Culture. Please try again later..
-        /// </summary>
-        public static string ServerFailureMessage {
-            get {
-                return ResourceManager.GetString("ServerFailureMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to SET AS STARTUP.
         /// </summary>
         public static string SetAsStartUp {
@@ -346,6 +337,15 @@ namespace OneMSQFT.Common {
         public static string Since {
             get {
                 return ResourceManager.GetString("Since", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was a problem loading One Million Square Feet of Culture. Please try again later..
+        /// </summary>
+        public static string SiteDataFailureMessage {
+            get {
+                return ResourceManager.GetString("SiteDataFailureMessage", resourceCulture);
             }
         }
         

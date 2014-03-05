@@ -231,7 +231,7 @@
   <data name="InternetConnectionFailureMessage" xml:space="preserve">
     <value>There was a problem loading One Million Square Feet of Culture. Please check your internet connection.</value>
   </data>
-  <data name="ServerFailureMessage" xml:space="preserve">
+  <data name="SiteDataFailureMessage" xml:space="preserve">
     <value>There was a problem loading One Million Square Feet of Culture. Please try again later.</value>
   </data>
 </root>

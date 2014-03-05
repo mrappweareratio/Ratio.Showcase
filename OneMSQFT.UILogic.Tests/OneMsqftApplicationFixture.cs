@@ -654,7 +654,7 @@ namespace OneMSQFT.UILogic.Tests
             app.OnInitialize(args);
             await app.OnLaunchApplication(args);
             Assert.IsTrue(alerted, "Alerted");
-            Assert.AreEqual(Strings.ServerFailureMessage, message);
+            Assert.AreEqual(Strings.SiteDataFailureMessage, message);
         }
 
         #endregion

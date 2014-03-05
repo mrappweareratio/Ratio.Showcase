@@ -81,7 +81,7 @@ namespace OneMSQFT.UILogic
                 {
                     await DispatcherService.RunAsync(async () =>
                     {
-                        await MessageService.ShowAsync(Strings.ServerFailureMessage, String.Empty);
+                        await MessageService.ShowAsync(Strings.SiteDataFailureMessage, String.Empty);
                     });
 
                 }

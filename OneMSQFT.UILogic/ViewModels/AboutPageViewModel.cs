@@ -37,7 +37,7 @@ namespace OneMSQFT.UILogic.ViewModels
             var events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
             if (events == null)
             {
-                base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState); ;
+                base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
                 return;
             }
 

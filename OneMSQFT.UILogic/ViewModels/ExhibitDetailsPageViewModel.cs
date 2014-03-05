@@ -75,10 +75,10 @@ namespace OneMSQFT.UILogic.ViewModels
 
         async public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
-            var events = await _dataService.GetEvents(new CancellationToken());
+            var events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
             if (events == null)
             {
-                await _messageService.ShowAsync("Error", "There was a problem loading events");
+                await _messageService.ShowAsync(Strings.SiteDataFailureMessage, String.Empty);
                 return;
             }
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x, _analyticsService)));
