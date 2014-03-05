@@ -566,7 +566,10 @@ namespace OneMSQFT.WindowsStore.Views
 
         private void VisualStateTransition_Completed(object sender, object e)
         {
-            ScrollToEventById(GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent.Id);
+            if (GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent != null)
+            {
+                ScrollToEventById(GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent.Id);
+            }
         }
     }
 }
