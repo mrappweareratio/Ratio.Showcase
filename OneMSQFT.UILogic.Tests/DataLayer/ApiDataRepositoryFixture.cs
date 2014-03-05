@@ -24,7 +24,8 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         {            
             this.ApiConfiguration = new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api");
             var apiDataRepository = new ApiDataRepository(ApiConfiguration);
-            result = await apiDataRepository.GetSiteData(new CancellationToken());
+            var token = (new CancellationTokenSource()).Token;
+            result = await apiDataRepository.GetSiteData(token);
         }
 
         public IApiConfiguration ApiConfiguration { get; set; }

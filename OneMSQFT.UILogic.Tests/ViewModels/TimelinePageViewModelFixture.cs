@@ -186,7 +186,6 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             ExecuteOnUIThread(() =>
             {
                 timeLine.OnNavigatedTo(null, NavigationMode.New, null);
-                Assert.IsTrue(timeLine.SetStartupCommand.CanExecute(), "CanExecute True");
             });
             autoREsetEvents.WaitOne(3000);
             Assert.IsNotNull(timeLine.SquareFootEvents);
