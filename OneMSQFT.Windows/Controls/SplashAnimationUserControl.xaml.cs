@@ -22,23 +22,24 @@ namespace OneMSQFT.WindowsStore.Controls
         public SplashAnimationUserControl()
         {
             this.InitializeComponent();
+            this.Loaded += SplashAnimationLoaded;
             Mask.Completed += Mask_Completed;
+            BuildRectangles.Completed += BuildRectanglesOnCompleted;
+        }
+
+        private void BuildRectanglesOnCompleted(object sender, object o)
+        {
+            this.Visibility = Visibility.Collapsed;
+        }
+
+        private void SplashAnimationLoaded(object sender, RoutedEventArgs e)
+        {
+            Mask.Begin();
         }
 
         private void Mask_Completed(object sender, object e)
         {
             BuildRectangles.Begin();
-        }
-
-        private void Start(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            Mask.Begin();
-        }
-
-        private void Reverse(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            Mask.AutoReverse = true;
-            Mask.Begin();
         }
     }
 }

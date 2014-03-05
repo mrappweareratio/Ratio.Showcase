@@ -25,11 +25,22 @@ namespace Animation
         public MainPage()
         {
             this.InitializeComponent();
-            Mask.Completed +=Mask_Completed;
+            this.Loaded += SplashAnimationLoaded;
+            Mask.Completed += MaskCompleted;
+            BuildRectangles.Completed += BuildRectanglesOnCompleted;
+        }
+
+        private void BuildRectanglesOnCompleted(object sender, object o)
+        {
+            this.Visibility = Visibility.Collapsed;
+        }
+
+        private void SplashAnimationLoaded(object sender, RoutedEventArgs e)
+        {
             Mask.Begin();
         }
 
-        private void Mask_Completed(object sender, object e)
+        private void MaskCompleted(object sender, object e)
         {
             BuildRectangles.Begin();
         }

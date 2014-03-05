@@ -83,29 +83,7 @@ namespace OneMSQFT.WindowsStore
 
         protected override Task OnLaunchApplication(LaunchActivatedEventArgs args)
         {
-            return _application.OnLaunchApplication(args).ContinueWith(async task =>
-            {
-                var frame = Window.Current.Content as AnimationFrame;
-                if (frame != null)
-                {
-                    //todo incorporate delay or waiting for completion into StoryBoard, etc;
-                    //var splashAnimation = frame.AnimationElement as SplashAnimationUserControl;
-                    //splashAnimation.FadeOut()
-                    await Task.Delay(2000);
-                    await Dispatcher.RunAsync(() =>
-                    {
-                        frame.AnimationElement.Opacity = .2;
-                        return Task.FromResult<object>(null);
-                    });
-                    await Task.Delay(2000);
-                    await Dispatcher.RunAsync(() =>
-                    {
-                        frame.AnimationElement.Visibility = Visibility.Collapsed;
-                        return Task.FromResult<object>(null);
-                    });
-                }
-            }, TaskScheduler.FromCurrentSynchronizationContext());
-          
+            return _application.OnLaunchApplication(args);           
         }
 
         protected override void OnInitialize(IActivatedEventArgs args)
