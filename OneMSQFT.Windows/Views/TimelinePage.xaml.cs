@@ -564,10 +564,11 @@ namespace OneMSQFT.WindowsStore.Views
 
         #endregion
 
-        private void VisualStateTransition_Completed(object sender, object e)
+        private async void VisualStateTransition_Completed(object sender, object e)
         {
             if (GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent != null)
             {
+                await Task.Delay(500); // finish rendering
                 ScrollToEventById(GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent.Id);
             }
         }
