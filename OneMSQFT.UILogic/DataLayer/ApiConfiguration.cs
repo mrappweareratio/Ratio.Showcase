@@ -18,9 +18,40 @@ namespace OneMSQFT.UILogic.DataLayer
 
         public string WebSiteUrl
         {
-            get { return "http://1msqft.com"; }
+            get
+            {
+#if RELEASE
+                return "http://1msqft.com";
+#else
+                return "http://1msqft-stage.azurewebsites.net";
+#endif
+            }
         }
 
         public string VideoSiteUrl { get { return "http://vimeo.com"; } }
+
+        public double TimeoutSeconds
+        {
+            get
+            {
+#if RELEASE
+                return 20;
+#else
+                return 5;
+#endif
+            }
+        }
+
+        public int MaxRetries
+        {
+            get
+            {
+#if RELEASE
+                return 0;
+#else
+                return 3;
+#endif
+            }
+        }
     }
 }

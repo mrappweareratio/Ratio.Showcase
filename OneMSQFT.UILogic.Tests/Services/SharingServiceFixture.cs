@@ -16,7 +16,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             var sharingService = new SharingService(new MockApiConfiguration(null, "http://1msqft.com", "http://vimeo.com"));
             Uri uri = null;
             Assert.IsTrue(sharingService.TryGetEventShareUri(MockModelGenerator.NewEvent("1", "event with a #@$%^ &*() name and  $#%^()"), out uri));
-            Assert.AreEqual(String.Format("http://1msqft.com/{0}/{1}", "event-with-a-name-and", "1"), uri.AbsoluteUri);
+            Assert.AreEqual(String.Format("http://1msqft.com/event/{0}/{1}", "event-with-a-name-and", "1"), uri.AbsoluteUri);
         }
 
         [TestMethod]

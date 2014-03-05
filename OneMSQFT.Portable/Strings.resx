@@ -204,6 +204,18 @@
   <data name="UNPIN" xml:space="preserve">
     <value>UNPIN FROM START</value>
   </data>
+  <data name="ShareEventExhibitUrlFormatRootSlugId" xml:space="preserve">
+    <value>{0}/event/{1}/{2}/{3}/{4}</value>
+  </data>
+  <data name="ShareEventUrlFormatRootSlugId" xml:space="preserve">
+    <value>{0}/event/{1}/{2}</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="PrivacyPolicyUrl" xml:space="preserve">
+    <value>http://www.microsoft.com/privacystatement/en-us/core/default.aspx</value>
+  </data>
   <data name="Instagram" xml:space="preserve">
     <value>INSTAGRAM</value>
   </data>
@@ -215,5 +227,11 @@
   </data>
   <data name="TwitterUrl" xml:space="preserve">
     <value>https://twitter.com/1MSQFT</value>
+  </data>
+  <data name="InternetConnectionFailureMessage" xml:space="preserve">
+    <value>There was a problem loading One Million Square Feet of Culture. Please check your internet connection.</value>
+  </data>
+  <data name="SiteDataFailureMessage" xml:space="preserve">
+    <value>There was a problem loading One Million Square Feet of Culture. Please try again later.</value>
   </data>
 </root>

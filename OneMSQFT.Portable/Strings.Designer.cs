@@ -197,6 +197,15 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was a problem loading One Million Square Feet of Culture. Please check your internet connection..
+        /// </summary>
+        public static string InternetConnectionFailureMessage {
+            get {
+                return ResourceManager.GetString("InternetConnectionFailureMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet..
         /// </summary>
         public static string IntroBlurb {
@@ -233,6 +242,24 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Privacy Policy.
+        /// </summary>
+        public static string PrivacyPolicy {
+            get {
+                return ResourceManager.GetString("PrivacyPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.microsoft.com/privacystatement/en-us/core/default.aspx.
+        /// </summary>
+        public static string PrivacyPolicyUrl {
+            get {
+                return ResourceManager.GetString("PrivacyPolicyUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RSVP for this event.
         /// </summary>
         public static string RSVP {
@@ -256,6 +283,24 @@ namespace OneMSQFT.Common {
         public static string SetAsStartUp {
             get {
                 return ResourceManager.GetString("SetAsStartUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}/event/{1}/{2}/{3}/{4}.
+        /// </summary>
+        public static string ShareEventExhibitUrlFormatRootSlugId {
+            get {
+                return ResourceManager.GetString("ShareEventExhibitUrlFormatRootSlugId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}/event/{1}/{2}.
+        /// </summary>
+        public static string ShareEventUrlFormatRootSlugId {
+            get {
+                return ResourceManager.GetString("ShareEventUrlFormatRootSlugId", resourceCulture);
             }
         }
         
@@ -292,6 +337,15 @@ namespace OneMSQFT.Common {
         public static string Since {
             get {
                 return ResourceManager.GetString("Since", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was a problem loading One Million Square Feet of Culture. Please try again later..
+        /// </summary>
+        public static string SiteDataFailureMessage {
+            get {
+                return ResourceManager.GetString("SiteDataFailureMessage", resourceCulture);
             }
         }
         

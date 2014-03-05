@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
@@ -34,7 +35,7 @@ namespace OneMSQFT.UILogic.DataLayer
         private const string DemoExhibitDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis condimentum laoreet magna, ut rutrum purus cursus ut. Nulla convallis, elit et consequat sollicitudin, eros ligula pretium dolor, a bibendum est eros eu mauris. Sed in mi cursus, dapibus justo et, condimentum est. Vestibulum velit eros, rhoncus a ante sed, tincidunt scelerisque nibh. Maecenas ullamcorper lacus quis justo aliquet iaculis at placerat nulla. Phasellus dictum lectus vel erat vehicula cursus. Suspendisse euismod consequat rhoncus. Duis id lectus orci.";
         private const string DemoEventDescription = DemoExhibitDescription;
 
-        async public Task<SiteData> GetSiteData()
+        async public Task<SiteData> GetSiteData(CancellationToken token)
         {
             await Task.Delay(1000);
             var exhibitId = 0;

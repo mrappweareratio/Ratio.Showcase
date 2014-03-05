@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
@@ -21,21 +22,21 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         {
         }
 
-        public Task<IEnumerable<Event>> GetEvents()
+        public Task<IEnumerable<Event>> GetEvents(CancellationToken token)
         {
             if(GetEventsDelegate != null)
                 return GetEventsDelegate();
             return Task.FromResult<IEnumerable<Event>>(new List<Event>());
-        }      
+        }
 
-        public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string exhibitId)
+        public Task<ExhibitDetail> GetExhibitDetailByExhibitId(string exhibitId, CancellationToken token)
         {
             if (GetExhibitDetailByExhibitIdDelegate != null)
                 return GetExhibitDetailByExhibitIdDelegate(exhibitId);
             return Task.FromResult<ExhibitDetail>(null);
         }
 
-        public Task<Event> GetEventById(string eventId)
+        public Task<Event> GetEventById(string eventId, CancellationToken token)
         {
             if (GetEventByIdDelegate != null)
                 return GetEventByIdDelegate(eventId);

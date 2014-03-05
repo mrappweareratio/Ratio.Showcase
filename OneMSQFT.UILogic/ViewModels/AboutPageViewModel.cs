@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
+using OneMSQFT.Common;
 using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
@@ -29,16 +31,17 @@ namespace OneMSQFT.UILogic.ViewModels
 
 
         async public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
-        {                        
-            var events = await _dataService.GetEvents();
+        {
+            _analyticsService.TrackPageViewAbout();
+
+            var events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
             if (events == null)
             {
-                await _messageService.ShowAsync("Error", "There was a problem loading events");
+                base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
                 return;
             }
 
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x, _analyticsService)));
-            _analyticsService.TrackPageViewAbout();
 
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }

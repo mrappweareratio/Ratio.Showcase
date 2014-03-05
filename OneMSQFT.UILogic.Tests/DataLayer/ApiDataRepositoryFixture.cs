@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneMSQFT.Common.DataLayer;
@@ -23,7 +24,8 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         {            
             this.ApiConfiguration = new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api");
             var apiDataRepository = new ApiDataRepository(ApiConfiguration);
-            result = await apiDataRepository.GetSiteData();
+            var token = (new CancellationTokenSource()).Token;
+            result = await apiDataRepository.GetSiteData(token);
         }
 
         public IApiConfiguration ApiConfiguration { get; set; }

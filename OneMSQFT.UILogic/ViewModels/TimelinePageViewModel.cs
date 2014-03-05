@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Graphics.Display;
 using Windows.Media;
@@ -11,6 +12,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
+using OneMSQFT.Common;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
@@ -49,10 +51,10 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public override async void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
-            var events = await _dataService.GetEvents();
+            var events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
             if (events == null)
             {
-                await _messageService.ShowAsync("Error", "There was a problem loading events");
+                await _messageService.ShowAsync(Strings.SiteDataFailureMessage, String.Empty);
                 return;
             }
             _eventsList = events as IList<Event> ?? events.ToList();

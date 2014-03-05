@@ -16,7 +16,7 @@ namespace OneMSQFT.UILogic.Analytics
 
         public bool KioskModeEnabled { get; set; }
 
-        private const bool Disabled = false;
+        private const bool Disabled = true;
 
         public void Configure()
         {
