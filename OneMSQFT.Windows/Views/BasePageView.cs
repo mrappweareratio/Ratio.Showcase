@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
+using Windows.Graphics.Display;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.System;
@@ -40,7 +41,7 @@ namespace OneMSQFT.WindowsStore.Views
             base.OnNavigatedTo(e);
             // listens for resolution change
             Windows.Graphics.Display.DisplayInformation.DisplayContentsInvalidated += DisplayInformation_DisplayContentsInvalidated;
-        }        
+        }     
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
@@ -202,7 +203,7 @@ namespace OneMSQFT.WindowsStore.Views
             ProcessWindowSizeChangedEvent();
             base.WindowSizeChanged(sender, e);
         }
-        protected void DisplayInformation_DisplayContentsInvalidated(Windows.Graphics.Display.DisplayInformation sender, object args)
+        protected void DisplayInformation_DisplayContentsInvalidated(DisplayInformation sender, object args)
         {
             // Screen Resolution Changed
             ProcessWindowSizeChangedEvent();

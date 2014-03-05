@@ -101,10 +101,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         [TestMethod]
         public void TimelinePageViewModel_Loading_Sample_Populates_Events()
         {
-            var internetConnection = new MockInternetConnectionService
-            {
-                IsConnectedDelegate = () => true
-            };
+            var internetConnection = new MockInternetConnectionService(true);            
             var timeLine = new TimelinePageViewModel(new DataService(new DemoDataRepository(), new MockDataCacheService() { ContainsDataDelegate = s => Task.FromResult(false) }, internetConnection), new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService());
             var autoResetEvent = new AutoResetEvent(false);
             ExecuteOnUIThread(() => timeLine.OnNavigatedTo(null, NavigationMode.New, null));
@@ -189,7 +186,6 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             ExecuteOnUIThread(() =>
             {
                 timeLine.OnNavigatedTo(null, NavigationMode.New, null);
-                Assert.IsTrue(timeLine.SetStartupCommand.CanExecute(), "CanExecute True");
             });
             autoREsetEvents.WaitOne(3000);
             Assert.IsNotNull(timeLine.SquareFootEvents);

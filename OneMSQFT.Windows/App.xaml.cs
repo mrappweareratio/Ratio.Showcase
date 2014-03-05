@@ -11,6 +11,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.ApplicationSettings;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -30,6 +31,7 @@ using OneMSQFT.UILogic.Interfaces;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.ViewModels;
+using OneMSQFT.WindowsStore.Controls;
 using OneMSQFT.WindowsStore.DataLayer;
 
 namespace OneMSQFT.WindowsStore
@@ -43,6 +45,16 @@ namespace OneMSQFT.WindowsStore
         {
             this.UnhandledException += App_UnhandledException;
             this.ExtendedSplashScreenFactory = (splashscreen) => new ExtendedSplashScreen(splashscreen);
+            this.RootFrameFactory = () =>
+            {
+                var frame = new AnimationFrame();
+                frame.NavigationFailed += (sender, args) =>
+                {
+                    if (Debugger.IsAttached)
+                        Debugger.Break();
+                };
+                return frame;
+            };
             this.Suspending += App_Suspending;
             this.Resuming += App_Resuming;
         }
@@ -60,7 +72,7 @@ namespace OneMSQFT.WindowsStore
         async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             e.Handled = _application.CanHandleException(e.Exception);
-            
+
             if (e.Handled)
                 await _application.HandleException(e.Exception, e.Message);
         }
@@ -71,7 +83,29 @@ namespace OneMSQFT.WindowsStore
 
         protected override Task OnLaunchApplication(LaunchActivatedEventArgs args)
         {
-            return _application.OnLaunchApplication(args);
+            return _application.OnLaunchApplication(args).ContinueWith(async task =>
+            {
+                var frame = Window.Current.Content as AnimationFrame;
+                if (frame != null)
+                {
+                    //todo incorporate delay or waiting for completion into StoryBoard, etc;
+                    //var splashAnimation = frame.AnimationElement as SplashAnimationUserControl;
+                    //splashAnimation.FadeOut()
+                    await Task.Delay(2000);
+                    await Dispatcher.RunAsync(() =>
+                    {
+                        frame.AnimationElement.Opacity = .2;
+                        return Task.FromResult<object>(null);
+                    });
+                    await Task.Delay(2000);
+                    await Dispatcher.RunAsync(() =>
+                    {
+                        frame.AnimationElement.Visibility = Visibility.Collapsed;
+                        return Task.FromResult<object>(null);
+                    });
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+          
         }
 
         protected override void OnInitialize(IActivatedEventArgs args)
@@ -84,7 +118,7 @@ namespace OneMSQFT.WindowsStore
 
             //register services
             _container.RegisterInstance<INavigationService>(NavigationService);
-            _container.RegisterType<IInternetConnection, InternetConnectionService>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IInternetConnectionService, InternetConnectionService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IDataCacheService, DataCacheService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IDataService, DataService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IAlertMessageService, AlertMessageService>(new ContainerControlledLifetimeManager());
@@ -92,14 +126,20 @@ namespace OneMSQFT.WindowsStore
             _container.RegisterType<IAnalyticsService, AnalyticsService>(new ContainerControlledLifetimeManager());
             _container.RegisterType<ISharingService, SharingService>(new ContainerControlledLifetimeManager());
 
+            //setup the dispatcher
+            Dispatcher = new DispatcherService(CoreWindow.GetForCurrentThread().Dispatcher);
+
+            _container.RegisterInstance<IDispatcherService>(Dispatcher);
             //create the application
             _application = new OneMsqftApplication(
-                _container.Resolve<INavigationService>(), 
-                _container.Resolve<IDataService>(), 
-                _container.Resolve<IConfigurationService>(), 
-                _container.Resolve<IAnalyticsService>(), 
-                _container.Resolve<IAlertMessageService>(), 
-                _container.Resolve<ISharingService>());
+                _container.Resolve<INavigationService>(),
+                _container.Resolve<IDataService>(),
+                _container.Resolve<IConfigurationService>(),
+                _container.Resolve<IAnalyticsService>(),
+                _container.Resolve<IAlertMessageService>(),
+                _container.Resolve<ISharingService>(),
+                _container.Resolve<IInternetConnectionService>(),
+                _container.Resolve<IDispatcherService>());
 
             //register the application
             AppLocator.Register(_application);
@@ -117,6 +157,8 @@ namespace OneMSQFT.WindowsStore
                 return viewModelType;
             });
         }
+
+        public IDispatcherService Dispatcher { get; private set; }
 
         protected override object Resolve(Type type)
         {

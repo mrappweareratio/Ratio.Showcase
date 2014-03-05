@@ -5,7 +5,7 @@
     xmlns:local="using:Animation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" d:DesignWidth="1366" d:DesignHeight="768">
 	<Page.Resources>
 		<Storyboard x:Name="Mask">
 			<DoubleAnimation Storyboard.TargetName="MaskTransformLogo" 
@@ -15,36 +15,144 @@
 				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
 				<EasingDoubleKeyFrame KeyTime="0:0:2" Value="100"/>
 			</DoubleAnimationUsingKeyFrames>
+
+			<DoubleAnimation Storyboard.TargetName="LowerMaskTransformLogo" 
+				Storyboard.TargetProperty="(TranslateTransform.Y)" 
+				BeginTime="0:0:2"
+				From="0.0" To="170.0" Duration="0:0:1" />
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="lowerCanvas">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:3" Value="-170"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="MainGrid">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:3" Value="1.5"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="lowerCanvas">
+				<EasingDoubleKeyFrame KeyTime="0" Value="-1.5"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+			</DoubleAnimationUsingKeyFrames>
 			
 		</Storyboard>
+		<Storyboard x:Name="BuildRectangles">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="LittleCyan">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="LeftGreen">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="88"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="LeftGreen">
+				<EasingDoubleKeyFrame KeyTime="0" Value="768"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="763"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="768"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="RightPurple">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="77"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="LeftPurple">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="LittleCyan">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="95"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="LeftPurple">
+				<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="1"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="LeftPurple">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="278"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="RightCrimson">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="166"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
 	</Page.Resources>
-    <Canvas Background="White">
-        <Button Content="Button" Canvas.Left="654" Canvas.Top="86" Click="Start" BorderBrush="#FF080000" Foreground="#FF1A2CE6"/>
-		<Button Content="Button" Canvas.Left="654" Canvas.Top="137" Click="Reverse" Foreground="#FF060925" BorderBrush="#FF151414"/>
-		<Canvas HorizontalAlignment="Left" Height="266.4" UseLayoutRounding="False" VerticalAlignment="Top" Width="123.414" Canvas.Left="300" Canvas.Top="200">
-			<Canvas  Height="266.4" Canvas.Left="0" Canvas.Top="-0.4" Width="123.414" RenderTransformOrigin="0.5,0.5">
+	<Grid Background="White">
+    <Viewbox Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center">
+		<Grid x:Name="MainGrid" RenderTransformOrigin="0.5,0.5" Width="1366" Height="768">
+			<Grid.RenderTransform>
+				<CompositeTransform/>
+			</Grid.RenderTransform>
+			<Button Content="Button" Click="Start" BorderBrush="#FF080000" Foreground="#FF1A2CE6" Margin="654,86,0,644"/>
+			<Button Content="Button" Click="Reverse" Foreground="#FF060925" BorderBrush="#FF151414" Margin="654,137,0,593"/>
+			<Grid x:Name="LogoGrid" HorizontalAlignment="Center" UseLayoutRounding="False" VerticalAlignment="Center" Margin="0" RenderTransformOrigin="0,0" d:IsHidden="True" d:IsLocked="True">
+				<Canvas  Height="266.4" Width="123.414" RenderTransformOrigin="0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-0.4,0,0.4">
 				
-				<Canvas x:Name="upperCanvas" Height="71" Canvas.Left="2.418" Width="113.225" RenderTransformOrigin="0.5,0.5">
-					<Canvas.RenderTransform>
+					<Canvas x:Name="upperCanvas" Height="71" Canvas.Left="2.418" Width="113.225" RenderTransformOrigin="0.5,0.5">
+						<Canvas.RenderTransform>
+							<CompositeTransform/>
+						</Canvas.RenderTransform>
+						<Canvas.Clip>
+							<RectangleGeometry Rect="0,0,130,82" >
+								<RectangleGeometry.Transform>
+									<TranslateTransform Y="0" x:Name="MaskTransformLogo"/>
+								</RectangleGeometry.Transform>
+							</RectangleGeometry>
+						</Canvas.Clip>
+						<Path Data="F1M51.481,0L38.026,51.199 24.567,0 0,0.001 0,70.095 15.577,70.095 15.577,16.168 30.085,70.095 45.97,70.095 60.476,16.168 60.476,70.095 76.052,70.095 76.052,0z" Fill="#FF2A3282" Height="70.095" Canvas.Left="37.173" Stretch="None" Canvas.Top="1" Width="76.052"/>
+						<Path Data="F1M17.286,0C11.59,4.1,6.531,6.937,0,9.178L0,23.171C5.001,21.838,9.167,19.926,12.17,17.663L12.17,70.094 27.448,70.094 27.448,0z" Fill="#FF2A3282" Height="70.094" Stretch="None" Canvas.Top="0.001" Width="27.448"/>
+					</Canvas>
+					<Path Data="F1M0,0L0,14.818 123.414,14.82 123.414,0z" Fill="#FF2A3282" Height="14.82" Canvas.Left="0" Stretch="None" Canvas.Top="81.565" Width="123.414"/>
+					<Canvas x:Name="lowerCanvas" Height="160" Width="119" Canvas.Top="105" RenderTransformOrigin="0.5,0.5">
+						<Canvas.RenderTransform>
+							<CompositeTransform/>
+						</Canvas.RenderTransform>
+						<Canvas.Clip>
+							<RectangleGeometry Rect="0,0,130,160" >
+								<RectangleGeometry.Transform>
+									<TranslateTransform Y="0" x:Name="LowerMaskTransformLogo"/>
+								</RectangleGeometry.Transform>
+							</RectangleGeometry>
+						</Canvas.Clip>
+						<Path Data="F1M0,0.003L0,74.172 15.771,74.172 15.771,47.444 46.615,47.444 46.615,31.766 15.771,31.766 15.771,14.82 75.443,14.82 75.443,74.172 91.264,74.172 91.264,14.82 119.913,14.82 119.913,0z" Fill="#FF00AEEF" Height="74.172" Canvas.Left="2.0" Stretch="None" Canvas.Top="85" Width="119.913"/>
+						<Path Data="F1M41.288,39.463C38.516,36.284 33.866,33.155 27.346,30.073 22.964,27.998 20.068,26.254 18.659,24.843 17.248,23.432 16.543,22.045 16.543,19.838 16.543,17.734 17.326,16.183 19.17,14.704 21.031,13.21 24.221,12.598 26.618,12.535 28.59,12.42 34.228,12.472 42.383,15.031L42.383,2.675C37.904,0.892 32.261,0 25.447,0 17.759,0 11.598,1.889 6.955,5.673 2.319,9.449 0,14.47 0,20.729 0,29.359 5.32,36.171 15.956,41.171 21.18,43.635 24.645,45.647 26.348,47.198 28.055,48.761 28.902,50.289 28.902,52.395 28.902,54.538 28.442,55.868 26.187,57.407 21.589,60.554 12.318,60.325 0.288,54.866L0.288,68.271C5.122,70.867 11.143,72.166 18.344,72.166 26.809,72.166 33.447,70.349 38.247,66.714 43.048,63.079 45.448,57.956 45.448,51.338 45.448,46.601 44.062,42.646 41.288,39.463" Fill="#FF00AEEF" Height="72.166" Canvas.Left="2.0" Stretch="None" Canvas.Top="0" Width="45.448"/>
+						<Path Data="F1M72.112,36.054C72.112,16.143 55.967,0 36.054,0 16.145,0.001 0,16.143 0,36.054 0,55.967 16.145,72.109 36.054,72.109 43.227,72.109 49.043,70.163 54.456,67.061L60.654,73.259 71.45,62.468 65.639,56.654C69.633,50.849,72.112,43.969,72.112,36.054 M36.054,57.943C24.87,57.943 15.797,48.142 15.797,36.054 15.797,23.966 24.87,14.167 36.054,14.167 47.244,14.167 56.314,23.966 56.314,36.054 56.314,39.394 55.762,42.422 54.38,45.394L40.496,31.51 29.702,42.307 43.717,56.318C41.348,57.361,38.765,57.943,36.054,57.943" Fill="#FF00AEEF" Height="73.259" Canvas.Left="49.537" Stretch="None" Canvas.Top="0" Width="72.112"/>
+					</Canvas>
+				</Canvas>
+			</Grid>
+			<Grid x:Name="RectanglesGrid" Background="{x:Null}">
+				<Rectangle x:Name="LeftGreen" Fill="#FF619C21" HorizontalAlignment="Right" Height="768" Stroke="Black" VerticalAlignment="Top" Width="88" Margin="0,0,1278,0" d:IsLocked="True"/>
+				<Rectangle x:Name="LittleCyan" Fill="#FF00D7CA" HorizontalAlignment="Left" Height="95" Stroke="Black" VerticalAlignment="Top" Width="102" Margin="98,673,0,0" RenderTransformOrigin="0.5,0.5" d:IsLocked="True">
+					<Rectangle.RenderTransform>
 						<CompositeTransform/>
-					</Canvas.RenderTransform>
-					<Path Data="F1M51.481,0L38.026,51.199 24.567,0 0,0.001 0,70.095 15.577,70.095 15.577,16.168 30.085,70.095 45.97,70.095 60.476,16.168 60.476,70.095 76.052,70.095 76.052,0z" Fill="#FF2A3282" Height="70.095" Canvas.Left="37.173" Stretch="None" Canvas.Top="1" Width="76.052"/>
-					<Path Data="F1M17.286,0C11.59,4.1,6.531,6.937,0,9.178L0,23.171C5.001,21.838,9.167,19.926,12.17,17.663L12.17,70.094 27.448,70.094 27.448,0z" Fill="#FF2A3282" Height="70.094" Stretch="None" Canvas.Top="0.001" Width="27.448"/>
-				    <Canvas.Clip>
-					    <RectangleGeometry Rect="0,0,130,82" >
-						    <RectangleGeometry.Transform>
-							    <TranslateTransform Y="0" x:Name="MaskTransformLogo"/>
-						    </RectangleGeometry.Transform>
-					    </RectangleGeometry>
-				    </Canvas.Clip>
-			    </Canvas>
-			    <Path Data="F1M0,0L0,14.818 123.414,14.82 123.414,0z" Fill="#FF2A3282" Height="14.82" Canvas.Left="0" Stretch="None" Canvas.Top="81.565" Width="123.414"/>
-			</Canvas>
-			<Canvas x:Name="lowerCanvas" Height="160" Width="119" Canvas.Top="97">
-				<Path Data="F1M0,0.003L0,74.172 15.771,74.172 15.771,47.444 46.615,47.444 46.615,31.766 15.771,31.766 15.771,14.82 75.443,14.82 75.443,74.172 91.264,74.172 91.264,14.82 119.913,14.82 119.913,0z" Fill="#FF00AEEF" Height="74.172" Canvas.Left="2.0" Stretch="None" Canvas.Top="85" Width="119.913"/>
-				<Path Data="F1M41.288,39.463C38.516,36.284 33.866,33.155 27.346,30.073 22.964,27.998 20.068,26.254 18.659,24.843 17.248,23.432 16.543,22.045 16.543,19.838 16.543,17.734 17.326,16.183 19.17,14.704 21.031,13.21 24.221,12.598 26.618,12.535 28.59,12.42 34.228,12.472 42.383,15.031L42.383,2.675C37.904,0.892 32.261,0 25.447,0 17.759,0 11.598,1.889 6.955,5.673 2.319,9.449 0,14.47 0,20.729 0,29.359 5.32,36.171 15.956,41.171 21.18,43.635 24.645,45.647 26.348,47.198 28.055,48.761 28.902,50.289 28.902,52.395 28.902,54.538 28.442,55.868 26.187,57.407 21.589,60.554 12.318,60.325 0.288,54.866L0.288,68.271C5.122,70.867 11.143,72.166 18.344,72.166 26.809,72.166 33.447,70.349 38.247,66.714 43.048,63.079 45.448,57.956 45.448,51.338 45.448,46.601 44.062,42.646 41.288,39.463" Fill="#FF00AEEF" Height="72.166" Canvas.Left="2.0" Stretch="None" Canvas.Top="0" Width="45.448"/>
-				<Path Data="F1M72.112,36.054C72.112,16.143 55.967,0 36.054,0 16.145,0.001 0,16.143 0,36.054 0,55.967 16.145,72.109 36.054,72.109 43.227,72.109 49.043,70.163 54.456,67.061L60.654,73.259 71.45,62.468 65.639,56.654C69.633,50.849,72.112,43.969,72.112,36.054 M36.054,57.943C24.87,57.943 15.797,48.142 15.797,36.054 15.797,23.966 24.87,14.167 36.054,14.167 47.244,14.167 56.314,23.966 56.314,36.054 56.314,39.394 55.762,42.422 54.38,45.394L40.496,31.51 29.702,42.307 43.717,56.318C41.348,57.361,38.765,57.943,36.054,57.943" Fill="#FF00AEEF" Height="73.259" Canvas.Left="49.537" Stretch="None" Canvas.Top="0" Width="72.112"/>
-			</Canvas>
-		</Canvas>
-	</Canvas>
+					</Rectangle.RenderTransform>
+				</Rectangle>
+				<Rectangle x:Name="RightPurple" Fill="#FF774995" HorizontalAlignment="Left" Height="768" Stroke="Black" VerticalAlignment="Top" Width="77" Margin="1289,0,0,0" d:IsLocked="True"/>
+				<Rectangle x:Name="LeftPurple" Fill="#FF774995" HorizontalAlignment="Right" Height="275" Stroke="Black" VerticalAlignment="Top" Width="278" Margin="0,0,990,0" RenderTransformOrigin="0.5,0.5">
+					<Rectangle.RenderTransform>
+						<CompositeTransform/>
+					</Rectangle.RenderTransform>
+				</Rectangle>
+				<Rectangle x:Name="RightCrimson" Fill="#FFA91935" HorizontalAlignment="Left" Height="193" Stroke="Black" VerticalAlignment="Top" Width="166" Margin="1114,575,0,0"/>
+				<Rectangle x:Name="TopYellow" Fill="#FFD8981E" HorizontalAlignment="Left" Height="136" Stroke="Black" VerticalAlignment="Top" Width="111" Margin="392,0,0,0"/>
+				<Rectangle x:Name="BottomGreen" Fill="#FF619C21" HorizontalAlignment="Left" Height="95" Stroke="Black" VerticalAlignment="Top" Width="396" Margin="214,673,0,0"/>
+				<Rectangle x:Name="BigBrick" Fill="#FFC63E19" HorizontalAlignment="Left" Height="275" Stroke="Black" VerticalAlignment="Top" Width="522" Margin="758,0,0,0"/>
+				<Rectangle x:Name="TopPurple" Fill="#FF774995" HorizontalAlignment="Left" Height="136" Stroke="Black" VerticalAlignment="Top" Width="225" Margin="519,0,0,0"/>
+				<Rectangle x:Name="BottomYellow" Fill="#FFD8981E" HorizontalAlignment="Left" Height="193" Stroke="Black" VerticalAlignment="Top" Width="118" Margin="986,575,0,0"/>
+				<Rectangle x:Name="CenterCyan" Fill="#FF00D7CA" HorizontalAlignment="Left" Height="129" Stroke="Black" VerticalAlignment="Top" Width="352" Margin="392,146,0,0"/>
+				<Rectangle x:Name="BigCrimson" Fill="#FFA91935" HorizontalAlignment="Left" Height="371" Stroke="Black" VerticalAlignment="Top" Width="512" Margin="98,290,0,0"/>
+				<Rectangle x:Name="RightCyan" Fill="#FF00D7CA" HorizontalAlignment="Left" Height="272" Stroke="Black" VerticalAlignment="Top" Width="294" Margin="986,290,0,0"/>
+				<Rectangle x:Name="CenterPurple" Fill="#FF774995" HorizontalAlignment="Left" Height="343" Stroke="Black" VerticalAlignment="Top" Width="352" Margin="621,425,0,0"/>
+				<Rectangle x:Name="CenterGreen" Fill="#FF619C21" HorizontalAlignment="Left" Height="125" Stroke="Black" VerticalAlignment="Top" Width="215" Margin="758,290,0,0"/>
+				<Rectangle x:Name="CenterNavy" Fill="#FF283181" HorizontalAlignment="Left" Height="125" Stroke="Black" VerticalAlignment="Top" Width="123" Margin="621,290,0,0"/>
+			</Grid>
+		</Grid>
+	</Viewbox>
+	</Grid>
 </Page>

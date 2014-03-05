@@ -976,11 +976,11 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                         <StackPanel x:Name="StartupButtonStackPanel" Orientation="Horizontal" Visibility="Collapsed">
-                            <Button Visibility="{Binding SetStartupVisibility}" 
+                            <Button Visibility="Collapsed" 
                                     Content="{Binding Strings.SetAsStartUp, Source={StaticResource PortableStrings}}" 
                                     Command="{Binding SetStartupCommand}"
                                     Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
-                            <Button Visibility="{Binding ClearStartupVisibility}"  
+                            <Button Visibility="Collapsed"
                                     Content="{Binding Strings.ClearStartUp, Source={StaticResource PortableStrings}}" 
                                     Command="{Binding ClearStartupCommand}"
                                     Style="{StaticResource OMSQFT_CustomAppbarButton}"  />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
@@ -50,7 +51,7 @@ namespace OneMSQFT.UILogic.Tests.Services
         public async Task DataCacheService_StoreDataAsync()
         {
             //Load data to be saved
-            var data = DataRepository.GetSiteData();
+            var data = DataRepository.GetSiteData(new CancellationToken());
 
             if (data != null)
             {

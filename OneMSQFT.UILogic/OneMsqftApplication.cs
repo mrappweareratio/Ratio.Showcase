@@ -2,19 +2,27 @@
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.System;
 using Windows.UI.ApplicationSettings;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.StartScreen;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
+using OneMSQFT.Common;
 using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Analytics;
 using OneMSQFT.UILogic.Interfaces;
+using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Navigation;
+using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.Utils;
 using Strings = OneMSQFT.Common.Strings;
 
@@ -29,6 +37,8 @@ namespace OneMSQFT.UILogic
         public IDataService DataService { get; set; }
         public INavigationService NavigationService { get; private set; }
         public ISharingService SharingService { get; private set; }
+        public IInternetConnectionService InternetConnection { get; private set; }
+        public IDispatcherService DispatcherService { get; private set; }
 
         public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics, IAlertMessageService alertMessageService)
         {
@@ -38,13 +48,14 @@ namespace OneMSQFT.UILogic
             Configuration = configuration;
             DataService = dataService;
             NavigationService = navigationService;
-            _events = new List<Event>();
         }
 
-        public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics, IAlertMessageService alertMessageService, ISharingService sharingService)
+        public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics, IAlertMessageService alertMessageService, ISharingService sharingService, IInternetConnectionService internetConnectionService, IDispatcherService dispatcherService)
             : this(navigationService, dataService, configuration, analytics, alertMessageService)
         {
             SharingService = sharingService;
+            InternetConnection = internetConnectionService;
+            DispatcherService = dispatcherService;
         }
 
         public async Task HandleException(Exception exception, string message)
@@ -65,14 +76,51 @@ namespace OneMSQFT.UILogic
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                 Analytics.StartSession();
-                _events = await DataService.GetEvents();
+            }
+
+            Func<Task> getEventsFailure = async () =>
+            {
+                if (InternetConnection.IsConnected)
+                {
+                    await DispatcherService.RunAsync(async () =>
+                    {
+                        await MessageService.ShowAsync(Strings.SiteDataFailureMessage, String.Empty);
+                    });
+
+                }
+                else
+                {
+                    await DispatcherService.RunAsync(async () =>
+                    {
+                        await MessageService.ShowAsync(Strings.InternetConnectionFailureMessage, String.Empty);
+                    });
+                }
+            };
+
+            if (_events == null || !_events.Any())
+            {
+                _events = await DataService.GetEvents(new CancellationToken()).TryCatchAsync(async exception =>
+                {
+                    //task faulted
+                    await getEventsFailure();
+                }, async () =>
+                {
+                    //task cancelled
+                    await getEventsFailure();
+                });
+            }
+
+            if (_events == null)
+            {
+                NavigationService.Navigate(ViewLocator.Pages.About, null);
+                return;
             }
 
             if (!String.IsNullOrEmpty(args.Arguments))
             {
                 var pinningContext = PinningUtils.ParseArguments(args.Arguments);
                 switch (pinningContext.StartupItemType)
-                {                    
+                {
                     case StartupItemType.Event:
                         Event evt;
                         if (_events == null || (evt = _events.FirstOrDefault(x => x.Id.Equals(pinningContext.StartupItemId))) == null)
@@ -173,11 +221,32 @@ namespace OneMSQFT.UILogic
 
         public IList<SettingsCommand> GetSettingsCommands()
         {
-            var commands = new List<SettingsCommand>();
-            if (KioskModeEnabled)
+            var settingsCommands = new List<SettingsCommand>();
+            if (KioskModeEnabled && CurrentPage != null)
             {
+                var vm = CurrentPage.DataContext as IBasePageViewModel;
+                if (vm != null)
+                {
+                    if(vm.SetStartupCommand.CanExecute())
+                        settingsCommands.Add(new SettingsCommand(Guid.NewGuid().ToString(), Strings.SetAsStartUp, command => vm.SetStartupCommand.Execute()));
+                    if(vm.ClearStartupCommand.CanExecute())
+                        settingsCommands.Add(new SettingsCommand(Guid.NewGuid().ToString(), Strings.ClearStartUp, command => vm.ClearStartupCommand.Execute()));
+                }
             }
-            return commands;
+            settingsCommands.Add(new SettingsCommand(Guid.NewGuid().ToString(), Strings.PrivacyPolicy, async (c) => await Launcher.LaunchUriAsync(new Uri(Strings.PrivacyPolicyUrl))));
+            return settingsCommands;
+        }
+
+        public Page CurrentPage
+        {
+            get
+            {
+                if (Window.Current == null) return null;
+                var frame = Window.Current.Content as Frame;
+                if (frame == null) return null;
+                var page = frame.Content as Page;
+                return page;
+            }
         }
     }
 }

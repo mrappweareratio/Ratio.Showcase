@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Practices.Prism.StoreApps;
+using OneMSQFT.Common;
 using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
@@ -15,6 +18,7 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public class AboutPageViewModel : BasePageViewModel, IAboutPageViewModel
     {
+
         private readonly IDataService _dataService;
         private readonly IAlertMessageService _messageService;
         private readonly IAnalyticsService _analyticsService;
@@ -25,26 +29,29 @@ namespace OneMSQFT.UILogic.ViewModels
             _messageService = messageService;
             _analyticsService = analyticsService;
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();
+            SetStartupCommand = new DelegateCommand(() => { }, () => false);
+            ClearStartupCommand = new DelegateCommand(() => { }, () => false);
         }
 
 
         async public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
-        {                        
-            var events = await _dataService.GetEvents();
+        {
+            _analyticsService.TrackPageViewAbout();
+
+            var events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
             if (events == null)
             {
-                await _messageService.ShowAsync("Error", "There was a problem loading events");
+                base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
                 return;
             }
 
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x, _analyticsService)));
-            _analyticsService.TrackPageViewAbout();
 
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
 
 
-        #region resizing       
+        #region resizing
 
         public double AboutPageTotalWidth
         {
@@ -103,9 +110,9 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return new Thickness(0, (FullScreenHeight / 4)+5, 0, 0);
+                return new Thickness(0, (FullScreenHeight / 4) + 5, 0, 0);
             }
-        }        
+        }
 
         public override void WindowSizeChanged(double width, double height)
         {
@@ -117,7 +124,7 @@ namespace OneMSQFT.UILogic.ViewModels
             OnPropertyChanged("Panel1TextWidth");
             OnPropertyChanged("Panel2TextWidth");
             OnPropertyChanged("Panel1Margin");
-            OnPropertyChanged("Panel2Margin");            
+            OnPropertyChanged("Panel2Margin");
         }
 
         #endregion

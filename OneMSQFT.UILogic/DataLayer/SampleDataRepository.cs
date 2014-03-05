@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 using OneMSQFT.Common;
@@ -14,7 +15,7 @@ namespace OneMSQFT.UILogic.DataLayer
     {
         private const string JsonFileName = "sundance.json";        
 
-        public async Task<SiteData> GetSiteData()
+        public async Task<SiteData> GetSiteData(CancellationToken token)
         {
             var folder = Windows.ApplicationModel.Package.Current.InstalledLocation;           
             folder = await folder.GetFolderAsync("SampleData");

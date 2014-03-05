@@ -20,5 +20,9 @@ namespace OneMSQFT.Common.DataLayer
         /// Example "http://vimeo.com"
         /// </summary>
         string VideoSiteUrl { get; }
+
+        double TimeoutSeconds { get; }
+        
+        int MaxRetries { get; }
     }
 }

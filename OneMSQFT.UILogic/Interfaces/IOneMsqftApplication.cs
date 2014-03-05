@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.ApplicationSettings;
+using Windows.UI.Xaml.Controls;
 using OneMSQFT.Common.Services;
 
 namespace OneMSQFT.UILogic.Interfaces
@@ -25,5 +26,7 @@ namespace OneMSQFT.UILogic.Interfaces
         bool CanHandleException(Exception exception);
         IDataService DataService { get; set; }
         IAnalyticsService Analytics { get; set; }
+        IInternetConnectionService InternetConnection { get; }
+        Page CurrentPage { get; }
     }
 }

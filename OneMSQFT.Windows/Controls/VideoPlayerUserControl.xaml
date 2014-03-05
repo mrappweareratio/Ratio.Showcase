@@ -162,7 +162,7 @@
         <mmppf:MediaPlayer x:Name="player" Grid.Row="1" 
                            IsSkipPreviousVisible="False" 
                            IsSkipNextVisible="False" 
-                           IsFullScreen="True" Loaded="player_Loaded">
+                           IsFullScreen="True" Loaded="PlayerLoaded">
             <mmppf:MediaPlayer.Plugins>
                 <StaticResource ResourceKey="PlaylistPlugin"/>
             </mmppf:MediaPlayer.Plugins>

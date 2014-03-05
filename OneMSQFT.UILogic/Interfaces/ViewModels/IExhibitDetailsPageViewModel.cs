@@ -14,13 +14,8 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         ExhibitItemViewModel Exhibit { get; set; }
         ExhibitItemViewModel NextExhibit { get; }
         DelegateCommand<MediaContentSourceItemViewModel> LaunchVideoCommand { get; }
-        DelegateCommand<String> NextExhibitCommand { get; }
-        DelegateCommand SetStartupCommand { get; }
-        DelegateCommand ClearStartupCommand { get; }
-        Visibility ClearStartupVisibility { get; set; }
-        Visibility SetStartupVisibility { get; set; }
+        DelegateCommand<String> NextExhibitCommand { get; }       
         MediaContentSourceItemViewModel SelectedMediaContentSource { get; set; }
-
         double NineSixteenthsOfWidth { get; }
         double OneThirdPanelWidth { get; }
         double PortraitHeaderFooterHeight { get; }

@@ -19,13 +19,10 @@ namespace OneMSQFT.UILogic.Tests.Services
         [TestInitialize]
         public void Init()
         {
-            this.InternetConnection = new MockInternetConnectionService
-            {
-                IsConnectedDelegate = () => true
-            };
+            this.InternetConnection = new MockInternetConnectionService(true);
         }
 
-        public IInternetConnection InternetConnection { get; set; }
+        public IInternetConnectionService InternetConnection { get; set; }
 
         [TestMethod]
         async public Task DataService_GetEvents_Calls_Repository()
@@ -40,7 +37,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 }
             };
             var dataService = new DataService(mock, new MockDataCacheService() { ContainsDataDelegate = s => Task.FromResult(false) }, InternetConnection);
-            await dataService.GetEvents();
+            await dataService.GetEvents(new CancellationToken());
             Assert.IsTrue(called);
         }
 
@@ -65,7 +62,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 }
             };
             var dataService = new DataService(mock, cache, InternetConnection);
-            await dataService.GetEvents();
+            await dataService.GetEvents(new CancellationToken());
             Assert.IsTrue(called);
         }
         [TestMethod]
@@ -92,7 +89,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 InvalidateDataDelegate = s => Task.FromResult(0)
             };
             var dataService = new DataService(mock, cache, InternetConnection);
-            await dataService.GetEvents();
+            await dataService.GetEvents(new CancellationToken());
             Assert.IsTrue(called, "called cache");
         }
         [TestMethod]
@@ -124,7 +121,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 }
             };
             var dataService = new DataService(mock, cache, InternetConnection);
-            await dataService.GetEvents();
+            await dataService.GetEvents(new CancellationToken());
             autoResetEvent.WaitOne(200);
             Assert.IsTrue(called, "callede InvalidateDataDelegate");
         }
@@ -155,7 +152,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 }
             };
             var dataService = new DataService(mock, cache, InternetConnection);
-            await dataService.GetEvents();
+            await dataService.GetEvents(new CancellationToken());
             Assert.IsTrue(called, "invalidated cache then called repo");
         }
         [TestMethod]
@@ -191,7 +188,7 @@ namespace OneMSQFT.UILogic.Tests.Services
                 }
             };
             var dataService = new DataService(mock, cache, InternetConnection);
-            await dataService.GetEvents();
+            await dataService.GetEvents(new CancellationToken());
             autoResetEvent.WaitOne(200);
             Assert.IsTrue(called, "Call StoreDataAsync");
         }
@@ -210,7 +207,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             var dataService = new DataService(mock, cache, InternetConnection);
             try
             {
-                await dataService.GetExhibitDetailByExhibitId("0");
+                await dataService.GetExhibitDetailByExhibitId("0", new CancellationToken());
             }
             catch (Exception ex)
             {
@@ -248,7 +245,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             };
             var cache = new MockDataCacheService();
             var dataService = new DataService(mock, cache, InternetConnection);
-            var exhibitDetail = await dataService.GetExhibitDetailByExhibitId(exhibitId);
+            var exhibitDetail = await dataService.GetExhibitDetailByExhibitId(exhibitId, new CancellationToken());
             Assert.IsNotNull(exhibitDetail, "exhibitDetail");
             Assert.AreEqual(exhibitDetail.Exhibit.Id, exhibitId);
 
@@ -284,7 +281,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             };
             var cache = new MockDataCacheService();
             var dataService = new DataService(mock, cache, InternetConnection);
-            var exhibitDetail = await dataService.GetExhibitDetailByExhibitId(exhibitId);
+            var exhibitDetail = await dataService.GetExhibitDetailByExhibitId(exhibitId, new CancellationToken());
             Assert.IsNotNull(exhibitDetail, "exhibitDetail");
             Assert.AreEqual(exhibitDetail.Exhibit.Id, exhibitId);
             Assert.AreEqual(exhibitDetail.NextExhibit.Id, nextExhibitId);
@@ -320,7 +317,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             };
             var cache = new MockDataCacheService();
             var dataService = new DataService(mock, cache, InternetConnection);
-            var exhibitDetail = await dataService.GetExhibitDetailByExhibitId(exhibitId);
+            var exhibitDetail = await dataService.GetExhibitDetailByExhibitId(exhibitId, new CancellationToken());
             Assert.IsNotNull(exhibitDetail, "exhibitDetail");
             Assert.AreEqual(exhibitDetail.Exhibit.Id, exhibitId);
             Assert.AreEqual(exhibitDetail.NextExhibit.Id, nextExhibitId);
@@ -351,7 +348,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             };
             var cache = new MockDataCacheService();
             var dataService = new DataService(mock, cache, InternetConnection);
-            var exhibitDetail = await dataService.GetExhibitDetailByExhibitId(exhibitId);
+            var exhibitDetail = await dataService.GetExhibitDetailByExhibitId(exhibitId, new CancellationToken());
             Assert.IsNotNull(exhibitDetail, "exhibitDetail");
             Assert.AreEqual(exhibitDetail.Exhibit.Id, exhibitId, "Exhibit");
             Assert.IsNull(exhibitDetail.NextExhibit, "Next Exhibit Null");
@@ -370,7 +367,7 @@ namespace OneMSQFT.UILogic.Tests.Services
             };
             var cache = new MockDataCacheService();
             var dataService = new DataService(mock, cache, InternetConnection);
-            await dataService.GetEvents();
+            await dataService.GetEvents(new CancellationToken());
             cache.ContainsDataDelegate = s =>
             {
                 called = true;
