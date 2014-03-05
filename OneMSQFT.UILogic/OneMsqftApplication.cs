@@ -108,7 +108,10 @@ namespace OneMSQFT.UILogic
             }
 
             if (_events == null)
+            {
+                NavigationService.Navigate(ViewLocator.Pages.About, null);
                 return;
+            }
 
             if (!String.IsNullOrEmpty(args.Arguments))
             {
