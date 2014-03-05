@@ -10,6 +10,7 @@ using Windows.UI.StartScreen;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
@@ -43,8 +44,12 @@ namespace OneMSQFT.WindowsStore.Views
                     _dataTransferManager = DataTransferManager.GetForCurrentView();                    
                 }
             }
+            VideoPlayerUserControl.MediaEndedCommand = new DelegateCommand(MediaEndedCommandHandler); 
         }
-
+        private void MediaEndedCommandHandler()
+        {
+            VideoPopup.IsOpen = false;
+        }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);

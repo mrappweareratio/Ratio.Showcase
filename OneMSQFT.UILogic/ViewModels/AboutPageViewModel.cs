@@ -56,12 +56,27 @@ namespace OneMSQFT.UILogic.ViewModels
                 return FullScreenWidth + AboutPageTwoThirdsWidth;
             }
         }
+        public double AboutPageTotalHeight
+        {
+            get
+            {
+                return FullScreenHeight + AboutPageTwoThirdsHeight;
+            }
+        }
 
         public double AboutPageTwoThirdsWidth
         {
             get
             {
                 return FullScreenWidth * .666;
+            }
+        }
+
+        public double AboutPageTwoThirdsHeight
+        {
+            get
+            {
+                return FullScreenHeight * .666;
             }
         }
 
@@ -100,6 +115,8 @@ namespace OneMSQFT.UILogic.ViewModels
             base.WindowSizeChanged(width, height);
             OnPropertyChanged("AboutPageTotalWidth");
             OnPropertyChanged("AboutPageTwoThirdsWidth");
+            OnPropertyChanged("AboutPageTotalHeight");
+            OnPropertyChanged("AboutPageTwoThirdsHeight");
             OnPropertyChanged("Panel1TextWidth");
             OnPropertyChanged("Panel2TextWidth");
             OnPropertyChanged("Panel1Margin");

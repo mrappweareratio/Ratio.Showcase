@@ -120,6 +120,8 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             Assert.IsTrue(changed, "PropertyChanged");
             Assert.IsTrue(changedProperties.Contains("AboutPageTotalWidth"));
             Assert.IsTrue(changedProperties.Contains("AboutPageTwoThirdsWidth"));
+            Assert.IsTrue(changedProperties.Contains("AboutPageTotalHeight"));
+            Assert.IsTrue(changedProperties.Contains("AboutPageTwoThirdsHeight"));
             Assert.IsTrue(changedProperties.Contains("Panel1TextWidth"));
             Assert.IsTrue(changedProperties.Contains("Panel2TextWidth"));
             Assert.IsTrue(changedProperties.Contains("Panel1Margin"));
