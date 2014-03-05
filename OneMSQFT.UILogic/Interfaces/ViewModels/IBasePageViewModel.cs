@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Dynamic;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.ViewModels;
@@ -25,5 +26,9 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         bool IsHorizontal { get; }        
         double FullScreenHeight { get; }
         double FullScreenWidth { get; }
+        DelegateCommand SetStartupCommand { get; }
+        DelegateCommand ClearStartupCommand { get; }
+        Visibility ClearStartupVisibility { get;  }
+        Visibility SetStartupVisibility { get;  }
     }
 }
