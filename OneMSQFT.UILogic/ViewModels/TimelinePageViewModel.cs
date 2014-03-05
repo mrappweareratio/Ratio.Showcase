@@ -425,7 +425,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 {
                     return 70; // 10.6" 1024x768 @ 100%
                 }
-                return 100;
+                return 70;
             }
             if (dpi <= 140.0)
             {
@@ -438,7 +438,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 {
                     return 70; // 7.5" 1044x1080 @ 140%
                 }
-                return 100;
+                return 70;
             }
             if (dpi <= 180.0)
             {
@@ -446,7 +446,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 {
                     return 100; // 10.6" 2560x1440 @ 180%
                 }
-                return 100;
+                return 70;
             }
             return 100;
         }
@@ -538,7 +538,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 {
                     return .9; // 10.6" 1024x768 @ 100%
                 }
-                return 1;
+                return .5;
             }
             if (dpi <= 140.0)
             {
@@ -551,7 +551,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 {
                     return .9; // 7.5" 1044x1080 @ 140%
                 }
-                return 1.1;
+                return .5;
             }
             if (dpi <= 180.0)
             {
@@ -559,9 +559,9 @@ namespace OneMSQFT.UILogic.ViewModels
                 {
                     return 1.2; // 10.6" 2560x1440 @ 180%
                 }
-                return 1.2;
+                return .5;
             }
-            return 1.2;
+            return 1;
         }
 
 
