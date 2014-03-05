@@ -62,7 +62,7 @@ namespace OneMSQFT.WindowsStore.Views
                 }
             }
 
-            VideoPlayerUserControl.MediaEndedCommand = new DelegateCommand(MediaEndedCommandHandler); 
+            VideoPlayerUserControl.MediaEndedCommand = new DelegateCommand(MediaEndedCommandHandler);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -110,9 +110,9 @@ namespace OneMSQFT.WindowsStore.Views
             var evPos = vm.GetEventIndexById(ev.Id);
             Uri uri = null;
 
-            if(FlipViewPopup.IsOpen && (FlipViewer.SelectedItem !=null && ((MediaContentSourceItemViewModel) FlipViewer.SelectedItem).ContentSourceType.Equals(ContentSourceType.Video)))
+            var selectedMediaContentSource = FlipViewer.SelectedItem as MediaContentSourceItemViewModel;
+            if (FlipViewPopup.IsOpen && selectedMediaContentSource != null && selectedMediaContentSource.ContentSourceType == ContentSourceType.Video)
             {
-                var selectedMediaContentSource = FlipViewer.SelectedItem as MediaContentSourceItemViewModel;
                 if (!_sharing.TryGetVideoShareUri(selectedMediaContentSource.Media, out uri))
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
