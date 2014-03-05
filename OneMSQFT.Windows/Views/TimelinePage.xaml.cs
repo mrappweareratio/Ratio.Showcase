@@ -89,8 +89,8 @@ namespace OneMSQFT.WindowsStore.Views
 
             if(FlipViewPopup.IsOpen && (FlipViewer.SelectedItem !=null && ((MediaContentSourceItemViewModel) FlipViewer.SelectedItem).ContentSourceType.Equals(ContentSourceType.Video)))
             {
-                      var selectedMediaContentSource = FlipViewer.SelectedItem as MediaContentSourceItemViewModel;
-                if (selectedMediaContentSource == null || !_sharing.TryGetVideoShareUri(selectedMediaContentSource.Media, out uri))
+                var selectedMediaContentSource = FlipViewer.SelectedItem as MediaContentSourceItemViewModel;
+                if (!_sharing.TryGetVideoShareUri(selectedMediaContentSource.Media, out uri))
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
                     return;
