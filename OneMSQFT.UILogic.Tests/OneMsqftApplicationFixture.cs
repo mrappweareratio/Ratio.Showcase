@@ -133,7 +133,7 @@ namespace OneMSQFT.UILogic.Tests
         public void Application_Launch_PreviousExecutionState_Running_Skips_Events()
         {
             string page = null;
-            bool called = false;
+            int called = 0;
             var autoResetEvent = new AutoResetEvent(false);
             var navigationService = new MockNavigationService()
             {
@@ -148,13 +148,14 @@ namespace OneMSQFT.UILogic.Tests
             {
                 GetEventsDelegate = async () =>
                 {
-                    called = true;
+                    called++;
                     return new List<Event>();
                 }
             }, new MockConfigurationService(), analytics, new MockAlertMessageService());
+            ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs() { PreviousExecutionState = ApplicationExecutionState.NotRunning }));
+            autoResetEvent.WaitOne(500);
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs() { PreviousExecutionState = ApplicationExecutionState.Running }));
-            autoResetEvent.WaitOne(200);
-            Assert.IsFalse(called, "Skipped Data Service");
+            Assert.AreEqual(1, called, "Data Service Called Once after Events initially populated");
             Assert.AreEqual(page, ViewLocator.Pages.Timeline, "On Timeline");
         }
 
