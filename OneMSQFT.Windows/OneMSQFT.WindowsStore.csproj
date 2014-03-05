@@ -116,6 +116,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Behaviors\NavigateWithEventArgsToPageAction.cs" />
+    <Compile Include="Controls\AnimationFrame.cs" />
     <Compile Include="Controls\AutoRotatingGridView.cs" />
     <Compile Include="Controls\CuratorLogoStackerUserControl.xaml.cs">
       <DependentUpon>CuratorLogoStackerUserControl.xaml</DependentUpon>
@@ -124,10 +125,12 @@
       <DependentUpon>LogoUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MultipleSizedGridView.cs" />
+    <Compile Include="Controls\SplashAnimationUserControl.xaml.cs">
+      <DependentUpon>SplashAnimationUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\VideoPlayerUserControl.xaml.cs">
       <DependentUpon>VideoPlayerUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomFrame.cs" />
     <Compile Include="DataTemplateSelectors\ExhibitDetailsPageDataTemplateSelector.cs" />
     <Compile Include="DataTemplateSelectors\ExhibitShowMoreDataTemplateSelector.cs" />
     <Compile Include="DataTemplateSelectors\ZoomedOutItemContainerStyleSelector.cs" />
@@ -189,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\LogoUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SplashAnimationUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
