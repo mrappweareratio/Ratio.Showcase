@@ -8,9 +8,11 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.System;
 using Windows.UI.ApplicationSettings;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.StartScreen;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
+using OneMSQFT.Common;
 using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
@@ -33,6 +35,7 @@ namespace OneMSQFT.UILogic
         public INavigationService NavigationService { get; private set; }
         public ISharingService SharingService { get; private set; }
         public IInternetConnectionService InternetConnection { get; private set; }
+        public IDispatcherService DispatcherService { get; private set; }
 
         public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics, IAlertMessageService alertMessageService)
         {
@@ -41,15 +44,15 @@ namespace OneMSQFT.UILogic
             Analytics.KioskModeEnabled = this.KioskModeEnabled;
             Configuration = configuration;
             DataService = dataService;
-            NavigationService = navigationService;            
-            _events = new List<Event>();
+            NavigationService = navigationService;
         }
 
-        public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics, IAlertMessageService alertMessageService, ISharingService sharingService, IInternetConnectionService internetConnectionService)
+        public OneMsqftApplication(INavigationService navigationService, IDataService dataService, IConfigurationService configuration, IAnalyticsService analytics, IAlertMessageService alertMessageService, ISharingService sharingService, IInternetConnectionService internetConnectionService, IDispatcherService dispatcherService)
             : this(navigationService, dataService, configuration, analytics, alertMessageService)
         {
             SharingService = sharingService;
             InternetConnection = internetConnectionService;
+            DispatcherService = dispatcherService;
         }
 
         public async Task HandleException(Exception exception, string message)
@@ -70,14 +73,48 @@ namespace OneMSQFT.UILogic
             if (args.PreviousExecutionState != ApplicationExecutionState.Running)
             {
                 Analytics.StartSession();
-                _events = await DataService.GetEvents(new CancellationToken());
             }
+
+            Func<Task> getEventsFailure = async () =>
+            {
+                if (InternetConnection.IsConnected)
+                {
+                    await DispatcherService.RunAsync(async () =>
+                    {
+                        await MessageService.ShowAsync(Strings.ServerFailureMessage, String.Empty);
+                    });
+
+                }
+                else
+                {
+                    await DispatcherService.RunAsync(async () =>
+                    {
+                        await MessageService.ShowAsync(Strings.InternetConnectionFailureMessage, String.Empty);
+                    });
+                }
+            };
+
+            if (_events == null || !_events.Any())
+            {
+                _events = await DataService.GetEvents(new CancellationToken()).TryCatchAsync(async exception =>
+                {
+                    //task faulted
+                    await getEventsFailure();
+                }, async () =>
+                {
+                    //task cancelled
+                    await getEventsFailure();
+                });
+            }
+
+            if (_events == null)
+                return;
 
             if (!String.IsNullOrEmpty(args.Arguments))
             {
                 var pinningContext = PinningUtils.ParseArguments(args.Arguments);
                 switch (pinningContext.StartupItemType)
-                {                    
+                {
                     case StartupItemType.Event:
                         Event evt;
                         if (_events == null || (evt = _events.FirstOrDefault(x => x.Id.Equals(pinningContext.StartupItemId))) == null)

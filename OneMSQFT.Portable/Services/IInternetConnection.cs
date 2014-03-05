@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using OneMSQFT.Common.Models;
 
 namespace OneMSQFT.Common.Services
 {
     public interface IInternetConnectionService : IInternetConnection
-    {        
+    {
         event EventHandler<IInternetConnection> InternetConnectionChanged;
     }
 
     public interface IInternetConnection
     {
         bool IsConnected { get; }
-        ICostGuidance CostGuidance { get; }        
+        ICostGuidance CostGuidance { get; }
     }
 
     public class InternetConnectionChangedEventArgs : EventArgs, IInternetConnection
@@ -31,5 +30,4 @@ namespace OneMSQFT.Common.Services
         NetworkCost Cost { get; }
         String Reason { get; }
     }
-
 }

@@ -114,6 +114,7 @@
   <ItemGroup>
     <Compile Include="DataLayer\ApiDataRepositoryFixture.cs" />
     <Compile Include="DataLayer\DataRepositoryFixture.cs" />
+    <Compile Include="Mocks\MockDispatcherService.cs" />
     <Compile Include="Mocks\MockAnalyticsService.cs" />
     <Compile Include="Mocks\MockAlertService.cs" />
     <Compile Include="Mocks\MockApiConfiguration.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Mocks\MockLaunchActivatedEventArgs.cs" />
     <Compile Include="Mocks\MockModelGenerator.cs" />
     <Compile Include="Mocks\MockNavigationService.cs" />
+    <Compile Include="Mocks\MockSharingService.cs" />
     <Compile Include="Mocks\MockSuspendingEventArgs.cs" />
     <Compile Include="OneMsqftApplicationFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

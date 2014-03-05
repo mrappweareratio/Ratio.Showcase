@@ -135,6 +135,7 @@
     <Compile Include="Services\CostGuidance.cs" />
     <Compile Include="Services\DataCacheService.cs" />
     <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\DispatcherService.cs" />
     <Compile Include="Services\InternetConnectionService.cs" />
     <Compile Include="Services\SharingService.cs" />
     <Compile Include="Utils\ColorUtils.cs" />

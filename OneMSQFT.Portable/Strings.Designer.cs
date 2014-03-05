@@ -197,6 +197,15 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was a problem loading One Million Square Feet of Culture. Please check your internet connection..
+        /// </summary>
+        public static string InternetConnectionFailureMessage {
+            get {
+                return ResourceManager.GetString("InternetConnectionFailureMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet Lorem ipsum dolor sit amet 1 Million Square Feet..
         /// </summary>
         public static string IntroBlurb {
@@ -265,6 +274,15 @@ namespace OneMSQFT.Common {
         public static string RSVP_Fallback_Uri {
             get {
                 return ResourceManager.GetString("RSVP_Fallback_Uri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was a problem loading One Million Square Feet of Culture. Please try again later..
+        /// </summary>
+        public static string ServerFailureMessage {
+            get {
+                return ResourceManager.GetString("ServerFailureMessage", resourceCulture);
             }
         }
         
