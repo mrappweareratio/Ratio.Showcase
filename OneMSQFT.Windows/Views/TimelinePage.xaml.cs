@@ -4,7 +4,6 @@ using System.Threading;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.Graphics.Display;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.StartScreen;
@@ -17,13 +16,10 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.Common;
 using OneMSQFT.Common.Services;
-using OneMSQFT.Common.Analytics;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
-using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
-using Windows.UI.Core;
 
 namespace OneMSQFT.WindowsStore.Views
 {
@@ -113,10 +109,11 @@ namespace OneMSQFT.WindowsStore.Views
             var ev = vm.SelectedEvent;
             var evPos = vm.GetEventIndexById(ev.Id);
             Uri uri = null;
-            if (VideoPopup.IsOpen)
+
+            if(FlipViewPopup.IsOpen && (FlipViewer.SelectedItem !=null && ((MediaContentSourceItemViewModel) FlipViewer.SelectedItem).ContentSourceType.Equals(ContentSourceType.Video)))
             {
                 var selectedMediaContentSource = FlipViewer.SelectedItem as MediaContentSourceItemViewModel;
-                if (selectedMediaContentSource == null || !_sharing.TryGetVideoShareUri(selectedMediaContentSource.Media, out uri))
+                if (!_sharing.TryGetVideoShareUri(selectedMediaContentSource.Media, out uri))
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
                     return;
@@ -127,6 +124,7 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.SetWebLink(uri);
                 _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackVideoShareInEventView(ev.Name,
                 ev.SquareFootage, evPos, selectedMediaContentSource.Media.VideoId, uri.AbsoluteUri, appName);
+
             }
             else
             {
