@@ -232,7 +232,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 return IsHorizontal
                     ? GetHLogoX()
-                    : 1 ;
+                    : GetVLogoX();
             }
         }
 
@@ -269,7 +269,7 @@ namespace OneMSQFT.UILogic.ViewModels
                 if (delta < 1.0)
                 {
                     return 112; // 10.6" 1920x1080 @ 140%
-                              //    7" 1920x1200 @ 140%
+                    //    7" 1920x1200 @ 140%
                 }
                 if (delta < 1.35)
                 {
@@ -287,6 +287,57 @@ namespace OneMSQFT.UILogic.ViewModels
             }
             return 110;
         }
+        private int GetVLogoX()
+        {
+            var dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
+            var delta = Convert.ToDouble(HeightDelta);
+            if (dpi <= 96.0)
+            {
+                //if (delta < 0.54)
+                //{
+                //    return 180; // 27" @ 100%
+                //}
+                //if (delta < 0.72)
+                //{
+                //    return 146; // 23" @ 100%
+                //}
+                //if (delta == 1.0)
+                //{
+                //    return 110; // 10.6" 1366x768 @ 100%
+                //}
+                //if (delta < 1.1)
+                //{
+                //    return 110; // 12" @ 100%
+                //}
+                //if (delta < 1.35)
+                //{
+                //    return 96; // 10.6" 1024x768 @ 100%
+                //}
+                return 50;
+            }
+            if (dpi <= 140.0)
+            {
+                //if (delta < 1.0)
+                //{
+                //    return 112; // 10.6" 1920x1080 @ 140%
+                //    //    7" 1920x1200 @ 140%
+                //}
+                //if (delta < 1.35)
+                //{
+                //    return 96; // 7.5" 1044x1080 @ 140%
+                //}
+                return 50;
+            }
+            if (dpi <= 180.0)
+            {
+                //if (delta < 1.0)
+                //{
+                //    return 110; // 10.6" 2560x1440 @ 180%
+                //}
+                return 50;
+            }
+            return 50;
+        }
 
         public double LogoTransformY
         {
@@ -294,7 +345,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 return IsHorizontal
                     ? GetHLogoY()
-                    : 1;
+                    : GetVLogoY();
             }
         }
         private int GetHLogoY()
@@ -348,6 +399,57 @@ namespace OneMSQFT.UILogic.ViewModels
             }
             return 40;
         }
+        private int GetVLogoY()
+        {
+            var dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
+            var delta = Convert.ToDouble(HeightDelta);
+            if (dpi <= 96.0)
+            {
+                if (delta < 0.54)
+                {
+                    return 190; // 27" @ 100%
+                }
+                if (delta < 0.72)
+                {
+                    return 145; // 23" @ 100%
+                }
+                if (delta == 1.0)
+                {
+                    return 100; // 10.6" 1366x768 @ 100%
+                }
+                if (delta < 1.1)
+                {
+                    return 100; // 12" @ 100%
+                }
+                if (delta < 1.35)
+                {
+                    return 70; // 10.6" 1024x768 @ 100%
+                }
+                return 100;
+            }
+            if (dpi <= 140.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 100; // 10.6" 1920x1080 @ 140%
+                    //    7" 1920x1200 @ 140%
+                }
+                if (delta < 1.35)
+                {
+                    return 70; // 7.5" 1044x1080 @ 140%
+                }
+                return 100;
+            }
+            if (dpi <= 180.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 100; // 10.6" 2560x1440 @ 180%
+                }
+                return 100;
+            }
+            return 100;
+        }
 
         public double LogoScale
         {
@@ -355,7 +457,7 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 return IsHorizontal
                     ? GetHLogoScale()
-                    : 1;
+                    : GetVLogoScale();
             }
         }
 
@@ -409,6 +511,57 @@ namespace OneMSQFT.UILogic.ViewModels
                 return 1.0;
             }
             return 1.0;
+        }
+        private double GetVLogoScale()
+        {
+            var dpi = DisplayInformation.GetForCurrentView().LogicalDpi;
+            var delta = Convert.ToDouble(HeightDelta);
+            if (dpi <= 96.0)
+            {
+                if (delta < 0.54)
+                {
+                    return 2.1; // 27" @ 100%
+                }
+                if (delta < 0.72)
+                {
+                    return 1.5; // 23" @ 100%
+                }
+                if (delta == 1.0)
+                {
+                    return 1; // 10.6" 1366x768 @ 100%
+                }
+                if (delta < 1.1)
+                {
+                    return 1; // 12" @ 100%
+                }
+                if (delta < 1.35)
+                {
+                    return .9; // 10.6" 1024x768 @ 100%
+                }
+                return 1;
+            }
+            if (dpi <= 140.0)
+            {
+                if (delta < 1.0)
+                {
+                    return 1.1; // 10.6" 1920x1080 @ 140%
+                                //    7" 1920x1200 @ 140%
+                }
+                if (delta < 1.35)
+                {
+                    return .9; // 7.5" 1044x1080 @ 140%
+                }
+                return 1.1;
+            }
+            if (dpi <= 180.0)
+            {
+                if (delta < 1.2)
+                {
+                    return 1.2; // 10.6" 2560x1440 @ 180%
+                }
+                return 1.2;
+            }
+            return 1.2;
         }
 
 
