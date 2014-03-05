@@ -243,7 +243,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         private void ShowTimelineMasks(bool show)
         {
-            if (show)
+            if (show && semanticZoom.IsZoomedInViewActive)
             {
                 MaskLeft.Visibility = Visibility.Visible;
                 MaskRight.Visibility = Visibility.Visible;
@@ -330,7 +330,18 @@ namespace OneMSQFT.WindowsStore.Views
 
                 ShowTimelineMasks(false);
                 this.semanticZoom.Background = new SolidColorBrush(Colors.Transparent);
-                LogoGrid.Visibility = Visibility.Visible;
+                ZoomedInLogo.Visibility = Visibility.Visible;
+                ZoomedOutLogo.Visibility = Visibility.Collapsed;
+                MaskLeft.Visibility = Visibility.Collapsed;
+                MaskRight.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                ZoomedInLogo.Visibility = Visibility.Collapsed;
+                ZoomedOutLogo.Visibility = Visibility.Visible;
+                MaskLeft.Visibility = Visibility.Visible;
+                MaskRight.Visibility = Visibility.Visible;
+                
             }
 
         }
@@ -341,7 +352,6 @@ namespace OneMSQFT.WindowsStore.Views
             {
                 TimelineGridView.Opacity = 0;
             }
-            LogoGrid.Visibility = Visibility.Collapsed;
         }
 
         public override async void TopAppBarEventButtonCommandHandler(String eventId)
