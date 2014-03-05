@@ -44,6 +44,12 @@ namespace OneMSQFT.WindowsStore
         {
             this.UnhandledException += App_UnhandledException;
             this.ExtendedSplashScreenFactory = (splashscreen) => new ExtendedSplashScreen(splashscreen);
+            this.RootFrameFactory = () =>
+            {
+                var frame = new CustomFrame();
+                frame.Overlay = new AnimationControl();
+                return frame;
+            }; 
             this.Suspending += App_Suspending;
             this.Resuming += App_Resuming;
         }
@@ -72,7 +78,15 @@ namespace OneMSQFT.WindowsStore
 
         protected override Task OnLaunchApplication(LaunchActivatedEventArgs args)
         {            
-            return _application.OnLaunchApplication(args);
+            return _application.OnLaunchApplication(args).ContinueWith(task =>
+            {
+                var frame = Window.Current.Content as CustomFrame;
+                if (frame != null)
+                {
+                    //todo wait for animation complete before hiding animation overlay
+                    frame.HideOverlay();
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         protected override void OnInitialize(IActivatedEventArgs args)
