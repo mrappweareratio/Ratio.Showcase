@@ -26,22 +26,12 @@ namespace Animation
         {
             this.InitializeComponent();
             Mask.Completed +=Mask_Completed;
+            Mask.Begin();
         }
 
         private void Mask_Completed(object sender, object e)
         {
             BuildRectangles.Begin();
-        }
-
-        private void Start(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-			Mask.Begin();
-        }
-
-        private void Reverse(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            Mask.AutoReverse = true;
-			Mask.Begin();
         }
     }
 }
