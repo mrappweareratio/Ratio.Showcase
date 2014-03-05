@@ -121,6 +121,7 @@
     <Compile Include="DataLayer\ApiConfiguration.cs" />
     <Compile Include="DataLayer\ApiDataRepository.cs" />
     <Compile Include="DataLayer\DemoDataRepository.cs" />
+    <Compile Include="DataLayer\RetryHandler.cs" />
     <Compile Include="DataLayer\SampleLocalStorageProvider.cs" />
     <Compile Include="DataLayer\SampleDataRepository.cs" />
     <Compile Include="Interfaces\IOneMsqftApplication.cs" />
