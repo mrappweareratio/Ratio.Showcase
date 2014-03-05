@@ -372,7 +372,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         public override async void TopAppBarEventButtonCommandHandler(String eventId)
         {
-            Event ev = await AppLocator.Current.DataService.GetEventById(eventId, new CancellationToken());
+            var ev = GetDataContextAsViewModel<IBasePageViewModel>().SquareFootEvents.FirstOrDefault(x => x.Id == eventId);
             AppLocator.Current.Analytics.TrackAppBarInteractionInTimeline(ev.Name, ev.SquareFootage);
 
             if (semanticZoom.IsZoomedInViewActive == false)
@@ -383,6 +383,8 @@ namespace OneMSQFT.WindowsStore.Views
             ScrollToEventById(eventId);
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
+            VideoPopup.IsOpen = false;
+            FlipViewPopup.IsOpen = false;
         }
 
         private void ScrollToEventById(String eventId)
