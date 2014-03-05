@@ -25,7 +25,12 @@ namespace Animation
         public MainPage()
         {
             this.InitializeComponent();
+            Mask.Completed +=Mask_Completed;
+        }
 
+        private void Mask_Completed(object sender, object e)
+        {
+            BuildRectangles.Begin();
         }
 
         private void Start(object sender, Windows.UI.Xaml.RoutedEventArgs e)
