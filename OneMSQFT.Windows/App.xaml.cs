@@ -44,12 +44,12 @@ namespace OneMSQFT.WindowsStore
         {
             this.UnhandledException += App_UnhandledException;
             this.ExtendedSplashScreenFactory = (splashscreen) => new ExtendedSplashScreen(splashscreen);
-            this.RootFrameFactory = () =>
-            {
-                var frame = new CustomFrame();
-                frame.Overlay = new AnimationControl();
-                return frame;
-            }; 
+            //this.RootFrameFactory = () =>
+            //{
+            //    var frame = new CustomFrame();
+            //    frame.Overlay = new AnimationControl();
+            //    return frame;
+            //}; 
             this.Suspending += App_Suspending;
             this.Resuming += App_Resuming;
         }
