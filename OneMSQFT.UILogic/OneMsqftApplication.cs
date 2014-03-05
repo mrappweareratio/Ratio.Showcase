@@ -11,6 +11,8 @@ using Windows.UI.ApplicationSettings;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.StartScreen;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
 using OneMSQFT.Common;
 using OneMSQFT.Common.Analytics;
@@ -18,6 +20,7 @@ using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Analytics;
 using OneMSQFT.UILogic.Interfaces;
+using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Navigation;
 using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.Utils;
@@ -219,8 +222,31 @@ namespace OneMSQFT.UILogic
         public IList<SettingsCommand> GetSettingsCommands()
         {
             var settingsCommands = new List<SettingsCommand>();
+            if (KioskModeEnabled && CurrentPage != null)
+            {
+                var vm = CurrentPage.DataContext as IBasePageViewModel;
+                if (vm != null)
+                {
+                    if(vm.SetStartupCommand.CanExecute())
+                        settingsCommands.Add(new SettingsCommand(Guid.NewGuid().ToString(), Strings.SetAsStartUp, command => vm.SetStartupCommand.Execute()));
+                    if(vm.ClearStartupCommand.CanExecute())
+                        settingsCommands.Add(new SettingsCommand(Guid.NewGuid().ToString(), Strings.ClearStartUp, command => vm.ClearStartupCommand.Execute()));
+                }
+            }
             settingsCommands.Add(new SettingsCommand(Guid.NewGuid().ToString(), Strings.PrivacyPolicy, async (c) => await Launcher.LaunchUriAsync(new Uri(Strings.PrivacyPolicyUrl))));
             return settingsCommands;
+        }
+
+        public Page CurrentPage
+        {
+            get
+            {
+                if (Window.Current == null) return null;
+                var frame = Window.Current.Content as Frame;
+                if (frame == null) return null;
+                var page = frame.Content as Page;
+                return page;
+            }
         }
     }
 }

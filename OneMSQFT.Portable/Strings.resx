@@ -192,13 +192,13 @@
   <data name="About" xml:space="preserve">
     <value>ABOUT 1MSQFT</value>
   </data>
-  <data name="ClearStartUp" xml:space="preserve">
+  <data name="ClearStartUpCaps" xml:space="preserve">
     <value>CLEAR STARTUP</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>HOME</value>
   </data>
-  <data name="SetAsStartUp" xml:space="preserve">
+  <data name="SetAsStartUpCaps" xml:space="preserve">
     <value>SET AS STARTUP</value>
   </data>
   <data name="UNPIN" xml:space="preserve">
@@ -233,5 +233,11 @@
   </data>
   <data name="SiteDataFailureMessage" xml:space="preserve">
     <value>There was a problem loading One Million Square Feet of Culture. Please try again later.</value>
+  </data>
+  <data name="ClearStartUp" xml:space="preserve">
+    <value>Clear Startup</value>
+  </data>
+  <data name="SetAsStartUp" xml:space="preserve">
+    <value>Set as Startup</value>
   </data>
 </root>

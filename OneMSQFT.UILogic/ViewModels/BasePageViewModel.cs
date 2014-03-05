@@ -12,6 +12,11 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public abstract class BasePageViewModel : ViewModel, IBasePageViewModel
     {
+        public DelegateCommand SetStartupCommand { get; protected set; }
+        public DelegateCommand ClearStartupCommand { get; protected set; }
+        public Visibility ClearStartupVisibility { get; protected set; }
+        public Visibility SetStartupVisibility { get; protected set; }
+
         private ObservableCollection<EventItemViewModel> _squareFootEvents;
         public ObservableCollection<EventItemViewModel> SquareFootEvents
         {
@@ -116,7 +121,7 @@ namespace OneMSQFT.UILogic.ViewModels
             OnPropertyChanged("FullScreenHeight");
             OnPropertyChanged("IsHorizontal");
             OnPropertyChanged("WidthDelta");
-            OnPropertyChanged("HeightDelta");   
+            OnPropertyChanged("HeightDelta");
             OnPropertyChanged("LargeFlexyFontSize");
             OnPropertyChanged("MediumLargeFlexyFontSize");
             OnPropertyChanged("MediumLargeFlexyTightLeading");

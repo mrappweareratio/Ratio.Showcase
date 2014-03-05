@@ -116,11 +116,20 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CLEAR STARTUP.
+        ///   Looks up a localized string similar to Clear Startup.
         /// </summary>
         public static string ClearStartUp {
             get {
                 return ResourceManager.GetString("ClearStartUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CLEAR STARTUP.
+        /// </summary>
+        public static string ClearStartUpCaps {
+            get {
+                return ResourceManager.GetString("ClearStartUpCaps", resourceCulture);
             }
         }
         
@@ -278,11 +287,20 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SET AS STARTUP.
+        ///   Looks up a localized string similar to Set as Startup.
         /// </summary>
         public static string SetAsStartUp {
             get {
                 return ResourceManager.GetString("SetAsStartUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SET AS STARTUP.
+        /// </summary>
+        public static string SetAsStartUpCaps {
+            get {
+                return ResourceManager.GetString("SetAsStartUpCaps", resourceCulture);
             }
         }
         

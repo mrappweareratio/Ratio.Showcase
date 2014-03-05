@@ -65,6 +65,11 @@ namespace Microsoft.Practices.Prism.StoreApps
         protected Func<SplashScreen, Page> ExtendedSplashScreenFactory { get; set; }
 
         /// <summary>
+        /// Factory for creating custom root frame elements
+        /// </summary>
+        protected Func<Frame> RootFrameFactory { get; set; }
+
+        /// <summary>
         /// Gets a value indicating whether the application is suspending.
         /// </summary>
         /// <value>
@@ -170,7 +175,9 @@ namespace Microsoft.Practices.Prism.StoreApps
             if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
+                rootFrame = RootFrameFactory != null
+                    ? RootFrameFactory.Invoke()
+                    : new Frame();
 
                 if (ExtendedSplashScreenFactory != null)
                 {

@@ -31,6 +31,7 @@ using OneMSQFT.UILogic.Interfaces;
 using Microsoft.Practices.Prism.StoreApps;
 using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.ViewModels;
+using OneMSQFT.WindowsStore.Controls;
 using OneMSQFT.WindowsStore.DataLayer;
 
 namespace OneMSQFT.WindowsStore
@@ -44,6 +45,16 @@ namespace OneMSQFT.WindowsStore
         {
             this.UnhandledException += App_UnhandledException;
             this.ExtendedSplashScreenFactory = (splashscreen) => new ExtendedSplashScreen(splashscreen);
+            this.RootFrameFactory = () =>
+            {
+                var frame = new AnimationFrame();
+                frame.NavigationFailed += (sender, args) =>
+                {
+                    if (Debugger.IsAttached)
+                        Debugger.Break();
+                };
+                return frame;
+            };
             this.Suspending += App_Suspending;
             this.Resuming += App_Resuming;
         }
@@ -71,8 +82,30 @@ namespace OneMSQFT.WindowsStore
         private IOneMsqftApplication _application;
 
         protected override Task OnLaunchApplication(LaunchActivatedEventArgs args)
-        {            
-            return _application.OnLaunchApplication(args);
+        {
+            return _application.OnLaunchApplication(args).ContinueWith(async task =>
+            {
+                var frame = Window.Current.Content as AnimationFrame;
+                if (frame != null)
+                {
+                    //todo incorporate delay or waiting for completion into StoryBoard, etc;
+                    //var splashAnimation = frame.AnimationElement as SplashAnimationUserControl;
+                    //splashAnimation.FadeOut()
+                    await Task.Delay(2000);
+                    await Dispatcher.RunAsync(() =>
+                    {
+                        frame.AnimationElement.Opacity = .2;
+                        return Task.FromResult<object>(null);
+                    });
+                    await Task.Delay(2000);
+                    await Dispatcher.RunAsync(() =>
+                    {
+                        frame.AnimationElement.Visibility = Visibility.Collapsed;
+                        return Task.FromResult<object>(null);
+                    });
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+          
         }
 
         protected override void OnInitialize(IActivatedEventArgs args)

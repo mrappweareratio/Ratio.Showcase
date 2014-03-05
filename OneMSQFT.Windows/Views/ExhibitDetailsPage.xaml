@@ -622,11 +622,11 @@
                                     Content="{Binding Strings.Home, Source={StaticResource PortableStrings}}"  
                                     Style="{StaticResource OMSQFT_CustomAppbarButton}" />
                             <Button Content="{Binding Strings.SetAsStartUp, Source={StaticResource PortableStrings}}" 
-                                    Visibility="{Binding SetStartupVisibility}" 
+                                    Visibility="Collapsed"
                                     Command="{Binding SetStartupCommand}" 
                                     Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
                             <Button Content="{Binding Strings.ClearStartUp, Source={StaticResource PortableStrings}}" 
-                                    Visibility="{Binding ClearStartupVisibility}" 
+                                    Visibility="Collapsed"
                                     Command="{Binding ClearStartupCommand}" 
                                     Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
                         </StackPanel>
