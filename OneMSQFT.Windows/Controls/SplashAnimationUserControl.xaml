@@ -26,7 +26,7 @@
 				BeginTime="0:0:0.8"
 				From="0.0" To="170.0" Duration="0:0:0.3" />
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="lowerCanvas">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="2.986"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="-170"/>
             </DoubleAnimationUsingKeyFrames>
@@ -43,126 +43,224 @@
 
         </Storyboard>
         <Storyboard x:Name="BuildRectangles">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="LittleCyan">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="LeftGreen">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="88"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="LeftGreen">
-                <EasingDoubleKeyFrame KeyTime="0" Value="768"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="763"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="768"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="RightPurple">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="77"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="LeftPurple">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="LittleCyan">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="95"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="LeftPurple">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="LeftPurple">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="278"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="RightCrimson">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="166"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="RectanglesGrid">
-                <DiscreteObjectKeyFrame KeyTime="0">
-                    <DiscreteObjectKeyFrame.Value>
-                        <Visibility>Visible</Visibility>
-                    </DiscreteObjectKeyFrame.Value>
-                </DiscreteObjectKeyFrame>
-            </ObjectAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="TopYellow">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="136"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="BottomGreen">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="95"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="BigBrick">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="522"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="TopPurple">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="136"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="BottomYellow">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="193"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="CenterCyan">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="129"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="BigCrimson">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="502"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="BigCrimson">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="1.017"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="BigCrimson">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="-5"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="RightCyan">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="294"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="CenterPurple">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="343"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="CenterGreen">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="215"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="CenterNavy">
-                <EasingDoubleKeyFrame KeyTime="0" Value="17"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="125"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="canvas" d:IsOptimized="True"/>
-            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
-                <EasingColorKeyFrame KeyTime="0" Value="White"/>
-                <EasingColorKeyFrame KeyTime="0:0:2.3" Value="White"/>
-                <EasingColorKeyFrame KeyTime="0:0:2.5" Value="#00000000"/>
-            </ColorAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="LittleCyan">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="LeftGreen">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="88"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="LeftGreen">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="768"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="763"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="768"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="RightPurple">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="77"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="LeftPurple">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="LittleCyan">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="95"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="LeftPurple">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="1"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="LeftPurple">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="278"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="RightCrimson">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="166"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="RectanglesGrid">
+        		<DiscreteObjectKeyFrame KeyTime="0">
+        			<DiscreteObjectKeyFrame.Value>
+        				<Visibility>Visible</Visibility>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        	</ObjectAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="TopYellow">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="136"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="BottomGreen">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="95"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="BigBrick">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2" Value="522"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="TopPurple">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="136"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="BottomYellow">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="193"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="CenterCyan">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="129"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="BigCrimson">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="502"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="BigCrimson">
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="1"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="1.017"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="BigCrimson">
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="-5"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="RightCyan">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="294"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="CenterPurple">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="343"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="CenterGreen">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="215"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="CenterNavy">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="17"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="125"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="canvas" d:IsOptimized="True"/>
+        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
+        		<EasingColorKeyFrame KeyTime="0" Value="White"/>
+        		<EasingColorKeyFrame KeyTime="0:0:2.3" Value="White"/>
+        		<EasingColorKeyFrame KeyTime="0:0:2.5" Value="#00000000"/>
+        	</ColorAnimationUsingKeyFrames>
+        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="LogoGrid">
+        		<DiscreteObjectKeyFrame KeyTime="0">
+        			<DiscreteObjectKeyFrame.Value>
+        				<Visibility>Collapsed</Visibility>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        	</ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="RevealAndExit">
+        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="LogoGrid">
+        		<DiscreteObjectKeyFrame KeyTime="0">
+        			<DiscreteObjectKeyFrame.Value>
+        				<Visibility>Collapsed</Visibility>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        	</ObjectAnimationUsingKeyFrames>
+        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="RectanglesGrid">
+        		<DiscreteObjectKeyFrame KeyTime="0">
+        			<DiscreteObjectKeyFrame.Value>
+        				<Visibility>Visible</Visibility>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        	</ObjectAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="LeftGreen">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-95.552"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="LittleCyan">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="108.989"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="BottomGreen">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="110.482"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="LeftPurple">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-234.401"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-389.673"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="TopYellow">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-203.048"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-513.592"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="TopPurple">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-108.989"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-149.3"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="CenterCyan">
+        		<EasingColorKeyFrame KeyTime="0" Value="#FF00D7CA"/>
+        		<EasingColorKeyFrame KeyTime="0:0:0.3" Value="#0000D7CA"/>
+        	</ColorAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="CenterNavy">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-249.331"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-424.012"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="BigBrick">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-206.034"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-292.628"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="RightPurple">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="88.087"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="BigCrimson">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="326.967"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="491.197"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="CenterPurple">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="270.233"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="356.827"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="BottomYellow">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="158.258"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200.062"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="RightCrimson">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="201.555"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="261.275"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="RightCyan">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="370.264"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="500.155"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="CenterGreen">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="503.141"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="615.116"/>
+        	</DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
     <Grid x:Name="grid" Background="Black">
@@ -171,7 +269,7 @@
                 <Grid.RenderTransform>
                     <CompositeTransform/>
                 </Grid.RenderTransform>
-                <Grid x:Name="LogoGrid" HorizontalAlignment="Center" UseLayoutRounding="False" VerticalAlignment="Center" Margin="0" RenderTransformOrigin="0,0" d:IsLocked="True">
+                <Grid x:Name="LogoGrid" HorizontalAlignment="Center" UseLayoutRounding="False" VerticalAlignment="Center" Margin="0" RenderTransformOrigin="0,0">
                     <Canvas x:Name="canvas"  Height="266.4" Width="123.414" RenderTransformOrigin="0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,11.6,0,-11.6">
                         <Canvas.RenderTransform>
                             <CompositeTransform/>
@@ -209,35 +307,83 @@
                         </Canvas>
                     </Canvas>
                 </Grid>
-                <Grid x:Name="RectanglesGrid" Background="{x:Null}" Visibility="Collapsed">
-                    <Rectangle x:Name="LeftGreen" Fill="#FF619C21" HorizontalAlignment="Right" Height="768" Stroke="Black" VerticalAlignment="Top" Width="88" Margin="0,0,1278,0" StrokeThickness="0" d:IsLocked="True"/>
-                    <Rectangle x:Name="LittleCyan" Fill="#FF00D7CA" HorizontalAlignment="Left" Height="95" Stroke="Black" VerticalAlignment="Top" Width="102" Margin="98,673,0,0" RenderTransformOrigin="0.5,0.5" StrokeThickness="0" d:IsLocked="True">
+                <Grid x:Name="RectanglesGrid" Background="{x:Null}" Visibility="Collapsed" d:IsLocked="True">
+                    <Rectangle x:Name="LeftGreen" Fill="#FF619C21" HorizontalAlignment="Right" Height="768" Stroke="Black" VerticalAlignment="Top" Width="88" Margin="0,0,1278,0" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
+                    	<Rectangle.RenderTransform>
+                    		<CompositeTransform/>
+                    	</Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle x:Name="LittleCyan" Fill="#FF00D7CA" HorizontalAlignment="Left" Height="95" Stroke="Black" VerticalAlignment="Top" Width="102" Margin="98,673,0,0" RenderTransformOrigin="0.5,0.5" StrokeThickness="0">
                         <Rectangle.RenderTransform>
                             <CompositeTransform/>
                         </Rectangle.RenderTransform>
                     </Rectangle>
-                    <Rectangle x:Name="RightPurple" Fill="#FF774995" HorizontalAlignment="Left" Height="768" Stroke="Black" VerticalAlignment="Top" Width="77" Margin="1289,0,0,0" StrokeThickness="0" d:IsLocked="True"/>
-                    <Rectangle x:Name="LeftPurple" Fill="#FF774995" HorizontalAlignment="Right" Height="275" Stroke="Black" VerticalAlignment="Top" Width="278" Margin="0,0,990,0" RenderTransformOrigin="0.5,0.5" StrokeThickness="0" d:IsLocked="True">
+                    <Rectangle x:Name="RightPurple" Fill="#FF774995" HorizontalAlignment="Left" Height="768" Stroke="Black" VerticalAlignment="Top" Width="77" Margin="1289,0,0,0" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
+                    	<Rectangle.RenderTransform>
+                    		<CompositeTransform/>
+                    	</Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle x:Name="LeftPurple" Fill="#FF774995" HorizontalAlignment="Right" Height="275" Stroke="Black" VerticalAlignment="Top" Width="278" Margin="0,0,990,0" RenderTransformOrigin="0.5,0.5" StrokeThickness="0">
                         <Rectangle.RenderTransform>
                             <CompositeTransform/>
                         </Rectangle.RenderTransform>
                     </Rectangle>
-                    <Rectangle x:Name="RightCrimson" Fill="#FFA91935" HorizontalAlignment="Left" Height="193" Stroke="Black" VerticalAlignment="Top" Width="166" Margin="1114,575,0,0" StrokeThickness="0" d:IsLocked="True"/>
-                    <Rectangle x:Name="TopYellow" Fill="#FFD8981E" HorizontalAlignment="Left" Height="136" Stroke="Black" VerticalAlignment="Bottom" Width="111" Margin="392,0,0,632" StrokeThickness="0" d:IsLocked="True"/>
-                    <Rectangle x:Name="BottomGreen" Fill="#FF619C21" HorizontalAlignment="Left" Height="95" Stroke="Black" VerticalAlignment="Top" Width="396" Margin="214,673,0,0" StrokeThickness="0" d:IsLocked="True"/>
-                    <Rectangle x:Name="BigBrick" Fill="#FFC63E19" HorizontalAlignment="Left" Height="275" Stroke="Black" VerticalAlignment="Top" Width="522" Margin="758,0,0,0" StrokeThickness="0" d:IsLocked="True"/>
-                    <Rectangle x:Name="TopPurple" Fill="#FF774995" HorizontalAlignment="Left" Height="136" Stroke="Black" VerticalAlignment="Bottom" Width="225" Margin="519,0,0,632" StrokeThickness="0" d:IsLocked="True"/>
-                    <Rectangle x:Name="BottomYellow" Fill="#FFD8981E" HorizontalAlignment="Left" Height="193" Stroke="Black" VerticalAlignment="Top" Width="118" Margin="986,575,0,0" StrokeThickness="0" d:IsLocked="True"/>
-                    <Rectangle x:Name="CenterCyan" Fill="#FF00D7CA" HorizontalAlignment="Left" Height="129" Stroke="Black" VerticalAlignment="Bottom" Width="352" Margin="392,0,0,493" StrokeThickness="0" d:IsLocked="True"/>
-                    <Rectangle x:Name="BigCrimson" Fill="#FFA91935" HorizontalAlignment="Right" Height="371" Stroke="Black" VerticalAlignment="Top" Width="502" Margin="0,290,756,0" RenderTransformOrigin="0.5,0.5" StrokeThickness="0" d:IsLocked="True">
+                    <Rectangle x:Name="RightCrimson" Fill="#FFA91935" HorizontalAlignment="Left" Height="193" Stroke="Black" VerticalAlignment="Top" Width="166" Margin="1114,575,0,0" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
+                    	<Rectangle.RenderTransform>
+                    		<CompositeTransform/>
+                    	</Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle x:Name="TopYellow" Fill="#FFD8981E" HorizontalAlignment="Left" Height="136" Stroke="Black" VerticalAlignment="Bottom" Width="111" Margin="392,0,0,632" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
+                    	<Rectangle.RenderTransform>
+                    		<CompositeTransform/>
+                    	</Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle x:Name="BottomGreen" Fill="#FF619C21" HorizontalAlignment="Left" Height="95" Stroke="Black" VerticalAlignment="Top" Width="396" Margin="214,673,0,0" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
+                    	<Rectangle.RenderTransform>
+                    		<CompositeTransform/>
+                    	</Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle x:Name="BigBrick" Fill="#FFC63E19" HorizontalAlignment="Left" Height="275" Stroke="Black" VerticalAlignment="Top" Width="522" Margin="758,0,0,0" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
+                    	<Rectangle.RenderTransform>
+                    		<CompositeTransform/>
+                    	</Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle x:Name="TopPurple" Fill="#FF774995" HorizontalAlignment="Left" Height="136" Stroke="Black" VerticalAlignment="Bottom" Width="225" Margin="519,0,0,632" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
+                    	<Rectangle.RenderTransform>
+                    		<CompositeTransform/>
+                    	</Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle x:Name="BottomYellow" Fill="#FFD8981E" HorizontalAlignment="Left" Height="193" Stroke="Black" VerticalAlignment="Top" Width="118" Margin="986,575,0,0" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
+                    	<Rectangle.RenderTransform>
+                    		<CompositeTransform/>
+                    	</Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle x:Name="CenterCyan" Fill="#FF00D7CA" HorizontalAlignment="Left" Height="129" Stroke="Black" VerticalAlignment="Bottom" Width="352" Margin="392,0,0,493" StrokeThickness="0"/>
+                    <Rectangle x:Name="BigCrimson" Fill="#FFA91935" HorizontalAlignment="Right" Height="371" Stroke="Black" VerticalAlignment="Top" Width="502" Margin="0,290,756,0" RenderTransformOrigin="0.5,0.5" StrokeThickness="0">
                         <Rectangle.RenderTransform>
                             <CompositeTransform/>
                         </Rectangle.RenderTransform>
                     </Rectangle>
-                    <Rectangle x:Name="RightCyan" Fill="#FF00D7CA" HorizontalAlignment="Left" Height="272" Stroke="Black" VerticalAlignment="Top" Width="294" Margin="986,290,0,0" StrokeThickness="0" d:IsLocked="True"/>
-                    <Rectangle x:Name="CenterPurple" Fill="#FF774995" HorizontalAlignment="Left" Height="343" Stroke="Black" VerticalAlignment="Top" Width="352" Margin="621,425,0,0" StrokeThickness="0" d:IsLocked="True"/>
-                    <Rectangle x:Name="CenterGreen" Fill="#FF619C21" HorizontalAlignment="Left" Height="125" Stroke="Black" VerticalAlignment="Top" Width="215" Margin="758,290,0,0" StrokeThickness="0" d:IsLocked="True"/>
-                    <Rectangle x:Name="CenterNavy" Fill="#FF283181" HorizontalAlignment="Left" Height="125" Stroke="Black" VerticalAlignment="Center" Width="123" Margin="621,290,0,353" StrokeThickness="0" d:IsLocked="True"/>
+                    <Rectangle x:Name="RightCyan" Fill="#FF00D7CA" HorizontalAlignment="Left" Height="272" Stroke="Black" VerticalAlignment="Top" Width="294" Margin="986,290,0,0" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
+                    	<Rectangle.RenderTransform>
+                    		<CompositeTransform/>
+                    	</Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle x:Name="CenterPurple" Fill="#FF774995" HorizontalAlignment="Left" Height="343" Stroke="Black" VerticalAlignment="Top" Width="352" Margin="621,425,0,0" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
+                    	<Rectangle.RenderTransform>
+                    		<CompositeTransform/>
+                    	</Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle x:Name="CenterGreen" Fill="#FF619C21" HorizontalAlignment="Left" Height="125" Stroke="Black" VerticalAlignment="Top" Width="215" Margin="758,290,0,0" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
+                    	<Rectangle.RenderTransform>
+                    		<CompositeTransform/>
+                    	</Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Rectangle x:Name="CenterNavy" Fill="#FF283181" HorizontalAlignment="Left" Height="125" Stroke="Black" VerticalAlignment="Center" Width="123" Margin="621,290,0,353" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
+                    	<Rectangle.RenderTransform>
+                    		<CompositeTransform/>
+                    	</Rectangle.RenderTransform>
+                    </Rectangle>
                 </Grid>
             </Grid>
         </Viewbox>
