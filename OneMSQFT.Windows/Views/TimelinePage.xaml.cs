@@ -81,6 +81,10 @@ namespace OneMSQFT.WindowsStore.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
+            if (semanticZoom.IsZoomedInViewActive == false)
+            {
+                semanticZoom.ToggleActiveView();
+            }
             if (!AppLocator.Current.KioskModeEnabled)
             {
                 _dataTransferManager.DataRequested -= DataTransferManagerOnDataRequested;
@@ -218,12 +222,18 @@ namespace OneMSQFT.WindowsStore.Views
             }
         }
 
+        private bool _handledInitialScroll = false;
         private void TimelineGridView_Loaded(object sender, RoutedEventArgs e)
         {
+            if (_handledInitialScroll)
+                return;
+            _handledInitialScroll = true;
+
             _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(TimelineGridView);
             if (_navigationEventArgs != null && _navigationEventArgs.Parameter is String)
             {
-                ScrollToEventById(_navigationEventArgs.Parameter as String);
+                var eventId = _navigationEventArgs.Parameter as String;
+                ScrollToEventById(eventId);                
             }
             else
             {
