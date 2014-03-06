@@ -139,7 +139,7 @@
     <value> since December 2013</value>
   </data>
   <data name="SqftFormat" xml:space="preserve">
-    <value>{0} sqft</value>
+    <value>{0} sq ft</value>
   </data>
   <data name="SquareFeetAtNameFormat" xml:space="preserve">
     <value>{0} square feet at {1}</value>
@@ -147,7 +147,7 @@
   <data name="ComingSoon" xml:space="preserve">
     <value>Coming Soon</value>
   </data>
-  <data name="SquareFeet" xml:space="preserve">
+  <data name="SquareFeetAt" xml:space="preserve">
     <value>square feet at</value>
   </data>
   <data name="GuestCurated" xml:space="preserve">

@@ -21,10 +21,16 @@ namespace OneMSQFT.UILogic.ViewModels
         public String Name { get; set; }
         public String Description { get; set; }       
         public int SquareFootage { get; set; }
+        /// <summary>
+        /// # ### ### sq ft
+        /// </summary>
         public String SquareFootageString  
         {
             get { return (String.Format(Strings.SqftFormat, StringUtils.ToSquareFeet(SquareFootage))).Trim(); }
         }
+        /// <summary>
+        /// # ### ###
+        /// </summary>
         public String SquareFootageStringPlain
         {
             get { return StringUtils.ToSquareFeet(SquareFootage).Trim(); }

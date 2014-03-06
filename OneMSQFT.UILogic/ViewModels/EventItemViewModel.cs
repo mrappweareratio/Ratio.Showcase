@@ -205,7 +205,7 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return SquareFootageStringPlain + " " + Strings.SquareFeet + " " + Name + " " + Strings.In + " " + Location;
+                return SquareFootageStringPlain + " " + Strings.SquareFeetAt + " " + Name + " " + Strings.In + " " + Location;
             }
         }
 
@@ -213,7 +213,7 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return " " + Strings.SquareFeet + " " + Name;
+                return " " + Strings.SquareFeetAt + " " + Name;
             }
         }
 
