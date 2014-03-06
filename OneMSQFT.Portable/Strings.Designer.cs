@@ -395,6 +395,15 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  surveyed to date.
+        /// </summary>
+        public static string SurveyedToDate {
+            get {
+                return ResourceManager.GetString("SurveyedToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TWITTER.
         /// </summary>
         public static string Twitter {

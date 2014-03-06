@@ -138,6 +138,9 @@
   <data name="Since" xml:space="preserve">
     <value> since December 2013</value>
   </data>
+  <data name="SurveyedToDate" xml:space="preserve">
+    <value> surveyed to date</value>
+  </data>
   <data name="SqftFormat" xml:space="preserve">
     <value>{0} sq ft</value>
   </data>
