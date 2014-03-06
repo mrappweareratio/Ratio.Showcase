@@ -25,11 +25,17 @@ namespace OneMSQFT.WindowsStore.Controls
             this.Loaded += SplashAnimationLoaded;
             Mask.Completed += Mask_Completed;
             BuildRectangles.Completed += BuildRectanglesOnCompleted;
+            RevealAndExit.Completed += RevealAndExitOnCompleted;
+        }
+
+        private void RevealAndExitOnCompleted(object sender, object o)
+        {
+            this.Visibility = Visibility.Collapsed;
         }
 
         private void BuildRectanglesOnCompleted(object sender, object o)
         {
-            this.Visibility = Visibility.Collapsed;
+            RevealAndExit.Begin();
         }
 
         private void SplashAnimationLoaded(object sender, RoutedEventArgs e)
