@@ -19,7 +19,7 @@ using Strings = OneMSQFT.Common.Strings;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
-    public class ExhibitItemViewModel : ItemBaseViewModel, IHasMediaContentViewModel
+    public class ExhibitItemViewModel : ItemBaseViewModel, IHasMediaContentViewModel, IDatedItemViewModel
     {
         public Exhibit ExhibitModel { get; private set; }
         private readonly IAnalyticsService _analyticsService;
@@ -32,8 +32,6 @@ namespace OneMSQFT.UILogic.ViewModels
         public CuratorItemViewModel Curator { get; set; }
         public ObservableCollection<LinkItemViewModel> Links { get; set; }
         public Uri RsvpUrl { get; set; }
-        public DateTime? DateStart;
-        public DateTime? DateEnd;
         public DelegateCommand<LinkItemViewModel> ExitLinkCommand { get; private set; }
         public DelegateCommand RsvpLinkCommand { get; private set; }
 
@@ -44,9 +42,23 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public bool RsvpEnabled
         {
+            get { return ExhibitItemUtils.IsRsvpValid(this.RsvpUrl) && !IsInThePast.GetValueOrDefault(false); }
+        }
+
+        public bool? IsInTheFuture
+        {
             get
             {
-                return ExhibitItemUtils.IsRsvpValid(this.RsvpUrl) && !ExhibitItemUtils.IsRsvpExpired(this.DateStart);
+                return DateUtils.IsInTheFuture(ExhibitModel);
+            }
+        }
+
+        public bool? IsInThePast
+        {
+            get
+            {
+                return DateUtils.IsInThePast(ExhibitModel);
+
             }
         }
 
@@ -70,8 +82,6 @@ namespace OneMSQFT.UILogic.ViewModels
             LoadLinks(exhibitModelModel.Links);
             ExhibitColor = ColorUtils.GetExhibitColor(exhibitModelModel);
             Curator = new CuratorItemViewModel(exhibitModelModel.Curator);
-            DateStart = exhibitModelModel.DateStart;
-            DateEnd = exhibitModelModel.DateEnd;
             Uri rsvpUri;
             if (Uri.TryCreate(exhibitModelModel.RsvpUrl, UriKind.Absolute, out rsvpUri))
             {
@@ -93,7 +103,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
             //Track link interaction
             if (_analyticsService != null)
-            {                
+            {
                 _analyticsService.TrackLinkInteractionInExhibitView(this.Name, this.Id, RsvpUrl.ToString());
             }
 
@@ -140,6 +150,6 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 return SquareFootageStringPlain + " " + Strings.SquareFeetAt + " " + Name;
             }
-        }       
+        }
     }
 }

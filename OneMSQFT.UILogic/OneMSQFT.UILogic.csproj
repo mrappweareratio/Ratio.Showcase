@@ -141,6 +141,7 @@
     <Compile Include="Services\SharingService.cs" />
     <Compile Include="Utils\ColorUtils.cs" />
     <Compile Include="Utils\ComingSoonUtils.cs" />
+    <Compile Include="Utils\DateUtils.cs" />
     <Compile Include="Utils\ExhibitItemUtils.cs" />
     <Compile Include="Utils\MediaContentSourceUtils.cs" />
     <Compile Include="Utils\PinningUtils.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="ViewModels\ComingSoonFakeEventItemViewModel.cs" />
     <Compile Include="ViewModels\FooterFakeMediaItemViewModel.cs" />
     <Compile Include="ViewModels\HeaderFakeMediaItemViewModel.cs" />
+    <Compile Include="ViewModels\IDatedItemViewModel.cs" />
     <Compile Include="ViewModels\IHasMediaContentViewModel.cs" />
     <Compile Include="ViewModels\LinkItemViewModel.cs" />
     <Compile Include="ViewModels\MediaContentSourceItemViewModel.cs" />
