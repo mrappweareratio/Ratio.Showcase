@@ -30,7 +30,7 @@
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
                                               />
 
-                            <omsqftcontrols:SplashAnimationUserControl x:Name="AnimationElement" Opacity=".8"/>
+                            <omsqftcontrols:SplashAnimationUserControl x:Name="AnimationElement" />
                             
                         </Grid>
                     </Border>
