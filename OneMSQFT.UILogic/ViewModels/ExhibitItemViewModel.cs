@@ -59,7 +59,7 @@ namespace OneMSQFT.UILogic.ViewModels
             ExhibitModel = exhibitModelModel;
             Name = exhibitModelModel.Name;
             Id = exhibitModelModel.Id;
-            Description = exhibitModelModel.Description;
+            Description = StringUtils.BuildDescription(exhibitModelModel.Description);
             SquareFootage = exhibitModelModel.SquareFootage;
             Uri thumbnailImageUri;
             if (Uri.TryCreate(exhibitModelModel.ThumbImage, UriKind.RelativeOrAbsolute, out thumbnailImageUri))

@@ -31,7 +31,7 @@ namespace OneMSQFT.UILogic.ViewModels
             _analyticsService = analyticsService;
             Event = eventModel;
             Name = eventModel.Name;
-            Description = eventModel.Description;
+            Description = StringUtils.BuildDescription(eventModel.Description);
             Location = eventModel.Location;
             Id = eventModel.Id;
             SquareFootage = eventModel.SquareFootage;
