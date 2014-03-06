@@ -115,7 +115,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Behaviors\NavigateWithEventArgsToPageAction.cs" />
     <Compile Include="Controls\AnimationFrame.cs" />
     <Compile Include="Controls\AutoRotatingGridView.cs" />
     <Compile Include="Controls\CuratorLogoStackerUserControl.xaml.cs">
