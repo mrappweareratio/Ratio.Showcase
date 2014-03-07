@@ -160,6 +160,12 @@
     <None Include="OneMSQFT.Windows_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <Content Include="Assets\02_home-semantic-zoom.png" />
+    <Content Include="Assets\Icons\about.png" />
+    <Content Include="Assets\Icons\close.png" />
+    <Content Include="Assets\Icons\instagram.png" />
+    <Content Include="Assets\Icons\pin.png" />
+    <Content Include="Assets\Icons\twitter.png" />
+    <Content Include="Assets\Icons\unpin.png" />
     <Content Include="Assets\LargeSquareLogo.scale-100.png" />
     <Content Include="Assets\SmallSquareLogo.scale-100.png" />
     <Content Include="Assets\WideLogo.scale-100.png" />
