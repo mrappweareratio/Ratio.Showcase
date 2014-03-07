@@ -243,4 +243,7 @@
   <data name="SetAsStartUp" xml:space="preserve">
     <value>Set as Startup</value>
   </data>
+  <data name="SquareFeetTotalFormat" xml:space="preserve">
+    <value>{0} sq ft</value>
+  </data>
 </root>

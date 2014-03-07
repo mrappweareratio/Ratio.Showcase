@@ -126,10 +126,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
         public String TotalSquareFeet
         {
-            get
-            {
-                return (String.Format(CultureInfo.InvariantCulture, "{0:# ### ###}", _totalSquareFeet)).Trim() + " sqft";
-            }
+            get { return String.Format(Strings.SquareFeetTotalFormat, StringUtils.ToSquareFeet(_totalSquareFeet)); }
         }
 
         #region Resizing Properties

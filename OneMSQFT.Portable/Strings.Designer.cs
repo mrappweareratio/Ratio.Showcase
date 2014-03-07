@@ -395,6 +395,15 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} sq ft.
+        /// </summary>
+        public static string SquareFeetTotalFormat {
+            get {
+                return ResourceManager.GetString("SquareFeetTotalFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  surveyed to date.
         /// </summary>
         public static string SurveyedToDate {
