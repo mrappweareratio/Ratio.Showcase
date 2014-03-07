@@ -44,7 +44,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                     Assert.AreEqual(data.PageName, TrackingContextData.PageNames.About, "About");
                 }
             };
-            var vm = new AboutPageViewModel(dataService, messageService, analyticsService);
+            var vm = new AboutPageViewModel(dataService, analyticsService);
             vm.OnNavigatedTo(null, NavigationMode.New, null);
             Assert.IsTrue(tracked, "tracked");
         }
@@ -54,7 +54,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         [TestMethod]
         public void ViewModel_Implements_Interface()
         {
-            var vm = new AboutPageViewModel(new MockDataService(), new MockAlertMessageService(), new MockAnalyticsService()) as IAboutPageViewModel;
+            var vm = new AboutPageViewModel(new MockDataService(), new MockAnalyticsService()) as IAboutPageViewModel;
             Assert.IsNotNull(vm);
         }
 
@@ -72,7 +72,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                   }
             };
 
-            var vm = new AboutPageViewModel(mockDataService, new MockAlertMessageService(), new MockAnalyticsService());
+            var vm = new AboutPageViewModel(mockDataService, new MockAnalyticsService());
             ExecuteOnUIThread(()=> vm.OnNavigatedTo("0", NavigationMode.New, null));
             autoResetEvent.WaitOne(200);
             Assert.IsTrue(called);
@@ -87,7 +87,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             var autoResetEvent = new AutoResetEvent(false);
             bool changed = false;
 
-            var vm = new AboutPageViewModel(new MockDataService(), new MockAlertMessageService(), new MockAnalyticsService());
+            var vm = new AboutPageViewModel(new MockDataService(), new MockAnalyticsService());
             vm.PropertyChanged += (sender, args) =>
             {
                 changed = true;
@@ -109,7 +109,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             bool changed = false;
             var changedProperties = new List<string>();
 
-            var vm = new AboutPageViewModel(new MockDataService(), new MockAlertMessageService(), new MockAnalyticsService());
+            var vm = new AboutPageViewModel(new MockDataService(), new MockAnalyticsService());
             vm.PropertyChanged += (sender, args) =>
             {
                 changed = true;
@@ -134,7 +134,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             bool changed = false;
             var changedProperties = new List<string>();
 
-            var vm = new AboutPageViewModel(new MockDataService(), new MockAlertMessageService(), new MockAnalyticsService());
+            var vm = new AboutPageViewModel(new MockDataService(), new MockAnalyticsService());
             vm.PropertyChanged += (sender, args) =>
             {
                 changed = true;

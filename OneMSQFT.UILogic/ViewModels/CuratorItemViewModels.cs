@@ -20,13 +20,11 @@ namespace OneMSQFT.UILogic.ViewModels
             if (curatorModel == null)
                 return;
 
-            Curator = curatorModel;
             Name = curatorModel.Name;
             Id = curatorModel.Id;
             Description = curatorModel.Description;
             LogoImage = curatorModel.WhiteLogoImage; 
             ExternalUrl = curatorModel.ExternalUrl;
-        }
-        private ICurator Curator { get; set; }
+        }        
     }
 }

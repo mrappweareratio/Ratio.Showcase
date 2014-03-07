@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
+using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.DataLayer;
 using OneMSQFT.UILogic.Tests.Mocks;
 using OneMSQFT.UILogic.Utils;
@@ -21,8 +22,8 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         [TestInitialize]
         async public Task Init()
         {
-            this.DataRepository = new DemoDataRepository();
-            //this.DataRepository = new ApiDataRepository(new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api"));
+            //this.DataRepository = new DemoDataRepository();
+            this.DataRepository = new ApiDataRepository(new MockApiConfiguration("http://1msqft-stage.azurewebsites.net/api"));
             _result = await this.DataRepository.GetSiteData(new CancellationToken());
         }
 
@@ -52,9 +53,9 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         [TestMethod]
         public void DataRepository_TimlineResult_Events_Are_Valid()
         {
-            var validEvents = _result.Events.ToList().TrueForAll(ValidateEvent);            
+            var validEvents = _result.Events.ToList().TrueForAll(ValidateEvent);
             Assert.IsTrue(validEvents, "ValidEvents");
-        }        
+        }
 
         //EXHIBIT TESTS
 
@@ -84,8 +85,8 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
         public void DataRepository_Events_Unique()
         {
             var events = _result.Events.ToList();
-            var uniqueEvents = _result.Events.Select(x => x.Id).Distinct().Count();            
-            Assert.AreEqual(events.Count, uniqueEvents,  "All Events Unique");
+            var uniqueEvents = _result.Events.Select(x => x.Id).Distinct().Count();
+            Assert.AreEqual(events.Count, uniqueEvents, "All Events Unique");
         }
 
         [TestMethod]
@@ -94,6 +95,25 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             var exhibits = _result.Events.SelectMany(x => x.Exhibits).ToList();
             var uniqueEvents = exhibits.Select(x => x.Id).Distinct().Count();
             Assert.AreEqual(exhibits.Count, uniqueEvents, "All Exhibits Unique");
+        }
+
+        [TestMethod]
+        public void DataRepository_Videos_Playable()
+        {
+            Dictionary<string, string> invalidVideoIdUrlDictionary = new Dictionary<string, string>();
+            var eventVideos = _result.Events.SelectMany(x => x.MediaContent);
+            var exhibitVideos = _result.Events.SelectMany(x => x.Exhibits).SelectMany(x => x.MediaContent);
+            var videos = eventVideos.Concat(exhibitVideos).Where(x => x.ContentSourceType == ContentSourceType.Video);
+            foreach (var v in videos)
+            {
+                var urls = MediaContentSourceUtils.GetVideoUrlsByNetworkCost(v);
+                foreach (var url in urls)
+                {
+                    if (!url.Value.Contains(".mp4"))
+                        invalidVideoIdUrlDictionary[v.VideoId] = url.Value;
+                }
+            }
+            Assert.IsFalse(invalidVideoIdUrlDictionary.Any(), string.Format("Invalid Videos Ids {0} Urls {1}", String.Join(" ", invalidVideoIdUrlDictionary.Keys), String.Join(" ", invalidVideoIdUrlDictionary.Values)));
         }
 
 
@@ -156,9 +176,9 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
 
         public static bool ValidateCurator(ICurator curator)
         {
-            Assert.IsNotNull(curator.Name,"Curator.Name");
-            Assert.IsNotNull(curator.WhiteLogoImage,"Curator.WhiteLogoImage");
-            Assert.IsNotNull(curator.Id,"Curator.Id");
+            Assert.IsNotNull(curator.Name, "Curator.Name");
+            Assert.IsNotNull(curator.WhiteLogoImage, "Curator.WhiteLogoImage");
+            Assert.IsNotNull(curator.Id, "Curator.Id");
 
             return true;
         }
@@ -169,7 +189,7 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
             //Basic properties
             Assert.IsNotNull(e.Id, "Id");
             Assert.IsNotNull(e.Name, "Name");
-            Assert.IsNotNull(e.Description, "Description");            
+            Assert.IsNotNull(e.Description, "Description");
             Assert.IsNotNull(e.Color, "Color");
             Assert.IsTrue(e.Color.Length == 6, "Color is Hex");
             Assert.IsNotNull(e.SquareFootage, "SquareFootage");

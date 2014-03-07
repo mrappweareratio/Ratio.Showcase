@@ -20,13 +20,11 @@ namespace OneMSQFT.UILogic.ViewModels
     {
 
         private readonly IDataService _dataService;
-        private readonly IAlertMessageService _messageService;
         private readonly IAnalyticsService _analyticsService;
 
-        public AboutPageViewModel(IDataService dataService, IAlertMessageService messageService, IAnalyticsService analyticsService)
+        public AboutPageViewModel(IDataService dataService, IAnalyticsService analyticsService)
         {
             _dataService = dataService;
-            _messageService = messageService;
             _analyticsService = analyticsService;
             SquareFootEvents = new ObservableCollection<EventItemViewModel>();
             SetStartupCommand = new DelegateCommand(() => { }, () => false);
@@ -38,18 +36,17 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             _analyticsService.TrackPageViewAbout();
 
-            var events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
-            if (events == null)
+            Events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
+            if (Events == null)
             {
                 base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
                 return;
             }
 
-            SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x, _analyticsService)));
+            SquareFootEvents = new ObservableCollection<EventItemViewModel>(Events.Select(x => new EventItemViewModel(x, _analyticsService)));
 
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
-        }
-
+        }        
 
         #region resizing
 

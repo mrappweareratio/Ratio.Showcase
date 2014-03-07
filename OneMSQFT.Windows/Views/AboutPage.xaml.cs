@@ -1,4 +1,5 @@
-﻿using OneMSQFT.UILogic.Interfaces.ViewModels;
+﻿using System.Linq;
+using OneMSQFT.UILogic.Interfaces.ViewModels;
 using Windows.UI.Xaml;
 
 namespace OneMSQFT.WindowsStore.Views
@@ -44,6 +45,9 @@ namespace OneMSQFT.WindowsStore.Views
 
         public override void TopAppBarEventButtonCommandHandler(string eventId)
         {
+            var ev = GetDataContextAsViewModel<IBasePageViewModel>().SquareFootEvents.FirstOrDefault(x => x.Id == eventId);
+            AppLocator.Current.Analytics.TrackAppBarEventInteraction(ev.Name, ev.SquareFootage, GetDataContextAsViewModel<IBasePageViewModel>().GetEventIndexById(ev.Id), "about");
+            
             this.Frame.Navigate(typeof(TimelinePage), eventId);
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;

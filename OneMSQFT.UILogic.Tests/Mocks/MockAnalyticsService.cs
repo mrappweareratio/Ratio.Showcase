@@ -100,12 +100,8 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         {
         }
 
-        public void TrackAppBarInteractionInTimeline(string evName, int? sqFootage)
-        {
-        }
-
-        public void TrackAppBarInteractionInExhibitView(string evName, int? sqFootage)
-        {
+        public void TrackAppBarEventInteraction(string evName, int? sqFootage, int? evPos, string page)
+        {            
         }
 
         public void TrackLinkInteractionInExhibitView(string exName, string exId, string linkTitle)

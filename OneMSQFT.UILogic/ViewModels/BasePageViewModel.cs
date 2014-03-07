@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
@@ -12,6 +13,10 @@ namespace OneMSQFT.UILogic.ViewModels
 {
     public abstract class BasePageViewModel : ViewModel, IBasePageViewModel
     {
+        /// <summary>
+        /// Backing Property for Events Models Returned from DataService
+        /// </summary>
+        protected IEnumerable<Event> Events;
         public DelegateCommand SetStartupCommand { get; protected set; }
         public DelegateCommand ClearStartupCommand { get; protected set; }
         public Visibility ClearStartupVisibility { get; protected set; }
@@ -131,5 +136,27 @@ namespace OneMSQFT.UILogic.ViewModels
         }
 
         #endregion
+
+        /// <summary>
+        /// Returns the position of an event on the Timeline Page
+        /// Inspects from the data service return of models
+        /// Method added once buffer items became insterted into TimelineEvents for visual effects
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>null if not found</returns>
+        public int? GetEventIndexById(string id)
+        {
+            if (Events == null || !Events.Any())
+                return null;
+            try
+            {
+                var index = Events.Select(x => x.Id).ToList().IndexOf(id);
+                return index;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
