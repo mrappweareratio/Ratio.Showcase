@@ -969,12 +969,8 @@
     <omsqft:BasePageView.BottomAppBar>
         <AppBar x:Name="appBar" Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent" Visibility="Collapsed">
             <Border Height="90" BorderBrush="{StaticResource OneMSQFTAppBarAccentGrayBrush}" BorderThickness="0,10,0,0" >
-                <Grid Background="White">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                <Grid Background="White">                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0">
                         <StackPanel x:Name="StartupButtonStackPanel" Orientation="Horizontal" Visibility="Collapsed">
                             <Button Visibility="Collapsed" 
                                     Content="{Binding Strings.SetAsStartUp, Source={StaticResource PortableStrings}}" 
@@ -989,7 +985,7 @@
                                 Click="Pin_OnClick"
 							    Style="{StaticResource OMSQFT_CustomAppbarButton}" />
                     </StackPanel>
-                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
+                    <StackPanel  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
                         <Button x:Name="AboutButton"
                                 Content="{Binding Strings.About, Source={StaticResource PortableStrings}}"
                                 Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
