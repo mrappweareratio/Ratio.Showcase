@@ -30,13 +30,6 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         
         Visibility ClearStartupVisibility { get; set; }
         Visibility SetStartupVisibility { get; set; }
-        EventItemViewModel SelectedEvent { get; set; }
-        /// <summary>
-        /// Returns the position of an event on the Timeline Page
-        /// Method added once buffer items became insterted into TimelineEvents for visual effects
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>null if not found</returns>
-        int? GetEventIndexById(string id);
+        EventItemViewModel SelectedEvent { get; set; } 
     }
 }

@@ -75,13 +75,13 @@ namespace OneMSQFT.UILogic.ViewModels
 
         async public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
-            var events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
-            if (events == null)
+            Events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
+            if (Events == null)
             {
                 await _messageService.ShowAsync(Strings.SiteDataFailureMessage, String.Empty);
                 return;
             }
-            SquareFootEvents = new ObservableCollection<EventItemViewModel>(events.Select(x => new EventItemViewModel(x, _analyticsService)));
+            SquareFootEvents = new ObservableCollection<EventItemViewModel>(Events.Select(x => new EventItemViewModel(x, _analyticsService)));
 
             var ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as String, new CancellationToken());
             Exhibit = new ExhibitItemViewModel(ed.Exhibit, _analyticsService);
@@ -129,7 +129,8 @@ namespace OneMSQFT.UILogic.ViewModels
         private Visibility _setStartupVisibility;
         private Visibility _clearStartupVisibility;
 
-        private ObservableCollection<MediaContentSourceItemViewModel> _localMediaCollection;
+        private ObservableCollection<MediaContentSourceItemViewModel> _localMediaCollection;        
+
         public ObservableCollection<MediaContentSourceItemViewModel> LocalMediaCollection
         {
             get

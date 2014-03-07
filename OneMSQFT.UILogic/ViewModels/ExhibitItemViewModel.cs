@@ -128,6 +128,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
         private void LoadMediaContent(IEnumerable<MediaContentSource> mediaContent)
         {
+            mediaContent = mediaContent ?? new List<MediaContentSource>();
             var mediaContentViewModels = MediaContentSourceUtils.GetMediaContentSourceItemViewModels(mediaContent).ToList();
             MediaContent = new ObservableCollection<MediaContentSourceItemViewModel>(mediaContentViewModels);
             MediaContentVisibility = MediaContent.Any() ? Visibility.Visible : Visibility.Collapsed;
@@ -148,7 +149,7 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return SquareFootageStringPlain + " " + Strings.SquareFeetAt + " " + Name;
+                return SquareFootageString + " " + Name;
             }
         }
     }
