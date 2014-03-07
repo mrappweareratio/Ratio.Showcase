@@ -29,7 +29,10 @@ namespace OneMSQFT.WindowsStore.Views
         private ScrollViewer _timelineGridViewScrollViewer;
         private readonly DispatcherTimer _scrollerTimer;
         private Boolean _appBarIsAutoScrolling;
-        private NavigationEventArgs _navigationEventArgs;
+        /// <summary>
+        /// set when the page has navigated to and should be scrolled to an item
+        /// </summary>
+        private string _navigatedScrollToEventId;
 
         public TimelinePage()
         {
@@ -53,7 +56,7 @@ namespace OneMSQFT.WindowsStore.Views
             var app = AppLocator.Current;
             if (app != null)
             {
-                StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;                
+                StartupButtonStackPanel.Visibility = app.KioskModeEnabled ? Visibility.Visible : Visibility.Collapsed;
                 //PinButton.Visibility = app.KioskModeEnabled ? Visibility.Collapsed : Visibility.Visible;
                 if (!app.KioskModeEnabled)
                 {
@@ -64,13 +67,21 @@ namespace OneMSQFT.WindowsStore.Views
 
             VideoPlayerUserControl.MediaEndedCommand = new DelegateCommand(MediaEndedCommandHandler);
         }
-
+        
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             // needed for back stack navigation when user has changed resolution on details page
             ProcessWindowSizeChangedEvent();
-            _navigationEventArgs = e;
+            if (e.NavigationMode != NavigationMode.Back)
+            {
+                _navigatedScrollToEventId = e.Parameter as String;
+                if (!String.IsNullOrEmpty(_navigatedScrollToEventId) && _loaded)
+                {
+                    //new navigation but the page has already loaded - either coming in from a Pin or App Bar Event
+                    ScrollToLandingItem();
+                }
+            }
             if (!AppLocator.Current.KioskModeEnabled)
             {
                 _dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
@@ -222,23 +233,25 @@ namespace OneMSQFT.WindowsStore.Views
             }
         }
 
-        private bool _handledInitialScroll = false;
         private void TimelineGridView_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_handledInitialScroll)
-                return;
-            _handledInitialScroll = true;
+            _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(TimelineGridView);        
+            ScrollToLandingItem();
+        }
 
-            _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(TimelineGridView);
-            if (_navigationEventArgs != null && _navigationEventArgs.Parameter is String)
+        private void ScrollToLandingItem()
+        {
+            if (!String.IsNullOrEmpty(_navigatedScrollToEventId))
             {
-                var eventId = _navigationEventArgs.Parameter as String;
-                ScrollToEventById(eventId);                
+                ScrollToEventById(_navigatedScrollToEventId);
+                _navigatedScrollToEventId = null;
+                _scrolledToLandingItem = true;
+                return;
             }
-            else
-            {
-                ScrollToFirstItem();
-            }
+            if (_scrolledToLandingItem)
+                return;
+            ScrollToFirstItem();
+            _scrolledToLandingItem = true;
         }
 
         private void ScrollToFirstItem()
@@ -327,6 +340,10 @@ namespace OneMSQFT.WindowsStore.Views
 
         private bool _semanticZoomClosedFromTopAppBarEvent;
         private DataTransferManager _dataTransferManager;
+        /// <summary>
+        /// prevents subsequent navigation or re-entrance to for auto scrolling
+        /// </summary>
+        private bool _scrolledToLandingItem;
 
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
@@ -367,7 +384,7 @@ namespace OneMSQFT.WindowsStore.Views
                 ZoomedOutLogo.Visibility = Visibility.Visible;
                 MaskLeft.Visibility = Visibility.Visible;
                 MaskRight.Visibility = Visibility.Visible;
-                
+
             }
 
         }
