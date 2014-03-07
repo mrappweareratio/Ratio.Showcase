@@ -162,6 +162,7 @@
     <Content Include="Assets\02_home-semantic-zoom.png" />
     <Content Include="Assets\Icons\about.png" />
     <Content Include="Assets\Icons\close.png" />
+    <Content Include="Assets\Icons\facebook.png" />
     <Content Include="Assets\Icons\instagram.png" />
     <Content Include="Assets\Icons\pin.png" />
     <Content Include="Assets\Icons\twitter.png" />
