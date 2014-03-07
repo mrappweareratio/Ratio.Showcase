@@ -80,15 +80,10 @@ namespace OneMSQFT.Common.Analytics
                 return "event: show more exhibits";
             }
 
-            public static string GenerateClickEventInTimelineAppBarData()
+            public static string GenerateClickEventInAppBarData(int? eventPos, string page)
             {
-                return "event: timeline app bar";
-            }
-
-            public static string GenerateClickEventInExhibitAppBarData()
-            {
-                return "event: exhibit app bar";
-            }
+                return string.Format("event|{0}:app bar|{1}", eventPos.GetValueOrDefault(0), page);
+            }            
 
             public static string GenerateClickLinkInAppBarData(string title)
             {

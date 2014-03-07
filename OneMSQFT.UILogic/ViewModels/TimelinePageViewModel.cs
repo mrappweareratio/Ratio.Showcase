@@ -609,30 +609,7 @@ namespace OneMSQFT.UILogic.ViewModels
             }
 
             _navigationService.Navigate(ViewLocator.Pages.ExhibitDetails, exhibitItemViewModel.Id);
-        }
-
-        /// <summary>
-        /// Returns the position of an event on the Timeline Page
-        /// Inspects from the data service return of models
-        /// Method added once buffer items became insterted into TimelineEvents for visual effects
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>null if not found</returns>
-        public int? GetEventIndexById(string id)
-        {
-            if (_eventsList == null)
-                return null;
-            try
-            {
-                var index = _eventsList.Select(x => x.Id).ToList().IndexOf(id);
-                return index;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
+        }      
 
         public Visibility ClearStartupVisibility
         {

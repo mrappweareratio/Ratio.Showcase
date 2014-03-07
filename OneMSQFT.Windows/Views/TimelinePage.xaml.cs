@@ -18,6 +18,7 @@ using OneMSQFT.Common;
 using OneMSQFT.Common.Services;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
+using OneMSQFT.UILogic.Navigation;
 using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
 
@@ -397,10 +398,10 @@ namespace OneMSQFT.WindowsStore.Views
             }
         }
 
-        public override async void TopAppBarEventButtonCommandHandler(String eventId)
+        public override void TopAppBarEventButtonCommandHandler(String eventId)
         {
             var ev = GetDataContextAsViewModel<IBasePageViewModel>().SquareFootEvents.FirstOrDefault(x => x.Id == eventId);
-            AppLocator.Current.Analytics.TrackAppBarInteractionInTimeline(ev.Name, ev.SquareFootage);
+            AppLocator.Current.Analytics.TrackAppBarEventInteraction(ev.Name, ev.SquareFootage, GetDataContextAsViewModel<IBasePageViewModel>().GetEventIndexById(ev.Id), "events");
 
             if (semanticZoom.IsZoomedInViewActive == false)
             {

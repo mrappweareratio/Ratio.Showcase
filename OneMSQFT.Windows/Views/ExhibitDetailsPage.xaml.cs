@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
@@ -27,7 +28,7 @@ namespace OneMSQFT.WindowsStore.Views
         {
             this.InitializeComponent();
             InitAppBars();
-            var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();            
+            var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();
             vm.PropertyChanged += ExhibitDetailsPage_PropertyChanged;
             vm.PinContextChanged += vm_PinContextChanged;
             ProcessWindowSizeChangedEvent();
@@ -39,10 +40,10 @@ namespace OneMSQFT.WindowsStore.Views
                 if (!app.KioskModeEnabled)
                 {
                     _sharing = AppLocator.Current.SharingService;
-                    _dataTransferManager = DataTransferManager.GetForCurrentView();                    
+                    _dataTransferManager = DataTransferManager.GetForCurrentView();
                 }
             }
-            VideoPlayerUserControl.MediaEndedCommand = new DelegateCommand(MediaEndedCommandHandler); 
+            VideoPlayerUserControl.MediaEndedCommand = new DelegateCommand(MediaEndedCommandHandler);
         }
         private void MediaEndedCommandHandler()
         {
@@ -97,13 +98,13 @@ namespace OneMSQFT.WindowsStore.Views
                     selectedMediaContentSource.Media.VideoId, uri.AbsoluteUri, appName);
             }
             else
-            { 
-                if(String.IsNullOrEmpty(vm.Exhibit.ExhibitModel.EventId))
+            {
+                if (String.IsNullOrEmpty(vm.Exhibit.ExhibitModel.EventId))
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
                     return;
                 }
-                var deferral = args.Request.GetDeferral();                
+                var deferral = args.Request.GetDeferral();
                 var evt = await AppLocator.Current.DataService.GetEventById(vm.Exhibit.ExhibitModel.EventId, new CancellationToken());
                 if (evt == null)
                 {
@@ -139,7 +140,7 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         #endregion
-       
+
         protected override void GoBack(object sender, RoutedEventArgs eventArgs)
         {
             if (this.Frame != null && !this.Frame.CanGoBack)
@@ -148,7 +149,7 @@ namespace OneMSQFT.WindowsStore.Views
                 return;
             }
             base.GoBack(sender, eventArgs);
-        }       
+        }
 
         void ExhibitDetailsPage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -181,11 +182,10 @@ namespace OneMSQFT.WindowsStore.Views
             ToggleAppBarButton(this.PinButton, !SecondaryTile.Exists(args.Id));
         }
 
-        async public override void TopAppBarEventButtonCommandHandler(String eventId)
+        public override void TopAppBarEventButtonCommandHandler(String eventId)
         {
-            //track appbar interaction
-            Event ev = await AppLocator.Current.DataService.GetEventById(eventId, new CancellationToken());
-            AppLocator.Current.Analytics.TrackAppBarInteractionInExhibitView(ev.Name, ev.SquareFootage);
+            var ev = GetDataContextAsViewModel<IBasePageViewModel>().SquareFootEvents.FirstOrDefault(x => x.Id == eventId);
+            AppLocator.Current.Analytics.TrackAppBarEventInteraction(ev.Name, ev.SquareFootage, GetDataContextAsViewModel<IBasePageViewModel>().GetEventIndexById(ev.Id), "exhibit");
 
             Frame.Navigate(typeof(TimelinePage), eventId);
             TopAppBar.IsOpen = false;
@@ -199,7 +199,7 @@ namespace OneMSQFT.WindowsStore.Views
             AboutButton.Command = AboutButtonClickCommand;
             TwitterButton.Command = TwitterButtonClickCommand;
             InstagramButton.Command = InstagramButtonClickCommand;
-        }        
+        }
 
         #region MediaViewer
 
@@ -330,8 +330,8 @@ namespace OneMSQFT.WindowsStore.Views
 
         private void MediaListViewScrollViewerHorizontal_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {
-            var hsv = ((ScrollViewer) sender);
-            hsv.HorizontalSnapPointsAlignment = hsv.HorizontalOffset*2 > hsv.ScrollableWidth
+            var hsv = ((ScrollViewer)sender);
+            hsv.HorizontalSnapPointsAlignment = hsv.HorizontalOffset * 2 > hsv.ScrollableWidth
                 ? SnapPointsAlignment.Far
                 : SnapPointsAlignment.Near;
         }
