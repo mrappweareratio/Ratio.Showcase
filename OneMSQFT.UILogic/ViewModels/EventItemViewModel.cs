@@ -17,7 +17,7 @@ using Strings = OneMSQFT.Common.Strings;
 
 namespace OneMSQFT.UILogic.ViewModels
 {
-    public class EventItemViewModel : ItemBaseViewModel, IHasMediaContentViewModel
+    public class EventItemViewModel : ItemBaseViewModel, IHasMediaContentViewModel, IDatedItemViewModel
     {
         private int _exhibitsIndex;
         private Visibility _showMoreVisibility;
@@ -31,7 +31,7 @@ namespace OneMSQFT.UILogic.ViewModels
             _analyticsService = analyticsService;
             Event = eventModel;
             Name = eventModel.Name;
-            Description = eventModel.Description;
+            Description = StringUtils.BuildDescription(eventModel.Description);
             Location = eventModel.Location;
             Id = eventModel.Id;
             SquareFootage = eventModel.SquareFootage;
@@ -133,35 +133,16 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                var start = Event.DateStart;                
-                if (start.HasValue)
-                {
-                    return DateTime.Today <= start.GetValueOrDefault().Date;
-                }
-                var end = Event.DateEnd;         
-                if (end.HasValue)
-                {
-                    return DateTime.Today <= end.GetValueOrDefault().Date;
-                }
-                return null;
+                return DateUtils.IsInTheFuture(Event);              
             }
         }
 
         public bool? IsInThePast
         {
             get
-            {                
-                var end = Event.DateEnd;
-                if (end.HasValue)
-                {
-                    return end.GetValueOrDefault().Date < DateTime.Today;
-                }
-                var start = Event.DateStart;   
-                if (start.HasValue)
-                {
-                    return start.GetValueOrDefault().Date < DateTime.Today;
-                }
-                return null;
+            {
+                return DateUtils.IsInThePast(Event);
+                
             }
         }
 
@@ -205,7 +186,7 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return SquareFootageStringPlain + " " + Strings.SquareFeet + " " + Name + " " + Strings.In + " " + Location;
+                return SquareFootageStringPlain + " " + Strings.SquareFeetAt + " " + Name + " " + Strings.In + " " + Location;
             }
         }
 
@@ -213,7 +194,7 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return " " + Strings.SquareFeet + " " + Name;
+                return " " + Strings.SquareFeetAt + " " + Name;
             }
         }
 

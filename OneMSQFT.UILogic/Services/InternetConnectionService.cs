@@ -25,7 +25,7 @@ namespace OneMSQFT.UILogic.Services
 
         public ICostGuidance CostGuidance { get; private set; }
 
-        public event EventHandler<IInternetConnection> InternetConnectionChanged;
+        public event EventHandler<InternetConnectionChangedEventArgs> InternetConnectionChanged;
 
         private CancellationTokenSource _cancellation;
         private Task<IInternetConnection> _task;
@@ -45,34 +45,32 @@ namespace OneMSQFT.UILogic.Services
             {
                 var token = _cancellation.Token;
                 _task = Task.Run(async () => await GetInternetConnectionAsync(token).ConfigureAwait(false), token);
-                
-                var args = await _task;
+
+                var internetConnection = await _task;
 
                 _task = null;
 
-                IsConnected = args.IsConnected;
-                CostGuidance = args.CostGuidance;
+                IsConnected = internetConnection.IsConnected;
+                CostGuidance = internetConnection.CostGuidance;
 
                 var handler = InternetConnectionChanged;
                 if (handler != null)
-                    handler(null, args);
+                    handler(null, new InternetConnectionChangedEventArgs(internetConnection));
             }
             catch (TaskCanceledException)
             {
                 Debug.WriteLine("NetworkStatusChanged TaskCanceledException");
-            }            
+            }
         }
 
         private static Task<IInternetConnection> GetInternetConnectionAsync(CancellationToken token)
         {
-            var args = new InternetConnectionChangedEventArgs();
+            var args = new InternetConnectionChangedEventArgs(true, new CostGuidance());
 
             token.ThrowIfCancellationRequested();
             var prof = NetworkInformation.GetInternetConnectionProfile();
             if (prof == null)
             {
-                args.IsConnected = true;
-                args.CostGuidance = new CostGuidance();
                 return Task.FromResult<IInternetConnection>(args);
             }
 

@@ -44,6 +44,10 @@ namespace OneMSQFT.Common.Analytics
             /// On every interaction
             /// </summary>
             public const string TotalInteraction = "event15";
+            /// <summary>
+            /// On every interaction
+            /// </summary>
+            public const string SocialShares = "event7";
         }
     }
 }

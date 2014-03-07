@@ -8,7 +8,7 @@ namespace OneMSQFT.UILogic.Tests.Mocks
     {
         public bool IsConnected { get; set; }
         public ICostGuidance CostGuidance { get; set; }
-        public event EventHandler<IInternetConnection> InternetConnectionChanged;
+        public event EventHandler<InternetConnectionChangedEventArgs> InternetConnectionChanged;
 
         public MockInternetConnectionService(bool isConnected, MockCostGuidance costGuidance)
         {
@@ -26,7 +26,7 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         {
             var handler = InternetConnectionChanged;
             if (handler != null)
-                handler(null, internetConnection);
+                handler(null, new InternetConnectionChangedEventArgs(internetConnection));
         }
     }
 

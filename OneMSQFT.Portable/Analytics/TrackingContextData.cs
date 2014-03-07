@@ -283,6 +283,18 @@ namespace OneMSQFT.Common.Analytics
             }
         }
 
+        public string SocialShareType
+        {
+            get
+            {
+                return this.ContainsKey("shareType") ? this["shareType"] as string : null;
+            }
+            set
+            {
+                this.Add("shareType", value);
+            }
+        }
+
         public class PlatformNames
         {
             public const string Kiosk = "kiosk";
