@@ -62,47 +62,83 @@
         	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="LittleCyan">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="0">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="LeftGreen">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="88"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="88">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="LeftGreen">
         		<EasingDoubleKeyFrame KeyTime="0" Value="768"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="763"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="768"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="768">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="RightPurple">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="77"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="77">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="LeftPurple">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="0">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="LittleCyan">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="95"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.4" Value="95">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="LeftPurple">
         		<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="1"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="1">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="LeftPurple">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="278"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.3" Value="278">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="RightCrimson">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="166"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.2" Value="166">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="RectanglesGrid">
         		<DiscreteObjectKeyFrame KeyTime="0">
@@ -114,64 +150,116 @@
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="TopYellow">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="136"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="136">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="BottomGreen">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:1.7" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="95"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.9" Value="95">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="BigBrick">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:2" Value="522"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2" Value="522">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="TopPurple">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="136"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="136">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="BottomYellow">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="193"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="193">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="CenterCyan">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="129"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.4" Value="129">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="BigCrimson">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="502"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="502">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="BigCrimson">
         		<EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="1"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="1.017"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="1.017">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="BigCrimson">
         		<EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="-5"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="-5">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="RightCyan">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="294"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.9" Value="294">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="CenterPurple">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="343"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="343">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="CenterGreen">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
         		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="215"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="215">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="CenterNavy">
         		<EasingDoubleKeyFrame KeyTime="0" Value="17"/>
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="125"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="125">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
         	</DoubleAnimationUsingKeyFrames>
         	<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="canvas" d:IsOptimized="True"/>
         	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
@@ -279,13 +367,13 @@
         	</DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
-    <Grid x:Name="grid" Background="Black" d:IsLocked="True">
+    <Grid x:Name="grid" Background="Black">
         <Viewbox Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid x:Name="MainGrid" RenderTransformOrigin="0.5,0.5" Width="1366" Height="768">
                 <Grid.RenderTransform>
                     <CompositeTransform/>
                 </Grid.RenderTransform>
-                <Grid x:Name="LogoGrid" HorizontalAlignment="Center" UseLayoutRounding="False" VerticalAlignment="Center" Margin="0" RenderTransformOrigin="0,0">
+                <Grid x:Name="LogoGrid" HorizontalAlignment="Center" UseLayoutRounding="False" VerticalAlignment="Center" Margin="0" RenderTransformOrigin="0,0" d:IsLocked="True">
                     <Canvas x:Name="canvas"  Height="266.4" Width="123.414" RenderTransformOrigin="0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,11.6,0,-11.6">
                         <Canvas.RenderTransform>
                             <CompositeTransform/>
@@ -323,7 +411,7 @@
                         </Canvas>
                     </Canvas>
                 </Grid>
-                <Grid x:Name="RectanglesGrid" Background="{x:Null}" Visibility="Collapsed" d:IsLocked="True">
+                <Grid x:Name="RectanglesGrid" Background="{x:Null}" Visibility="Collapsed">
                     <Rectangle x:Name="LeftGreen" Fill="#FF619C21" HorizontalAlignment="Right" Height="768" Stroke="Black" VerticalAlignment="Top" Width="88" Margin="0,0,1278,0" StrokeThickness="0" RenderTransformOrigin="0.5,0.5">
                     	<Rectangle.RenderTransform>
                     		<CompositeTransform/>
