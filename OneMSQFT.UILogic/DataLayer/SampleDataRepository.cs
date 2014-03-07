@@ -13,7 +13,7 @@ namespace OneMSQFT.UILogic.DataLayer
     /// </summary>
     public class SampleDataRepository : IDataRepository
     {
-        private const string JsonFileName = "sundance.json";        
+        private const string JsonFileName = "site_data.json";        
 
         public async Task<SiteData> GetSiteData(CancellationToken token)
         {

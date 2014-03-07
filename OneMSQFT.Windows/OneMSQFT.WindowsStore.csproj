@@ -163,7 +163,7 @@
     <Content Include="Assets\LargeSquareLogo.scale-100.png" />
     <Content Include="Assets\SmallSquareLogo.scale-100.png" />
     <Content Include="Assets\WideLogo.scale-100.png" />
-    <Content Include="SampleData\sundance.json">
+    <Content Include="SampleData\site_data.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
