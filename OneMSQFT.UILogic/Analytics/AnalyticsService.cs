@@ -318,11 +318,12 @@ namespace OneMSQFT.UILogic.Analytics
             if (Disabled)
                 return;
 
-            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.SocialShares, TrackingEventsData.Events.TotalInteraction };
             var context = new TrackingContextData
             {
                 EventName = evName,
                 EventSqFt = sqFootage,
+                SocialShareType = appName,
                 AppElement = TrackingContextData.AppElements.GenerateShareEventElement(evPos, appName, shareUrl)
             };
 
@@ -334,10 +335,11 @@ namespace OneMSQFT.UILogic.Analytics
             if (Disabled)
                 return;
 
-            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.TotalInteraction };
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.ExhibitInteraction, TrackingEventsData.Events.SocialShares, TrackingEventsData.Events.TotalInteraction };
             var context = new TrackingContextData
             {
                 ExhibitName = exName,
+                SocialShareType = appName,
                 AppElement = TrackingContextData.AppElements.GenerateShareExhibitElement(appName, shareUrl)
             };
 
@@ -350,12 +352,13 @@ namespace OneMSQFT.UILogic.Analytics
             if (Disabled)
                 return;
 
-            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.SocialShares, TrackingEventsData.Events.TotalInteraction };
             var context = new TrackingContextData
             {
                 EventName = evName,
                 EventSqFt = sqFootage,
                 VideoName = vidName,
+                SocialShareType = appName,
                 AppElement = TrackingContextData.AppElements.GenerateShareEventVideoElement(evPos, vidName, appName, shareUrl)
             };
 
@@ -367,11 +370,12 @@ namespace OneMSQFT.UILogic.Analytics
             if (Disabled)
                 return;
 
-            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.TotalInteraction };
+            var evData = new TrackingEventsData { TrackingEventsData.Events.ApplicationElementInteraction, TrackingEventsData.Events.EventInteraction, TrackingEventsData.Events.SocialShares, TrackingEventsData.Events.TotalInteraction };
             var context = new TrackingContextData
             {
                 ExhibitName = exName,
                 VideoName = vidName,
+                SocialShareType = appName,
                 AppElement = TrackingContextData.AppElements.GenerateShareExhibitVideoElement(exName, vidName, appName, shareUrl)
             };
 

@@ -368,7 +368,7 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} sqft.
+        ///   Looks up a localized string similar to {0} sq ft.
         /// </summary>
         public static string SqftFormat {
             get {
@@ -379,9 +379,9 @@ namespace OneMSQFT.Common {
         /// <summary>
         ///   Looks up a localized string similar to square feet at.
         /// </summary>
-        public static string SquareFeet {
+        public static string SquareFeetAt {
             get {
-                return ResourceManager.GetString("SquareFeet", resourceCulture);
+                return ResourceManager.GetString("SquareFeetAt", resourceCulture);
             }
         }
         
@@ -391,6 +391,15 @@ namespace OneMSQFT.Common {
         public static string SquareFeetAtNameFormat {
             get {
                 return ResourceManager.GetString("SquareFeetAtNameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  surveyed to date.
+        /// </summary>
+        public static string SurveyedToDate {
+            get {
+                return ResourceManager.GetString("SurveyedToDate", resourceCulture);
             }
         }
         

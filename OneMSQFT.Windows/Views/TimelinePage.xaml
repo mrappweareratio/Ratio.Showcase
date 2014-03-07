@@ -1029,7 +1029,7 @@
                         <Run Text="{Binding TotalSquareFeet, Mode=OneWay}" 
                              Foreground="{StaticResource OneMSQFTLogoDarkBlueBrush}"
                              FontSize="{Binding MediumLargeFlexyFontSize}"/>
-                        <Run Text="{Binding Strings.Since, Source={StaticResource PortableStrings}}" 
+                        <Run Text="{Binding Strings.SurveyedToDate, Source={StaticResource PortableStrings}}" 
                              Foreground="{StaticResource OneMSQFTSinceTextGray}"
                              FontSize="{Binding MediumSmallFlexyFontSize}" />
                     </Paragraph>
