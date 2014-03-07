@@ -11,37 +11,53 @@
 
     <UserControl.Resources>
         <Storyboard x:Name="Mask">
-            <DoubleAnimation Storyboard.TargetName="MaskTransformLogo" 
-				Storyboard.TargetProperty="(TranslateTransform.Y)"  
-				BeginTime="0:0:0.5"
-				From="0.0" To="-100.0" Duration="0:0:0.3" />
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="upperCanvas">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
+    		<DoubleAnimation Storyboard.TargetName="MaskTransformLogo" 
+    			Storyboard.TargetProperty="(TranslateTransform.Y)"  
+    			BeginTime="0:0:0.2"
+    			From="0.0" To="-100.0" Duration="0:0:0.3" >
+    			<DoubleAnimation.EasingFunction>
+    				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+    			</DoubleAnimation.EasingFunction>
+    		</DoubleAnimation>
+    		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="upperCanvas">
+    			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+    			<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+    			<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="100">
+    				<EasingDoubleKeyFrame.EasingFunction>
+    					<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+    				</EasingDoubleKeyFrame.EasingFunction>
+    			</EasingDoubleKeyFrame>
+    		</DoubleAnimationUsingKeyFrames>
 
-            <DoubleAnimation Storyboard.TargetName="LowerMaskTransformLogo" 
-				Storyboard.TargetProperty="(TranslateTransform.Y)" 
-				BeginTime="0:0:0.8"
-				From="0.0" To="170.0" Duration="0:0:0.3" />
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="lowerCanvas">
-                <EasingDoubleKeyFrame KeyTime="0" Value="2.986"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="-170"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="MainGrid">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:1.1" Value="1.5"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="lowerCanvas">
-                <EasingDoubleKeyFrame KeyTime="0" Value="-1.5"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
+    		<DoubleAnimation Storyboard.TargetName="LowerMaskTransformLogo" 
+    			Storyboard.TargetProperty="(TranslateTransform.Y)" 
+    			BeginTime="0:0:0.5"
+    			From="0.0" To="170.0" Duration="0:0:0.3"> 
+    			<DoubleAnimation.EasingFunction>
+    				<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+    			</DoubleAnimation.EasingFunction>
+    		</DoubleAnimation>
+    		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="lowerCanvas">
+    			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+    			<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+    			<EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="-170">
+    				<EasingDoubleKeyFrame.EasingFunction>
+    					<ExponentialEase EasingMode="EaseOut" Exponent="5"/>
+    				</EasingDoubleKeyFrame.EasingFunction>
+    			</EasingDoubleKeyFrame>
+    		</DoubleAnimationUsingKeyFrames>
+    		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="MainGrid">
+    			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+    			<EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="1.5"/>
+    		</DoubleAnimationUsingKeyFrames>
+    		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="lowerCanvas">
+    			<EasingDoubleKeyFrame KeyTime="0" Value="-1.5"/>
+    			<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+    		</DoubleAnimationUsingKeyFrames>
 
-            <ColorAnimation Duration="0" To="White" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+    		<ColorAnimation Duration="0" To="White" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
 
-        </Storyboard>
+    	</Storyboard>
         <Storyboard x:Name="BuildRectangles">
         	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="LittleCyan">
         		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
@@ -263,7 +279,7 @@
         	</DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
-    <Grid x:Name="grid" Background="Black">
+    <Grid x:Name="grid" Background="Black" d:IsLocked="True">
         <Viewbox Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid x:Name="MainGrid" RenderTransformOrigin="0.5,0.5" Width="1366" Height="768">
                 <Grid.RenderTransform>
