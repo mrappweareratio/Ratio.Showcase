@@ -213,6 +213,9 @@
   <data name="ShareEventUrlFormatRootSlugId" xml:space="preserve">
     <value>{0}/event/{1}/{2}</value>
   </data>
+  <data name="ClearDataCache" xml:space="preserve">
+    <value>Clear Data Cache</value>
+  </data>  
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacy Policy</value>
   </data>

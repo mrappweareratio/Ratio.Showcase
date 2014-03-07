@@ -11,5 +11,6 @@ namespace OneMSQFT.Common.Services
         Task<IEnumerable<Event>> GetEvents(CancellationToken token);      
         Task<ExhibitDetail> GetExhibitDetailByExhibitId(string exhibitId, CancellationToken token);
         Task<Event> GetEventById(string eventId, CancellationToken token);
+        void ClearDataCacheInStorage();
     }
 }

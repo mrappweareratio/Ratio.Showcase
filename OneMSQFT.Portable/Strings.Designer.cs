@@ -116,6 +116,15 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear Data Cache.
+        /// </summary>
+        public static string ClearDataCache {
+            get {
+                return ResourceManager.GetString("ClearDataCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear Startup.
         /// </summary>
         public static string ClearStartUp {
