@@ -13,7 +13,7 @@ namespace OneMSQFT.UILogic.Services
     public class DataCacheService : IDataCacheService
     {
         private static readonly StorageFolder _cacheFolder = ApplicationData.Current.TemporaryFolder;
-        private static TimeSpan _expirationPolicy = new TimeSpan(0, 15, 0); // 15 minutes
+        private static TimeSpan _expirationPolicy = new TimeSpan(2, 0, 0); // 2 hours
 
         // We remember the most recently started task for each cache key, since only one I/O operation at a time may 
         // access that key. Cache read and write operations always wait for the prior task of the current cache key

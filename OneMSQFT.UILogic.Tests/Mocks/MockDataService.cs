@@ -42,5 +42,9 @@ namespace OneMSQFT.UILogic.Tests.Mocks
                 return GetEventByIdDelegate(eventId);
             return Task.FromResult<Event>(null);
         }
+
+        public void ClearDataCacheInStorage()
+        {
+        }
     }
 }
