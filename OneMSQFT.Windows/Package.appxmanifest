@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="1MSQFT" Publisher="CN=Ratio LLC" Version="1.0.0.12" />
+  <Identity Name="1MSQFT" Publisher="CN=Ratio LLC" Version="1.0.0.14" />
   <Properties>
     <DisplayName>1MSQFT</DisplayName>
     <PublisherDisplayName>Microsoft</PublisherDisplayName>
@@ -19,6 +19,7 @@
         <m2:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square70x70Logo="Assets/SmallSquareLogo.png" Square310x310Logo="Assets/LargeSquareLogo.png">
         </m2:DefaultTile>
         <m2:SplashScreen Image="Assets\SplashScreen.png" />
+        <m2:ApplicationView MinWidth="width500" />
       </m2:VisualElements>
     </Application>
   </Applications>

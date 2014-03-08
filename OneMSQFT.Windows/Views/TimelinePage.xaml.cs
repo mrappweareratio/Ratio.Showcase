@@ -68,7 +68,7 @@ namespace OneMSQFT.WindowsStore.Views
 
             VideoPlayerUserControl.MediaEndedCommand = new DelegateCommand(MediaEndedCommandHandler);
         }
-        
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -175,7 +175,7 @@ namespace OneMSQFT.WindowsStore.Views
             var args = GetDataContextAsViewModel<IBasePageViewModel>().GetSecondaryTileArguments();
             if (args == null)
                 return;
-            ToggleAppBarButton(this.PinButton, !SecondaryTile.Exists(args.Id));
+            ToggleAppBarButton(this.PinButton, this.PinButtonImage, !SecondaryTile.Exists(args.Id));
         }
 
         void TimelinePage_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -209,6 +209,9 @@ namespace OneMSQFT.WindowsStore.Views
                     _timelineGridViewScrollViewer.IsHorizontalScrollChainingEnabled = false;
 
                     _timelineGridViewScrollViewer.ZoomMode = ZoomMode.Disabled;
+
+                    StackPanelRightAppBarImages.Visibility = PinButtonImage.Visibility = Visibility.Collapsed;
+                    StackPanelRightAppBarText.Visibility = PinButton.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -229,6 +232,9 @@ namespace OneMSQFT.WindowsStore.Views
                     _timelineGridViewScrollViewer.IsHorizontalScrollChainingEnabled = true;
 
                     _timelineGridViewScrollViewer.ZoomMode = ZoomMode.Disabled;
+
+                    StackPanelRightAppBarImages.Visibility = PinButtonImage.Visibility = Visibility.Visible;
+                    StackPanelRightAppBarText.Visibility = PinButton.Visibility = Visibility.Collapsed;
                 }
 
             }
@@ -236,7 +242,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         private void TimelineGridView_Loaded(object sender, RoutedEventArgs e)
         {
-            _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(TimelineGridView);        
+            _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(TimelineGridView);
             ScrollToLandingItem();
         }
 
@@ -266,9 +272,10 @@ namespace OneMSQFT.WindowsStore.Views
         public override void PopulateTopAppbar(IBasePageViewModel vm)
         {
             base.PopulateTopAppbar(vm);
-            AboutButton.Command = AboutButtonClickCommand;
-            TwitterButton.Command = TwitterButtonClickCommand;
-            InstagramButton.Command = InstagramButtonClickCommand;
+            AboutButton.Command = AboutButtonImage.Command = AboutButtonClickCommand;
+            FacebookButton.Command = FacebookButtonImage.Command = FacebookButtonClickCommand;
+            TwitterButton.Command = TwitterButtonImage.Command = TwitterButtonClickCommand;
+            InstagramButton.Command = InstagramButtonImage.Command = InstagramButtonClickCommand;
         }
 
         #region Timeline UI
@@ -526,7 +533,7 @@ namespace OneMSQFT.WindowsStore.Views
 
                 var secondaryTile = new SecondaryTile(args.Id);
                 bool isUnpinned = await secondaryTile.RequestDeleteForSelectionAsync(GetElementRect((FrameworkElement)sender));
-                ToggleAppBarButton(PinButton, isUnpinned);
+                ToggleAppBarButton(PinButton, PinButtonImage, isUnpinned);
             }
             else
             {
@@ -561,7 +568,7 @@ namespace OneMSQFT.WindowsStore.Views
                 secondaryTile.RoamingEnabled = true;
 
                 bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
-                ToggleAppBarButton(PinButton, !isPinned);
+                ToggleAppBarButton(PinButton, PinButtonImage, !isPinned);
             }
             BottomAppBar.IsSticky = false;
         }
