@@ -170,6 +170,24 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FACEBOOK.
+        /// </summary>
+        public static string Facebook {
+            get {
+                return ResourceManager.GetString("Facebook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.facebook.com/1msqft.
+        /// </summary>
+        public static string FacebookUrl {
+            get {
+                return ResourceManager.GetString("FacebookUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to guest curated by.
         /// </summary>
         public static string GuestCurated {

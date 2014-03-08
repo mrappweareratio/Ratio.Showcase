@@ -158,7 +158,7 @@ namespace OneMSQFT.WindowsStore.Views
                 if (GetDataContextAsViewModel<IBasePageViewModel>().SquareFootEvents.Count > 0)
                 {
                     this.PopulateTopAppbar(GetDataContextAsViewModel<IBasePageViewModel>());
-                }
+                }                
             }
 
             if (e.PropertyName == "IsHorizontal")
@@ -166,10 +166,14 @@ namespace OneMSQFT.WindowsStore.Views
                 if (GetDataContextAsViewModel<IBasePageViewModel>().IsHorizontal)
                 {
                     VisualStateManager.GoToState(this, "FullScreenLandscape", true);
+                    StackPanelRightAppBarImages.Visibility = PinButtonImage.Visibility = Visibility.Collapsed;
+                    StackPanelRightAppBarText.Visibility = PinButton.Visibility = Visibility.Visible;
                 }
                 else
                 {
-                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);
+                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);                    
+                    StackPanelRightAppBarText.Visibility = PinButton.Visibility = Visibility.Collapsed;
+                    StackPanelRightAppBarImages.Visibility = PinButtonImage.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -179,7 +183,7 @@ namespace OneMSQFT.WindowsStore.Views
             var args = GetDataContextAsViewModel<IBasePageViewModel>().GetSecondaryTileArguments();
             if (args == null)
                 return;
-            ToggleAppBarButton(this.PinButton, !SecondaryTile.Exists(args.Id));
+            ToggleAppBarButton(this.PinButton, this.PinButtonImage, !SecondaryTile.Exists(args.Id));
         }
 
         public override void TopAppBarEventButtonCommandHandler(String eventId)
@@ -196,9 +200,10 @@ namespace OneMSQFT.WindowsStore.Views
         {
             base.PopulateTopAppbar(vm);
             HomeButton.Command = HomeButtonClickCommand;
-            AboutButton.Command = AboutButtonClickCommand;
-            TwitterButton.Command = TwitterButtonClickCommand;
-            InstagramButton.Command = InstagramButtonClickCommand;
+            AboutButton.Command = AboutButtonImage.Command = AboutButtonClickCommand;
+            FacebookButton.Command = FacebookButtonImage.Command = FacebookButtonClickCommand;
+            TwitterButton.Command = TwitterButtonImage.Command = TwitterButtonClickCommand;
+            InstagramButton.Command = InstagramButtonImage.Command = InstagramButtonClickCommand;
         }
 
         #region MediaViewer
@@ -244,7 +249,7 @@ namespace OneMSQFT.WindowsStore.Views
 
                 var secondaryTile = new SecondaryTile(args.Id);
                 bool isUnpinned = await secondaryTile.RequestDeleteForSelectionAsync(GetElementRect((FrameworkElement)sender));
-                ToggleAppBarButton(PinButton, isUnpinned);
+                ToggleAppBarButton(PinButton, PinButtonImage, isUnpinned);
             }
             else
             {
@@ -279,7 +284,7 @@ namespace OneMSQFT.WindowsStore.Views
                 secondaryTile.RoamingEnabled = true;
 
                 bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetElementRect((FrameworkElement)sender));
-                ToggleAppBarButton(PinButton, !isPinned);
+                ToggleAppBarButton(PinButton, PinButtonImage, !isPinned);
             }
             BottomAppBar.IsSticky = false;
         }

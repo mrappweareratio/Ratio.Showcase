@@ -215,7 +215,7 @@
   </data>
   <data name="ClearDataCache" xml:space="preserve">
     <value>Clear Data Cache</value>
-  </data>  
+  </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacy Policy</value>
   </data>
@@ -248,5 +248,11 @@
   </data>
   <data name="SquareFeetTotalFormat" xml:space="preserve">
     <value>{0} sq ft</value>
+  </data>
+  <data name="Facebook" xml:space="preserve">
+    <value>FACEBOOK</value>
+  </data>
+  <data name="FacebookUrl" xml:space="preserve">
+    <value>http://www.facebook.com/1msqft</value>
   </data>
 </root>

@@ -25,10 +25,11 @@ using Strings = OneMSQFT.Common.Strings;
 namespace OneMSQFT.WindowsStore.Views
 {
     public abstract class BasePageView : VisualStateAwarePage
-    {        
+    {
         public DelegateCommand<String> TopAppBarEventButtonCommand { get; set; }
         public DelegateCommand HomeButtonClickCommand { get; set; }
         public DelegateCommand AboutButtonClickCommand { get; set; }
+        public DelegateCommand FacebookButtonClickCommand { get; set; }
         public DelegateCommand TwitterButtonClickCommand { get; set; }
         public DelegateCommand InstagramButtonClickCommand { get; set; }
         public DelegateCommand<Button> AdminButtonClickCommand { get; set; }
@@ -41,13 +42,13 @@ namespace OneMSQFT.WindowsStore.Views
             base.OnNavigatedTo(e);
             // listens for resolution change
             Windows.Graphics.Display.DisplayInformation.DisplayContentsInvalidated += DisplayInformation_DisplayContentsInvalidated;
-        }     
+        }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
             // unwire listener
-            Windows.Graphics.Display.DisplayInformation.DisplayContentsInvalidated -= DisplayInformation_DisplayContentsInvalidated;            
+            Windows.Graphics.Display.DisplayInformation.DisplayContentsInvalidated -= DisplayInformation_DisplayContentsInvalidated;
         }
 
 
@@ -92,6 +93,7 @@ namespace OneMSQFT.WindowsStore.Views
             TopAppBarEventButtonCommand = new DelegateCommand<String>(TopAppBarEventButtonCommandHandler);
             HomeButtonClickCommand = new DelegateCommand(HomeButtonClickCommandHandler);
             AboutButtonClickCommand = new DelegateCommand(AboutButtonClickCommandHandler);
+            FacebookButtonClickCommand = new DelegateCommand(FacebookButtonClickCommandHandler);
             TwitterButtonClickCommand = new DelegateCommand(TwitterButtonClickCommandHandler);
             InstagramButtonClickCommand = new DelegateCommand(InstagramButtonClickCommandHandler);
             AdminButtonClickCommand = new DelegateCommand<Button>(AdminButtonClickCommandHandler);
@@ -133,6 +135,14 @@ namespace OneMSQFT.WindowsStore.Views
             Frame.Navigate(typeof(AboutPage));
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;
+        }
+
+
+        public async virtual void FacebookButtonClickCommandHandler()
+        {
+            BottomAppBar.IsOpen = false;
+            TopAppBar.IsOpen = false;
+            await Launcher.LaunchUriAsync(new Uri(Strings.FacebookUrl, UriKind.Absolute), new LauncherOptions { DesiredRemainingView = ViewSizePreference.UseHalf });
         }
 
         public async virtual void TwitterButtonClickCommandHandler()
@@ -195,7 +205,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         #endregion
 
-         #region resizing
+        #region resizing
 
         sealed protected override void WindowSizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
@@ -231,11 +241,18 @@ namespace OneMSQFT.WindowsStore.Views
             return new Rect(point, new Size(element.ActualWidth, element.ActualHeight));
         }
 
-        protected void ToggleAppBarButton(Button pinButton, bool showPinButton)
+        protected void ToggleAppBarButton(Button pinButton, Image pinButtonImage, bool showPinButton)
         {
             if (pinButton != null)
             {
                 pinButton.Content = (showPinButton) ? (Strings.PIN) : (Strings.UNPIN);
+            }
+
+            if (pinButtonImage != null)
+            {
+                pinButtonImage.Source = showPinButton
+                    ? new BitmapImage(new Uri("ms-appx:///Assets/Icons/pin.png", UriKind.RelativeOrAbsolute))
+                    : new BitmapImage(new Uri("ms-appx:///Assets/Icons/unpin.png", UriKind.RelativeOrAbsolute));
             }
         }
 

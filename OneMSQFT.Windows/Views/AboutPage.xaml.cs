@@ -35,12 +35,16 @@ namespace OneMSQFT.WindowsStore.Views
                 if (GetDataContextAsViewModel<IBasePageViewModel>().IsHorizontal)
                 {
                     VisualStateManager.GoToState(this, "FullScreenLandscape", true);
+                    StackPanelRightAppBarImages.Visibility = Visibility.Collapsed;
+                    StackPanelRightAppBarText.Visibility = Visibility.Visible;  
                 }
                 else
                 {
-                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);
-                }
-            }
+                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);                    
+                    StackPanelRightAppBarText.Visibility = Visibility.Collapsed;
+                    StackPanelRightAppBarImages.Visibility = Visibility.Visible;
+                }             
+            }            
         }
 
         public override void TopAppBarEventButtonCommandHandler(string eventId)
@@ -57,8 +61,9 @@ namespace OneMSQFT.WindowsStore.Views
         {
             base.PopulateTopAppbar(vm);
             HomeButton.Command = HomeButtonClickCommand;
-            TwitterButton.Command = TwitterButtonClickCommand;
-            InstagramButton.Command = InstagramButtonClickCommand;
+            FacebookButton.Command = FacebookButtonImage.Command = FacebookButtonClickCommand;
+            TwitterButton.Command =  TwitterButtonImage.Command = TwitterButtonClickCommand;
+            InstagramButton.Command = InstagramButtonImage.Command = InstagramButtonClickCommand;
         }        
     }
 }

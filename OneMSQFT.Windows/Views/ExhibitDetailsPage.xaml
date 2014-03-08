@@ -271,7 +271,7 @@
                             <Image Source="{Binding DataSource.Exhibit.Curator.LogoImage, Source={StaticResource DataContextProxy}}" Stretch="Uniform" MaxWidth="124" HorizontalAlignment="Left"/>
                         </Border>
 
-                      
+
                         <ScrollViewer
                                 	Margin="22,0,10,30" 
                                 	Grid.Row="4" Grid.RowSpan="4" Style="{StaticResource VerticalScrollViewerStyle}">
@@ -307,7 +307,7 @@
                 </Border>
             </Grid>
         </DataTemplate>
-        
+
         <DataTemplate x:Key="ExhibitMediaItemTemplate">
             <Grid Margin="0,0,0,0">
                 <ProgressRing IsEnabled="True" IsActive="True" Height="150" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -421,25 +421,25 @@
                         <RichTextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,8,0,0" 
 			                           FontFamily="Segoe UI Light" FontWeight="Light"
 			                           TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Grid.RowSpan="3" >
-                                    <Paragraph>
-                                        <Run Text="{Binding DataSource.Exhibit.SquareFootageString, Source={StaticResource DataContextProxy}}" 
+                            <Paragraph>
+                                <Run Text="{Binding DataSource.Exhibit.SquareFootageString, Source={StaticResource DataContextProxy}}" 
 				                	        FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
-                                        <LineBreak/>
-                                     <Run Text="{Binding DataSource.Exhibit.Name, Source={StaticResource DataContextProxy}}" 
+                                <LineBreak/>
+                                <Run Text="{Binding DataSource.Exhibit.Name, Source={StaticResource DataContextProxy}}" 
 					                      FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
-                                    </Paragraph>
+                            </Paragraph>
                         </RichTextBlock>
-                      
+
                         <Border HorizontalAlignment="Left" Grid.Row="2" Height="34" VerticalAlignment="Top" Width="124" Margin="38,0,0,0" >
                             <Image Source="{Binding DataSource.Exhibit.Curator.LogoImage, Source={StaticResource DataContextProxy}}" 
 						                Stretch="Uniform" MaxWidth="124" HorizontalAlignment="Left"/>
                         </Border>
 
-                      </Grid>
+                    </Grid>
                 </Border>
             </Grid>
         </DataTemplate>
-        
+
         <DataTemplate x:Key="VerticalExhibitMediaItemTemplate">
             <Grid Margin="0,0,0,0">
                 <ProgressRing IsEnabled="True" IsActive="True" Height="154" Width="154" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -452,7 +452,7 @@
         			Width="{Binding DataSource.FullScreenWidth, Source={StaticResource DataContextProxy}}" 
                     Height="{Binding DataSource.NineSixteenthsOfWidth, Source={StaticResource DataContextProxy}}"
 					Source="{Binding ImageSource}"/>
-                    <AppBarButton
+                <AppBarButton
 						Command="{Binding DataSource.LaunchVideoCommand, Source={StaticResource DataContextProxy}}" 
                         CommandParameter="{Binding}"
                         Click="LaunchVideoCommand_OnClick"
@@ -503,7 +503,7 @@
                                         <Run Text="{Binding Strings.Next, Source={StaticResource PortableStrings}}" 
                                              FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}"/>
                                         <LineBreak/>
-                                        <Run Text="{Binding DataSource.NextExhibit.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}" />                                        
+                                        <Run Text="{Binding DataSource.NextExhibit.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
                                         <!--<Run Text="{Binding DataSource.NextExhibit.SquareFootageString, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
                                         <Run Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" />
                                         <LineBreak/>
@@ -616,7 +616,7 @@
     <omsqft:BasePageView.BottomAppBar>
         <AppBar x:Name="appBar" Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent" Visibility="Collapsed">
             <Border Height="90" BorderBrush="{StaticResource OneMSQFTAppBarAccentGrayBrush}" BorderThickness="0,10,0,0" >
-                <Grid>                    
+                <Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"  Margin="20,0,0,0">
                         <StackPanel x:Name="StartupButtonStackPanel" Orientation="Horizontal" Visibility="Collapsed">
                             <Button x:Name="HomeButton" 
@@ -633,17 +633,37 @@
                         </StackPanel>
                         <Button x:Name="PinButton" Click="Pin_OnClick"
 							Style="{StaticResource OMSQFT_CustomAppbarButton}" />
+                        <Button Click="Pin_OnClick" Style="{StaticResource AppBarButtonStylePortrait}">
+                            <Image x:Name="PinButtonImage" Visibility="Collapsed" Source="ms-appx:///Assets/Icons/pin.png"></Image>
+                        </Button>
                     </StackPanel>
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
-                        <Button x:Name="AboutButton" 
-                                Content="{Binding Strings.About, Source={StaticResource PortableStrings}}" 
-                                Style="{StaticResource OMSQFT_CustomAppbarButton}"  />
+                    <StackPanel x:Name="StackPanelRightAppBarText"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
+                        <Button x:Name="AboutButton"
+                                Content="{Binding Strings.About, Source={StaticResource PortableStrings}}"
+                                Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
+                        <Button x:Name="FacebookButton"
+                                Content="{Binding Strings.Facebook, Source={StaticResource PortableStrings}}"
+                                Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
                         <Button x:Name="TwitterButton"
                                 Content="{Binding Strings.Twitter, Source={StaticResource PortableStrings}}"
                                 Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
                         <Button x:Name="InstagramButton"
                                 Content="{Binding Strings.Instagram, Source={StaticResource PortableStrings}}"
                                 Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
+                    </StackPanel>
+                    <StackPanel x:Name="StackPanelRightAppBarImages" Visibility="Collapsed"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
+                        <Button x:Name="AboutButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
+                            <Image Source="ms-appx:///Assets/Icons/about.png"></Image>
+                        </Button>
+                        <Button x:Name="FacebookButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
+                            <Image Source="ms-appx:///Assets/Icons/facebook.png"></Image>
+                        </Button>
+                        <Button x:Name="TwitterButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
+                            <Image Source="ms-appx:///Assets/Icons/twitter.png"></Image>
+                        </Button>
+                        <Button x:Name="InstagramButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
+                            <Image Source="ms-appx:///Assets/Icons/instagram.png"></Image>
+                        </Button>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -714,13 +734,13 @@
         <VisualStateManager.VisualStateGroups>
 
             <VisualStateGroup x:Name="ApplicationViewStates">
-            	<VisualStateGroup.Transitions>
-            		<VisualTransition GeneratedDuration="0">
-            			<VisualTransition.GeneratedEasingFunction>
-            				<ExponentialEase EasingMode="EaseIn"/>
-            			</VisualTransition.GeneratedEasingFunction>
-            		</VisualTransition>
-            	</VisualStateGroup.Transitions>
+                <VisualStateGroup.Transitions>
+                    <VisualTransition GeneratedDuration="0">
+                        <VisualTransition.GeneratedEasingFunction>
+                            <ExponentialEase EasingMode="EaseIn"/>
+                        </VisualTransition.GeneratedEasingFunction>
+                    </VisualTransition>
+                </VisualStateGroup.Transitions>
                 <VisualState x:Name="FullScreenLandscape">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MediaListView" Storyboard.TargetProperty="Style">
@@ -728,7 +748,7 @@
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
-            	
+
                 <VisualState x:Name="FullScreenPortrait">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MediaListView" Storyboard.TargetProperty="Style">

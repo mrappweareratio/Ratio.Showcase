@@ -706,16 +706,16 @@
                         <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
 						    TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
 						    Grid.Row="1">
-                                <Paragraph>
-                                    <Run Text="{Binding SquareFootageStringPlain}" 
+                            <Paragraph>
+                                <Run Text="{Binding SquareFootageStringPlain}" 
                                          FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
-                                    <LineBreak />
-                                    <Run Text="{Binding Strings.SquareFeet, Source={StaticResource PortableStrings}}" 
+                                <LineBreak />
+                                <Run Text="{Binding Strings.SquareFeet, Source={StaticResource PortableStrings}}" 
                                          FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
-                                    <LineBreak />
-                                    <Run Text="{Binding Name, Mode=OneWay}" 
+                                <LineBreak />
+                                <Run Text="{Binding Name, Mode=OneWay}" 
                                          FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
-                                </Paragraph>
+                            </Paragraph>
                         </RichTextBlock>
 
 
@@ -741,7 +741,7 @@
                             HorizontalAlignment="Left"/>
 
                     </Grid>
-                    
+
                     <!--Show More Exhibit Items -->
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <GridView ItemsSource="{Binding DisplayedExhibits}" x:Name="GridView"
@@ -776,54 +776,54 @@
         </DataTemplate>
 
         <DataTemplate x:Key="VerticalTimelineEventItemTemplate">
-                <Grid Width="{Binding DataSource.EventItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
+            <Grid Width="{Binding DataSource.EventItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                       Height="{Binding DataSource.EventItemHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                       Background="Transparent">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-                    <Grid Grid.RowSpan="2" Margin="5,0,10,5" Grid.ColumnSpan="2" >
-                        <Grid.Background>
-                            <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
-                        </Grid.Background>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="3*"/>
-                            <RowDefinition Height="2*"/>
-                            <RowDefinition Height="3*"/>
+                <Grid Grid.RowSpan="2" Margin="5,0,10,5" Grid.ColumnSpan="2" >
+                    <Grid.Background>
+                        <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
+                    </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
-                        <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
+                    <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
 						    TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
 						    Grid.Row="1">
-                            <Paragraph>
+                        <Paragraph>
                             <Run Text="{Binding SquareFootageStringPlain}" 
                                          FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
                             <Run Text="{Binding PortraitBlurb, Mode=OneWay}" 
                                          FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
-                            </Paragraph>
-                        </RichTextBlock>
+                        </Paragraph>
+                    </RichTextBlock>
 
 
-                     
-                        <omsqftcontrols:CuratorLogoStackerUserControl 
+
+                    <omsqftcontrols:CuratorLogoStackerUserControl 
                             Grid.Row="2"
                             CuratorLogoCollection="{Binding CuratorLogos}"
                             IsLayoutHorizontal="False"
                             Margin="40,20,0,0" 
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Left"/>
-                    </Grid>
+                </Grid>
 
-                    <Button Click="FlipViewButton_Clicked"
+                <Button Click="FlipViewButton_Clicked"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             CommandParameter="{Binding}" 
@@ -831,38 +831,38 @@
                             Style="{StaticResource EventGalleryButtonStyle}" 
                             Margin="5,0,10,5" 
                             BorderBrush="White" Grid.Row="2">
-                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                            <ProgressRing IsEnabled="True" IsActive="True" Height="150" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <ProgressRing.Foreground>
-                                    <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
-                                </ProgressRing.Foreground>
-                            </ProgressRing>
-                            <Image Source="{Binding PhotoFilePath, Mode=OneWay}"
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <ProgressRing IsEnabled="True" IsActive="True" Height="150" Width="150" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <ProgressRing.Foreground>
+                                <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
+                            </ProgressRing.Foreground>
+                        </ProgressRing>
+                        <Image Source="{Binding PhotoFilePath, Mode=OneWay}"
                         		VerticalAlignment="Stretch"
                         		HorizontalAlignment="Stretch"
                         		AutomationProperties.Name="{Binding Name}" 
                         		Stretch="Fill"/>
-                            <Border IsHitTestVisible="False"
+                        <Border IsHitTestVisible="False"
                         		HorizontalAlignment="Center" Height="70"  
                         		VerticalAlignment="Center" Width="70">
-                                <Border.Background>
-                                    <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
-                                </Border.Background>
-                                <Path Data="M1,1 L49,1 L49,49" 
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
+                            </Border.Background>
+                            <Path Data="M1,1 L49,1 L49,49" 
                         			HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
                         			StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
-                                    <Path.RenderTransform>
-                                        <CompositeTransform Rotation="45" TranslateY="5.43"/>
-                                    </Path.RenderTransform>
-                                </Path>
-                            </Border>
-                        </Grid>
-                    </Button>
+                                <Path.RenderTransform>
+                                    <CompositeTransform Rotation="45" TranslateY="5.43"/>
+                                </Path.RenderTransform>
+                            </Path>
+                        </Border>
+                    </Grid>
+                </Button>
 
 
-                    <!--Show More Exhibit Items -->
-                    <Grid Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2" >
-                        <GridView ItemsSource="{Binding DisplayedExhibits}" x:Name="GridView"
+                <!--Show More Exhibit Items -->
+                <Grid Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2" >
+                    <GridView ItemsSource="{Binding DisplayedExhibits}" x:Name="GridView"
                               ItemContainerStyle="{StaticResource TimelineExhibitItemContainerStyle}"
                               SelectionMode="None"
                               IsItemClickEnabled="True"
@@ -878,20 +878,20 @@
                               ScrollViewer.VerticalScrollBarVisibility="Disabled"
                               ScrollViewer.IsVerticalRailEnabled="False"
                               IsTapEnabled="False">
-                            <GridView.ItemTemplateSelector>
-                                <templateSelectors:ExhibitShowMoreDataTemplateSelector
+                        <GridView.ItemTemplateSelector>
+                            <templateSelectors:ExhibitShowMoreDataTemplateSelector
                                     TimelineExhibitTemplate="{StaticResource TimelineExhibitTemplate}"
                                     TimelineShowMoreExhibitTemplate="{StaticResource TimelineShowMoreExhibitTemplate}"/>
-                            </GridView.ItemTemplateSelector>
-                            <GridView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"   />
-                                </ItemsPanelTemplate>
-                            </GridView.ItemsPanel>
-                        </GridView>
-                    </Grid>
+                        </GridView.ItemTemplateSelector>
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"   />
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
+                    </GridView>
                 </Grid>
-   
+            </Grid>
+
         </DataTemplate>
 
         <DataTemplate x:Key="HorizontalBufferItemFakeEventItemTemplate">
@@ -935,7 +935,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style x:Key="TimeLineVerticalSnappingStyle" TargetType="GridView">
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Padding" Value="0"/>
@@ -963,13 +963,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-
     </omsqft:BasePageView.Resources>
     <omsqft:BasePageView.BottomAppBar>
         <AppBar x:Name="appBar" Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent" Visibility="Collapsed">
             <Border Height="90" BorderBrush="{StaticResource OneMSQFTAppBarAccentGrayBrush}" BorderThickness="0,10,0,0" >
-                <Grid Background="White">                    
+                <Grid Background="White">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0">
                         <StackPanel x:Name="StartupButtonStackPanel" Orientation="Horizontal" Visibility="Collapsed">
                             <Button Visibility="Collapsed" 
@@ -984,10 +982,16 @@
                         <Button x:Name="PinButton" 
                                 Click="Pin_OnClick"
 							    Style="{StaticResource OMSQFT_CustomAppbarButton}" />
+                        <Button Click="Pin_OnClick" Style="{StaticResource AppBarButtonStylePortrait}">
+                            <Image x:Name="PinButtonImage" Visibility="Collapsed" Source="ms-appx:///Assets/Icons/pin.png"></Image>
+                        </Button>
                     </StackPanel>
-                    <StackPanel  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
+                    <StackPanel x:Name="StackPanelRightAppBarText"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
                         <Button x:Name="AboutButton"
                                 Content="{Binding Strings.About, Source={StaticResource PortableStrings}}"
+                                Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
+                        <Button x:Name="FacebookButton"
+                                Content="{Binding Strings.Facebook, Source={StaticResource PortableStrings}}"
                                 Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
                         <Button x:Name="TwitterButton"
                                 Content="{Binding Strings.Twitter, Source={StaticResource PortableStrings}}"
@@ -995,6 +999,20 @@
                         <Button x:Name="InstagramButton"
                                 Content="{Binding Strings.Instagram, Source={StaticResource PortableStrings}}"
                                 Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
+                    </StackPanel>
+                    <StackPanel x:Name="StackPanelRightAppBarImages"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
+                        <Button x:Name="AboutButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
+                            <Image Source="ms-appx:///Assets/Icons/about.png"></Image>
+                        </Button>
+                        <Button x:Name="FacebookButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
+                            <Image Source="ms-appx:///Assets/Icons/facebook.png"></Image>
+                        </Button>
+                        <Button x:Name="TwitterButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
+                            <Image Source="ms-appx:///Assets/Icons/twitter.png"></Image>
+                        </Button>
+                        <Button x:Name="InstagramButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
+                            <Image Source="ms-appx:///Assets/Icons/instagram.png"></Image>
+                        </Button>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -1006,7 +1024,7 @@
             <omsqftcontrols:LogoUserControl Canvas.Top="{Binding LogoTransformY}" Canvas.Left="{Binding LogoTransformX}" LogoColor="FFFFFF" RenderTransformOrigin="0,0">
                 <omsqftcontrols:LogoUserControl.RenderTransform>
                     <CompositeTransform ScaleX="{Binding LogoScale}" ScaleY="{Binding LogoScale}"/>
-                </omsqftcontrols:LogoUserControl.RenderTransform>    
+                </omsqftcontrols:LogoUserControl.RenderTransform>
             </omsqftcontrols:LogoUserControl>
         </Canvas>
         <Grid>
@@ -1106,7 +1124,7 @@
                 </SemanticZoom.ZoomedInView>
             </SemanticZoom>
 
-           
+
             <Rectangle x:Name="MaskLeft"
                        Visibility="Collapsed"
                        IsHitTestVisible="False"
@@ -1218,10 +1236,10 @@
             <VisualStateGroup x:Name="ApplicationViewStates">
                 <VisualState x:Name="FullScreenLandscape" >
                     <Storyboard Completed="VisualStateTransition_Completed">
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TimelineGridView" Storyboard.TargetProperty="Style">
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TimelineGridView" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TimeLineHorizontalSnappingStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
-                     
+
                     </Storyboard>
                 </VisualState>
 
@@ -1230,7 +1248,7 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TimelineGridView" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TimeLineVerticalSnappingStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
-                         </Storyboard>
+                    </Storyboard>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>

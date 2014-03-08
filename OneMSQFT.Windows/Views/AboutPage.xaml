@@ -25,13 +25,27 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"  Margin="20,0,0,0">
                         <Button x:Name="HomeButton" Visibility="Collapsed" HorizontalAlignment="Stretch" Content="HOME" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}" />
                     </StackPanel>
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
+                    <StackPanel x:Name="StackPanelRightAppBarText"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">                        
+                        <Button x:Name="FacebookButton"
+                                Content="{Binding Strings.Facebook, Source={StaticResource PortableStrings}}"
+                                Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
                         <Button x:Name="TwitterButton"
                                 Content="{Binding Strings.Twitter, Source={StaticResource PortableStrings}}"
                                 Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
                         <Button x:Name="InstagramButton"
                                 Content="{Binding Strings.Instagram, Source={StaticResource PortableStrings}}"
                                 Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
+                    </StackPanel>
+                    <StackPanel x:Name="StackPanelRightAppBarImages" Visibility="Collapsed"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">                        
+                        <Button x:Name="FacebookButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
+                            <Image Source="ms-appx:///Assets/Icons/facebook.png"></Image>
+                        </Button>
+                        <Button x:Name="TwitterButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
+                            <Image Source="ms-appx:///Assets/Icons/twitter.png"></Image>
+                        </Button>
+                        <Button x:Name="InstagramButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
+                            <Image Source="ms-appx:///Assets/Icons/instagram.png"></Image>
+                        </Button>
                     </StackPanel>
                 </Grid>
             </Border>
