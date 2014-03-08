@@ -430,7 +430,7 @@
                                     </Paragraph>
                         </RichTextBlock>
                       
-                        <Border HorizontalAlignment="Left" Grid.Row="2" Height="34" VerticalAlignment="Top" Width="124" Margin="38,0,0,0" >
+                        <Border HorizontalAlignment="Left" Grid.Row="2" Height="34" VerticalAlignment="Top" Width="124" Margin="110,0,0,0" >
                             <Image Source="{Binding DataSource.Exhibit.Curator.LogoImage, Source={StaticResource DataContextProxy}}" 
 						                Stretch="Uniform" MaxWidth="124" HorizontalAlignment="Left"/>
                         </Border>
@@ -495,9 +495,10 @@
                                                Foreground="White" 
                                                HorizontalAlignment="Left" 
                                                VerticalAlignment="Top" 
-                                               Margin="38,0,0,0" 
+                                               Margin="110,0,0,0" 
                         				       FontFamily="Segoe UI Light" 
-                        				       FontWeight="Light"
+                        				       FontWeight="Light" 
+                                               IsTextSelectionEnabled="False"
                                                FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}">
                                     <Paragraph>
                                         <Run Text="{Binding Strings.Next, Source={StaticResource PortableStrings}}" 
