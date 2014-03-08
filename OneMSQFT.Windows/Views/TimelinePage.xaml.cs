@@ -77,7 +77,7 @@ namespace OneMSQFT.WindowsStore.Views
             if (e.NavigationMode != NavigationMode.Back)
             {
                 _navigatedScrollToEventId = e.Parameter as String;
-                if (!String.IsNullOrEmpty(_navigatedScrollToEventId) && _loaded)
+                if (!String.IsNullOrEmpty(_navigatedScrollToEventId) && _timelineGridViewScrollViewerLoaded)
                 {
                     //new navigation but the page has already loaded - either coming in from a Pin or App Bar Event
                     ScrollToLandingItem();
@@ -93,6 +93,8 @@ namespace OneMSQFT.WindowsStore.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
+            if(e.SourcePageType != null && e.SourcePageType != this.GetType())
+                _timelineGridViewScrollViewerLoaded = false;//reset
             if (semanticZoom.IsZoomedInViewActive == false)
             {
                 semanticZoom.ToggleActiveView();
@@ -242,6 +244,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         private void TimelineGridView_Loaded(object sender, RoutedEventArgs e)
         {
+            _timelineGridViewScrollViewerLoaded = true;
             _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(TimelineGridView);
             ScrollToLandingItem();
         }
@@ -352,6 +355,8 @@ namespace OneMSQFT.WindowsStore.Views
         /// prevents subsequent navigation or re-entrance to for auto scrolling
         /// </summary>
         private bool _scrolledToLandingItem;
+
+        private bool _timelineGridViewScrollViewerLoaded;
 
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
