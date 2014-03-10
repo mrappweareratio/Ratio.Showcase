@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Linq.Expressions;
@@ -52,7 +53,7 @@ namespace OneMSQFT.WindowsStore.Views
 
             _scrollerTimer = new DispatcherTimer();
             _scrollerTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
-            _scrollerTimer.Tick += scrollerTimer_Tick;
+            _scrollerTimer.Tick += ScrollerTimerTick;
 
             var app = AppLocator.Current;
             if (app != null)
@@ -67,6 +68,8 @@ namespace OneMSQFT.WindowsStore.Views
             }
 
             VideoPlayerUserControl.MediaEndedCommand = new DelegateCommand(MediaEndedCommandHandler);
+
+            _timelineGridViewLoadedTaskCompletionSourceCompletion = new TaskCompletionSource<bool>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -74,15 +77,24 @@ namespace OneMSQFT.WindowsStore.Views
             base.OnNavigatedTo(e);
             // needed for back stack navigation when user has changed resolution on details page
             ProcessWindowSizeChangedEvent();
+
             if (e.NavigationMode != NavigationMode.Back)
             {
                 _navigatedScrollToEventId = e.Parameter as String;
-                if (!String.IsNullOrEmpty(_navigatedScrollToEventId) && _timelineGridViewScrollViewerLoaded)
+                if (!String.IsNullOrEmpty(_navigatedScrollToEventId) && _timelineGridViewLoadedTaskCompletionSourceCompletion.Task.IsCompleted)
                 {
-                    //new navigation but the page has already loaded - either coming in from a Pin or App Bar Event
+                    //new navigation but the page has already loaded - coming in from a Pin
                     ScrollToLandingItem();
                 }
+                else
+                {
+                    //scroll to landing item on new navigations after the grid view and view model have both loaded
+                    Task.WhenAll(_timelineGridViewLoadedTaskCompletionSourceCompletion.Task,
+                        GetDataContextAsViewModel<IBasePageViewModel>().LoadedEventsTaskCompletionSource.Task)
+                    .ContinueWith(task => ScrollToLandingItem(), TaskScheduler.FromCurrentSynchronizationContext());
+                }
             }
+
             if (!AppLocator.Current.KioskModeEnabled)
             {
                 _dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
@@ -93,8 +105,11 @@ namespace OneMSQFT.WindowsStore.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-            if(e.SourcePageType != null && e.SourcePageType != this.GetType())
-                _timelineGridViewScrollViewerLoaded = false;//reset
+            if (e.SourcePageType != null && e.SourcePageType != GetType())
+            {
+                //navigation cache mode is on, so reset loaded event to wait for re-entrance
+                _timelineGridViewLoadedTaskCompletionSourceCompletion = new TaskCompletionSource<bool>();
+            }
             if (semanticZoom.IsZoomedInViewActive == false)
             {
                 semanticZoom.ToggleActiveView();
@@ -241,15 +256,17 @@ namespace OneMSQFT.WindowsStore.Views
             }
         }
 
+        private TaskCompletionSource<bool> _timelineGridViewLoadedTaskCompletionSourceCompletion;
         private void TimelineGridView_Loaded(object sender, RoutedEventArgs e)
         {
-            _timelineGridViewScrollViewerLoaded = true;
             _timelineGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(TimelineGridView);
-            ScrollToLandingItem();
+            _timelineGridViewLoadedTaskCompletionSourceCompletion.TrySetResult(true);
         }
 
         private void ScrollToLandingItem()
         {
+            if (_timelineGridViewScrollViewer == null)
+                return;
             if (!String.IsNullOrEmpty(_navigatedScrollToEventId))
             {
                 ScrollToEventById(_navigatedScrollToEventId);
@@ -267,7 +284,7 @@ namespace OneMSQFT.WindowsStore.Views
         {
             var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
             // scroll to first event item, first item is buffer item
-            if (vm.TimeLineItems.Count > 0)
+            if (vm.TimeLineItems.Count > 1)
                 ScrollToEventById(vm.TimeLineItems[1].Id);
         }
 
@@ -282,7 +299,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         #region Timeline UI
 
-        void scrollerTimer_Tick(object sender, object e)
+        void ScrollerTimerTick(object sender, object e)
         {
             ShowTimelineMasks(true);
             _scrollerTimer.Stop();
@@ -349,13 +366,11 @@ namespace OneMSQFT.WindowsStore.Views
         }
 
         private bool _semanticZoomClosedFromTopAppBarEvent;
-        private DataTransferManager _dataTransferManager;
+        private readonly DataTransferManager _dataTransferManager;
         /// <summary>
         /// prevents subsequent navigation or re-entrance to for auto scrolling
         /// </summary>
         private bool _scrolledToLandingItem;
-
-        private bool _timelineGridViewScrollViewerLoaded;
 
         private void semanticZoom_ViewChangeCompleted(object sender, SemanticZoomViewChangedEventArgs e)
         {
@@ -436,11 +451,11 @@ namespace OneMSQFT.WindowsStore.Views
                 ScrollToFirstItem();
             }
 
-            var vm = GetDataContextAsViewModel<TimelinePageViewModel>();
+            var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
             var e = vm.SquareFootEvents.FirstOrDefault(x => x.Id == eventId);
             if (e == null)
                 return;
-            vm.SelectedEvent = e as EventItemViewModel;
+            vm.SelectedEvent = e;
             var itemIndex = vm.SquareFootEvents.IndexOf(e) + 1; // +1 for buffer items
 
             _appBarIsAutoScrolling = true;
@@ -621,12 +636,11 @@ namespace OneMSQFT.WindowsStore.Views
 
         #endregion
 
-        private async void VisualStateTransition_Completed(object sender, object e)
+        private void VisualStateTransition_Completed(object sender, object e)
         {
             if (GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent != null)
             {
-                await Task.Delay(500); // finish rendering
-                ScrollToEventById(GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent.Id);
+                Task.Delay(500).ContinueWith((task) => ScrollToEventById(GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent.Id), TaskScheduler.FromCurrentSynchronizationContext());                
             }
         }
     }

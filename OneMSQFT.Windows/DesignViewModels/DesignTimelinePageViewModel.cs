@@ -189,12 +189,15 @@ namespace OneMSQFT.WindowsStore.DesignViewModels
             SelectedEvent = item;
         }
 
+
         public double BufferItemWidth
         {
-            get
-            {
-                return EventItemWidth / 2;
-            }
+            get { return IsHorizontal ? EventItemWidth / 2 : FullScreenWidth; }
+        }
+
+        public double BufferItemHeight
+        {
+            get { return IsHorizontal ? FullScreenHeight : FullScreenHeight / 4; }
         }
 
         public double MaskItemWidth
@@ -202,6 +205,16 @@ namespace OneMSQFT.WindowsStore.DesignViewModels
             get
             {
                 return ((FullScreenWidth - EventItemWidth) / 2) + 1;
+            }
+        }
+
+        public double MaskItemHeight
+        {
+            get
+            {
+                return IsHorizontal
+                    ? FullScreenHeight
+                    : ((FullScreenHeight - EventItemHeight) / 2) + 1;
             }
         }
 

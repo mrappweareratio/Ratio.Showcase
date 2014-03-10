@@ -47,10 +47,12 @@ namespace OneMSQFT.UILogic.ViewModels
             this.ClearStartupCommand = new DelegateCommand(ClearStartupCommandExecuteMethod, ClearStartupCommandCanExecuteMethod);
             SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
             ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
+            LoadedEventsTaskCompletionSource = new TaskCompletionSource<bool>();
         }
-
+        
         public override async void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
+            //Events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
             Events = await Task.Run(() => _dataService.GetEvents(new CancellationToken()).TryCatchAsync());
             if (Events == null)
             {
@@ -74,6 +76,8 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
             }
+
+            LoadedEventsTaskCompletionSource.TrySetResult(true);
         }
 
         /// <summary>
