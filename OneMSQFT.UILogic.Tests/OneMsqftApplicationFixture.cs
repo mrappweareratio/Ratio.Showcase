@@ -149,7 +149,7 @@ namespace OneMSQFT.UILogic.Tests
                 GetEventsDelegate = async () =>
                 {
                     called++;
-                    return new List<Event>();
+                    return new List<Event>(){MockModelGenerator.NewEvent("0", "Event")};
                 }
             }, new MockConfigurationService(), analytics, new MockAlertMessageService());
             ExecuteOnUIThread(() => app.OnLaunchApplication(new MockLaunchActivatedEventArgs() { PreviousExecutionState = ApplicationExecutionState.NotRunning }));

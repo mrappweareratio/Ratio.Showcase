@@ -81,9 +81,16 @@ namespace OneMSQFT.UILogic.ViewModels
                 await _messageService.ShowAsync(Strings.SiteDataFailureMessage, String.Empty);
                 return;
             }
+
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(Events.Select(x => new EventItemViewModel(x, _analyticsService)));
 
-            var ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as String, new CancellationToken());
+            var ed = await Task.Run(() =>_dataService.GetExhibitDetailByExhibitId(navigationParameter as String, new CancellationToken()));
+            if (ed == null)
+            {
+                await _messageService.ShowAsync(Strings.SiteDataFailureMessage, String.Empty);
+                return;
+            }
+
             Exhibit = new ExhibitItemViewModel(ed.Exhibit, _analyticsService);
             NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit, _analyticsService);
 
