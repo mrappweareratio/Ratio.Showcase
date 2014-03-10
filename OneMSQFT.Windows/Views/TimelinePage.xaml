@@ -704,13 +704,13 @@
                             <RowDefinition Height="319*"/>
                         </Grid.RowDefinitions>
                         <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
-						    TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
+						    TextWrapping="Wrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
 						    Grid.Row="1">
                             <Paragraph>
                                 <Run Text="{Binding SquareFootageStringPlain}" 
                                          FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
                                 <LineBreak />
-                                <Run Text="{Binding Strings.SquareFeet, Source={StaticResource PortableStrings}}" 
+                                <Run Text="{Binding Strings.SquareFeetAt, Source={StaticResource PortableStrings}}" 
                                          FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
                                 <LineBreak />
                                 <Run Text="{Binding Name, Mode=OneWay}" 
