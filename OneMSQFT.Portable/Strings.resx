@@ -145,7 +145,10 @@
     <value>{0} sq ft</value>
   </data>
   <data name="SquareFeetAtNameFormat" xml:space="preserve">
-    <value>{0} square feet at {1}</value>
+    <value>square feet at {0}</value>
+  </data>
+  <data name="SquareFeetSurveyedDisplayDateAtNameFormat" xml:space="preserve">
+    <value>square feet surveyed {0} at {1}</value>
   </data>
   <data name="ComingSoon" xml:space="preserve">
     <value>Coming Soon</value>

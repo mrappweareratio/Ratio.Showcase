@@ -145,7 +145,7 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        public String TileBlurb
+        public String PinningTileText
         {
             get
             {

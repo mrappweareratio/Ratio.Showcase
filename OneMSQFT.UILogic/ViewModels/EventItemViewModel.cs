@@ -34,6 +34,7 @@ namespace OneMSQFT.UILogic.ViewModels
             Description = StringUtils.BuildDescription(eventModel.Description);
             Location = eventModel.Location;
             Id = eventModel.Id;
+            DisplayDate = eventModel.DisplayDate;
             SquareFootage = eventModel.SquareFootage;
             EventColor = ColorUtils.GetEventColor(eventModel);
             Exhibits = new List<ExhibitItemViewModel>(eventModel.Exhibits.Select(x => new ExhibitItemViewModel(x, _analyticsService)));
@@ -43,6 +44,8 @@ namespace OneMSQFT.UILogic.ViewModels
             ShowMoreCommand = new DelegateCommand(ShowMoreCommandExecuteMethod, ShowMoreCommandCanExecuteMethod);
             ShowMoreVisibility = ShowMoreCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
         }
+
+        public string DisplayDate { get; set; }
 
         private void LoadDisplayedExhibits()
         {
@@ -125,7 +128,7 @@ namespace OneMSQFT.UILogic.ViewModels
             }
             private set
             {
-                SetProperty(ref _mediaContent, value); 
+                SetProperty(ref _mediaContent, value);
             }
         }
 
@@ -133,7 +136,7 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             get
             {
-                return DateUtils.IsInTheFuture(Event);              
+                return DateUtils.IsInTheFuture(Event);
             }
         }
 
@@ -142,7 +145,7 @@ namespace OneMSQFT.UILogic.ViewModels
             get
             {
                 return DateUtils.IsInThePast(Event);
-                
+
             }
         }
 
@@ -165,7 +168,7 @@ namespace OneMSQFT.UILogic.ViewModels
         private void ShowMoreCommandExecuteMethod()
         {
             //Track Show More interaction
-            if (_analyticsService != null) 
+            if (_analyticsService != null)
                 _analyticsService.TrackShowMoreExhibitsInEvent(this.Name);
 
             //load next three
@@ -182,7 +185,19 @@ namespace OneMSQFT.UILogic.ViewModels
             DisplayedExhibits.Add(new ShowMoreFakeExhibitItemViewModel());
         }
 
-        public String TileBlurb
+        public string EventTileBlurb
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(DisplayDate))
+                {
+                    return String.Format(Strings.SquareFeetAtNameFormat, Name);
+                }
+                return String.Format(Strings.SquareFeetSurveyedDisplayDateAtNameFormat, DisplayDate, Name);
+            }
+        }
+
+        public String PinningTileText
         {
             get
             {

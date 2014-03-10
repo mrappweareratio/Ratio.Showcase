@@ -705,7 +705,7 @@
 	 		           Stretch="UniformToFill"/>
                 <Rectangle 
                     Width="310" Height="50" Fill="White" VerticalAlignment="Bottom"/>
-                <TextBlock Text="{Binding DataSource.Exhibit.TileBlurb, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                <TextBlock Text="{Binding DataSource.Exhibit.PinningTileText, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
 	 				TextWrapping="Wrap" Foreground="Black" FontWeight="Light" TextTrimming="CharacterEllipsis" 
                     FontSize="18" Margin="55,0,0,0" HorizontalAlignment="Left" 
                     LineStackingStrategy="BlockLineHeight"
@@ -714,7 +714,7 @@
                 <controls:LogoUserControl ScaleRatio=".12" Margin="20,110,0,0"/>
             </Grid>
             <Grid x:Name="RenderedGridSquare" Height="150" Width="150">
-                <TextBlock Text="{Binding DataSource.Exhibit.TileBlurb, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                <TextBlock Text="{Binding DataSource.Exhibit.PinningTileText, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                            TextWrapping="Wrap" Foreground="White" FontWeight="Light" 
                            FontFamily="{StaticResource ContentControlThemeFontFamily}" 
                            FontSize="24" Margin="10"
@@ -722,7 +722,7 @@
                            LineHeight="26" TextTrimming="CharacterEllipsis" />
             </Grid>
             <Grid x:Name="RenderedGridSmall" Height="70" Width="70">
-                <TextBlock Text="{Binding DataSource.Exhibit.TileBlurb, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                <TextBlock Text="{Binding DataSource.Exhibit.PinningTileText, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                            TextWrapping="Wrap" Foreground="White" FontWeight="Light" 
                            FontFamily="{StaticResource ContentControlThemeFontFamily}" 
                            FontSize="18" LineStackingStrategy="BlockLineHeight"

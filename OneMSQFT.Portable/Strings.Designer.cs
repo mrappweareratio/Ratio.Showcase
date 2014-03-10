@@ -413,11 +413,20 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} square feet at {1}.
+        ///   Looks up a localized string similar to square feet at {0}.
         /// </summary>
         public static string SquareFeetAtNameFormat {
             get {
                 return ResourceManager.GetString("SquareFeetAtNameFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to square feet surveyed {0} at {1}.
+        /// </summary>
+        public static string SquareFeetSurveyedDisplayDateAtNameFormat {
+            get {
+                return ResourceManager.GetString("SquareFeetSurveyedDisplayDateAtNameFormat", resourceCulture);
             }
         }
         
