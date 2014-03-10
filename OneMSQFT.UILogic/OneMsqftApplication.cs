@@ -99,7 +99,8 @@ namespace OneMSQFT.UILogic
 
             if (_events == null || !_events.Any())
             {
-                _events = await DataService.GetEvents(new CancellationToken()).TryCatchAsync(async exception =>
+
+                _events = await Task.Run(async () => await DataService.GetEvents(new CancellationToken()).TryCatchAsync(async exception =>
                 {
                     //task faulted
                     await getEventsFailure();
@@ -107,7 +108,7 @@ namespace OneMSQFT.UILogic
                 {
                     //task cancelled
                     await getEventsFailure();
-                });
+                }));
             }
 
             if (_events == null)
@@ -227,9 +228,9 @@ namespace OneMSQFT.UILogic
                 var vm = CurrentPage.DataContext as IBasePageViewModel;
                 if (vm != null)
                 {
-                    if(vm.SetStartupCommand.CanExecute())
+                    if (vm.SetStartupCommand.CanExecute())
                         settingsCommands.Add(new SettingsCommand(Guid.NewGuid().ToString(), Strings.SetAsStartUp, command => vm.SetStartupCommand.Execute()));
-                    if(vm.ClearStartupCommand.CanExecute())
+                    if (vm.ClearStartupCommand.CanExecute())
                         settingsCommands.Add(new SettingsCommand(Guid.NewGuid().ToString(), Strings.ClearStartUp, command => vm.ClearStartupCommand.Execute()));
                 }
             }

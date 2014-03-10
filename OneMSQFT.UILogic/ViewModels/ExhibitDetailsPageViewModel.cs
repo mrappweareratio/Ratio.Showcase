@@ -75,7 +75,7 @@ namespace OneMSQFT.UILogic.ViewModels
 
         async public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
-            Events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
+            Events = await Task.Run(() => _dataService.GetEvents(new CancellationToken()).TryCatchAsync());
             if (Events == null)
             {
                 await _messageService.ShowAsync(Strings.SiteDataFailureMessage, String.Empty);
