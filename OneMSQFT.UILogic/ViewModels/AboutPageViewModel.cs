@@ -36,7 +36,7 @@ namespace OneMSQFT.UILogic.ViewModels
         {
             _analyticsService.TrackPageViewAbout();
 
-            Events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
+            Events = await Task.Run(() => _dataService.GetEvents(new CancellationToken()).TryCatchAsync());
             if (Events == null)
             {
                 base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);

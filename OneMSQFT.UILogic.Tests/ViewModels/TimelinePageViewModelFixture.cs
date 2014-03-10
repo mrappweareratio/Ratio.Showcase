@@ -64,7 +64,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             var timeLine = new TimelinePageViewModel(mockDataService, new MockAlertMessageService(), new MockNavigationService(), new MockConfigurationService(), new MockAnalyticsService());
             ExecuteOnUIThread(() => timeLine.OnNavigatedTo(null, NavigationMode.New, null));
             autoResetEvent.WaitOne(500);
-            Assert.IsTrue(called);
+            Assert.IsTrue(called);            
         }
 
         [TestMethod]
@@ -109,6 +109,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             Assert.IsTrue(timeLine.SquareFootEvents.Any(), "SquareFootEvents");
             Assert.IsTrue(timeLine.TimeLineItems.Any(), "TimeLineItems");
             Assert.IsTrue(timeLine.TimeLineMenuItems.Any(), "TimelineMenuItems");
+            Assert.IsTrue(timeLine.LoadedEventsTaskCompletionSource.Task.IsCompleted, "LoadedEventsTaskCompletionSource IsCompleted");
         }
 
         [TestMethod]

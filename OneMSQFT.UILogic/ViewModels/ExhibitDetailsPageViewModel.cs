@@ -75,15 +75,22 @@ namespace OneMSQFT.UILogic.ViewModels
 
         async public override void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
-            Events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
+            Events = await Task.Run(() => _dataService.GetEvents(new CancellationToken()).TryCatchAsync());
             if (Events == null)
             {
                 await _messageService.ShowAsync(Strings.SiteDataFailureMessage, String.Empty);
                 return;
             }
+
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(Events.Select(x => new EventItemViewModel(x, _analyticsService)));
 
-            var ed = await _dataService.GetExhibitDetailByExhibitId(navigationParameter as String, new CancellationToken());
+            var ed = await Task.Run(() =>_dataService.GetExhibitDetailByExhibitId(navigationParameter as String, new CancellationToken()));
+            if (ed == null)
+            {
+                await _messageService.ShowAsync(Strings.SiteDataFailureMessage, String.Empty);
+                return;
+            }
+
             Exhibit = new ExhibitItemViewModel(ed.Exhibit, _analyticsService);
             NextExhibit = ed.NextExhibit == null ? null : new ExhibitItemViewModel(ed.NextExhibit, _analyticsService);
 

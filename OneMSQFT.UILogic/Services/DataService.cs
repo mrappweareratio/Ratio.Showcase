@@ -77,7 +77,7 @@ namespace OneMSQFT.UILogic.Services
                 }
             }
 
-            result = await _repository.GetSiteData(token);
+            result = await _repository.GetSiteData(token).ConfigureAwait(false);
             _memDictionary.Add(_key, result);
             
             if (result != null)

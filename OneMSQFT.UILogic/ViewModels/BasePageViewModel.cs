@@ -12,7 +12,7 @@ using OneMSQFT.UILogic.Interfaces.ViewModels;
 namespace OneMSQFT.UILogic.ViewModels
 {
     public abstract class BasePageViewModel : ViewModel, IBasePageViewModel
-    {
+    {        
         /// <summary>
         /// Backing Property for Events Models Returned from DataService
         /// </summary>
@@ -21,7 +21,7 @@ namespace OneMSQFT.UILogic.ViewModels
         public DelegateCommand ClearStartupCommand { get; protected set; }
         public Visibility ClearStartupVisibility { get; protected set; }
         public Visibility SetStartupVisibility { get; protected set; }
-
+        public TaskCompletionSource<bool> LoadedEventsTaskCompletionSource { get; protected set; }
         private ObservableCollection<EventItemViewModel> _squareFootEvents;
         public ObservableCollection<EventItemViewModel> SquareFootEvents
         {
