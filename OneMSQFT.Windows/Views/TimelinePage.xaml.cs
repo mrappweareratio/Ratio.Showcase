@@ -109,7 +109,6 @@ namespace OneMSQFT.WindowsStore.Views
         private void MediaEndedCommandHandler()
         {
             VideoPopup.IsOpen = false;
-            FlipViewPopup.IsOpen = false;
         }
 
         #region Sharing
