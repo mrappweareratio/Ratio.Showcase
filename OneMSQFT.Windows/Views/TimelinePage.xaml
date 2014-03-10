@@ -801,9 +801,9 @@
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
-                    <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
+                    <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" TextTrimming="CharacterEllipsis"
 						    TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
-						    Grid.Row="1">
+						    Grid.Row="1" Grid.RowSpan="2">
                         <Paragraph>
                             <Run Text="{Binding SquareFootageStringPlain}" 
                                          FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
