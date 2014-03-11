@@ -632,7 +632,8 @@
     				    Margin="20" 
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-                        FontFamily="Segoe UI Light"/>
+                        FontFamily="Segoe UI Light"
+                        IsTextSelectionEnabled="False"/>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -704,7 +705,9 @@
                             <RowDefinition Height="319*"/>
                         </Grid.RowDefinitions>
                         <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
-						    TextWrapping="Wrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
+						    TextWrapping="Wrap" Foreground="White" 
+                            IsTextSelectionEnabled="False"
+                            FontWeight="Light" FontFamily="Segoe UI Light" 
 						    Grid.Row="1" 
                             Grid.RowSpan="3">
                             <Paragraph>
@@ -724,7 +727,8 @@
                                                     LineStackingStrategy="BlockLineHeight"
 						                            TextWrapping="Wrap" 
 						                            FontFamily="Segoe UI Light" 
-						                            FontWeight="Light"/>
+						                            FontWeight="Light"
+                                                    IsTextSelectionEnabled="False"/>
                                     </ScrollViewer>
                                 </InlineUIContainer>
                             </Paragraph>
@@ -802,9 +806,9 @@
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
-                    <RichTextBlock HorizontalAlignment="Left" Margin="80,24,80,0" TextTrimming="CharacterEllipsis"
+                    <RichTextBlock HorizontalAlignment="Left" Margin="50,24,80,0" TextTrimming="CharacterEllipsis"
 						    TextWrapping="Wrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
-						    Grid.Row="0" Grid.RowSpan="3">
+						    Grid.Row="0" Grid.RowSpan="3" IsTextSelectionEnabled="False">
                         <Paragraph>
                             <Run Text="{Binding SquareFootageStringPlain}" 
                                          FontSize="{Binding DataSource.MediumLargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
@@ -813,6 +817,9 @@
                                          FontSize="{Binding DataSource.MediumSmallFlexyFontSize, Source={StaticResource DataContextProxy}}" />
                             
                         </Paragraph>
+                        <RichTextBlock.RenderTransform>
+                            <TranslateTransform X="{Binding DataSource.LogoTransformX, Source={StaticResource DataContextProxy}}"/>
+                        </RichTextBlock.RenderTransform>
                     </RichTextBlock>
 
 
@@ -820,9 +827,13 @@
                             Grid.Row="2"
                             CuratorLogoCollection="{Binding CuratorLogos}"
                             IsLayoutHorizontal="False"
-                            Margin="80,20,0,0" 
+                            Margin="50,20,0,0" 
                             VerticalAlignment="Center" 
-                            HorizontalAlignment="Left"/>
+                            HorizontalAlignment="Left">
+                        <omsqftcontrols:CuratorLogoStackerUserControl.RenderTransform>
+                            <TranslateTransform X="{Binding DataSource.LogoTransformX, Source={StaticResource DataContextProxy}}"/>
+                        </omsqftcontrols:CuratorLogoStackerUserControl.RenderTransform>
+                    </omsqftcontrols:CuratorLogoStackerUserControl>
                 </Grid>
 
                 <Button Click="FlipViewButton_Clicked"
@@ -1041,7 +1052,7 @@
                     <EntranceThemeTransition/>
                 </TransitionCollection>
             </Grid.ChildrenTransitions>
-            <Grid x:Name="ZoomedInLogo" Margin="0" Visibility="Collapsed">
+            <Grid x:Name="ZoomedInLogo" Margin="0" Visibility="Collapsed" Height="165">
                 <RichTextBlock Margin="0,0,40,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" TextWrapping="NoWrap" IsColorFontEnabled="True" IsTextSelectionEnabled="False" FontWeight="Light" FontFamily="Segoe UI Light">
                     <Paragraph>
                         <Run Text="{Binding TotalSquareFeet, Mode=OneWay}" 
@@ -1190,8 +1201,8 @@
                             </DataTemplate>
                         </FlipView.ItemTemplate>
                     </FlipView>
-                    <Border Background="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="50" Padding="10" x:Name="CountIndicator" >
-                        <RichTextBlock FontSize="20" FontFamily="Segoe UI Light">
+                    <Border Background="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="50" Padding="10">
+                        <RichTextBlock FontSize="20" FontFamily="Segoe UI Light" IsTextSelectionEnabled="False">
                             <RichTextBlock.Foreground>
                                 <SolidColorBrush Color="{Binding DataSource.SelectedEvent.EventColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"></SolidColorBrush>
                             </RichTextBlock.Foreground>

@@ -208,9 +208,10 @@
                                         BorderThickness="0,0,0,1" 
                                         Padding="0,0,0,3">
                                     <TextBlock TextWrapping="NoWrap" 
-        								Text="{TemplateBinding Content}" 
-                                        Foreground="White" 
-                                        FontSize="18.667" />
+                                               IsTextSelectionEnabled="False"
+        								       Text="{TemplateBinding Content}" 
+                                               Foreground="White" 
+                                               FontSize="18.667" />
                                 </Border>
                             </StackPanel>
                         </Grid>
@@ -258,7 +259,8 @@
                                    Grid.Row="1"
                                    Grid.RowSpan="2"
                     		       TextWrapping="Wrap" 
-                    			   Margin="36,0,0,10"  >
+                    			   Margin="36,0,0,10"
+                                   IsTextSelectionEnabled="False"  >
                             <Paragraph>
                                 <Run Text="{Binding DataSource.Exhibit.SquareFootageString, Source={StaticResource DataContextProxy}}" 
                                      FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
@@ -281,7 +283,8 @@
                                 		Foreground="{StaticResource OneMSQFTWhiteBrush}"
                     			        FontSize="{Binding DataSource.SmallFlexyFontSize, Source={StaticResource DataContextProxy}}" 
                                         LineStackingStrategy="BlockLineHeight"
-                                		TextWrapping="Wrap" 
+                                		TextWrapping="Wrap"
+                                        IsTextSelectionEnabled="False" 
                                 		FontFamily="Segoe UI Light" 
                                 		FontWeight="Light"/>
                                 <HyperlinkButton x:Name="HyperlinkButton"
@@ -316,19 +319,19 @@
                     </ProgressRing.Foreground>
                 </ProgressRing>
                 <Image 
-        								Stretch="UniformToFill"
-        								Width="{Binding DataSource.FullScreenWidth, Source={StaticResource DataContextProxy}}" 
-        								Height="{Binding DataSource.FullScreenHeight, Source={StaticResource DataContextProxy}}" 
-										Source="{Binding ImageSource}"/>
+        			Stretch="UniformToFill"
+        			Width="{Binding DataSource.FullScreenWidth, Source={StaticResource DataContextProxy}}" 
+        			Height="{Binding DataSource.FullScreenHeight, Source={StaticResource DataContextProxy}}" 
+					Source="{Binding ImageSource}"/>
                 <AppBarButton
-												Command="{Binding DataSource.LaunchVideoCommand, Source={StaticResource DataContextProxy}}" 
-                                                CommandParameter="{Binding}"
-                                                Click="LaunchVideoCommand_OnClick"
-                                                HorizontalAlignment="Center" 
-                                                VerticalAlignment="Center" 
-                                                Margin="0"
-                                                Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" 
-                                                Style="{StaticResource AppBarPlayButtonStyle}">
+					Command="{Binding DataSource.LaunchVideoCommand, Source={StaticResource DataContextProxy}}" 
+                    CommandParameter="{Binding}"
+                    Click="LaunchVideoCommand_OnClick"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" 
+                    Margin="0"
+                    Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" 
+                    Style="{StaticResource AppBarPlayButtonStyle}">
                     <AppBarButton.Background>
                         <SolidColorBrush Color="{Binding DataSource.Exhibit.ExhibitColor, Source={StaticResource DataContextProxy}}"/>
                     </AppBarButton.Background>
@@ -339,9 +342,9 @@
 
         <DataTemplate x:Key="ExhibitFooterItemTemplate">
             <Grid x:Name="Footer"
-        						Height="{Binding DataSource.FullScreenHeight, Source={StaticResource DataContextProxy}}" 
-        						Width="{Binding DataSource.OneThirdPanelWidth, Source={StaticResource DataContextProxy}}" 
-                          Margin="0,0,0,0">
+        			Height="{Binding DataSource.FullScreenHeight, Source={StaticResource DataContextProxy}}" 
+        			Width="{Binding DataSource.OneThirdPanelWidth, Source={StaticResource DataContextProxy}}" 
+                    Margin="0,0,0,0">
                 <Button HorizontalAlignment="Stretch" 
                             Command="{Binding DataSource.NextExhibitCommand, Source={StaticResource DataContextProxy}}"
                             CommandParameter="{Binding DataSource.NextExhibit.Id, Source={StaticResource DataContextProxy}}"
@@ -362,6 +365,7 @@
                                 </Grid.RowDefinitions>
                                 <RichTextBlock HorizontalAlignment="Left" VerticalAlignment="Top" 
                                                Margin="38,0,0,0" 
+                                               IsTextSelectionEnabled="False"
                                                Grid.Row="1" Foreground="White" 
                                                FontFamily="Segoe UI Light" FontWeight="Light" 
                     			               FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" >
@@ -408,7 +412,7 @@
                             <RowDefinition Height="81*"/>
                         </Grid.RowDefinitions>
                         <RichTextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,8,0,0" 
-			                           FontFamily="Segoe UI Light" FontWeight="Light"
+			                           FontFamily="Segoe UI Light" FontWeight="Light" IsTextSelectionEnabled="False"
 			                           TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Grid.RowSpan="3" >
                             <Paragraph>
                                 <Run Text="{Binding DataSource.Exhibit.SquareFootageString, Source={StaticResource DataContextProxy}}" 
@@ -460,15 +464,15 @@
 
         <DataTemplate x:Key="VerticalExhibitFooterItemTemplate">
             <Grid x:Name="Footer"
-        						Height="{Binding DataSource.PortraitHeaderFooterHeight, Source={StaticResource DataContextProxy}}" 
-        						Width="{Binding DataSource.FullScreenWidth, Source={StaticResource DataContextProxy}}" 
-                          Margin="0,0,0,0">
+        				Height="{Binding DataSource.PortraitHeaderFooterHeight, Source={StaticResource DataContextProxy}}" 
+        				Width="{Binding DataSource.FullScreenWidth, Source={StaticResource DataContextProxy}}" 
+                        Margin="0,0,0,0">
                 <Button HorizontalAlignment="Stretch" 
                             Command="{Binding DataSource.NextExhibitCommand, Source={StaticResource DataContextProxy}}"
                             CommandParameter="{Binding DataSource.NextExhibit.Id, Source={StaticResource DataContextProxy}}"
         				    VerticalAlignment="Stretch" 
         				    Padding="0" Margin="0"
-                        HorizontalContentAlignment="Left"
+                            HorizontalContentAlignment="Left"
         				    BorderThickness="0" Style="{StaticResource NextButtonStyle}">
                     <Button.Background>
                         <SolidColorBrush Color="{Binding DataSource.NextExhibit.ExhibitColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"/>
@@ -686,7 +690,7 @@
                     </GridView.Template>
                 </GridView>
                 <Border Background="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="50" Padding="10" x:Name="CountIndicator" >
-                    <RichTextBlock FontSize="20" FontFamily="Segoe UI Light">
+                    <RichTextBlock FontSize="20" FontFamily="Segoe UI Light" IsTextSelectionEnabled="False">
                         <RichTextBlock.Foreground>
                             <SolidColorBrush Color="{Binding DataSource.Exhibit.ExhibitColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"></SolidColorBrush>
                         </RichTextBlock.Foreground>
@@ -703,9 +707,9 @@
             <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="False" Style="{StaticResource VideoPopupStyle}" >
                 <Grid >
                     <controls:VideoPlayerUserControl x:Name="VideoPlayerUserControl"
-                    SelectedMediaContentSource="{Binding DataSource.SelectedMediaContentSource, Source={StaticResource DataContextProxy}}"
-                    Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
-                    Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
+                        SelectedMediaContentSource="{Binding DataSource.SelectedMediaContentSource, Source={StaticResource DataContextProxy}}"
+                        Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
+                        Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
                     <Button Click="CloseVideo_OnClick" HorizontalAlignment="Right" 
                             VerticalAlignment="Top" Margin="20" Padding="0" Height="44" Width="44" 
                             Style="{StaticResource CloseButtonStyle}"/>
