@@ -626,5 +626,14 @@ namespace OneMSQFT.WindowsStore.Views
                 ScrollToEventById(GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent.Id);
             }
         }
+
+        private void FlipViewer_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Index.Text = (FlipViewer.SelectedIndex + 1).ToString();
+            if (FlipViewer.Items != null)
+            {
+                Count.Text = FlipViewer.Items.Count.ToString();
+            }
+        }
     }
 }

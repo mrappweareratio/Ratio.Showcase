@@ -1151,7 +1151,8 @@
                               UseTouchAnimationsForAllNavigation="True"
                               Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                               Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
-                              ItemsSource="{Binding DataSource.SelectedEvent.MediaContent, Mode=OneWay, Source={StaticResource DataContextProxy}}">
+                              ItemsSource="{Binding DataSource.SelectedEvent.MediaContent, Mode=OneWay, Source={StaticResource DataContextProxy}}"
+                              SelectionChanged="FlipViewer_OnSelectionChanged">
                         <FlipView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -1185,6 +1186,18 @@
                             </DataTemplate>
                         </FlipView.ItemTemplate>
                     </FlipView>
+                    <Border Background="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="50" Padding="10" x:Name="CountIndicator" >
+                        <RichTextBlock FontSize="20" FontFamily="Segoe UI Light">
+                            <RichTextBlock.Foreground>
+                                <SolidColorBrush Color="{Binding DataSource.SelectedEvent.EventColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"></SolidColorBrush>
+                            </RichTextBlock.Foreground>
+                            <Paragraph>
+                                <Run x:Name="Index" Text=""/>
+                                <Run Text="/"/>
+                                <Run x:Name="Count" Text=""/>
+                            </Paragraph>
+                        </RichTextBlock>
+                    </Border>
                     <AppBarButton Icon="Cancel" Click="FlipViewPopUpCloseButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20" Style="{StaticResource AppBarButtonCloseStyle}"/>
                 </Grid>
             </Popup>
@@ -1239,7 +1252,6 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="TimelineGridView" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TimeLineHorizontalSnappingStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
-
                     </Storyboard>
                 </VisualState>
 

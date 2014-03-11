@@ -532,7 +532,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="GridView">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-                            <ScrollViewer ViewChanging="MediaListViewScrollViewerHorizontal_ViewChanging" 
+                            <ScrollViewer 
                                           HorizontalSnapPointsAlignment="Near" 
                                           HorizontalSnapPointsType="Mandatory" 
                                           HorizontalScrollMode="Enabled" 
@@ -562,7 +562,7 @@
             <Setter Property="ItemsPanel">
                 <Setter.Value>
                     <ItemsPanelTemplate >
-                        <VirtualizingStackPanel Orientation="Horizontal"/>
+                        <StackPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </Setter.Value>
             </Setter>
@@ -604,7 +604,7 @@
             <Setter Property="ItemsPanel">
                 <Setter.Value>
                     <ItemsPanelTemplate >
-                        <VirtualizingStackPanel Orientation="Vertical"/>
+                        <StackPanel Orientation="Vertical"/>
                     </ItemsPanelTemplate>
                 </Setter.Value>
             </Setter>
@@ -677,8 +677,45 @@
         	    Height="{Binding FullScreenHeight}" 
                 Background="{StaticResource OneMSQFTWhiteBrush}" >
                 <GridView x:Name="MediaListView"
+                          Loaded="MediaListView_OnLoaded"
                             Style="{StaticResource GridViewHorizontalSnappingStyle}"
-        				    ItemsSource="{Binding LocalMediaCollection}"/>
+        				    ItemsSource="{Binding LocalMediaCollection}">
+                    <GridView.Template>
+                        <ControlTemplate TargetType="GridView">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                <ScrollViewer
+                                          ViewChanging="MediaListViewScrollViewerHorizontal_ViewChanging" 
+                                          ViewChanged="MediaListViewScrollViewer_ViewChanged"
+                                          HorizontalSnapPointsAlignment="Center" 
+                                          HorizontalSnapPointsType="Mandatory" 
+                                          HorizontalScrollMode="Enabled" 
+                                          HorizontalScrollBarVisibility="Auto" 
+                                          IsHorizontalRailEnabled="True" 
+                                          IsHorizontalScrollChainingEnabled="True" 
+                                          IsVerticalScrollChainingEnabled="False" 
+                                          IsVerticalRailEnabled="False" 
+                                          VerticalScrollBarVisibility="Disabled" 
+                                          VerticalScrollMode="Disabled" 
+                                          ZoomMode="Disabled"
+                                          TabNavigation="{TemplateBinding TabNavigation}">
+                                    <ItemsPresenter HeaderTemplate="{TemplateBinding HeaderTemplate}" Header="{TemplateBinding Header}" HeaderTransitions="{TemplateBinding HeaderTransitions}" Padding="{TemplateBinding Padding}"/>
+                                </ScrollViewer>
+                            </Border>
+                        </ControlTemplate>
+                    </GridView.Template>
+                </GridView>
+                <Border Background="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="50" Padding="10" x:Name="CountIndicator" >
+                    <RichTextBlock FontSize="20" FontFamily="Segoe UI Light">
+                        <RichTextBlock.Foreground>
+                            <SolidColorBrush Color="{Binding DataSource.Exhibit.ExhibitColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"></SolidColorBrush>
+                        </RichTextBlock.Foreground>
+                        <Paragraph>
+                            <Run x:Name="Index" Text=""/>
+                            <Run Text="/"/>
+                            <Run x:Name="Count" Text=""/>
+                        </Paragraph>
+                    </RichTextBlock>
+                </Border>
             </Grid>
 
 
@@ -747,6 +784,13 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MediaListView" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource GridViewHorizontalSnappingStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CountIndicator" Storyboard.TargetProperty="Visibility" Duration="0">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Visible</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
+                        </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
 
@@ -754,6 +798,13 @@
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MediaListView" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource GridViewVerticalSnappingStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CountIndicator" Storyboard.TargetProperty="Visibility" Duration="0">
+                            <DiscreteObjectKeyFrame KeyTime="0">
+                                <DiscreteObjectKeyFrame.Value>
+                                    <Visibility>Collapsed</Visibility>
+                                </DiscreteObjectKeyFrame.Value>
+                            </DiscreteObjectKeyFrame>
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
