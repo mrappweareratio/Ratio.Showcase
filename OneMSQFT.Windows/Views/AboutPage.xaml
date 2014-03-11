@@ -23,7 +23,7 @@
             <Border Height="90" BorderBrush="{StaticResource OneMSQFTAppBarAccentGrayBrush}" BorderThickness="0,10,0,0" >
                 <Grid>                    
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"  Margin="20,0,0,0">
-                        <Button x:Name="HomeButton" Visibility="Collapsed" HorizontalAlignment="Stretch" Content="HOME" VerticalAlignment="Stretch" Style="{StaticResource OMSQFT_CustomAppbarButton}" />
+                        <Button x:Name="HomeButton" Visibility="Collapsed" Content="HOME" Style="{StaticResource OMSQFT_CustomAppbarButton}" />
                     </StackPanel>
                     <StackPanel x:Name="StackPanelRightAppBarText"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">                        
                         <Button x:Name="FacebookButton"

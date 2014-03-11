@@ -22,7 +22,7 @@
     <x:String x:Key="ChevronGlyph">&#xE26B;</x:String>
 
     <!-- Colors -->
-    <Color x:Key="OneMSQFTAppBarAccentColor">#FFCCCCCC</Color>
+    <Color x:Key="OneMSQFTAppBarAccentColor">#CCCCCCCC</Color>
     <Color x:Key="OneMSQFTOverlayBgColor">#33000000</Color><!-- 20% black -->
     <Color x:Key="OneMSQFTComingSoonColor">#FFEEEEEE</Color>
     <!-- 20% black -->

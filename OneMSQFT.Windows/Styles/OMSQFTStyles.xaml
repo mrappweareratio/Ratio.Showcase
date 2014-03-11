@@ -146,9 +146,8 @@
                                              FontSize="20"/>
                                     </Paragraph>
                                 </RichTextBlock>
-                                <Rectangle Fill="{StaticResource OneMSQFTBlackBrush}"
-                                           Opacity=".5" 
-                                           Height="20" Width="Auto" 
+                                <Rectangle Fill="{StaticResource OneMSQFTAppBarAccentGrayBrush}"
+                                           Height="15" Width="Auto" 
                                            VerticalAlignment="Bottom"></Rectangle>
                             </Grid>
                         </Border>
@@ -203,9 +202,8 @@
                                               Data="F1M17.286,0C11.59,4.1,6.531,6.937,0,9.178L0,23.171C5.001,21.838,9.167,19.926,12.17,17.663L12.17,70.094 27.448,70.094 27.448,0z" Height="70.094" Canvas.Left="2.418" Stretch="None" Canvas.Top="0.001" Width="27.448"/>
                                     </Canvas>
                                 </Canvas>
-                                <Rectangle Fill="{StaticResource OneMSQFTBlackBrush}" 
-                                           Opacity=".5" 
-                                           Height="20" Width="Auto" 
+                                <Rectangle Fill="{StaticResource OneMSQFTAppBarAccentGrayBrush}" 
+                                           Height="14" Width="Auto" 
                                            VerticalAlignment="Bottom"></Rectangle>
                             </Grid>
                         </Border>
