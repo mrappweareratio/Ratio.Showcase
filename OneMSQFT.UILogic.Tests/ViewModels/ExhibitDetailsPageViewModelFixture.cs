@@ -142,6 +142,7 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
         [TestMethod]
         public async Task Set_Startup_Exhibit_Flow()
         {
+            var autoReset = new AutoResetEvent(false);
             var data = new MockDataService()
             {
                 GetEventsDelegate = () => Task.FromResult<IEnumerable<Event>>(new List<Event>()),                
@@ -158,12 +159,11 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
             configuration.ClearStartupItem();
             var vm = new ExhibitDetailsPageViewModel(data, new MockAlertMessageService(),
                 new MockNavigationService(), configuration, new AnalyticsService());
-            await ExecuteOnUIThread(async () =>
-            {
-                vm.OnNavigatedTo("0", NavigationMode.New, null);                
-            });
+            ExecuteOnUIThread(() => vm.OnNavigatedTo("0", NavigationMode.New, null));
+            autoReset.WaitOne(500);
+            autoReset.Reset();
             Assert.IsTrue(vm.SetStartupCommand.CanExecute(), "SetStartupCommand CanExecute");
-            await vm.SetStartupCommand.Execute();
+            await vm.SetStartupCommand.Execute();            
             Assert.IsTrue(vm.ClearStartupCommand.CanExecute(), "ClearStartupCommand CanExecute IsTrue");
             Assert.IsTrue(vm.ClearStartupVisibility == Visibility.Visible, "ClearStartupVisibility Visible");
             Assert.IsTrue(vm.SetStartupVisibility == Visibility.Collapsed, "SetStartupVisibility Collapsed");
@@ -177,10 +177,9 @@ namespace OneMSQFT.UILogic.Tests.ViewModels
                     NextExhibit = MockModelGenerator.NewExhibit("2", "Exhibit")
                 });
             };
-            await ExecuteOnUIThread(async () =>
-            {
-                vm.OnNavigatedTo("1", NavigationMode.New, null);
-            });
+            ExecuteOnUIThread(() => vm.OnNavigatedTo("0", NavigationMode.New, null));
+            autoReset.WaitOne(500);
+            autoReset.Reset();
             Assert.IsFalse(vm.ClearStartupCommand.CanExecute(), "ClearStartupCommand CanExecute IsFalse");
             Assert.IsTrue(vm.SetStartupCommand.CanExecute(), "SetStartupCommand CanExecute IsTrue");                        
             await vm.SetStartupCommand.Execute();

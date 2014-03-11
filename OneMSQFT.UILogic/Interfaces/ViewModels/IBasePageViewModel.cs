@@ -37,5 +37,6 @@ namespace OneMSQFT.UILogic.Interfaces.ViewModels
         /// <param name="id"></param>
         /// <returns>null if not found</returns>
         int? GetEventIndexById(string id);
+        TaskCompletionSource<bool> LoadedEventsTaskCompletionSource { get; }
     }
 }

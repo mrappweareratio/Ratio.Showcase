@@ -47,17 +47,19 @@ namespace OneMSQFT.UILogic.ViewModels
             this.ClearStartupCommand = new DelegateCommand(ClearStartupCommandExecuteMethod, ClearStartupCommandCanExecuteMethod);
             SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
             ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
+            LoadedEventsTaskCompletionSource = new TaskCompletionSource<bool>();
         }
-
+        
         public override async void OnNavigatedTo(object navigationParameter, NavigationMode navigationMode, Dictionary<string, object> viewModelState)
         {
-            var events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
-            if (events == null)
+            //Events = await _dataService.GetEvents(new CancellationToken()).TryCatchAsync();
+            Events = await Task.Run(() => _dataService.GetEvents(new CancellationToken()).TryCatchAsync());
+            if (Events == null)
             {
                 await _messageService.ShowAsync(Strings.SiteDataFailureMessage, String.Empty);
                 return;
             }
-            _eventsList = events as IList<Event> ?? events.ToList();
+            _eventsList = Events as IList<Event> ?? Events.ToList();
 
             SquareFootEvents = new ObservableCollection<EventItemViewModel>(_eventsList.Select(x => new EventItemViewModel(x, _analyticsService)));
 
@@ -74,6 +76,8 @@ namespace OneMSQFT.UILogic.ViewModels
             {
                 _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
             }
+
+            LoadedEventsTaskCompletionSource.TrySetResult(true);
         }
 
         /// <summary>

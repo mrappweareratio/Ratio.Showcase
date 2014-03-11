@@ -28,6 +28,6 @@ namespace OneMSQFT.UILogic.Services
         public async Task RunBackgroundAsync(Func<Task> action)
         {
             await Task.Run(action);
-        }
+        }        
     }
 }

@@ -145,7 +145,10 @@
     <value>{0} sq ft</value>
   </data>
   <data name="SquareFeetAtNameFormat" xml:space="preserve">
-    <value>{0} square feet at {1}</value>
+    <value>square feet at {0}</value>
+  </data>
+  <data name="SquareFeetSurveyedDisplayDateAtNameFormat" xml:space="preserve">
+    <value>square feet surveyed {0} at {1}</value>
   </data>
   <data name="ComingSoon" xml:space="preserve">
     <value>Coming Soon</value>
@@ -254,5 +257,11 @@
   </data>
   <data name="FacebookUrl" xml:space="preserve">
     <value>http://www.facebook.com/1msqft</value>
+  </data>
+  <data name="SquareFeetAtNewLineNameFormat" xml:space="preserve">
+    <value>square feet at{0}{1}</value>
+  </data>
+  <data name="SquareFeetSurveyedDisplayDateNewLineAtNameFormat" xml:space="preserve">
+    <value>square feet surveyed {0}{1}at {2}</value>
   </data>
 </root>
