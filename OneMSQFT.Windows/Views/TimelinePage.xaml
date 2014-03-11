@@ -705,41 +705,36 @@
                         </Grid.RowDefinitions>
                         <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
 						    TextWrapping="Wrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
-						    Grid.Row="1">
+						    Grid.Row="1" 
+                            Grid.RowSpan="3">
                             <Paragraph>
-                                <!--<Run Text="{Binding SquareFootageStringPlain}" 
-                                         FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
-                                <LineBreak />
-                                <Run Text="{Binding Strings.SquareFeetAt, Source={StaticResource PortableStrings}}" 
-                                         FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
-                                <LineBreak />
-                                <Run Text="{Binding Name, Mode=OneWay}" 
-                                         FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />-->
                                 <Run Text="{Binding SquareFootageStringPlain}" 
                                          FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
                                 <LineBreak />
                                 <Run Text="{Binding EventTileBlurb}" 
                                          FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
                                 <LineBreak />
+                                <InlineUIContainer>
+                                    <ScrollViewer Style="{StaticResource VerticalScrollViewerStyle}"
+					                            Margin="0,20,40,0" 
+					                            VerticalAlignment="Top">
+                                        <TextBlock Text="{Binding Description}"
+						                            Foreground="White"
+						                            FontSize="{Binding DataSource.SmallFlexyFontSize, Source={StaticResource DataContextProxy}}"
+                                                    LineStackingStrategy="BlockLineHeight"
+						                            TextWrapping="Wrap" 
+						                            FontFamily="Segoe UI Light" 
+						                            FontWeight="Light"/>
+                                    </ScrollViewer>
+                                </InlineUIContainer>
                             </Paragraph>
                         </RichTextBlock>
 
 
-                        <ScrollViewer Style="{StaticResource VerticalScrollViewerStyle}"
-					        Grid.Row="2"
-                            Grid.RowSpan="2"
-					        Margin="40,0,40,100" 
-					        VerticalAlignment="Top">
-                            <TextBlock Text="{Binding Description}"
-						        Foreground="White"
-						        FontSize="{Binding DataSource.SmallFlexyFontSize, Source={StaticResource DataContextProxy}}"
-                                LineStackingStrategy="BlockLineHeight"
-						        TextWrapping="Wrap" 
-						        FontFamily="Segoe UI Light" 
-						        FontWeight="Light"/>
-                        </ScrollViewer>
+                      
                         <omsqftcontrols:CuratorLogoStackerUserControl 
                             Grid.Row="3"
+                            AvailableColumnWidth="{Binding DataSource.EventItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                             IsLayoutHorizontal="True"
                             CuratorLogoCollection="{Binding CuratorLogos}"
                             Margin="40,20,0,50" 
