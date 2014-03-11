@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
@@ -20,6 +21,7 @@ using OneMSQFT.Common.Services;
 using OneMSQFT.Common.Models;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Navigation;
+using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
 
@@ -130,7 +132,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         private readonly ISharingService _sharing;
 
-        private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        async private void DataTransferManagerOnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
             var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
             if (vm.SelectedEvent == null)
@@ -154,6 +156,14 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Description = ev.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
                 args.Request.Data.SetWebLink(uri);
+                //get thumbnail for video;
+                Uri videoThumbnailUri;
+                if (_sharing.TryGetSharingThumbnailUri(selectedMediaContentSource.Media, out videoThumbnailUri))
+                {
+                    RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromUri(videoThumbnailUri);
+                    args.Request.Data.Properties.Thumbnail = imageStreamRef;
+                    args.Request.Data.SetBitmap(imageStreamRef);
+                }  
                 _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackVideoShareInEventView(ev.Name,
                 ev.SquareFootage, evPos, selectedMediaContentSource.Media.VideoId, uri.AbsoluteUri, appName);
 
@@ -164,13 +174,21 @@ namespace OneMSQFT.WindowsStore.Views
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
                     return;
-                }
+                }                
                 args.Request.Data.Properties.Title = ev.Name;
                 args.Request.Data.Properties.Description = ev.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
-                args.Request.Data.SetWebLink(uri);
+                args.Request.Data.SetWebLink(uri);               
+                //get thumbnail for event
+                Uri thumbnailUri = null;
+                if (_sharing.TryGetSharingThumbnailUri(ev.Event, out thumbnailUri))
+                {
+                    RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromUri(thumbnailUri);
+                    args.Request.Data.Properties.Thumbnail = imageStreamRef;
+                    args.Request.Data.SetBitmap(imageStreamRef);                 
+                }                                
                 _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackShareEventInteraction(ev.Name,
-                    ev.SquareFootage, evPos, uri.AbsoluteUri, appName);
+                    ev.SquareFootage, evPos, uri.AbsoluteUri, appName);                
             }
         }
 

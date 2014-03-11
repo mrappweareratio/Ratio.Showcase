@@ -359,7 +359,7 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Share this video from {0}.
+        ///   Looks up a localized string similar to Check out this video from {0}.
         /// </summary>
         public static string SharingTitleVideoFromEventFormat {
             get {

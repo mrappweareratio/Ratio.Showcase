@@ -6,6 +6,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml.Controls;
 using OneMSQFT.Common.Services;
+using ISharingService = OneMSQFT.Common.Services.ISharingService;
 
 namespace OneMSQFT.UILogic.Interfaces
 {
