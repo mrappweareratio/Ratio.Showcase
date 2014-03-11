@@ -91,6 +91,7 @@ namespace OneMSQFT.WindowsStore
             //register repositories
             //_container.RegisterType<IDataRepository, SampleDataRepository>(new ContainerControlledLifetimeManager());
             //_container.RegisterType<IDataRepository, DemoDataRepository>(new ContainerControlledLifetimeManager());                        
+            //_container.RegisterType<IDataRepository, MillionDemoDataRepository>(new ContainerControlledLifetimeManager());                        
             _container.RegisterType<IApiConfiguration, ApiConfiguration>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IDataRepository, ApiDataRepository>(new ContainerControlledLifetimeManager());
 
