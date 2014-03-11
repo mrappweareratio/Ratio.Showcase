@@ -678,6 +678,7 @@
                 Background="{StaticResource OneMSQFTWhiteBrush}" >
                 <GridView x:Name="MediaListView"
                           Loaded="MediaListView_OnLoaded"
+                          Unloaded="MediaListView_OnUnloaded"
                             Style="{StaticResource GridViewHorizontalSnappingStyle}"
         				    ItemsSource="{Binding LocalMediaCollection}">
                     <GridView.Template>

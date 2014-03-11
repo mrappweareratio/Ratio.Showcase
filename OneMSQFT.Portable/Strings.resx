@@ -258,4 +258,10 @@
   <data name="FacebookUrl" xml:space="preserve">
     <value>http://www.facebook.com/1msqft</value>
   </data>
+  <data name="SquareFeetAtNewLineNameFormat" xml:space="preserve">
+    <value>square feet at{0}{1}</value>
+  </data>
+  <data name="SquareFeetSurveyedDisplayDateNewLineAtNameFormat" xml:space="preserve">
+    <value>square feet surveyed {0}{1}at {2}</value>
+  </data>
 </root>

@@ -45,6 +45,7 @@ namespace OneMSQFT.UILogic.ViewModels
             ClearStartupCommand = new DelegateCommand(ClearStartupCommandExecuteMethod, ClearStartupCommandCanExecuteMethod);
             SetStartupVisibility = SetStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
             ClearStartupVisibility = ClearStartupCommand.CanExecute() ? Visibility.Visible : Visibility.Collapsed;
+            LoadedEventsTaskCompletionSource = new TaskCompletionSource<bool>();
         }
 
         private bool NextExhibitCommandCanExecuteMethod(string s)
@@ -97,6 +98,8 @@ namespace OneMSQFT.UILogic.ViewModels
             LocalMediaCollection = Exhibit.MediaContent;
             LocalMediaCollection.Add(new FooterFakeMediaItemViewModel());
             LocalMediaCollection.Insert(0, new HeaderFakeMediaItemViewModel());
+
+            LoadedEventsTaskCompletionSource.TrySetResult(true);
 
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }
