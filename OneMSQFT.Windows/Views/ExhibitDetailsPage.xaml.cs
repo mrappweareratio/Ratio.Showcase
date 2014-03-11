@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -104,6 +105,14 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Description = vm.Exhibit.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
                 args.Request.Data.SetWebLink(uri);
+                //get thumbnail for video;
+                Uri videoThumbnailUri;
+                if (_sharing.TryGetSharingThumbnailUri(selectedMediaContentSource.Media, out videoThumbnailUri))
+                {
+                    RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromUri(videoThumbnailUri);
+                    args.Request.Data.Properties.Thumbnail = imageStreamRef;
+                    args.Request.Data.SetBitmap(imageStreamRef);
+                }  
                 _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackVideoShareInExhibitView(vm.Exhibit.Name,
                     selectedMediaContentSource.Media.VideoId, uri.AbsoluteUri, appName);
             }
