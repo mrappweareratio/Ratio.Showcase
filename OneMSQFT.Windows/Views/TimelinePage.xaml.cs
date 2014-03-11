@@ -573,7 +573,8 @@ namespace OneMSQFT.WindowsStore.Views
                 // If the asset for the small tile size is not provided, it will be created by scaling down the medium tile size asset.
                 // Thus, providing the asset for the small tile size is not mandatory, though is recommended to avoid scaling artifacts and can be overridden as shown below. 
                 // Note that the asset for the small tile size must be explicitly provided if alternates for the small tile size are also explicitly provided.
-                secondaryTile.VisualElements.Square70x70Logo = await RenderPinningLogo(70, 70);
+                // secondaryTile.VisualElements.Square70x70Logo = await RenderPinningLogo(70, 70);
+                // scaling down medium tile as mentioned above.
 
                 // Only support of the small and medium tile sizes is mandatory.
                 // To have the larger tile sizes available the assets must be provided.                
@@ -641,6 +642,15 @@ namespace OneMSQFT.WindowsStore.Views
             if (GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent != null)
             {
                 Task.Delay(500).ContinueWith((task) => ScrollToEventById(GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent.Id), TaskScheduler.FromCurrentSynchronizationContext());                
+            }
+        }
+
+        private void FlipViewer_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Index.Text = (FlipViewer.SelectedIndex + 1).ToString();
+            if (FlipViewer.Items != null)
+            {
+                Count.Text = FlipViewer.Items.Count.ToString();
             }
         }
     }

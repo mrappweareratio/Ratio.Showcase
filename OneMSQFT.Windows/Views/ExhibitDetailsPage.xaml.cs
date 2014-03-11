@@ -24,10 +24,14 @@ namespace OneMSQFT.WindowsStore.Views
 {
     public partial class ExhibitDetailsPage : BasePageView
     {
+        private bool _loaded;
+        private ScrollViewer _detailsGridViewScrollViewer;
+
         public ExhibitDetailsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             InitAppBars();
+
             var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();
             vm.PropertyChanged += ExhibitDetailsPage_PropertyChanged;
             vm.PinContextChanged += vm_PinContextChanged;
@@ -163,17 +167,59 @@ namespace OneMSQFT.WindowsStore.Views
 
             if (e.PropertyName == "IsHorizontal")
             {
+                if (!_loaded)
+                    return;
                 if (GetDataContextAsViewModel<IBasePageViewModel>().IsHorizontal)
                 {
                     VisualStateManager.GoToState(this, "FullScreenLandscape", true);
                     StackPanelRightAppBarImages.Visibility = PinButtonImage.Visibility = Visibility.Collapsed;
                     StackPanelRightAppBarText.Visibility = PinButton.Visibility = Visibility.Visible;
+
+                    _detailsGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(MediaListView);
+                    if (_detailsGridViewScrollViewer != null)
+                    {
+                        _detailsGridViewScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
+                        _detailsGridViewScrollViewer.HorizontalScrollMode = ScrollMode.Enabled;
+                        _detailsGridViewScrollViewer.HorizontalSnapPointsAlignment = SnapPointsAlignment.Center;
+                        _detailsGridViewScrollViewer.HorizontalSnapPointsType = SnapPointsType.Mandatory;
+                        _detailsGridViewScrollViewer.IsHorizontalRailEnabled = true;
+                        _detailsGridViewScrollViewer.IsHorizontalScrollChainingEnabled = true;
+
+                        _detailsGridViewScrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                        _detailsGridViewScrollViewer.VerticalScrollMode = ScrollMode.Disabled;
+                        _detailsGridViewScrollViewer.VerticalSnapPointsType = SnapPointsType.None;
+                        _detailsGridViewScrollViewer.IsVerticalRailEnabled = false;
+                        _detailsGridViewScrollViewer.IsVerticalScrollChainingEnabled = false;
+
+                        _detailsGridViewScrollViewer.ZoomMode = ZoomMode.Disabled;
+                    }
+
                 }
                 else
                 {
-                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);                    
+                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);             
                     StackPanelRightAppBarText.Visibility = PinButton.Visibility = Visibility.Collapsed;
                     StackPanelRightAppBarImages.Visibility = PinButtonImage.Visibility = Visibility.Visible;
+
+
+                    _detailsGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(MediaListView);
+                    if (_detailsGridViewScrollViewer != null)
+                    {
+                        _detailsGridViewScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
+                        _detailsGridViewScrollViewer.HorizontalScrollMode = ScrollMode.Disabled;
+                        _detailsGridViewScrollViewer.HorizontalSnapPointsAlignment = SnapPointsAlignment.Center;
+                        _detailsGridViewScrollViewer.HorizontalSnapPointsType = SnapPointsType.None;
+                        _detailsGridViewScrollViewer.IsHorizontalRailEnabled = false;
+                        _detailsGridViewScrollViewer.IsHorizontalScrollChainingEnabled = false;
+
+                        _detailsGridViewScrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
+                        _detailsGridViewScrollViewer.VerticalScrollMode = ScrollMode.Enabled;
+                        _detailsGridViewScrollViewer.VerticalSnapPointsType = SnapPointsType.None;
+                        _detailsGridViewScrollViewer.IsVerticalRailEnabled = true;
+                        _detailsGridViewScrollViewer.IsVerticalScrollChainingEnabled = true;
+
+                        _detailsGridViewScrollViewer.ZoomMode = ZoomMode.Disabled;
+                    }
                 }
             }
         }
@@ -270,7 +316,8 @@ namespace OneMSQFT.WindowsStore.Views
                 // If the asset for the small tile size is not provided, it will be created by scaling down the medium tile size asset.
                 // Thus, providing the asset for the small tile size is not mandatory, though is recommended to avoid scaling artifacts and can be overridden as shown below. 
                 // Note that the asset for the small tile size must be explicitly provided if alternates for the small tile size are also explicitly provided.
-                secondaryTile.VisualElements.Square70x70Logo = await RenderPinningLogo(70, 70);
+                // secondaryTile.VisualElements.Square70x70Logo = await RenderPinningLogo(70, 70);
+                // scaling down medium tile as mentioned above.
 
                 // Only support of the small and medium tile sizes is mandatory.
                 // To have the larger tile sizes available the assets must be provided.                
@@ -340,6 +387,40 @@ namespace OneMSQFT.WindowsStore.Views
                 ? SnapPointsAlignment.Far
                 : SnapPointsAlignment.Near;
         }
+
+        private void MediaListView_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            _detailsGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(MediaListView);
+            if (_detailsGridViewScrollViewer != null)
+            {
+                _loaded = true;
+                _detailsGridViewScrollViewer.ViewChanged += MediaListViewScrollViewer_ViewChanged;
+                ProcessWindowSizeChangedEvent();
+            }
+            SetIndicatorTextByOffset(0);
+        }
+
+        void MediaListViewScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+
+            if (e.IsIntermediate == false)
+            {
+                SetIndicatorTextByOffset(((ScrollViewer)sender).HorizontalOffset);
+            }
+        }
+
+        private void SetIndicatorTextByOffset(double offset)
+        {
+            var vm = GetDataContextAsViewModel<ExhibitDetailsPageViewModel>();
+            var i = Convert.ToInt32(offset / vm.FullScreenWidth);
+            if ((i + 1) > vm.Exhibit.MediaContent.Count - 2)
+            {
+                i = i - 1;
+            }
+            this.Index.Text = (i + 1).ToString();
+            this.Count.Text = (vm.Exhibit.MediaContent.Count -2).ToString();
+        }
+
     }
 }
 
