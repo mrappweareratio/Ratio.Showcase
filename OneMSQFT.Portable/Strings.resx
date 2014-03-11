@@ -181,7 +181,7 @@
     <value>There is nothing to share from 1 Million Square Feet right now.</value>
   </data>
   <data name="SharingTitleVideoFromEventFormat" xml:space="preserve">
-    <value>Share this video from {0}</value>
+    <value>Check out this video from {0}</value>
   </data>
   <data name="AboutBlurbFour" xml:space="preserve">
     <value>Yet somehow bigger.</value>

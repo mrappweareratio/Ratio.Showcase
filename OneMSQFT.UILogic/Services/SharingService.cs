@@ -89,16 +89,7 @@ namespace OneMSQFT.UILogic.Services
             // hyphens
             str = Regex.Replace(str, @"\s", "-");
             return str;
-        }
-
-        async public Task<IStorageFile> GetSharingThumbnail(Event ev)
-        {
-            var reference = GetSharingThumbnailRandomAccessStreamReference(ev);
-            Uri uri;
-            TryGetSharingThumbnailUri(ev, out uri);
-            var sf = await StorageFile.CreateStreamedFileFromUriAsync(String.Format("{0}.jpg", GetSlug(ev.Name)), uri, reference);
-            return sf;
-        }
+        }       
 
         public bool TryGetSharingThumbnailUri(Event ev, out Uri uri)
         {
@@ -107,35 +98,15 @@ namespace OneMSQFT.UILogic.Services
                 return false;
             if (ev.MediaContent == null || !ev.MediaContent.Any())
                 return false;            
-            //return Uri.TryCreate(ev.MediaContent.FirstOrDefault().Img, UriKind.Absolute, out uri);
-            return Uri.TryCreate("http://google.com", UriKind.Absolute, out uri);
+            return Uri.TryCreate(ev.MediaContent.FirstOrDefault().Img, UriKind.Absolute, out uri);            
         }
 
-        public Task<IStorageFile> GetSharingThumbnail(Exhibit ex)
+        public bool TryGetSharingThumbnailUri(MediaContentSource media, out Uri uri)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IStorageFile> GetSharingThumbnail(MediaContentSource media)
-        {
-            throw new NotImplementedException();
-        }
-
-        public RandomAccessStreamReference GetSharingThumbnailRandomAccessStreamReference(Event ev)
-        {
-            Uri uri;
-            TryGetSharingThumbnailUri(ev, out uri);
-            return RandomAccessStreamReference.CreateFromUri(uri);
-        }
-
-        public RandomAccessStreamReference GetSharingThumbnailRandomAccessStreamReference(Exhibit ex)
-        {
-            throw new NotImplementedException();
-        }
-
-        public RandomAccessStreamReference GetSharingThumbnailRandomAccessStreamReference(MediaContentSource media)
-        {
-            throw new NotImplementedException();
+            uri = null;
+            if (media == null)
+                return false;
+            return Uri.TryCreate(media.Img, UriKind.Absolute, out uri);        
         }
     }
 }

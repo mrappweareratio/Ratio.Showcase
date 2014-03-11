@@ -156,6 +156,14 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Description = ev.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
                 args.Request.Data.SetWebLink(uri);
+                //get thumbnail for video;
+                Uri videoThumbnailUri;
+                if (_sharing.TryGetSharingThumbnailUri(selectedMediaContentSource.Media, out videoThumbnailUri))
+                {
+                    RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromUri(videoThumbnailUri);
+                    args.Request.Data.Properties.Thumbnail = imageStreamRef;
+                    args.Request.Data.SetBitmap(imageStreamRef);
+                }  
                 _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackVideoShareInEventView(ev.Name,
                 ev.SquareFootage, evPos, selectedMediaContentSource.Media.VideoId, uri.AbsoluteUri, appName);
 

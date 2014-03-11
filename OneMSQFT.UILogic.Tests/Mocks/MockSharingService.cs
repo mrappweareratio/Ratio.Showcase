@@ -40,5 +40,10 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         {
             throw new NotImplementedException();
         }
+
+        public bool TryGetSharingThumbnailUri(MediaContentSource media, out Uri uri)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
