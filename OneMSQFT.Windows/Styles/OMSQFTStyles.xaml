@@ -146,8 +146,9 @@
                                              FontSize="20"/>
                                     </Paragraph>
                                 </RichTextBlock>
-                                <Rectangle Fill="{StaticResource OneMSQFTAppBarAccentGrayBrush}"
+                                <Rectangle Fill="{StaticResource OneMSQFTTopAppBarAccentGrayBrush}"
                                            Height="15" Width="Auto" 
+                                           Opacity=".8"
                                            VerticalAlignment="Bottom"></Rectangle>
                             </Grid>
                         </Border>
@@ -203,7 +204,7 @@
                                     </Canvas>
                                 </Canvas>
                                 <Rectangle Fill="{StaticResource OneMSQFTAppBarAccentGrayBrush}" 
-                                           Height="14" Width="Auto" 
+                                           Height="15" Width="Auto" 
                                            VerticalAlignment="Bottom"></Rectangle>
                             </Grid>
                         </Border>
