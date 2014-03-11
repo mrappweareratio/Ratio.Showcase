@@ -734,6 +734,7 @@
                         </ScrollViewer>
                         <omsqftcontrols:CuratorLogoStackerUserControl 
                             Grid.Row="3"
+                            AvailableColumnWidth="{Binding DataSource.EventItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                             IsLayoutHorizontal="True"
                             CuratorLogoCollection="{Binding CuratorLogos}"
                             Margin="40,20,0,50" 
