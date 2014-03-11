@@ -134,12 +134,21 @@ namespace OneMSQFT.WindowsStore.Views
                 if (!_sharing.TryGetExhibitShareUri(evt, vm.Exhibit.ExhibitModel, out uri))
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                    deferral.Complete();
                     return;
                 }
                 args.Request.Data.Properties.Title = vm.Exhibit.Name;
                 args.Request.Data.Properties.Description = vm.Exhibit.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
                 args.Request.Data.SetWebLink(uri);
+                //get thumbnail for exhibit;
+                Uri thumbnailUri;
+                if (_sharing.TryGetSharingThumbnailUri(vm.Exhibit.ExhibitModel, out thumbnailUri))
+                {
+                    RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromUri(thumbnailUri);
+                    args.Request.Data.Properties.Thumbnail = imageStreamRef;
+                    args.Request.Data.SetBitmap(imageStreamRef);
+                }  
                 _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackShareExhibitInteraction(vm.Exhibit.Name,
                   uri.AbsoluteUri, appName);
                 deferral.Complete();

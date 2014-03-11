@@ -24,7 +24,7 @@ namespace OneMSQFT.Common.Services
         //RandomAccessStreamReference GetSharingThumbnailRandomAccessStreamReference(MediaContentSource media);
 
         bool TryGetSharingThumbnailUri(Event ev, out Uri uri);
-        //bool TryGetSharingThumbnailUri(Exhibit ex, out Uri uri);
+        bool TryGetSharingThumbnailUri(Exhibit ex, out Uri uri);
         bool TryGetSharingThumbnailUri(MediaContentSource media, out Uri uri);        
     }
 }

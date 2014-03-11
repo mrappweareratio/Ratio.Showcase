@@ -101,6 +101,20 @@ namespace OneMSQFT.UILogic.Services
             return Uri.TryCreate(ev.MediaContent.FirstOrDefault().Img, UriKind.Absolute, out uri);            
         }
 
+        public bool TryGetSharingThumbnailUri(Exhibit ex, out Uri uri)
+        {
+            uri = null;
+            if (ex == null)
+                return false;
+            if (ex.MediaContent == null || !ex.MediaContent.Any())
+            {
+                if (String.IsNullOrEmpty(ex.ThumbImage))
+                    return false;
+                return Uri.TryCreate(ex.ThumbImage, UriKind.Absolute, out uri);
+            }
+            return Uri.TryCreate(ex.MediaContent.FirstOrDefault().Img, UriKind.Absolute, out uri);
+        }
+
         public bool TryGetSharingThumbnailUri(MediaContentSource media, out Uri uri)
         {
             uri = null;
