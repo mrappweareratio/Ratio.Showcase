@@ -632,7 +632,8 @@
     				    Margin="20" 
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-                        FontFamily="Segoe UI Light"/>
+                        FontFamily="Segoe UI Light"
+                        IsTextSelectionEnabled="False"/>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -704,7 +705,9 @@
                             <RowDefinition Height="319*"/>
                         </Grid.RowDefinitions>
                         <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
-						    TextWrapping="Wrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
+						    TextWrapping="Wrap" Foreground="White" 
+                            IsTextSelectionEnabled="False"
+                            FontWeight="Light" FontFamily="Segoe UI Light" 
 						    Grid.Row="1" 
                             Grid.RowSpan="3">
                             <Paragraph>
@@ -724,7 +727,8 @@
                                                     LineStackingStrategy="BlockLineHeight"
 						                            TextWrapping="Wrap" 
 						                            FontFamily="Segoe UI Light" 
-						                            FontWeight="Light"/>
+						                            FontWeight="Light"
+                                                    IsTextSelectionEnabled="False"/>
                                     </ScrollViewer>
                                 </InlineUIContainer>
                             </Paragraph>
@@ -804,7 +808,7 @@
                     </Grid.RowDefinitions>
                     <RichTextBlock HorizontalAlignment="Left" Margin="80,24,80,0" TextTrimming="CharacterEllipsis"
 						    TextWrapping="Wrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
-						    Grid.Row="0" Grid.RowSpan="3">
+						    Grid.Row="0" Grid.RowSpan="3" IsTextSelectionEnabled="False">
                         <Paragraph>
                             <Run Text="{Binding SquareFootageStringPlain}" 
                                          FontSize="{Binding DataSource.MediumLargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
@@ -1190,8 +1194,8 @@
                             </DataTemplate>
                         </FlipView.ItemTemplate>
                     </FlipView>
-                    <Border Background="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="50" Padding="10" x:Name="CountIndicator" >
-                        <RichTextBlock FontSize="20" FontFamily="Segoe UI Light">
+                    <Border Background="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="50" Padding="10">
+                        <RichTextBlock FontSize="20" FontFamily="Segoe UI Light" IsTextSelectionEnabled="False">
                             <RichTextBlock.Foreground>
                                 <SolidColorBrush Color="{Binding DataSource.SelectedEvent.EventColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"></SolidColorBrush>
                             </RichTextBlock.Foreground>
