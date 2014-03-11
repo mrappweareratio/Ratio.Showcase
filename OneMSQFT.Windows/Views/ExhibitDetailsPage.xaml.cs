@@ -34,7 +34,7 @@ namespace OneMSQFT.WindowsStore.Views
 
             var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();
             vm.PropertyChanged += ExhibitDetailsPage_PropertyChanged;
-            vm.PinContextChanged += vm_PinContextChanged;
+            vm.PinContextChanged += VmPinContextChanged;
             ProcessWindowSizeChangedEvent();
             var app = AppLocator.Current;
             if (app != null)
@@ -54,13 +54,18 @@ namespace OneMSQFT.WindowsStore.Views
             VideoPopup.IsOpen = false;
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
+        {            
+            base.OnNavigatedTo(e);                        
             if (!AppLocator.Current.KioskModeEnabled)
             {
                 _dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
                 _dataTransferManager.TargetApplicationChosen += DataTransferManagerTargetApplicationChosen;
             }
+
+            _mediaListViewLoadedTaskCompletionSource = new TaskCompletionSource<bool>();
+            Task.WhenAll(_mediaListViewLoadedTaskCompletionSource.Task,
+                GetDataContextAsViewModel<IBasePageViewModel>().LoadedEventsTaskCompletionSource.Task)
+                .ContinueWith((task) => SetIndicatorTextByOffset(0), TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -169,13 +174,16 @@ namespace OneMSQFT.WindowsStore.Views
             {
                 if (!_loaded)
                     return;
+
+                _detailsGridViewScrollViewer = _detailsGridViewScrollViewer ?? VisualTreeUtilities.GetVisualChild<ScrollViewer>(MediaListView);
+
                 if (GetDataContextAsViewModel<IBasePageViewModel>().IsHorizontal)
                 {
                     VisualStateManager.GoToState(this, "FullScreenLandscape", true);
+                    
                     StackPanelRightAppBarImages.Visibility = PinButtonImage.Visibility = Visibility.Collapsed;
                     StackPanelRightAppBarText.Visibility = PinButton.Visibility = Visibility.Visible;
 
-                    _detailsGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(MediaListView);
                     if (_detailsGridViewScrollViewer != null)
                     {
                         _detailsGridViewScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Visible;
@@ -193,16 +201,14 @@ namespace OneMSQFT.WindowsStore.Views
 
                         _detailsGridViewScrollViewer.ZoomMode = ZoomMode.Disabled;
                     }
-
                 }
                 else
                 {
                     VisualStateManager.GoToState(this, "FullScreenPortrait", true);             
+                    
                     StackPanelRightAppBarText.Visibility = PinButton.Visibility = Visibility.Collapsed;
                     StackPanelRightAppBarImages.Visibility = PinButtonImage.Visibility = Visibility.Visible;
 
-
-                    _detailsGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(MediaListView);
                     if (_detailsGridViewScrollViewer != null)
                     {
                         _detailsGridViewScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
@@ -224,7 +230,7 @@ namespace OneMSQFT.WindowsStore.Views
             }
         }
 
-        void vm_PinContextChanged(object sender, EventArgs e)
+        void VmPinContextChanged(object sender, EventArgs e)
         {
             var args = GetDataContextAsViewModel<IBasePageViewModel>().GetSecondaryTileArguments();
             if (args == null)
@@ -388,6 +394,7 @@ namespace OneMSQFT.WindowsStore.Views
                 : SnapPointsAlignment.Near;
         }
 
+        private TaskCompletionSource<bool> _mediaListViewLoadedTaskCompletionSource; 
         private void MediaListView_OnLoaded(object sender, RoutedEventArgs e)
         {
             _detailsGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(MediaListView);
@@ -396,31 +403,44 @@ namespace OneMSQFT.WindowsStore.Views
                 _loaded = true;
                 _detailsGridViewScrollViewer.ViewChanged += MediaListViewScrollViewer_ViewChanged;
                 ProcessWindowSizeChangedEvent();
+                _mediaListViewLoadedTaskCompletionSource.TrySetResult(true);
             }
-            SetIndicatorTextByOffset(0);
+        }
+
+        private void MediaListView_OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            if (_detailsGridViewScrollViewer != null)
+            {                
+                _detailsGridViewScrollViewer.ViewChanged -= MediaListViewScrollViewer_ViewChanged;                                
+            }
         }
 
         void MediaListViewScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
-
-            if (e.IsIntermediate == false)
+            if (e.IsIntermediate == false && GetDataContextAsViewModel<IBasePageViewModel>().LoadedEventsTaskCompletionSource.Task.IsCompleted)
             {
                 SetIndicatorTextByOffset(((ScrollViewer)sender).HorizontalOffset);
             }
         }
 
+        /// <summary>
+        /// Examines HorizontalOffset of the page to determine the # of media item shown.
+        /// Bound media items include [exhibit buffer][media list][next exhibit buffer]
+        /// </summary>
+        /// <param name="offset">HorizontalOffset</param>
         private void SetIndicatorTextByOffset(double offset)
         {
-            var vm = GetDataContextAsViewModel<ExhibitDetailsPageViewModel>();
-            var i = Convert.ToInt32(offset / vm.FullScreenWidth);
-            if ((i + 1) > vm.Exhibit.MediaContent.Count - 2)
-            {
-                i = i - 1;
+            var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();
+            if (vm.Exhibit == null || vm.Exhibit.MediaContent == null) return;
+            var i = Math.Floor(offset / vm.FullScreenWidth);//zero base index
+            var mediaCount = vm.Exhibit.MediaContent.Count - 2;
+            if (i > mediaCount - 1)
+            {                
+                i = mediaCount - 1;//last item zero index
             }
-            this.Index.Text = (i + 1).ToString();
-            this.Count.Text = (vm.Exhibit.MediaContent.Count -2).ToString();
-        }
-
+            Index.Text = (i + 1).ToString();
+            Count.Text = (mediaCount).ToString();
+        }        
     }
 }
 
