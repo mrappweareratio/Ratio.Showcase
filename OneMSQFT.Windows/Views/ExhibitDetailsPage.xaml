@@ -371,17 +371,6 @@
                                         <LineBreak/>
                                         <Run Text="{Binding DataSource.NextExhibit.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
                                         <LineBreak/>
-                                        <!--<Run Text="{Binding DataSource.NextExhibit.SquareFootageString, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
-                                        <LineBreak/>                                                                             
-                                        <Run Text="{Binding DataSource.NextExhibit.SquareFootageString, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
-                                        <LineBreak/>
-                                        <Run Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" />
-                                        <LineBreak/>
-                                        <InlineUIContainer>
-                                            <Grid Margin="0,6,0,0">
-                                                <TextBlock Text="{Binding DataSource.NextExhibit.Curator.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}"  />
-                                            </Grid>
-                                        </InlineUIContainer>-->
                                     </Paragraph>
                                 </RichTextBlock>
                             </Grid>
@@ -505,15 +494,6 @@
                                              FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}"/>
                                         <LineBreak/>
                                         <Run Text="{Binding DataSource.NextExhibit.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
-                                        <!--<Run Text="{Binding DataSource.NextExhibit.SquareFootageString, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
-                                        <Run Text="{Binding Strings.GuestCurated, Source={StaticResource PortableStrings}}" />
-                                        <LineBreak/>
-                                        <InlineUIContainer>
-                                            <Grid Margin="0,6,0,0">
-                                                <TextBlock Text="{Binding DataSource.NextExhibit.Curator.Name, Mode=OneWay, Source={StaticResource DataContextProxy}}"  />
-
-                                            </Grid>
-                                        </InlineUIContainer>-->
                                     </Paragraph>
                                 </RichTextBlock>
                             </Grid>
@@ -726,7 +706,9 @@
                     SelectedMediaContentSource="{Binding DataSource.SelectedMediaContentSource, Source={StaticResource DataContextProxy}}"
                     Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                     Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
-                    <AppBarButton Icon="Cancel" Click="CloseVideo_OnClick" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
+                    <Button Click="CloseVideo_OnClick" HorizontalAlignment="Right" 
+                            VerticalAlignment="Top" Margin="20" Padding="0" Height="44" Width="44" 
+                            Style="{StaticResource CloseButtonStyle}"/>
                 </Grid>
             </Popup>
             <Button HorizontalAlignment="Left"

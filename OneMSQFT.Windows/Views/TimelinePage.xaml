@@ -802,17 +802,18 @@
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
-                    <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" TextTrimming="CharacterEllipsis"
-						    TextWrapping="NoWrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
-						    Grid.Row="1" Grid.RowSpan="2">
+                    <RichTextBlock HorizontalAlignment="Left" Margin="100,20,40,0" TextTrimming="CharacterEllipsis"
+						    TextWrapping="Wrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
+						    Grid.Row="0" Grid.RowSpan="3">
                         <Paragraph>
                             <Run Text="{Binding SquareFootageStringPlain}" 
                                          FontSize="{Binding DataSource.LargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
-                            <Run Text="{Binding PortraitBlurb, Mode=OneWay}" 
+                            <LineBreak />
+                            <Run Text="{Binding EventTileBlurb}" 
                                          FontSize="{Binding DataSource.MediumFlexyFontSize, Source={StaticResource DataContextProxy}}" />
+                            
                         </Paragraph>
                     </RichTextBlock>
-
 
 
                     <omsqftcontrols:CuratorLogoStackerUserControl 
@@ -964,6 +965,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        
     </omsqft:BasePageView.Resources>
     <omsqft:BasePageView.BottomAppBar>
         <AppBar x:Name="appBar" Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent" Visibility="Collapsed">
@@ -1199,7 +1202,9 @@
                             </Paragraph>
                         </RichTextBlock>
                     </Border>
-                    <AppBarButton Icon="Cancel" Click="FlipViewPopUpCloseButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20" Style="{StaticResource AppBarButtonCloseStyle}"/>
+                    <Button Click="FlipViewPopUpCloseButton_Click" HorizontalAlignment="Right" 
+                            VerticalAlignment="Top" Margin="20" Padding="0" Height="44" Width="44" 
+                            Style="{StaticResource CloseButtonStyle}" />
                 </Grid>
             </Popup>
             <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="False" Style="{StaticResource VideoPopupStyle}" >
@@ -1207,7 +1212,9 @@
                     <omsqftcontrols:VideoPlayerUserControl x:Name="VideoPlayerUserControl"
                     Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                     Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
-                    <AppBarButton Icon="Cancel" Click="VideoPopUpCloseButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
+                    <Button Click="VideoPopUpCloseButton_Click" HorizontalAlignment="Right" 
+                            VerticalAlignment="Top" Margin="20" Padding="0" Height="44" Width="44" 
+                            Style="{StaticResource CloseButtonStyle}"/>
                 </Grid>
             </Popup>
         </Grid>
