@@ -12,8 +12,7 @@
     xmlns:controls="using:OneMSQFT.WindowsStore.Controls"
     mc:Ignorable="d"
     Background="White"
-    prism:ViewModelLocator.AutoWireViewModel="True"
-	d:DataContext="{d:DesignInstance designViewModels:DesignExhibitDetailsPageViewModel, IsDesignTimeCreatable=True}" FontFamily="Global User Interface">
+    prism:ViewModelLocator.AutoWireViewModel="True">
 
     <omsqft:BasePageView.Resources>
 
@@ -23,7 +22,8 @@
             <Border Height="90" BorderBrush="{StaticResource OneMSQFTAppBarAccentGrayBrush}" BorderThickness="0,10,0,0" >
                 <Grid>                    
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"  Margin="20,0,0,0">
-                        <Button x:Name="HomeButton" Visibility="Collapsed" Content="HOME" Style="{StaticResource OMSQFT_CustomAppbarButton}" />
+                        <Button x:Name="HomeButton" Visibility="Collapsed" Content="{Binding Strings.Home, Source={StaticResource PortableStrings}}" 
+                                Style="{StaticResource OMSQFT_CustomAppbarButton}" />
                     </StackPanel>
                     <StackPanel x:Name="StackPanelRightAppBarText"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">                        
                         <Button x:Name="FacebookButton"
@@ -36,15 +36,15 @@
                                 Content="{Binding Strings.Instagram, Source={StaticResource PortableStrings}}"
                                 Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
                     </StackPanel>
-                    <StackPanel x:Name="StackPanelRightAppBarImages" Visibility="Collapsed"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">                        
+                    <StackPanel x:Name="StackPanelRightAppBarImages" Visibility="Collapsed"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,10,0">                        
                         <Button x:Name="FacebookButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
-                            <Image Source="ms-appx:///Assets/Icons/facebook.png"></Image>
+                            <Image Stretch="None" Source="ms-appx:///Assets/Icons/facebook.png"></Image>
                         </Button>
                         <Button x:Name="TwitterButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
-                            <Image Source="ms-appx:///Assets/Icons/twitter.png"></Image>
+                            <Image Stretch="None" Source="ms-appx:///Assets/Icons/twitter.png"></Image>
                         </Button>
                         <Button x:Name="InstagramButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
-                            <Image Source="ms-appx:///Assets/Icons/instagram.png"></Image>
+                            <Image Stretch="None" Source="ms-appx:///Assets/Icons/instagram.png"></Image>
                         </Button>
                     </StackPanel>
                 </Grid>
