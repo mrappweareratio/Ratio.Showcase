@@ -235,7 +235,11 @@ namespace OneMSQFT.UILogic
                         settingsCommands.Add(new SettingsCommand(Guid.NewGuid().ToString(), Strings.ClearStartUp, command => vm.ClearStartupCommand.Execute()));
                 }
             }
-            settingsCommands.Add(new SettingsCommand(Guid.NewGuid().ToString(), Strings.ClearDataCache, (c) => DataService.ClearDataCacheInStorage()));
+            if (KioskModeEnabled)
+            {
+                settingsCommands.Add(new SettingsCommand(Guid.NewGuid().ToString(), Strings.ClearDataCache,
+                    (c) => DataService.ClearDataCacheInStorage()));
+            }
             settingsCommands.Add(new SettingsCommand(Guid.NewGuid().ToString(), Strings.PrivacyPolicy, async (c) => await Launcher.LaunchUriAsync(new Uri(Strings.PrivacyPolicyUrl))));
             return settingsCommands;
         }

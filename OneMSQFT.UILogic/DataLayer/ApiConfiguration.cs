@@ -9,7 +9,7 @@ namespace OneMSQFT.UILogic.DataLayer
             get
             {
 #if RELEASE
-                return "http://1msqft.azurewebsites.net/api";
+                return "http://www.1msqft.com/api";
 #else
                 return "http://1msqft-stage.azurewebsites.net/api";
 #endif
@@ -21,7 +21,7 @@ namespace OneMSQFT.UILogic.DataLayer
             get
             {
 #if RELEASE
-                return "http://1msqft.com";
+                return "http://www.1msqft.com";
 #else
                 return "http://1msqft-stage.azurewebsites.net";
 #endif
