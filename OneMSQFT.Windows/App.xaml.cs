@@ -45,16 +45,16 @@ namespace OneMSQFT.WindowsStore
         {
             this.UnhandledException += App_UnhandledException;
             this.ExtendedSplashScreenFactory = (splashscreen) => new ExtendedSplashScreen(splashscreen);
-            this.RootFrameFactory = () =>
-            {
-                var frame = new AnimationFrame();
-                frame.NavigationFailed += (sender, args) =>
-                {
-                    if (Debugger.IsAttached)
-                        Debugger.Break();
-                };
-                return frame;
-            };
+            //this.RootFrameFactory = () =>
+            //{
+            //    var frame = new AnimationFrame();
+            //    frame.NavigationFailed += (sender, args) =>
+            //    {
+            //        if (Debugger.IsAttached)
+            //            Debugger.Break();
+            //    };
+            //    return frame;
+            //};
             this.Suspending += App_Suspending;
             this.Resuming += App_Resuming;
         }
