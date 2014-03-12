@@ -677,20 +677,13 @@
                         		HorizontalAlignment="Stretch"
                         		AutomationProperties.Name="{Binding Name}" 
                         		Stretch="Fill"/>
-                            <Border IsHitTestVisible="False"
-                        		HorizontalAlignment="Center" Height="70"  
-                        		VerticalAlignment="Center" Width="70">
-                                <Border.Background>
+                            <AppBarButton IsHitTestVisible="False"
+                                Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" 
+                                Style="{StaticResource AppBarCustomPlayButtonStyle}">
+                                <AppBarButton.Background>
                                     <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
-                                </Border.Background>
-                                <Path Data="M1,1 L49,1 L49,49" 
-                        			HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
-                        			StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
-                                    <Path.RenderTransform>
-                                        <CompositeTransform Rotation="45" TranslateY="5.43"/>
-                                    </Path.RenderTransform>
-                                </Path>
-                            </Border>
+                                </AppBarButton.Background>
+                            </AppBarButton>
                         </Grid>
                     </Button>
 
@@ -855,20 +848,13 @@
                         		HorizontalAlignment="Stretch"
                         		AutomationProperties.Name="{Binding Name}" 
                         		Stretch="Fill"/>
-                        <Border IsHitTestVisible="False"
-                        		HorizontalAlignment="Center" Height="70"  
-                        		VerticalAlignment="Center" Width="70">
-                            <Border.Background>
+                        <AppBarButton IsHitTestVisible="False"
+                                Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" 
+                                Style="{StaticResource AppBarCustomPlayButtonStyle}">
+                            <AppBarButton.Background>
                                 <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
-                            </Border.Background>
-                            <Path Data="M1,1 L49,1 L49,49" 
-                        			HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
-                        			StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
-                                <Path.RenderTransform>
-                                    <CompositeTransform Rotation="45" TranslateY="5.43"/>
-                                </Path.RenderTransform>
-                            </Path>
-                        </Border>
+                            </AppBarButton.Background>
+                        </AppBarButton>
                     </Grid>
                 </Button>
 
@@ -1177,26 +1163,13 @@
                                         </ProgressRing.Foreground>
                                     </ProgressRing>
                                     <Image Source="{Binding ImageSource}" Stretch="UniformToFill"/>
-                                    <Button Click="VideoButton_Clicked" 
-                                            Style="{StaticResource EmptyButtonStyle}"
-                                            Visibility="{Binding IsVideoButtonVisible}" 
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center">
-                                        <Border 
-                        		            HorizontalAlignment="Center" Height="70"  
-                        		            VerticalAlignment="Center" Width="70">
-                                            <Border.Background>
-                                                <SolidColorBrush Color="{Binding DataSource.SelectedEvent.EventColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"/>
-                                            </Border.Background>
-                                            <Path Data="M1,1 L49,1 L49,49" 
-                        			            HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
-                        			            StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
-                                                <Path.RenderTransform>
-                                                    <CompositeTransform Rotation="45" TranslateY="5.43"/>
-                                                </Path.RenderTransform>
-                                            </Path>
-                                        </Border>
-                                    </Button>
+                                    <AppBarButton Click="VideoButton_Clicked" 
+                                        Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" 
+                                        Style="{StaticResource AppBarCustomPlayButtonStyle}">
+                                        <AppBarButton.Background>
+                                            <SolidColorBrush Color="{Binding DataSource.SelectedEvent.EventColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"/>
+                                        </AppBarButton.Background>
+                                    </AppBarButton>
                                 </Grid>
                             </DataTemplate>
                         </FlipView.ItemTemplate>
