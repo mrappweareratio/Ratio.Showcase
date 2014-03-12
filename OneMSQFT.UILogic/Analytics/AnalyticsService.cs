@@ -16,7 +16,7 @@ namespace OneMSQFT.UILogic.Analytics
 
         public bool KioskModeEnabled { get; set; }
 
-        private const bool Disabled = false;
+        private const bool Disabled = true;
 
         public void Configure()
         {
@@ -175,7 +175,7 @@ namespace OneMSQFT.UILogic.Analytics
             this.TrackEvents(evData, context);
         }     
 
-        public void TrackAppBarEventInteraction(string evName, int? sqFootage, int? evPos, string page)
+        public void TrackAppBarEventInteraction(string evName, int? sqFootage, int? evPos)
         {
             if (Disabled)
                 return;
@@ -185,7 +185,7 @@ namespace OneMSQFT.UILogic.Analytics
             {
                 EventName = evName,
                 EventSqFt = sqFootage,
-                AppElement = TrackingContextData.AppElements.GenerateClickEventInAppBarData(evPos, page)
+                AppElement = TrackingContextData.AppElements.GenerateClickEventInAppBarData(evPos)
             };
 
             this.TrackEvents(evData, context);

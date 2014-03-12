@@ -100,7 +100,7 @@ namespace OneMSQFT.UILogic.Tests.Mocks
         {
         }
 
-        public void TrackAppBarEventInteraction(string evName, int? sqFootage, int? evPos, string page)
+        public void TrackAppBarEventInteraction(string evName, int? sqFootage, int? evPos)
         {            
         }
 

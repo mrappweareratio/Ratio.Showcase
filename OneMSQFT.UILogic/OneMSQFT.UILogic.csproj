@@ -118,8 +118,12 @@
   <ItemGroup>
     <Compile Include="Analytics\AnalyticsService.cs" />
     <Compile Include="Analytics\TrackingHelper.cs" />
+    <Compile Include="Collections\IIncrementalLoadingSource.cs" />
+    <Compile Include="Collections\IncrementalLoadingCollection.cs" />
+    <Compile Include="Collections\IncrementalLoadingSource.cs" />
     <Compile Include="DataLayer\ApiConfiguration.cs" />
     <Compile Include="DataLayer\ApiDataRepository.cs" />
+    <Compile Include="DataLayer\MillionDemoDataRepository.cs" />
     <Compile Include="DataLayer\DemoDataRepository.cs" />
     <Compile Include="DataLayer\RetryHandler.cs" />
     <Compile Include="DataLayer\SampleLocalStorageProvider.cs" />

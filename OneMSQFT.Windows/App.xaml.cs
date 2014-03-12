@@ -45,16 +45,16 @@ namespace OneMSQFT.WindowsStore
         {
             this.UnhandledException += App_UnhandledException;
             this.ExtendedSplashScreenFactory = (splashscreen) => new ExtendedSplashScreen(splashscreen);
-            this.RootFrameFactory = () =>
-            {
-                var frame = new AnimationFrame();
-                frame.NavigationFailed += (sender, args) =>
-                {
-                    if (Debugger.IsAttached)
-                        Debugger.Break();
-                };
-                return frame;
-            };
+            //this.RootFrameFactory = () =>
+            //{
+            //    var frame = new AnimationFrame();
+            //    frame.NavigationFailed += (sender, args) =>
+            //    {
+            //        if (Debugger.IsAttached)
+            //            Debugger.Break();
+            //    };
+            //    return frame;
+            //};
             this.Suspending += App_Suspending;
             this.Resuming += App_Resuming;
         }
@@ -91,6 +91,7 @@ namespace OneMSQFT.WindowsStore
             //register repositories
             //_container.RegisterType<IDataRepository, SampleDataRepository>(new ContainerControlledLifetimeManager());
             //_container.RegisterType<IDataRepository, DemoDataRepository>(new ContainerControlledLifetimeManager());                        
+            //_container.RegisterType<IDataRepository, MillionDemoDataRepository>(new ContainerControlledLifetimeManager());                        
             _container.RegisterType<IApiConfiguration, ApiConfiguration>(new ContainerControlledLifetimeManager());
             _container.RegisterType<IDataRepository, ApiDataRepository>(new ContainerControlledLifetimeManager());
 
