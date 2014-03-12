@@ -33,17 +33,16 @@ namespace OneMSQFT.UILogic.ViewModels
         public DelegateCommand<EventItemViewModel> EventHeroItemClickCommand { get; set; }
         public DelegateCommand<ExhibitItemViewModel> ExhibitItemClickCommand { get; set; }
 
-        public TimelinePageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration, IAnalyticsService analyticsService, IDispatcherService dispatcherService)
+        public TimelinePageViewModel(IDataService dataService, IAlertMessageService messageService, INavigationService navigationService, IConfigurationService configuration, IAnalyticsService analyticsService)
         {
             _dataService = dataService;
             _messageService = messageService;
             _navigationService = navigationService;
             _configuration = configuration;
             _analyticsService = analyticsService;
-            _dispatcherService = dispatcherService;
             this.SquareFootEvents = new ObservableCollection<EventItemViewModel>();
-            this.TimeLineItems = new IncrementalLoadingCollection<EventItemViewModel>(new List<EventItemViewModel>(), dispatcherService);
-            this.TimeLineMenuItems = new IncrementalLoadingCollection<EventItemViewModel>(new List<EventItemViewModel>(), dispatcherService);
+            this.TimeLineItems = new ObservableCollection<EventItemViewModel>();
+            this.TimeLineMenuItems = new ObservableCollection<EventItemViewModel>();
             this.EventHeroItemClickCommand = new DelegateCommand<EventItemViewModel>(EventHeroItemClickCommandHandler);
             this.ExhibitItemClickCommand = new DelegateCommand<ExhibitItemViewModel>(ExhibitItemClickCommandHandler);
             this.SetStartupCommand = new DelegateCommand(SetStartupCommandExecuteMethod, SetStartupCommandCanExecuteMethod);
@@ -69,13 +68,11 @@ namespace OneMSQFT.UILogic.ViewModels
             var timelineEvents = _eventsList.Select(x => new EventItemViewModel(x, _analyticsService)).ToList();
             timelineEvents.Insert(0, new BufferItemFakeEventItemViewModel()); // first buffer item
             timelineEvents.Add(new BufferItemFakeEventItemViewModel()); // last buffer item
-            //TimeLineItems = new ObservableCollection<EventItemViewModel>(timelineEvents);
-            TimeLineItems = new IncrementalLoadingCollection<EventItemViewModel>(timelineEvents, _dispatcherService, 3);
+            TimeLineItems = new ObservableCollection<EventItemViewModel>(timelineEvents);            
 
             var timelineMenuEvents = _eventsList.Select(x => new EventItemViewModel(x, _analyticsService)).ToList();
             timelineMenuEvents = ComingSoonUtils.InsertComingSoonItems(12, timelineMenuEvents);
-            //TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(timelineMenuEvents);
-            TimeLineMenuItems = new IncrementalLoadingCollection<EventItemViewModel>(timelineMenuEvents, _dispatcherService, 12);
+            TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(timelineMenuEvents);            
 
             foreach (var eivm in _eventsList)
             {
@@ -89,7 +86,7 @@ namespace OneMSQFT.UILogic.ViewModels
         /// TimeLineItems Bound To Events List
         /// Contains EventItemViewModel and BufferItemFakeEventItemViewModel
         /// </summary>
-        public IncrementalLoadingCollection<EventItemViewModel> TimeLineItems
+        public ObservableCollection<EventItemViewModel> TimeLineItems
         {
             get
             {
@@ -98,7 +95,7 @@ namespace OneMSQFT.UILogic.ViewModels
             private set { SetProperty(ref _timeLineItems, value); }
         }
 
-        public IncrementalLoadingCollection<EventItemViewModel> TimeLineMenuItems
+        public ObservableCollection<EventItemViewModel> TimeLineMenuItems
         {
             get { return _timeLineMenuItems; }
             private set { SetProperty(ref _timeLineMenuItems, value); }
@@ -127,8 +124,8 @@ namespace OneMSQFT.UILogic.ViewModels
         }
 
         private int _totalSquareFeet;
-        private IncrementalLoadingCollection<EventItemViewModel> _timeLineItems;
-        private IncrementalLoadingCollection<EventItemViewModel> _timeLineMenuItems;
+        private ObservableCollection<EventItemViewModel> _timeLineItems;
+        private ObservableCollection<EventItemViewModel> _timeLineMenuItems;
         private Visibility _clearStartupVisibility;
         private Visibility _setStartupVisibility;
         private IList<Event> _eventsList;
