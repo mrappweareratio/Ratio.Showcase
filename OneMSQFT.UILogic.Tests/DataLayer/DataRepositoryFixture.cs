@@ -113,7 +113,30 @@ namespace OneMSQFT.UILogic.Tests.DataLayer
                         invalidVideoIdUrlDictionary[v.VideoId] = url.Value;
                 }
             }
-            Assert.IsFalse(invalidVideoIdUrlDictionary.Any(), string.Format("Invalid Videos Ids {0} Urls {1}", String.Join(" ", invalidVideoIdUrlDictionary.Keys), String.Join(" ", invalidVideoIdUrlDictionary.Values)));
+            Assert.IsFalse(invalidVideoIdUrlDictionary.Any(), string.Format("Invalid Videos VimeoIds {0} Urls {1}", String.Join(" ", invalidVideoIdUrlDictionary.Keys), String.Join(" ", invalidVideoIdUrlDictionary.Values)));
+        }
+
+        [TestMethod]
+        public void DataRepository_Videos_Vimeo_Ids()
+        {
+            Dictionary<string, string> invalidVideoIdUrlDictionary = new Dictionary<string, string>();
+            var eventVideos = _result.Events.SelectMany(x => x.MediaContent);
+            var exhibitVideos = _result.Events.SelectMany(x => x.Exhibits).SelectMany(x => x.MediaContent);
+            var videos = eventVideos.Concat(exhibitVideos).Where(x => x.ContentSourceType == ContentSourceType.Video);
+            foreach (var v in videos)
+            {
+                if (String.IsNullOrEmpty(v.VideoId))
+                {
+                    invalidVideoIdUrlDictionary[v.Id] = v.VideoId;
+                    continue;
+                }
+                if (v.VideoId.Length != 8)
+                {
+                    invalidVideoIdUrlDictionary[v.Id] = v.VideoId;
+                    continue;
+                }                                    
+            }
+            Assert.IsFalse(invalidVideoIdUrlDictionary.Any(), string.Format("Invalid Vimeo Identifiers id: {0} video_id: {1}", String.Join(" ", invalidVideoIdUrlDictionary.Keys), String.Join(" ", invalidVideoIdUrlDictionary.Values)));
         }
 
 

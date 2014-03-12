@@ -24,6 +24,7 @@ using OneMSQFT.UILogic.Interfaces.ViewModels;
 using OneMSQFT.UILogic.Navigation;
 using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.Utils;
+using ISharingService = OneMSQFT.Common.Services.ISharingService;
 using Strings = OneMSQFT.Common.Strings;
 
 namespace OneMSQFT.UILogic

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Microsoft.VisualBasic;
 using OneMSQFT.Common.DataLayer;
 using OneMSQFT.Common.Models;
@@ -45,12 +47,12 @@ namespace OneMSQFT.UILogic.Services
         {
             uri = null;
             try
-            {   
-                if(ev == null)
+            {
+                if (ev == null)
                     throw new ArgumentNullException("Event");
-                if(String.IsNullOrWhiteSpace(ev.Name))
+                if (String.IsNullOrWhiteSpace(ev.Name))
                     throw new ArgumentNullException("Event Name");
-                var uriString = String.Format(Strings.ShareEventUrlFormatRootSlugId, _webSiteUrl, GetSlug(ev.Name), ev.Id);                
+                var uriString = String.Format(Strings.ShareEventUrlFormatRootSlugId, _webSiteUrl, GetSlug(ev.Name), ev.Id);
                 return Uri.TryCreate(uriString, UriKind.Absolute, out uri);
             }
             catch
@@ -73,10 +75,10 @@ namespace OneMSQFT.UILogic.Services
             {
                 return false;
             }
-        }       
+        }
 
         public string GetSlug(string name)
-        {            
+        {
             var str = name.ToLower().Trim();
             // invalid chars           
             str = Regex.Replace(str, @"[^a-z0-9\s-]", "");
@@ -87,6 +89,38 @@ namespace OneMSQFT.UILogic.Services
             // hyphens
             str = Regex.Replace(str, @"\s", "-");
             return str;
+        }       
+
+        public bool TryGetSharingThumbnailUri(Event ev, out Uri uri)
+        {
+            uri = null;
+            if (ev == null)
+                return false;
+            if (ev.MediaContent == null || !ev.MediaContent.Any())
+                return false;            
+            return Uri.TryCreate(ev.MediaContent.FirstOrDefault().Img, UriKind.Absolute, out uri);            
+        }
+
+        public bool TryGetSharingThumbnailUri(Exhibit ex, out Uri uri)
+        {
+            uri = null;
+            if (ex == null)
+                return false;
+            if (ex.MediaContent == null || !ex.MediaContent.Any())
+            {
+                if (String.IsNullOrEmpty(ex.ThumbImage))
+                    return false;
+                return Uri.TryCreate(ex.ThumbImage, UriKind.Absolute, out uri);
+            }
+            return Uri.TryCreate(ex.MediaContent.FirstOrDefault().Img, UriKind.Absolute, out uri);
+        }
+
+        public bool TryGetSharingThumbnailUri(MediaContentSource media, out Uri uri)
+        {
+            uri = null;
+            if (media == null)
+                return false;
+            return Uri.TryCreate(media.Img, UriKind.Absolute, out uri);        
         }
     }
 }

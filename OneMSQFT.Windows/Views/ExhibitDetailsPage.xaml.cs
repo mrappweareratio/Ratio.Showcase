@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,6 +15,7 @@ using OneMSQFT.Common;
 using OneMSQFT.Common.Models;
 using OneMSQFT.Common.Services;
 using OneMSQFT.UILogic.Interfaces.ViewModels;
+using OneMSQFT.UILogic.Services;
 using OneMSQFT.UILogic.Utils;
 using OneMSQFT.UILogic.ViewModels;
 using Windows.UI.Xaml;
@@ -90,11 +92,29 @@ namespace OneMSQFT.WindowsStore.Views
                 return;
             }
 
-            Uri uri = null;
-            if (VideoPopup.IsOpen)
+            var exhibitModel = vm.Exhibit.ExhibitModel;
+            
+            MediaContentSource videoSourceScrolledTo = null;
+            if (exhibitModel.MediaContent.Any() && _scrolledMediaIndexOneBased > 0)
             {
-                var selectedMediaContentSource = vm.SelectedMediaContentSource;
-                if (selectedMediaContentSource == null || !_sharing.TryGetVideoShareUri(selectedMediaContentSource.Media, out uri))
+                var mediaContent = exhibitModel.MediaContent.ToArray();
+                if (_scrolledMediaIndexOneBased <= mediaContent.Length)
+                {
+                    var media = mediaContent[_scrolledMediaIndexOneBased - 1];
+                    if (media.ContentSourceType == ContentSourceType.Video)
+                    {
+                        videoSourceScrolledTo = media;
+                    }
+                }
+            }
+            Uri uri = null;
+            if (VideoPopup.IsOpen || videoSourceScrolledTo != null && _lastHorizontalOffset > 0)
+            {
+                //_lastHorizontalOffset is 0 in portait, otherwise at 0, the exhibit tile is in view as well
+                var selectedMediaContentSource = videoSourceScrolledTo ?? (vm.SelectedMediaContentSource != null
+                    ? vm.SelectedMediaContentSource.Media
+                    : null);
+                if (selectedMediaContentSource == null || !_sharing.TryGetVideoShareUri(selectedMediaContentSource, out uri))
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
                     return;
@@ -103,8 +123,16 @@ namespace OneMSQFT.WindowsStore.Views
                 args.Request.Data.Properties.Description = vm.Exhibit.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
                 args.Request.Data.SetWebLink(uri);
+                //get thumbnail for video;
+                Uri videoThumbnailUri;
+                if (_sharing.TryGetSharingThumbnailUri(selectedMediaContentSource, out videoThumbnailUri))
+                {
+                    RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromUri(videoThumbnailUri);
+                    args.Request.Data.Properties.Thumbnail = imageStreamRef;
+                    args.Request.Data.SetBitmap(imageStreamRef);
+                }  
                 _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackVideoShareInExhibitView(vm.Exhibit.Name,
-                    selectedMediaContentSource.Media.VideoId, uri.AbsoluteUri, appName);
+                    selectedMediaContentSource.VideoId, uri.AbsoluteUri, appName);
             }
             else
             {
@@ -124,12 +152,21 @@ namespace OneMSQFT.WindowsStore.Views
                 if (!_sharing.TryGetExhibitShareUri(evt, vm.Exhibit.ExhibitModel, out uri))
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
+                    deferral.Complete();
                     return;
                 }
                 args.Request.Data.Properties.Title = vm.Exhibit.Name;
                 args.Request.Data.Properties.Description = vm.Exhibit.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
                 args.Request.Data.SetWebLink(uri);
+                //get thumbnail for exhibit;
+                Uri thumbnailUri;
+                if (_sharing.TryGetSharingThumbnailUri(vm.Exhibit.ExhibitModel, out thumbnailUri))
+                {
+                    RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromUri(thumbnailUri);
+                    args.Request.Data.Properties.Thumbnail = imageStreamRef;
+                    args.Request.Data.SetBitmap(imageStreamRef);
+                }  
                 _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackShareExhibitInteraction(vm.Exhibit.Name,
                   uri.AbsoluteUri, appName);
                 deferral.Complete();
@@ -423,22 +460,26 @@ namespace OneMSQFT.WindowsStore.Views
             }
         }
 
+        private int _scrolledMediaIndexOneBased;
+        private double _lastHorizontalOffset;
         /// <summary>
         /// Examines HorizontalOffset of the page to determine the # of media item shown.
         /// Bound media items include [exhibit buffer][media list][next exhibit buffer]
         /// </summary>
-        /// <param name="offset">HorizontalOffset</param>
-        private void SetIndicatorTextByOffset(double offset)
+        /// <param name="horizonatlOffset">HorizontalOffset</param>
+        private void SetIndicatorTextByOffset(double horizonatlOffset)
         {
+            _lastHorizontalOffset = horizonatlOffset;
             var vm = GetDataContextAsViewModel<IExhibitDetailsPageViewModel>();
             if (vm.Exhibit == null || vm.Exhibit.MediaContent == null) return;
-            var i = Math.Floor(offset / vm.FullScreenWidth);//zero base index
+            var i = Math.Floor(horizonatlOffset / vm.FullScreenWidth);//zero base index
             var mediaCount = vm.Exhibit.MediaContent.Count - 2;
             if (i > mediaCount - 1)
             {                
                 i = mediaCount - 1;//last item zero index
             }
-            Index.Text = (i + 1).ToString();
+            _scrolledMediaIndexOneBased = (int) (i + 1);
+            Index.Text = _scrolledMediaIndexOneBased.ToString();
             Count.Text = (mediaCount).ToString();
         }        
     }
