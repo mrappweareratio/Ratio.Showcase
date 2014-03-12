@@ -563,7 +563,7 @@
                         </StackPanel>
                         <Button x:Name="PinButton" Click="Pin_OnClick"
 							Style="{StaticResource OMSQFT_CustomAppbarButton}" />
-                        <Button Click="Pin_OnClick" Style="{StaticResource AppBarButtonStylePortrait}"  Margin="-10,0,0,0">
+                        <Button Click="Pin_OnClick" Style="{StaticResource AppBarButtonStylePortrait}"  Margin="-4,0,0,0">
                             <Image Stretch="None"  x:Name="PinButtonImage" Visibility="Collapsed" Source="ms-appx:///Assets/Icons/pin.png"></Image>
                         </Button>
                     </StackPanel>
@@ -581,7 +581,7 @@
                                 Content="{Binding Strings.Instagram, Source={StaticResource PortableStrings}}"
                                 Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
                     </StackPanel>
-                    <StackPanel x:Name="StackPanelRightAppBarImages" Visibility="Collapsed"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,10,0">
+                    <StackPanel x:Name="StackPanelRightAppBarImages" Visibility="Collapsed"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,0,0">
                         <Button x:Name="AboutButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
                             <Image Stretch="None" Source="ms-appx:///Assets/Icons/about.png"></Image>
                         </Button>
