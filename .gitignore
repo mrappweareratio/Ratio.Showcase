@@ -182,3 +182,6 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+/OneMSQFT.Windows/Diagnostic Sessions/*.diagsession
+/OneMSQFT.Windows/Diagnostic Sessions/*.vsps
+/OneMSQFT.Windows/Diagnostic Sessions/*.png
