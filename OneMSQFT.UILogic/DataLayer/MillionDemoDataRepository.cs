@@ -37,7 +37,7 @@ namespace OneMSQFT.UILogic.DataLayer
         {
             var siteData = new SiteData();
             var events = new List<Event>();
-            while (_totalSquareFeet < 1000000)
+            while (_totalSquareFeet < 200000)
             {
                 _id++;
                 var ev = MakeNewEvent();

@@ -73,11 +73,9 @@ namespace OneMSQFT.UILogic.ViewModels
             var timelineMenuEvents = _eventsList.Select(x => new EventItemViewModel(x, _analyticsService)).ToList();
             timelineMenuEvents = ComingSoonUtils.InsertComingSoonItems(12, timelineMenuEvents);
             TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(timelineMenuEvents);            
-
-            foreach (var eivm in _eventsList)
-            {
-                _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
-            }
+            
+            var totalSquareFeet = _eventsList.Sum(x => x.SquareFootage);
+            TotalSquareFeet = String.Format(Strings.SquareFeetTotalFormat, StringUtils.ToSquareFeet(totalSquareFeet));
 
             LoadedEventsTaskCompletionSource.TrySetResult(true);
         }
@@ -123,16 +121,17 @@ namespace OneMSQFT.UILogic.ViewModels
             }
         }
 
-        private int _totalSquareFeet;
+        private string _totalSquareFeet;
         private ObservableCollection<EventItemViewModel> _timeLineItems;
         private ObservableCollection<EventItemViewModel> _timeLineMenuItems;
         private Visibility _clearStartupVisibility;
         private Visibility _setStartupVisibility;
-        private IList<Event> _eventsList;
+        private IList<Event> _eventsList;        
 
         public String TotalSquareFeet
         {
-            get { return String.Format(Strings.SquareFeetTotalFormat, StringUtils.ToSquareFeet(_totalSquareFeet)); }
+            get { return _totalSquareFeet; }
+            set { SetProperty(ref _totalSquareFeet, value); }
         }
 
         #region Resizing Properties
