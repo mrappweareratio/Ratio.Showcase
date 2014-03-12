@@ -56,7 +56,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         public void InitAppBars()
         {
-            var childTransitions = new TransitionCollection { new EntranceThemeTransition() };
+            var childTransitions = new TransitionCollection { new EntranceThemeTransition(){IsStaggeringEnabled = false} };
 
             TopAppBar = new AppBar()
             {

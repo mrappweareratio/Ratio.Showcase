@@ -1039,7 +1039,7 @@
                 </TransitionCollection>
             </Grid.ChildrenTransitions>
             <Grid x:Name="ZoomedInLogo" Margin="0" Visibility="Collapsed" Height="165">
-                <RichTextBlock Margin="0,0,40,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" TextWrapping="NoWrap" IsColorFontEnabled="True" IsTextSelectionEnabled="False" FontWeight="Light" FontFamily="Segoe UI Light">
+                <RichTextBlock Margin="0,0,40,22" VerticalAlignment="Bottom" HorizontalAlignment="Right" TextWrapping="NoWrap" IsColorFontEnabled="True" IsTextSelectionEnabled="False" FontWeight="Light" FontFamily="Segoe UI Light">
                     <Paragraph>
                         <Run Text="{Binding TotalSquareFeet, Mode=OneWay}" 
                              Foreground="{StaticResource OneMSQFTLogoDarkBlueBrush}"
