@@ -632,7 +632,8 @@
     				    Margin="20" 
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-                        FontFamily="Segoe UI Light"/>
+                        FontFamily="Segoe UI Light"
+                        IsTextSelectionEnabled="False"/>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -676,20 +677,13 @@
                         		HorizontalAlignment="Stretch"
                         		AutomationProperties.Name="{Binding Name}" 
                         		Stretch="Fill"/>
-                            <Border IsHitTestVisible="False"
-                        		HorizontalAlignment="Center" Height="70"  
-                        		VerticalAlignment="Center" Width="70">
-                                <Border.Background>
+                            <AppBarButton IsHitTestVisible="False"
+                                Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" 
+                                Style="{StaticResource AppBarCustomPlayButtonStyle}">
+                                <AppBarButton.Background>
                                     <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
-                                </Border.Background>
-                                <Path Data="M1,1 L49,1 L49,49" 
-                        			HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
-                        			StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
-                                    <Path.RenderTransform>
-                                        <CompositeTransform Rotation="45" TranslateY="5.43"/>
-                                    </Path.RenderTransform>
-                                </Path>
-                            </Border>
+                                </AppBarButton.Background>
+                            </AppBarButton>
                         </Grid>
                     </Button>
 
@@ -704,7 +698,9 @@
                             <RowDefinition Height="319*"/>
                         </Grid.RowDefinitions>
                         <RichTextBlock HorizontalAlignment="Left" Margin="40,0,40,0" 
-						    TextWrapping="Wrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
+						    TextWrapping="Wrap" Foreground="White" 
+                            IsTextSelectionEnabled="False"
+                            FontWeight="Light" FontFamily="Segoe UI Light" 
 						    Grid.Row="1" 
                             Grid.RowSpan="3">
                             <Paragraph>
@@ -724,7 +720,8 @@
                                                     LineStackingStrategy="BlockLineHeight"
 						                            TextWrapping="Wrap" 
 						                            FontFamily="Segoe UI Light" 
-						                            FontWeight="Light"/>
+						                            FontWeight="Light"
+                                                    IsTextSelectionEnabled="False"/>
                                     </ScrollViewer>
                                 </InlineUIContainer>
                             </Paragraph>
@@ -802,9 +799,9 @@
                         <RowDefinition Height="2*"/>
                         <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
-                    <RichTextBlock HorizontalAlignment="Left" Margin="80,24,80,0" TextTrimming="CharacterEllipsis"
+                    <RichTextBlock HorizontalAlignment="Left" Margin="50,24,80,0" TextTrimming="CharacterEllipsis"
 						    TextWrapping="Wrap" Foreground="White" FontWeight="Light" FontFamily="Segoe UI Light" 
-						    Grid.Row="0" Grid.RowSpan="3">
+						    Grid.Row="0" Grid.RowSpan="3" IsTextSelectionEnabled="False">
                         <Paragraph>
                             <Run Text="{Binding SquareFootageStringPlain}" 
                                          FontSize="{Binding DataSource.MediumLargeFlexyFontSize, Source={StaticResource DataContextProxy}}" />
@@ -813,6 +810,9 @@
                                          FontSize="{Binding DataSource.MediumSmallFlexyFontSize, Source={StaticResource DataContextProxy}}" />
                             
                         </Paragraph>
+                        <RichTextBlock.RenderTransform>
+                            <TranslateTransform X="{Binding DataSource.LogoTransformX, Source={StaticResource DataContextProxy}}"/>
+                        </RichTextBlock.RenderTransform>
                     </RichTextBlock>
 
 
@@ -820,9 +820,13 @@
                             Grid.Row="2"
                             CuratorLogoCollection="{Binding CuratorLogos}"
                             IsLayoutHorizontal="False"
-                            Margin="80,20,0,0" 
+                            Margin="50,20,0,0" 
                             VerticalAlignment="Center" 
-                            HorizontalAlignment="Left"/>
+                            HorizontalAlignment="Left">
+                        <omsqftcontrols:CuratorLogoStackerUserControl.RenderTransform>
+                            <TranslateTransform X="{Binding DataSource.LogoTransformX, Source={StaticResource DataContextProxy}}"/>
+                        </omsqftcontrols:CuratorLogoStackerUserControl.RenderTransform>
+                    </omsqftcontrols:CuratorLogoStackerUserControl>
                 </Grid>
 
                 <Button Click="FlipViewButton_Clicked"
@@ -844,20 +848,13 @@
                         		HorizontalAlignment="Stretch"
                         		AutomationProperties.Name="{Binding Name}" 
                         		Stretch="Fill"/>
-                        <Border IsHitTestVisible="False"
-                        		HorizontalAlignment="Center" Height="70"  
-                        		VerticalAlignment="Center" Width="70">
-                            <Border.Background>
+                        <AppBarButton IsHitTestVisible="False"
+                                Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" 
+                                Style="{StaticResource AppBarCustomPlayButtonStyle}">
+                            <AppBarButton.Background>
                                 <SolidColorBrush Color="{Binding EventColor, Mode=OneWay}"/>
-                            </Border.Background>
-                            <Path Data="M1,1 L49,1 L49,49" 
-                        			HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
-                        			StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
-                                <Path.RenderTransform>
-                                    <CompositeTransform Rotation="45" TranslateY="5.43"/>
-                                </Path.RenderTransform>
-                            </Path>
-                        </Border>
+                            </AppBarButton.Background>
+                        </AppBarButton>
                     </Grid>
                 </Button>
 
@@ -986,8 +983,8 @@
                         <Button x:Name="PinButton" 
                                 Click="Pin_OnClick"
 							    Style="{StaticResource OMSQFT_CustomAppbarButton}" />
-                        <Button Click="Pin_OnClick" Style="{StaticResource AppBarButtonStylePortrait}">
-                            <Image x:Name="PinButtonImage" Visibility="Collapsed" Source="ms-appx:///Assets/Icons/pin.png"></Image>
+                        <Button Click="Pin_OnClick" Style="{StaticResource AppBarButtonStylePortrait}" Margin="-4,0,0,0">
+                            <Image Stretch="None" x:Name="PinButtonImage" Visibility="Collapsed" Source="ms-appx:///Assets/Icons/pin.png"></Image>
                         </Button>
                     </StackPanel>
                     <StackPanel x:Name="StackPanelRightAppBarText"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
@@ -1004,18 +1001,18 @@
                                 Content="{Binding Strings.Instagram, Source={StaticResource PortableStrings}}"
                                 Style="{StaticResource OMSQFT_CustomAppbarButton}"/>
                     </StackPanel>
-                    <StackPanel x:Name="StackPanelRightAppBarImages"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0">
+                    <StackPanel x:Name="StackPanelRightAppBarImages"  HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,0,0">
                         <Button x:Name="AboutButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
-                            <Image Source="ms-appx:///Assets/Icons/about.png"></Image>
+                            <Image Stretch="None" Source="ms-appx:///Assets/Icons/about.png"></Image>
                         </Button>
                         <Button x:Name="FacebookButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
-                            <Image Source="ms-appx:///Assets/Icons/facebook.png"></Image>
+                            <Image Stretch="None" Source="ms-appx:///Assets/Icons/facebook.png"></Image>
                         </Button>
                         <Button x:Name="TwitterButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
-                            <Image Source="ms-appx:///Assets/Icons/twitter.png"></Image>
+                            <Image Stretch="None" Source="ms-appx:///Assets/Icons/twitter.png"></Image>
                         </Button>
                         <Button x:Name="InstagramButtonImage" Style="{StaticResource AppBarButtonStylePortrait}">
-                            <Image Source="ms-appx:///Assets/Icons/instagram.png"></Image>
+                            <Image Stretch="None" Source="ms-appx:///Assets/Icons/instagram.png"></Image>
                         </Button>
                     </StackPanel>
                 </Grid>
@@ -1041,7 +1038,7 @@
                     <EntranceThemeTransition/>
                 </TransitionCollection>
             </Grid.ChildrenTransitions>
-            <Grid x:Name="ZoomedInLogo" Margin="0" Visibility="Collapsed">
+            <Grid x:Name="ZoomedInLogo" Margin="0" Visibility="Collapsed" Height="165">
                 <RichTextBlock Margin="0,0,40,0" VerticalAlignment="Bottom" HorizontalAlignment="Right" TextWrapping="NoWrap" IsColorFontEnabled="True" IsTextSelectionEnabled="False" FontWeight="Light" FontFamily="Segoe UI Light">
                     <Paragraph>
                         <Run Text="{Binding TotalSquareFeet, Mode=OneWay}" 
@@ -1166,32 +1163,19 @@
                                         </ProgressRing.Foreground>
                                     </ProgressRing>
                                     <Image Source="{Binding ImageSource}" Stretch="UniformToFill"/>
-                                    <Button Click="VideoButton_Clicked" 
-                                            Style="{StaticResource EmptyButtonStyle}"
-                                            Visibility="{Binding IsVideoButtonVisible}" 
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center">
-                                        <Border 
-                        		            HorizontalAlignment="Center" Height="70"  
-                        		            VerticalAlignment="Center" Width="70">
-                                            <Border.Background>
-                                                <SolidColorBrush Color="{Binding DataSource.SelectedEvent.EventColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"/>
-                                            </Border.Background>
-                                            <Path Data="M1,1 L49,1 L49,49" 
-                        			            HorizontalAlignment="Center" Height="30" Margin="15.5,8,24.5,20" Stretch="Fill" Stroke="White" 
-                        			            StrokeThickness="2" VerticalAlignment="Center" Width="30" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" >
-                                                <Path.RenderTransform>
-                                                    <CompositeTransform Rotation="45" TranslateY="5.43"/>
-                                                </Path.RenderTransform>
-                                            </Path>
-                                        </Border>
-                                    </Button>
+                                    <AppBarButton Click="VideoButton_Clicked" 
+                                        Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" 
+                                        Style="{StaticResource AppBarCustomPlayButtonStyle}">
+                                        <AppBarButton.Background>
+                                            <SolidColorBrush Color="{Binding DataSource.SelectedEvent.EventColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"/>
+                                        </AppBarButton.Background>
+                                    </AppBarButton>
                                 </Grid>
                             </DataTemplate>
                         </FlipView.ItemTemplate>
                     </FlipView>
-                    <Border Background="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="50" Padding="10" x:Name="CountIndicator" >
-                        <RichTextBlock FontSize="20" FontFamily="Segoe UI Light">
+                    <Border Background="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="50" Padding="10">
+                        <RichTextBlock FontSize="20" FontFamily="Segoe UI Light" IsTextSelectionEnabled="False">
                             <RichTextBlock.Foreground>
                                 <SolidColorBrush Color="{Binding DataSource.SelectedEvent.EventColor, Mode=OneWay, Source={StaticResource DataContextProxy}}"></SolidColorBrush>
                             </RichTextBlock.Foreground>
