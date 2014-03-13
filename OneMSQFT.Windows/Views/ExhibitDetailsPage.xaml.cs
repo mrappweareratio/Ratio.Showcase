@@ -278,7 +278,7 @@ namespace OneMSQFT.WindowsStore.Views
         public override void TopAppBarEventButtonCommandHandler(String eventId)
         {
             var ev = GetDataContextAsViewModel<IBasePageViewModel>().SquareFootEvents.FirstOrDefault(x => x.Id == eventId);
-            AppLocator.Current.Analytics.TrackAppBarEventInteraction(ev.Name, ev.SquareFootage, GetDataContextAsViewModel<IBasePageViewModel>().GetEventIndexById(ev.Id), "exhibit");
+            AppLocator.Current.Analytics.TrackAppBarEventInteraction(ev.Name, ev.SquareFootage, GetDataContextAsViewModel<IBasePageViewModel>().GetEventIndexById(ev.Id));
 
             Frame.Navigate(typeof(TimelinePage), eventId);
             TopAppBar.IsOpen = false;

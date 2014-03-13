@@ -8,7 +8,7 @@
     xmlns:omsqftcontrols="using:OneMSQFT.WindowsStore.Controls"
     mc:Ignorable="d">
 
-    <Style TargetType="omsqftcontrols:AnimationFrame">
+    <!--<Style TargetType="omsqftcontrols:AnimationFrame">
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="VerticalContentAlignment" Value="Stretch"/>
@@ -36,7 +36,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
     
     <Style x:Key="AppBarButtonStylePortrait" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource ButtonBackgroundThemeBrush}" />
