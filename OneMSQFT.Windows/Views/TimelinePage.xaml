@@ -713,6 +713,7 @@
                                 <InlineUIContainer>
                                     <ScrollViewer Style="{StaticResource VerticalScrollViewerStyle}"
 					                            Margin="0,20,40,0" 
+                                                MaxHeight="250"
 					                            VerticalAlignment="Top">
                                         <TextBlock Text="{Binding Description}"
 						                            Foreground="White"
