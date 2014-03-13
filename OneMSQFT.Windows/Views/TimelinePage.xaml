@@ -713,6 +713,7 @@
                                 <InlineUIContainer>
                                     <ScrollViewer Style="{StaticResource VerticalScrollViewerStyle}"
 					                            Margin="0,20,40,0" 
+                                                MaxHeight="250"
 					                            VerticalAlignment="Top">
                                         <TextBlock Text="{Binding Description}"
 						                            Foreground="White"
@@ -1038,8 +1039,8 @@
                     <EntranceThemeTransition/>
                 </TransitionCollection>
             </Grid.ChildrenTransitions>
-            <Grid x:Name="ZoomedInLogo" Margin="0" Visibility="Collapsed" Height="165">
-                <RichTextBlock Margin="0,0,40,22" VerticalAlignment="Bottom" HorizontalAlignment="Right" TextWrapping="NoWrap" IsColorFontEnabled="True" IsTextSelectionEnabled="False" FontWeight="Light" FontFamily="Segoe UI Light">
+            <Grid x:Name="ZoomedInLogo" Margin="0" Visibility="Collapsed" Height="165" VerticalAlignment="Top">
+                <RichTextBlock Margin="0,0,40,20" VerticalAlignment="Bottom" HorizontalAlignment="Right" TextWrapping="NoWrap" IsColorFontEnabled="True" IsTextSelectionEnabled="False" FontWeight="Light" FontFamily="Segoe UI Light">
                     <Paragraph>
                         <Run Text="{Binding TotalSquareFeet, Mode=OneWay}" 
                              Foreground="{StaticResource OneMSQFTLogoDarkBlueBrush}"
