@@ -48,9 +48,9 @@ namespace OneMSQFT.UILogic.DataLayer
                     {
                           
                         Id = Convert.ToString(eventId++),
-                        Name = "Sundance",
+                        Name = "Sundance Film Festival But With a Much Longer Name",
                         Location = "Park City",
-                        DisplayDate = "MMM D-D",
+                        DisplayDate = "MMM DD",
                       //  Location = "444 Main St. Park City, UT",
                         Description = DemoEventDescription,
                         Color = "CE7C0D",                      
