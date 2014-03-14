@@ -238,10 +238,10 @@
     <value>https://twitter.com/1MSQFT</value>
   </data>
   <data name="InternetConnectionFailureMessage" xml:space="preserve">
-    <value>There was a problem connecting to the interwebs, please check your internet of things connection.</value>
+    <value>There was a problem connecting to the internet.  Please check your internet connection.</value>
   </data>
   <data name="SiteDataFailureMessage" xml:space="preserve">
-    <value>There was a problem connecting to the interwebs, please check your internet of things connection.</value>
+    <value>There was a problem connecting to the internet.  Please check your internet connection.</value>
   </data>
   <data name="ClearStartUp" xml:space="preserve">
     <value>Clear Startup</value>

@@ -233,7 +233,7 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was a problem connecting to the interwebs, please check your internet of things connection..
+        ///   Looks up a localized string similar to There was a problem connecting to the internet.  Please check your internet connection..
         /// </summary>
         public static string InternetConnectionFailureMessage {
             get {
@@ -386,7 +386,7 @@ namespace OneMSQFT.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was a problem connecting to the interwebs, please check your internet of things connection..
+        ///   Looks up a localized string similar to There was a problem connecting to the internet.  Please check your internet connection..
         /// </summary>
         public static string SiteDataFailureMessage {
             get {
