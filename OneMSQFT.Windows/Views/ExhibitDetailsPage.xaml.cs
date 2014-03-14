@@ -56,8 +56,8 @@ namespace OneMSQFT.WindowsStore.Views
             VideoPopup.IsOpen = false;
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {            
-            base.OnNavigatedTo(e);                        
+        {
+            base.OnNavigatedTo(e);
             if (!AppLocator.Current.KioskModeEnabled)
             {
                 _dataTransferManager.DataRequested += DataTransferManagerOnDataRequested;
@@ -93,7 +93,7 @@ namespace OneMSQFT.WindowsStore.Views
             }
 
             var exhibitModel = vm.Exhibit.ExhibitModel;
-            
+
             MediaContentSource videoSourceScrolledTo = null;
             if (exhibitModel.MediaContent.Any() && _scrolledMediaIndexOneBased > 0)
             {
@@ -130,7 +130,7 @@ namespace OneMSQFT.WindowsStore.Views
                     RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromUri(videoThumbnailUri);
                     args.Request.Data.Properties.Thumbnail = imageStreamRef;
                     args.Request.Data.SetBitmap(imageStreamRef);
-                }  
+                }
                 _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackVideoShareInExhibitView(vm.Exhibit.Name,
                     selectedMediaContentSource.VideoId, uri.AbsoluteUri, appName);
             }
@@ -166,7 +166,7 @@ namespace OneMSQFT.WindowsStore.Views
                     RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromUri(thumbnailUri);
                     args.Request.Data.Properties.Thumbnail = imageStreamRef;
                     args.Request.Data.SetBitmap(imageStreamRef);
-                }  
+                }
                 _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackShareExhibitInteraction(vm.Exhibit.Name,
                   uri.AbsoluteUri, appName);
                 deferral.Complete();
@@ -204,7 +204,7 @@ namespace OneMSQFT.WindowsStore.Views
                 if (GetDataContextAsViewModel<IBasePageViewModel>().SquareFootEvents.Count > 0)
                 {
                     this.PopulateTopAppbar(GetDataContextAsViewModel<IBasePageViewModel>());
-                }                
+                }
             }
 
             if (e.PropertyName == "IsHorizontal")
@@ -217,7 +217,7 @@ namespace OneMSQFT.WindowsStore.Views
                 if (GetDataContextAsViewModel<IBasePageViewModel>().IsHorizontal)
                 {
                     VisualStateManager.GoToState(this, "FullScreenLandscape", true);
-                    
+
                     StackPanelRightAppBarImages.Visibility = PinButtonImage.Visibility = Visibility.Collapsed;
                     StackPanelRightAppBarText.Visibility = PinButton.Visibility = Visibility.Visible;
 
@@ -241,8 +241,8 @@ namespace OneMSQFT.WindowsStore.Views
                 }
                 else
                 {
-                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);             
-                    
+                    VisualStateManager.GoToState(this, "FullScreenPortrait", true);
+
                     StackPanelRightAppBarText.Visibility = PinButton.Visibility = Visibility.Collapsed;
                     StackPanelRightAppBarImages.Visibility = PinButtonImage.Visibility = Visibility.Visible;
 
@@ -431,7 +431,7 @@ namespace OneMSQFT.WindowsStore.Views
                 : SnapPointsAlignment.Near;
         }
 
-        private TaskCompletionSource<bool> _mediaListViewLoadedTaskCompletionSource; 
+        private TaskCompletionSource<bool> _mediaListViewLoadedTaskCompletionSource;
         private void MediaListView_OnLoaded(object sender, RoutedEventArgs e)
         {
             _detailsGridViewScrollViewer = VisualTreeUtilities.GetVisualChild<ScrollViewer>(MediaListView);
@@ -447,8 +447,8 @@ namespace OneMSQFT.WindowsStore.Views
         private void MediaListView_OnUnloaded(object sender, RoutedEventArgs e)
         {
             if (_detailsGridViewScrollViewer != null)
-            {                
-                _detailsGridViewScrollViewer.ViewChanged -= MediaListViewScrollViewer_ViewChanged;                                
+            {
+                _detailsGridViewScrollViewer.ViewChanged -= MediaListViewScrollViewer_ViewChanged;
             }
         }
 
@@ -475,13 +475,29 @@ namespace OneMSQFT.WindowsStore.Views
             var i = Math.Floor(horizonatlOffset / vm.FullScreenWidth);//zero base index
             var mediaCount = vm.Exhibit.MediaContent.Count - 2;
             if (i > mediaCount - 1)
-            {                
+            {
                 i = mediaCount - 1;//last item zero index
             }
-            _scrolledMediaIndexOneBased = (int) (i + 1);
+            _scrolledMediaIndexOneBased = (int)(i + 1);
             Index.Text = _scrolledMediaIndexOneBased.ToString();
             Count.Text = (mediaCount).ToString();
-        }        
+        }
+
+        private int _imageNetworkFailures;
+        private async void ExhibitMediaImage_OnImageFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+            if (String.Equals(e.ErrorMessage, "E_NETWORK_ERROR"))
+                _imageNetworkFailures++;
+            if (_imageNetworkFailures == GetDataContextAsViewModel<IExhibitDetailsPageViewModel>().Exhibit.ExhibitModel.MediaContent.Count())
+            {
+                if (!AppLocator.Current.InternetConnection.IsConnected)
+                {
+                    await
+                        AppLocator.Current.MessageService.ShowAsync(Strings.InternetConnectionFailureMessage,
+                            String.Empty);
+                }
+            }
+        }
     }
 }
 

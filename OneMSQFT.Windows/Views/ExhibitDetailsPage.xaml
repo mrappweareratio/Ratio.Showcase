@@ -271,7 +271,8 @@
         			Stretch="UniformToFill"
         			Width="{Binding DataSource.FullScreenWidth, Source={StaticResource DataContextProxy}}" 
         			Height="{Binding DataSource.FullScreenHeight, Source={StaticResource DataContextProxy}}" 
-					Source="{Binding ImageSource}"/>
+					Source="{Binding ImageSource}"
+                    ImageFailed="ExhibitMediaImage_OnImageFailed"/>
                 <AppBarButton
 					Command="{Binding DataSource.LaunchVideoCommand, Source={StaticResource DataContextProxy}}" 
                     CommandParameter="{Binding}"

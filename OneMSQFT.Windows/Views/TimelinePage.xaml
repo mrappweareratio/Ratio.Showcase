@@ -1163,7 +1163,7 @@
                                             <SolidColorBrush Color="{Binding DataSource.SelectedEvent.EventColor, Source={StaticResource DataContextProxy}}"/>
                                         </ProgressRing.Foreground>
                                     </ProgressRing>
-                                    <Image Source="{Binding ImageSource}" Stretch="UniformToFill"/>
+                                    <Image Source="{Binding ImageSource}" ImageFailed="FlipViewImage_OnImageFailed" Stretch="UniformToFill"/>
                                     <AppBarButton Click="VideoButton_Clicked" 
                                         Visibility="{Binding IsVideoButtonVisible, Mode=OneWay}" 
                                         Style="{StaticResource AppBarCustomPlayButtonStyle}">

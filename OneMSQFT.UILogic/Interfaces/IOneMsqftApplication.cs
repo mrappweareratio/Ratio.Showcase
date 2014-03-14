@@ -28,6 +28,7 @@ namespace OneMSQFT.UILogic.Interfaces
         IDataService DataService { get; set; }
         IAnalyticsService Analytics { get; set; }
         IInternetConnectionService InternetConnection { get; }
+        IAlertMessageService MessageService { get; }
         Page CurrentPage { get; }
     }
 }

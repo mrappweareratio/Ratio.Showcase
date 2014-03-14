@@ -163,7 +163,7 @@ namespace OneMSQFT.WindowsStore.Views
                     RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromUri(videoThumbnailUri);
                     args.Request.Data.Properties.Thumbnail = imageStreamRef;
                     args.Request.Data.SetBitmap(imageStreamRef);
-                }  
+                }
                 _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackVideoShareInEventView(ev.Name,
                 ev.SquareFootage, evPos, selectedMediaContentSource.Media.VideoId, uri.AbsoluteUri, appName);
 
@@ -174,21 +174,21 @@ namespace OneMSQFT.WindowsStore.Views
                 {
                     args.Request.FailWithDisplayText(Strings.SharingFailedDisplayText);
                     return;
-                }                
+                }
                 args.Request.Data.Properties.Title = ev.Name;
                 args.Request.Data.Properties.Description = ev.Description;
                 args.Request.Data.Properties.ContentSourceWebLink = uri;
-                args.Request.Data.SetWebLink(uri);               
+                args.Request.Data.SetWebLink(uri);
                 //get thumbnail for event
                 Uri thumbnailUri = null;
                 if (_sharing.TryGetSharingThumbnailUri(ev.Event, out thumbnailUri))
                 {
                     RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromUri(thumbnailUri);
                     args.Request.Data.Properties.Thumbnail = imageStreamRef;
-                    args.Request.Data.SetBitmap(imageStreamRef);                 
-                }                                
+                    args.Request.Data.SetBitmap(imageStreamRef);
+                }
                 _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackShareEventInteraction(ev.Name,
-                    ev.SquareFootage, evPos, uri.AbsoluteUri, appName);                
+                    ev.SquareFootage, evPos, uri.AbsoluteUri, appName);
             }
         }
 
@@ -518,11 +518,7 @@ namespace OneMSQFT.WindowsStore.Views
 
         private void FlipViewButton_Clicked(object sender, RoutedEventArgs e)
         {
-            if (!FlipViewPopup.IsOpen)
-            {
-                FlipViewPopup.IsOpen = true;
-                VideoPopup.IsOpen = false;
-            }
+            ToggleFlipViewPopup(true);
         }
 
         private void VideoPopup_Closed(object sender, object e)
@@ -540,7 +536,18 @@ namespace OneMSQFT.WindowsStore.Views
 
         private void FlipViewPopUpCloseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (FlipViewPopup.IsOpen)
+            ToggleFlipViewPopup(false);
+        }
+
+        private void ToggleFlipViewPopup(bool show)
+        {
+            if (show && !FlipViewPopup.IsOpen)
+            {
+                FlipViewPopup.IsOpen = true;
+                VideoPopup.IsOpen = false;
+                _imageNetworkFailures = 0;
+            }
+            else if (!show && FlipViewPopup.IsOpen)
             {
                 FlipViewPopup.IsOpen = false;
                 // reposition if item has drifted while user rotated/resized while MediaViewer Popup was open
@@ -659,7 +666,7 @@ namespace OneMSQFT.WindowsStore.Views
         {
             if (GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent != null)
             {
-                Task.Delay(500).ContinueWith((task) => ScrollToEventById(GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent.Id), TaskScheduler.FromCurrentSynchronizationContext());                
+                Task.Delay(500).ContinueWith((task) => ScrollToEventById(GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent.Id), TaskScheduler.FromCurrentSynchronizationContext());
             }
         }
 
@@ -669,6 +676,22 @@ namespace OneMSQFT.WindowsStore.Views
             if (FlipViewer.Items != null)
             {
                 Count.Text = FlipViewer.Items.Count.ToString();
+            }
+        }
+
+        private decimal _imageNetworkFailures;
+        private async void FlipViewImage_OnImageFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+            if (String.Equals(e.ErrorMessage, "E_NETWORK_ERROR"))
+                _imageNetworkFailures++;
+            if (_imageNetworkFailures * 2 > GetDataContextAsViewModel<ITimelinePageViewModel>().SelectedEvent.MediaContent.Count())
+            {
+                //majority of flip view images have failed (first may have succeeded because of initial load of events)
+                if (!AppLocator.Current.InternetConnection.IsConnected)
+                {
+                    await AppLocator.Current.MessageService.ShowAsync(Strings.InternetConnectionFailureMessage,
+                            String.Empty);
+                }
             }
         }
     }

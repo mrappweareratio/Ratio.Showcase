@@ -14,7 +14,7 @@ using OneMSQFT.Common.Services;
 namespace OneMSQFT.UILogic.Services
 {
     public class DataService : IDataService
-    {        
+    {
         private readonly Dictionary<string, object> _memDictionary = new Dictionary<string, object>();
         private readonly IDataRepository _repository;
         private readonly IDataCacheService _cache;
@@ -79,7 +79,7 @@ namespace OneMSQFT.UILogic.Services
 
             result = await _repository.GetSiteData(token).ConfigureAwait(false);
             _memDictionary.Add(_key, result);
-            
+
             if (result != null)
             {
                 var storeData = Task.Run(async () =>
@@ -118,6 +118,8 @@ namespace OneMSQFT.UILogic.Services
             if (eventId == null)
                 throw new ArgumentOutOfRangeException("eventId");
             var events = await GetEvents(token);
+            if (events == null)
+                return null;
             var ev = events.FirstOrDefault(x => x.Id.Equals(eventId));
             return ev;
         }
