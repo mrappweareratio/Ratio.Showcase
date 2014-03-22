@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using OneMSQFT.UILogic.Tests.Mocks;
-using OneMSQFT.UILogic.Utils;
-using OneMSQFT.UILogic.ViewModels;
+using Ratio.Showcase.UILogic.Tests.Mocks;
+using Ratio.Showcase.UILogic.Utils;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.UILogic.Tests.Utils
+namespace Ratio.Showcase.UILogic.Tests.Utils
 {
     [TestClass]
     public class ComingSoonUtilsFixture

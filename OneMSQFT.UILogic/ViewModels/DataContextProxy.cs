@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace OneMSQFT.UILogic.ViewModels
+namespace Ratio.Showcase.UILogic.ViewModels
 {
     public class DataContextProxy : FrameworkElement
     {

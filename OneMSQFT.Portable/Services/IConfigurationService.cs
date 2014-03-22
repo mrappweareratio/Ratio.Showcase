@@ -1,6 +1,6 @@
-using OneMSQFT.Common.Models;
+using Ratio.Showcase.Shared.Models;
 
-namespace OneMSQFT.Common.Services
+namespace Ratio.Showcase.Shared.Services
 {
     public interface IConfigurationService
     {

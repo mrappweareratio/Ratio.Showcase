@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OneMSQFT.UILogic.ViewModels;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.UILogic.Utils
+namespace Ratio.Showcase.UILogic.Utils
 {
     public class ComingSoonUtils
     {

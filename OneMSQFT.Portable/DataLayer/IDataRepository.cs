@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using OneMSQFT.Common.Models;
+using Ratio.Showcase.Shared.Models;
 
-namespace OneMSQFT.Common.DataLayer
+namespace Ratio.Showcase.Shared.DataLayer
 {
     public interface IDataRepository
     {

@@ -11,9 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
-using OneMSQFT.Common.Services;
+using Ratio.Showcase.Shared.Services;
 
-namespace OneMSQFT.UILogic.Services
+namespace Ratio.Showcase.UILogic.Services
 {
     public class AlertMessageService : IAlertMessageService
     {

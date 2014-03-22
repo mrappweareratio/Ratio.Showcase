@@ -1,13 +1,11 @@
-﻿using System.Windows.Input;
-using Microsoft.PlayerFramework;
-using OneMSQFT.UILogic.ViewModels;
+﻿// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
+using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Microsoft.Practices.Prism.StoreApps;
+using Microsoft.PlayerFramework;
+using Ratio.Showcase.UILogic.ViewModels;
 
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
-
-namespace OneMSQFT.WindowsStore.Controls
+namespace Ratio.Showcase.Win8.Controls
 {
     public sealed partial class VideoPlayerUserControl : UserControl
     {

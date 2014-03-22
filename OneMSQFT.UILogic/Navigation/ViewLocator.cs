@@ -1,4 +1,4 @@
-﻿namespace OneMSQFT.UILogic.Navigation
+﻿namespace Ratio.Showcase.UILogic.Navigation
 {
     public class ViewLocator
     {

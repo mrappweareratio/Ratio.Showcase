@@ -1,20 +1,20 @@
-﻿<omsqft:BasePageView
+﻿<views:BasePageView
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:templateSelectors="using:OneMSQFT.WindowsStore.DataTemplateSelectors"
-    xmlns:prism="using:Microsoft.Practices.Prism.StoreApps"   
-    xmlns:omsqft="using:OneMSQFT.WindowsStore.Views"
-    xmlns:omsqftcontrols="using:OneMSQFT.WindowsStore.Controls"
-    xmlns:viewModels="using:OneMSQFT.UILogic.ViewModels"
-    x:Class="OneMSQFT.WindowsStore.Views.TimelinePage"
+    xmlns:prism="using:Microsoft.Practices.Prism.StoreApps"
+    xmlns:viewModels="using:Ratio.Showcase.UILogic.ViewModels"
+    xmlns:views="using:Ratio.Showcase.Win8.Views"
+    xmlns:controls="using:Ratio.Showcase.Win8.Controls"
+    xmlns:dataTemplateSelectors="using:Ratio.Showcase.Win8.DataTemplateSelectors"
+    x:Class="Ratio.Showcase.Win8.Views.TimelinePage"
     NavigationCacheMode="Required"
     mc:Ignorable="d"
     Background="White"
     prism:ViewModelLocator.AutoWireViewModel="True" >
 
-    <omsqft:BasePageView.Resources>
+    <views:BasePageView.Resources>
         <viewModels:DataContextProxy x:Key="DataContextProxy" />
 
 
@@ -730,7 +730,7 @@
 
 
                       
-                        <omsqftcontrols:CuratorLogoStackerUserControl 
+                        <controls:CuratorLogoStackerUserControl 
                             Grid.Row="3"
                             AvailableColumnWidth="{Binding DataSource.EventItemWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}"
                             IsLayoutHorizontal="True"
@@ -759,7 +759,7 @@
                               ScrollViewer.IsVerticalRailEnabled="False"
                               IsTapEnabled="False">
                             <GridView.ItemTemplateSelector>
-                                <templateSelectors:ExhibitShowMoreDataTemplateSelector
+                                <dataTemplateSelectors:ExhibitShowMoreDataTemplateSelector
                                     TimelineExhibitTemplate="{StaticResource TimelineExhibitTemplate}"
                                     TimelineShowMoreExhibitTemplate="{StaticResource TimelineShowMoreExhibitTemplate}"/>
                             </GridView.ItemTemplateSelector>
@@ -817,17 +817,17 @@
                     </RichTextBlock>
 
 
-                    <omsqftcontrols:CuratorLogoStackerUserControl 
+                    <controls:CuratorLogoStackerUserControl 
                             Grid.Row="2"
                             CuratorLogoCollection="{Binding CuratorLogos}"
                             IsLayoutHorizontal="False"
                             Margin="50,20,0,0" 
                             VerticalAlignment="Center" 
                             HorizontalAlignment="Left">
-                        <omsqftcontrols:CuratorLogoStackerUserControl.RenderTransform>
+                        <controls:CuratorLogoStackerUserControl.RenderTransform>
                             <TranslateTransform X="{Binding DataSource.LogoTransformX, Source={StaticResource DataContextProxy}}"/>
-                        </omsqftcontrols:CuratorLogoStackerUserControl.RenderTransform>
-                    </omsqftcontrols:CuratorLogoStackerUserControl>
+                        </controls:CuratorLogoStackerUserControl.RenderTransform>
+                    </controls:CuratorLogoStackerUserControl>
                 </Grid>
 
                 <Button Click="FlipViewButton_Clicked"
@@ -879,7 +879,7 @@
                               ScrollViewer.IsVerticalRailEnabled="False"
                               IsTapEnabled="False">
                         <GridView.ItemTemplateSelector>
-                            <templateSelectors:ExhibitShowMoreDataTemplateSelector
+                            <dataTemplateSelectors:ExhibitShowMoreDataTemplateSelector
                                     TimelineExhibitTemplate="{StaticResource TimelineExhibitTemplate}"
                                     TimelineShowMoreExhibitTemplate="{StaticResource TimelineShowMoreExhibitTemplate}"/>
                         </GridView.ItemTemplateSelector>
@@ -922,7 +922,7 @@
 
             <Setter Property="ItemTemplateSelector">
                 <Setter.Value>
-                    <templateSelectors:TimelineDataTemplateSelector 
+                    <dataTemplateSelectors:TimelineDataTemplateSelector 
                             EventTimelineItemTemplate="{StaticResource HorizontalTimelineEventItemTemplate}"
                             BufferItemFakeEventItemTemplate="{StaticResource HorizontalBufferItemFakeEventItemTemplate}"/>
                 </Setter.Value>
@@ -950,7 +950,7 @@
             <Setter Property="ItemContainerStyle" Value="{StaticResource TimelineItemContainerStyle}"/>
             <Setter Property="ItemTemplateSelector">
                 <Setter.Value>
-                    <templateSelectors:TimelineDataTemplateSelector 
+                    <dataTemplateSelectors:TimelineDataTemplateSelector 
                             EventTimelineItemTemplate="{StaticResource VerticalTimelineEventItemTemplate}"
                             BufferItemFakeEventItemTemplate="{StaticResource VerticalBufferItemFakeEventItemTemplate}"/>
                 </Setter.Value>
@@ -965,8 +965,8 @@
         </Style>
         
         
-    </omsqft:BasePageView.Resources>
-    <omsqft:BasePageView.BottomAppBar>
+    </views:BasePageView.Resources>
+    <views:BasePageView.BottomAppBar>
         <AppBar x:Name="appBar" Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent" Visibility="Collapsed">
             <Border Height="90" BorderBrush="{StaticResource OneMSQFTAppBarAccentGrayBrush}" BorderThickness="0,10,0,0" >
                 <Grid Background="White">
@@ -1019,15 +1019,15 @@
                 </Grid>
             </Border>
         </AppBar>
-    </omsqft:BasePageView.BottomAppBar>
+    </views:BasePageView.BottomAppBar>
 
     <Grid Background="White" d:IsHidden="True">
         <Canvas IsHitTestVisible="False" ZIndex="10" x:Name="ZoomedOutLogo">
-            <omsqftcontrols:LogoUserControl Canvas.Top="{Binding LogoTransformY}" Canvas.Left="{Binding LogoTransformX}" LogoColor="FFFFFF" RenderTransformOrigin="0,0">
-                <omsqftcontrols:LogoUserControl.RenderTransform>
+            <controls:LogoUserControl Canvas.Top="{Binding LogoTransformY}" Canvas.Left="{Binding LogoTransformX}" LogoColor="FFFFFF" RenderTransformOrigin="0,0">
+                <controls:LogoUserControl.RenderTransform>
                     <CompositeTransform ScaleX="{Binding LogoScale}" ScaleY="{Binding LogoScale}"/>
-                </omsqftcontrols:LogoUserControl.RenderTransform>
-            </omsqftcontrols:LogoUserControl>
+                </controls:LogoUserControl.RenderTransform>
+            </controls:LogoUserControl>
         </Canvas>
         <Grid>
             <Grid.RowDefinitions>
@@ -1050,7 +1050,7 @@
                              FontSize="{Binding MediumSmallFlexyFontSize}" />
                     </Paragraph>
                 </RichTextBlock>
-                <omsqftcontrols:LogoUserControl x:Name="logoUserControl" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,38,0,0"/>
+                <controls:LogoUserControl x:Name="logoUserControl" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,38,0,0"/>
             </Grid>
             <SemanticZoom x:Name="semanticZoom" Background="{x:Null}"
                       IsZoomedInViewActive="True" 
@@ -1076,12 +1076,12 @@
                           AutomationProperties.AutomationId="HubPageGridView"
                           ScrollViewer.IsHorizontalScrollChainingEnabled="False">
                         <GridView.ItemTemplateSelector>
-                            <templateSelectors:ZoomedOutTimelineDataTemplateSelector
+                            <dataTemplateSelectors:ZoomedOutTimelineDataTemplateSelector
                             TimelineZoomedOutEventItemTemplate="{StaticResource TimelineZoomedOutEventItemTemplate}"
                             TimelineZoomedOutComingSoonItemTemplate="{StaticResource TimelineZoomedOutComingSoonItemTemplate}"/>
                         </GridView.ItemTemplateSelector>
                         <GridView.ItemContainerStyleSelector>
-                            <templateSelectors:ZoomedOutItemContainerStyleSelector
+                            <dataTemplateSelectors:ZoomedOutItemContainerStyleSelector
                                 TimelineZoomedOutComingSoonItemContainerStyle="{StaticResource TimelineZoomedOutComingSoonItemContainerStyle}"
                                 TimelineZoomedOutEventItemContainerStyle ="{StaticResource TimelineZoomedOutEventItemContainerStyle}"/>
                         </GridView.ItemContainerStyleSelector>
@@ -1194,7 +1194,7 @@
             </Popup>
             <Popup x:Name="VideoPopup" Closed="VideoPopup_Closed" IsLightDismissEnabled="False" Style="{StaticResource VideoPopupStyle}" >
                 <Grid>
-                    <omsqftcontrols:VideoPlayerUserControl x:Name="VideoPlayerUserControl"
+                    <controls:VideoPlayerUserControl x:Name="VideoPlayerUserControl"
                     Width="{Binding DataSource.FullScreenWidth, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
                     Height="{Binding DataSource.FullScreenHeight, Mode=OneWay, Source={StaticResource DataContextProxy}}" />
                     <Button Click="VideoPopUpCloseButton_Click" HorizontalAlignment="Right" 
@@ -1216,7 +1216,7 @@
                     LineStackingStrategy="BlockLineHeight"
                     LineHeight="20"
                     VerticalAlignment="Bottom" Height="50" FontFamily="Segoe UI" MaxHeight="45" MaxLines="2" MaxWidth="250" />
-                <omsqftcontrols:LogoUserControl ScaleRatio=".12" Margin="20,110,0,0"/>
+                <controls:LogoUserControl ScaleRatio=".12" Margin="20,110,0,0"/>
             </Grid>
             <Grid x:Name="RenderedGridSquare" Height="150" Width="150">
                 <TextBlock Text="{Binding DataSource.SelectedEvent.PinningTileText, Mode=OneWay, Source={StaticResource DataContextProxy}}" 
@@ -1258,4 +1258,4 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
     </Grid>
-</omsqft:BasePageView>
+</views:BasePageView>

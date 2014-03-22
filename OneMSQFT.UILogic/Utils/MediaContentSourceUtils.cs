@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OneMSQFT.Common.Models;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.ViewModels;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.UILogic.Utils
+namespace Ratio.Showcase.UILogic.Utils
 {
     public class MediaContentSourceUtils
     {

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
-namespace OneMSQFT.Common.Models
+namespace Ratio.Showcase.Shared.Models
 {
     public interface ISquareFootageItem
     {

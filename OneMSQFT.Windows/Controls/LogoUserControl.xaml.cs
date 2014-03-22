@@ -3,9 +3,9 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using OneMSQFT.UILogic.Utils;
+using Ratio.Showcase.UILogic.Utils;
 
-namespace OneMSQFT.WindowsStore.Controls
+namespace Ratio.Showcase.Win8.Controls
 {
     public sealed partial class LogoUserControl : UserControl
     {

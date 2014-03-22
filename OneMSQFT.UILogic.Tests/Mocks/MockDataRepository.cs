@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using OneMSQFT.Common.DataLayer;
-using OneMSQFT.Common.Models;
+using Ratio.Showcase.Shared.DataLayer;
+using Ratio.Showcase.Shared.Models;
 
-namespace OneMSQFT.UILogic.Tests.Mocks
+namespace Ratio.Showcase.UILogic.Tests.Mocks
 {
     public class MockDataRepository : IDataRepository
     {

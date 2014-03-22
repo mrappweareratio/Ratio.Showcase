@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
-using Microsoft.Practices.Prism.StoreApps;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using OneMSQFT.Common.Models;
-using OneMSQFT.UILogic.Tests.Mocks;
-using OneMSQFT.UILogic.ViewModels;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.UILogic.Tests.Mocks;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.UILogic.Tests.ViewModels
+namespace Ratio.Showcase.UILogic.Tests.ViewModels
 {
     [TestClass]
     public class EventItemViewModelFixture

@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI;
-using Windows.UI.Xaml.Media;
-using OneMSQFT.Common.Models;
+using Ratio.Showcase.Shared.Models;
 
-namespace OneMSQFT.UILogic.Utils
+namespace Ratio.Showcase.UILogic.Utils
 {
     public class ColorUtils
     {

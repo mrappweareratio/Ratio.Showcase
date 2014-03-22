@@ -1,13 +1,6 @@
-﻿using System.Runtime.InteropServices.WindowsRuntime;
-using Microsoft.Practices.Prism.StoreApps;
-using OneMSQFT.Common.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ratio.Showcase.Shared.Models;
 
-namespace OneMSQFT.UILogic.ViewModels
+namespace Ratio.Showcase.UILogic.ViewModels
 {
     public class CuratorItemViewModel : ItemBaseViewModel
     {

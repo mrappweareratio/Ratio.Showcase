@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Storage;
-using OneMSQFT.Common.Models;
-using OneMSQFT.Common.Services;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
 
-namespace OneMSQFT.UILogic.Services
+namespace Ratio.Showcase.UILogic.Services
 {
     public class ConfigurationService : IConfigurationService
     {

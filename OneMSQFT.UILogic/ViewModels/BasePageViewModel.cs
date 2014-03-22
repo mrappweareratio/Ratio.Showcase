@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Navigation;
-using Microsoft.Practices.Prism.StoreApps;
-using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
-using OneMSQFT.Common.Models;
-using OneMSQFT.UILogic.Interfaces.ViewModels;
+using Microsoft.Practices.Prism.StoreApps;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.UILogic.Interfaces.ViewModels;
 
-namespace OneMSQFT.UILogic.ViewModels
+namespace Ratio.Showcase.UILogic.ViewModels
 {
     public abstract class BasePageViewModel : ViewModel, IBasePageViewModel
     {        

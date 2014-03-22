@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.Tests.Services;
+using Ratio.Showcase.Shared.Services;
 
-namespace OneMSQFT.UILogic.Tests.Mocks
+namespace Ratio.Showcase.UILogic.Tests.Mocks
 {
     public class MockDataCacheService : IDataCacheService
     {

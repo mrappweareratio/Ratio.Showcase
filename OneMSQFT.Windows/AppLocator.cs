@@ -1,6 +1,6 @@
-using OneMSQFT.UILogic.Interfaces;
+using Ratio.Showcase.UILogic.Interfaces;
 
-namespace OneMSQFT.WindowsStore
+namespace Ratio.Showcase.Win8
 {
     public static class AppLocator
     {

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Networking.Connectivity;
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.Services;
+﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using Ratio.Showcase.Shared.Services;
+using Ratio.Showcase.UILogic.Services;
 
-namespace OneMSQFT.UILogic.Tests.Services
+namespace Ratio.Showcase.UILogic.Tests.Services
 {
     [TestClass]
     public class InternetConnectionServiceFixture

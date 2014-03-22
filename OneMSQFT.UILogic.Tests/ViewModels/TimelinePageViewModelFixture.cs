@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -10,17 +9,16 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using OneMSQFT.Common.DataLayer;
-using OneMSQFT.Common.Models;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.DataLayer;
-using OneMSQFT.UILogic.Interfaces.ViewModels;
-using OneMSQFT.UILogic.Services;
-using OneMSQFT.UILogic.Tests.Mocks;
-using OneMSQFT.UILogic.Utils;
-using OneMSQFT.UILogic.ViewModels;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
+using Ratio.Showcase.UILogic.DataLayer;
+using Ratio.Showcase.UILogic.Interfaces.ViewModels;
+using Ratio.Showcase.UILogic.Services;
+using Ratio.Showcase.UILogic.Tests.Mocks;
+using Ratio.Showcase.UILogic.Utils;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.UILogic.Tests.ViewModels
+namespace Ratio.Showcase.UILogic.Tests.ViewModels
 {
     [TestClass]
     public class TimelinePageViewModelFixture

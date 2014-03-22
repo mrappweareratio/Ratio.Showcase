@@ -1,25 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.UI.Core;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using OneMSQFT.Common;
-using OneMSQFT.Common.Analytics;
-using OneMSQFT.Common.Models;
-using OneMSQFT.UILogic.Analytics;
-using OneMSQFT.UILogic.DataLayer;
-using OneMSQFT.UILogic.Navigation;
-using OneMSQFT.UILogic.Services;
-using OneMSQFT.UILogic.Tests.Mocks;
-using OneMSQFT.UILogic.Utils;
+using Ratio.Showcase.Shared;
+using Ratio.Showcase.Shared.Analytics;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.UILogic.DataLayer;
+using Ratio.Showcase.UILogic.Navigation;
+using Ratio.Showcase.UILogic.Services;
+using Ratio.Showcase.UILogic.Tests.Mocks;
+using Ratio.Showcase.UILogic.Utils;
 
-namespace OneMSQFT.UILogic.Tests
+namespace Ratio.Showcase.UILogic.Tests
 {
     [TestClass]
     public class OneMsqftApplicationFixture

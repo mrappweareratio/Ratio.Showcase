@@ -1,8 +1,8 @@
 using System;
 using Windows.Networking.Connectivity;
-using OneMSQFT.Common.Services;
+using Ratio.Showcase.Shared.Services;
 
-namespace OneMSQFT.UILogic.Services
+namespace Ratio.Showcase.UILogic.Services
 {
     public class CostGuidance : ICostGuidance
     {

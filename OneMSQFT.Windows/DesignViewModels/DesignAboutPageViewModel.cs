@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using OneMSQFT.Common.Models;
-using OneMSQFT.UILogic.Interfaces.ViewModels;
-using OneMSQFT.UILogic.ViewModels;
-using Microsoft.Practices.Prism.StoreApps;
-using System.Threading.Tasks;
-using System.Globalization;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.UILogic.Interfaces.ViewModels;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.WindowsStore.DesignViewModels
+namespace Ratio.Showcase.Win8.DesignViewModels
 {
     public class DesignAboutPageViewModel : BasePageViewModel, IAboutPageViewModel
     {

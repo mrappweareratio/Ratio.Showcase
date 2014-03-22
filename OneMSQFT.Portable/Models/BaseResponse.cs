@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Dynamic;
-using Microsoft.Practices.Prism.PubSubEvents.Properties;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
-namespace OneMSQFT.Common.Models
+namespace Ratio.Showcase.Shared.Models
 {    
     public abstract class BaseResponse<TResult, TResultData> : IBaseResponse<TResult, TResultData, Error>        
         where TResult : IBaseResult<TResultData>

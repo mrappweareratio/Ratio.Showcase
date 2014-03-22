@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OneMSQFT.Common.Models
+﻿namespace Ratio.Showcase.Shared.Models
 {
     public class ExhibitDetail
     {

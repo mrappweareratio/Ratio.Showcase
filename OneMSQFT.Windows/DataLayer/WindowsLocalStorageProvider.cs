@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using OneMSQFT.Common.DataLayer;
+using Ratio.Showcase.Shared.DataLayer;
 
-namespace OneMSQFT.WindowsStore.DataLayer
+namespace Ratio.Showcase.Win8.DataLayer
 {
     class WindowsLocalStorageProvider : ILocalStorageProvider
     {

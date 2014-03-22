@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using OneMSQFT.Common.Models;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.Services;
-using OneMSQFT.UILogic.Tests.Mocks;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
+using Ratio.Showcase.UILogic.Services;
+using Ratio.Showcase.UILogic.Tests.Mocks;
 
-namespace OneMSQFT.UILogic.Tests.Services
+namespace Ratio.Showcase.UILogic.Tests.Services
 {
     //Tests real DataService using mock data repo and mock data
     [TestClass]

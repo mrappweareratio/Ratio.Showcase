@@ -1,23 +1,17 @@
-﻿using Windows.System;
-using Windows.UI;
-using Windows.UI.ViewManagement;
-using Windows.UI.Xaml.Media;
-using Microsoft.Practices.Prism.StoreApps;
-using Microsoft.VisualBasic;
-using OneMSQFT.Common.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Windows.System;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.Utils;
-using Strings = OneMSQFT.Common.Strings;
+using Microsoft.Practices.Prism.StoreApps;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
+using Ratio.Showcase.UILogic.Utils;
 
-namespace OneMSQFT.UILogic.ViewModels
+namespace Ratio.Showcase.UILogic.ViewModels
 {
     public class ExhibitItemViewModel : ItemBaseViewModel, IHasMediaContentViewModel, IDatedItemViewModel
     {

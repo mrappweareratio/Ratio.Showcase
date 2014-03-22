@@ -1,10 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using OneMSQFT.UILogic.ViewModels;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.WindowsStore.DataTemplateSelectors
+namespace Ratio.Showcase.Win8.DataTemplateSelectors
 {
     public class TimelineDataTemplateSelector : DataTemplateSelector
     {

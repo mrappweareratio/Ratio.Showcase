@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.Storage.Streams;
-using OneMSQFT.Common.Models;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.Services;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
 
-namespace OneMSQFT.UILogic.Tests.Mocks
+namespace Ratio.Showcase.UILogic.Tests.Mocks
 {
     public class MockSharingService : ISharingService
     {

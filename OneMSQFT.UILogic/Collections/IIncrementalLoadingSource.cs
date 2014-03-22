@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace OneMSQFT.UILogic.Collections
+namespace Ratio.Showcase.UILogic.Collections
 {
     public interface IIncrementalLoadingSource<T>
     {

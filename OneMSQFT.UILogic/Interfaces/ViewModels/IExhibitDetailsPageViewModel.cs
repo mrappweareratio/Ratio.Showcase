@@ -1,13 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using Windows.UI.Xaml;
-using OneMSQFT.Common.Models;
-using OneMSQFT.UILogic.ViewModels;
-using Windows.UI.Core;
+﻿using System;
 using Microsoft.Practices.Prism.StoreApps;
-using System;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.UILogic.Interfaces.ViewModels
+namespace Ratio.Showcase.UILogic.Interfaces.ViewModels
 {
     public interface IExhibitDetailsPageViewModel : IBasePageViewModel
     {

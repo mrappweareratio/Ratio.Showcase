@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Networking.Connectivity;
 using Windows.UI.Xaml;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using OneMSQFT.Common.Models;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.DataLayer;
-using OneMSQFT.UILogic.Services;
-using OneMSQFT.UILogic.Tests.Mocks;
-using OneMSQFT.UILogic.Utils;
-using OneMSQFT.UILogic.ViewModels;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
+using Ratio.Showcase.UILogic.Tests.Mocks;
+using Ratio.Showcase.UILogic.Utils;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.UILogic.Tests.Utils
+namespace Ratio.Showcase.UILogic.Tests.Utils
 {
     [TestClass]
     public class MediaContentSourceUtilsFixture

@@ -1,9 +1,8 @@
 using System;
-using OneMSQFT.Common.Models;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.Tests.ViewModels;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
 
-namespace OneMSQFT.UILogic.Tests.Mocks
+namespace Ratio.Showcase.UILogic.Tests.Mocks
 {
     public class MockConfigurationService : IConfigurationService
     {

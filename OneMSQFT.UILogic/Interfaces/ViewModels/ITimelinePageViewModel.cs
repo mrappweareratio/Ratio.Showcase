@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
-using OneMSQFT.UILogic.ViewModels;
 using Microsoft.Practices.Prism.StoreApps;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.UILogic.Interfaces.ViewModels
+namespace Ratio.Showcase.UILogic.Interfaces.ViewModels
 {
     public interface ITimelinePageViewModel : IBasePageViewModel
     {

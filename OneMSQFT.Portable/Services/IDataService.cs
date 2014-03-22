@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
-using OneMSQFT.Common.Models;
+using Ratio.Showcase.Shared.Models;
 
-namespace OneMSQFT.Common.Services
+namespace Ratio.Showcase.Shared.Services
 {
     public interface IDataService
     {

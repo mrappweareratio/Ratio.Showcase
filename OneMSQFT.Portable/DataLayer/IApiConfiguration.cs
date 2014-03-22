@@ -1,6 +1,4 @@
-using System;
-
-namespace OneMSQFT.Common.DataLayer
+namespace Ratio.Showcase.Shared.DataLayer
 {
     public interface IApiConfiguration
     {

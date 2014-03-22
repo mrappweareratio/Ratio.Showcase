@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,26 +7,18 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.System;
 using Windows.UI.ApplicationSettings;
-using Windows.UI.Core;
-using Windows.UI.Popups;
-using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
-using OneMSQFT.Common;
-using OneMSQFT.Common.Analytics;
-using OneMSQFT.Common.Models;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.Analytics;
-using OneMSQFT.UILogic.Interfaces;
-using OneMSQFT.UILogic.Interfaces.ViewModels;
-using OneMSQFT.UILogic.Navigation;
-using OneMSQFT.UILogic.Services;
-using OneMSQFT.UILogic.Utils;
-using ISharingService = OneMSQFT.Common.Services.ISharingService;
-using Strings = OneMSQFT.Common.Strings;
+using Ratio.Showcase.Shared;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
+using Ratio.Showcase.UILogic.Interfaces;
+using Ratio.Showcase.UILogic.Interfaces.ViewModels;
+using Ratio.Showcase.UILogic.Navigation;
+using Ratio.Showcase.UILogic.Utils;
 
-namespace OneMSQFT.UILogic
+namespace Ratio.Showcase.UILogic
 {
     public class OneMsqftApplication : IOneMsqftApplication
     {

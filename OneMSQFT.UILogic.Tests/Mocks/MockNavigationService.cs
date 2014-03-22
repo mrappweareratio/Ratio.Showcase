@@ -9,7 +9,7 @@
 using System;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
 
-namespace OneMSQFT.UILogic.Tests.Mocks
+namespace Ratio.Showcase.UILogic.Tests.Mocks
 {
     public class MockNavigationService : INavigationService
     {

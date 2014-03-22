@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Storage;
-using OneMSQFT.Common;
-using OneMSQFT.Common.DataLayer;
-using OneMSQFT.Common.Models;
+using Ratio.Showcase.Shared;
+using Ratio.Showcase.Shared.DataLayer;
+using Ratio.Showcase.Shared.Models;
 
-namespace OneMSQFT.UILogic.DataLayer
+namespace Ratio.Showcase.UILogic.DataLayer
 {
     /// <summary>
     /// IDataRepository dependent on Package.Current.InstalledLocation/SampleData/*.json

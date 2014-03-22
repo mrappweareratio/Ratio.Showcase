@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace OneMSQFT.Common.Services
+namespace Ratio.Showcase.Shared.Services
 {
     public interface IDispatcherService
     {

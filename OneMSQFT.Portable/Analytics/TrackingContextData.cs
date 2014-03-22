@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OneMSQFT.Common.Analytics
+namespace Ratio.Showcase.Shared.Analytics
 {
     public class TrackingContextData : Dictionary<string, object>
     {

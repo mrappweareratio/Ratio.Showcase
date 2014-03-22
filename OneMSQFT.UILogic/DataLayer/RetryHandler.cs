@@ -1,9 +1,9 @@
 ﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using OneMSQFT.Common;
+using Ratio.Showcase.Shared;
 
-namespace OneMSQFT.UILogic.DataLayer
+namespace Ratio.Showcase.UILogic.DataLayer
 {
     public class RetryHandler : DelegatingHandler
     {

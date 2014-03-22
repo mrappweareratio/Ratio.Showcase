@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using OneMSQFT.Common.Models;
-using OneMSQFT.UILogic.Services;
-using OneMSQFT.UILogic.Tests.ViewModels;
+﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.UILogic.Services;
 
-namespace OneMSQFT.UILogic.Tests.Services
+namespace Ratio.Showcase.UILogic.Tests.Services
 {
     [TestClass]
     public class ConfigurationServiceFixture

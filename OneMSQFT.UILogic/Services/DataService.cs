@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
-using Windows.UI.Core;
-using Windows.UI.Xaml.Documents;
-using OneMSQFT.Common.DataLayer;
-using OneMSQFT.Common.Models;
-using OneMSQFT.Common.Services;
+using Ratio.Showcase.Shared.DataLayer;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
 
-namespace OneMSQFT.UILogic.Services
+namespace Ratio.Showcase.UILogic.Services
 {
     public class DataService : IDataService
     {

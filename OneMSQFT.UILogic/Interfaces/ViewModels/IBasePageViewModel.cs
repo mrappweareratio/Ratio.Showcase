@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Dynamic;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Microsoft.Practices.Prism.StoreApps;
-using OneMSQFT.Common.Models;
-using OneMSQFT.UILogic.ViewModels;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.UILogic.Interfaces.ViewModels
+namespace Ratio.Showcase.UILogic.Interfaces.ViewModels
 {
     public interface IBasePageViewModel : INotifyPropertyChanged
     {

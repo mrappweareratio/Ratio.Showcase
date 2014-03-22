@@ -1,7 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
-namespace OneMSQFT.WindowsStore
+namespace Ratio.Showcase.Win8
 {
     public static class VisualTreeUtilities
     {

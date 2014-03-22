@@ -3,13 +3,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using OneMSQFT.Common.DataLayer;
-using OneMSQFT.Common.Models;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.DataLayer;
-using OneMSQFT.UILogic.Services;
+using Ratio.Showcase.Shared.DataLayer;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
+using Ratio.Showcase.UILogic.DataLayer;
+using Ratio.Showcase.UILogic.Services;
 
-namespace OneMSQFT.UILogic.Tests.Services
+namespace Ratio.Showcase.UILogic.Tests.Services
 {
     [TestClass]
     public class DataCacheServiceFixture

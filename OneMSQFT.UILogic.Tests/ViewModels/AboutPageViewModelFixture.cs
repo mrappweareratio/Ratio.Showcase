@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using OneMSQFT.Common.Analytics;
-using OneMSQFT.Common.Models;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.Analytics;
-using OneMSQFT.UILogic.Interfaces.ViewModels;
-using OneMSQFT.UILogic.Tests.Mocks;
-using OneMSQFT.UILogic.ViewModels;
+using Ratio.Showcase.Shared.Analytics;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
+using Ratio.Showcase.UILogic.Interfaces.ViewModels;
+using Ratio.Showcase.UILogic.Tests.Mocks;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.UILogic.Tests.ViewModels
+namespace Ratio.Showcase.UILogic.Tests.ViewModels
 {
     [TestClass]
     public class AboutPageViewModelFixture

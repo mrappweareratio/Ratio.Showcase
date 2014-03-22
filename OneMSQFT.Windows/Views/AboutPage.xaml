@@ -1,23 +1,20 @@
-﻿<omsqft:BasePageView
-    x:Class="OneMSQFT.WindowsStore.Views.AboutPage"
+﻿<views:BasePageView
+    x:Class="Ratio.Showcase.Win8.Views.AboutPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:OneMSQFT.WindowsStore.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="using:Microsoft.Practices.Prism.StoreApps"
-    xmlns:omsqft="using:OneMSQFT.WindowsStore.Views"
-    xmlns:viewModels="using:OneMSQFT.UILogic.ViewModels"
-    xmlns:designViewModels="using:OneMSQFT.WindowsStore.DesignViewModels"
-    xmlns:controls="using:OneMSQFT.WindowsStore.Controls"
+    xmlns:views="using:Ratio.Showcase.Win8.Views"
+    xmlns:controls="using:Ratio.Showcase.Win8.Controls"
     mc:Ignorable="d"
     Background="White"
     prism:ViewModelLocator.AutoWireViewModel="True">
 
-    <omsqft:BasePageView.Resources>
+    <views:BasePageView.Resources>
 
-    </omsqft:BasePageView.Resources>
-    <omsqft:BasePageView.BottomAppBar>
+    </views:BasePageView.Resources>
+    <views:BasePageView.BottomAppBar>
         <AppBar x:Name="appBar" Background="White" BorderThickness="0" IsOpen="False" Padding="0" BorderBrush="Transparent" Visibility="Collapsed">
             <Border Height="90" BorderBrush="{StaticResource OneMSQFTAppBarAccentGrayBrush}" BorderThickness="0,10,0,0" >
                 <Grid>                    
@@ -50,7 +47,7 @@
                 </Grid>
             </Border>
         </AppBar>
-    </omsqft:BasePageView.BottomAppBar>
+    </views:BasePageView.BottomAppBar>
     <Grid Background="White">
         <Grid>
             <Grid.ChildrenTransitions>
@@ -249,4 +246,4 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
     </Grid>
-</omsqft:BasePageView>
+</views:BasePageView>

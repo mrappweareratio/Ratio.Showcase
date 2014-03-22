@@ -1,23 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
-using OneMSQFT.Common;
-using OneMSQFT.Common.Models;
-using OneMSQFT.UILogic.Interfaces.ViewModels;
-using Windows.UI.Xaml;
-using Windows.UI.Core;
-using OneMSQFT.Common.Services;
-using System;
-using OneMSQFT.UILogic.Navigation;
-using OneMSQFT.UILogic.Utils;
+using Ratio.Showcase.Shared;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
+using Ratio.Showcase.UILogic.Interfaces.ViewModels;
+using Ratio.Showcase.UILogic.Navigation;
+using Ratio.Showcase.UILogic.Utils;
 
-namespace OneMSQFT.UILogic.ViewModels
+namespace Ratio.Showcase.UILogic.ViewModels
 {
     public class ExhibitDetailsPageViewModel : BasePageViewModel, IExhibitDetailsPageViewModel
     {

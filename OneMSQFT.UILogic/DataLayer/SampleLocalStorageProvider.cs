@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using OneMSQFT.Common.DataLayer;
+using Ratio.Showcase.Shared.DataLayer;
 
-namespace OneMSQFT.UILogic.DataLayer
+namespace Ratio.Showcase.UILogic.DataLayer
 {
     public class SampleLocalStorageProvider : ILocalStorageProvider
     {

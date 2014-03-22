@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.Storage.Streams;
-using Microsoft.VisualBasic;
-using OneMSQFT.Common.DataLayer;
-using OneMSQFT.Common.Models;
-using OneMSQFT.Common.Services;
-using Strings = OneMSQFT.Common.Strings;
+using Ratio.Showcase.Shared;
+using Ratio.Showcase.Shared.DataLayer;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
 
-namespace OneMSQFT.UILogic.Services
+namespace Ratio.Showcase.UILogic.Services
 {
     public class SharingService : ISharingService
     {

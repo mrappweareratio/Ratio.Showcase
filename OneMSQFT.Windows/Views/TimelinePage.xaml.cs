@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
@@ -16,16 +13,14 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
-using OneMSQFT.Common;
-using OneMSQFT.Common.Services;
-using OneMSQFT.Common.Models;
-using OneMSQFT.UILogic.Interfaces.ViewModels;
-using OneMSQFT.UILogic.Navigation;
-using OneMSQFT.UILogic.Services;
-using OneMSQFT.UILogic.Utils;
-using OneMSQFT.UILogic.ViewModels;
+using Ratio.Showcase.Shared;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
+using Ratio.Showcase.UILogic.Interfaces.ViewModels;
+using Ratio.Showcase.UILogic.Utils;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.WindowsStore.Views
+namespace Ratio.Showcase.Win8.Views
 {
     public sealed partial class TimelinePage
     {

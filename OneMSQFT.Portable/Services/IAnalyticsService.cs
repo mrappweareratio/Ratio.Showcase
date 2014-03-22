@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using OneMSQFT.Common.Analytics;
-using OneMSQFT.Common.Models;
+﻿using Ratio.Showcase.Shared.Analytics;
 
-namespace OneMSQFT.Common.Services
+namespace Ratio.Showcase.Shared.Services
 {
     public interface IAnalyticsService
     {

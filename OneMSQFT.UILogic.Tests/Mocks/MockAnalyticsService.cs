@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
-using OneMSQFT.Common.Analytics;
-using OneMSQFT.Common.Services;
+using Ratio.Showcase.Shared.Analytics;
+using Ratio.Showcase.Shared.Services;
 
-namespace OneMSQFT.UILogic.Tests.Mocks
+namespace Ratio.Showcase.UILogic.Tests.Mocks
 {
     public class MockAnalyticsService : IAnalyticsService
     {

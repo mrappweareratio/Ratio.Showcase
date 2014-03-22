@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using OneMSQFT.Common.Models;
 
-namespace OneMSQFT.Common.Services
+namespace Ratio.Showcase.Shared.Services
 {
     public interface IInternetConnectionService : IInternetConnection
     {

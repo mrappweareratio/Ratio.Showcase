@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using OneMSQFT.UILogic.ViewModels;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.WindowsStore.DataTemplateSelectors
+namespace Ratio.Showcase.Win8.DataTemplateSelectors
 {
     public class ZoomedOutItemContainerStyleSelector : StyleSelector
     {

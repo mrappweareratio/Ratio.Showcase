@@ -7,22 +7,21 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.StartScreen;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
-using OneMSQFT.Common;
-using OneMSQFT.Common.Models;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.Interfaces.ViewModels;
-using OneMSQFT.UILogic.Services;
-using OneMSQFT.UILogic.Utils;
-using OneMSQFT.UILogic.ViewModels;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
+using Ratio.Showcase.Shared;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
+using Ratio.Showcase.UILogic.Interfaces.ViewModels;
+using Ratio.Showcase.UILogic.Utils;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.WindowsStore.Views
+namespace Ratio.Showcase.Win8.Views
 {
     public partial class ExhibitDetailsPage : BasePageView
     {

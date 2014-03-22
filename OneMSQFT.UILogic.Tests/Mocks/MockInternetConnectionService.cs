@@ -1,8 +1,7 @@
 ﻿using System;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.Services;
+using Ratio.Showcase.Shared.Services;
 
-namespace OneMSQFT.UILogic.Tests.Mocks
+namespace Ratio.Showcase.UILogic.Tests.Mocks
 {
     public class MockInternetConnectionService : IInternetConnectionService
     {

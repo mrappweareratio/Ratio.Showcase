@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace OneMSQFT.Common.Services
+namespace Ratio.Showcase.Shared.Services
 {
     public interface IAlertMessageService
     {

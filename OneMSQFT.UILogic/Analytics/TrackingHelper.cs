@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ADMS.Measurement;
 
-namespace OneMSQFT.UILogic.Analytics
+namespace Ratio.Showcase.UILogic.Analytics
 {
 	public static class TrackingHelper
 	{

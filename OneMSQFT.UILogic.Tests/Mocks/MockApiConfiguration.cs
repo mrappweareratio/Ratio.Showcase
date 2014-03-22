@@ -1,6 +1,6 @@
-using OneMSQFT.Common.DataLayer;
+using Ratio.Showcase.Shared.DataLayer;
 
-namespace OneMSQFT.UILogic.Tests.Mocks
+namespace Ratio.Showcase.UILogic.Tests.Mocks
 {
     public class MockApiConfiguration : IApiConfiguration
     {

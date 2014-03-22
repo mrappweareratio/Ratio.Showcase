@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ADMS.Measurement;
-using OneMSQFT.Common.Analytics;
-using OneMSQFT.Common.Models;
-using OneMSQFT.Common.Services;
+﻿using ADMS.Measurement;
+using Ratio.Showcase.Shared.Analytics;
+using Ratio.Showcase.Shared.Services;
 
-namespace OneMSQFT.UILogic.Analytics
+namespace Ratio.Showcase.UILogic.Analytics
 {
     public class AnalyticsService : IAnalyticsService
     {

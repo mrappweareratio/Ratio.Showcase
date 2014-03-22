@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using OneMSQFT.Common.DataLayer;
-using OneMSQFT.Common.Models;
+using Ratio.Showcase.Shared.DataLayer;
+using Ratio.Showcase.Shared.Models;
 
-namespace OneMSQFT.UILogic.DataLayer
+namespace Ratio.Showcase.UILogic.DataLayer
 {
     public class MillionDemoDataRepository : IDataRepository
     {

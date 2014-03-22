@@ -1,15 +1,10 @@
-﻿using Microsoft.Practices.Prism.StoreApps;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OneMSQFT.Common;
-using OneMSQFT.Common.Models;
-using System.Globalization;
-using OneMSQFT.UILogic.Utils;
+﻿using System;
+using Microsoft.Practices.Prism.StoreApps;
+using Ratio.Showcase.Shared;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.UILogic.Utils;
 
-namespace OneMSQFT.UILogic.ViewModels
+namespace Ratio.Showcase.UILogic.ViewModels
 {
     public abstract class ItemBaseViewModel : BindableBase, ISquareFootageItem
     {

@@ -1,21 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Windows.UI.Xaml.Navigation;
-using Microsoft.Practices.Prism.StoreApps;
-using Microsoft.VisualBasic;
-using OneMSQFT.Common.Models;
-using Windows.UI.Xaml.Media;
-using Windows.UI;
-using System;
-using System.Collections;
-using Windows.UI.Xaml;
-using System.Globalization;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using OneMSQFT.Common.Services;
-using OneMSQFT.UILogic.Utils;
-using Strings = OneMSQFT.Common.Strings;
+using System.Linq;
+using Windows.UI;
+using Windows.UI.Xaml;
+using Microsoft.Practices.Prism.StoreApps;
+using Ratio.Showcase.Shared;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.Shared.Services;
+using Ratio.Showcase.UILogic.Utils;
 
-namespace OneMSQFT.UILogic.ViewModels
+namespace Ratio.Showcase.UILogic.ViewModels
 {
     public class EventItemViewModel : ItemBaseViewModel, IHasMediaContentViewModel, IDatedItemViewModel
     {

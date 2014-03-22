@@ -1,6 +1,6 @@
 ﻿using Windows.ApplicationModel;
 
-namespace OneMSQFT.UILogic.Tests.Mocks
+namespace Ratio.Showcase.UILogic.Tests.Mocks
 {
     public class MockSuspendingEventArgs : ISuspendingEventArgs
     {

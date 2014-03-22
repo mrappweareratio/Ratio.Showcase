@@ -1,28 +1,28 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Graphics.Display;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.System;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Media;
-using Windows.UI;
-using OneMSQFT.UILogic.Interfaces.ViewModels;
-using Strings = OneMSQFT.Common.Strings;
+using Ratio.Showcase.Shared;
+using Ratio.Showcase.UILogic.Interfaces.ViewModels;
 
-namespace OneMSQFT.WindowsStore.Views
+namespace Ratio.Showcase.Win8.Views
 {
     public abstract class BasePageView : VisualStateAwarePage
     {

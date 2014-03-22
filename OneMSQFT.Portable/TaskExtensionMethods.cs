@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace OneMSQFT.Common
+namespace Ratio.Showcase.Shared
 {
     public static class TaskExtensionMethods
     {

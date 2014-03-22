@@ -5,10 +5,9 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml.Controls;
-using OneMSQFT.Common.Services;
-using ISharingService = OneMSQFT.Common.Services.ISharingService;
+using Ratio.Showcase.Shared.Services;
 
-namespace OneMSQFT.UILogic.Interfaces
+namespace Ratio.Showcase.UILogic.Interfaces
 {
     public interface IOneMsqftApplication
     {

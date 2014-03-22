@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Windows.UI;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Practices.Prism.StoreApps;
-using OneMSQFT.Common.Models;
-using OneMSQFT.UILogic.Interfaces.ViewModels;
-using OneMSQFT.UILogic.Utils;
-using OneMSQFT.UILogic.ViewModels;
-using OneMSQFT.Common.Services;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.UILogic.Interfaces.ViewModels;
+using Ratio.Showcase.UILogic.Utils;
+using Ratio.Showcase.UILogic.ViewModels;
 
-namespace OneMSQFT.WindowsStore.DesignViewModels
+namespace Ratio.Showcase.Win8.DesignViewModels
 {
     public class DesignExhibitDetailsPageViewModel : BasePageViewModel, IExhibitDetailsPageViewModel
     {

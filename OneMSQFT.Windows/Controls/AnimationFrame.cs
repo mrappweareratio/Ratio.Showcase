@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace OneMSQFT.WindowsStore.Controls
+namespace Ratio.Showcase.Win8.Controls
 {
     [TemplatePart(Name = "AnimationElement", Type = typeof(UIElement))]
     public class AnimationFrame : Frame

@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using OneMSQFT.Common.Models;
-using OneMSQFT.UILogic.DataLayer;
-using OneMSQFT.UILogic.Services;
-using OneMSQFT.UILogic.Tests.DataLayer;
-using OneMSQFT.UILogic.Tests.Mocks;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.UILogic.DataLayer;
+using Ratio.Showcase.UILogic.Services;
+using Ratio.Showcase.UILogic.Tests.DataLayer;
+using Ratio.Showcase.UILogic.Tests.Mocks;
 
-namespace OneMSQFT.UILogic.Tests.Services
+namespace Ratio.Showcase.UILogic.Tests.Services
 {
     [TestClass]
     public class LiveDataServiceFixture

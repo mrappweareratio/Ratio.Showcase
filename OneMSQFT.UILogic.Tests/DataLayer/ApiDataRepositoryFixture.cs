@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using OneMSQFT.Common.DataLayer;
-using OneMSQFT.Common.Models;
-using OneMSQFT.UILogic.DataLayer;
-using OneMSQFT.UILogic.Tests.Mocks;
-using OneMSQFT.UILogic.Tests.Services;
-using OneMSQFT.UILogic.Tests.Utils;
+using Ratio.Showcase.Shared.DataLayer;
+using Ratio.Showcase.Shared.Models;
+using Ratio.Showcase.UILogic.DataLayer;
+using Ratio.Showcase.UILogic.Tests.Mocks;
+using Ratio.Showcase.UILogic.Tests.Utils;
 
-namespace OneMSQFT.UILogic.Tests.DataLayer
+namespace Ratio.Showcase.UILogic.Tests.DataLayer
 {
     [TestClass]
     public class ApiDataRepositoryFixture

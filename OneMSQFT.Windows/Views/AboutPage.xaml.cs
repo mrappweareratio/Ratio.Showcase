@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using OneMSQFT.UILogic.Interfaces.ViewModels;
 using Windows.UI.Xaml;
+using Ratio.Showcase.UILogic.Interfaces.ViewModels;
 
-namespace OneMSQFT.WindowsStore.Views
+namespace Ratio.Showcase.Win8.Views
 {
     public partial class AboutPage : BasePageView
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace OneMSQFT.Common.Services
+namespace Ratio.Showcase.Shared.Services
 {
     public class DialogCommand
     {
