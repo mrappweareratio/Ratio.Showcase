@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Ratio.Showcase.Win8.Controls.LogoUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    
+    <!-- Page content -->
+    <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Grid.RenderTransform>
+            <CompositeTransform x:Name="CompositeTransform" ScaleX="0.35" ScaleY="0.35"/>
+        </Grid.RenderTransform>
+        <Canvas HorizontalAlignment="Left" Height="266" UseLayoutRounding="False" VerticalAlignment="Top" Width="123" Margin="0,0,0,0">
+            <Canvas Height="266" Canvas.Left="0" Canvas.Top="0" Width="123">
+                <Path Fill="{StaticResource OneMSQFTLogoDarkBlueBrush}" x:Name="Path0"
+                      Data="F1M51.481,0L38.026,51.199 24.567,0 0,0.001 0,70.095 15.577,70.095 15.577,16.168 30.085,70.095 45.97,70.095 60.476,16.168 60.476,70.095 76.052,70.095 76.052,0z" Height="70.095" Canvas.Left="39.591" Stretch="None" Canvas.Top="0" Width="76.052"/>
+                <Path Fill="{StaticResource OneMSQFTLogoDarkBlueBrush}" x:Name="Path1"
+                      Data="F1M0,0L0,14.818 123.414,14.82 123.414,0z" Height="14.82" Canvas.Left="0" Stretch="None" Canvas.Top="81.565" Width="123.414"/>
+                <Path Fill="{StaticResource OneMSQFTLogoLightBlueBrush}" x:Name="Path2"
+                      Data="F1M0,0.003L0,74.172 15.771,74.172 15.771,47.444 46.615,47.444 46.615,31.766 15.771,31.766 15.771,14.82 75.443,14.82 75.443,74.172 91.264,74.172 91.264,14.82 119.913,14.82 119.913,0z" Height="74.172" Canvas.Left="3.5" Stretch="None" Canvas.Top="192.228" Width="119.913"/>
+                <Path Fill="{StaticResource OneMSQFTLogoLightBlueBrush}" x:Name="Path3"
+                      Data="F1M41.288,39.463C38.516,36.284 33.866,33.155 27.346,30.073 22.964,27.998 20.068,26.254 18.659,24.843 17.248,23.432 16.543,22.045 16.543,19.838 16.543,17.734 17.326,16.183 19.17,14.704 21.031,13.21 24.221,12.598 26.618,12.535 28.59,12.42 34.228,12.472 42.383,15.031L42.383,2.675C37.904,0.892 32.261,0 25.447,0 17.759,0 11.598,1.889 6.955,5.673 2.319,9.449 0,14.47 0,20.729 0,29.359 5.32,36.171 15.956,41.171 21.18,43.635 24.645,45.647 26.348,47.198 28.055,48.761 28.902,50.289 28.902,52.395 28.902,54.538 28.442,55.868 26.187,57.407 21.589,60.554 12.318,60.325 0.288,54.866L0.288,68.271C5.122,70.867 11.143,72.166 18.344,72.166 26.809,72.166 33.447,70.349 38.247,66.714 43.048,63.079 45.448,57.956 45.448,51.338 45.448,46.601 44.062,42.646 41.288,39.463" Height="72.166" Canvas.Left="2.883" Stretch="None" Canvas.Top="107.499" Width="45.448"/>
+                <Path Fill="{StaticResource OneMSQFTLogoLightBlueBrush}" x:Name="Path4"
+                      Data="F1M72.112,36.054C72.112,16.143 55.967,0 36.054,0 16.145,0.001 0,16.143 0,36.054 0,55.967 16.145,72.109 36.054,72.109 43.227,72.109 49.043,70.163 54.456,67.061L60.654,73.259 71.45,62.468 65.639,56.654C69.633,50.849,72.112,43.969,72.112,36.054 M36.054,57.943C24.87,57.943 15.797,48.142 15.797,36.054 15.797,23.966 24.87,14.167 36.054,14.167 47.244,14.167 56.314,23.966 56.314,36.054 56.314,39.394 55.762,42.422 54.38,45.394L40.496,31.51 29.702,42.307 43.717,56.318C41.348,57.361,38.765,57.943,36.054,57.943" Height="73.259" Canvas.Left="49.537" Stretch="None" Canvas.Top="107.498" Width="72.112"/>
+                <Path Fill="{StaticResource OneMSQFTLogoDarkBlueBrush}" x:Name="Path5"
+                      Data="F1M17.286,0C11.59,4.1,6.531,6.937,0,9.178L0,23.171C5.001,21.838,9.167,19.926,12.17,17.663L12.17,70.094 27.448,70.094 27.448,0z" Height="70.094" Canvas.Left="2.418" Stretch="None" Canvas.Top="0.001" Width="27.448"/>
+            </Canvas>
+        </Canvas>
+    </Grid>
+</UserControl>

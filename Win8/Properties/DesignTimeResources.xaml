@@ -1,0 +1,11 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:OneMSQFT.Windows">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="ms-appx:///Styles/OMSQFTStyles.xaml"/>
+		<ResourceDictionary Source="ms-appx:///Styles/StandardStyles.xaml"/>
+		<ResourceDictionary Source="ms-appx:///Styles/generic.xaml"/>
+	</ResourceDictionary.MergedDictionaries>
+    
+</ResourceDictionary>
