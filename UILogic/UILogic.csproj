@@ -102,6 +102,14 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\..\Contentful.SDK\Contentful.SDK\Contentful.SDK.csproj">
+      <Project>{167e7e8a-aa1c-4b5f-b597-5cda5190d105}</Project>
+      <Name>Contentful.SDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ratio.Showcase.Models\Ratio.Showcase.Models.csproj">
+      <Project>{9358370c-3b2d-4fc3-8bbc-a350032149da}</Project>
+      <Name>Ratio.Showcase.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Shared\Shared.csproj">
       <Project>{968da72e-61d0-4f0d-a6f1-4160ae8ac5fa}</Project>
       <Name>Shared</Name>
@@ -125,6 +133,7 @@
     <Compile Include="DataLayer\ApiDataRepository.cs" />
     <Compile Include="DataLayer\MillionDemoDataRepository.cs" />
     <Compile Include="DataLayer\DemoDataRepository.cs" />
+    <Compile Include="DataLayer\RatioShowcaseDataRepository.cs" />
     <Compile Include="DataLayer\RetryHandler.cs" />
     <Compile Include="DataLayer\SampleLocalStorageProvider.cs" />
     <Compile Include="DataLayer\SampleDataRepository.cs" />
