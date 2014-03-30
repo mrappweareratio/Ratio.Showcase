@@ -77,7 +77,8 @@ namespace Ratio.Showcase.Win8
             //_container.RegisterType<IDataRepository, DemoDataRepository>(new ContainerControlledLifetimeManager());                        
             //_container.RegisterType<IDataRepository, MillionDemoDataRepository>(new ContainerControlledLifetimeManager());                        
             _container.RegisterType<IApiConfiguration, ApiConfiguration>(new ContainerControlledLifetimeManager());
-            _container.RegisterType<IDataRepository, ApiDataRepository>(new ContainerControlledLifetimeManager());
+            //_container.RegisterType<IDataRepository, ApiDataRepository>(new ContainerControlledLifetimeManager());
+            _container.RegisterType<IDataRepository, RatioShowcaseDataRepository>(new ContainerControlledLifetimeManager());
 
             //register services
             _container.RegisterInstance<INavigationService>(NavigationService);
@@ -111,11 +112,7 @@ namespace Ratio.Showcase.Win8
 
             ViewModelLocator.SetDefaultViewTypeToViewModelTypeResolver((viewType) =>
             {
-#if DESIGN
-                var viewModelTypeName = string.Format(CultureInfo.InvariantCulture, "OneMSQFT.WindowsStore.DesignViewModels.Design{0}ViewModel, OneMSQFT.Windows", viewType.Name);
-#else
-                var viewModelTypeName = string.Format(CultureInfo.InvariantCulture, "OneMSQFT.UILogic.ViewModels.{0}ViewModel, OneMSQFT.UILogic", viewType.Name);
-#endif
+                var viewModelTypeName = string.Format(CultureInfo.InvariantCulture, "Ratio.Showcase.UILogic.ViewModels.{0}ViewModel, Ratio.Showcase.UILogic", viewType.Name);
                 var viewModelType = Type.GetType(viewModelTypeName);
                 return viewModelType;
             });

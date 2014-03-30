@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Contentful.SDK;
@@ -23,14 +24,16 @@ namespace Ratio.Showcase.UILogic.DataLayer
             await EnsureClientAsync();
             var platforms = await _client.GetEntriesAsync<PlatformEntry>(new List<SearchFilter>
             {
-                new ContentTypeSearchFilter(PlatformEntry.ContentTypeId)
+                new ContentTypeSearchFilter(PlatformEntry.ContentTypeId),
+                new IncludeLinksSearchOption(1)
             });
             return platforms;
         }
 
         private async Task<ContentfulClient> EnsureClientAsync()
         {
-            if (_client == null) { 
+            if (_client == null)
+            {
                 _client = new ContentfulClient();
                 await _client.CreateAsync("665ovgw8r0b9", "7a353660e71adb5e121872e753ce4dcf3ea614b0e1bd9aad845f48dedfb3feb1");
             }
@@ -39,15 +42,52 @@ namespace Ratio.Showcase.UILogic.DataLayer
 
         async public Task<SiteData> GetSiteData(CancellationToken token)
         {
-            var client = new ContentfulClient();
             var sd = new SiteData();
-            var ev = new List<Event>();
-            await client.GetEntriesAsync<PlatformEntry>(new List<SearchFilter>
-            {
-                new ContentTypeSearchFilter(PlatformEntry.ContentTypeId)
-            });
-            sd.Events = ev;
+            var platforms = await GetPlatformsAsync();
+            sd.Events = GenerateEvents(platforms.Items);
             return sd;
+        }
+
+        private IEnumerable<Event> GenerateEvents(IEnumerable<PlatformEntry> platformEntries)
+        {
+            return platformEntries.Select(platform => new Event()
+            {
+                Color = "aabbcc",
+                Name = platform.Fields.Title,
+                Id = GenerateId(platform.Sys.Id),
+                Description = platform.Fields.Description,
+                MediaContent = GenerateMediaContent(platform.Fields.Images),
+                Exhibits = GenerateExhibits(platform.Fields.Solutions)
+            });
+        }
+
+        private IEnumerable<Exhibit> GenerateExhibits(IEnumerable<SolutionEntry> solutions)
+        {
+            return solutions.Select(x => new Exhibit()
+            {
+                Id = GenerateId(x.Sys.Id),
+                Color = "aabbcc",
+                DateEnd = x.Sys.UpdatedAt,
+                DateStart = x.Sys.CreatedAt,
+                Name = x.Fields.Title,
+                Description = x.Fields.Description,
+                MediaContent = GenerateMediaContent(x.Fields.Images)
+            });
+        }
+
+        private static string GenerateId(string id)
+        {
+            return Regex.Replace(id, @"^[a-zA-Z][a-zA-Z0-9]", String.Empty);
+        }
+
+        private IEnumerable<MediaContentSource> GenerateMediaContent(IEnumerable<Asset> images)
+        {
+            return images.Select(x => new MediaContentSource()
+            {
+                ContentSourceType = ContentSourceType.Image,
+                Id = x.Sys.Id,
+                Img = x.Url
+            });
         }
     }
 }
