@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,7 +8,6 @@ using Contentful.SDK;
 using Contentful.SDK.ContentModel;
 using Contentful.SDK.Search;
 using Ratio.Showcase.Models;
-using Ratio.Showcase.Shared;
 using Ratio.Showcase.Shared.DataLayer;
 using Ratio.Showcase.Shared.Models;
 
@@ -71,6 +69,7 @@ namespace Ratio.Showcase.UILogic.DataLayer
                 DateStart = x.Sys.CreatedAt,
                 Name = x.Fields.Title,
                 Description = x.Fields.Description,
+                ThumbImage = x.Fields.Images.Any() ? x.Fields.Images.First().GetImageUrl(new Asset.ImageOptions(){Width = 683}) : String.Empty,
                 MediaContent = GenerateMediaContent(x.Fields.Images)
             });
         }
@@ -86,7 +85,7 @@ namespace Ratio.Showcase.UILogic.DataLayer
             {
                 ContentSourceType = ContentSourceType.Image,
                 Id = x.Sys.Id,
-                Img = x.Url
+                Img = x.GetImageUrl(new Asset.ImageOptions(){Width = 1366})
             });
         }
     }

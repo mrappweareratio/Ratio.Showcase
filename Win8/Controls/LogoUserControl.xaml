@@ -10,7 +10,8 @@
         <Grid.RenderTransform>
             <CompositeTransform x:Name="CompositeTransform" ScaleX="0.35" ScaleY="0.35"/>
         </Grid.RenderTransform>
-        <Canvas HorizontalAlignment="Left" Height="266" UseLayoutRounding="False" VerticalAlignment="Top" Width="123" Margin="0,0,0,0">
+        <Image Source="../Assets/SmallLogo.png"></Image>
+        <Canvas Visibility="Collapsed"  HorizontalAlignment="Left" Height="266" UseLayoutRounding="False" VerticalAlignment="Top" Width="123" Margin="0,0,0,0">
             <Canvas Height="266" Canvas.Left="0" Canvas.Top="0" Width="123">
                 <Path Fill="{StaticResource OneMSQFTLogoDarkBlueBrush}" x:Name="Path0"
                       Data="F1M51.481,0L38.026,51.199 24.567,0 0,0.001 0,70.095 15.577,70.095 15.577,16.168 30.085,70.095 45.97,70.095 60.476,16.168 60.476,70.095 76.052,70.095 76.052,0z" Height="70.095" Canvas.Left="39.591" Stretch="None" Canvas.Top="0" Width="76.052"/>
