@@ -53,6 +53,7 @@ namespace RatioShowcaseUnitTestLibrary
             var data = new RatioShowcaseDataRepository();
             var platforms = await data.GetPlatformsAsync();
             Assert.IsNotNull(platforms);
+            Assert.IsTrue(platforms.Items.SelectMany(x => x.Fields.Solutions).Any(), "Any Solutions");
             Assert.IsTrue(platforms.Items.ToList().SelectMany(x => x.Fields.Tags).ToList().TrueForAll(x => x.Name != null), "Tag names");
             Assert.IsTrue(platforms.Items.ToList().TrueForAll(x => x.Fields.Solutions != null));
             Assert.IsTrue(platforms.Items.ToList().SelectMany(x => x.Fields.Solutions).ToList().TrueForAll(x => x.Fields.Title != null), "Tag names");
@@ -64,6 +65,7 @@ namespace RatioShowcaseUnitTestLibrary
             var data = new RatioShowcaseDataRepository();
             var platforms = await data.GetPlatformsAsync();
             Assert.IsNotNull(platforms);
+            Assert.IsTrue(platforms.Items.SelectMany(x => x.Fields.Solutions).Any(), "Any Solutions");
             Assert.IsTrue(platforms.Items.ToList().SelectMany(x => x.Fields.Tags).ToList().TrueForAll(x => x.Name != null), "Tag names");
             Assert.IsTrue(platforms.Items.ToList().TrueForAll(x => x.Fields.Images != null), "Images");
             Assert.IsTrue(platforms.Items.ToList().SelectMany(x => x.Fields.Images).ToList().TrueForAll(x => x.Url != null), "Image Urls");
