@@ -52,7 +52,7 @@ namespace Ratio.Showcase.UILogic.DataLayer
         {
             return platformEntries.Select(platform => new Event()
             {
-                Color = "aabbcc",
+                Color = "EF4A39",
                 Name = platform.Fields.Title,
                 Id = GenerateId(platform.Sys.Id),
                 Description = platform.Fields.Description,
@@ -66,7 +66,7 @@ namespace Ratio.Showcase.UILogic.DataLayer
             return solutions.Select(x => new Exhibit()
             {
                 Id = GenerateId(x.Sys.Id),
-                Color = "aabbcc",
+                Color = "EF4A39",
                 DateEnd = x.Sys.UpdatedAt,
                 DateStart = x.Sys.CreatedAt,
                 Name = x.Fields.Title,
