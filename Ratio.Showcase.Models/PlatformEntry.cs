@@ -11,10 +11,14 @@ namespace Ratio.Showcase.Models
 
         public new PlatformFields Fields { get; set; }
 
-        public PlatformEntry(Entry entry)
+        public PlatformEntry()
         {
-            this.Fields.Title = entry.GetField<string>("title");
-            this.Fields.Description = entry.GetField<string>("description");
+            
+        }
+
+        public PlatformEntry(IEntry entry)
+        {
+            this.Sys = entry.Sys;
             this.Fields = entry.Fields.ToObject<PlatformFields>();
         }
 
@@ -27,6 +31,7 @@ namespace Ratio.Showcase.Models
         {
             PlatformFields()
             {
+                Images = new List<Asset>();
                 Tags = new List<TagEntry>();
                 Solutions = new List<SolutionEntry>();
             }

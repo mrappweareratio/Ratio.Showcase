@@ -5,7 +5,6 @@ using Contentful.SDK;
 using Contentful.SDK.Search;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using Ratio.Showcase.Models;
-using Ratio.Showcase.Shared;
 using Ratio.Showcase.UILogic.DataLayer;
 
 namespace RatioShowcaseUnitTestLibrary

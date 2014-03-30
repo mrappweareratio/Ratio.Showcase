@@ -8,6 +8,11 @@ namespace Ratio.Showcase.Models
     {
         public new SolutionFields Fields { get; set; }
 
+        public SolutionEntry()
+        {
+            Fields = new SolutionFields();
+        }
+
         public SolutionEntry(IEntry entry)
         {
             this.Sys = entry.Sys;
@@ -21,6 +26,12 @@ namespace Ratio.Showcase.Models
 
         public class SolutionFields
         {
+            public SolutionFields()
+            {
+                Tags = new List<TagEntry>();
+                Images = new List<Asset>();
+            }
+
             public string Title { get; set; }
             public string Description { get; set; }
             [LinkedContentArray(typeof(TagEntry), LinkType.Entry)]
