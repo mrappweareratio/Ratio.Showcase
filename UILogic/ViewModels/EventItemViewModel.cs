@@ -30,7 +30,6 @@ namespace Ratio.Showcase.UILogic.ViewModels
             Location = eventModel.Location;
             Id = eventModel.Id;
             DisplayDate = eventModel.DisplayDate;
-            SquareFootage = eventModel.SquareFootage;
             EventColor = ColorUtils.GetEventColor(eventModel);
             Exhibits = new List<ExhibitItemViewModel>(eventModel.Exhibits.Select(x => new ExhibitItemViewModel(x, _analyticsService)));
             LoadMediaContent(eventModel.MediaContent);
@@ -182,30 +181,17 @@ namespace Ratio.Showcase.UILogic.ViewModels
 
         public string EventTileBlurb
         {
-            get
-            {
-                if (String.IsNullOrEmpty(DisplayDate))
-                {
-                    return String.Format(Strings.SquareFeetAtNameFormat, Name);
-                }
-                return String.Format(Strings.SquareFeetSurveyedDisplayDateAtNameFormat, DisplayDate, Name);
-            }
+            get { return Name; }
         }
 
         public String PinningTileText
         {
-            get
-            {
-                return SquareFootageStringPlain + " " + Strings.SquareFeetAt + " " + Name;
-            }
+            get { return Name; }
         }
 
         public String PortraitBlurb
         {
-            get
-            {
-                return " " + Strings.SquareFeetAt + " " + Name;
-            }
+            get { return Name; }
         }
 
     }

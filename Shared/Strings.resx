@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppTitle" xml:space="preserve">
-    <value>1 Million Square Feet</value>
+    <value>Ratio</value>
   </data>
   <data name="Config" xml:space="preserve">
     <value>Config</value>
@@ -138,26 +138,8 @@
   <data name="Since" xml:space="preserve">
     <value> since December 2013</value>
   </data>
-  <data name="SurveyedToDate" xml:space="preserve">
-    <value> surveyed to date</value>
-  </data>
-  <data name="SqftFormat" xml:space="preserve">
-    <value>{0} sq ft</value>
-  </data>
-  <data name="SquareFeetAtNameFormat" xml:space="preserve">
-    <value>square feet at {0}</value>
-  </data>
-  <data name="SquareFeetSurveyedDisplayDateAtNameFormat" xml:space="preserve">
-    <value>square feet surveyed {0} at {1}</value>
-  </data>
   <data name="ComingSoon" xml:space="preserve">
     <value>Coming Soon</value>
-  </data>
-  <data name="SquareFeetAt" xml:space="preserve">
-    <value>square feet at</value>
-  </data>
-  <data name="GuestCurated" xml:space="preserve">
-    <value>guest curated by</value>
   </data>
   <data name="RSVP" xml:space="preserve">
     <value>RSVP for this event</value>
@@ -178,7 +160,7 @@
     <value>Sorry, there was an error.</value>
   </data>
   <data name="SharingFailedDisplayText" xml:space="preserve">
-    <value>There is nothing to share from 1 Million Square Feet right now.</value>
+    <value>There is nothing to share right now.</value>
   </data>
   <data name="SharingTitleVideoFromEventFormat" xml:space="preserve">
     <value>Check out this video from {0}</value>
@@ -196,7 +178,7 @@
     <value>It is a series of spaces, guest curated by a range of cultural experts. A survey of culture one square foot at a time. It’s square feet for food at an art event. It’s square feet for art at a film event. It’s square feet for film at a fashion event. It’s square feet of culture across all creative disciplines, brought to unexpected places. Physical spaces collected digitally. A gallery of diverse creations, surveyed, shared and held together by digital walls. It’s measurable space, with a touch of the immeasurable.</value>
   </data>
   <data name="About" xml:space="preserve">
-    <value>ABOUT 1MSQFT</value>
+    <value>ABOUT RATIO</value>
   </data>
   <data name="ClearStartUpCaps" xml:space="preserve">
     <value>CLEAR STARTUP</value>
@@ -249,19 +231,10 @@
   <data name="SetAsStartUp" xml:space="preserve">
     <value>Set as Startup</value>
   </data>
-  <data name="SquareFeetTotalFormat" xml:space="preserve">
-    <value>{0} sq ft</value>
-  </data>
   <data name="Facebook" xml:space="preserve">
     <value>FACEBOOK</value>
   </data>
   <data name="FacebookUrl" xml:space="preserve">
     <value>http://www.facebook.com/1msqft</value>
-  </data>
-  <data name="SquareFeetAtNewLineNameFormat" xml:space="preserve">
-    <value>square feet at{0}{1}</value>
-  </data>
-  <data name="SquareFeetSurveyedDisplayDateNewLineAtNameFormat" xml:space="preserve">
-    <value>square feet surveyed {0}{1}at {2}</value>
   </data>
 </root>

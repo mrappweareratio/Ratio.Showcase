@@ -276,9 +276,6 @@ namespace Ratio.Showcase.Win8.Views
 
         public override void TopAppBarEventButtonCommandHandler(String eventId)
         {
-            var ev = GetDataContextAsViewModel<IBasePageViewModel>().SquareFootEvents.FirstOrDefault(x => x.Id == eventId);
-            AppLocator.Current.Analytics.TrackAppBarEventInteraction(ev.Name, ev.SquareFootage, GetDataContextAsViewModel<IBasePageViewModel>().GetEventIndexById(ev.Id));
-
             Frame.Navigate(typeof(TimelinePage), eventId);
             TopAppBar.IsOpen = false;
             BottomAppBar.IsOpen = false;

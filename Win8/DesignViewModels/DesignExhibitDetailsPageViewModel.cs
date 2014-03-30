@@ -205,22 +205,6 @@ namespace Ratio.Showcase.Win8.DesignViewModels
             }
         }
 
-        public String Panel0Title
-        {
-            get
-            {
-                return Exhibit.SquareFootage + " square feet at " + Exhibit.Name;
-            }
-        }
-
-        public String Panel0Description
-        {
-            get
-            {
-                return Exhibit.Description;
-            }
-        }
-
         public Uri ThumbnailImageUri
         {
             get

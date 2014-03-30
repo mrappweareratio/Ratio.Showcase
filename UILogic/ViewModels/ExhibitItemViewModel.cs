@@ -66,7 +66,6 @@ namespace Ratio.Showcase.UILogic.ViewModels
             Name = exhibitModelModel.Name;
             Id = exhibitModelModel.Id;
             Description = StringUtils.BuildDescription(exhibitModelModel.Description);
-            SquareFootage = exhibitModelModel.SquareFootage;
             Uri thumbnailImageUri;
             if (Uri.TryCreate(exhibitModelModel.ThumbImage, UriKind.RelativeOrAbsolute, out thumbnailImageUri))
             {
@@ -141,10 +140,7 @@ namespace Ratio.Showcase.UILogic.ViewModels
 
         public String PinningTileText
         {
-            get
-            {
-                return SquareFootageString + " " + Name;
-            }
+            get { return Name; }
         }
     }
 }

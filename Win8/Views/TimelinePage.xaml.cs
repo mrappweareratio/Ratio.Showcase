@@ -159,9 +159,6 @@ namespace Ratio.Showcase.Win8.Views
                     args.Request.Data.Properties.Thumbnail = imageStreamRef;
                     args.Request.Data.SetBitmap(imageStreamRef);
                 }
-                _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackVideoShareInEventView(ev.Name,
-                ev.SquareFootage, evPos, selectedMediaContentSource.Media.VideoId, uri.AbsoluteUri, appName);
-
             }
             else
             {
@@ -182,8 +179,6 @@ namespace Ratio.Showcase.Win8.Views
                     args.Request.Data.Properties.Thumbnail = imageStreamRef;
                     args.Request.Data.SetBitmap(imageStreamRef);
                 }
-                _targetApplicationChosenDelegate = appName => AppLocator.Current.Analytics.TrackShareEventInteraction(ev.Name,
-                    ev.SquareFootage, evPos, uri.AbsoluteUri, appName);
             }
         }
 
@@ -399,7 +394,6 @@ namespace Ratio.Showcase.Win8.Views
                     //Track event selection
                     var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
                     var ev = vm.SelectedEvent;
-                    theApp.Analytics.TrackTimelineSemanticZoomEventInteraction(ev.Name, ev.SquareFootage, vm.TimeLineItems.IndexOf(ev));
 
                     ScrollToEventById(((EventItemViewModel)e.SourceItem.Item).Id);
                 }
@@ -439,9 +433,6 @@ namespace Ratio.Showcase.Win8.Views
 
         public override void TopAppBarEventButtonCommandHandler(String eventId)
         {
-            var ev = GetDataContextAsViewModel<IBasePageViewModel>().SquareFootEvents.FirstOrDefault(x => x.Id == eventId);
-            AppLocator.Current.Analytics.TrackAppBarEventInteraction(ev.Name, ev.SquareFootage, GetDataContextAsViewModel<IBasePageViewModel>().GetEventIndexById(ev.Id));
-
             if (semanticZoom.IsZoomedInViewActive == false)
             {
                 _semanticZoomClosedFromTopAppBarEvent = true;
@@ -503,8 +494,6 @@ namespace Ratio.Showcase.Win8.Views
                 var vm = GetDataContextAsViewModel<ITimelinePageViewModel>();
                 var ev = vm.SelectedEvent;
                 var mediaItem = FlipViewer.SelectedItem as MediaContentSourceItemViewModel;
-                if (ev != null && mediaItem != null)
-                    AppLocator.Current.Analytics.TrackVideoPlayInEventView(ev.Name, mediaItem.Media.VideoId, ev.SquareFootage, vm.GetEventIndexById(ev.Id));
 
                 VideoPopup.IsOpen = true;
                 VideoPlayerUserControl.SelectedMediaContentSource = mediaItem;

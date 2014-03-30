@@ -145,9 +145,6 @@ namespace Ratio.Showcase.UILogic.Tests.DataLayer
             //Basic properties
             Assert.IsNotNull(e.Id, "Id");
             Assert.IsNotNull(e.Name, "Name");
-            //Assert.IsNotNull(e.Exhibitor, "Exhibitor");
-            Assert.IsNotNull(e.SquareFootage, "SquareFootage");
-            //Assert.IsNotNull(e.DisplayDate, "DisplayDate");
             Assert.IsNotNull(e.Description, "Description");
             Assert.IsNotNull(e.ThumbImage, "ThumbImage");
             Assert.IsNotNull(e.MediaContent, "MediaContent");
@@ -213,7 +210,6 @@ namespace Ratio.Showcase.UILogic.Tests.DataLayer
             Assert.IsNotNull(e.Description, "Description");
             Assert.IsNotNull(e.Color, "Color");
             Assert.IsTrue(e.Color.Length == 6, "Color is Hex");
-            Assert.IsNotNull(e.SquareFootage, "SquareFootage");
             Assert.IsNotNull(e.DisplayDate, "DisplayDate");
             Assert.IsNotNull(e.MediaContent, "MediaContent");
             Assert.IsTrue(ValidateMediaContent(e.MediaContent), "ValidateMediaContent");

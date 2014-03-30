@@ -6,7 +6,7 @@ using Ratio.Showcase.UILogic.Utils;
 
 namespace Ratio.Showcase.UILogic.ViewModels
 {
-    public abstract class ItemBaseViewModel : BindableBase, ISquareFootageItem
+    public abstract class ItemBaseViewModel : BindableBase, IRatioItem
     {
         /// <summary>
         /// Inherited classes must declare Id
@@ -14,21 +14,6 @@ namespace Ratio.Showcase.UILogic.ViewModels
         /// </summary>
         public abstract String Id { get; set; }
         public String Name { get; set; }
-        public String Description { get; set; }       
-        public int SquareFootage { get; set; }
-        /// <summary>
-        /// # ### ### sq ft
-        /// </summary>
-        public String SquareFootageString  
-        {
-            get { return (String.Format(Strings.SqftFormat, StringUtils.ToSquareFeet(SquareFootage))).Trim(); }
-        }
-        /// <summary>
-        /// # ### ###
-        /// </summary>
-        public String SquareFootageStringPlain
-        {
-            get { return StringUtils.ToSquareFeet(SquareFootage).Trim(); }
-        }  
+        public String Description { get; set; }                      
     }
 }

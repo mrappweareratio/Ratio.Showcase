@@ -3,15 +3,14 @@ using System.Collections.Generic;
 
 namespace Ratio.Showcase.Shared.Models
 {
-    public interface ISquareFootageItem
+    public interface IRatioItem
     {
         string Id { get; }
         string Name { get; }
         string Description { get; }
-        int SquareFootage { get; set; }
     }
 
-    public interface IEvent<out TExhibit> : ISocialMedia, ILocation, ISquareFootageItem, IDatedItem, IColor, IHasMediaContent, ITimeStampedItem where TExhibit : IExhibit<ICurator>
+    public interface IEvent<out TExhibit> : ISocialMedia, ILocation, IRatioItem, IDatedItem, IColor, IHasMediaContent, ITimeStampedItem where TExhibit : IExhibit<ICurator>
     {        
         IEnumerable<TExhibit> Exhibits { get; }
         string ThemeId { get; }
@@ -50,7 +49,7 @@ namespace Ratio.Showcase.Shared.Models
         string ExternalUrl { get; }
     }
 
-    public interface IExhibit<out TCurator> : ISquareFootageItem, ITaggable, IColor, IHasMediaContent, IDatedItem, ISocialMedia, ITimeStampedItem 
+    public interface IExhibit<out TCurator> : IRatioItem, ITaggable, IColor, IHasMediaContent, IDatedItem, ISocialMedia, ITimeStampedItem 
         where TCurator : ICurator
     {
         string Introduction { get; }

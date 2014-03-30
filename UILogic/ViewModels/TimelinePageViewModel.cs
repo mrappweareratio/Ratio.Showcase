@@ -70,9 +70,6 @@ namespace Ratio.Showcase.UILogic.ViewModels
             timelineMenuEvents = ComingSoonUtils.InsertComingSoonItems(12, timelineMenuEvents);
             TimeLineMenuItems = new ObservableCollection<EventItemViewModel>(timelineMenuEvents);            
             
-            var totalSquareFeet = _eventsList.Sum(x => x.SquareFootage);
-            TotalSquareFeet = String.Format(Strings.SquareFeetTotalFormat, StringUtils.ToSquareFeet(totalSquareFeet));
-
             LoadedEventsTaskCompletionSource.TrySetResult(true);
         }
 

@@ -46,7 +46,6 @@ namespace Ratio.Showcase.Win8.DesignViewModels
                     eivm.Exhibits.Add(exhibit);
                 }         
                 SquareFootEvents.Add(eivm);
-                _totalSquareFeet = _totalSquareFeet + eivm.SquareFootage;
             }
 
             EventHeroItemClickCommand = new DelegateCommand<EventItemViewModel>(EventHeroItemClickCommandHandler);
