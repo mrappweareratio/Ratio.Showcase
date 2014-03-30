@@ -36,19 +36,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-    <ProjectReference Include="..\..\Contentful.SDK\Contentful.SDK\Contentful.SDK.csproj">
-      <Project>{167e7e8a-aa1c-4b5f-b597-5cda5190d105}</Project>
-      <Name>Contentful.SDK</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="TagEntry.cs" />
     <Compile Include="PlatformEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SolutionEntry.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Contentful.SDK">
+      <HintPath>..\libs\Contentful.SDK.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\portable-net45+wp80+win8\Newtonsoft.Json.dll</HintPath>
     </Reference>

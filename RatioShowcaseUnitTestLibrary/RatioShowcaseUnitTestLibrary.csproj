@@ -136,10 +136,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Contentful.SDK\Contentful.SDK\Contentful.SDK.csproj">
-      <Project>{167e7e8a-aa1c-4b5f-b597-5cda5190d105}</Project>
-      <Name>Contentful.SDK</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Ratio.Showcase.Models\Ratio.Showcase.Models.csproj">
       <Project>{9358370c-3b2d-4fc3-8bbc-a350032149da}</Project>
       <Name>Ratio.Showcase.Models</Name>
@@ -152,6 +148,11 @@
       <Project>{727502bb-55eb-40ec-aedf-1df70da436a9}</Project>
       <Name>UILogic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Contentful.SDK">
+      <HintPath>..\libs\Contentful.SDK.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

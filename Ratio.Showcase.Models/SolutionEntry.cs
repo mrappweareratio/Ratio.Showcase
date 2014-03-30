@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Contentful.SDK;
 using Contentful.SDK.ContentModel;
 
 namespace Ratio.Showcase.Models
@@ -7,15 +8,10 @@ namespace Ratio.Showcase.Models
     {
         public new SolutionFields Fields { get; set; }
 
-        public SolutionEntry(Entry entry)
+        public SolutionEntry(IEntry entry)
         {
             this.Sys = entry.Sys;
-            this.Fields.Title = entry.GetField<string>("title");
-            this.Fields.Description = entry.GetField<string>("description");
-        }
-
-        public SolutionEntry()
-        {
+            this.Fields = entry.Fields.ToObject<SolutionFields>();
         }
 
         public override TEntry From<TEntry>(Entry entry)
@@ -27,7 +23,10 @@ namespace Ratio.Showcase.Models
         {
             public string Title { get; set; }
             public string Description { get; set; }
+            [LinkedContentArray(typeof(TagEntry), LinkType.Entry)]
             public IEnumerable<TagEntry> Tags { get; set; }
+            [LinkedContentArray(typeof(Asset), LinkType.Asset)]
+            public IEnumerable<Asset> Images { get; set; }
         }
     }
 }
