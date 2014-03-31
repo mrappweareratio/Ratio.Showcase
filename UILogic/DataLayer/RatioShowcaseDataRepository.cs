@@ -23,7 +23,7 @@ namespace Ratio.Showcase.UILogic.DataLayer
             var platforms = await _client.GetEntriesAsync<PlatformEntry>(new List<SearchFilter>
             {
                 new ContentTypeSearchFilter(PlatformEntry.ContentTypeId),
-                new IncludeLinksSearchOption(1)
+                new IncludeLinksSearchOption(2)//include Platforms.Fields.Solutions.Fields.Images
             });
             return platforms;
         }

@@ -81,7 +81,7 @@ namespace RatioShowcaseUnitTestLibrary
             Assert.IsTrue(platforms.Items.ToList().SelectMany(x => x.Fields.Tags).ToList().TrueForAll(x => x.Name != null), "Tag names");
             Assert.IsTrue(platforms.Items.ToList().TrueForAll(x => x.Fields.Solutions != null), "Solutions");
             Assert.IsTrue(platforms.Items.ToList().SelectMany(x => x.Fields.Solutions).ToList().TrueForAll(x => x.Fields.Title != null), "Solution Titles");
-            Assert.IsTrue(platforms.Items.ToList().SelectMany(x => x.Fields.Solutions).SelectMany(x => x.Fields.Images).ToList().TrueForAll(x => x.Fields.Title != null), "Solution Titles");
+            Assert.IsTrue(platforms.Items.ToList().SelectMany(x => x.Fields.Solutions).SelectMany(x => x.Fields.Images).ToList().TrueForAll(x => x.Url != null), "Solution Images");
         }
     }
 }
