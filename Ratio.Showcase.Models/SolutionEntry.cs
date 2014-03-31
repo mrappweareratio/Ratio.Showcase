@@ -28,14 +28,11 @@ namespace Ratio.Showcase.Models
         {
             public SolutionFields()
             {
-                Tags = new List<TagEntry>();
                 Images = new List<Asset>();
             }
 
             public string Title { get; set; }
             public string Description { get; set; }
-            [LinkedContentArray(typeof(TagEntry), LinkType.Entry)]
-            public IEnumerable<TagEntry> Tags { get; set; }
             [LinkedContentArray(typeof(Asset), LinkType.Asset)]
             public IEnumerable<Asset> Images { get; set; }
         }

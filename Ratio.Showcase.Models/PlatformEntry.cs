@@ -32,14 +32,11 @@ namespace Ratio.Showcase.Models
             PlatformFields()
             {
                 Images = new List<Asset>();
-                Tags = new List<TagEntry>();
                 Solutions = new List<SolutionEntry>();
             }
 
             public string Title { get; set; }
             public string Description { get; set; }
-            [LinkedContentArray(typeof(TagEntry), LinkType.Entry)]
-            public IEnumerable<TagEntry> Tags { get; set; }
             [LinkedContentArray(typeof(Asset), LinkType.Asset)]
             public IEnumerable<Asset> Images { get; set; }
             [LinkedContentArray(typeof(SolutionEntry), LinkType.Entry)]
