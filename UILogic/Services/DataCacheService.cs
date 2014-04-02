@@ -10,7 +10,7 @@ namespace Ratio.Showcase.UILogic.Services
     public class DataCacheService : IDataCacheService
     {
         private static readonly StorageFolder _cacheFolder = ApplicationData.Current.TemporaryFolder;
-        private static TimeSpan _expirationPolicy = new TimeSpan(0, 1, 0); // 1 minute
+        private static TimeSpan _expirationPolicy = new TimeSpan(0, 0, 15); // 15 seconds
 
         // We remember the most recently started task for each cache key, since only one I/O operation at a time may 
         // access that key. Cache read and write operations always wait for the prior task of the current cache key
